@@ -1,0 +1,21 @@
+
+> siliconbased-dev@0.0.1 dev
+> astro dev
+
+04:19:10 [types] Generated 1ms
+04:19:10 [content] Syncing content
+04:19:10 [content] Synced content
+04:19:10 [vite] Re-optimizing dependencies because vite config has changed
+
+ astro  v5.18.0 ready in 744 ms
+
+┃ Local    http://localhost:4321/
+┃ Network  use --host to expose
+
+04:19:10 watching for file changes...
+04:19:26 Configuration file updated. Restarting...
+04:19:26 [vite] Re-optimizing dependencies because vite config has changed
+04:19:27 [content] Syncing content
+04:19:27 [content] Synced content
+04:19:27 [types] Generated 859ms
+04:19:27 [vite] Re-optimizing dependencies because lockfile has changed
