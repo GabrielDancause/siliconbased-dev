@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vim Cheat Sheet | Essential Commands & Interactive Practice</title>
+<meta name="description" content="Comprehensive Vim cheat sheet and reference guide. Covers modes, navigation, editing, search, and macros. Includes an interactive practice mode. Free, works offline.">
+<meta property="og:title" content="Vim Cheat Sheet">
+<meta property="og:description" content="Comprehensive Vim cheat sheet and reference guide. Covers modes, navigation, editing, search, and macros. Includes an interactive practice mode. Free, works offline.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Vim Cheat Sheet",
+  "url": "https://siliconbased.dev/guide-vim",
+  "description": "Comprehensive Vim cheat sheet and reference guide. Covers modes, navigation, editing, search, and macros. Includes an interactive practice mode. Free, works offline.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Vim Cheat Sheet: Essential Commands",
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" },
+  "publisher": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" },
+  "description": "Comprehensive Vim cheat sheet and reference guide. Covers modes, navigation, editing, search, and macros."
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 1000px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Input Section */
+.input-section { display: flex; flex-direction: column; align-items: center; margin-bottom: 32px; gap: 16px; }
+.search-input-wrapper { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: center; width: 100%; position: relative; max-width: 500px; }
+.search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #666; width: 20px; height: 20px; pointer-events: none; }
+.search-input { background: #111318; border: 2px solid #1e2030; border-radius: 12px; font-size: 1.1rem; color: #e0e0e0; font-family: 'Inter', sans-serif; width: 100%; padding: 14px 14px 14px 48px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+.search-input:focus { border-color: #818cf8; box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.15); }
+.search-input::placeholder { color: #555; }
+
+/* Grid layout for categories */
+.grid-container { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 40px; }
+@media (min-width: 768px) {
+  .grid-container { grid-template-columns: 1fr 1fr; }
+}
+
+/* Category Card */
+.category-card { background: #111318; border: 1px solid #1e2030; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); display: flex; flex-direction: column; }
+.category-header { background: #13151d; padding: 16px 20px; border-bottom: 1px solid #1e2030; display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; }
+.category-title { font-size: 1.1rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 8px; }
+.category-icon { color: #818cf8; width: 18px; height: 18px; }
+.toggle-icon { color: #666; width: 20px; height: 20px; transition: transform 0.3s; }
+.category-card.collapsed .toggle-icon { transform: rotate(-90deg); }
+.category-content { display: block; }
+.category-card.collapsed .category-content { display: none; }
+
+/* Command Rows */
+.cmd-row { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; padding: 12px 20px; border-bottom: 1px solid #1e2030; transition: background-color 0.15s; }
+.cmd-row:last-child { border-bottom: none; }
+.cmd-row:hover { background: #161821; }
+
+.cmd-key { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; font-weight: 600; color: #818cf8; background: #1a1b26; padding: 4px 8px; border-radius: 6px; border: 1px solid #2a2d40; white-space: nowrap; }
+.cmd-desc { font-size: 0.9rem; color: #a0a0a0; line-height: 1.4; }
+
+/* Copy Button */
+.copy-btn { background: transparent; border: 1px solid #2a2d40; color: #888; width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; opacity: 0; }
+.cmd-row:hover .copy-btn { opacity: 1; }
+.copy-btn:hover { background: #2a2d40; color: #fff; }
+.copy-btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; opacity: 1; }
+.copy-btn svg { width: 12px; height: 12px; }
+@media (max-width: 768px) {
+  .copy-btn { opacity: 1; }
+}
+
+/* Practice Mode */
+.practice-container { background: #111318; border: 1px solid #818cf8; border-radius: 16px; overflow: hidden; margin-bottom: 40px; box-shadow: 0 0 20px rgba(129, 140, 248, 0.1); }
+.practice-header { background: #1a1b26; padding: 16px 20px; border-bottom: 1px solid #1e2030; display: flex; justify-content: space-between; align-items: center; }
+.practice-title { font-size: 1.1rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 8px; }
+.practice-title svg { color: #4ade80; width: 18px; height: 18px; }
+.mode-indicator { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; font-weight: 700; padding: 4px 10px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; }
+.mode-normal { background: #818cf8; color: #fff; }
+.mode-insert { background: #4ade80; color: #000; }
+.mode-visual { background: #c084fc; color: #fff; }
+
+.practice-editor { position: relative; font-family: 'JetBrains Mono', monospace; font-size: 1rem; color: #e0e0e0; background: #0a0b10; min-height: 200px; outline: none; padding: 20px; white-space: pre-wrap; word-break: break-all; overflow-y: auto; line-height: 1.5; cursor: text; }
+.practice-editor:focus { box-shadow: inset 0 0 0 1px #2a2d40; }
+.cursor { display: inline-block; width: 9px; height: 1.2em; background-color: #888; vertical-align: bottom; animation: blink 1s step-end infinite; opacity: 0.8; margin-left: -9px; position: relative; z-index: 10; pointer-events: none; }
+.cursor.insert-mode { width: 2px; margin-left: -2px; }
+@keyframes blink { 50% { opacity: 0; } }
+.char-span { position: relative; display: inline-block; min-width: 9px; }
+.char-span.selected { background-color: rgba(192, 132, 252, 0.4); }
+
+.status-bar { background: #13151d; border-top: 1px solid #1e2030; padding: 8px 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #888; display: flex; justify-content: space-between; }
+.keystrokes { color: #a5b4fc; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Empty State */
+.empty-state { padding: 48px 24px; text-align: center; color: #666; font-size: 1rem; grid-column: 1 / -1; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1><span>Vim</span> Cheat Sheet</h1>
+  <p>Essential commands, navigation, editing, and an interactive practice mode.</p>
+</div>
+
+<div class="main">
+
+  <div class="input-section">
+    <div class="search-input-wrapper">
+      <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" id="searchInput" class="search-input" autocomplete="off" spellcheck="false" placeholder="Search commands, keys, or descriptions...">
+    </div>
+  </div>
+
+  <div class="practice-container">
+    <div class="practice-header">
+      <div class="practice-title">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4l3-9 5 18 3-9h5"/></svg>
+        Interactive Practice Mode
+      </div>
+      <div id="modeIndicator" class="mode-indicator mode-normal">NORMAL</div>
+    </div>
+    <div id="practiceEditor" class="practice-editor" tabindex="0">Hello, Vim!
+Welcome to the interactive practice mode.
+Use h, j, k, l to navigate.
+Press i to enter Insert mode.
+Press Esc to return to Normal mode.
+Press x to delete characters.
+Press v to enter Visual mode.</div>
+    <div class="status-bar">
+      <span id="statusMsg">"practice.txt" 7L, 192B</span>
+      <span class="keystrokes" id="keystrokes"></span>
+      <span id="cursorPos">1,1</span>
+    </div>
+  </div>
+
+  <div class="grid-container" id="commandsGrid">
+    <!-- Categories injected via JS -->
+  </div>
+
+  <div class="seo-content">
+    <h2>Why Learn Vim?</h2>
+    <p>Vim is a highly configurable text editor built to make creating and changing any kind of text very efficient. It is included as "vi" with most UNIX systems and with Apple OS X. Learning Vim commands can significantly speed up your workflow by keeping your hands on the keyboard and reducing reliance on the mouse.</p>
+
+    <h2>The Core Modes of Vim</h2>
+    <p>Vim is a "modal" editor, meaning the same keys perform different actions depending on the current mode:</p>
+    <ul>
+      <li><strong>Normal Mode:</strong> The default mode. Used for navigation, deletion, copying, pasting, and issuing commands. You can always return to this mode by pressing <code>Esc</code>.</li>
+      <li><strong>Insert Mode:</strong> Used for typing text. Entered by pressing <code>i</code>, <code>a</code>, <code>o</code>, etc. In this mode, Vim behaves like a standard text editor.</li>
+      <li><strong>Visual Mode:</strong> Used for selecting text blocks to apply commands to them (like copy or delete). Entered by pressing <code>v</code> (character-wise), <code>V</code> (line-wise), or <code>Ctrl+v</code> (block-wise).</li>
+      <li><strong>Command-Line Mode:</strong> Used to enter complex commands at the bottom of the screen. Entered by typing <code>:</code> (colon), <code>/</code> (search), or <code>?</code> (search backwards).</li>
+    </ul>
+
+    <h2>Navigating the Vim Way</h2>
+    <p>While you can often use arrow keys, true Vim proficiency comes from using the home row keys for movement. The core navigation keys are <code>h</code> (left), <code>j</code> (down), <code>k</code> (up), and <code>l</code> (right). Combining these movement keys with counts (e.g., <code>5j</code> to move down 5 lines) or with actions (e.g., <code>d5j</code> to delete 5 lines downwards) forms the powerful "grammar" of Vim.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+// Command Data
+const vimData = [
+  {
+    category: "Basics / Modes",
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>',
+    commands: [
+      { key: "i", desc: "Insert mode (before cursor)" },
+      { key: "I", desc: "Insert mode (beginning of line)" },
+      { key: "a", desc: "Append mode (after cursor)" },
+      { key: "A", desc: "Append mode (end of line)" },
+      { key: "o", desc: "Open new line below and insert" },
+      { key: "O", desc: "Open new line above and insert" },
+      { key: "v", desc: "Visual mode (select characters)" },
+      { key: "V", desc: "Visual line mode (select lines)" },
+      { key: "Ctrl+v", desc: "Visual block mode" },
+      { key: "Esc", desc: "Exit current mode / Return to Normal mode" },
+      { key: ":w", desc: "Write (save) the file" },
+      { key: ":q", desc: "Quit (fails if there are unsaved changes)" },
+      { key: ":q!", desc: "Quit and throw away unsaved changes" },
+      { key: ":wq", desc: "Write and quit" }
+    ]
+  },
+  {
+    category: "Navigation",
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9l7 7 7-7"/></svg>',
+    commands: [
+      { key: "h", desc: "Move left" },
+      { key: "j", desc: "Move down" },
+      { key: "k", desc: "Move up" },
+      { key: "l", desc: "Move right" },
+      { key: "w", desc: "Jump forward to the start of a word" },
+      { key: "W", desc: "Jump forward to the start of a WORD (blank separated)" },
+      { key: "e", desc: "Jump forward to the end of a word" },
+      { key: "b", desc: "Jump backward to the start of a word" },
+      { key: "0", desc: "Jump to the start of the line" },
+      { key: "^", desc: "Jump to the first non-blank character of the line" },
+      { key: "$", desc: "Jump to the end of the line" },
+      { key: "gg", desc: "Go to the first line of the document" },
+      { key: "G", desc: "Go to the last line of the document" },
+      { key: "5G", desc: "Go to line 5" },
+      { key: "Ctrl+u", desc: "Move half page up" },
+      { key: "Ctrl+d", desc: "Move half page down" }
+    ]
+  },
+  {
+    category: "Editing",
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>',
+    commands: [
+      { key: "r", desc: "Replace a single character" },
+      { key: "R", desc: "Replace more than one character (Replace mode)" },
+      { key: "x", desc: "Delete character under cursor" },
+      { key: "X", desc: "Delete character before cursor" },
+      { key: "dw", desc: "Delete word" },
+      { key: "d$", desc: "Delete to end of line" },
+      { key: "dd", desc: "Delete (cut) entire line" },
+      { key: "cw", desc: "Change (delete and insert) word" },
+      { key: "cc", desc: "Change (replace) entire line" },
+      { key: "C", desc: "Change to end of line" },
+      { key: "yy", desc: "Yank (copy) a line" },
+      { key: "yw", desc: "Yank (copy) a word" },
+      { key: "p", desc: "Put (paste) the clipboard after cursor" },
+      { key: "P", desc: "Put (paste) before cursor" },
+      { key: "u", desc: "Undo" },
+      { key: "Ctrl+r", desc: "Redo" },
+      { key: ".", desc: "Repeat last command" }
+    ]
+  },
+  {
+    category: "Search & Replace",
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+    commands: [
+      { key: "/pattern", desc: "Search forward for pattern" },
+      { key: "?pattern", desc: "Search backward for pattern" },
+      { key: "n", desc: "Repeat search in same direction" },
+      { key: "N", desc: "Repeat search in opposite direction" },
+      { key: "*", desc: "Search forward for word under cursor" },
+      { key: "#", desc: "Search backward for word under cursor" },
+      { key: ":%s/old/new/g", desc: "Replace all 'old' with 'new' throughout file" },
+      { key: ":%s/old/new/gc", desc: "Replace all 'old' with 'new' with confirmations" }
+    ]
+  },
+  {
+    category: "Macros & Visual",
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>',
+    commands: [
+      { key: "qa", desc: "Record macro into register 'a'" },
+      { key: "q", desc: "Stop recording macro" },
+      { key: "@a", desc: "Execute macro 'a'" },
+      { key: "@@", desc: "Execute last macro" },
+      { key: ">", desc: "Shift text right (indent) in visual mode" },
+      { key: "<", desc: "Shift text left (un-indent) in visual mode" },
+      { key: "~", desc: "Switch case in visual mode" },
+      { key: "viw", desc: "Visually select inside word" },
+      { key: "vi(", desc: "Visually select inside parentheses" }
+    ]
+  }
+];
+
+const gridContainer = document.getElementById('commandsGrid');
+const searchInput = document.getElementById('searchInput');
+
+function renderCommands(filterText = '') {
+  gridContainer.innerHTML = '';
+  const query = filterText.toLowerCase();
+  let hasResults = false;
+
+  vimData.forEach(cat => {
+    // Filter commands within category
+    const filteredCommands = cat.commands.filter(cmd =>
+      cmd.key.toLowerCase().includes(query) ||
+      cmd.desc.toLowerCase().includes(query)
+    );
+
+    if (filteredCommands.length > 0) {
+      hasResults = true;
+      const card = document.createElement('div');
+      card.className = 'category-card';
+
+      const header = document.createElement('div');
+      header.className = 'category-header';
+      header.innerHTML = `
+        <div class="category-title">
+          <span class="category-icon">${cat.icon}</span>
+          ${cat.category}
+        </div>
+        <svg class="toggle-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      `;
+
+      header.addEventListener('click', () => {
+        card.classList.toggle('collapsed');
+      });
+
+      const content = document.createElement('div');
+      content.className = 'category-content';
+
+      filteredCommands.forEach(cmd => {
+        const row = document.createElement('div');
+        row.className = 'cmd-row';
+        row.innerHTML = `
+          <span class="cmd-key">${cmd.key}</span>
+          <span class="cmd-desc">${cmd.desc}</span>
+          <button class="copy-btn" data-copy="${cmd.key}" title="Copy command">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          </button>
+        `;
+        content.appendChild(row);
+      });
+
+      card.appendChild(header);
+      card.appendChild(content);
+      gridContainer.appendChild(card);
+    }
+  });
+
+  if (!hasResults) {
+    gridContainer.innerHTML = '<div class="empty-state">No commands found matching your search.</div>';
+  } else {
+    attachCopyListeners();
+  }
+}
+
+function attachCopyListeners() {
+  const copyBtns = document.querySelectorAll('.copy-btn');
+  copyBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const text = btn.getAttribute('data-copy');
+      navigator.clipboard.writeText(text).then(() => {
+        btn.classList.add('copied');
+        setTimeout(() => btn.classList.remove('copied'), 1500);
+      });
+    });
+  });
+}
+
+searchInput.addEventListener('input', (e) => {
+  renderCommands(e.target.value.trim());
+});
+
+// Initial render
+renderCommands();
+
+// Practice Mode Logic
+const editor = document.getElementById('practiceEditor');
+const modeIndicator = document.getElementById('modeIndicator');
+const statusMsg = document.getElementById('statusMsg');
+const cursorPos = document.getElementById('cursorPos');
+const keystrokesDisplay = document.getElementById('keystrokes');
+
+let content = editor.textContent.split('\n');
+let mode = 'NORMAL'; // NORMAL, INSERT, VISUAL
+let cursorY = 0;
+let cursorX = 0;
+let visualStartX = -1;
+let visualStartY = -1;
+
+function updateMode(newMode) {
+  mode = newMode;
+  modeIndicator.textContent = mode;
+  modeIndicator.className = 'mode-indicator mode-' + mode.toLowerCase();
+
+  if (mode === 'NORMAL') {
+    visualStartX = -1;
+    visualStartY = -1;
+  }
+  renderEditor();
+}
+
+function renderEditor() {
+  let html = '';
+  for (let y = 0; y < content.length; y++) {
+    let line = content[y];
+    if (line === undefined) line = '';
+
+    // Ensure empty lines have at least a space to click on
+    if (line.length === 0) {
+      if (cursorY === y && cursorX === 0) {
+        html += `<span class="char-span"><span class="cursor ${mode === 'INSERT' ? 'insert-mode' : ''}"></span></span>\n`;
+      } else {
+        html += '\n';
+      }
+      continue;
+    }
+
+    for (let x = 0; x <= line.length; x++) {
+      let char = x < line.length ? line[x] : '';
+      if (char === '<') char = '&lt;';
+      if (char === '>') char = '&gt;';
+      if (char === '&') char = '&amp;';
+      if (char === ' ') char = '&nbsp;';
+
+      let isSelected = false;
+      if (mode === 'VISUAL') {
+        const startY = Math.min(visualStartY, cursorY);
+        const endY = Math.max(visualStartY, cursorY);
+
+        if (y > startY && y < endY) isSelected = true;
+        else if (startY === endY && y === startY) {
+          const sX = Math.min(visualStartX, cursorX);
+          const eX = Math.max(visualStartX, cursorX);
+          if (x >= sX && x <= eX) isSelected = true;
+        } else if (y === startY && x >= (startY === visualStartY ? visualStartX : cursorX)) isSelected = true;
+        else if (y === endY && x <= (endY === visualStartY ? visualStartX : cursorX)) isSelected = true;
+      }
+
+      const isCursorHere = (cursorY === y && cursorX === x);
+
+      let spanClass = 'char-span';
+      if (isSelected) spanClass += ' selected';
+
+      html += `<span class="${spanClass}">${char}`;
+      if (isCursorHere) {
+        html += `<span class="cursor ${mode === 'INSERT' ? 'insert-mode' : ''}"></span>`;
+      }
+      html += `</span>`;
+    }
+    html += '\n';
+  }
+  editor.innerHTML = html;
+  cursorPos.textContent = `${cursorY + 1},${cursorX + 1}`;
+
+  // Update status message
+  let charCount = content.reduce((sum, line) => sum + line.length, 0) + content.length - 1;
+  statusMsg.textContent = `"practice.txt" ${content.length}L, ${charCount}B`;
+}
+
+function constrainCursor() {
+  if (cursorY < 0) cursorY = 0;
+  if (cursorY >= content.length) cursorY = content.length - 1;
+
+  let maxLen = content[cursorY] ? content[cursorY].length : 0;
+  if (mode !== 'INSERT' && maxLen > 0) maxLen--; // Can't go past last char in normal mode
+  if (maxLen < 0) maxLen = 0;
+
+  if (cursorX < 0) cursorX = 0;
+  if (cursorX > maxLen) cursorX = maxLen;
+}
+
+let keyBuffer = '';
+let keyTimer = null;
+
+function showKeystroke(key) {
+  clearTimeout(keyTimer);
+  keyBuffer += key;
+  if (keyBuffer.length > 10) keyBuffer = keyBuffer.slice(-10);
+  keystrokesDisplay.textContent = keyBuffer;
+  keyTimer = setTimeout(() => {
+    keyBuffer = '';
+    keystrokesDisplay.textContent = '';
+  }, 2000);
+}
+
+editor.addEventListener('keydown', (e) => {
+  // Prevent default scrolling for typical Vim keys, but allow others
+  if (['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.code) ||
+      (mode === 'NORMAL' && ['h', 'j', 'k', 'l'].includes(e.key))) {
+    e.preventDefault();
+  }
+
+  if (e.key === 'Escape') {
+    updateMode('NORMAL');
+    if (cursorX > 0) cursorX--; // Step back when leaving insert
+    constrainCursor();
+    renderEditor();
+    showKeystroke('Esc');
+    return;
+  }
+
+  if (mode === 'INSERT') {
+    if (e.ctrlKey || e.altKey || e.metaKey) return;
+
+    if (e.key === 'Backspace') {
+      e.preventDefault();
+      if (cursorX > 0) {
+        content[cursorY] = content[cursorY].substring(0, cursorX - 1) + content[cursorY].substring(cursorX);
+        cursorX--;
+      } else if (cursorY > 0) {
+        const prevLen = content[cursorY - 1].length;
+        content[cursorY - 1] += content[cursorY];
+        content.splice(cursorY, 1);
+        cursorY--;
+        cursorX = prevLen;
+      }
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      const remain = content[cursorY].substring(cursorX);
+      content[cursorY] = content[cursorY].substring(0, cursorX);
+      content.splice(cursorY + 1, 0, remain);
+      cursorY++;
+      cursorX = 0;
+    } else if (e.key.length === 1) {
+      e.preventDefault();
+      content[cursorY] = content[cursorY].substring(0, cursorX) + e.key + content[cursorY].substring(cursorX);
+      cursorX++;
+    }
+    constrainCursor();
+    renderEditor();
+    return;
+  }
+
+  // NORMAL or VISUAL Mode
+  if (e.ctrlKey || e.altKey || e.metaKey) return;
+
+  let keyStr = e.key;
+  if (keyStr.length === 1) showKeystroke(keyStr);
+
+  switch (e.key) {
+    case 'h': cursorX--; break;
+    case 'l': cursorX++; break;
+    case 'j': cursorY++; break;
+    case 'k': cursorY--; break;
+    case 'w':
+      // Very basic word forward
+      if (content[cursorY]) {
+        let text = content[cursorY];
+        let i = cursorX;
+        while(i < text.length && text[i] !== ' ') i++;
+        while(i < text.length && text[i] === ' ') i++;
+        if (i < text.length) cursorX = i;
+        else if (cursorY < content.length - 1) { cursorY++; cursorX = 0; }
+      }
+      break;
+    case 'b':
+      // Very basic word backward
+      if (content[cursorY]) {
+        let i = cursorX - 1;
+        while(i >= 0 && content[cursorY][i] === ' ') i--;
+        while(i >= 0 && content[cursorY][i] !== ' ') i--;
+        if (i >= -1) cursorX = i + 1;
+      }
+      if (cursorX < 0 && cursorY > 0) { cursorY--; cursorX = content[cursorY].length; }
+      break;
+    case '0': cursorX = 0; break;
+    case '$': cursorX = content[cursorY] ? content[cursorY].length - 1 : 0; break;
+
+    // Modes
+    case 'i': updateMode('INSERT'); break;
+    case 'a': cursorX++; constrainCursor(); updateMode('INSERT'); break;
+    case 'A': cursorX = content[cursorY] ? content[cursorY].length : 0; updateMode('INSERT'); break;
+    case 'I': cursorX = 0; updateMode('INSERT'); break;
+    case 'o':
+      content.splice(cursorY + 1, 0, '');
+      cursorY++; cursorX = 0;
+      updateMode('INSERT');
+      break;
+    case 'O':
+      content.splice(cursorY, 0, '');
+      cursorX = 0;
+      updateMode('INSERT');
+      break;
+    case 'v':
+      if (mode !== 'VISUAL') {
+        updateMode('VISUAL');
+        visualStartX = cursorX;
+        visualStartY = cursorY;
+      } else {
+        updateMode('NORMAL');
+      }
+      break;
+
+    // Basic editing
+    case 'x':
+      if (mode === 'NORMAL' && content[cursorY] && content[cursorY].length > 0) {
+        content[cursorY] = content[cursorY].substring(0, cursorX) + content[cursorY].substring(cursorX + 1);
+      }
+      break;
+
+    // Multi-key intercepts (naive)
+    case 'g':
+      if (keyBuffer.endsWith('gg')) { cursorY = 0; cursorX = 0; keyBuffer = ''; }
+      break;
+    case 'G': cursorY = content.length - 1; cursorX = 0; break;
+    case 'd':
+      if (keyBuffer.endsWith('dd')) {
+        content.splice(cursorY, 1);
+        if (content.length === 0) content.push('');
+        if (cursorY >= content.length) cursorY = content.length - 1;
+        cursorX = 0;
+        keyBuffer = '';
+      }
+      break;
+  }
+
+  constrainCursor();
+  renderEditor();
+});
+
+// Init
+editor.focus();
+renderEditor();
+
+</script>
+
+</body>
+</html>
