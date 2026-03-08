@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Essential VS Code Extensions | Top Web Dev Tools</title>
+<meta name="description" content="A curated list of the top VS Code extensions for web development. Compare productivity, formatting, git, themes, and debugging tools with metrics, pros, and cons.">
+<meta property="og:title" content="Essential VS Code Extensions">
+<meta property="og:description" content="A curated list of the top VS Code extensions for web development. Compare productivity, formatting, git, themes, and debugging tools with metrics, pros, and cons.">
+<meta property="og:type" content="article">
+
+<!-- JSON-LD WebApplication -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Essential VS Code Extensions List",
+  "url": "https://siliconbased.dev/list-vscode-extensions",
+  "description": "Interactive, curated list of essential VS Code extensions for web developers. Filter and sort by category, installs, and ratings.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+
+<!-- JSON-LD Article -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Essential VS Code Extensions for Web Development",
+  "description": "A curated list of the top VS Code extensions for web development, including productivity, formatting, git, themes, and debugging tools.",
+  "author": {
+    "@type": "Organization",
+    "name": "GAB Ventures",
+    "url": "https://gab.ae"
+  }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+/* Hero Section */
+.hero { text-align: center; padding: 48px 24px 24px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.5rem; font-weight: 900; color: #fff; margin-bottom: 12px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+/* Main Container */
+.main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Controls (Filters/Sort) */
+.controls-container { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; background: #111318; border: 1px solid #1e2030; padding: 20px; border-radius: 12px; }
+@media (min-width: 768px) {
+  .controls-container { flex-direction: row; justify-content: space-between; align-items: center; }
+}
+.filter-group, .sort-group { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.control-label { font-size: 0.9rem; color: #888; font-weight: 500; }
+.control-select { background: #0a0b10; border: 1px solid #1e2030; color: #e0e0e0; padding: 8px 12px; border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 0.95rem; outline: none; cursor: pointer; transition: border-color 0.2s; }
+.control-select:focus, .control-select:hover { border-color: #818cf8; }
+
+/* Grid Layout */
+.extensions-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 48px; }
+@media (min-width: 768px) { .extensions-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .extensions-grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* Extension Card */
+.ext-card { background: #111318; border: 1px solid #1e2030; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
+.ext-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.3); border-color: #818cf8; }
+.ext-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+.ext-title { font-size: 1.25rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.ext-category { display: inline-block; background: rgba(129, 140, 248, 0.1); color: #818cf8; font-size: 0.75rem; font-weight: 600; padding: 4px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+.ext-metrics { display: flex; gap: 16px; margin-bottom: 16px; font-size: 0.85rem; color: #888; }
+.metric { display: flex; align-items: center; gap: 6px; }
+.metric svg { width: 16px; height: 16px; fill: currentColor; }
+.ext-rating { color: #fbbf24; } /* Yellow for stars */
+
+.ext-desc { font-size: 0.95rem; color: #b0b0b0; line-height: 1.5; margin-bottom: 20px; flex-grow: 1; }
+
+.ext-features { background: #0a0b10; border: 1px solid #1e2030; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+.features-title { font-size: 0.85rem; font-weight: 600; color: #fff; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.feature-list { list-style: none; padding: 0; }
+.feature-item { font-size: 0.85rem; color: #e0e0e0; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 8px; }
+.feature-item::before { content: '✓'; color: #10b981; font-weight: bold; }
+.feature-item:last-child { margin-bottom: 0; }
+
+.ext-pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.pros, .cons { font-size: 0.85rem; }
+.pc-title { font-weight: 600; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.pros .pc-title { color: #10b981; }
+.cons .pc-title { color: #ef4444; }
+.pc-list { list-style: none; padding-left: 12px; }
+.pc-list li { color: #888; position: relative; margin-bottom: 4px; }
+.pc-list li::before { content: '•'; position: absolute; left: -12px; }
+
+/* SEO Content */
+.seo-content { background: #111318; border: 1px solid #1e2030; border-radius: 12px; padding: 32px; margin-top: 24px; }
+.seo-content h2 { font-size: 1.5rem; color: #fff; margin-bottom: 16px; font-weight: 700; }
+.seo-content h2:not(:first-child) { margin-top: 32px; }
+.seo-content p { color: #a0a0a0; line-height: 1.6; margin-bottom: 16px; font-size: 0.95rem; }
+.seo-content ul { color: #a0a0a0; line-height: 1.6; margin-bottom: 16px; font-size: 0.95rem; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.85rem; color: #555; border-top: 1px solid #1e2030; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Utilities */
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Essential <span>VS Code</span> Extensions</h1>
+  <p>The definitive, curated list of top Visual Studio Code extensions for web developers. Compare essential productivity, formatting, git, themes, and debugging tools offline.</p>
+</div>
+
+<div class="main">
+  <!-- Controls Section -->
+  <div class="controls-container">
+    <div class="filter-group">
+      <span class="control-label">Filter Category:</span>
+      <select id="categoryFilter" class="control-select">
+        <option value="all">All Extensions</option>
+        <option value="productivity">Productivity</option>
+        <option value="formatting">Formatting</option>
+        <option value="git">Git</option>
+        <option value="themes">Themes</option>
+        <option value="debugging">Debugging</option>
+      </select>
+    </div>
+    <div class="sort-group">
+      <span class="control-label">Sort By:</span>
+      <select id="sortOption" class="control-select">
+        <option value="installs">Installs (High to Low)</option>
+        <option value="rating">Rating (High to Low)</option>
+        <option value="name">Name (A-Z)</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Main Grid -->
+  <div id="extensions-grid" class="extensions-grid">
+    <!-- Cards will be injected here via JS -->
+  </div>
+
+  <!-- SEO Content Section -->
+  <div class="seo-content">
+    <h2>Why the Right VS Code Extensions Matter</h2>
+    <p>Visual Studio Code is arguably the most popular code editor among web developers today, largely due to its vast ecosystem. However, finding the <em>best</em> VS Code extensions amidst thousands of options can be overwhelming. The right curated list of tools transforms VS Code from a simple text editor into a full-fledged Integrated Development Environment (IDE), dramatically improving your productivity, code quality, and overall developer experience.</p>
+
+    <h2>Choosing Extensions for Web Development</h2>
+    <p>When selecting extensions, avoid the temptation to install everything. Excessive extensions can bloat your editor and degrade performance. We recommend focusing on a few key categories:</p>
+    <ul>
+      <li><strong>Formatting & Linting:</strong> Tools like Prettier and ESLint are non-negotiable for maintaining clean, consistent code across teams.</li>
+      <li><strong>Git Integration:</strong> Extensions such as GitLens provide vital context directly in your editor, preventing context switching.</li>
+      <li><strong>Productivity:</strong> Look for tools that automate repetitive tasks, like auto-renaming tags or live-reloading servers.</li>
+    </ul>
+
+    <h2>Evaluating Extension Quality</h2>
+    <p>This comparison list utilizes key metrics to help you decide. High install counts (often in the tens of millions) are strong indicators of community trust and ongoing maintenance. Furthermore, we weigh user ratings to highlight extensions that not only perform well but offer a superior user experience with minimal bugs.</p>
+  </div>
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+  const extensionsData = [
+    {
+      id: "prettier",
+      name: "Prettier",
+      category: "formatting",
+      installs: 41000000,
+      installText: "41M+",
+      rating: 4.8,
+      desc: "An opinionated code formatter that enforces a consistent style by parsing your code and re-printing it with its own rules.",
+      features: ["Supports JS, TS, HTML, CSS, JSON", "Saves time on code reviews", "Format on save feature"],
+      pros: ["Zero-config out of the box", "Huge community standard"],
+      cons: ["Highly opinionated", "Conflicts with some linters if not configured"]
+    },
+    {
+      id: "gitlens",
+      name: "GitLens",
+      category: "git",
+      installs: 30000000,
+      installText: "30M+",
+      rating: 4.5,
+      desc: "Supercharges the Git capabilities built into VS Code. Visualize code authorship at a glance via Git blame annotations and CodeLens.",
+      features: ["Inline blame annotations", "Rich hover information", "Seamless repository navigation"],
+      pros: ["Incredible context for legacy code", "Powerful commit search"],
+      cons: ["Can be visually noisy at first", "Some advanced features are paid"]
+    },
+    {
+      id: "eslint",
+      name: "ESLint",
+      category: "formatting",
+      installs: 35000000,
+      installText: "35M+",
+      rating: 4.7,
+      desc: "Integrates ESLint into VS Code to statically analyze your code to quickly find problems and enforce patterns.",
+      features: ["Real-time error highlighting", "Auto-fix on save", "Extensive rule configuration"],
+      pros: ["Prevents bugs before they happen", "Customizable for any team"],
+      cons: ["Requires initial setup/config", "Can be strict for beginners"]
+    },
+    {
+      id: "liveserver",
+      name: "Live Server",
+      category: "productivity",
+      installs: 43000000,
+      installText: "43M+",
+      rating: 4.9,
+      desc: "Launch a local development server with a live reload feature for static & dynamic pages.",
+      features: ["One-click local server launch", "Auto-reloads on file save", "Custom port and host config"],
+      pros: ["Instant feedback loop", "Extremely easy to use"],
+      cons: ["Only for basic frontend dev", "Not a replacement for full build tools"]
+    },
+    {
+      id: "onedarkpro",
+      name: "One Dark Pro",
+      category: "themes",
+      installs: 9000000,
+      installText: "9M+",
+      rating: 4.8,
+      desc: "Atom's iconic One Dark theme, and one of the most downloaded themes for VS Code.",
+      features: ["Carefully crafted syntax highlighting", "Multiple color variants", "Excellent contrast"],
+      pros: ["Easy on the eyes", "Highly readable code"],
+      cons: ["Subjective preference", "Doesn't add functionality"]
+    },
+    {
+      id: "errorlens",
+      name: "Error Lens",
+      category: "debugging",
+      installs: 3500000,
+      installText: "3.5M+",
+      rating: 4.9,
+      desc: "Highlights entire lines wherever a diagnostic is generated by the language and also prints the message inline.",
+      features: ["Inline error messages", "Customizable colors per error type", "Highlights entire line"],
+      pros: ["Impossible to miss errors", "Saves time hovering over squiggles"],
+      cons: ["Can make the editor look cluttered if there are many errors"]
+    },
+    {
+      id: "autorenametag",
+      name: "Auto Rename Tag",
+      category: "productivity",
+      installs: 16000000,
+      installText: "16M+",
+      rating: 4.6,
+      desc: "Automatically renames paired HTML/XML tags, similar to Visual Studio IDE.",
+      features: ["Renames closing tag when opening tag is edited", "Works with JSX/TSX"],
+      pros: ["Massive time saver for UI dev", "Reduces typos in HTML"],
+      cons: ["Sometimes buggy with complex nested components"]
+    },
+    {
+      id: "copilot",
+      name: "GitHub Copilot",
+      category: "productivity",
+      installs: 15000000,
+      installText: "15M+",
+      rating: 4.4,
+      desc: "Your AI pair programmer. Provides autocomplete-style suggestions from an AI model trained on billions of lines of code.",
+      features: ["Auto-completes functions and boilerplate", "Translates comments to code", "Learns from your context"],
+      pros: ["Massively speeds up writing boilerplate", "Great for learning APIs"],
+      cons: ["Requires paid subscription", "Can hallucinate incorrect code"]
+    }
+  ];
+
+  const grid = document.getElementById('extensions-grid');
+  const categoryFilter = document.getElementById('categoryFilter');
+  const sortOption = document.getElementById('sortOption');
+
+  function generateStars(rating) {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    let starsHtml = '';
+
+    for (let i = 0; i < fullStars; i++) {
+      starsHtml += `<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
+    }
+    if (hasHalfStar) {
+      // Simple visual approximation of a half star for this specific use case using viewBox
+      starsHtml += `<svg viewBox="0 0 24 24"><path d="M12 15.4V6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"/><path fill="currentColor" opacity="0.3" d="M22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1v9.3z"/></svg>`;
+    }
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+    for (let i = 0; i < emptyStars; i++) {
+      starsHtml += `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
+    }
+    return starsHtml;
+  }
+
+  function renderCards(data) {
+    grid.innerHTML = '';
+
+    if (data.length === 0) {
+      grid.innerHTML = '<p style="color: #888; grid-column: 1 / -1; text-align: center; padding: 40px;">No extensions found matching your criteria.</p>';
+      return;
+    }
+
+    data.forEach(ext => {
+      const card = document.createElement('div');
+      card.className = 'ext-card';
+
+      const featuresHtml = ext.features.map(f => `<li class="feature-item">${f}</li>`).join('');
+      const prosHtml = ext.pros.map(p => `<li>${p}</li>`).join('');
+      const consHtml = ext.cons.map(c => `<li>${c}</li>`).join('');
+
+      card.innerHTML = `
+        <div class="ext-header">
+          <div>
+            <div class="ext-title">${ext.name}</div>
+            <span class="ext-category">${ext.category}</span>
+          </div>
+        </div>
+
+        <div class="ext-metrics">
+          <div class="metric" title="Total Installs">
+            <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+            <span class="mono">${ext.installText}</span>
+          </div>
+          <div class="metric ext-rating" title="Rating: ${ext.rating}/5">
+            ${generateStars(ext.rating)}
+            <span class="mono" style="color: #888; margin-left: 4px;">${ext.rating}</span>
+          </div>
+        </div>
+
+        <div class="ext-desc">${ext.desc}</div>
+
+        <div class="ext-features">
+          <div class="features-title">Key Features</div>
+          <ul class="feature-list">
+            ${featuresHtml}
+          </ul>
+        </div>
+
+        <div class="ext-pros-cons">
+          <div class="pros">
+            <div class="pc-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+              Pros
+            </div>
+            <ul class="pc-list">${prosHtml}</ul>
+          </div>
+          <div class="cons">
+            <div class="pc-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M8 15s1.5-2 4-2 4 2 4 2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+              Cons
+            </div>
+            <ul class="pc-list">${consHtml}</ul>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function updateView() {
+    const category = categoryFilter.value;
+    const sort = sortOption.value;
+
+    // Filter
+    let filtered = extensionsData;
+    if (category !== 'all') {
+      filtered = extensionsData.filter(ext => ext.category === category);
+    }
+
+    // Sort
+    const sorted = [...filtered].sort((a, b) => {
+      if (sort === 'installs') {
+        return b.installs - a.installs;
+      } else if (sort === 'rating') {
+        return b.rating - a.rating;
+      } else if (sort === 'name') {
+        return a.name.localeCompare(b.name);
+      }
+      return 0;
+    });
+
+    renderCards(sorted);
+  }
+
+  categoryFilter.addEventListener('change', updateView);
+  sortOption.addEventListener('change', updateView);
+
+  // Initial render
+  updateView();
+</script>
+
+</body>
+</html>
