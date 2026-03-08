@@ -8,7 +8,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "generate:chmod": "node scripts/generate-chmod-pages.cjs",
-    "generate:pageweight": "node scripts/crawl-page-weight.cjs"
+    "generate:pageweight": "node scripts/crawl-page-weight.cjs",
+    "generate:gpubenchmarks": "node scripts/crawl-gpu-benchmarks.cjs"
   },
   "dependencies": {
     "astro": "^5.17.1",
