@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>yellow Color — Hex, RGB, HSL Values & CSS Code</title>
+    <meta name="description" content="Get the hex, RGB, and HSL values for the yellow CSS named color (#ffff00). Includes CSS usage examples, color harmonies, and accessibility contrast ratios.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-main: #0a0b10;
+            --bg-card: #111318;
+            --border-color: #1e2030;
+            --accent: #818cf8;
+            --text-primary: #e0e0e0;
+            --text-secondary: #888888;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            flex-grow: 1;
+        }
+
+        header {
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-transform: capitalize;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            text-transform: capitalize;
+            text-decoration: none;
+            transition: border-color 0.2s;
+        }
+
+        .category-badge:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+        }
+
+        .hero-swatch {
+            width: 100%;
+            height: 250px;
+            border-radius: 1rem;
+            background-color: #ffff00;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+        }
+
+        .swatch-text {
+            color: #000000;
+            font-weight: 700;
+            font-size: 2rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .grid-cols-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+
+        .card h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .value-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .value-row:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .value-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .value-code {
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(0,0,0,0.3);
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            border: 1px solid var(--border-color);
+            margin-right: 1rem;
+            color: var(--accent);
+            flex-grow: 1;
+            margin-left: 1rem;
+        }
+
+        .copy-btn {
+            background: var(--border-color);
+            border: none;
+            color: var(--text-primary);
+            padding: 0.4rem 0.75rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        pre {
+            background: rgba(0,0,0,0.3);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            color: #a9b1d6;
+            margin-bottom: 1rem;
+        }
+
+        .color-name-hl { color: #f7768e; }
+        .color-val-hl { color: var(--accent); }
+
+        .harmony-swatch {
+            width: 100%;
+            height: 100px;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .harmony-card {
+            text-align: center;
+        }
+
+        .harmony-card a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-transform: capitalize;
+        }
+
+        .harmony-card a:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        .harmony-hex {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        .contrast-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .contrast-preview {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-align: center;
+            flex-grow: 1;
+            margin-right: 1rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .contrast-white {
+            background-color: #ffff00;
+            color: #ffffff;
+        }
+
+        .contrast-black {
+            background-color: #ffff00;
+            color: #000000;
+        }
+
+        .badge-pass {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .badge-fail {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .related-colors {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .related-chip {
+            display: flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem 0.25rem 0.25rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 9999px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .related-chip:hover {
+            border-color: var(--accent);
+        }
+
+        .related-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-top: auto;
+        }
+
+        footer a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: var(--accent);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--accent);
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+
+    <script type="application/ld+json">
+    [
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "yellow Color — Hex, RGB, HSL Values & CSS Code",
+            "description": "Comprehensive color values and CSS examples for the yellow named color.",
+            "url": "https://siliconbased.dev/colors/yellow.html",
+            "author": {
+                "@type": "Organization",
+                "name": "siliconbased.dev",
+                "url": "https://siliconbased.dev"
+            }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "yellow Color Information",
+            "description": "Hex, RGB, and HSL values for the yellow color."
+        }
+    ]
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div>
+                <h1>yellow</h1>
+                <p>CSS Named Color Details</p>
+            </div>
+            <a href="/colors/yellow.html" class="category-badge">yellow Family</a>
+        </header>
+
+        <div class="hero-swatch" style="background-color: #ffff00;">
+            <div class="swatch-text" style="color: #000000;">#ffff00</div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h2>Color Values</h2>
+
+                <div class="value-row">
+                    <div class="value-label">HEX</div>
+                    <div class="value-code" id="val-hex">#ffff00</div>
+                    <button class="copy-btn" onclick="copyValue('val-hex')">Copy</button>
+                </div>
+
+                <div class="value-row">
+                    <div class="value-label">RGB</div>
+                    <div class="value-code" id="val-rgb">rgb(255, 255, 0)</div>
+                    <button class="copy-btn" onclick="copyValue('val-rgb')">Copy</button>
+                </div>
+
+                <div class="value-row">
+                    <div class="value-label">HSL</div>
+                    <div class="value-code" id="val-hsl">hsl(60, 100%, 50%)</div>
+                    <button class="copy-btn" onclick="copyValue('val-hsl')">Copy</button>
+                </div>
+
+                <div class="value-row">
+                    <div class="value-label">CSS</div>
+                    <div class="value-code" id="val-name">yellow</div>
+                    <button class="copy-btn" onclick="copyValue('val-name')">Copy</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>CSS Examples</h2>
+
+                <pre><code><span class="color-name-hl">.bg-example</span> {
+  background-color: <span class="color-val-hl">yellow</span>;
+}</code></pre>
+
+                <pre><code><span class="color-name-hl">.text-example</span> {
+  color: <span class="color-val-hl">#ffff00</span>;
+}</code></pre>
+
+                <pre><code><span class="color-name-hl">.border-example</span> {
+  border: 2px solid <span class="color-val-hl">rgb(255, 255, 0)</span>;
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-3">
+            <div class="card">
+                <h2>Accessibility (WCAG)</h2>
+                <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem;">Contrast ratio for text on <strong>yellow</strong> background.</p>
+
+                <div class="contrast-row">
+                    <div class="contrast-preview contrast-white" style="background-color: #ffff00; color: #ffffff; border: 1px solid #ffffff;">White Text</div>
+                    <div class="badge-fail">1.07:1</div>
+                </div>
+
+                <div class="contrast-row">
+                    <div class="contrast-preview contrast-black" style="background-color: #ffff00; color: #000000; border: 1px solid #000000;">Black Text</div>
+                    <div class="badge-pass">19.56:1</div>
+                </div>
+            </div>
+
+            <div class="card" style="grid-column: span 2;">
+                <h2>Color Harmonies</h2>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+
+                    <!-- Complementary -->
+                    <div class="harmony-card">
+                        <div class="harmony-swatch" style="background-color: #0000ff;"></div>
+                        <a href="/colors/blue.html">blue</a>
+                        <div class="harmony-hex">#0000ff</div>
+                        <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">Complementary</div>
+                    </div>
+
+                    <!-- Analogous 1 -->
+                    <div class="harmony-card">
+                        <div class="harmony-swatch" style="background-color: #80ff00;"></div>
+                        <a href="/colors/chartreuse.html">chartreuse</a>
+                        <div class="harmony-hex">#80ff00</div>
+                        <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">Analogous</div>
+                    </div>
+
+                    <!-- Triadic 1 -->
+                    <div class="harmony-card">
+                        <div class="harmony-swatch" style="background-color: #00ffff;"></div>
+                        <a href="/colors/aqua.html">aqua</a>
+                        <div class="harmony-hex">#00ffff</div>
+                        <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">Triadic</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 2rem;">
+            <h2>Related Yellow Colors</h2>
+            <div class="related-colors">
+                <a href="/colors/beige.html" class="related-chip"><div class="related-dot" style="background-color: #f5f5dc;"></div>beige</a>
+                <a href="/colors/cornsilk.html" class="related-chip"><div class="related-dot" style="background-color: #fff8dc;"></div>cornsilk</a>
+                <a href="/colors/darkkhaki.html" class="related-chip"><div class="related-dot" style="background-color: #bdb76b;"></div>darkkhaki</a>
+                <a href="/colors/gold.html" class="related-chip"><div class="related-dot" style="background-color: #ffd700;"></div>gold</a>
+                <a href="/colors/khaki.html" class="related-chip"><div class="related-dot" style="background-color: #f0e68c;"></div>khaki</a>
+                <a href="/colors/lemonchiffon.html" class="related-chip"><div class="related-dot" style="background-color: #fffacd;"></div>lemonchiffon</a>
+                <a href="/colors/lightgoldenrodyellow.html" class="related-chip"><div class="related-dot" style="background-color: #fafad2;"></div>lightgoldenrodyellow</a>
+                <a href="/colors/lightyellow.html" class="related-chip"><div class="related-dot" style="background-color: #ffffe0;"></div>lightyellow</a>
+                <a href="/colors/palegoldenrod.html" class="related-chip"><div class="related-dot" style="background-color: #eee8aa;"></div>palegoldenrod</a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> &middot; A <a href="https://gab.ae">GAB Ventures</a> property
+    </footer>
+
+    <div class="toast" id="toast">Copied to clipboard!</div>
+
+    <script>
+        function copyValue(elementId) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
