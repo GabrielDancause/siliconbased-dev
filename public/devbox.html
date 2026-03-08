@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DevBox — Paste Anything, Decode Everything | Developer Swiss Army Knife</title>
-<meta name="description" content="Free universal developer tool: paste JSON, JWT, base64, timestamps, regex, cron, colors, URLs, CSV, or SQL and instantly get conversions, formatting, validation, and visual breakdowns.">
-<meta property="og:title" content="DevBox — Paste Anything, Decode Everything">
-<meta property="og:description" content="The developer Swiss Army knife. Auto-detects JSON, JWT, base64, timestamps, cron, colors, regex, and 10+ formats.">
+<title>DevBox — Auto-Detect & Decode Any Developer String Instantly</title>
+<meta name="description" content="Stop switching between 12 different converter tabs. DevBox auto-detects what you pasted — JSON, JWT, base64, unix timestamps, regex, cron, hex colors, URLs, CSV, SQL, UUIDs, or IP addresses — and instantly shows formatted output, conversions, and visual breakdowns. Free, private, runs entirely in your browser.">
+<meta property="og:title" content="DevBox — One Input Field to Decode Anything">
+<meta property="og:description" content="Paste JSON, JWT, timestamps, colors, regex, cron, CSV or any dev string. DevBox auto-detects the format and shows every conversion instantly. No signup, no server, runs in your browser.">
 <meta property="og:type" content="article">
 <script type="application/ld+json">
 {
@@ -94,22 +94,26 @@ code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
 
 <div class="hero">
   <h1>Dev<span>Box</span> ⚡</h1>
-  <p>Paste anything. We'll figure it out.</p>
+  <p>Stop juggling 12 converter tabs. Paste any string — DevBox figures out what it is and shows you everything.</p>
 </div>
 
 <div class="main">
   <div class="input-zone">
-    <textarea id="input" placeholder="Paste JSON, JWT, base64, timestamp, color, cron, regex, URL, CSV, HTML, SQL... anything." spellcheck="false"></textarea>
+    <textarea id="input" placeholder="Paste anything here — a JWT token, a JSON blob, a hex color, a unix timestamp, a cron expression, a regex, a URL with query params..." spellcheck="false"></textarea>
     <button class="clear-btn" id="clearBtn" style="display:none;">Clear</button>
   </div>
   <div class="detection" id="detection"></div>
   <div class="results" id="results">
     <div class="empty-state" id="emptyState">
       <div class="big-icon">⚡</div>
-      <p>Paste something to get started</p>
+      <p>Paste a string — any string</p>
+      <p style="font-size:0.82rem; color:#444; max-width:480px; margin:0 auto 16px;">DevBox auto-detects the format and instantly shows formatted output, every conversion, and a visual breakdown. No signup, nothing leaves your browser.</p>
       <div class="hints">
-        Try: <code>{"name":"test"}</code> · <code>#ff6b35</code> · <code>1719849600</code> · <code>eyJhbGciOi...</code><br>
-        <code>*/5 * * * *</code> · <code>^[a-z]+@[a-z]+\.[a-z]{2,}$</code> · <code>aGVsbG8gd29ybGQ=</code> · <code>SELECT * FROM</code>
+        <strong style="color:#555;">13 formats detected:</strong><br>
+        <code>{"key":"value"}</code> JSON · <code>eyJhbGciOi...</code> JWT · <code>aGVsbG8gd29ybGQ=</code> Base64<br>
+        <code>1719849600</code> Timestamps · <code>#ff6b35</code> Colors · <code>*/5 * * * *</code> Cron<br>
+        <code>/^[a-z]+$/gi</code> Regex · <code>https://example.com?q=1</code> URLs · <code>name,age\nGab,30</code> CSV<br>
+        <code>SELECT * FROM users</code> SQL · <code>&lt;div&gt;...&lt;/div&gt;</code> HTML · UUIDs · IPv4/CIDR
       </div>
     </div>
   </div>
