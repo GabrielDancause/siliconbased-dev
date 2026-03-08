@@ -58,6 +58,55 @@ const tools = [
     desc: "Test and debug regular expressions in real time. See matches highlighted, capture groups extracted, and common patterns ready to use.",
     badge: "NEW",
   },
+  {
+    name: "Hash Generator",
+    slug: "/hash-generator",
+    emoji: "🔐",
+    desc: "Generate MD5, SHA-1, SHA-256, and SHA-512 hashes from text or files. Compare hashes side-by-side for integrity checks.",
+    badge: "LIVE",
+  },
+  {
+    name: "HTML Entities Encoder/Decoder",
+    slug: "/html-entities",
+    emoji: "🏷️",
+    desc: "Encode special characters to HTML entities or decode them back. Handles named entities, numeric codes, and bulk text.",
+    badge: "LIVE",
+  },
+  {
+    name: "JavaScript Minifier",
+    slug: "/js-minifier",
+    emoji: "📦",
+    desc: "Minify JavaScript code instantly. Remove whitespace, comments, and shorten variable names for production-ready bundles.",
+    badge: "LIVE",
+  },
+  {
+    name: "CSV ↔ JSON Converter",
+    slug: "/csv-json",
+    emoji: "🔄",
+    desc: "Convert CSV to JSON or JSON to CSV. Supports file upload, custom delimiters, and instant preview of the converted output.",
+    badge: "LIVE",
+  },
+  {
+    name: "Password Generator",
+    slug: "/password-generator",
+    emoji: "🔑",
+    desc: "Generate strong, random passwords with customizable length, character sets, and entropy estimation. Copy with one click.",
+    badge: "LIVE",
+  },
+  {
+    name: "Meta Tag Generator",
+    slug: "/meta-tag-generator",
+    emoji: "🏗️",
+    desc: "Generate SEO meta tags, Open Graph tags, and Twitter cards. Preview how your page looks in search results and social shares.",
+    badge: "LIVE",
+  },
+  {
+    name: "URL Encoder/Decoder",
+    slug: "/url-encoder",
+    emoji: "🌐",
+    desc: "Encode or decode URLs and query parameters. Handles special characters, Unicode, and nested encoding.",
+    badge: "LIVE",
+  },
 ];
 ---
 <html lang="en">
@@ -129,6 +178,9 @@ const tools = [
       border-radius: 20px;
       letter-spacing: 0.5px;
     }
+    .tool-card .badge.live {
+      background: #34d399;
+    }
     .tool-card .emoji { font-size: 2.2rem; margin-bottom: 14px; display: block; }
     .tool-card h2 { font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 8px; }
     .tool-card p { font-size: 0.88rem; color: #888; line-height: 1.6; }
@@ -154,7 +206,7 @@ const tools = [
 <div class="grid">
   {tools.map(tool => (
     <a class="tool-card" href={tool.slug}>
-      {tool.badge && <span class="badge">{tool.badge}</span>}
+      {tool.badge && <span class={`badge ${tool.badge === 'LIVE' ? 'live' : ''}`}>{tool.badge}</span>}
       <span class="emoji">{tool.emoji}</span>
       <h2>{tool.name}</h2>
       <p>{tool.desc}</p>
