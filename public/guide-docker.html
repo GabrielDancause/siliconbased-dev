@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Docker Commands Cheat Sheet | Free Interactive Guide</title>
+<meta name="description" content="Comprehensive Docker CLI reference guide and cheat sheet. Covers build, run, exec, logs, compose, Dockerfile patterns, and best practices. Free, works offline.">
+<meta property="og:title" content="Docker Commands Cheat Sheet">
+<meta property="og:description" content="Comprehensive Docker CLI reference guide and cheat sheet. Covers build, run, exec, logs, compose, Dockerfile patterns, and best practices. Free, works offline.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Docker Commands Cheat Sheet",
+    "url": "https://siliconbased.dev/guide-docker",
+    "description": "Interactive Docker CLI reference and cheat sheet with quick search and copy-to-clipboard functionality.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Docker Commands Cheat Sheet",
+    "description": "Comprehensive Docker CLI reference guide and cheat sheet. Covers build, run, exec, logs, compose, Dockerfile patterns, and best practices.",
+    "author": {
+      "@type": "Organization",
+      "name": "GAB Ventures",
+      "url": "https://gab.ae"
+    }
+  }
+]
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; line-height: 1.6; }
+  code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* Typography */
+  h1, h2, h3, h4 { color: #fff; font-weight: 700; margin-bottom: 1rem; line-height: 1.2; }
+  p { margin-bottom: 1rem; color: #888; }
+  a { color: #818cf8; text-decoration: none; transition: color 0.2s; }
+  a:hover { color: #a5b4fc; }
+
+  /* Layout */
+  .hero { text-align: center; padding: 48px 24px 32px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+  .hero h1 { font-size: 2.4rem; font-weight: 900; margin-bottom: 12px; }
+  .hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero p { color: #888; font-size: 1.05rem; max-width: 600px; margin: 0 auto 24px; }
+
+  .search-container { max-width: 600px; margin: 0 auto; position: relative; }
+  .search-input { width: 100%; background: #111318; border: 1px solid #1e2030; border-radius: 12px; padding: 14px 20px 14px 44px; color: #e0e0e0; font-family: 'Inter', sans-serif; font-size: 1rem; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+  .search-input:focus { border-color: #818cf8; box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.2); }
+  .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #888; width: 20px; height: 20px; }
+
+  .main { max-width: 1200px; margin: 0 auto; padding: 0 20px 64px; flex: 1; width: 100%; }
+
+  /* Grid & Cards */
+  .grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 48px; }
+  @media (min-width: 768px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .card { background: #111318; border: 1px solid #1e2030; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+  .card-header { background: #151722; padding: 16px 20px; border-bottom: 1px solid #1e2030; display: flex; align-items: center; gap: 12px; }
+  .card-icon { width: 24px; height: 24px; color: #818cf8; }
+  .card-title { font-size: 1.1rem; font-weight: 600; color: #fff; margin: 0; }
+  .card-body { padding: 0; display: flex; flex-direction: column; }
+
+  /* Command Items */
+  .cmd-item { border-bottom: 1px solid #1e2030; padding: 16px 20px; }
+  .cmd-item:last-child { border-bottom: none; }
+  .cmd-desc { font-size: 0.9rem; color: #ccc; margin-bottom: 8px; font-weight: 500; }
+  .cmd-code-wrapper { position: relative; background: #0a0b10; border: 1px solid #1e2030; border-radius: 8px; overflow: hidden; }
+  .cmd-code { display: block; padding: 12px 48px 12px 16px; font-size: 0.85rem; color: #a5b4fc; overflow-x: auto; white-space: pre; }
+
+  /* Copy Button */
+  .copy-btn { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: #1e2030; border: 1px solid #2a2d40; color: #888; width: 32px; height: 32px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .copy-btn:hover { background: #2a2d40; color: #fff; border-color: #818cf8; }
+  .copy-btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+  .copy-btn svg { width: 16px; height: 16px; }
+
+  /* Extra details/flags */
+  .cmd-flags { margin-top: 10px; font-size: 0.8rem; color: #888; background: rgba(30, 32, 48, 0.4); padding: 8px 12px; border-radius: 6px; }
+  .cmd-flags code { color: #e0e0e0; background: #1e2030; padding: 2px 4px; border-radius: 4px; font-size: 0.75rem; }
+
+  /* SEO Section */
+  .seo-section { max-width: 800px; margin: 0 auto; padding-top: 48px; border-top: 1px solid #1e2030; }
+  .seo-section h2 { font-size: 1.5rem; margin-top: 32px; margin-bottom: 16px; color: #fff; }
+  .seo-section h3 { font-size: 1.2rem; margin-top: 24px; margin-bottom: 12px; color: #e0e0e0; }
+  .seo-section ul { margin-bottom: 16px; padding-left: 24px; color: #888; }
+  .seo-section li { margin-bottom: 8px; }
+
+  .no-results { grid-column: 1 / -1; text-align: center; padding: 48px 20px; color: #888; background: #111318; border: 1px dashed #1e2030; border-radius: 12px; }
+
+  /* Footer */
+  footer { text-align: center; padding: 32px 20px; border-top: 1px solid #1e2030; color: #888; font-size: 0.9rem; background: #0a0b10; margin-top: auto; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Docker Commands <span>Cheat Sheet</span></h1>
+  <p>Your go-to reference for Docker CLI, Compose, and Dockerfile best practices.</p>
+  <div class="search-container">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    <input type="text" id="searchInput" class="search-input" placeholder="Search commands, flags, or descriptions... (e.g. 'logs', 'build', '-d')">
+  </div>
+</div>
+
+<main class="main">
+  <div class="grid" id="commandsGrid">
+
+    <!-- Image Management -->
+    <div class="card" data-category="images">
+      <div class="card-header">
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+        <h2 class="card-title">Image Management</h2>
+      </div>
+      <div class="card-body">
+        <div class="cmd-item" data-search="docker build -t image build tag file">
+          <div class="cmd-desc">Build an image from a Dockerfile</div>
+          <div class="cmd-code-wrapper">
+            <code class="cmd-code">docker build -t app-name:latest .</code>
+            <button class="copy-btn" title="Copy to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <div class="cmd-flags"><code>-t</code> tag &nbsp; <code>-f</code> specify file &nbsp; <code>--no-cache</code> ignore cache</div>
+        </div>
+        <div class="cmd-item" data-search="docker pull image repository download">
+          <div class="cmd-desc">Pull an image from a registry</div>
+          <div class="cmd-code-wrapper">
+            <code class="cmd-code">docker pull nginx:alpine</code>
+            <button class="copy-btn" title="Copy to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+        </div>
+        <div class="cmd-item" data-search="docker images ls list local">
+          <div class="cmd-desc">List local images</div>
+          <div class="cmd-code-wrapper">
+            <code class="cmd-code">docker images</code>
+            <button class="copy-btn" title="Copy to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+        </div>
+        <div class="cmd-item" data-search="docker rmi remove delete image">
+          <div class="cmd-desc">Remove an image</div>
+          <div class="cmd-code-wrapper">
+            <code class="cmd-code">docker rmi image_id</code>
+            <button class="copy-btn" title="Copy to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+        </div>
+        <div class="cmd-item" data-search="docker image prune clean dangling">
+          <div class="cmd-desc">Remove dangling/unused images</div>
+          <div class="cmd-code-wrapper">
+            <code class="cmd-code">docker image prune -a</code>
+            <button class="copy-btn" title="Copy to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Container Lifecycle -->
+    <div class="card" data-category="containers">
+      <div class="card-header">
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+        <h2 class="card-title">Container Lifecycle</h2>
+      </div>
+      <div class="card-body">
+        <div class="cmd-item" data-search="docker run start container -p -d port background detach">
+          <div class="cmd-desc">Run a container (detached, with ports)</div>
+          <div class="cmd-code-wrapper">
+            <code class="cmd-code">docker run -d -p 8080:80 --name myapp nginx</code>
+            <button class="copy-btn" title="Copy to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <div class="cmd-flags"><code>-d</code> detached &nbsp; <code>-p</code> host:container port &nbsp; <code>-v</code> volume</div>
+        </div>
+        <div class="cmd-item" data-search="docker ps list running containers -a all">
+          <div class="cmd-desc">List running containers</div>
+          <div class="cmd-code-wrapper">
+            <code class="cmd-code">docker ps -a</code>
+            <button class="copy-btn" title="Copy to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <div class="cmd-flags"><code>-a</code> include stopped containers</div>
+        </div>
+        <div class="cmd-item" data-search="docker stop container halt">
+          <div class="cmd-desc">Stop a running container</div>
+          <div class="cmd-code-wrapper">
+            <code class="cmd-code">docker stop container_id</code>
+            <button class="copy-btn" title="Copy to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+        </div>
+        <div class="cmd-item" data-search="docker rm remove delete container">
+          <div class="cmd-desc">Remove a stopped container</div>
+          <div class="cmd-code-wrapper">
+            <code class="cmd-code">docker rm container_id</code>
+            <button class="copy-btn" title="Copy to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <div class="cmd-flags"><code>-f</code> force removal (even if running)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interacting with Containers -->
+    <div class="card" data-category="interacting">
+      <div class="card-header">
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+        <h2 class="card-title">Interacting & Executing</h2>
+      </div>
+      <div class="card-body">
+        <div class="cmd-item" data-search="docker exec shell sh bash interact interactive terminal -it">
+          <div class="cmd-desc">Execute a shell inside a container</div>
+          <div class="cmd-code-wrapper">
+            <code class="cmd-code">docker exec -it container_id /bin/sh</code>
+            <button class="copy-btn" title="Copy to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <div class="cmd-flags"><code>-it</code> interactive tty</div>
+        </div>
+        <div class="cmd-item" data-search="docker logs view output tail -f">
+          <div class="cmd-desc">View container logs</div>
+          <div class="cmd-code-wrapper">
+            <code class="cmd-code">docker logs -f container_id</code>
+            <button class="copy-btn" title="Copy to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <div class="cmd-flags"><code>-f</code> follow &nbsp; <code>--tail 100</code> last 100 lines</div>
+        </div>
+        <div class="cmd-item" data-search="docker top process list resources ps">
+          <div class="cmd-desc">Display running processes in container</div>
+          <div class="cmd-code-wrapper">
+            <code class="cmd-code">docker top container_id</code>
+            <button class="copy-btn" title="Copy to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+        </div>
+        <div class="cmd-item" data-search="docker inspect metadata info details format json">
+          <div class="cmd-desc">Return low-level information (JSON)</div>
+          <div class="cmd-code-wrapper">
+            <code class="cmd-code">docker inspect container_id</code>
+            <button class="copy-btn" title="Copy to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Docker Compose -->
+    <div class="card" data-category="compose">
+      <div class="card-header">
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+        <h2 class="card-title">Docker Compose</h2>
+      </div>
+      <div class="card-body">
+        <div class="cmd-item" data-search="docker compose up start background detach -d">
+          <div class="cmd-desc">Start all services in background</div>
+          <div class="cmd-code-wrapper">
+            <code class="cmd-code">docker compose up -d</code>
+            <button class="copy-btn" title="Copy to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+        </div>
+        <div class="cmd-item" data-search="docker compose down stop halt remove rm">
+          <div class="cmd-desc">Stop and remove containers, networks</div>
+          <div class="cmd-code-wrapper">
+            <code class="cmd-code">docker compose down</code>
+            <button class="copy-btn" title="Copy to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <div class="cmd-flags"><code>-v</code> also remove named volumes</div>
+        </div>
+        <div class="cmd-item" data-search="docker compose logs tail follow output">
+          <div class="cmd-desc">View logs for all compose services</div>
+          <div class="cmd-code-wrapper">
+            <code class="cmd-code">docker compose logs -f</code>
+            <button class="copy-btn" title="Copy to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+        </div>
+        <div class="cmd-item" data-search="docker compose build create compile">
+          <div class="cmd-desc">Build or rebuild services</div>
+          <div class="cmd-code-wrapper">
+            <code class="cmd-code">docker compose build --no-cache</code>
+            <button class="copy-btn" title="Copy to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Networks & Volumes -->
+    <div class="card" data-category="networks volumes data">
+      <div class="card-header">
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        <h2 class="card-title">Networks & Volumes</h2>
+      </div>
+      <div class="card-body">
+        <div class="cmd-item" data-search="docker network create ls inspect connect list">
+          <div class="cmd-desc">List and create networks</div>
+          <div class="cmd-code-wrapper">
+            <code class="cmd-code">docker network ls<br>docker network create my_net</code>
+            <button class="copy-btn" title="Copy to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+        </div>
+        <div class="cmd-item" data-search="docker volume create ls inspect list data">
+          <div class="cmd-desc">List and create volumes</div>
+          <div class="cmd-code-wrapper">
+            <code class="cmd-code">docker volume ls<br>docker volume create my_data</code>
+            <button class="copy-btn" title="Copy to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+        </div>
+        <div class="cmd-item" data-search="docker system prune clean wipe storage all everything">
+          <div class="cmd-desc">Clean up everything (system prune)</div>
+          <div class="cmd-code-wrapper">
+            <code class="cmd-code">docker system prune -a --volumes</code>
+            <button class="copy-btn" title="Copy to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+          <div class="cmd-flags">Removes stopped containers, unused networks/images, and volumes.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dockerfile Patterns -->
+    <div class="card" data-category="dockerfile syntax best practices">
+      <div class="card-header">
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        <h2 class="card-title">Dockerfile Basics</h2>
+      </div>
+      <div class="card-body">
+        <div class="cmd-item" data-search="FROM image base FROM ubuntu node alpine">
+          <div class="cmd-desc">Base Image Definition</div>
+          <div class="cmd-code-wrapper">
+            <code class="cmd-code">FROM node:18-alpine</code>
+            <button class="copy-btn" title="Copy to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+        </div>
+        <div class="cmd-item" data-search="WORKDIR cd path directory context">
+          <div class="cmd-desc">Set Working Directory</div>
+          <div class="cmd-code-wrapper">
+            <code class="cmd-code">WORKDIR /app</code>
+            <button class="copy-btn" title="Copy to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+        </div>
+        <div class="cmd-item" data-search="COPY ADD files move context build">
+          <div class="cmd-desc">Copy files into image</div>
+          <div class="cmd-code-wrapper">
+            <code class="cmd-code">COPY package*.json ./<br>COPY . .</code>
+            <button class="copy-btn" title="Copy to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+        </div>
+        <div class="cmd-item" data-search="RUN cmd install execute run script">
+          <div class="cmd-desc">Run build commands</div>
+          <div class="cmd-code-wrapper">
+            <code class="cmd-code">RUN npm install --production</code>
+            <button class="copy-btn" title="Copy to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+        </div>
+        <div class="cmd-item" data-search="CMD ENTRYPOINT start run script container execute">
+          <div class="cmd-desc">Define container startup command</div>
+          <div class="cmd-code-wrapper">
+            <code class="cmd-code">CMD ["node", "app.js"]</code>
+            <button class="copy-btn" title="Copy to clipboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="noResults" class="no-results" style="display: none;">
+    <h3>No matching commands found</h3>
+    <p>Try adjusting your search terms.</p>
+  </div>
+
+  <section class="seo-section">
+    <h2>Why Use This Docker Cheat Sheet?</h2>
+    <p>Docker has fundamentally changed how developers build, ship, and run applications. However, remembering every command, flag, and configuration option in the <strong>Docker CLI</strong> can be challenging. This interactive reference guide is designed to provide quick, filterable access to the most common Docker commands and Dockerfile patterns.</p>
+
+    <h3>Best Practices for Dockerfiles</h3>
+    <ul>
+      <li><strong>Use Official Base Images:</strong> Start with official, minimal images like <code>alpine</code> or slim variants of Node/Python to reduce attack surface and download size.</li>
+      <li><strong>Leverage Build Cache:</strong> Order your <code>Dockerfile</code> commands from least likely to change (like copying dependency manifests) to most likely to change (like source code).</li>
+      <li><strong>Multi-stage Builds:</strong> Use multi-stage builds to compile code in one container and copy only the final artifacts into a smaller runtime container.</li>
+      <li><strong>Don't Run as Root:</strong> Define a non-root user (e.g., <code>USER node</code>) for better security and isolation.</li>
+    </ul>
+
+    <h3>Understanding Container Lifecycle</h3>
+    <p>A typical Docker workflow involves building an image (<code>docker build</code>), running a container instance from that image (<code>docker run</code>), viewing its outputs (<code>docker logs</code>), and eventually stopping and removing it (<code>docker stop</code> and <code>docker rm</code>). For multi-container applications, <strong>Docker Compose</strong> (<code>docker compose up</code>) simplifies orchestration by defining the entire stack in a single YAML file.</p>
+  </section>
+
+</main>
+
+<footer>
+  © 2025 siliconbased.dev · A <a href="https://gab.ae" target="_blank" rel="noopener">GAB Ventures</a> property
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const searchInput = document.getElementById('searchInput');
+  const cards = document.querySelectorAll('.card');
+  const noResults = document.getElementById('noResults');
+  const copyBtns = document.querySelectorAll('.copy-btn');
+
+  // Search/Filter Functionality
+  searchInput.addEventListener('input', (e) => {
+    const term = e.target.value.toLowerCase().trim();
+    let hasVisibleCommands = false;
+
+    cards.forEach(card => {
+      const cmdItems = card.querySelectorAll('.cmd-item');
+      let cardHasVisibleItems = false;
+
+      cmdItems.forEach(item => {
+        const searchText = item.getAttribute('data-search').toLowerCase();
+        const itemText = item.textContent.toLowerCase();
+
+        if (searchText.includes(term) || itemText.includes(term)) {
+          item.style.display = 'block';
+          cardHasVisibleItems = true;
+          hasVisibleCommands = true;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      // Show/hide entire card based on item visibility
+      if (cardHasVisibleItems) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    if (hasVisibleCommands || term === '') {
+      noResults.style.display = 'none';
+    } else {
+      noResults.style.display = 'block';
+    }
+  });
+
+  // Copy functionality
+  copyBtns.forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const codeWrapper = btn.closest('.cmd-code-wrapper');
+      if (!codeWrapper) return;
+
+      const codeElement = codeWrapper.querySelector('.cmd-code');
+      // replace <br> with newline for multiline commands
+      const codeText = codeElement.innerHTML.replace(/<br\s*[\/]?>/gi, '\n').replace(/&nbsp;/g, ' ').replace(/<[^>]*>?/gm, '');
+
+      try {
+        await navigator.clipboard.writeText(codeText.trim());
+
+        // Visual feedback
+        const originalIcon = btn.innerHTML;
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+        btn.classList.add('copied');
+
+        setTimeout(() => {
+          btn.innerHTML = originalIcon;
+          btn.classList.remove('copied');
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy text: ', err);
+      }
+    });
+  });
+});
+</script>
+
+</body>
+</html>
