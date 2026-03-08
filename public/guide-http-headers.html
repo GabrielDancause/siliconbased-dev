@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTTP Headers Explained | Reference Guide</title>
+<meta name="description" content="Complete guide to HTTP request and response headers. Interactive examples, security, caching, CORS, authentication, and more. Free and offline-capable.">
+<meta property="og:title" content="HTTP Headers Explained">
+<meta property="og:description" content="Complete guide to HTTP request and response headers. Interactive examples, security, caching, CORS, authentication, and more. Free and offline-capable.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "HTTP Headers Explained",
+      "url": "https://siliconbased.dev/guide-http-headers",
+      "description": "Interactive reference guide for HTTP request and response headers, including security, caching, CORS, and authentication headers.",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+    },
+    {
+      "@type": "Article",
+      "headline": "HTTP Headers Explained: A Complete Guide",
+      "description": "A comprehensive reference guide for understanding HTTP headers, how they work, and their common use cases.",
+      "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+    }
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+/* Hero Section */
+.hero { text-align: center; padding: 48px 24px 24px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.4rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+
+/* Main Content */
+.main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* UI Controls */
+.controls { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; background: #111318; padding: 20px; border-radius: 12px; border: 1px solid #1e2030; }
+.search-bar { position: relative; width: 100%; }
+.search-bar input { width: 100%; padding: 14px 16px 14px 44px; background: #0a0b10; border: 1px solid #2a2d40; border-radius: 8px; color: #fff; font-family: 'Inter', sans-serif; font-size: 1rem; outline: none; transition: border-color 0.2s; }
+.search-bar input:focus { border-color: #818cf8; }
+.search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: #888; }
+
+.filters { display: flex; gap: 8px; flex-wrap: wrap; }
+.filter-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.filter-btn:hover { background: #2a2d40; color: #ccc; }
+.filter-btn.active { background: #818cf8; color: #fff; border-color: #818cf8; }
+
+/* Header Cards Grid */
+.header-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
+
+/* Header Card */
+.header-card { background: #111318; border: 1px solid #1e2030; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 12px; transition: border-color 0.2s, transform 0.2s; position: relative; }
+.header-card:hover { border-color: #2a2d40; transform: translateY(-2px); }
+
+.card-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.header-name { font-size: 1.25rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: #fff; margin-bottom: 4px; word-break: break-all; }
+.header-badge { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; padding: 2px 8px; border-radius: 12px; font-weight: 600; display: inline-block; }
+
+/* Badge Colors */
+.cat-general .header-badge { background: #1e293b; color: #94a3b8; border: 1px solid #334155; }
+.cat-request .header-badge { background: #14532d; color: #86efac; border: 1px solid #166534; }
+.cat-response .header-badge { background: #1e3a8a; color: #93c5fd; border: 1px solid #1e40af; }
+.cat-security .header-badge { background: #7f1d1d; color: #fca5a5; border: 1px solid #991b1b; }
+.cat-caching .header-badge { background: #713f12; color: #fde047; border: 1px solid #854d0e; }
+.cat-cors .header-badge { background: #4c1d95; color: #c4b5fd; border: 1px solid #5b21b6; }
+.cat-auth .header-badge { background: #831843; color: #f9a8d4; border: 1px solid #9d174d; }
+
+.header-desc { font-size: 0.9rem; color: #888; line-height: 1.5; }
+
+/* Expandable Details */
+.card-details { margin-top: 12px; padding-top: 12px; border-top: 1px solid #1e2030; display: none; flex-direction: column; gap: 12px; }
+.header-card.expanded .card-details { display: flex; }
+
+.detail-section h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; color: #888; margin-bottom: 6px; font-weight: 600; }
+.detail-section p { font-size: 0.85rem; color: #ccc; line-height: 1.5; }
+.detail-section .code-block { background: #0a0b10; padding: 10px; border-radius: 6px; border: 1px solid #1e2030; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #e0e0e0; overflow-x: auto; white-space: pre-wrap; word-break: break-all; position: relative; }
+.detail-section .code-block code { color: #818cf8; }
+
+.copy-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 6px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; display: flex; align-items: center; gap: 6px; }
+.copy-btn:hover { background: #2a2d40; color: #ccc; }
+.copy-btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+.copy-btn svg { width: 14px; height: 14px; }
+
+.expand-btn { background: none; border: none; color: #818cf8; font-size: 0.85rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; display: flex; align-items: center; gap: 6px; padding: 4px 0; width: fit-content; }
+.expand-btn:hover { text-decoration: underline; }
+.expand-btn svg { width: 16px; height: 16px; transition: transform 0.2s; }
+.header-card.expanded .expand-btn svg { transform: rotate(180deg); }
+
+.no-results { grid-column: 1 / -1; text-align: center; padding: 40px; color: #888; font-size: 1.1rem; background: #111318; border-radius: 12px; border: 1px dashed #2a2d40; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .hero h1 { font-size: 2rem; }
+  .header-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>HTTP Headers <span>Explained</span></h1>
+  <p>Complete reference guide to HTTP request and response headers.</p>
+</div>
+
+<div class="main">
+  <div class="controls">
+    <div class="search-bar">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" id="searchInput" placeholder="Search by header name, description, or example...">
+    </div>
+    <div class="filters" id="categoryFilters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="general">General</button>
+      <button class="filter-btn" data-filter="request">Request</button>
+      <button class="filter-btn" data-filter="response">Response</button>
+      <button class="filter-btn" data-filter="security">Security</button>
+      <button class="filter-btn" data-filter="caching">Caching</button>
+      <button class="filter-btn" data-filter="cors">CORS</button>
+      <button class="filter-btn" data-filter="auth">Auth</button>
+    </div>
+  </div>
+
+  <div class="header-grid" id="headerGrid">
+    <!-- Header cards will be dynamically injected here -->
+  </div>
+
+  <div class="seo-content">
+    <h2>What are HTTP Headers?</h2>
+    <p>HTTP headers are core components of HTTP requests and responses. They let the client and the server pass additional information with an HTTP request or response. An HTTP header consists of its case-insensitive name followed by a colon (<code>:</code>), then by its value.</p>
+
+    <p>Headers can be grouped according to their contexts:</p>
+    <ul>
+      <li><strong>General headers:</strong> Apply to both requests and responses, but with no relation to the data transmitted in the body.</li>
+      <li><strong>Request headers:</strong> Contain more information about the resource to be fetched, or about the client requesting the resource.</li>
+      <li><strong>Response headers:</strong> Hold additional information about the response, like its location or about the server providing it.</li>
+      <li><strong>Entity headers:</strong> Contain information about the body of the resource, like its content length or MIME type.</li>
+    </ul>
+
+    <h2>Why HTTP Headers Matter</h2>
+    <p>Understanding headers is crucial for modern web development. They control vital aspects of how the web functions:</p>
+    <ul>
+      <li><strong>Security:</strong> Headers like <code>Content-Security-Policy</code> (CSP) and <code>Strict-Transport-Security</code> (HSTS) protect users from Cross-Site Scripting (XSS) and man-in-the-middle attacks.</li>
+      <li><strong>Caching:</strong> The <code>Cache-Control</code> header dictates how browsers and CDNs should cache resources, drastically improving website performance and reducing server load.</li>
+      <li><strong>Content Negotiation:</strong> <code>Accept</code> and <code>Content-Type</code> headers ensure the client and server understand the format of the data being exchanged (e.g., JSON, HTML, or images).</li>
+      <li><strong>Authentication:</strong> The <code>Authorization</code> header is the standard mechanism for passing credentials, tokens (like JWTs), or API keys to secure endpoints.</li>
+      <li><strong>CORS (Cross-Origin Resource Sharing):</strong> Headers like <code>Access-Control-Allow-Origin</code> define which domains are permitted to access resources via browser-based scripts, enabling secure integrations.</li>
+    </ul>
+
+    <p>This reference tool runs entirely in your browser and works offline after the initial load, allowing developers to quickly look up header syntax and examples without relying on an internet connection.</p>
+  </div>
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const httpHeaders = [
+  { name: "Accept", cat: "request", desc: "Informs the server about the types of data that can be sent back.", example: "Accept: text/html, application/xhtml+xml, application/xml;q=0.9, image/webp, */*;q=0.8" },
+  { name: "Accept-Charset", cat: "request", desc: "Which character encodings the client understands.", example: "Accept-Charset: utf-8, iso-8859-1;q=0.5" },
+  { name: "Accept-Encoding", cat: "request", desc: "The encoding algorithm, usually a compression algorithm, that can be used on the resource sent back.", example: "Accept-Encoding: gzip, deflate, br" },
+  { name: "Accept-Language", cat: "request", desc: "Informs the server about the human language the server is expected to send back.", example: "Accept-Language: en-US, en;q=0.9, fr;q=0.8" },
+  { name: "Access-Control-Allow-Credentials", cat: "cors", desc: "Indicates whether the response to the request can be exposed when the credentials flag is true.", example: "Access-Control-Allow-Credentials: true" },
+  { name: "Access-Control-Allow-Headers", cat: "cors", desc: "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request.", example: "Access-Control-Allow-Headers: X-Custom-Header, Upgrade-Insecure-Requests" },
+  { name: "Access-Control-Allow-Methods", cat: "cors", desc: "Specifies the methods allowed when accessing the resource in response to a preflight request.", example: "Access-Control-Allow-Methods: GET, POST, OPTIONS" },
+  { name: "Access-Control-Allow-Origin", cat: "cors", desc: "Indicates whether the response can be shared with requesting code from the given origin.", example: "Access-Control-Allow-Origin: https://example.com" },
+  { name: "Access-Control-Expose-Headers", cat: "cors", desc: "Lets a server allowlist headers that browsers are allowed to access.", example: "Access-Control-Expose-Headers: Content-Length, X-Kuma-Revision" },
+  { name: "Access-Control-Max-Age", cat: "cors", desc: "Indicates how long the results of a preflight request can be cached.", example: "Access-Control-Max-Age: 86400" },
+  { name: "Access-Control-Request-Headers", cat: "cors", desc: "Used when issuing a preflight request to let the server know which HTTP headers the client might use.", example: "Access-Control-Request-Headers: X-PINGOTHER, Content-Type" },
+  { name: "Access-Control-Request-Method", cat: "cors", desc: "Used when issuing a preflight request to let the server know which HTTP method will be used.", example: "Access-Control-Request-Method: POST" },
+  { name: "Age", cat: "caching", desc: "The time, in seconds, that the object has been in a proxy cache.", example: "Age: 24" },
+  { name: "Allow", cat: "general", desc: "Lists the set of methods supported by a resource.", example: "Allow: GET, POST, HEAD" },
+  { name: "Authorization", cat: "auth", desc: "Contains the credentials to authenticate a user-agent with a server.", example: "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." },
+  { name: "Cache-Control", cat: "caching", desc: "Directives for caching mechanisms in both requests and responses.", example: "Cache-Control: no-cache, no-store, must-revalidate" },
+  { name: "Clear-Site-Data", cat: "security", desc: "Clears browsing data (cookies, storage, cache) associated with the requesting website.", example: "Clear-Site-Data: \"cache\", \"cookies\", \"storage\"" },
+  { name: "Connection", cat: "general", desc: "Controls whether the network connection stays open after the current transaction finishes.", example: "Connection: keep-alive" },
+  { name: "Content-Disposition", cat: "response", desc: "Indicates if the content is expected to be displayed inline in the browser, or as an attachment.", example: "Content-Disposition: attachment; filename=\"filename.jpg\"" },
+  { name: "Content-Encoding", cat: "response", desc: "Used to compress the media-type. When present, its value indicates which encodings were applied.", example: "Content-Encoding: gzip" },
+  { name: "Content-Language", cat: "response", desc: "Describes the human language(s) intended for the audience, so that it allows a user to differentiate according to the users' own preferred language.", example: "Content-Language: en-US" },
+  { name: "Content-Length", cat: "response", desc: "The size of the resource, in decimal number of bytes.", example: "Content-Length: 348" },
+  { name: "Content-Security-Policy", cat: "security", desc: "Allows site administrators to declare approved sources of content that the browser may load.", example: "Content-Security-Policy: default-src 'self'; img-src 'self' data: https:;" },
+  { name: "Content-Type", cat: "general", desc: "Indicates the media type of the resource.", example: "Content-Type: application/json; charset=utf-8" },
+  { name: "Cookie", cat: "request", desc: "Contains stored HTTP cookies previously sent by the server with the Set-Cookie header.", example: "Cookie: sessionId=38afes7a8" },
+  { name: "Cross-Origin-Embedder-Policy", cat: "security", desc: "Allows a document to prevent loading cross-origin resources that don't explicitly grant permission.", example: "Cross-Origin-Embedder-Policy: require-corp" },
+  { name: "Cross-Origin-Opener-Policy", cat: "security", desc: "Lets you ensure a top-level document does not share a browsing context group with cross-origin documents.", example: "Cross-Origin-Opener-Policy: same-origin" },
+  { name: "Cross-Origin-Resource-Policy", cat: "security", desc: "Conveys a desire that the browser blocks no-cors cross-origin/cross-site requests to the given resource.", example: "Cross-Origin-Resource-Policy: same-site" },
+  { name: "Date", cat: "general", desc: "Contains the date and time at which the message was originated.", example: "Date: Wed, 21 Oct 2015 07:28:00 GMT" },
+  { name: "ETag", cat: "caching", desc: "An identifier for a specific version of a resource, often a message digest.", example: "ETag: \"33a64df551425fcc55e4d42a148795d9f25f89d4\"" },
+  { name: "Expect", cat: "request", desc: "Indicates expectations that need to be fulfilled by the server.", example: "Expect: 100-continue" },
+  { name: "Expires", cat: "caching", desc: "The date/time after which the response is considered stale.", example: "Expires: Wed, 21 Oct 2015 07:28:00 GMT" },
+  { name: "Forwarded", cat: "request", desc: "Contains information from the client-facing side of proxy servers that is altered or lost when a proxy is involved in the path.", example: "Forwarded: for=192.0.2.60;proto=http;by=203.0.113.43" },
+  { name: "From", cat: "request", desc: "Contains an Internet email address for a human user who controls the requesting user agent.", example: "From: webmaster@example.org" },
+  { name: "Host", cat: "request", desc: "Specifies the domain name of the server (for virtual hosting), and (optionally) the TCP port number on which the server is listening.", example: "Host: en.wikipedia.org:8080" },
+  { name: "If-Match", cat: "caching", desc: "Makes the request conditional, and applies the method only if the stored resource matches one of the given ETags.", example: "If-Match: \"737060cd8c284d8af7ad3082f209582d\"" },
+  { name: "If-Modified-Since", cat: "caching", desc: "Makes the request conditional, and expects the entity to be transmitted only if it has been modified after the given date.", example: "If-Modified-Since: Wed, 21 Oct 2015 07:28:00 GMT" },
+  { name: "If-None-Match", cat: "caching", desc: "Makes the request conditional, and applies the method only if the stored resource doesn't match any of the given ETags.", example: "If-None-Match: \"737060cd8c284d8af7ad3082f209582d\"" },
+  { name: "If-Unmodified-Since", cat: "caching", desc: "Makes the request conditional, and expects the entity to be transmitted only if it has not been modified after the given date.", example: "If-Unmodified-Since: Wed, 21 Oct 2015 07:28:00 GMT" },
+  { name: "Keep-Alive", cat: "general", desc: "Controls how long a persistent connection should stay open.", example: "Keep-Alive: timeout=5, max=1000" },
+  { name: "Location", cat: "response", desc: "Indicates the URL to redirect a page to. Only provides a meaning when served with a 3xx (redirection) or 201 (created) status response.", example: "Location: /index.html" },
+  { name: "Origin", cat: "request", desc: "Indicates where a fetch originates from.", example: "Origin: https://developer.mozilla.org" },
+  { name: "Proxy-Authenticate", cat: "auth", desc: "Defines the authentication method that should be used to access a resource behind a proxy server.", example: "Proxy-Authenticate: Basic" },
+  { name: "Proxy-Authorization", cat: "auth", desc: "Contains the credentials to authenticate a user agent with a proxy server.", example: "Proxy-Authorization: Basic YWxhZGRpbjpvcGVuc2VzYW1l" },
+  { name: "Range", cat: "request", desc: "Indicates the part of a document that the server should return.", example: "Range: bytes=200-1000, 2000-6576, 19000-" },
+  { name: "Referer", cat: "request", desc: "The address of the previous web page from which a link to the currently requested page was followed.", example: "Referer: https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
+  { name: "Referrer-Policy", cat: "security", desc: "Governs which referrer information sent in the Referer header should be included with requests made.", example: "Referrer-Policy: no-referrer-when-downgrade" },
+  { name: "Retry-After", cat: "response", desc: "Indicates how long the user agent should wait before making a follow-up request.", example: "Retry-After: 120" },
+  { name: "Server", cat: "response", desc: "Contains information about the software used by the origin server to handle the request.", example: "Server: Apache/2.4.1 (Unix)" },
+  { name: "Server-Timing", cat: "response", desc: "Communicates one or more metrics and descriptions for the given request-response cycle.", example: "Server-Timing: miss, db;dur=53, app;dur=47.2" },
+  { name: "Set-Cookie", cat: "response", desc: "Send cookies from the server to the user-agent.", example: "Set-Cookie: UserID=JohnDoe; Max-Age=3600; Version=1" },
+  { name: "Strict-Transport-Security", cat: "security", desc: "Tells the browser that the site should only be accessed using HTTPS.", example: "Strict-Transport-Security: max-age=63072000; includeSubDomains; preload" },
+  { name: "TE", cat: "request", desc: "Specifies the transfer encodings the user agent is willing to accept.", example: "TE: trailers, deflate" },
+  { name: "Transfer-Encoding", cat: "response", desc: "The form of encoding used to safely transfer the payload body to the user.", example: "Transfer-Encoding: chunked" },
+  { name: "Upgrade-Insecure-Requests", cat: "security", desc: "Sends a signal to the server expressing the client's preference for an encrypted and authenticated response.", example: "Upgrade-Insecure-Requests: 1" },
+  { name: "User-Agent", cat: "request", desc: "Contains a characteristic string that allows the network protocol peers to identify the application type, operating system, software vendor or software version of the requesting software user agent.", example: "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36" },
+  { name: "Vary", cat: "caching", desc: "Determines how to match future request headers to decide whether a cached response can be used.", example: "Vary: Accept-Encoding" },
+  { name: "Via", cat: "general", desc: "Added by proxies, both forward and reverse proxies, and can appear in the request headers and the response headers.", example: "Via: 1.0 fred, 1.1 p.example.net" },
+  { name: "WWW-Authenticate", cat: "auth", desc: "Defines the authentication method that should be used to gain access to a resource.", example: "WWW-Authenticate: Bearer realm=\"example\"" },
+  { name: "X-Content-Type-Options", cat: "security", desc: "A marker used by the server to indicate that the MIME types advertised in the Content-Type headers should not be changed and be followed.", example: "X-Content-Type-Options: nosniff" },
+  { name: "X-Forwarded-For", cat: "request", desc: "The de-facto standard header for identifying the originating IP address of a client connecting to a web server through an HTTP proxy or load balancer.", example: "X-Forwarded-For: 203.0.113.195, 70.41.3.18, 150.172.238.178" },
+  { name: "X-Frame-Options", cat: "security", desc: "Indicates whether or not a browser should be allowed to render a page in a <frame>, <iframe>, <embed> or <object>.", example: "X-Frame-Options: DENY" },
+  { name: "X-XSS-Protection", cat: "security", desc: "Stops pages from loading when they detect reflected cross-site scripting (XSS) attacks.", example: "X-XSS-Protection: 1; mode=block" }
+];
+
+const headerGrid = document.getElementById('headerGrid');
+const searchInput = document.getElementById('searchInput');
+const filterBtns = document.querySelectorAll('.filter-btn');
+
+let currentFilter = 'all';
+let currentSearch = '';
+
+function renderHeaderCards() {
+  headerGrid.innerHTML = '';
+
+  const filteredHeaders = httpHeaders.filter(item => {
+    const matchesFilter = currentFilter === 'all' || item.cat === currentFilter;
+    const matchesSearch = item.name.toLowerCase().includes(currentSearch.toLowerCase()) ||
+                          item.desc.toLowerCase().includes(currentSearch.toLowerCase()) ||
+                          item.example.toLowerCase().includes(currentSearch.toLowerCase());
+    return matchesFilter && matchesSearch;
+  });
+
+  if (filteredHeaders.length === 0) {
+    headerGrid.innerHTML = '<div class="no-results">No HTTP headers found matching your criteria.</div>';
+    return;
+  }
+
+  filteredHeaders.forEach(item => {
+    const card = document.createElement('div');
+    card.className = `header-card cat-${item.cat}`;
+
+    // Escape single quotes for inline onclick handler and double quotes for HTML attribute
+    const escapedExample = item.example.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+
+    card.innerHTML = `
+      <div class="card-top">
+        <div>
+          <div class="header-name">${item.name}</div>
+          <div class="header-badge">${getCategoryName(item.cat)}</div>
+        </div>
+        <button class="copy-btn" onclick="copyCode(this, '${escapedExample}')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          Copy
+        </button>
+      </div>
+      <div class="header-desc">${item.desc}</div>
+      <button class="expand-btn" onclick="toggleDetails(this)">
+        View Example
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="card-details">
+        <div class="detail-section">
+          <h4>Example Syntax</h4>
+          <div class="code-block"><code>${escapeHTML(item.example)}</code></div>
+        </div>
+      </div>
+    `;
+    headerGrid.appendChild(card);
+  });
+}
+
+function getCategoryName(cat) {
+  switch(cat) {
+    case 'general': return 'General';
+    case 'request': return 'Request';
+    case 'response': return 'Response';
+    case 'security': return 'Security';
+    case 'caching': return 'Caching';
+    case 'cors': return 'CORS';
+    case 'auth': return 'Auth';
+    default: return cat;
+  }
+}
+
+function escapeHTML(str) {
+  return str.replace(/[&<>'"]/g,
+    tag => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      "'": '&#39;',
+      '"': '&quot;'
+    }[tag])
+  );
+}
+
+function copyCode(btn, code) {
+  navigator.clipboard.writeText(code).then(() => {
+    const originalText = btn.innerHTML;
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied`;
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.innerHTML = originalText;
+      btn.classList.remove('copied');
+    }, 1500);
+  });
+}
+
+function toggleDetails(btn) {
+  const card = btn.closest('.header-card');
+  card.classList.toggle('expanded');
+}
+
+// Event Listeners
+searchInput.addEventListener('input', (e) => {
+  currentSearch = e.target.value;
+  renderHeaderCards();
+});
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.filter;
+    renderHeaderCards();
+  });
+});
+
+// Initial render
+renderHeaderCards();
+</script>
+</body>
+</html>
