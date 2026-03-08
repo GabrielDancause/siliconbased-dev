@@ -3,14 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>State of Security Headers 2025 — Analysis of 100 Top Websites | siliconbased.dev</title>
-<meta name="description" content="Original research: We crawled 100 of the world's most popular websites and analyzed their HTTP security headers. Only 13% have an A grade. Amazon and Microsoft score F. Full interactive results.">
-<meta property="og:title" content="State of Security Headers 2025 — Only 13% of Top Sites Get an A">
-<meta property="og:description" content="We crawled 100 top websites and graded their security headers. The results are worse than you think.">
+<title>HTTP Security Headers: Which Sites Use HSTS, CSP &amp; X-Frame-Options? (85 Sites Analyzed, 2026) | siliconbased.dev</title>
+<meta name="description" content="Original research: We analyzed HTTP security headers across 85 top websites. Only 13% score an A. Amazon and Microsoft have zero headers. Full data on HSTS, CSP, X-Frame-Options adoption rates.">
+<meta property="og:title" content="HTTP Security Headers Data 2026 — Only 13% of Top Sites Get an A">
+<meta property="og:description" content="We crawled 85 top websites and graded their security headers. HSTS adoption: 82%. CSP: 52%. Permissions-Policy: 19%. Full interactive data.">
 <meta property="og:type" content="article">
 <link rel="canonical" href="https://siliconbased.dev/security-headers-study">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","headline":"State of Security Headers 2025","description":"Analysis of HTTP security headers across 100 top websites","author":{"@type":"Organization","name":"siliconbased.dev","url":"https://siliconbased.dev"},"publisher":{"@type":"Organization","name":"GAB Ventures","url":"https://gab.ae"},"datePublished":"2026-03-08","dateModified":"2026-03-08"}
+{"@context":"https://schema.org","@type":"Article","headline":"HTTP Security Headers: HSTS, CSP & X-Frame-Options Adoption Across 85 Top Websites (2026)","description":"Original research analyzing HTTP security header adoption rates across 85 top websites","author":{"@type":"Organization","name":"siliconbased.dev","url":"https://siliconbased.dev"},"publisher":{"@type":"Organization","name":"GAB Ventures","url":"https://gab.ae"},"datePublished":"2026-03-08","dateModified":"2026-03-08"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What percentage of websites use HSTS (Strict-Transport-Security)?","acceptedAnswer":{"@type":"Answer","text":"Based on our analysis of 85 top websites in March 2026, 82% implement the Strict-Transport-Security (HSTS) header, making it the most widely adopted security header."}},
+{"@type":"Question","name":"What percentage of websites use Content-Security-Policy (CSP)?","acceptedAnswer":{"@type":"Answer","text":"Only 52% of top websites implement Content-Security-Policy. Despite being the most powerful defense against XSS attacks, nearly half of major sites don't use it."}},
+{"@type":"Question","name":"Does Amazon use security headers?","acceptedAnswer":{"@type":"Answer","text":"No. As of March 2026, amazon.com implements zero standard HTTP security headers, receiving a Grade F in our study. This is notable given Amazon processes hundreds of billions in annual transactions."}},
+{"@type":"Question","name":"What are the most important HTTP security headers?","acceptedAnswer":{"@type":"Answer","text":"The four most critical security headers are: Strict-Transport-Security (HSTS) to force HTTPS, Content-Security-Policy (CSP) to prevent XSS, X-Content-Type-Options to block MIME sniffing, and X-Frame-Options to prevent clickjacking. Our study found adoption rates of 82%, 52%, 66%, and 69% respectively."}},
+{"@type":"Question","name":"Which websites have the best security headers?","acceptedAnswer":{"@type":"Answer","text":"In our study, Facebook, Instagram, and Google Cloud scored highest with 8 out of 10 security headers (Grade A). YouTube, Twitter, and Dropbox followed with 7 out of 10."}}
+]}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -89,8 +98,8 @@ code,.mono{font-family:'JetBrains Mono',monospace}
 
 <div class="hero">
   <div class="hero-tag">Original Research</div>
-  <h1>State of Security Headers 2025</h1>
-  <p class="subtitle">We crawled 100 of the world's most popular websites and analyzed their HTTP security headers. The results are worse than you'd expect.</p>
+  <h1>HTTP Security Headers: HSTS, CSP &amp; X-Frame-Options Adoption (2026 Data)</h1>
+  <p class="subtitle">We crawled 85 of the world's most popular websites and analyzed their HTTP security headers. Only 13% get an A grade. Amazon and Microsoft score F.</p>
   <div class="date">Published March 8, 2026 · Data collected March 2026</div>
 </div>
 
@@ -153,16 +162,37 @@ code,.mono{font-family:'JetBrains Mono',monospace}
     </div>
   </div>
 
+  <!-- FAQ -->
+  <div class="card">
+    <h2>Frequently Asked Questions</h2>
+    <div class="methodology">
+      <h3 style="color:#fff;margin-bottom:6px;font-size:1rem">What percentage of websites use HSTS?</h3>
+      <p>82% of the 85 top websites in our study implement Strict-Transport-Security (HSTS), making it the most widely adopted security header. HSTS forces browsers to connect via HTTPS only, preventing SSL stripping attacks. Despite its high adoption, 18% of major sites still don't use it.</p>
+      
+      <h3 style="color:#fff;margin:16px 0 6px;font-size:1rem">What percentage of websites use Content-Security-Policy?</h3>
+      <p>Only 52% of top websites implement CSP. This is significant because Content-Security-Policy is the most powerful defense against cross-site scripting (XSS) attacks — yet nearly half of the internet's biggest sites don't use it at all.</p>
+      
+      <h3 style="color:#fff;margin:16px 0 6px;font-size:1rem">Does Amazon have security headers?</h3>
+      <p>No. As of March 2026, amazon.com implements zero out of 10 standard HTTP security headers, receiving a Grade F in our study. This is particularly notable given that Amazon processes hundreds of billions in annual transactions and handles payment data for hundreds of millions of customers.</p>
+      
+      <h3 style="color:#fff;margin:16px 0 6px;font-size:1rem">Which websites have the best security headers?</h3>
+      <p>Facebook (facebook.com), Instagram (instagram.com), and Google Cloud (cloud.google.com) scored highest with 8 out of 10 headers (Grade A). YouTube, Twitter/X, and Dropbox followed with 7 out of 10. Meta's properties consistently lead in security header adoption.</p>
+      
+      <h3 style="color:#fff;margin:16px 0 6px;font-size:1rem">What is the average number of security headers on a website?</h3>
+      <p>Across the 85 top websites we analyzed, the average is 4.0 out of 10 recommended security headers. This means the typical major website is missing more than half of the standard security protections available via HTTP headers.</p>
+    </div>
+  </div>
+
   <!-- Methodology -->
   <div class="card">
     <h2>Methodology</h2>
     <div class="methodology">
       <h3>How we collected this data</h3>
-      <p><strong>Sample:</strong> 100+ of the most visited websites globally, spanning tech, media, e-commerce, finance, social, travel, and entertainment.</p>
-      <p><strong>Method:</strong> HTTPS GET request to each domain's root URL. We recorded all HTTP response headers and checked for the presence of 10 standard security headers.</p>
-      <p><strong>Grading:</strong> A = 7+ headers, B = 5-6, C = 3-4, D = 1-2, F = 0 headers present.</p>
-      <p><strong>Limitations:</strong> We check header presence, not quality. A site could have a weak CSP (unsafe-inline) and still get credit. Some sites may serve different headers to different user agents or regions.</p>
-      <p><strong>Reproducibility:</strong> Raw data is available. Crawl performed March 2026 from a US-based server.</p>
+      <p><strong>Sample:</strong> 85 of the most visited websites globally, spanning tech, media, e-commerce, finance, social media, travel, entertainment, and cloud services. Sites were selected based on Similarweb and Alexa traffic rankings to represent a cross-section of the internet's most-used properties.</p>
+      <p><strong>Method:</strong> HTTPS GET request to each domain's root URL using a custom Python script with concurrent workers. We recorded all HTTP response headers and checked for the presence of 10 standard security headers recommended by OWASP: HSTS, CSP, X-Frame-Options, X-Content-Type-Options, X-XSS-Protection, Referrer-Policy, Permissions-Policy, COOP, CORP, and COEP.</p>
+      <p><strong>Grading:</strong> A = 7+ headers, B = 5-6, C = 3-4, D = 1-2, F = 0 headers present. This grading reflects header presence only.</p>
+      <p><strong>Limitations:</strong> We check header presence, not configuration quality. A site could have a weak CSP (e.g., using 'unsafe-inline') and still receive credit. Some sites may serve different headers based on user agent, geographic location, or request path. We only tested the root URL of each domain. Sites behind CDNs may have headers added or stripped at the edge.</p>
+      <p><strong>Reproducibility:</strong> The crawl script and raw JSON data are available in our GitHub repository. Crawl performed March 8, 2026. Results can be independently verified by running the same requests.</p>
     </div>
   </div>
 
