@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>We Analyzed Sourdough Recipes — Here's What We Found | 28grams.vip</title>
+  <link rel="canonical" href="https://28grams.vip/sourdough-study">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+    :root {
+      --bg: #0a0b10;
+      --card: #111318;
+      --border: #1e2030;
+      --accent: #C2185B;
+      --text: #e0e0e0;
+      --text-dim: #888888;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .tag {
+      display: inline-block;
+      background-color: rgba(194, 24, 91, 0.15);
+      color: var(--accent);
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      letter-spacing: 0.05em;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 1.25rem;
+      color: var(--text-dim);
+      margin-bottom: 3rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+
+    section {
+      margin-bottom: 4rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+    }
+
+    .chart-container {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      border-radius: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .bar-chart {
+      display: flex;
+      align-items: flex-end;
+      height: 250px;
+      gap: 0.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1rem;
+    }
+
+    .bar-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      height: 100%;
+    }
+
+    .bar {
+      width: 100%;
+      background-color: var(--accent);
+      border-radius: 4px 4px 0 0;
+      transition: height 0.3s ease;
+      min-height: 2px;
+    }
+
+    .bar:hover {
+      opacity: 0.8;
+    }
+
+    .bar-value {
+      font-size: 0.75rem;
+      margin-bottom: 0.25rem;
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .bar-label {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      text-align: center;
+      margin-top: 0.5rem;
+      writing-mode: horizontal-tb;
+    }
+
+    .key-findings {
+      list-style-type: none;
+    }
+
+    .key-findings li {
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+      position: relative;
+      font-size: 1.1rem;
+    }
+
+    .key-findings li::before {
+      content: "→";
+      color: var(--accent);
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+    }
+
+    .search-wrapper {
+      margin-bottom: 1rem;
+    }
+
+    #recipeSearch {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 0.5rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+    }
+
+    #recipeSearch:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card);
+      border-radius: 0.75rem;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background: rgba(255, 255, 255, 0.03);
+      font-weight: 600;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+
+    td {
+      font-size: 0.9rem;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .methodology {
+      background: rgba(255,255,255,0.02);
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--text-dim);
+    }
+
+    footer {
+      margin-top: 5rem;
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-dim);
+      font-size: 0.875rem;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="tag">ORIGINAL RESEARCH</div>
+    <h1 id="mainTitle">We Analyzed Sourdough Recipes — Here's What We Found</h1>
+    <p class="subtitle">A data-driven look at hydration, flours, and baking temperatures across the internet's most popular sourdough recipes.</p>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value" id="statTotal">--</div>
+        <div class="stat-label">Recipes Analyzed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="statHydration">--%</div>
+        <div class="stat-label">Avg. Hydration</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="statFlour">--</div>
+        <div class="stat-label">Top Flour Type</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="statTemp">--°F</div>
+        <div class="stat-label">Avg. Oven Temp</div>
+      </div>
+    </div>
+
+    <section>
+      <h2>Key Findings</h2>
+      <ul class="key-findings" id="findingsList">
+        <!-- populated by js -->
+      </ul>
+    </section>
+
+    <section>
+      <h2>Hydration Distribution</h2>
+      <p style="color:var(--text-dim); margin-bottom:1rem; font-size:0.9rem;">Percentage of recipes falling into each hydration range.</p>
+      <div class="chart-container">
+        <div class="bar-chart" id="hydrationChart"></div>
+      </div>
+    </section>
+
+    <section style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+      <div>
+        <h2>Flour Types</h2>
+        <div class="chart-container">
+          <div class="bar-chart" id="flourChart"></div>
+        </div>
+      </div>
+      <div>
+        <h2>Oven Temperatures</h2>
+        <div class="chart-container">
+          <div class="bar-chart" id="tempChart"></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Complete Dataset</h2>
+      <div class="search-wrapper">
+        <input type="text" id="recipeSearch" placeholder="Search recipes by name, source, or flour type...">
+      </div>
+      <div style="overflow-x: auto;">
+        <table id="recipeTable">
+          <thead>
+            <tr>
+              <th>Recipe Name</th>
+              <th>Source</th>
+              <th>Hydration</th>
+              <th>Flour Type</th>
+              <th>Temp (°F)</th>
+            </tr>
+          </thead>
+          <tbody id="recipeBody">
+            <!-- populated by js -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Methodology</h2>
+      <div class="methodology" id="methodologyText"></div>
+    </section>
+
+    <footer>
+      <p>Citation: <a href="https://28grams.vip">28grams.vip</a>, March 2025</p>
+      <p style="margin-top:0.5rem;">© 2025 <a href="https://28grams.vip">28grams.vip</a> · A <a href="https://gab.ae">GAB Ventures</a> property</p>
+    </footer>
+  </div>
+
+  <script type="application/ld+json" id="schemaObj"></script>
+
+  <script>
+    const data = {
+  "crawlDate": "2026-03-08T11:58:50.702Z",
+  "methodology": "Data scraped from top sourdough recipe sites. Hydration calculated as (total water weight / total flour weight) * 100, ignoring starter weight. Recipes with incalculable or extreme hydration (<55% or >100%) were excluded from hydration averages.",
+  "totalRecipes": 85,
+  "sources": [
+    "kingarthurbaking.com",
+    "theperfectloaf.com",
+    "breadtopia.com",
+    "alexandracooks.com"
+  ],
+  "recipes": [
+    {
+      "name": "Flaky Puff Crust Pizza",
+      "url": "https://www.kingarthurbaking.com/recipe-of-the-year",
+      "source": "kingarthurbaking.com",
+      "hydration": null,
+      "flourType": "All-Purpose",
+      "ovenTempF": 475,
+      "dutchOven": false,
+      "bakeTimeMin": 18,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Pain de Campagne (Country Bread)",
+      "url": "https://www.kingarthurbaking.com/recipes/pain-de-campagne-country-bread-recipe",
+      "source": "kingarthurbaking.com",
+      "hydration": 80,
+      "flourType": "Bread Flour",
+      "ovenTempF": 500,
+      "dutchOven": true,
+      "bakeTimeMin": 45,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Scalded Buckwheat and Malt Sourdough Bread",
+      "url": "https://www.theperfectloaf.com/scalded-buckwheat-and-malt-sourdough-bread/",
+      "source": "theperfectloaf.com",
+      "hydration": 83.1,
+      "flourType": "Whole Wheat",
+      "ovenTempF": 450,
+      "dutchOven": true,
+      "bakeTimeMin": 50,
+      "bulkFermentHours": 3
+    },
+    {
+      "name": "Cinnamon Toast Cookies",
+      "url": "https://www.theperfectloaf.com/cinnamon-toast-cookies-sourdough-cookies-with-vanilla-and-cinnamon/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "All-Purpose",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": 16,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Making an Incredible Sourdough Starter from Scratch in 7 Easy Steps",
+      "url": "https://www.theperfectloaf.com/7-easy-steps-making-incredible-sourdough-starter-scratch/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "Mixed/Other",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": null,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Beginner's Sourdough Bread Recipe",
+      "url": "https://www.theperfectloaf.com/beginners-sourdough-bread/",
+      "source": "theperfectloaf.com",
+      "hydration": 71.9,
+      "flourType": "Bread Flour",
+      "ovenTempF": 450,
+      "dutchOven": true,
+      "bakeTimeMin": 60,
+      "bulkFermentHours": 2
+    },
+    {
+      "name": "Fifty-Fifty Whole Wheat Sourdough Bread",
+      "url": "https://www.theperfectloaf.com/fifty-fifty-whole-wheat-sourdough-bread/",
+      "source": "theperfectloaf.com",
+      "hydration": 82.1,
+      "flourType": "Bread Flour",
+      "ovenTempF": 450,
+      "dutchOven": true,
+      "bakeTimeMin": null,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Easy No-Knead Sourdough Bread",
+      "url": "https://www.theperfectloaf.com/easy-no-knead-sourdough-bread/",
+      "source": "theperfectloaf.com",
+      "hydration": 68.1,
+      "flourType": "Bread Flour",
+      "ovenTempF": 450,
+      "dutchOven": true,
+      "bakeTimeMin": 55,
+      "bulkFermentHours": 2
+    },
+    {
+      "name": "Sourdough Bread with All-Purpose Flour",
+      "url": "https://www.theperfectloaf.com/sourdough-bread-with-all-purpose-flour/",
+      "source": "theperfectloaf.com",
+      "hydration": 73.9,
+      "flourType": "All-Purpose",
+      "ovenTempF": 450,
+      "dutchOven": true,
+      "bakeTimeMin": 60,
+      "bulkFermentHours": 4
+    },
+    {
+      "name": "Tangzhong Sourdough Sandwich Bread",
+      "url": "https://www.theperfectloaf.com/sourdough-sandwich-bread-with-pre-cooked-flour/",
+      "source": "theperfectloaf.com",
+      "hydration": 81,
+      "flourType": "Bread Flour",
+      "ovenTempF": 400,
+      "dutchOven": false,
+      "bakeTimeMin": 55,
+      "bulkFermentHours": 2
+    },
+    {
+      "name": "Simple Weekday Sourdough Bread",
+      "url": "https://www.theperfectloaf.com/simple-weekday-sourdough-bread/",
+      "source": "theperfectloaf.com",
+      "hydration": 76.1,
+      "flourType": "Bread Flour",
+      "ovenTempF": 450,
+      "dutchOven": true,
+      "bakeTimeMin": 60,
+      "bulkFermentHours": 2
+    },
+    {
+      "name": "Seeded Sourdough Discard Granola",
+      "url": "https://www.theperfectloaf.com/seeded-sourdough-discard-granola/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "Mixed/Other",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": 65,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Sourdough Discard Plum Cake",
+      "url": "https://www.theperfectloaf.com/sourdough-discard-plum-cake/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "All-Purpose",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": 50,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Seeded Sourdough Discard Crackers",
+      "url": "https://www.theperfectloaf.com/seeded-sourdough-discard-crackers/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "All-Purpose",
+      "ovenTempF": 325,
+      "dutchOven": false,
+      "bakeTimeMin": 35,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Baker's Sourdough Discard Banana Bread",
+      "url": "https://www.theperfectloaf.com/bakers-sourdough-discard-banana-bread/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "Whole Wheat",
+      "ovenTempF": 350,
+      "dutchOven": false,
+      "bakeTimeMin": 60,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Strawberry Shortcake With Sourdough Discard Drop Biscuits",
+      "url": "https://www.theperfectloaf.com/strawberry-shortcake-with-sourdough-discard-drop-biscuits/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "All-Purpose",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": 20,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Sourdough Discard Cherry Clafoutis",
+      "url": "https://www.theperfectloaf.com/sourdough-discard-clafoutis/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "Mixed/Other",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": 25,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "My Best Sourdough Waffles",
+      "url": "https://www.theperfectloaf.com/my-best-sourdough-waffles/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "All-Purpose",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": 20,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Sourdough Starter Discard Cake Ciambella",
+      "url": "https://www.theperfectloaf.com/sourdough-starter-discard-cake-ciambella/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "All-Purpose",
+      "ovenTempF": 350,
+      "dutchOven": false,
+      "bakeTimeMin": 35,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Sourdough Blueberry Muffins",
+      "url": "https://www.theperfectloaf.com/sourdough-blueberry-muffins/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "All-Purpose",
+      "ovenTempF": 400,
+      "dutchOven": false,
+      "bakeTimeMin": 35,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "My Best Sourdough Pancakes",
+      "url": "https://www.theperfectloaf.com/my-best-sourdough-pancakes/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "Whole Wheat",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": 15,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Sourdough Pumpkin Pancakes",
+      "url": "https://www.theperfectloaf.com/sourdough-pumpkin-pancakes/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "All-Purpose",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": 15,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Flaky Sourdough Discard Pie Crust (Sweet or Savory)",
+      "url": "https://www.theperfectloaf.com/sourdough-pie-crust/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "All-Purpose",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": 40,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Whole Grain Peach, Blueberry and Lavender Sourdough Galette",
+      "url": "https://www.theperfectloaf.com/whole-grain-peach-blueberry-lavender-sourdough-galette/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "All-Purpose",
+      "ovenTempF": 400,
+      "dutchOven": false,
+      "bakeTimeMin": 40,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Chewy Sourdough Discard Oatmeal Raisin Cookies",
+      "url": "https://www.theperfectloaf.com/sourdough-discard-oatmeal-raisin-cookies/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "Bread Flour",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": 30,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Sourdough Chocolate Chip Cookies",
+      "url": "https://www.theperfectloaf.com/sourdough-chocolate-chip-cookies/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "All-Purpose",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": null,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Sourdough Starter Discard Sugar Cookies",
+      "url": "https://www.theperfectloaf.com/sourdough-starter-discard-sugar-cookies/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "All-Purpose",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": null,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Fudgy Sourdough Discard Brownies",
+      "url": "https://www.theperfectloaf.com/fudgy-sourdough-discard-brownies/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "Mixed/Other",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": 32,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Sourdough Pumpkin Scones",
+      "url": "https://www.theperfectloaf.com/einkorn-sourdough-pumpkin-scones/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "Whole Wheat",
+      "ovenTempF": 400,
+      "dutchOven": false,
+      "bakeTimeMin": 22,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Rich and Flaky Sourdough Discard Biscuits",
+      "url": "https://www.theperfectloaf.com/rich-and-flaky-sourdough-discard-biscuits/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "All-Purpose",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": 15,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Sourdough Starter Discard Scones",
+      "url": "https://www.theperfectloaf.com/sourdough-starter-discard-scones/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "All-Purpose",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": 27,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "My Best Sourdough Recipe",
+      "url": "https://www.theperfectloaf.com/best-sourdough-recipe/",
+      "source": "theperfectloaf.com",
+      "hydration": 85.1,
+      "flourType": "Bread Flour",
+      "ovenTempF": 450,
+      "dutchOven": true,
+      "bakeTimeMin": 55,
+      "bulkFermentHours": 2
+    },
+    {
+      "name": "Spelt, Rye, and Whole Wheat Sourdough Bread",
+      "url": "https://www.theperfectloaf.com/spelt-rye-and-whole-wheat-sourdough-bread/",
+      "source": "theperfectloaf.com",
+      "hydration": 85.1,
+      "flourType": "Whole Wheat",
+      "ovenTempF": 450,
+      "dutchOven": false,
+      "bakeTimeMin": 60,
+      "bulkFermentHours": 4
+    },
+    {
+      "name": "100% Whole Wheat Sourdough Bread",
+      "url": "https://www.theperfectloaf.com/100-whole-wheat-sourdough/",
+      "source": "theperfectloaf.com",
+      "hydration": 90,
+      "flourType": "Whole Wheat",
+      "ovenTempF": 450,
+      "dutchOven": true,
+      "bakeTimeMin": 75,
+      "bulkFermentHours": 2
+    },
+    {
+      "name": "Pane Siciliano (Semolina and Sesame Sourdough Bread)",
+      "url": "https://www.theperfectloaf.com/pane-siciliano-semolina-and-sesame-sourdough-bread/",
+      "source": "theperfectloaf.com",
+      "hydration": 75,
+      "flourType": "Mixed/Other",
+      "ovenTempF": 450,
+      "dutchOven": false,
+      "bakeTimeMin": 60,
+      "bulkFermentHours": 2
+    },
+    {
+      "name": "Kernza Sourdough Bread Recipe",
+      "url": "https://www.theperfectloaf.com/kernza-sourdough-bread-recipe/",
+      "source": "theperfectloaf.com",
+      "hydration": 81.1,
+      "flourType": "Whole Wheat",
+      "ovenTempF": 450,
+      "dutchOven": true,
+      "bakeTimeMin": 55,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Sourdough 90-Rye Bread Recipe",
+      "url": "https://www.theperfectloaf.com/sourdough-90-rye-bread-recipe/",
+      "source": "theperfectloaf.com",
+      "hydration": 90.1,
+      "flourType": "Bread Flour",
+      "ovenTempF": 450,
+      "dutchOven": false,
+      "bakeTimeMin": 60,
+      "bulkFermentHours": 1
+    },
+    {
+      "name": "Sourdough with Freshly Milled Yecora Rojo | The Perfect Loaf",
+      "url": "https://www.theperfectloaf.com/sourdough-with-freshly-milled-yecora-rojo/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "Mixed/Other",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": null,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Hop Miche (Sourdough Beer Bread)",
+      "url": "https://www.theperfectloaf.com/hop-miche-sourdough-beer-bread/",
+      "source": "theperfectloaf.com",
+      "hydration": 77,
+      "flourType": "Bread Flour",
+      "ovenTempF": 450,
+      "dutchOven": false,
+      "bakeTimeMin": 65,
+      "bulkFermentHours": 3.5
+    },
+    {
+      "name": "High-fiber sourdough bread recipe",
+      "url": "https://www.theperfectloaf.com/high-fiber-sourdough-bread-recipe/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "Whole Wheat",
+      "ovenTempF": 425,
+      "dutchOven": false,
+      "bakeTimeMin": 50,
+      "bulkFermentHours": 3
+    },
+    {
+      "name": "Brown rice and sesame sourdough bread recipe",
+      "url": "https://www.theperfectloaf.com/brown-rice-and-sesame-sourdough-bread-recipe/",
+      "source": "theperfectloaf.com",
+      "hydration": 79.9,
+      "flourType": "Mixed/Other",
+      "ovenTempF": 450,
+      "dutchOven": true,
+      "bakeTimeMin": 50,
+      "bulkFermentHours": 2
+    },
+    {
+      "name": "Jalapeño-Cheddar Sourdough Bread",
+      "url": "https://www.theperfectloaf.com/jalapeno-cheddar-sourdough-bread/",
+      "source": "theperfectloaf.com",
+      "hydration": 75.1,
+      "flourType": "Bread Flour",
+      "ovenTempF": 450,
+      "dutchOven": true,
+      "bakeTimeMin": 60,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Apricot &amp; thyme sourdough bread",
+      "url": "https://www.theperfectloaf.com/apricot-and-thyme-sourdough-bread/",
+      "source": "theperfectloaf.com",
+      "hydration": 76.9,
+      "flourType": "Whole Wheat",
+      "ovenTempF": 450,
+      "dutchOven": true,
+      "bakeTimeMin": 50,
+      "bulkFermentHours": 2
+    },
+    {
+      "name": "Dark Chocolate-Cherry Sourdough Bread",
+      "url": "https://www.theperfectloaf.com/dark-chocolate-cherry-sourdough-bread/",
+      "source": "theperfectloaf.com",
+      "hydration": 74.9,
+      "flourType": "Bread Flour",
+      "ovenTempF": 450,
+      "dutchOven": true,
+      "bakeTimeMin": 60,
+      "bulkFermentHours": 2
+    },
+    {
+      "name": "Green olive and herb sourdough bread",
+      "url": "https://www.theperfectloaf.com/green-olive-and-herb-sourdough-bread/",
+      "source": "theperfectloaf.com",
+      "hydration": 75.1,
+      "flourType": "Bread Flour",
+      "ovenTempF": 450,
+      "dutchOven": true,
+      "bakeTimeMin": 60,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Sunflower and Sesame Sourdough Bread Recipe",
+      "url": "https://www.theperfectloaf.com/sunflower-and-sesame-sourdough-bread/",
+      "source": "theperfectloaf.com",
+      "hydration": 77.1,
+      "flourType": "Bread Flour",
+      "ovenTempF": 450,
+      "dutchOven": true,
+      "bakeTimeMin": 60,
+      "bulkFermentHours": 1
+    },
+    {
+      "name": "Pumpkin Cinnamon Sourdough Bread Recipe",
+      "url": "https://www.theperfectloaf.com/pumpkin-cinnamon-sourdough-bread/",
+      "source": "theperfectloaf.com",
+      "hydration": 55.3,
+      "flourType": "Bread Flour",
+      "ovenTempF": 400,
+      "dutchOven": false,
+      "bakeTimeMin": 50,
+      "bulkFermentHours": 2
+    },
+    {
+      "name": "Cinnamon Raisin Sourdough",
+      "url": "https://www.theperfectloaf.com/cinnamon-raisin-sourdough/",
+      "source": "theperfectloaf.com",
+      "hydration": 81,
+      "flourType": "Whole Wheat",
+      "ovenTempF": 450,
+      "dutchOven": false,
+      "bakeTimeMin": 60,
+      "bulkFermentHours": 2
+    },
+    {
+      "name": "Seeded Sourdough Recipe",
+      "url": "https://www.theperfectloaf.com/seeded-sourdough/",
+      "source": "theperfectloaf.com",
+      "hydration": 97.6,
+      "flourType": "Bread Flour",
+      "ovenTempF": 450,
+      "dutchOven": true,
+      "bakeTimeMin": 60,
+      "bulkFermentHours": 1
+    },
+    {
+      "name": "Walnut Cranberry Sourdough Recipe",
+      "url": "https://www.theperfectloaf.com/walnut-cranberry-sourdough/",
+      "source": "theperfectloaf.com",
+      "hydration": 85,
+      "flourType": "Bread Flour",
+      "ovenTempF": 350,
+      "dutchOven": true,
+      "bakeTimeMin": 60,
+      "bulkFermentHours": 1
+    },
+    {
+      "name": "Sourdough Baguette Recipe",
+      "url": "https://www.theperfectloaf.com/sourdough-baguettes/",
+      "source": "theperfectloaf.com",
+      "hydration": 70,
+      "flourType": "Mixed/Other",
+      "ovenTempF": 450,
+      "dutchOven": false,
+      "bakeTimeMin": 45,
+      "bulkFermentHours": 1
+    },
+    {
+      "name": "Sourdough Friselle (Italian Rusk) | The Perfect Loaf",
+      "url": "https://www.theperfectloaf.com/sourdough-friselle-italian-rusk/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "Mixed/Other",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": null,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Sourdough Pumpkin Rolls",
+      "url": "https://www.theperfectloaf.com/sourdough-pumpkin-dinner-rolls/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "Bread Flour",
+      "ovenTempF": 425,
+      "dutchOven": false,
+      "bakeTimeMin": 35,
+      "bulkFermentHours": 4
+    },
+    {
+      "name": "Super Soft Sourdough Rolls (with Tangzhong) Recipe",
+      "url": "https://www.theperfectloaf.com/super-soft-sourdough-rolls/",
+      "source": "theperfectloaf.com",
+      "hydration": 71.2,
+      "flourType": "Bread Flour",
+      "ovenTempF": 400,
+      "dutchOven": false,
+      "bakeTimeMin": 40,
+      "bulkFermentHours": 2
+    },
+    {
+      "name": "Soft Sourdough Potato Buns | The Perfect Loaf",
+      "url": "https://www.theperfectloaf.com/soft-sourdough-potato-buns/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "Mixed/Other",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": null,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "The Fluffiest Sourdough Challah | The Perfect Loaf",
+      "url": "https://www.theperfectloaf.com/sourdough-challah/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "Mixed/Other",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": null,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Sourdough Chocolate Knots",
+      "url": "https://www.theperfectloaf.com/sourdough-chocolate-knots/",
+      "source": "theperfectloaf.com",
+      "hydration": 59.8,
+      "flourType": "Mixed/Other",
+      "ovenTempF": 375,
+      "dutchOven": false,
+      "bakeTimeMin": 32,
+      "bulkFermentHours": 4
+    },
+    {
+      "name": "Sourdough Shokupan (Japanese Milk Bread) | The Perfect Loaf",
+      "url": "https://www.theperfectloaf.com/sourdough-shokupan-japanese-milk-bread/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "Mixed/Other",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": null,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Sourdough Babka",
+      "url": "https://www.theperfectloaf.com/sourdough-babka/",
+      "source": "theperfectloaf.com",
+      "hydration": 61.2,
+      "flourType": "All-Purpose",
+      "ovenTempF": 350,
+      "dutchOven": false,
+      "bakeTimeMin": 45,
+      "bulkFermentHours": 2
+    },
+    {
+      "name": "Sourdough Cinnamon Rolls Recipe",
+      "url": "https://www.theperfectloaf.com/sourdough-cinnamon-rolls/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "Bread Flour",
+      "ovenTempF": 400,
+      "dutchOven": false,
+      "bakeTimeMin": 25,
+      "bulkFermentHours": 2
+    },
+    {
+      "name": "Sourdough Pizza Dough | The Perfect Loaf",
+      "url": "https://www.theperfectloaf.com/sourdough-pizza-dough-and-recipes/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "Mixed/Other",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": null,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Sourdough Detroit-Style Pizza Recipe | The Perfect Loaf",
+      "url": "https://www.theperfectloaf.com/sourdough-detroit-style-pizza-recipe/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "Mixed/Other",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": null,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Wood-Fired Sourdough Pizza Dough Recipe",
+      "url": "https://www.theperfectloaf.com/wood-fired-sourdough-pizza-dough-recipe/",
+      "source": "theperfectloaf.com",
+      "hydration": 61.9,
+      "flourType": "Whole Wheat",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": null,
+      "bulkFermentHours": 3
+    },
+    {
+      "name": "Cornmeal Skillet Sourdough Pizza",
+      "url": "https://www.theperfectloaf.com/cornmeal-skillet-sourdough-pizza/",
+      "source": "theperfectloaf.com",
+      "hydration": 97.6,
+      "flourType": "Bread Flour",
+      "ovenTempF": 500,
+      "dutchOven": true,
+      "bakeTimeMin": 30,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Sourdough Tortillas",
+      "url": "https://www.theperfectloaf.com/sourdough-tortillas/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "All-Purpose",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": 20,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Sourdough Bagel",
+      "url": "https://www.theperfectloaf.com/sourdough-bagel/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "Mixed/Other",
+      "ovenTempF": 475,
+      "dutchOven": false,
+      "bakeTimeMin": null,
+      "bulkFermentHours": 1
+    },
+    {
+      "name": "Seriously Soft Sourdough Pretzel",
+      "url": "https://www.theperfectloaf.com/seriously-soft-sourdough-pretzel/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "Whole Wheat",
+      "ovenTempF": 450,
+      "dutchOven": false,
+      "bakeTimeMin": 25,
+      "bulkFermentHours": 1
+    },
+    {
+      "name": "Sourdough Bread Croutons",
+      "url": "https://www.theperfectloaf.com/leftover-sourdough-bread-croutons-breadcrumbs/",
+      "source": "theperfectloaf.com",
+      "hydration": null,
+      "flourType": "Mixed/Other",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": null,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "How To Make a Sourdough Starter",
+      "url": "https://breadtopia.com/how-to-make-a-sourdough-starter/",
+      "source": "breadtopia.com",
+      "hydration": null,
+      "flourType": "Bread Flour",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": null,
+      "bulkFermentHours": 24
+    },
+    {
+      "name": "Rosemary-Olive Sourdough Bread",
+      "url": "https://alexandracooks.com/2025/08/16/rosemary-olive-sourdough-bread-a-better-way-to-add-inclusions-to-your-sourdough-bread/",
+      "source": "alexandracooks.com",
+      "hydration": 75,
+      "flourType": "Bread Flour",
+      "ovenTempF": 450,
+      "dutchOven": true,
+      "bakeTimeMin": 45,
+      "bulkFermentHours": 10
+    },
+    {
+      "name": "Simple Sourdough Discard Toasting Bread",
+      "url": "https://alexandracooks.com/2025/06/28/simple-sourdough-discard-toasting-bread/",
+      "source": "alexandracooks.com",
+      "hydration": 66.7,
+      "flourType": "Bread Flour",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": 45,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Light and Fluffy Sourdough Discard Pancakes ",
+      "url": "https://alexandracooks.com/2025/06/12/light-and-fluffy-sourdough-discard-pancakes-same-day/",
+      "source": "alexandracooks.com",
+      "hydration": null,
+      "flourType": "All-Purpose",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": 20,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Simple Sourdough Discard Waffles (Same Day)",
+      "url": "https://alexandracooks.com/2025/05/08/simple-sourdough-discard-waffles/",
+      "source": "alexandracooks.com",
+      "hydration": null,
+      "flourType": "All-Purpose",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": 20,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "How to Build a Sourdough Starter from Scratch",
+      "url": "https://alexandracooks.com/2023/09/10/how-to-build-a-sourdough-starter-from-scratch/",
+      "source": "alexandracooks.com",
+      "hydration": null,
+      "flourType": "Mixed/Other",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": null,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Homemade Sourdough English Muffins",
+      "url": "https://alexandracooks.com/2023/01/13/homemade-sourdough-english-muffins/",
+      "source": "alexandracooks.com",
+      "hydration": 71.9,
+      "flourType": "Bread Flour",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": 45,
+      "bulkFermentHours": 1
+    },
+    {
+      "name": "Easy Sourdough Discard Crackers (Thin &amp; Crispy)",
+      "url": "https://alexandracooks.com/2022/09/11/easy-sourdough-discard-crackers-5-ingredients/",
+      "source": "alexandracooks.com",
+      "hydration": null,
+      "flourType": "Rye Blend",
+      "ovenTempF": 325,
+      "dutchOven": false,
+      "bakeTimeMin": 25,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Simple Sourdough Ciabatta Bread",
+      "url": "https://alexandracooks.com/2021/04/25/simple-sourdough-ciabatta-bread/",
+      "source": "alexandracooks.com",
+      "hydration": 80,
+      "flourType": "Bread Flour",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": 20,
+      "bulkFermentHours": 4
+    },
+    {
+      "name": "Sourdough Flour Tortillas (made with discard or not)",
+      "url": "https://alexandracooks.com/2020/10/03/sourdough-flour-tortillas-made-with-discard-or-not/",
+      "source": "alexandracooks.com",
+      "hydration": null,
+      "flourType": "All-Purpose",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": 15,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Simple Sourdough Pizza Crust",
+      "url": "https://alexandracooks.com/2020/05/01/simple-sourdough-pizza-a-step-by-step-guide/",
+      "source": "alexandracooks.com",
+      "hydration": 75,
+      "flourType": "Bread Flour",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": null,
+      "bulkFermentHours": 18
+    },
+    {
+      "name": "How to Feed, Maintain, and Store a Sourdough Starter",
+      "url": "https://alexandracooks.com/2019/11/07/how-to-activate-feed-and-maintain-a-sourdough-starter/",
+      "source": "alexandracooks.com",
+      "hydration": 100,
+      "flourType": "Mixed/Other",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": null,
+      "bulkFermentHours": null
+    },
+    {
+      "name": "Homemade Sourdough Bread, Step by Step",
+      "url": "https://alexandracooks.com/2017/10/24/artisan-sourdough-made-simple-sourdough-bread-demystified-a-beginners-guide-to-sourdough-baking/",
+      "source": "alexandracooks.com",
+      "hydration": 75,
+      "flourType": "Bread Flour",
+      "ovenTempF": 550,
+      "dutchOven": true,
+      "bakeTimeMin": 45,
+      "bulkFermentHours": 10
+    },
+    {
+      "name": "Simple Sourdough Focaccia",
+      "url": "https://alexandracooks.com/2019/03/22/simple-sourdough-focaccia-a-beginners-guide/",
+      "source": "alexandracooks.com",
+      "hydration": 85.9,
+      "flourType": "Bread Flour",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": 25,
+      "bulkFermentHours": 18
+    },
+    {
+      "name": "Easy Sourdough Sandwich Bread",
+      "url": "https://alexandracooks.com/2019/04/17/easy-sourdough-sandwich-or-toasting-bread/",
+      "source": "alexandracooks.com",
+      "hydration": 84,
+      "flourType": "Bread Flour",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": 45,
+      "bulkFermentHours": 18
+    },
+    {
+      "name": "Easy Sourdough Bread (Whole Wheat-ish)",
+      "url": "https://alexandracooks.com/2019/11/07/easy-whole-wheat-ish-sourdough-bread/",
+      "source": "alexandracooks.com",
+      "hydration": 75,
+      "flourType": "Bread Flour",
+      "ovenTempF": null,
+      "dutchOven": true,
+      "bakeTimeMin": 45,
+      "bulkFermentHours": 18
+    },
+    {
+      "name": "How to Make Homemade Detroit-Style Pizza",
+      "url": "https://alexandracooks.com/2021/08/13/detroit-style-pizza-two-ways-yeast-and-sourdough/",
+      "source": "alexandracooks.com",
+      "hydration": 78.3,
+      "flourType": "Bread Flour",
+      "ovenTempF": null,
+      "dutchOven": false,
+      "bakeTimeMin": 15,
+      "bulkFermentHours": 12
+    }
+  ],
+  "analysis": {
+    "avgHydration": 77.8,
+    "medianHydration": 77,
+    "hydrationDistribution": {
+      "55-60": 2,
+      "60-65": 2,
+      "65-70": 2,
+      "70-75": 6,
+      "75-80": 13,
+      "80-85": 8,
+      "85-90": 4,
+      "90+": 5
+    },
+    "flourTypeBreakdown": {
+      "All-Purpose": 21,
+      "Bread Flour": 32,
+      "Whole Wheat": 12,
+      "Mixed/Other": 19,
+      "Rye Blend": 1
+    },
+    "avgOvenTempF": 431,
+    "ovenTempDistribution": {
+      "350-399": 7,
+      "400-449": 9,
+      "450-499": 26,
+      "500+": 3
+    },
+    "dutchOvenPct": 26,
+    "avgBakeTimeMin": 41,
+    "avgBulkFermentHours": 5
+  }
+};
+
+    function renderChart(containerId, dataObj) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = '';
+
+      const values = Object.values(dataObj);
+      const maxVal = Math.max(...values, 1); // Avoid div by 0
+
+      for (const [key, val] of Object.entries(dataObj)) {
+        const heightPct = (val / maxVal) * 100;
+        const wrapper = document.createElement('div');
+        wrapper.className = 'bar-wrapper';
+
+        const valEl = document.createElement('div');
+        valEl.className = 'bar-value';
+        valEl.textContent = val;
+
+        const bar = document.createElement('div');
+        bar.className = 'bar';
+        bar.style.height = `${heightPct}%`;
+
+        const label = document.createElement('div');
+        label.className = 'bar-label';
+        label.textContent = key;
+
+        wrapper.appendChild(valEl);
+        wrapper.appendChild(bar);
+        container.appendChild(wrapper);
+
+        // append label outside bar-chart but positioned...
+        // Wait, bar-chart holds flex items.
+        // Let's attach label to the wrapper, but wrapper only holds up to the border.
+        // Quick fix: standard bar-label positioning is inside the wrapper.
+        // actually label needs to be below the bar, so we append it to wrapper.
+        wrapper.appendChild(label);
+      }
+    }
+
+    function init() {
+      if (!data || !data.analysis) return;
+
+      document.getElementById('mainTitle').textContent = `We Analyzed ${data.totalRecipes} Sourdough Recipes`;
+      document.title = `We Analyzed ${data.totalRecipes} Sourdough Recipes — Here's What We Found | 28grams.vip`;
+
+      document.getElementById('statTotal').textContent = data.totalRecipes;
+      document.getElementById('statHydration').textContent = data.analysis.avgHydration + '%';
+
+      const flours = Object.entries(data.analysis.flourTypeBreakdown);
+      flours.sort((a,b) => b[1] - a[1]);
+      document.getElementById('statFlour').textContent = flours.length ? flours[0][0] : 'N/A';
+
+      document.getElementById('statTemp').textContent = data.analysis.avgOvenTempF + '°F';
+
+      // Charts
+      renderChart('hydrationChart', data.analysis.hydrationDistribution);
+      renderChart('flourChart', data.analysis.flourTypeBreakdown);
+      renderChart('tempChart', data.analysis.ovenTempDistribution);
+
+      // Findings
+      const findings = document.getElementById('findingsList');
+      findings.innerHTML = `
+        <li><strong>The "Standard" Hydration:</strong> The average hydration across all calculated recipes is ${data.analysis.avgHydration}%, with a median of ${data.analysis.medianHydration}%.</li>
+        <li><strong>Flour Preferences:</strong> ${flours.length ? flours[0][0] : 'Bread flour'} is the primary flour in ${flours.length ? Math.round((flours[0][1]/data.totalRecipes)*100) : 0}% of recipes.</li>
+        <li><strong>Hot and Fast:</strong> The average baking temperature is ${data.analysis.avgOvenTempF}°F, usually paired with a ${data.analysis.avgBakeTimeMin} minute bake time.</li>
+        <li><strong>Dutch Ovens Dominate:</strong> ${data.analysis.dutchOvenPct}% of recipes specifically mention baking in a Dutch oven or combo cooker.</li>
+      `;
+
+      // Table
+      const tbody = document.getElementById('recipeBody');
+      const renderTable = (recipes) => {
+        tbody.innerHTML = '';
+        recipes.forEach(r => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><a href="${r.url}" target="_blank">${r.name}</a></td>
+            <td>${r.source}</td>
+            <td>${r.hydration !== null ? r.hydration + '%' : '<span style="color:#666">N/A</span>'}</td>
+            <td>${r.flourType}</td>
+            <td>${r.ovenTempF || '<span style="color:#666">N/A</span>'}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      };
+
+      renderTable(data.recipes);
+
+      document.getElementById('recipeSearch').addEventListener('input', (e) => {
+        const term = e.target.value.toLowerCase();
+        const filtered = data.recipes.filter(r =>
+          (r.name && r.name.toLowerCase().includes(term)) ||
+          (r.source && r.source.toLowerCase().includes(term)) ||
+          (r.flourType && r.flourType.toLowerCase().includes(term))
+        );
+        renderTable(filtered);
+      });
+
+      // Methodology
+      document.getElementById('methodologyText').textContent = data.methodology;
+
+      // Schema
+      const schema = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": `We Analyzed ${data.totalRecipes} Sourdough Recipes — Here's What We Found`,
+        "author": {
+          "@type": "Organization",
+          "name": "28grams.vip",
+          "url": "https://28grams.vip"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "28grams.vip",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://28grams.vip/logo.png"
+          }
+        },
+        "datePublished": data.crawlDate
+      };
+      document.getElementById('schemaObj').textContent = JSON.stringify(schema);
+    }
+
+    init();
+  </script>
+</body>
+</html>
