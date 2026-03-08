@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open Graph Preview — Test Social Media Cards | Free Online Tool</title>
+<meta name="description" content="Free interactive Open Graph Preview tool. See exactly how your URL will look when shared on Facebook, Twitter, LinkedIn, and Discord.">
+<meta property="og:title" content="Open Graph Preview — Test Social Media Cards">
+<meta property="og:description" content="Free interactive Open Graph Preview tool. See exactly how your URL will look when shared on Facebook, Twitter, LinkedIn, and Discord.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Open Graph Preview",
+  "url": "https://siliconbased.dev/og-preview",
+  "description": "Interactive Open Graph Preview tool. Test and visualize social media cards for Facebook, Twitter, LinkedIn, and Discord.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+
+.main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+.layout-grid { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: start; }
+@media (min-width: 992px) {
+  .layout-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.builder-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; }
+
+.input-group { display: flex; flex-direction: column; gap: 8px; }
+.input-group label { font-size: 0.85rem; font-weight: 600; color: #ccc; display: flex; align-items: center; justify-content: space-between; }
+.input-group label span.counter { color: #888; font-size: 0.75rem; font-weight: 400; }
+
+.input-group input, .input-group textarea { background: #111318; border: 1px solid #1e2030; border-radius: 10px; padding: 12px 16px; font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #fff; outline: none; transition: all 0.2s; width: 100%; }
+.input-group textarea { resize: vertical; min-height: 80px; }
+.input-group input:focus, .input-group textarea:focus { border-color: #818cf8; box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.2); }
+.input-group input::placeholder, .input-group textarea::placeholder { color: #555; }
+.input-hint { font-size: 0.75rem; color: #666; }
+
+.card { background: #111318; border: 1px solid #1e2030; border-radius: 14px; overflow: hidden; margin-bottom: 32px; }
+.card-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; background: #13151d; border-bottom: 1px solid #1e2030; }
+.card-header h3 { font-size: 0.85rem; font-weight: 600; color: #ccc; }
+.card-body { padding: 20px; }
+
+.btn-primary { background: #818cf8; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+.btn-primary:hover { background: #6366f1; }
+.btn-primary.copied { background: #4ade80; color: #1a3a1a; }
+
+.code-output { background: #0a0b10; border: 1px solid #1e2030; border-radius: 10px; padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #e0e0e0; white-space: pre-wrap; word-break: break-all; min-height: 120px; }
+.code-output .tag { color: #569cd6; }
+.code-output .attr { color: #9cdcfe; }
+.code-output .val { color: #ce9178; }
+
+/* Preview Tabs */
+.preview-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; border-bottom: 1px solid #1e2030; padding-bottom: 12px; }
+.tab-btn { background: transparent; border: none; color: #888; font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; padding: 8px 16px; border-radius: 6px; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+.tab-btn svg { width: 16px; height: 16px; fill: currentColor; }
+.tab-btn:hover { color: #ccc; background: rgba(255,255,255,0.05); }
+.tab-btn.active { background: rgba(129, 140, 248, 0.1); color: #818cf8; }
+
+.preview-pane { display: none; }
+.preview-pane.active { display: block; }
+
+/* Common Preview Styles */
+.social-preview-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: #0a0b10;
+  border-radius: 10px;
+  border: 1px solid #1e2030;
+  min-height: 400px;
+}
+
+.sc-img-container { width: 100%; aspect-ratio: 1.91 / 1; background: #1e2030; overflow: hidden; position: relative; }
+.sc-img-container img { width: 100%; height: 100%; object-fit: cover; }
+.sc-img-placeholder { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #555; font-size: 0.85rem; }
+
+/* Facebook Preview */
+.fb-card {
+  width: 100%;
+  max-width: 500px;
+  background: #f0f2f5;
+  border-radius: 0;
+  overflow: hidden;
+  font-family: Helvetica, Arial, sans-serif;
+  border: 1px solid #dadde1;
+  color: #1c1e21;
+}
+.fb-content { padding: 10px 12px; background: #f0f2f5; border-top: 1px solid #dadde1; }
+.fb-domain { text-transform: uppercase; color: #65676b; font-size: 12px; margin-bottom: 5px; }
+.fb-title { font-weight: 600; font-size: 16px; margin-bottom: 3px; color: #1c1e21; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.fb-desc { color: #65676b; font-size: 14px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* Twitter Preview */
+.tw-card {
+  width: 100%;
+  max-width: 500px;
+  background: #15202b;
+  border-radius: 16px;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  border: 1px solid #38444d;
+  color: #fff;
+}
+.tw-content { padding: 12px; border-top: 1px solid #38444d; }
+.tw-title { font-weight: bold; font-size: 15px; margin-bottom: 2px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.tw-desc { color: #8899a6; font-size: 15px; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.tw-domain { color: #8899a6; font-size: 15px; display: flex; align-items: center; gap: 4px; }
+
+/* LinkedIn Preview */
+.li-card {
+  width: 100%;
+  max-width: 500px;
+  background: #eef3f8;
+  border-radius: 2px;
+  overflow: hidden;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
+  border: 1px solid rgba(0,0,0,0.15);
+  color: rgba(0,0,0,0.9);
+}
+.li-content { padding: 8px 12px; background: #eef3f8; }
+.li-title { font-weight: 600; font-size: 14px; color: rgba(0,0,0,0.9); margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.li-domain { color: rgba(0,0,0,0.6); font-size: 12px; }
+
+/* Discord Preview */
+.dc-card {
+  width: 100%;
+  max-width: 432px;
+  background: #2b2d31;
+  border-radius: 4px;
+  overflow: hidden;
+  font-family: "gg sans", "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  border-left: 4px solid #1e1f22;
+  color: #dbdee1;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.dc-provider { color: #dbdee1; font-size: 12px; }
+.dc-title { color: #00a8fc; font-weight: 600; font-size: 16px; text-decoration: none; }
+.dc-title:hover { text-decoration: underline; }
+.dc-desc { color: #dbdee1; font-size: 14px; line-height: 1.375; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.dc-img-container { width: 100%; max-width: 400px; border-radius: 4px; overflow: hidden; margin-top: 8px; }
+.dc-img-container img { width: 100%; height: auto; display: block; }
+
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #0a0b10; }
+::-webkit-scrollbar-thumb { background: #1e2030; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #2a2d40; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Open Graph <span>Preview</span></h1>
+  <p>Test and visualize how your URLs appear on social media platforms.</p>
+</div>
+
+<div class="main">
+  <div class="layout-grid">
+    <!-- Left Column: Inputs -->
+    <div class="input-section">
+      <div class="builder-grid">
+        <div class="input-group">
+          <label for="urlInput">URL / Link</label>
+          <input type="url" id="urlInput" placeholder="https://example.com/article" autocomplete="off" value="https://example.com/my-awesome-post">
+          <div class="input-hint">The link you are sharing. Determines the domain name shown.</div>
+        </div>
+
+        <div class="input-group">
+          <label for="titleInput">og:title <span class="counter" id="titleCounter">0</span></label>
+          <input type="text" id="titleInput" placeholder="The title of your page" autocomplete="off" value="My Awesome Post Title">
+        </div>
+
+        <div class="input-group">
+          <label for="descInput">og:description <span class="counter" id="descCounter">0</span></label>
+          <textarea id="descInput" placeholder="A brief description of your content..." autocomplete="off">This is a summary of the awesome post content that will engage users to click and read more.</textarea>
+        </div>
+
+        <div class="input-group">
+          <label for="imageInput">og:image URL</label>
+          <input type="url" id="imageInput" placeholder="https://example.com/image.jpg" autocomplete="off" value="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDYzMCI+PHJlY3Qgd2lkdGg9IjEyMDAiIGhlaWdodD0iNjMwIiBmaWxsPSIjMWUyMDMwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjUwIiBmaWxsPSIjODE4Y2Y4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjM1ZW0iPkV4YW1wbGUgSW1hZ2U8L3RleHQ+PC9zdmc+">
+          <div class="input-hint">Recommended size: 1200x630 pixels.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Previews -->
+    <div class="preview-section">
+      <div class="card">
+        <div class="card-header">
+          <h3>Preview</h3>
+        </div>
+        <div class="card-body">
+          <div class="preview-tabs">
+            <button class="tab-btn active" data-tab="facebook">
+              <svg viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10 10 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg>
+              Facebook
+            </button>
+            <button class="tab-btn" data-tab="twitter">
+              <svg viewBox="0 0 24 24"><path d="M22.46 6C21.69 6.35 20.86 6.58 20 6.69C20.88 6.16 21.56 5.32 21.88 4.31C21.05 4.81 20.13 5.16 19.16 5.36C18.37 4.5 17.26 4 16 4C13.65 4 11.73 5.92 11.73 8.29C11.73 8.63 11.77 8.96 11.84 9.27C8.28 9.09 5.11 7.38 3 4.79C2.63 5.42 2.42 6.16 2.42 6.94C2.42 8.43 3.17 9.75 4.33 10.5C3.62 10.5 2.96 10.3 2.38 10V10.05C2.38 12.11 3.86 13.85 5.82 14.24C5.46 14.34 5.08 14.39 4.69 14.39C4.42 14.39 4.15 14.36 3.89 14.31C4.43 16 5.99 17.22 7.86 17.25C6.37 18.42 4.49 19.12 2.43 19.12C2.08 19.12 1.73 19.1 1.39 19.06C3.32 20.3 5.62 21 8.09 21C16.14 21 20.53 14.33 20.53 8.54C20.53 8.35 20.53 8.16 20.52 7.97C21.38 7.35 22.13 6.61 22.71 5.76C22.62 5.84 22.54 5.92 22.46 6Z"/></svg>
+              Twitter
+            </button>
+            <button class="tab-btn" data-tab="linkedin">
+              <svg viewBox="0 0 24 24"><path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C13.88 9.94 13.06 10.66 12.65 11.3V10H9.76V18.5H12.64V13.84C12.64 12.62 12.87 11.45 14.36 11.45C15.83 11.45 15.86 12.82 15.86 13.92V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88A1.68 1.68 0 0 0 6.88 5.2A1.68 1.68 0 0 0 5.2 6.88A1.68 1.68 0 0 0 6.88 8.56M8.32 18.5V10H5.44V18.5H8.32Z"/></svg>
+              LinkedIn
+            </button>
+            <button class="tab-btn" data-tab="discord">
+              <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/></svg>
+              Discord
+            </button>
+          </div>
+
+          <div class="preview-content">
+            <!-- Facebook Preview -->
+            <div id="preview-facebook" class="preview-pane active">
+              <div class="social-preview-container">
+                <div class="fb-card">
+                  <div class="sc-img-container">
+                    <div class="sc-img-placeholder">Image</div>
+                    <img id="fbImg" src="" alt="Facebook Image Preview" style="display: none;">
+                  </div>
+                  <div class="fb-content">
+                    <div class="fb-domain" id="fbDomain">EXAMPLE.COM</div>
+                    <div class="fb-title" id="fbTitle">Title</div>
+                    <div class="fb-desc" id="fbDesc">Description</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Twitter Preview -->
+            <div id="preview-twitter" class="preview-pane">
+              <div class="social-preview-container">
+                <div class="tw-card">
+                  <div class="sc-img-container">
+                    <div class="sc-img-placeholder">Image</div>
+                    <img id="twImg" src="" alt="Twitter Image Preview" style="display: none;">
+                  </div>
+                  <div class="tw-content">
+                    <div class="tw-title" id="twTitle">Title</div>
+                    <div class="tw-desc" id="twDesc">Description</div>
+                    <div class="tw-domain" id="twDomain">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                      example.com
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- LinkedIn Preview -->
+            <div id="preview-linkedin" class="preview-pane">
+              <div class="social-preview-container">
+                <div class="li-card">
+                  <div class="sc-img-container" style="aspect-ratio: 1.91 / 1;">
+                    <div class="sc-img-placeholder">Image</div>
+                    <img id="liImg" src="" alt="LinkedIn Image Preview" style="display: none;">
+                  </div>
+                  <div class="li-content">
+                    <div class="li-title" id="liTitle">Title</div>
+                    <div class="li-domain" id="liDomain">example.com</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Discord Preview -->
+            <div id="preview-discord" class="preview-pane">
+              <div class="social-preview-container">
+                <div class="dc-card">
+                  <div class="dc-provider" id="dcDomain">example.com</div>
+                  <div class="dc-title" id="dcTitle">Title</div>
+                  <div class="dc-desc" id="dcDesc">Description</div>
+                  <div class="dc-img-container">
+                    <div class="sc-img-placeholder" style="aspect-ratio: 1.91 / 1; position: relative; background:#1e2030;">Image</div>
+                    <img id="dcImg" src="" alt="Discord Image Preview" style="display: none;">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Generated Code Card -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Generated Code</h3>
+          <button class="btn-primary" id="copyCodeBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Copy HTML
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="code-output" id="codeOutput"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>What is Open Graph?</h2>
+    <p>The Open Graph protocol was created by Facebook to allow any web page to have the same functionality as any other object on Facebook. Essentially, it allows you to control what snippet of information is displayed when someone shares a link to your website on social media platforms.</p>
+
+    <h2>Why do social previews matter?</h2>
+    <p>When people share your links, a good looking preview card dramatically increases click-through rates. By default, platforms will scrape your page and try to guess the best title, description, and image to show. Providing explicit Open Graph (og:) tags guarantees your content is presented exactly how you want it.</p>
+
+    <h2>Common Open Graph Tags</h2>
+    <ul>
+      <li><strong>og:title</strong> - The title of your page. Should be concise and compelling.</li>
+      <li><strong>og:description</strong> - A brief description of the content, usually 1-2 sentences.</li>
+      <li><strong>og:image</strong> - The URL of the image to represent the content. Most platforms recommend 1200x630 pixels.</li>
+      <li><strong>og:url</strong> - The canonical URL of your page.</li>
+    </ul>
+
+    <p>While Twitter has its own set of <code>twitter:</code> tags, it falls back to Open Graph tags if specific Twitter tags are missing. LinkedIn and Discord also rely heavily on Open Graph data.</p>
+  </div>
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const inputs = {
+  url: document.getElementById('urlInput'),
+  title: document.getElementById('titleInput'),
+  desc: document.getElementById('descInput'),
+  image: document.getElementById('imageInput')
+};
+
+const counters = {
+  title: document.getElementById('titleCounter'),
+  desc: document.getElementById('descCounter')
+};
+
+const elements = {
+  fb: { title: document.getElementById('fbTitle'), desc: document.getElementById('fbDesc'), domain: document.getElementById('fbDomain'), img: document.getElementById('fbImg') },
+  tw: { title: document.getElementById('twTitle'), desc: document.getElementById('twDesc'), domain: document.getElementById('twDomain'), img: document.getElementById('twImg') },
+  li: { title: document.getElementById('liTitle'), domain: document.getElementById('liDomain'), img: document.getElementById('liImg') },
+  dc: { title: document.getElementById('dcTitle'), desc: document.getElementById('dcDesc'), domain: document.getElementById('dcDomain'), img: document.getElementById('dcImg') }
+};
+
+const codeOutput = document.getElementById('codeOutput');
+const copyCodeBtn = document.getElementById('copyCodeBtn');
+
+let generatedCode = '';
+
+// Tab switching
+const tabs = document.querySelectorAll('.tab-btn');
+const panes = document.querySelectorAll('.preview-pane');
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    panes.forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(`preview-${tab.dataset.tab}`).classList.add('active');
+  });
+});
+
+function updatePreviews() {
+  const urlVal = inputs.url.value.trim();
+  const titleVal = inputs.title.value.trim() || 'Title';
+  const descVal = inputs.desc.value.trim() || 'Description';
+  const imgVal = inputs.image.value.trim();
+
+  // Counters
+  counters.title.textContent = inputs.title.value.length;
+  counters.desc.textContent = inputs.desc.value.length;
+
+  // Domain extraction
+  let domainStr = 'example.com';
+  if (urlVal) {
+    try {
+      const urlObj = new URL(urlVal.startsWith('http') ? urlVal : 'https://' + urlVal);
+      domainStr = urlObj.hostname.replace('www.', '');
+    } catch(e) {}
+  }
+
+  // Update Facebook
+  elements.fb.title.textContent = titleVal;
+  elements.fb.desc.textContent = descVal;
+  elements.fb.domain.textContent = domainStr.toUpperCase();
+
+  // Update Twitter
+  elements.tw.title.textContent = titleVal;
+  elements.tw.desc.textContent = descVal;
+  elements.tw.domain.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>${domainStr}`;
+
+  // Update LinkedIn
+  elements.li.title.textContent = titleVal;
+  elements.li.domain.textContent = domainStr;
+
+  // Update Discord
+  elements.dc.title.textContent = titleVal;
+  elements.dc.desc.textContent = descVal;
+  elements.dc.domain.textContent = domainStr;
+
+  // Images
+  const allImgTags = [elements.fb.img, elements.tw.img, elements.li.img, elements.dc.img];
+  allImgTags.forEach(img => {
+    if (imgVal) {
+      img.src = imgVal;
+      img.style.display = 'block';
+      img.previousElementSibling.style.display = 'none'; // hide placeholder
+    } else {
+      img.style.display = 'none';
+      img.previousElementSibling.style.display = 'flex'; // show placeholder
+    }
+  });
+}
+
+function escapeAttr(str) {
+  return str.replace(/&/g, '&amp;')
+            .replace(/"/g, '&quot;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+}
+
+function highlightCode(str) {
+  const escaped = str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return escaped.replace(/(&lt;!--.*?--&gt;)|(&lt;\/?[a-zA-Z0-9\-]+)(.*?)(&gt;)/g, function(match, comment, startTag, attrs, endTag) {
+    if (comment) return `<span style="color: #6a9955;">${comment}</span>`;
+    const highlightedTag = startTag.replace(/(&lt;\/?)([a-zA-Z0-9\-]+)/, '$1<span class="tag">$2</span>');
+    const highlightedAttrs = attrs.replace(/([a-zA-Z0-9\-]+)=(&quot;.*?&quot;|"[^"]*")/g, '<span class="attr">$1</span>=<span class="val">$2</span>');
+    return highlightedTag + highlightedAttrs + endTag;
+  });
+}
+
+function generateCode() {
+  const u = inputs.url.value.trim();
+  const t = inputs.title.value.trim();
+  const d = inputs.desc.value.trim();
+  const i = inputs.image.value.trim();
+
+  let lines = [];
+  lines.push(`<!-- Open Graph / Facebook -->`);
+  lines.push(`<meta property="og:type" content="website">`);
+  if (u) lines.push(`<meta property="og:url" content="${escapeAttr(u)}">`);
+  if (t) lines.push(`<meta property="og:title" content="${escapeAttr(t)}">`);
+  if (d) lines.push(`<meta property="og:description" content="${escapeAttr(d)}">`);
+  if (i) lines.push(`<meta property="og:image" content="${escapeAttr(i)}">`);
+
+  lines.push(`\n<!-- Twitter -->`);
+  lines.push(`<meta property="twitter:card" content="summary_large_image">`);
+  if (u) lines.push(`<meta property="twitter:url" content="${escapeAttr(u)}">`);
+  if (t) lines.push(`<meta property="twitter:title" content="${escapeAttr(t)}">`);
+  if (d) lines.push(`<meta property="twitter:description" content="${escapeAttr(d)}">`);
+  if (i) lines.push(`<meta property="twitter:image" content="${escapeAttr(i)}">`);
+
+  generatedCode = lines.join('\n');
+  codeOutput.innerHTML = highlightCode(generatedCode);
+}
+
+function updateAll() {
+  updatePreviews();
+  generateCode();
+}
+
+Object.values(inputs).forEach(input => {
+  input.addEventListener('input', updateAll);
+});
+
+// Copy functionality
+copyCodeBtn.addEventListener('click', () => {
+  if (!generatedCode) return;
+  navigator.clipboard.writeText(generatedCode).then(() => {
+    const originalText = copyCodeBtn.innerHTML;
+    copyCodeBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+    copyCodeBtn.classList.add('copied');
+    setTimeout(() => {
+      copyCodeBtn.innerHTML = originalText;
+      copyCodeBtn.classList.remove('copied');
+    }, 2000);
+  });
+});
+
+// Initial update
+updateAll();
+</script>
+</body>
+</html>
