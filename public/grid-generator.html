@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Grid Generator | Free Online Tool</title>
+<meta name="description" content="Design CSS Grid layouts visually. Generate HTML and CSS for rows, columns, gaps, and template areas. Free and works offline.">
+<meta property="og:title" content="CSS Grid Generator">
+<meta property="og:description" content="Design CSS Grid layouts visually. Generate HTML and CSS for rows, columns, gaps, and template areas. Free and works offline.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "CSS Grid Generator",
+  "url": "https://siliconbased.dev/grid-generator",
+  "description": "Design CSS Grid layouts visually. Generate HTML and CSS for rows, columns, gaps, and template areas.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Card */
+.tool-card { background: #111318; border: 1px solid #1e2030; border-radius: 16px; overflow: hidden; margin-bottom: 40px; }
+.tool-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: #13151d; border-bottom: 1px solid #1e2030; flex-wrap: wrap; gap: 12px; }
+.tool-header h3 { font-size: 0.9rem; font-weight: 600; color: #ccc; display: flex; align-items: center; gap: 8px; }
+
+/* Tool body */
+.tool-body { padding: 24px; display: grid; grid-template-columns: 1fr; gap: 24px; }
+@media (min-width: 900px) {
+  .tool-body { grid-template-columns: 300px 1fr; }
+}
+
+/* Controls layout */
+.controls-panel { display: flex; flex-direction: column; gap: 24px; }
+.control-group { display: flex; flex-direction: column; gap: 12px; background: #0a0b10; padding: 16px; border-radius: 12px; border: 1px solid #1e2030; }
+.control-group h4 { font-size: 0.9rem; font-weight: 600; color: #818cf8; margin-bottom: 4px; }
+.control-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.control-label { font-size: 0.85rem; color: #ccc; flex: 1; }
+
+input[type="number"], .input-text { background: #13151d; border: 1px solid #2a2d40; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; padding: 6px 10px; border-radius: 6px; outline: none; width: 80px; }
+input[type="number"]:focus, .input-text:focus { border-color: #818cf8; }
+
+.units-select { background: #13151d; border: 1px solid #2a2d40; color: #e0e0e0; font-size: 0.85rem; padding: 6px; border-radius: 6px; outline: none; font-family: 'Inter', sans-serif; cursor: pointer; }
+
+/* Buttons */
+.btn-group { display: flex; gap: 8px; }
+.btn-icon { background: #1e2030; border: 1px solid #2a2d40; color: #ccc; border-radius: 6px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 1.2rem; line-height: 1; }
+.btn-icon:hover { background: #2a2d40; color: #fff; border-color: #818cf8; }
+
+.btn { background: #1e2030; border: 1px solid #2a2d40; color: #ccc; padding: 10px 20px; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; justify-content: center; }
+.btn:hover { background: #2a2d40; color: #fff; }
+.btn-primary { background: #818cf8; color: #fff; border-color: #818cf8; }
+.btn-primary:hover { background: #6366f1; border-color: #6366f1; }
+
+/* Grid Preview Area */
+.preview-panel { display: flex; flex-direction: column; gap: 24px; }
+.grid-container-wrapper { background: #13151d; border: 1px dashed #2a2d40; border-radius: 12px; padding: 24px; display: flex; justify-content: center; align-items: center; min-height: 400px; overflow: auto; position: relative; }
+.grid-preview { background: #1e2030; display: grid; width: 100%; height: 100%; min-height: 300px; transition: all 0.2s; }
+.grid-item { background: #2a2d40; border: 1px solid #3b3f5c; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #888; transition: all 0.2s; cursor: pointer; position: relative; }
+.grid-item:hover { background: #3b3f5c; color: #ccc; border-color: #818cf8; }
+.grid-item.selected { background: rgba(129, 140, 248, 0.2); border-color: #818cf8; color: #fff; z-index: 10; box-shadow: 0 0 0 1px #818cf8; }
+
+/* Code Output */
+.code-section { display: flex; flex-direction: column; gap: 12px; }
+.code-header { display: flex; justify-content: space-between; align-items: center; }
+.code-header h4 { font-size: 0.9rem; color: #ccc; font-weight: 600; }
+.code-block { background: #0a0b10; border: 1px solid #1e2030; border-radius: 12px; padding: 16px; overflow-x: auto; position: relative; }
+.code-block pre { color: #e0e0e0; font-size: 0.9rem; line-height: 1.5; tab-size: 2; }
+.css-property { color: #818cf8; }
+.css-value { color: #c084fc; }
+.css-selector { color: #4ade80; }
+
+.copy-btn { position: absolute; top: 12px; right: 12px; background: #1e2030; border: 1px solid #2a2d40; color: #888; border-radius: 6px; padding: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; }
+.copy-btn:hover { background: #2a2d40; color: #ccc; }
+.copy-btn.copied { color: #4ade80; border-color: #4ade80; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+.track-inputs { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+.track-input-row { display: flex; gap: 8px; align-items: center; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>CSS Grid Generator</h1>
+  <p>Design complex grid layouts visually and copy the generated CSS instantly.</p>
+</div>
+
+<div class="main">
+  <div class="tool-card">
+    <div class="tool-header">
+      <h3>Configure Grid Options</h3>
+      <button class="btn btn-primary" id="resetBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        Reset Grid
+      </button>
+    </div>
+
+    <div class="tool-body">
+      <!-- Controls Panel -->
+      <div class="controls-panel">
+        <div class="control-group">
+          <h4>Columns</h4>
+          <div class="control-row">
+            <span class="control-label">Count</span>
+            <div class="btn-group">
+              <button class="btn-icon" id="colMinus">−</button>
+              <input type="number" id="colCount" value="3" min="1" max="12">
+              <button class="btn-icon" id="colPlus">+</button>
+            </div>
+          </div>
+          <div class="control-row">
+            <span class="control-label">Gap</span>
+            <div style="display: flex; gap: 8px;">
+              <input type="number" id="colGap" value="16" min="0">
+              <select class="units-select" id="colGapUnit">
+                <option value="px">px</option>
+                <option value="rem">rem</option>
+                <option value="em">em</option>
+                <option value="%">%</option>
+              </select>
+            </div>
+          </div>
+          <div class="track-inputs" id="colTracks">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <div class="control-group">
+          <h4>Rows</h4>
+          <div class="control-row">
+            <span class="control-label">Count</span>
+            <div class="btn-group">
+              <button class="btn-icon" id="rowMinus">−</button>
+              <input type="number" id="rowCount" value="3" min="1" max="12">
+              <button class="btn-icon" id="rowPlus">+</button>
+            </div>
+          </div>
+          <div class="control-row">
+            <span class="control-label">Gap</span>
+            <div style="display: flex; gap: 8px;">
+              <input type="number" id="rowGap" value="16" min="0">
+              <select class="units-select" id="rowGapUnit">
+                <option value="px">px</option>
+                <option value="rem">rem</option>
+                <option value="em">em</option>
+                <option value="%">%</option>
+              </select>
+            </div>
+          </div>
+          <div class="track-inputs" id="rowTracks">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Preview Panel -->
+      <div class="preview-panel">
+        <div class="grid-container-wrapper">
+          <div class="grid-preview" id="gridPreview">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- CSS Output -->
+        <div class="code-section">
+          <div class="code-header">
+            <h4>Generated CSS</h4>
+          </div>
+          <div class="code-block">
+            <button class="copy-btn" id="copyCssBtn" title="Copy CSS">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+            <pre id="cssOutput"></pre>
+          </div>
+        </div>
+
+        <!-- HTML Output -->
+        <div class="code-section">
+          <div class="code-header">
+            <h4>Generated HTML</h4>
+          </div>
+          <div class="code-block">
+            <button class="copy-btn" id="copyHtmlBtn" title="Copy HTML">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+            <pre id="htmlOutput"></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEO Content -->
+  <div class="seo-content">
+    <h2>What is CSS Grid?</h2>
+    <p>CSS Grid Layout is a two-dimensional layout system for the web. It lets you design complex, responsive web designs more easily and consistently across browsers. Unlike Flexbox, which is primarily a one-dimensional system (either a row or a column), Grid can handle both rows and columns simultaneously.</p>
+
+    <h2>How to Use This Generator</h2>
+    <p>This generator provides a visual interface to rapidly prototype CSS Grid layouts.</p>
+    <ul>
+      <li><strong>Define Rows and Columns:</strong> Use the controls on the left to add or remove columns and rows. You can adjust the width or height of each track using standard CSS units like <code>fr</code>, <code>px</code>, <code>%</code>, and <code>auto</code>.</li>
+      <li><strong>Set Gaps:</strong> Adjust the column and row gaps to control the spacing between your grid items.</li>
+      <li><strong>Create Template Areas:</strong> Click and drag (or select individual items) in the visual preview area to define spanned items. The generator will automatically calculate the <code>grid-column</code> and <code>grid-row</code> values for the selected area.</li>
+      <li><strong>Copy the Code:</strong> Once your layout is ready, simply copy the generated CSS and HTML into your project.</li>
+    </ul>
+
+    <h2>Client-Side Performance & Privacy</h2>
+    <p>This CSS Grid Generator is built entirely with vanilla JavaScript, HTML, and CSS. It runs locally in your browser without requiring any external dependencies or API calls after the initial page load. This guarantees lightning-fast performance, offline capability, and complete privacy since no data is sent to external servers.</p>
+  </div>
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const colCountInput = document.getElementById('colCount');
+const rowCountInput = document.getElementById('rowCount');
+const colMinusBtn = document.getElementById('colMinus');
+const colPlusBtn = document.getElementById('colPlus');
+const rowMinusBtn = document.getElementById('rowMinus');
+const rowPlusBtn = document.getElementById('rowPlus');
+const colGapInput = document.getElementById('colGap');
+const colGapUnit = document.getElementById('colGapUnit');
+const rowGapInput = document.getElementById('rowGap');
+const rowGapUnit = document.getElementById('rowGapUnit');
+const colTracksContainer = document.getElementById('colTracks');
+const rowTracksContainer = document.getElementById('rowTracks');
+const gridPreview = document.getElementById('gridPreview');
+const cssOutput = document.getElementById('cssOutput');
+const htmlOutput = document.getElementById('htmlOutput');
+const copyCssBtn = document.getElementById('copyCssBtn');
+const copyHtmlBtn = document.getElementById('copyHtmlBtn');
+const resetBtn = document.getElementById('resetBtn');
+
+let state = {
+  cols: 3,
+  rows: 3,
+  colGap: { value: 16, unit: 'px' },
+  rowGap: { value: 16, unit: 'px' },
+  colTracks: ['1fr', '1fr', '1fr'],
+  rowTracks: ['1fr', '1fr', '1fr'],
+  selectedItems: new Set()
+};
+
+function init() {
+  bindEvents();
+  renderTrackInputs('col');
+  renderTrackInputs('row');
+  updateGrid();
+}
+
+function bindEvents() {
+  colMinusBtn.addEventListener('click', () => updateCount('col', -1));
+  colPlusBtn.addEventListener('click', () => updateCount('col', 1));
+  rowMinusBtn.addEventListener('click', () => updateCount('row', -1));
+  rowPlusBtn.addEventListener('click', () => updateCount('row', 1));
+
+  colCountInput.addEventListener('change', (e) => setCount('col', parseInt(e.target.value)));
+  rowCountInput.addEventListener('change', (e) => setCount('row', parseInt(e.target.value)));
+
+  colGapInput.addEventListener('input', (e) => { state.colGap.value = e.target.value; updateGrid(); });
+  colGapUnit.addEventListener('change', (e) => { state.colGap.unit = e.target.value; updateGrid(); });
+  rowGapInput.addEventListener('input', (e) => { state.rowGap.value = e.target.value; updateGrid(); });
+  rowGapUnit.addEventListener('change', (e) => { state.rowGap.unit = e.target.value; updateGrid(); });
+
+  resetBtn.addEventListener('click', () => {
+    state = {
+      cols: 3,
+      rows: 3,
+      colGap: { value: 16, unit: 'px' },
+      rowGap: { value: 16, unit: 'px' },
+      colTracks: ['1fr', '1fr', '1fr'],
+      rowTracks: ['1fr', '1fr', '1fr'],
+      selectedItems: new Set()
+    };
+    colCountInput.value = 3;
+    rowCountInput.value = 3;
+    colGapInput.value = 16;
+    colGapUnit.value = 'px';
+    rowGapInput.value = 16;
+    rowGapUnit.value = 'px';
+    renderTrackInputs('col');
+    renderTrackInputs('row');
+    updateGrid();
+  });
+
+  setupCopyBtn(copyCssBtn, 'cssOutput');
+  setupCopyBtn(copyHtmlBtn, 'htmlOutput');
+}
+
+function updateCount(type, delta) {
+  const current = state[type === 'col' ? 'cols' : 'rows'];
+  const next = Math.max(1, Math.min(12, current + delta));
+  setCount(type, next);
+}
+
+function setCount(type, count) {
+  if (isNaN(count) || count < 1) count = 1;
+  if (count > 12) count = 12;
+
+  const isCol = type === 'col';
+  if (isCol) {
+    state.cols = count;
+    colCountInput.value = count;
+    adjustTracks('colTracks', count);
+  } else {
+    state.rows = count;
+    rowCountInput.value = count;
+    adjustTracks('rowTracks', count);
+  }
+
+  state.selectedItems.clear(); // Clear selections when grid changes
+  renderTrackInputs(type);
+  updateGrid();
+}
+
+function adjustTracks(trackKey, count) {
+  const tracks = state[trackKey];
+  while (tracks.length < count) {
+    tracks.push('1fr');
+  }
+  if (tracks.length > count) {
+    state[trackKey] = tracks.slice(0, count);
+  }
+}
+
+function renderTrackInputs(type) {
+  const isCol = type === 'col';
+  const container = isCol ? colTracksContainer : rowTracksContainer;
+  const tracks = isCol ? state.colTracks : state.rowTracks;
+  const labelPrefix = isCol ? 'C' : 'R';
+
+  container.innerHTML = '';
+
+  tracks.forEach((track, index) => {
+    const row = document.createElement('div');
+    row.className = 'track-input-row';
+
+    const label = document.createElement('span');
+    label.style.fontSize = '0.8rem';
+    label.style.color = '#888';
+    label.style.width = '24px';
+    label.textContent = `${labelPrefix}${index + 1}`;
+
+    // Parse current value
+    const match = track.match(/^([\d.]+)(.*)$/);
+    let val = '1';
+    let unit = 'fr';
+    if (match) {
+      val = match[1];
+      unit = match[2] || 'fr';
+      if (track === 'auto') {
+        val = '';
+        unit = 'auto';
+      }
+    }
+
+    const input = document.createElement('input');
+    input.type = unit === 'auto' ? 'text' : 'number';
+    input.className = 'input-text';
+    input.style.flex = '1';
+    input.value = val;
+    input.disabled = unit === 'auto';
+
+    const select = document.createElement('select');
+    select.className = 'units-select';
+    ['fr', 'px', '%', 'rem', 'em', 'auto'].forEach(u => {
+      const opt = document.createElement('option');
+      opt.value = u;
+      opt.textContent = u;
+      if (u === unit) opt.selected = true;
+      select.appendChild(opt);
+    });
+
+    const updateTrack = () => {
+      const u = select.value;
+      if (u === 'auto') {
+        input.value = '';
+        input.type = 'text';
+        input.disabled = true;
+        tracks[index] = 'auto';
+      } else {
+        input.type = 'number';
+        input.disabled = false;
+        const v = input.value || '0';
+        tracks[index] = `${v}${u}`;
+      }
+      updateGrid();
+    };
+
+    input.addEventListener('input', updateTrack);
+    select.addEventListener('change', updateTrack);
+
+    row.appendChild(label);
+    row.appendChild(input);
+    row.appendChild(select);
+    container.appendChild(row);
+  });
+}
+
+function updateGrid() {
+  // Update Preview CSS
+  const colTemplate = state.colTracks.join(' ');
+  const rowTemplate = state.rowTracks.join(' ');
+  const gapColStr = `${state.colGap.value}${state.colGap.unit}`;
+  const gapRowStr = `${state.rowGap.value}${state.rowGap.unit}`;
+
+  gridPreview.style.gridTemplateColumns = colTemplate;
+  gridPreview.style.gridTemplateRows = rowTemplate;
+  gridPreview.style.columnGap = gapColStr;
+  gridPreview.style.rowGap = gapRowStr;
+
+  // Update Grid Items
+  const totalItems = state.cols * state.rows;
+  gridPreview.innerHTML = '';
+
+  for (let i = 0; i < totalItems; i++) {
+    const item = document.createElement('div');
+    item.className = 'grid-item';
+    if (state.selectedItems.has(i)) {
+      item.classList.add('selected');
+    }
+    item.textContent = i + 1;
+
+    item.addEventListener('click', () => {
+      if (state.selectedItems.has(i)) {
+        state.selectedItems.delete(i);
+        item.classList.remove('selected');
+      } else {
+        state.selectedItems.add(i);
+        item.classList.add('selected');
+      }
+      generateCode();
+    });
+
+    gridPreview.appendChild(item);
+  }
+
+  generateCode();
+}
+
+function generateCode() {
+  const colTemplate = state.colTracks.join(' ');
+  const rowTemplate = state.rowTracks.join(' ');
+  const gapColStr = `${state.colGap.value}${state.colGap.unit}`;
+  const gapRowStr = `${state.rowGap.value}${state.rowGap.unit}`;
+
+  let css = `<span class="css-selector">.grid-container</span> {\n`;
+  css += `  <span class="css-property">display</span>: <span class="css-value">grid</span>;\n`;
+  css += `  <span class="css-property">grid-template-columns</span>: <span class="css-value">${colTemplate}</span>;\n`;
+  css += `  <span class="css-property">grid-template-rows</span>: <span class="css-value">${rowTemplate}</span>;\n`;
+  css += `  <span class="css-property">gap</span>: <span class="css-value">${gapRowStr} ${gapColStr}</span>;\n`;
+  css += `}`;
+
+  // Handle selected items spanning
+  if (state.selectedItems.size > 0) {
+    const selectedArr = Array.from(state.selectedItems).sort((a, b) => a - b);
+
+    // Find min/max row/col
+    let minRow = state.rows, maxRow = 0;
+    let minCol = state.cols, maxCol = 0;
+
+    selectedArr.forEach(idx => {
+      const r = Math.floor(idx / state.cols) + 1;
+      const c = (idx % state.cols) + 1;
+      if (r < minRow) minRow = r;
+      if (r > maxRow) maxRow = r;
+      if (c < minCol) minCol = c;
+      if (c > maxCol) maxCol = c;
+    });
+
+    css += `\n\n<span class="css-selector">.item-selected</span> {\n`;
+    css += `  <span class="css-property">grid-column</span>: <span class="css-value">${minCol} / ${maxCol + 1}</span>;\n`;
+    css += `  <span class="css-property">grid-row</span>: <span class="css-value">${minRow} / ${maxRow + 1}</span>;\n`;
+    css += `}`;
+  }
+
+  cssOutput.innerHTML = css;
+
+  // HTML Output
+  const totalItems = state.cols * state.rows;
+  let html = `&lt;div class="grid-container"&gt;\n`;
+
+  if (state.selectedItems.size > 0) {
+    // We visually merge selected items into one div in the HTML output
+    const selectedArr = Array.from(state.selectedItems).sort((a, b) => a - b);
+    const firstSelected = selectedArr[0];
+
+    for (let i = 0; i < totalItems; i++) {
+      if (state.selectedItems.has(i)) {
+        if (i === firstSelected) {
+          html += `  &lt;div class="item-selected"&gt;Selected Area&lt;/div&gt;\n`;
+        }
+      } else {
+        html += `  &lt;div&gt;${i + 1}&lt;/div&gt;\n`;
+      }
+    }
+  } else {
+    for (let i = 0; i < totalItems; i++) {
+      html += `  &lt;div&gt;${i + 1}&lt;/div&gt;\n`;
+    }
+  }
+
+  html += `&lt;/div&gt;`;
+
+  htmlOutput.innerHTML = html;
+}
+
+function setupCopyBtn(btn, containerId) {
+  btn.addEventListener('click', () => {
+    const container = document.getElementById(containerId);
+    let text = container.textContent;
+
+    // For CSS output, we want to strip the span tags which textContent naturally does.
+    // However, textContent also unescapes HTML entities.
+    // For HTML output, textContent gives us literal tags, which is correct.
+    // The previous regex stripped valid HTML tags. We just write the clean text.
+
+    navigator.clipboard.writeText(text).then(() => {
+      const originalHtml = btn.innerHTML;
+      btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.innerHTML = originalHtml;
+        btn.classList.remove('copied');
+      }, 1500);
+    });
+  });
+}
+
+// Initialize
+init();
+</script>
+</body>
+</html>
