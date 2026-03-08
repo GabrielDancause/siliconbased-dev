@@ -20,8 +20,10 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - run: npx playwright install chromium
       - run: npm run generate:chmod
       - run: npm run generate:pageweight
+      - run: npm run generate:savingsrates
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -8,15 +8,16 @@
     "preview": "astro preview",
     "astro": "astro",
     "generate:chmod": "node scripts/generate-chmod-pages.cjs",
-    "generate:pageweight": "node scripts/crawl-page-weight.cjs"
+    "generate:pageweight": "node scripts/crawl-page-weight.cjs",
+    "generate:savingsrates": "node scripts/crawl-savings-rates.cjs && node scripts/generate-savings-html.cjs"
   },
   "dependencies": {
     "astro": "^5.17.1",
     "jsdom": "^28.1.0",
+    "playwright": "^1.58.2",
     "smol-toml": "^1.6.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.58.2",
-    "playwright": "^1.58.2"
+    "@playwright/test": "^1.58.2"
   }
 }
