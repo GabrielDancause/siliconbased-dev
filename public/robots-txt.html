@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>robots.txt Generator — Create SEO rules visually | Free Online Tool</title>
+<meta name="description" content="Free interactive robots.txt generator. Visually build User-Agent rules, allow/disallow paths, crawl delays, and sitemaps for your website's search engine optimization.">
+<meta property="og:title" content="robots.txt Generator — Create SEO rules visually">
+<meta property="og:description" content="Free interactive robots.txt generator. Visually build User-Agent rules, allow/disallow paths, crawl delays, and sitemaps for your website's search engine optimization.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "robots.txt Generator",
+  "url": "https://siliconbased.dev/robots-txt.html",
+  "description": "Interactive robots.txt Generator. Visually build User-Agent rules, allow/disallow paths, crawl delays, and sitemaps.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+
+.main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+.layout-grid { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: start; }
+@media (min-width: 992px) {
+  .layout-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.card { background: #111318; border: 1px solid #1e2030; border-radius: 14px; overflow: hidden; margin-bottom: 32px; }
+.card-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; background: #13151d; border-bottom: 1px solid #1e2030; }
+.card-header h3 { font-size: 0.85rem; font-weight: 600; color: #ccc; }
+.card-body { padding: 20px; }
+
+.input-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.input-group:last-child { margin-bottom: 0; }
+.input-group label { font-size: 0.85rem; font-weight: 600; color: #ccc; display: flex; align-items: center; justify-content: space-between; }
+.input-group input, .input-group select { background: #111318; border: 1px solid #1e2030; border-radius: 10px; padding: 12px 16px; font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #fff; outline: none; transition: all 0.2s; width: 100%; }
+.input-group input:focus, .input-group select:focus { border-color: #818cf8; box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.2); }
+.input-group input::placeholder { color: #555; }
+.input-hint { font-size: 0.75rem; color: #666; }
+
+.rule-block { background: #151821; border: 1px solid #1e2030; border-radius: 10px; padding: 16px; margin-bottom: 16px; position: relative; }
+.rule-block-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.rule-block-header h4 { font-size: 0.9rem; color: #fff; font-weight: 600; }
+.btn-remove { background: transparent; border: none; color: #ef4444; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; gap: 4px; padding: 4px 8px; border-radius: 6px; transition: all 0.2s; }
+.btn-remove:hover { background: rgba(239, 68, 68, 0.1); }
+
+.path-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+.path-item { display: flex; gap: 8px; align-items: center; }
+.path-item select { width: 120px; padding: 10px; }
+.path-item input { flex: 1; padding: 10px; }
+.path-item .btn-remove-path { background: transparent; border: none; color: #888; cursor: pointer; padding: 8px; border-radius: 6px; transition: all 0.2s; }
+.path-item .btn-remove-path:hover { color: #ef4444; background: rgba(239, 68, 68, 0.1); }
+
+.btn-secondary { background: #1e2030; color: #fff; border: 1px solid #2a2d40; padding: 8px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+.btn-secondary:hover { background: #2a2d40; border-color: #3f4460; }
+
+.btn-primary { background: #818cf8; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+.btn-primary:hover { background: #6366f1; }
+.btn-primary.copied { background: #4ade80; color: #1a3a1a; }
+
+.sitemap-list { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+.sitemap-item { display: flex; gap: 8px; align-items: center; }
+.sitemap-item input { flex: 1; }
+
+.code-output { background: #0a0b10; border: 1px solid #1e2030; border-radius: 10px; padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: #e0e0e0; white-space: pre-wrap; word-break: break-all; min-height: 200px; line-height: 1.5; }
+
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-family: 'JetBrains Mono', monospace; font-size: 0.85em; }
+
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #0a0b10; }
+::-webkit-scrollbar-thumb { background: #1e2030; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #2a2d40; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>robots.txt <span>Generator</span></h1>
+  <p>Visually build rules for search engine crawlers</p>
+</div>
+
+<div class="main">
+  <div class="layout-grid">
+    <!-- Left Column: Inputs -->
+    <div class="input-section">
+      <div class="card">
+        <div class="card-header">
+          <h3>Crawler Rules</h3>
+          <button class="btn-secondary" id="addRuleBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            Add User-Agent
+          </button>
+        </div>
+        <div class="card-body" id="rulesContainer">
+          <!-- Rules will be dynamically added here -->
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>Sitemaps</h3>
+          <button class="btn-secondary" id="addSitemapBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            Add Sitemap
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="input-hint" style="margin-bottom: 12px;">Provide absolute URLs to your XML sitemaps.</div>
+          <div class="sitemap-list" id="sitemapContainer">
+            <!-- Sitemaps dynamically added here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Previews and Code -->
+    <div class="preview-section">
+      <div class="card" style="position: sticky; top: 24px;">
+        <div class="card-header">
+          <h3>robots.txt Output</h3>
+          <button class="btn-primary" id="copyCodeBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Copy
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="code-output" id="codeOutput"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>What is a robots.txt file?</h2>
+    <p>A <code>robots.txt</code> file is a text file that resides in the root directory of your website. It uses the Robots Exclusion Standard to tell web robots (most often search engine crawlers like Googlebot) which pages or files they can or cannot request from your site. This is mainly used to avoid overloading your site with requests or to keep certain files or directories out of search engine indexes.</p>
+
+    <h2>Common Directives</h2>
+    <ul>
+      <li><strong>User-agent:</strong> The crawler to which the rule applies (e.g., <code>Googlebot</code>). Using an asterisk <code>*</code> applies the rules to all crawlers.</li>
+      <li><strong>Disallow:</strong> A directory or page you want to block the crawler from accessing.</li>
+      <li><strong>Allow:</strong> A directory or page you want to allow the crawler to access. This is especially useful for allowing access to a specific file within a disallowed directory.</li>
+      <li><strong>Sitemap:</strong> The absolute URL to your website's XML sitemap, helping search engines discover your pages more efficiently.</li>
+      <li><strong>Crawl-delay:</strong> The number of seconds a crawler should wait between requests to your server. (Note: Googlebot does not support this directive, but others like Bingbot do).</li>
+    </ul>
+
+    <h2>Best Practices</h2>
+    <ul>
+      <li>Always place your <code>robots.txt</code> file in the top-level directory of your website (e.g., <code>https://example.com/robots.txt</code>).</li>
+      <li>Use the <code>*</code> User-agent to set general rules for all crawlers, and then add specific rules for individual crawlers if needed. Specific rules override general ones.</li>
+      <li>Never use <code>robots.txt</code> to hide sensitive data. If you have confidential information, use password protection or other server-level security instead.</li>
+      <li>Ensure you don't accidentally block CSS, JavaScript, or image files that are needed to render your page properly, as this can negatively impact your SEO.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const rulesContainer = document.getElementById('rulesContainer');
+const addRuleBtn = document.getElementById('addRuleBtn');
+const sitemapContainer = document.getElementById('sitemapContainer');
+const addSitemapBtn = document.getElementById('addSitemapBtn');
+const codeOutput = document.getElementById('codeOutput');
+const copyCodeBtn = document.getElementById('copyCodeBtn');
+
+let ruleCount = 0;
+
+// Initialize the form with default values
+function init() {
+  addRule('*'); // Add default rule for all agents
+  addSitemap('https://example.com/sitemap.xml'); // Add example sitemap
+  updateOutput();
+}
+
+function createRuleBlock(userAgent = '') {
+  const id = `rule-${ruleCount++}`;
+  const block = document.createElement('div');
+  block.className = 'rule-block';
+  block.id = id;
+
+  block.innerHTML = `
+    <div class="rule-block-header">
+      <h4>User-Agent Rule</h4>
+      <button class="btn-remove" onclick="removeRule('${id}')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+        Remove
+      </button>
+    </div>
+    <div class="input-group">
+      <input type="text" class="user-agent-input" placeholder="e.g. *, Googlebot, Bingbot" value="${userAgent}">
+      <div class="input-hint">Use * for all search engines.</div>
+    </div>
+
+    <div class="path-list" id="paths-${id}">
+      <!-- Paths go here -->
+    </div>
+
+    <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+      <button class="btn-secondary" onclick="addPath('${id}')" style="font-size: 0.75rem; padding: 6px 12px;">+ Add Path</button>
+    </div>
+
+    <div class="input-group">
+      <label>Crawl-delay (seconds)</label>
+      <input type="number" min="0" step="1" class="crawl-delay-input" placeholder="e.g. 10 (Optional)">
+    </div>
+  `;
+
+  return { block, id };
+}
+
+function addRule(userAgent = '') {
+  const { block, id } = createRuleBlock(userAgent);
+  rulesContainer.appendChild(block);
+
+  // Add listeners to new inputs
+  block.querySelectorAll('input').forEach(input => {
+    input.addEventListener('input', updateOutput);
+  });
+
+  // Add a default disallow path
+  addPath(id, 'Disallow', '/cgi-bin/');
+
+  updateOutput();
+}
+
+function removeRule(id) {
+  const block = document.getElementById(id);
+  if (block) {
+    block.remove();
+    updateOutput();
+  }
+}
+
+window.removeRule = removeRule; // expose to global scope for onclick
+
+function addPath(ruleId, type = 'Disallow', value = '/') {
+  const container = document.getElementById(`paths-${ruleId}`);
+  if (!container) return;
+
+  const pathItem = document.createElement('div');
+  pathItem.className = 'path-item';
+  pathItem.innerHTML = `
+    <select class="path-type">
+      <option value="Disallow" ${type === 'Disallow' ? 'selected' : ''}>Disallow</option>
+      <option value="Allow" ${type === 'Allow' ? 'selected' : ''}>Allow</option>
+    </select>
+    <input type="text" class="path-value" placeholder="e.g. /private/" value="${value}">
+    <button class="btn-remove-path" onclick="this.parentElement.remove(); updateOutput();">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+  `;
+
+  container.appendChild(pathItem);
+
+  // Add listeners
+  pathItem.querySelectorAll('input, select').forEach(el => {
+    el.addEventListener('input', updateOutput);
+    el.addEventListener('change', updateOutput);
+  });
+
+  updateOutput();
+}
+
+window.addPath = addPath;
+
+function addSitemap(url = '') {
+  const item = document.createElement('div');
+  item.className = 'sitemap-item';
+  item.innerHTML = `
+    <input type="url" class="sitemap-input" placeholder="https://example.com/sitemap.xml" value="${url}">
+    <button class="btn-remove-path" onclick="this.parentElement.remove(); updateOutput();">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+  `;
+  sitemapContainer.appendChild(item);
+
+  item.querySelector('input').addEventListener('input', updateOutput);
+  updateOutput();
+}
+
+addRuleBtn.addEventListener('click', () => addRule());
+addSitemapBtn.addEventListener('click', () => addSitemap());
+
+function generateRobotsTxt() {
+  let lines = [];
+
+  // Rules
+  const ruleBlocks = document.querySelectorAll('.rule-block');
+  ruleBlocks.forEach(block => {
+    const uaInput = block.querySelector('.user-agent-input');
+    let userAgent = uaInput.value.trim();
+    if (!userAgent) return; // Skip empty user agents
+
+    lines.push(`User-agent: ${userAgent}`);
+
+    // Paths
+    const pathItems = block.querySelectorAll('.path-item');
+    pathItems.forEach(item => {
+      const type = item.querySelector('.path-type').value;
+      const value = item.querySelector('.path-value').value.trim();
+      if (value) {
+        lines.push(`${type}: ${value}`);
+      }
+    });
+
+    // Crawl delay
+    const delayInput = block.querySelector('.crawl-delay-input');
+    const delay = delayInput.value.trim();
+    if (delay !== '') {
+      lines.push(`Crawl-delay: ${delay}`);
+    }
+
+    lines.push(''); // Empty line between rules
+  });
+
+  // Sitemaps
+  const sitemapInputs = document.querySelectorAll('.sitemap-input');
+  let hasSitemap = false;
+  sitemapInputs.forEach(input => {
+    const url = input.value.trim();
+    if (url) {
+      lines.push(`Sitemap: ${url}`);
+      hasSitemap = true;
+    }
+  });
+
+  // Remove trailing empty line if no sitemaps were added
+  let text = lines.join('\n');
+  if (!hasSitemap && text.endsWith('\n\n')) {
+      text = text.slice(0, -2);
+  }
+
+  return text.trim();
+}
+
+function updateOutput() {
+  const text = generateRobotsTxt();
+
+  if (!text) {
+    codeOutput.textContent = '# No rules generated yet.\n# Add a User-Agent or Sitemap to begin.';
+    return;
+  }
+
+  // Basic highlighting
+  const highlighted = text.replace(/^(User-agent|Disallow|Allow|Crawl-delay|Sitemap):(.*)$/gm, (match, p1, p2) => {
+    let color = '';
+    if (p1 === 'User-agent') color = '#818cf8';
+    else if (p1 === 'Disallow') color = '#ef4444';
+    else if (p1 === 'Allow') color = '#4ade80';
+    else if (p1 === 'Sitemap') color = '#fbbf24';
+    else if (p1 === 'Crawl-delay') color = '#c084fc';
+
+    return `<span style="color: ${color}; font-weight: 600;">${p1}</span>:<span style="color: #e0e0e0;">${p2}</span>`;
+  });
+
+  codeOutput.innerHTML = highlighted;
+}
+
+// Copy functionality
+copyCodeBtn.addEventListener('click', () => {
+  const text = generateRobotsTxt();
+  if (!text) return;
+
+  navigator.clipboard.writeText(text).then(() => {
+    const originalText = copyCodeBtn.innerHTML;
+    copyCodeBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+    copyCodeBtn.classList.add('copied');
+
+    setTimeout(() => {
+      copyCodeBtn.innerHTML = originalText;
+      copyCodeBtn.classList.remove('copied');
+    }, 2000);
+  });
+});
+
+// Initialize
+init();
+</script>
+</body>
+</html>
