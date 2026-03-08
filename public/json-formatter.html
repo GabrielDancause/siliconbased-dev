@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JSON Formatter & Validator — Format, Minify, and Validate JSON | Free Online Tool</title>
+<meta name="description" content="Paste messy JSON, get it formatted, validated, and syntax-highlighted instantly. Shows errors with line numbers. Minify, sort keys, or convert to other formats. Free, no signup, runs in your browser.">
+<meta property="og:title" content="JSON Formatter & Validator">
+<meta property="og:description" content="Paste messy JSON, get it formatted, validated, and syntax-highlighted instantly. Shows errors with line numbers. Minify, sort keys, or convert to other formats. Free, no signup, runs in your browser.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "JSON Formatter & Validator",
+  "url": "https://siliconbased.dev/json-formatter",
+  "description": "Interactive tool to format, validate, minify, and sort JSON. Shows syntax errors with line numbers and provides syntax-highlighted output.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+.hero { text-align: center; padding: 48px 24px 24px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.4rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 1000px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Input/Output Grid */
+.tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; align-items: stretch; }
+.pane { display: flex; flex-direction: column; }
+
+/* Textarea / Input */
+.input-header, .output-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.header-title { font-size: 0.85rem; font-weight: 600; color: #ccc; text-transform: uppercase; letter-spacing: 0.5px; }
+.header-actions { display: flex; gap: 8px; }
+
+.action-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.action-btn:hover { background: #2a2d40; color: #ccc; }
+.action-btn.active { background: #818cf8; color: #fff; border-color: #818cf8; }
+
+textarea.json-input { flex: 1; min-height: 400px; background: #111318; border: 2px solid #1e2030; border-radius: 12px; padding: 16px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; resize: vertical; outline: none; transition: border-color 0.2s; line-height: 1.6; white-space: pre; }
+textarea.json-input:focus { border-color: #818cf8; }
+textarea.json-input.error-border { border-color: #f87171; }
+
+/* Output & Highlighting */
+.output-card { flex: 1; min-height: 400px; background: #111318; border: 2px solid #1e2030; border-radius: 12px; position: relative; display: flex; flex-direction: column; overflow: hidden; }
+.output-card.error-state { border-color: #f87171; background: rgba(248, 113, 113, 0.05); }
+
+.copy-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 6px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.copy-btn:hover { background: #2a2d40; color: #ccc; }
+.copy-btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+.result-body { flex: 1; padding: 0; display: flex; overflow: auto; background: #111318; position: relative; }
+.line-numbers { padding: 16px 10px; background: #0d0e14; color: #444; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.6; text-align: right; border-right: 1px solid #1e2030; user-select: none; position: sticky; left: 0; z-index: 5; }
+.output-pre { margin: 0; padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.6; color: #b0b8d0; white-space: pre; overflow: visible; flex: 1; tab-size: 2; }
+
+/* Syntax Highlighting Colors */
+.hl-key { color: #818cf8; }
+.hl-str { color: #4ade80; }
+.hl-num { color: #fbbf24; }
+.hl-bool { color: #c084fc; }
+.hl-null { color: #f87171; }
+
+/* Error Display */
+.error-msg { background: #f87171; color: #fff; padding: 12px 16px; font-size: 0.85rem; font-weight: 500; display: none; align-items: flex-start; gap: 10px; font-family: 'JetBrains Mono', monospace; word-break: break-word; border-bottom: 1px solid #dc2626; }
+.error-msg svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; }
+.seo-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 0.9rem; }
+.seo-table th { text-align: left; padding: 10px 14px; border-bottom: 2px solid #2a2d4e; color: #ccc; font-weight: 600; background: #111318; }
+.seo-table td { padding: 10px 14px; border-bottom: 1px solid #1e2030; color: #aaa; }
+.seo-table tr:hover td { background: #111318; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 800px) {
+  .tool-grid { grid-template-columns: 1fr; }
+  textarea.json-input, .output-card { min-height: 300px; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>JSON Formatter ⚡</h1>
+  <p>Paste messy JSON, get it formatted, validated, and syntax-highlighted instantly.</p>
+</div>
+
+<div class="main">
+
+  <div class="tool-grid">
+    <!-- Input Pane -->
+    <div class="pane">
+      <div class="input-header">
+        <div class="header-title">Input</div>
+        <div class="header-actions">
+          <button class="action-btn" id="clearBtn">Clear</button>
+        </div>
+      </div>
+      <textarea id="jsonInput" class="json-input" placeholder="Paste your JSON here..." spellcheck="false"></textarea>
+    </div>
+
+    <!-- Output Pane -->
+    <div class="pane">
+      <div class="output-header">
+        <div class="header-title" id="outputStatus">Output</div>
+        <div class="header-actions">
+          <button class="action-btn active" id="btnFormat">Format</button>
+          <button class="action-btn" id="btnMinify">Minify</button>
+          <button class="action-btn" id="btnSort">Sort Keys</button>
+          <button class="copy-btn" id="copyBtn">Copy</button>
+        </div>
+      </div>
+
+      <div class="output-card" id="outputCard">
+        <div class="error-msg" id="errorMsg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          <span id="errorText">Invalid JSON</span>
+        </div>
+        <div class="result-body">
+          <div class="line-numbers" id="lineNumbers">1</div>
+          <pre class="output-pre" id="jsonOutput"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>What is JSON?</h2>
+    <p>JSON (JavaScript Object Notation) is a lightweight data-interchange format. It is easy for humans to read and write, and easy for machines to parse and generate. JSON is widely used in APIs, configuration files, and data storage because it's language-independent but uses conventions familiar to programmers of the C-family of languages (C, C++, JavaScript, Python, etc.).</p>
+
+    <h2>Why Format JSON?</h2>
+    <p>Raw JSON responses from APIs or data exports are often minified (compressed onto a single line without spaces) to save bandwidth. While efficient for computers, this makes it nearly impossible for humans to read or debug. A JSON formatter adds indentation (usually spaces or tabs) and line breaks, transforming an unreadable blob into a structured, hierarchical view.</p>
+    <ul>
+      <li><strong>Readability:</strong> Quickly understand the nested structure of objects and arrays.</li>
+      <li><strong>Debugging:</strong> Easily spot missing brackets, commas, or incorrect data types.</li>
+      <li><strong>Validation:</strong> Ensure your JSON string conforms to the strict JSON standard.</li>
+    </ul>
+
+    <h2>JSON Syntax Rules</h2>
+    <p>To be valid, JSON must adhere to strict rules. Common causes of "Invalid JSON" errors include:</p>
+    <table class="seo-table">
+      <thead>
+        <tr>
+          <th>Rule</th>
+          <th>Example of Valid JSON</th>
+          <th>Common Error</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Double Quotes Only</strong></td>
+          <td><code>{"key": "value"}</code></td>
+          <td>Using single quotes <code>{'key': 'value'}</code></td>
+        </tr>
+        <tr>
+          <td><strong>Keys Must Be Quoted</strong></td>
+          <td><code>{"name": "Gab"}</code></td>
+          <td>Missing quotes <code>{name: "Gab"}</code></td>
+        </tr>
+        <tr>
+          <td><strong>No Trailing Commas</strong></td>
+          <td><code>[1, 2, 3]</code></td>
+          <td>Extra comma at the end <code>[1, 2, 3,]</code></td>
+        </tr>
+        <tr>
+          <td><strong>Specific Data Types</strong></td>
+          <td><code>"string"</code>, <code>123</code>, <code>true</code>, <code>null</code></td>
+          <td>Using <code>undefined</code> or functions</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const jsonInput = document.getElementById('jsonInput');
+const jsonOutput = document.getElementById('jsonOutput');
+const lineNumbers = document.getElementById('lineNumbers');
+const errorMsg = document.getElementById('errorMsg');
+const errorText = document.getElementById('errorText');
+const outputCard = document.getElementById('outputCard');
+const outputStatus = document.getElementById('outputStatus');
+
+const btnFormat = document.getElementById('btnFormat');
+const btnMinify = document.getElementById('btnMinify');
+const btnSort = document.getElementById('btnSort');
+const copyBtn = document.getElementById('copyBtn');
+const clearBtn = document.getElementById('clearBtn');
+
+let currentMode = 'format'; // format, minify, sort
+let debounceTimer;
+let currentValidJson = '';
+
+function init() {
+  jsonInput.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(processJSON, 300);
+  });
+
+  btnFormat.addEventListener('click', () => setMode('format'));
+  btnMinify.addEventListener('click', () => setMode('minify'));
+  btnSort.addEventListener('click', () => setMode('sort'));
+
+  clearBtn.addEventListener('click', () => {
+    jsonInput.value = '';
+    processJSON();
+    jsonInput.focus();
+  });
+
+  copyBtn.addEventListener('click', () => {
+    if (!currentValidJson) return;
+    navigator.clipboard.writeText(currentValidJson).then(() => {
+      copyBtn.textContent = '✓ Copied';
+      copyBtn.classList.add('copied');
+      setTimeout(() => {
+        copyBtn.textContent = 'Copy';
+        copyBtn.classList.remove('copied');
+      }, 1500);
+    });
+  });
+
+  // Initial demo data
+  jsonInput.value = '{\n  "name": "JSON Formatter",\n  "version": 1.0,\n  "features": [\n    "Formatter",\n    "Validator",\n    "Minifier"\n  ],\n  "active": true,\n  "settings": {\n    "theme": "dark"\n  }\n}';
+  processJSON();
+}
+
+function setMode(mode) {
+  currentMode = mode;
+  btnFormat.classList.toggle('active', mode === 'format');
+  btnMinify.classList.toggle('active', mode === 'minify');
+  btnSort.classList.toggle('active', mode === 'sort');
+  processJSON();
+}
+
+function processJSON() {
+  const raw = jsonInput.value.trim();
+  if (!raw) {
+    clearOutput();
+    return;
+  }
+
+  try {
+    const parsed = JSON.parse(raw);
+    showSuccess(parsed);
+  } catch (err) {
+    showError(err.message, raw);
+  }
+}
+
+function clearOutput() {
+  jsonOutput.innerHTML = '';
+  lineNumbers.innerHTML = '1';
+  errorMsg.style.display = 'none';
+  outputCard.classList.remove('error-state');
+  jsonInput.classList.remove('error-border');
+  outputStatus.textContent = 'Output';
+  outputStatus.style.color = '#ccc';
+  currentValidJson = '';
+}
+
+function showSuccess(obj) {
+  errorMsg.style.display = 'none';
+  outputCard.classList.remove('error-state');
+  jsonInput.classList.remove('error-border');
+  outputStatus.textContent = '✓ Valid JSON';
+  outputStatus.style.color = '#4ade80';
+
+  let outStr = '';
+
+  if (currentMode === 'format') {
+    outStr = JSON.stringify(obj, null, 2);
+  } else if (currentMode === 'minify') {
+    outStr = JSON.stringify(obj);
+  } else if (currentMode === 'sort') {
+    outStr = JSON.stringify(sortObjectKeys(obj), null, 2);
+  }
+
+  currentValidJson = outStr;
+
+  const linesCount = outStr.split('\n').length || 1;
+  let linesHtml = '';
+  for (let i = 1; i <= linesCount; i++) {
+    linesHtml += i + '<br>';
+  }
+  lineNumbers.innerHTML = linesHtml;
+
+  jsonOutput.innerHTML = syntaxHighlight(outStr);
+}
+
+function showError(msg, raw) {
+  errorMsg.style.display = 'flex';
+  outputCard.classList.add('error-state');
+  jsonInput.classList.add('error-border');
+  outputStatus.textContent = 'Invalid JSON';
+  outputStatus.style.color = '#f87171';
+
+  let enhancedMsg = msg;
+  const match = msg.match(/position (\d+)/);
+  if (match && !msg.toLowerCase().includes('line')) {
+    const pos = parseInt(match[1], 10);
+    const textUpToPos = raw.substring(0, pos);
+    const lines = textUpToPos.split('\n');
+    const lineNum = lines.length;
+    const colNum = lines[lines.length - 1].length + 1;
+    enhancedMsg = msg + ' (Line ' + lineNum + ', Column ' + colNum + ')';
+  }
+
+  errorText.textContent = enhancedMsg;
+
+  const escapedRaw = raw.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  jsonOutput.innerHTML = escapedRaw;
+  currentValidJson = '';
+
+  const linesCount = raw.split('\n').length || 1;
+  let linesHtml = '';
+  for (let i = 1; i <= linesCount; i++) {
+    linesHtml += i + '<br>';
+  }
+  lineNumbers.innerHTML = linesHtml;
+}
+
+function sortObjectKeys(obj) {
+  if (obj === null || typeof obj !== 'object') {
+    return obj;
+  }
+
+  if (Array.isArray(obj)) {
+    return obj.map(sortObjectKeys);
+  }
+
+  return Object.keys(obj).sort().reduce((acc, key) => {
+    acc[key] = sortObjectKeys(obj[key]);
+    return acc;
+  }, {});
+}
+
+function syntaxHighlight(json) {
+  json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+    let cls = 'hl-num';
+    if (/^"/.test(match)) {
+      if (/:$/.test(match)) {
+        cls = 'hl-key';
+      } else {
+        cls = 'hl-str';
+      }
+    } else if (/true|false/.test(match)) {
+      cls = 'hl-bool';
+    } else if (/null/.test(match)) {
+      cls = 'hl-null';
+    }
+    return '<span class="' + cls + '">' + match + '</span>';
+  });
+}
+
+init();
+</script>
+</body>
+</html>
