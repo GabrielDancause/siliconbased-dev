@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schema Markup Generator | JSON-LD Tool</title>
+<meta name="description" content="Free online tool to generate JSON-LD schema markup for Articles, Products, FAQs, Local Businesses, and Recipes. Improve your SEO instantly. Works offline.">
+<meta property="og:title" content="Schema Markup Generator | JSON-LD Tool">
+<meta property="og:description" content="Free online tool to generate JSON-LD schema markup for Articles, Products, FAQs, Local Businesses, and Recipes. Improve your SEO instantly. Works offline.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Schema Markup Generator",
+  "url": "https://siliconbased.dev/schema-generator",
+  "description": "Free online tool to generate JSON-LD schema markup for Articles, Products, FAQs, Local Businesses, and Recipes.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; display: flex; flex-direction: column; gap: 24px; }
+
+/* Tool Layout */
+.tool-layout { display: flex; gap: 24px; align-items: flex-start; }
+@media (max-width: 900px) {
+  .tool-layout { flex-direction: column; }
+}
+.editor-pane { flex: 1; min-width: 0; width: 100%; }
+.preview-pane { flex: 1; min-width: 0; width: 100%; position: sticky; top: 24px; }
+@media (max-width: 900px) {
+  .preview-pane { position: static; }
+}
+
+/* Card */
+.tool-card { background: #111318; border: 1px solid #1e2030; border-radius: 16px; overflow: hidden; }
+.tool-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: #13151d; border-bottom: 1px solid #1e2030; flex-wrap: wrap; gap: 12px; }
+.tool-header h3 { font-size: 0.95rem; font-weight: 600; color: #e0e0e0; display: flex; align-items: center; gap: 8px; }
+
+/* Custom Form Controls */
+.tool-body { padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+.form-group { display: flex; flex-direction: column; gap: 8px; }
+.form-label { font-size: 0.85rem; font-weight: 600; color: #818cf8; }
+.form-control { background: #0a0b10; border: 1px solid #1e2030; color: #e0e0e0; font-family: 'Inter', sans-serif; font-size: 0.95rem; padding: 10px 14px; border-radius: 8px; outline: none; transition: border-color 0.2s; width: 100%; }
+.form-control:focus { border-color: #818cf8; }
+.form-control::placeholder { color: #444; }
+
+select.form-control { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 40px; }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 600px) {
+  .grid-2 { grid-template-columns: 1fr; }
+}
+
+/* Dynamic Lists */
+.dynamic-list { display: flex; flex-direction: column; gap: 12px; }
+.list-item { display: flex; gap: 8px; align-items: flex-start; background: #151720; padding: 12px; border-radius: 8px; border: 1px solid #1e2030; }
+.list-item-content { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.btn-icon { background: transparent; border: 1px solid #1e2030; color: #ef4444; padding: 8px; border-radius: 6px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+.btn-icon:hover { background: #ef4444; color: #fff; border-color: #ef4444; }
+.btn-add { background: #1e2030; border: 1px dashed #3a3d55; color: #888; padding: 10px; border-radius: 8px; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.2s; text-align: center; margin-top: 4px; }
+.btn-add:hover { background: #2a2d40; color: #ccc; border-color: #5a5d75; }
+
+/* Output Area */
+.textarea-wrapper { position: relative; display: flex; flex-direction: column; height: 100%; }
+.input-area { width: 100%; height: 500px; background: #0a0b10; border: none; padding: 16px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; resize: vertical; outline: none; line-height: 1.5; white-space: pre; overflow: auto; tab-size: 2; }
+
+/* Actions */
+.btn { background: #1e2030; border: 1px solid #2a2d40; color: #ccc; padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
+.btn:hover { background: #2a2d40; color: #fff; }
+.btn-primary { background: #818cf8; color: #fff; border-color: #818cf8; }
+.btn-primary:hover { background: #6366f1; border-color: #6366f1; }
+.btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; max-width: 900px; margin-inline: auto; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Schema Markup <span>Generator</span></h1>
+  <p>Generate JSON-LD structured data to improve your SEO instantly.</p>
+</div>
+
+<div class="main">
+
+  <div class="tool-layout">
+    <!-- Left Pane: Editor -->
+    <div class="editor-pane">
+      <div class="tool-card">
+        <div class="tool-header">
+          <h3>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+            Schema Details
+          </h3>
+          <div class="form-group" style="margin: 0; min-width: 200px;">
+            <select class="form-control" id="schemaType" style="padding: 6px 12px; font-size: 0.85rem;">
+              <option value="article">Article / Blog Post</option>
+              <option value="product">Product</option>
+              <option value="faq">FAQ Page</option>
+              <option value="local_business">Local Business</option>
+              <option value="recipe">Recipe</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="tool-body" id="formContainer">
+          <!-- Dynamic form fields injected here via JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Pane: Preview -->
+    <div class="preview-pane">
+      <div class="tool-card">
+        <div class="tool-header">
+          <h3>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            Generated JSON-LD
+          </h3>
+          <button class="btn btn-primary" id="copyBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Copy Code
+          </button>
+        </div>
+
+        <div class="textarea-wrapper">
+          <textarea class="input-area" id="outputArea" readonly spellcheck="false"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>What is JSON-LD Schema Markup?</h2>
+    <p>JSON-LD (JavaScript Object Notation for Linked Data) is a lightweight Linked Data format. It is easy for humans to read and write, and it is the recommended format by Google and other major search engines for adding structured data to your website.</p>
+    <p>By adding schema markup to your HTML, you help search engines understand the context of your content, which can lead to rich snippets in search results—improving your click-through rates (CTR) and overall SEO performance.</p>
+
+    <h2>Why Use This Generator?</h2>
+    <ul>
+      <li><strong>Zero Dependencies:</strong> This tool runs entirely in your browser using vanilla JavaScript. No external API calls are made, ensuring your data remains private.</li>
+      <li><strong>Offline Support:</strong> Once loaded, this tool works completely offline.</li>
+      <li><strong>Instant Preview:</strong> See your JSON-LD code update in real-time as you fill out the form.</li>
+      <li><strong>Multiple Types:</strong> Support for the most common schema types including Articles, Products, FAQs, Local Businesses, and Recipes.</li>
+    </ul>
+
+    <h2>How to Add JSON-LD to Your Site</h2>
+    <p>Once you have generated your schema markup using this tool, simply click the "Copy Code" button. Paste the generated <code>&lt;script type="application/ld+json"&gt;...&lt;/script&gt;</code> block into the <code>&lt;head&gt;</code> or <code>&lt;body&gt;</code> section of your HTML document.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const schemaTypeSelect = document.getElementById('schemaType');
+const formContainer = document.getElementById('formContainer');
+const outputArea = document.getElementById('outputArea');
+const copyBtn = document.getElementById('copyBtn');
+
+// Schema definitions
+const schemas = {
+  article: {
+    fields: [
+      { id: 'headline', label: 'Headline', placeholder: 'Article title', type: 'text', default: 'My Awesome Article' },
+      { id: 'url', label: 'Article URL', placeholder: 'https://...', type: 'url', default: 'https://example.com/article' },
+      { id: 'image', label: 'Image URL', placeholder: 'https://...', type: 'url', default: 'https://example.com/image.jpg' },
+      { id: 'author', label: 'Author Name', placeholder: 'John Doe', type: 'text', default: 'John Doe' },
+      { id: 'publisher', label: 'Publisher (Organization)', placeholder: 'Company Name', type: 'text', default: 'Company Name' },
+      { id: 'publisherLogo', label: 'Publisher Logo URL', placeholder: 'https://...', type: 'url', default: 'https://example.com/logo.jpg' },
+      { id: 'datePublished', label: 'Date Published', type: 'date', default: new Date().toISOString().split('T')[0] },
+      { id: 'dateModified', label: 'Date Modified', type: 'date', default: new Date().toISOString().split('T')[0] },
+      { id: 'description', label: 'Description', placeholder: 'Short summary...', type: 'textarea', default: 'A short summary of the article.' }
+    ],
+    generate: (data) => ({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": data.headline,
+      "image": [ data.image ],
+      "datePublished": data.datePublished ? `${data.datePublished}T08:00:00+08:00` : '',
+      "dateModified": data.dateModified ? `${data.dateModified}T09:20:00+08:00` : '',
+      "author": [{
+        "@type": "Person",
+        "name": data.author
+      }],
+      "publisher": {
+        "@type": "Organization",
+        "name": data.publisher,
+        "logo": {
+          "@type": "ImageObject",
+          "url": data.publisherLogo
+        }
+      },
+      "description": data.description
+    })
+  },
+  product: {
+    fields: [
+      { id: 'name', label: 'Product Name', type: 'text', default: 'Executive Anvil' },
+      { id: 'image', label: 'Image URL', type: 'url', default: 'https://example.com/anvil.jpg' },
+      { id: 'description', label: 'Description', type: 'textarea', default: 'Sleeker than ACME\'s Classic Anvil.' },
+      { id: 'sku', label: 'SKU', type: 'text', default: '0446310786' },
+      { id: 'brand', label: 'Brand', type: 'text', default: 'ACME' },
+      { id: 'price', label: 'Price', type: 'number', default: '119.99' },
+      { id: 'priceCurrency', label: 'Currency', type: 'text', default: 'USD' },
+      { id: 'availability', label: 'Availability', type: 'select', options: ['InStock', 'OutOfStock', 'PreOrder'], default: 'InStock' }
+    ],
+    generate: (data) => ({
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": data.name,
+      "image": [ data.image ],
+      "description": data.description,
+      "sku": data.sku,
+      "brand": {
+        "@type": "Brand",
+        "name": data.brand
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": data.url || window.location.href,
+        "priceCurrency": data.priceCurrency,
+        "price": data.price,
+        "availability": `https://schema.org/${data.availability}`
+      }
+    })
+  },
+  faq: {
+    fields: [
+      { id: 'faqs', type: 'list', label: 'FAQ Items', itemTemplate: { question: 'Question?', answer: 'Answer.' }, btnText: '+ Add Question' }
+    ],
+    generate: (data) => ({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": (data.faqs || []).map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    })
+  },
+  local_business: {
+    fields: [
+      { id: 'name', label: 'Business Name', type: 'text', default: 'Great Coffee Shop' },
+      { id: 'image', label: 'Image URL', type: 'url', default: 'https://example.com/photo.jpg' },
+      { id: 'url', label: 'Website URL', type: 'url', default: 'https://example.com' },
+      { id: 'telephone', label: 'Telephone', type: 'text', default: '+1-555-555-5555' },
+      { id: 'streetAddress', label: 'Street Address', type: 'text', default: '123 Main St' },
+      { id: 'addressLocality', label: 'City', type: 'text', default: 'New York' },
+      { id: 'addressRegion', label: 'State/Region', type: 'text', default: 'NY' },
+      { id: 'postalCode', label: 'Postal Code', type: 'text', default: '10001' },
+      { id: 'addressCountry', label: 'Country', type: 'text', default: 'US' }
+    ],
+    generate: (data) => ({
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": data.name,
+      "image": data.image,
+      "url": data.url,
+      "telephone": data.telephone,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": data.streetAddress,
+        "addressLocality": data.addressLocality,
+        "addressRegion": data.addressRegion,
+        "postalCode": data.postalCode,
+        "addressCountry": data.addressCountry
+      }
+    })
+  },
+  recipe: {
+    fields: [
+      { id: 'name', label: 'Recipe Name', type: 'text', default: 'Party Coffee Cake' },
+      { id: 'image', label: 'Image URL', type: 'url', default: 'https://example.com/cake.jpg' },
+      { id: 'author', label: 'Author', type: 'text', default: 'Mary Stone' },
+      { id: 'datePublished', label: 'Date Published', type: 'date', default: new Date().toISOString().split('T')[0] },
+      { id: 'description', label: 'Description', type: 'textarea', default: 'This coffee cake is awesome and perfect for parties.' },
+      { id: 'prepTime', label: 'Prep Time (ISO 8601)', type: 'text', default: 'PT20M', placeholder: 'e.g. PT20M' },
+      { id: 'cookTime', label: 'Cook Time (ISO 8601)', type: 'text', default: 'PT30M', placeholder: 'e.g. PT30M' },
+      { id: 'recipeYield', label: 'Yield / Servings', type: 'text', default: '10' },
+      { id: 'ingredients', type: 'list_simple', label: 'Ingredients', btnText: '+ Add Ingredient', defaultItems: ['2 cups flour', '3/4 cup sugar', '2 tsp baking powder'] },
+      { id: 'instructions', type: 'list_simple', label: 'Instructions', btnText: '+ Add Instruction', defaultItems: ['Mix dry ingredients.', 'Add wet ingredients.', 'Bake for 30 mins.'] }
+    ],
+    generate: (data) => ({
+      "@context": "https://schema.org/",
+      "@type": "Recipe",
+      "name": data.name,
+      "image": [ data.image ],
+      "author": {
+        "@type": "Person",
+        "name": data.author
+      },
+      "datePublished": data.datePublished,
+      "description": data.description,
+      "prepTime": data.prepTime,
+      "cookTime": data.cookTime,
+      "recipeYield": data.recipeYield,
+      "recipeIngredient": data.ingredients || [],
+      "recipeInstructions": (data.instructions || []).map(inst => ({
+        "@type": "HowToStep",
+        "text": inst
+      }))
+    })
+  }
+};
+
+// State
+let currentData = {};
+
+function renderForm(type) {
+  const schema = schemas[type];
+  formContainer.innerHTML = '';
+  currentData = {};
+
+  schema.fields.forEach(field => {
+    if (field.type === 'list' || field.type === 'list_simple') {
+      currentData[field.id] = field.type === 'list' ? [{...field.itemTemplate}] : [...(field.defaultItems || [''])];
+      const listWrapper = document.createElement('div');
+      listWrapper.className = 'form-group';
+      listWrapper.innerHTML = `<label class="form-label">${field.label}</label><div class="dynamic-list" id="list-${field.id}"></div><button class="btn-add" id="add-${field.id}">${field.btnText}</button>`;
+      formContainer.appendChild(listWrapper);
+      renderList(field.id, field.type, field.itemTemplate);
+      document.getElementById(`add-${field.id}`).addEventListener('click', () => {
+        if (field.type === 'list') currentData[field.id].push({...field.itemTemplate});
+        else currentData[field.id].push('New item');
+        renderList(field.id, field.type, field.itemTemplate);
+        updateOutput();
+      });
+    } else {
+      currentData[field.id] = field.default || '';
+      const wrapper = document.createElement('div');
+      wrapper.className = 'form-group';
+
+      let inputHtml = '';
+      if (field.type === 'textarea') {
+        inputHtml = `<textarea class="form-control" id="input-${field.id}" rows="3" placeholder="${field.placeholder || ''}">${field.default || ''}</textarea>`;
+      } else if (field.type === 'select') {
+        inputHtml = `<select class="form-control" id="input-${field.id}">
+          ${field.options.map(opt => `<option value="${opt}" ${opt === field.default ? 'selected' : ''}>${opt}</option>`).join('')}
+        </select>`;
+      } else {
+        inputHtml = `<input type="${field.type}" class="form-control" id="input-${field.id}" placeholder="${field.placeholder || ''}" value="${field.default || ''}">`;
+      }
+
+      wrapper.innerHTML = `<label class="form-label">${field.label}</label>${inputHtml}`;
+      formContainer.appendChild(wrapper);
+
+      const inputEl = document.getElementById(`input-${field.id}`);
+      inputEl.addEventListener('input', (e) => {
+        currentData[field.id] = e.target.value;
+        updateOutput();
+      });
+    }
+  });
+
+  updateOutput();
+}
+
+function renderList(listId, type, itemTemplate) {
+  const container = document.getElementById(`list-${listId}`);
+  container.innerHTML = '';
+
+  currentData[listId].forEach((item, index) => {
+    const itemEl = document.createElement('div');
+    itemEl.className = 'list-item';
+
+    let contentHtml = '';
+    if (type === 'list') {
+      Object.keys(itemTemplate).forEach(key => {
+        contentHtml += `<input type="text" class="form-control" data-key="${key}" data-index="${index}" placeholder="${key.charAt(0).toUpperCase() + key.slice(1)}" value="${item[key]}">`;
+      });
+    } else {
+      contentHtml = `<input type="text" class="form-control" data-index="${index}" placeholder="Item" value="${item}">`;
+    }
+
+    itemEl.innerHTML = `
+      <div class="list-item-content">${contentHtml}</div>
+      <button class="btn-icon delete-btn" data-index="${index}" title="Remove">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+      </button>
+    `;
+    container.appendChild(itemEl);
+  });
+
+  // Attach event listeners
+  container.querySelectorAll('input').forEach(input => {
+    input.addEventListener('input', (e) => {
+      const idx = e.target.getAttribute('data-index');
+      if (type === 'list') {
+        const key = e.target.getAttribute('data-key');
+        currentData[listId][idx][key] = e.target.value;
+      } else {
+        currentData[listId][idx] = e.target.value;
+      }
+      updateOutput();
+    });
+  });
+
+  container.querySelectorAll('.delete-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const idx = e.currentTarget.getAttribute('data-index');
+      currentData[listId].splice(idx, 1);
+      renderList(listId, type, itemTemplate);
+      updateOutput();
+    });
+  });
+}
+
+function updateOutput() {
+  const type = schemaTypeSelect.value;
+  const generator = schemas[type].generate;
+  const jsonLd = generator(currentData);
+
+  const scriptTag = '<!-- Paste this into the <head> or <body> of your HTML -->\n<script type="application/ld+json">\n' + JSON.stringify(jsonLd, null, 2) + '\n<\/script>';
+  outputArea.value = scriptTag;
+}
+
+// Event Listeners
+schemaTypeSelect.addEventListener('change', (e) => {
+  renderForm(e.target.value);
+});
+
+copyBtn.addEventListener('click', () => {
+  if (!outputArea.value) return;
+  navigator.clipboard.writeText(outputArea.value).then(() => {
+    const originalHtml = copyBtn.innerHTML;
+    copyBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+    copyBtn.classList.add('copied');
+    setTimeout(() => {
+      copyBtn.innerHTML = originalHtml;
+      copyBtn.classList.remove('copied');
+    }, 2000);
+  });
+});
+
+// Init
+renderForm('article');
+</script>
+</body>
+</html>
