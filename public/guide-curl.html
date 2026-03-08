@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>cURL Commands Guide | Reference & Cheat Sheet</title>
+<meta name="description" content="Comprehensive cURL command reference and cheat sheet. GET, POST, headers, auth, cookies, file upload, and common API testing patterns.">
+<meta property="og:title" content="cURL Commands Guide | Reference & Cheat Sheet">
+<meta property="og:description" content="Comprehensive cURL command reference and cheat sheet. GET, POST, headers, auth, cookies, file upload, and common API testing patterns.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "cURL Commands Guide",
+    "url": "https://siliconbased.dev/guide-curl",
+    "description": "Comprehensive cURL command reference and cheat sheet. GET, POST, headers, auth, cookies, file upload, and common API testing patterns.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "cURL Commands Guide | Reference & Cheat Sheet",
+    "description": "Comprehensive cURL command reference and cheat sheet. GET, POST, headers, auth, cookies, file upload, and common API testing patterns.",
+    "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" },
+    "publisher": { "@type": "Organization", "name": "siliconbased.dev", "url": "https://siliconbased.dev" }
+  }
+]
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+/* Hero Section */
+.hero { text-align: center; padding: 48px 24px 24px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.4rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+
+/* Main Content */
+.main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* UI Controls */
+.controls { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; background: #111318; padding: 20px; border-radius: 12px; border: 1px solid #1e2030; }
+.search-bar { position: relative; width: 100%; }
+.search-bar input { width: 100%; padding: 14px 16px 14px 44px; background: #0a0b10; border: 1px solid #2a2d40; border-radius: 8px; color: #fff; font-family: 'Inter', sans-serif; font-size: 1rem; outline: none; transition: border-color 0.2s; }
+.search-bar input:focus { border-color: #818cf8; }
+.search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: #888; }
+
+.filters { display: flex; gap: 8px; flex-wrap: wrap; }
+.filter-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.filter-btn:hover { background: #2a2d40; color: #ccc; }
+.filter-btn.active { background: #818cf8; color: #fff; border-color: #818cf8; }
+
+/* Command Cards Grid */
+.command-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
+
+/* Command Card */
+.command-card { background: #111318; border: 1px solid #1e2030; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 12px; transition: border-color 0.2s, transform 0.2s; position: relative; }
+.command-card:hover { border-color: #2a2d40; transform: translateY(-2px); }
+
+.card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.command-name { font-size: 1.1rem; font-weight: 600; color: #e0e0e0; margin-bottom: 4px; }
+.command-desc { font-size: 0.9rem; color: #888; line-height: 1.5; }
+
+.command-category { background: #1e2030; color: #818cf8; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+
+/* Code Block */
+.code-container { position: relative; background: #0a0b10; border: 1px solid #1e2030; border-radius: 8px; margin-top: 8px; overflow: hidden; }
+.code-block { padding: 12px 16px 12px 12px; overflow-x: auto; color: #a5b4fc; font-size: 0.85rem; line-height: 1.6; white-space: pre; }
+.code-block .keyword { color: #f472b6; }
+.code-block .string { color: #a3e635; }
+.code-block .url { color: #60a5fa; text-decoration: underline; }
+.code-block .flag { color: #fbbf24; }
+
+.copy-btn { position: absolute; top: 8px; right: 8px; background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 6px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; display: flex; align-items: center; gap: 6px; }
+.copy-btn:hover { background: #2a2d40; color: #ccc; }
+.copy-btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+.copy-btn svg { width: 14px; height: 14px; }
+
+/* Expandable Details */
+.card-details { margin-top: 12px; padding-top: 12px; border-top: 1px solid #1e2030; display: none; flex-direction: column; gap: 12px; }
+.command-card.expanded .card-details { display: flex; }
+
+.detail-section h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; color: #888; margin-bottom: 6px; font-weight: 600; }
+.detail-section p { font-size: 0.85rem; color: #ccc; line-height: 1.5; }
+.detail-section code { background: #0a0b10; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.8em; border: 1px solid #1e2030; }
+
+.expand-btn { background: none; border: none; color: #818cf8; font-size: 0.85rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; display: flex; align-items: center; gap: 6px; padding: 4px 0; width: fit-content; }
+.expand-btn:hover { text-decoration: underline; }
+.expand-btn svg { width: 16px; height: 16px; transition: transform 0.2s; }
+.command-card.expanded .expand-btn svg { transform: rotate(180deg); }
+
+.no-results { grid-column: 1 / -1; text-align: center; padding: 40px; color: #888; font-size: 1.1rem; background: #111318; border-radius: 12px; border: 1px dashed #2a2d40; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .hero h1 { font-size: 2rem; }
+  .command-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>cURL Commands <span>Guide</span></h1>
+  <p>Reference, examples, and testing patterns for API requests.</p>
+</div>
+
+<div class="main">
+  <div class="controls">
+    <div class="search-bar">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" id="searchInput" placeholder="Search for commands, flags, or descriptions...">
+    </div>
+    <div class="filters" id="categoryFilters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="basic">Basic Methods</button>
+      <button class="filter-btn" data-filter="headers">Headers & Auth</button>
+      <button class="filter-btn" data-filter="data">Data & Uploads</button>
+      <button class="filter-btn" data-filter="options">Common Options</button>
+    </div>
+  </div>
+
+  <div class="command-grid" id="commandGrid">
+    <!-- Command cards will be dynamically injected here -->
+  </div>
+
+  <div class="seo-content">
+    <h2>What is cURL?</h2>
+    <p>cURL (Client URL) is a versatile command-line tool and library for transferring data with URLs. It supports a vast array of protocols, including HTTP, HTTPS, FTP, SFTP, and many more. It is an industry standard for developers to interact with APIs, test endpoints, download files, and automate network requests directly from the terminal.</p>
+
+    <h3>Why Use cURL for API Testing?</h3>
+    <p>While GUI tools like Postman or Insomnia are popular, cURL remains highly relevant for several reasons:</p>
+    <ul>
+      <li><strong>Ubiquity:</strong> cURL comes pre-installed on most macOS, Linux, and Windows 10/11 environments.</li>
+      <li><strong>Speed:</strong> Executing a command from the terminal is incredibly fast for simple checks.</li>
+      <li><strong>Automation:</strong> Easily scriptable in bash scripts and CI/CD pipelines.</li>
+      <li><strong>Sharability:</strong> A single string of text can perfectly encapsulate a complex HTTP request, making it easy to share via chat or documentation. Most GUI API clients offer an "Import from cURL" feature.</li>
+    </ul>
+
+    <h2>Common Command Line Flags</h2>
+    <p>Understanding these essential flags will cover the vast majority of use cases:</p>
+    <ul>
+      <li><code>-X, --request</code>: Specifies the HTTP method to use (GET, POST, PUT, DELETE, etc.). Note: cURL defaults to GET, and automatically switches to POST if you use <code>-d</code>.</li>
+      <li><code>-H, --header</code>: Adds a custom header to the request (e.g., <code>-H "Authorization: Bearer token"</code> or <code>-H "Content-Type: application/json"</code>). You can use multiple <code>-H</code> flags.</li>
+      <li><code>-d, --data</code>: Sends data in the request body. Automatically sets the method to POST and the <code>Content-Type</code> header to <code>application/x-www-form-urlencoded</code> unless overridden.</li>
+      <li><code>-i, --include</code>: Includes HTTP response headers in the output. Useful for checking status codes and cookies.</li>
+      <li><code>-v, --verbose</code>: Makes the output verbose. Shows the full request and response, including headers and the handshake. Invaluable for debugging.</li>
+      <li><code>-L, --location</code>: If the server responds with a 3xx redirect status code, this tells cURL to redo the request to the new location.</li>
+      <li><code>-u, --user</code>: Specifies the user name and password to use for server authentication (e.g., <code>user:password</code>).</li>
+      <li><code>-o, --output</code>: Writes output to a file instead of stdout.</li>
+      <li><code>-s, --silent</code>: Mutes cURL's progress meter and error messages. Useful for scripting.</li>
+    </ul>
+
+    <p>This reference tool runs entirely in your browser and works offline after the initial load, allowing developers to quickly look up cURL syntax without relying on an internet connection.</p>
+  </div>
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const commands = [
+  {
+    name: "Basic GET Request",
+    category: "basic",
+    desc: "The simplest request. Fetches the resource and outputs the body to the terminal.",
+    code: "curl https://api.example.com/users",
+    details: [
+      { title: "Notes", text: "cURL uses the GET method by default. No flags are needed unless you require headers or authentication." }
+    ]
+  },
+  {
+    name: "GET Request with Query Parameters",
+    category: "basic",
+    desc: "Send query parameters in the URL. Enclose the URL in quotes to prevent the shell from interpreting the '&' character.",
+    code: "curl \"https://api.example.com/search?q=test&limit=10\"",
+    details: [
+      { title: "Important", text: "Always quote the URL when it contains an ampersand (&), otherwise the shell might send the process to the background." },
+      { title: "Alternative", text: "Newer versions of cURL support passing query params with the --url-query flag." }
+    ]
+  },
+  {
+    name: "POST JSON Data",
+    category: "data",
+    desc: "Send a JSON payload. Requires the Content-Type header to be set explicitly.",
+    code: "curl -X POST https://api.example.com/users \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"name\": \"John Doe\", \"email\": \"john@example.com\"}'",
+    details: [
+      { title: "Flags used", text: "<code>-X POST</code> specifies the method. <code>-H</code> adds the header. <code>-d</code> adds the data body." },
+      { title: "Shortcut", text: "When using <code>-d</code>, cURL defaults to POST, so <code>-X POST</code> is strictly optional, but good for clarity." }
+    ]
+  },
+  {
+    name: "POST Form Data (URL Encoded)",
+    category: "data",
+    desc: "Send standard HTML form data.",
+    code: "curl -d \"username=johndoe&password=secret\" https://api.example.com/login",
+    details: [
+      { title: "Behavior", text: "Using <code>-d</code> automatically sets the Content-Type to <code>application/x-www-form-urlencoded</code>." }
+    ]
+  },
+  {
+    name: "Bearer Token Authentication",
+    category: "headers",
+    desc: "Pass a JWT or API key using the Authorization header.",
+    code: "curl -H \"Authorization: Bearer YOUR_TOKEN_HERE\" https://api.example.com/protected",
+    details: [
+      { title: "Usage", text: "This is the most common authentication method for modern REST APIs." }
+    ]
+  },
+  {
+    name: "Basic Authentication",
+    category: "headers",
+    desc: "Pass a username and password using Basic Auth.",
+    code: "curl -u username:password https://api.example.com/admin",
+    details: [
+      { title: "Flags used", text: "<code>-u</code> (or <code>--user</code>) handles encoding the credentials into a base64 string and adding the <code>Authorization: Basic ...</code> header automatically." }
+    ]
+  },
+  {
+    name: "Send Custom Headers",
+    category: "headers",
+    desc: "Add multiple custom headers by chaining the -H flag.",
+    code: "curl -H \"X-Custom-Header: value1\" \\\n     -H \"Accept-Language: en-US\" \\\n     https://api.example.com/data",
+    details: [
+      { title: "Tip", text: "You can supply as many <code>-H</code> flags as needed." }
+    ]
+  },
+  {
+    name: "Upload a File (Multipart Form)",
+    category: "data",
+    desc: "Upload a file to an endpoint expecting multipart/form-data.",
+    code: "curl -F \"file=@/path/to/local/file.jpg\" \\\n     -F \"description=Profile photo\" \\\n     https://api.example.com/upload",
+    details: [
+      { title: "Flags used", text: "<code>-F</code> (or <code>--form</code>) simulates submitting a multipart form. Use the <code>@</code> symbol to indicate that the value is a file path rather than a string." }
+    ]
+  },
+  {
+    name: "Download a File",
+    category: "options",
+    desc: "Save the response body directly to a file instead of printing to the terminal.",
+    code: "curl -o filename.zip https://example.com/file.zip",
+    details: [
+      { title: "Alternative", text: "Use uppercase <code>-O</code> (remote-name) to save the file using the filename extracted from the URL (e.g. <code>curl -O https://example.com/file.zip</code>)." }
+    ]
+  },
+  {
+    name: "Follow Redirects",
+    category: "options",
+    desc: "If the server responds with a 301 or 302, cURL will automatically request the new location.",
+    code: "curl -L https://api.example.com/moved-endpoint",
+    details: [
+      { title: "Flags used", text: "<code>-L</code> (or <code>--location</code>). By default, cURL does not follow redirects." }
+    ]
+  },
+  {
+    name: "Include Response Headers",
+    category: "options",
+    desc: "Print the HTTP response headers before the response body.",
+    code: "curl -i https://api.example.com",
+    details: [
+      { title: "Usage", text: "Very useful when you need to inspect the HTTP status code (e.g., 200 OK vs 404 Not Found) or check returned cookies." }
+    ]
+  },
+  {
+    name: "Verbose Debug Output",
+    category: "options",
+    desc: "Show detailed information about the connection, TLS handshake, request headers, and response headers.",
+    code: "curl -v https://api.example.com",
+    details: [
+      { title: "Usage", text: "The definitive tool for debugging why an API request is failing. Use <code>-v</code> to see exactly what cURL is sending and receiving." }
+    ]
+  },
+  {
+    name: "Send Cookies",
+    category: "headers",
+    desc: "Send a cookie with the request.",
+    code: "curl --cookie \"session_id=123456; theme=dark\" https://api.example.com",
+    details: [
+      { title: "Alternative", text: "You can also pass a file containing cookies using <code>--cookie cookies.txt</code> or <code>-b cookies.txt</code>." }
+    ]
+  },
+  {
+    name: "Save Cookies to File",
+    category: "headers",
+    desc: "Save any cookies sent by the server into a local file for future requests.",
+    code: "curl --cookie-jar cookies.txt https://api.example.com/login",
+    details: [
+      { title: "Workflow", text: "Commonly used in two steps: first login and save with <code>--cookie-jar</code> (or <code>-c</code>), then use those cookies in subsequent requests with <code>--cookie</code> (or <code>-b</code>)." }
+    ]
+  },
+  {
+    name: "Ignore SSL Certificate Errors",
+    category: "options",
+    desc: "Bypass SSL certificate validation. Useful for local development with self-signed certificates.",
+    code: "curl -k https://localhost:8443",
+    details: [
+      { title: "Warning", text: "<code>-k</code> (or <code>--insecure</code>) makes the connection vulnerable to man-in-the-middle attacks. Do not use in production." }
+    ]
+  },
+  {
+    name: "Send Data from a File",
+    category: "data",
+    desc: "Read the request payload from a local file instead of typing it inline.",
+    code: "curl -X POST https://api.example.com/users \\\n  -H \"Content-Type: application/json\" \\\n  -d @data.json",
+    details: [
+      { title: "Usage", text: "The <code>@</code> symbol before the filename tells cURL to read the file contents. Essential for large JSON payloads." }
+    ]
+  }
+];
+
+// Simple syntax highlighter for the cURL commands
+function escapeHtml(unsafe) {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function unescapeHtml(safe) {
+  return safe
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, "\"")
+    .replace(/&#039;/g, "'");
+}
+
+function highlightCurl(code) {
+  const safeCode = escapeHtml(code);
+  return safeCode
+    .replace(/(curl)/g, '<span class="keyword">$1</span>')
+    .replace(/(-[a-zA-Z]+|--[a-zA-Z-]+)/g, '<span class="flag">$1</span>')
+    .replace(/(&quot;.*?&quot;|&#039;.*?&#039;)/g, '<span class="string">$1</span>')
+    // We match http/https followed by non-whitespace up to the first sequence that looks like a quote entity or real quote
+    .replace(/(https?:\/\/(?:(?!&quot;|&#039;|"|')[^\s])+)/g, '<span class="url">$1</span>');
+}
+
+const commandGrid = document.getElementById('commandGrid');
+const searchInput = document.getElementById('searchInput');
+const filterBtns = document.querySelectorAll('.filter-btn');
+
+function renderCommands(filter = 'all', searchQuery = '') {
+  commandGrid.innerHTML = '';
+  const query = searchQuery.toLowerCase();
+
+  const filtered = commands.filter(cmd => {
+    const matchesFilter = filter === 'all' || cmd.category === filter;
+    const matchesSearch = cmd.name.toLowerCase().includes(query) ||
+                          cmd.desc.toLowerCase().includes(query) ||
+                          cmd.code.toLowerCase().includes(query);
+    return matchesFilter && matchesSearch;
+  });
+
+  if (filtered.length === 0) {
+    commandGrid.innerHTML = '<div class="no-results">No commands found matching your criteria.</div>';
+    return;
+  }
+
+  filtered.forEach(cmd => {
+    const card = document.createElement('div');
+    card.className = 'command-card';
+
+    // Copy button setup
+    const rawCode = cmd.code;
+    const highlightedCode = highlightCurl(cmd.code);
+
+    // Details section setup
+    let detailsHtml = '';
+    if (cmd.details && cmd.details.length > 0) {
+      const detailsList = cmd.details.map(d => `
+        <div class="detail-section">
+          <h4>${d.title}</h4>
+          <p>${d.text}</p>
+        </div>
+      `).join('');
+      detailsHtml = `
+        <div class="card-details">
+          ${detailsList}
+        </div>
+        <button class="expand-btn">
+          <span>Show Details</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+      `;
+    }
+
+    card.innerHTML = `
+      <div class="card-header">
+        <div>
+          <div class="command-name">${cmd.name}</div>
+          <div class="command-desc">${cmd.desc}</div>
+        </div>
+        <div class="command-category">${cmd.category}</div>
+      </div>
+
+      <div class="code-container">
+        <button class="copy-btn" data-code="${escapeHtml(rawCode)}" title="Copy command">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          Copy
+        </button>
+        <div class="code-block mono">${highlightedCode}</div>
+      </div>
+
+      ${detailsHtml}
+    `;
+
+    // Bind expand toggle
+    const expandBtn = card.querySelector('.expand-btn');
+    if (expandBtn) {
+      expandBtn.addEventListener('click', () => {
+        card.classList.toggle('expanded');
+        const span = expandBtn.querySelector('span');
+        span.textContent = card.classList.contains('expanded') ? 'Hide Details' : 'Show Details';
+      });
+    }
+
+    // Bind copy functionality
+    const copyBtn = card.querySelector('.copy-btn');
+    copyBtn.addEventListener('click', () => {
+      const codeToCopy = copyBtn.getAttribute('data-code');
+      navigator.clipboard.writeText(unescapeHtml(codeToCopy)).then(() => {
+        const originalText = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+        copyBtn.classList.add('copied');
+        setTimeout(() => {
+          copyBtn.innerHTML = originalText;
+          copyBtn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+
+    commandGrid.appendChild(card);
+  });
+}
+
+// Event Listeners
+searchInput.addEventListener('input', (e) => {
+  const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+  renderCommands(activeFilter, e.target.value);
+});
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    renderCommands(e.target.dataset.filter, searchInput.value);
+  });
+});
+
+// Initial Render
+renderCommands();
+</script>
+</body>
+</html>
