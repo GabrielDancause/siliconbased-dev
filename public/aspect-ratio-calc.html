@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aspect Ratio Calculator | Resize Dimensions Proportionally</title>
+<meta name="description" content="Free online tool to calculate aspect ratios, resize dimensions proportionally, and find equivalent resolutions for video, photo, and screen formats.">
+<meta property="og:title" content="Aspect Ratio Calculator">
+<meta property="og:description" content="Free online tool to calculate aspect ratios, resize dimensions proportionally, and find equivalent resolutions for video, photo, and screen formats.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Aspect Ratio Calculator",
+    "url": "https://siliconbased.dev/aspect-ratio-calc",
+    "description": "Interactive tool to calculate aspect ratios and resize dimensions proportionally.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "What is an Aspect Ratio?",
+    "description": "A guide on aspect ratios, how to calculate them, and common formats used in video and photography.",
+    "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+  }
+]
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+.hero { text-align: center; padding: 48px 24px 24px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.4rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+
+.main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+.tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; align-items: start; }
+@media (max-width: 900px) {
+  .tool-grid { grid-template-columns: 1fr; }
+}
+
+.pane { background: #111318; border: 1px solid #1e2030; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; }
+.pane-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+.header-title { font-size: 1.1rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 8px;}
+
+.input-group { margin-bottom: 20px; }
+.input-row { display: flex; align-items: center; gap: 16px; margin-bottom: 12px; }
+.input-col { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.input-col label { font-size: 0.85rem; color: #ccc; font-weight: 500; }
+.input-col input { background: #0a0b10; border: 1px solid #1e2030; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 1rem; padding: 10px 14px; border-radius: 8px; outline: none; transition: border-color 0.2s; width: 100%; }
+.input-col input:focus { border-color: #818cf8; }
+
+.divider { display: flex; align-items: center; gap: 16px; margin: 24px 0; color: #555; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+.divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: #1e2030; }
+
+.options-bar { background: transparent; border: none; padding: 0; margin-bottom: 0; display: flex; gap: 8px; flex-wrap: wrap; }
+.action-btn { background: #1e2030; border: 1px solid #2a2d40; color: #ccc; padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.action-btn:hover { background: #2a2d40; color: #fff; }
+.action-btn.active { background: #818cf8; color: #fff; border-color: #818cf8; }
+
+.visualizer-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 300px; background: #0a0b10; border: 1px dashed #2a2d40; border-radius: 8px; padding: 24px; position: relative; }
+.visualizer-box { border: 2px solid #818cf8; background: rgba(129, 140, 248, 0.1); display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; max-width: 100%; max-height: 100%; position: relative; }
+.visualizer-text { font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; font-weight: 600; color: #818cf8; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+.visualizer-dim-w { position: absolute; bottom: -24px; font-size: 0.75rem; color: #888; font-family: 'JetBrains Mono', monospace; }
+.visualizer-dim-h { position: absolute; left: -36px; top: 50%; transform: translateY(-50%) rotate(-90deg); font-size: 0.75rem; color: #888; font-family: 'JetBrains Mono', monospace; }
+
+.lock-toggle { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s; }
+.lock-toggle:hover { background: #2a2d40; color: #ccc; }
+.lock-toggle.locked { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+.lock-toggle svg { width: 14px; height: 14px; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Aspect Ratio <span>Calculator</span></h1>
+  <p>Calculate aspect ratios, resize dimensions proportionally, and find equivalent resolutions.</p>
+</div>
+
+<div class="main">
+
+  <div class="tool-grid">
+    <!-- Calculator Pane -->
+    <div class="pane">
+      <div class="pane-header">
+        <div class="header-title">Dimensions</div>
+      </div>
+
+      <div class="input-group">
+        <label style="font-size: 0.85rem; color: #ccc; font-weight: 500; display: block; margin-bottom: 10px;">Ratio (W1 : H1)</label>
+        <div class="input-row">
+          <div class="input-col">
+            <input type="number" id="w1" value="1920" placeholder="Width">
+          </div>
+          <span style="color: #555; font-weight: 600;">:</span>
+          <div class="input-col">
+            <input type="number" id="h1" value="1080" placeholder="Height">
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="font-size: 0.8rem; color: #888; font-family: 'JetBrains Mono', monospace;">Aspect Ratio: <span id="ratioText" style="color: #818cf8; font-weight: 600;">16:9</span></div>
+          <button class="action-btn" id="copyRatioBtn" style="padding: 4px 8px; font-size: 0.7rem;">Copy</button>
+        </div>
+      </div>
+
+      <div class="divider">Presets</div>
+
+      <div class="options-bar" id="presetButtons">
+        <button class="action-btn active" data-w="16" data-h="9">16:9 (Video)</button>
+        <button class="action-btn" data-w="4" data-h="3">4:3 (Classic)</button>
+        <button class="action-btn" data-w="1" data-h="1">1:1 (Square)</button>
+        <button class="action-btn" data-w="21" data-h="9">21:9 (Ultrawide)</button>
+        <button class="action-btn" data-w="9" data-h="16">9:16 (Vertical)</button>
+        <button class="action-btn" data-w="3" data-h="2">3:2 (Photo)</button>
+      </div>
+
+      <div class="divider">Proportional Resize</div>
+
+      <div class="input-group">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+           <label style="font-size: 0.85rem; color: #ccc; font-weight: 500;">New Dimensions (W2 x H2)</label>
+           <button id="lockToggle" class="lock-toggle locked">
+             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+             Locked
+           </button>
+        </div>
+        <div class="input-row">
+          <div class="input-col">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <label>New Width</label>
+              <button class="action-btn" id="copyW2Btn" style="padding: 2px 6px; font-size: 0.65rem;">Copy</button>
+            </div>
+            <input type="number" id="w2" value="1280" placeholder="Width">
+          </div>
+          <span style="color: #555; font-weight: 600; margin-top: 20px;">x</span>
+          <div class="input-col">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <label>New Height</label>
+              <button class="action-btn" id="copyH2Btn" style="padding: 2px 6px; font-size: 0.65rem;">Copy</button>
+            </div>
+            <input type="number" id="h2" value="720" placeholder="Height">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Visualizer Pane -->
+    <div class="pane">
+      <div class="pane-header">
+        <div class="header-title">Visual Representation</div>
+      </div>
+      <div class="visualizer-container" id="visualizerContainer">
+         <div class="visualizer-box" id="visualBox" style="width: 256px; height: 144px;">
+            <div class="visualizer-text" id="visualText">16:9</div>
+            <div class="visualizer-dim-w" id="visualDimW">1920</div>
+            <div class="visualizer-dim-h" id="visualDimH">1080</div>
+         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>What is an Aspect Ratio?</h2>
+    <p>An aspect ratio describes the proportional relationship between the width and height of an image or screen. It is usually expressed as two numbers separated by a colon, such as <code>16:9</code>. The first number represents the width, and the second represents the height. Aspect ratios are independent of the actual size or resolution in pixels; an image of 1920x1080 pixels has the same 16:9 aspect ratio as an image of 1280x720 pixels.</p>
+
+    <h2>Common Aspect Ratios</h2>
+    <ul>
+      <li><strong>16:9 (Widescreen):</strong> The standard format for modern HD monitors, televisions, and online video platforms like YouTube.</li>
+      <li><strong>4:3 (Classic/Standard):</strong> Used by older CRT televisions and early computer monitors. Still used in some photography formats.</li>
+      <li><strong>1:1 (Square):</strong> Equal width and height. Popularized by social media platforms like Instagram.</li>
+      <li><strong>21:9 (Ultrawide):</strong> A cinematic format often used for movies and modern ultrawide gaming monitors.</li>
+      <li><strong>9:16 (Vertical):</strong> The standard portrait orientation for smartphones, used in TikTok, YouTube Shorts, and Instagram Reels.</li>
+      <li><strong>3:2 (Photography):</strong> The classic aspect ratio of 35mm film, still standard on most DSLR and mirrorless cameras.</li>
+    </ul>
+
+    <h2>How to Calculate Aspect Ratios</h2>
+    <p>To calculate the aspect ratio of an image, divide the width by the height. If you want to resize an image while maintaining its original proportions (so it doesn't look stretched or squished), you must scale both dimensions by the same factor. For example, if you have an image that is 1000 pixels wide and 500 pixels high, the aspect ratio is 2:1. If you want to change the width to 500 pixels, you must also halve the height to 250 pixels to maintain the 2:1 ratio.</p>
+
+    <h2>How Does This Tool Work?</h2>
+    <p>Our aspect ratio calculator runs entirely in your web browser. When you input dimensions, JavaScript calculates the ratio and proportional sizes instantly. Because all processing happens client-side, it is fast, secure, and works entirely offline once loaded.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+  const w1Input = document.getElementById('w1');
+  const h1Input = document.getElementById('h1');
+  const w2Input = document.getElementById('w2');
+  const h2Input = document.getElementById('h2');
+  const ratioText = document.getElementById('ratioText');
+
+  const presetButtons = document.querySelectorAll('#presetButtons .action-btn');
+  const lockToggle = document.getElementById('lockToggle');
+
+  const visualizerContainer = document.getElementById('visualizerContainer');
+  const visualBox = document.getElementById('visualBox');
+  const visualText = document.getElementById('visualText');
+  const visualDimW = document.getElementById('visualDimW');
+  const visualDimH = document.getElementById('visualDimH');
+
+  let isLocked = true;
+
+  function gcd(a, b) {
+    return b === 0 ? a : gcd(b, a % b);
+  }
+
+  function calculateRatio(w, h) {
+    if (w === 0 || h === 0) return '';
+    const divisor = gcd(w, h);
+    return `${w / divisor}:${h / divisor}`;
+  }
+
+  function getDecimalRatio() {
+    const w1 = parseFloat(w1Input.value) || 0;
+    const h1 = parseFloat(h1Input.value) || 0;
+    if (h1 === 0) return 0;
+    return w1 / h1;
+  }
+
+  function updateVisualizer() {
+    const w1 = parseFloat(w1Input.value) || 0;
+    const h1 = parseFloat(h1Input.value) || 0;
+
+    if (w1 === 0 || h1 === 0) {
+       visualBox.style.display = 'none';
+       return;
+    }
+
+    visualBox.style.display = 'flex';
+
+    // Max constraints for the visualizer box within the container
+    const maxW = visualizerContainer.clientWidth - 80; // Padding for labels
+    const maxH = visualizerContainer.clientHeight - 80;
+
+    const containerRatio = maxW / maxH;
+    const boxRatio = w1 / h1;
+
+    let drawW, drawH;
+
+    if (boxRatio > containerRatio) {
+       // Constrained by width
+       drawW = maxW;
+       drawH = maxW / boxRatio;
+    } else {
+       // Constrained by height
+       drawH = maxH;
+       drawW = maxH * boxRatio;
+    }
+
+    visualBox.style.width = `${drawW}px`;
+    visualBox.style.height = `${drawH}px`;
+
+    const simplified = calculateRatio(w1, h1);
+    ratioText.textContent = simplified;
+    visualText.textContent = simplified;
+
+    visualDimW.textContent = w1;
+    visualDimH.textContent = h1;
+  }
+
+  function handleW1Change() {
+    const r = getDecimalRatio();
+    if (isLocked && r > 0 && document.activeElement !== h2Input && document.activeElement !== w2Input) {
+       const w2 = parseFloat(w2Input.value) || 0;
+       if (w2 > 0) {
+          h2Input.value = Math.round(w2 / r);
+       }
+    }
+    updateVisualizer();
+  }
+
+  function handleH1Change() {
+    const r = getDecimalRatio();
+    if (isLocked && r > 0 && document.activeElement !== w2Input && document.activeElement !== h2Input) {
+       const h2 = parseFloat(h2Input.value) || 0;
+       if (h2 > 0) {
+          w2Input.value = Math.round(h2 * r);
+       }
+    }
+    updateVisualizer();
+  }
+
+  function handleW2Change() {
+    if (!isLocked) return;
+    const r = getDecimalRatio();
+    if (r === 0) return;
+    const w2 = parseFloat(w2Input.value) || 0;
+    h2Input.value = Math.round(w2 / r);
+  }
+
+  function handleH2Change() {
+    if (!isLocked) return;
+    const r = getDecimalRatio();
+    if (r === 0) return;
+    const h2 = parseFloat(h2Input.value) || 0;
+    w2Input.value = Math.round(h2 * r);
+  }
+
+  w1Input.addEventListener('input', handleW1Change);
+  h1Input.addEventListener('input', handleH1Change);
+  w2Input.addEventListener('input', handleW2Change);
+  h2Input.addEventListener('input', handleH2Change);
+
+  presetButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      presetButtons.forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+
+      const w = parseInt(e.target.dataset.w);
+      const h = parseInt(e.target.dataset.h);
+
+      // We set arbitrary base dimensions for the presets to be useful
+      let baseW, baseH;
+      if (w === 16 && h === 9) { baseW = 1920; baseH = 1080; }
+      else if (w === 4 && h === 3) { baseW = 1024; baseH = 768; }
+      else if (w === 1 && h === 1) { baseW = 1080; baseH = 1080; }
+      else if (w === 21 && h === 9) { baseW = 2560; baseH = 1080; }
+      else if (w === 9 && h === 16) { baseW = 1080; baseH = 1920; }
+      else if (w === 3 && h === 2) { baseW = 1500; baseH = 1000; }
+      else { baseW = w * 100; baseH = h * 100; }
+
+      w1Input.value = baseW;
+      h1Input.value = baseH;
+
+      if (isLocked) {
+         const w2 = parseFloat(w2Input.value) || baseW;
+         h2Input.value = Math.round(w2 / (w/h));
+      }
+
+      updateVisualizer();
+    });
+  });
+
+  lockToggle.addEventListener('click', () => {
+    isLocked = !isLocked;
+    if (isLocked) {
+      lockToggle.classList.add('locked');
+      lockToggle.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Locked`;
+      // Immediately calculate based on w2
+      handleW2Change();
+    } else {
+      lockToggle.classList.remove('locked');
+      lockToggle.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg> Unlocked`;
+    }
+  });
+
+  // Copy functionality
+  function handleCopy(button, textToCopy) {
+    if (!textToCopy) return;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      const originalText = button.innerHTML;
+      button.innerHTML = '✓ Copied';
+      button.style.color = '#4ade80';
+      button.style.borderColor = '#2d5a2d';
+      setTimeout(() => {
+        button.innerHTML = originalText;
+        button.style.color = '';
+        button.style.borderColor = '';
+      }, 1500);
+    });
+  }
+
+  document.getElementById('copyRatioBtn').addEventListener('click', function() {
+    handleCopy(this, ratioText.textContent);
+  });
+
+  document.getElementById('copyW2Btn').addEventListener('click', function() {
+    handleCopy(this, w2Input.value);
+  });
+
+  document.getElementById('copyH2Btn').addEventListener('click', function() {
+    handleCopy(this, h2Input.value);
+  });
+
+  // Handle window resize for visualizer
+  window.addEventListener('resize', updateVisualizer);
+
+  // Initialize
+  updateVisualizer();
+</script>
+</body>
+</html>
