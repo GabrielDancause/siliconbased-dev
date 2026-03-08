@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regex Cheat Sheet — Interactive Regular Expression Reference | Free Online Tool</title>
+<meta name="description" content="An interactive regex cheat sheet with live testing. Learn common regular expression patterns, character classes, quantifiers, and test them instantly in your browser.">
+<meta property="og:title" content="Regex Cheat Sheet — Interactive Regular Expression Reference">
+<meta property="og:description" content="An interactive regex cheat sheet with live testing. Learn common regular expression patterns, character classes, quantifiers, and test them instantly in your browser.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Regex Cheat Sheet",
+  "url": "https://siliconbased.dev/regex-cheatsheet",
+  "description": "An interactive regex cheat sheet with live testing. Learn common regular expression patterns, character classes, quantifiers, and test them instantly in your browser.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+
+.main { max-width: 1100px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+.nav-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; justify-content: center; }
+.nav-tab { background: #111318; border: 1px solid #1e2030; color: #888; font-size: 0.85rem; font-weight: 600; cursor: pointer; padding: 8px 16px; border-radius: 8px; transition: all 0.2s; font-family: 'Inter', sans-serif; }
+.nav-tab.active { color: #818cf8; border-color: #818cf8; background: rgba(129, 140, 248, 0.05); }
+.nav-tab:hover:not(.active) { color: #ccc; border-color: #2a2d40; }
+
+.section-title { font-size: 1.4rem; font-weight: 700; color: #fff; margin: 40px 0 20px; padding-bottom: 12px; border-bottom: 1px solid #1e2030; display: flex; align-items: center; gap: 12px; }
+.section-icon { color: #818cf8; font-size: 1.2rem; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+
+.card { background: #111318; border: 1px solid #1e2030; border-radius: 12px; overflow: hidden; transition: transform 0.2s, border-color 0.2s; display: flex; flex-direction: column; }
+.card:hover { border-color: #2a2d40; transform: translateY(-2px); }
+
+.card-header { padding: 16px; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; border-bottom: 1px solid #151720; background: #13151d; }
+.card-title-group { flex: 1; min-width: 0; }
+.pattern { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; color: #818cf8; font-weight: 600; margin-bottom: 4px; word-break: break-all; }
+.desc { color: #aaa; font-size: 0.85rem; line-height: 1.4; }
+
+.actions { display: flex; gap: 6px; flex-shrink: 0; }
+.btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 6px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; display: flex; align-items: center; justify-content: center; }
+.btn:hover { background: #2a2d40; color: #ccc; }
+.btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+.btn.test-active { background: #818cf8; color: #fff; border-color: #6366f1; }
+
+.tester-container { display: none; background: #0a0b10; border-top: 1px solid #1e2030; padding: 16px; flex-direction: column; gap: 12px; }
+.tester-container.active { display: flex; }
+
+.test-input-wrapper { display: flex; align-items: center; background: #111318; border: 1px solid #2a2d40; border-radius: 6px; padding: 4px 8px; }
+.test-input-wrapper:focus-within { border-color: #818cf8; }
+.test-slash { color: #555; font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+.test-pattern-input { background: transparent; border: none; color: #818cf8; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; outline: none; flex: 1; padding: 4px; min-width: 0; }
+.test-flags-input { background: transparent; border: none; color: #fbbf24; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; outline: none; width: 30px; padding: 4px; text-align: center; }
+
+.test-area { position: relative; border: 1px solid #2a2d40; border-radius: 6px; background: #111318; overflow: hidden; min-height: 80px; }
+.test-area:focus-within { border-color: #818cf8; }
+.test-backdrop { position: absolute; top: 0; left: 0; right: 0; bottom: 0; padding: 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.5; color: transparent; white-space: pre-wrap; word-wrap: break-word; overflow: hidden; pointer-events: none; z-index: 1; }
+.test-textarea { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; border: none; padding: 12px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.5; resize: none; outline: none; z-index: 2; caret-color: #818cf8; white-space: pre-wrap; word-wrap: break-word; }
+
+.match-hl { background: rgba(129, 140, 248, 0.3); border-radius: 2px; color: transparent; }
+.match-hl:nth-child(even) { background: rgba(192, 132, 252, 0.3); }
+.error-msg { color: #f87171; font-size: 0.75rem; margin-top: 4px; font-family: 'JetBrains Mono', monospace; display: none; }
+
+.seo-content { margin-top: 64px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+@media (max-width: 768px) {
+  .grid { grid-template-columns: 1fr; }
+  .card-header { flex-direction: column; }
+  .actions { width: 100%; justify-content: flex-end; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Regex <span>Cheat Sheet</span></h1>
+  <p>Interactive regular expression reference. Learn, copy, and test patterns instantly.</p>
+</div>
+
+<div class="main">
+
+  <div class="nav-tabs" id="navTabs">
+    <!-- Populated by JS -->
+  </div>
+
+  <div id="contentGrid">
+    <!-- Populated by JS -->
+  </div>
+
+  <div class="seo-content">
+    <h2>Why Use a Regular Expression Cheat Sheet?</h2>
+    <p>Regular expressions (Regex) are incredibly powerful tools for pattern matching and text manipulation, but their syntax can be difficult to remember. This interactive regex cheat sheet provides a quick reference for developers, data scientists, and system administrators to quickly find and test the exact pattern they need.</p>
+
+    <h2>Core Regex Concepts</h2>
+    <ul>
+      <li><strong>Character Classes:</strong> Define a set of characters that can match. For example, <code>\d</code> matches any digit, while <code>\w</code> matches any word character (letters, numbers, underscores).</li>
+      <li><strong>Quantifiers:</strong> Specify how many times an element can occur. <code>*</code> means zero or more, <code>+</code> means one or more, and <code>{n,m}</code> specifies an exact range.</li>
+      <li><strong>Anchors:</strong> Ensure the pattern matches at a specific position. <code>^</code> matches the start of a string, and <code>$</code> matches the end.</li>
+      <li><strong>Groups and Ranges:</strong> Parentheses <code>()</code> group tokens together, creating capture groups. Brackets <code>[]</code> define a character set, matching any single character inside.</li>
+    </ul>
+
+    <h2>How to Test Regular Expressions</h2>
+    <p>Unlike standard static cheat sheets, this tool allows you to test patterns directly in the browser. Click the "Test" button on any card to open a live evaluation area. By default, patterns are evaluated globally (using the <code>g</code> flag) to highlight all matches within the provided text, but you can adjust the flags (like <code>i</code> for case-insensitive) and the pattern dynamically to see real-time results.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const regexData = [
+  {
+    category: 'Character Classes',
+    icon: '▤',
+    items: [
+      { pattern: '.', desc: 'Any single character except newline', sampleText: 'Cat, cot, c t.', sampleFlags: 'g' },
+      { pattern: '\\d', desc: 'Any digit (0-9)', sampleText: 'Order 123 is ready.', sampleFlags: 'g' },
+      { pattern: '\\D', desc: 'Any non-digit character', sampleText: 'Order 123 is ready.', sampleFlags: 'g' },
+      { pattern: '\\w', desc: 'Any word character (a-z, A-Z, 0-9, _)', sampleText: 'user_name1!', sampleFlags: 'g' },
+      { pattern: '\\W', desc: 'Any non-word character', sampleText: 'user_name1!', sampleFlags: 'g' },
+      { pattern: '\\s', desc: 'Any whitespace character (space, tab, newline)', sampleText: 'Hello\\tWorld\\n!', sampleFlags: 'g' },
+      { pattern: '\\S', desc: 'Any non-whitespace character', sampleText: 'Hello World!', sampleFlags: 'g' }
+    ]
+  },
+  {
+    category: 'Quantifiers',
+    icon: '×',
+    items: [
+      { pattern: '*', desc: 'Zero or more consecutive matches', sampleText: 'ct, cat, caat, caaat', sampleFlags: 'g', displayPattern: 'ca*t' },
+      { pattern: '+', desc: 'One or more consecutive matches', sampleText: 'ct, cat, caat, caaat', sampleFlags: 'g', displayPattern: 'ca+t' },
+      { pattern: '?', desc: 'Zero or one match (optional)', sampleText: 'color, colour', sampleFlags: 'g', displayPattern: 'colou?r' },
+      { pattern: '{n}', desc: 'Exactly n matches', sampleText: '12, 123, 1234', sampleFlags: 'g', displayPattern: '\\d{3}' },
+      { pattern: '{n,}', desc: 'n or more matches', sampleText: '12, 123, 1234', sampleFlags: 'g', displayPattern: '\\d{3,}' },
+      { pattern: '{n,m}', desc: 'Between n and m matches', sampleText: '1, 12, 123, 1234', sampleFlags: 'g', displayPattern: '\\d{2,3}' },
+      { pattern: '*?', desc: 'Lazy match (zero or more, fewest possible)', sampleText: '<div>Hello</div>', sampleFlags: 'g', displayPattern: '<.*?>' }
+    ]
+  },
+  {
+    category: 'Anchors & Boundaries',
+    icon: '⚓',
+    items: [
+      { pattern: '^', desc: 'Start of string (or line with /m flag)', sampleText: 'Apple\\nBanana\\nCherry', sampleFlags: 'gm', displayPattern: '^[A-Z]' },
+      { pattern: '$', desc: 'End of string (or line with /m flag)', sampleText: '100 USD\\n50 EUR\\n200 USD', sampleFlags: 'gm', displayPattern: 'USD$' },
+      { pattern: '\\b', desc: 'Word boundary (start/end of word)', sampleText: 'The cat scattered the catalog.', sampleFlags: 'g', displayPattern: '\\bcat\\b' },
+      { pattern: '\\B', desc: 'Non-word boundary', sampleText: 'The cat scattered the catalog.', sampleFlags: 'g', displayPattern: '\\Bcat\\B' }
+    ]
+  },
+  {
+    category: 'Groups & Ranges',
+    icon: '( )',
+    items: [
+      { pattern: '[abc]', desc: 'Any single character in the set', sampleText: 'cat, bat, rat, mat', sampleFlags: 'g', displayPattern: '[cbr]at' },
+      { pattern: '[^abc]', desc: 'Any single character NOT in the set', sampleText: 'cat, bat, rat, mat', sampleFlags: 'g', displayPattern: '[^cbr]at' },
+      { pattern: '[a-z]', desc: 'Any single character in the range a to z', sampleText: 'A1, b2, C3, d4', sampleFlags: 'g', displayPattern: '[a-z]\\d' },
+      { pattern: '(a|b)', desc: 'Alternation (matches a OR b)', sampleText: 'I like cats and dogs.', sampleFlags: 'g', displayPattern: '(cat|dog)s' },
+      { pattern: '(...)', desc: 'Capturing group', sampleText: 'John Doe', sampleFlags: 'g', displayPattern: '(\\w+)\\s(\\w+)' },
+      { pattern: '(?:...)', desc: 'Non-capturing group', sampleText: 'http://example.com', sampleFlags: 'g', displayPattern: '(?:https?|ftp)://' },
+      { pattern: '(?<name>...)', desc: 'Named capturing group', sampleText: '2025-12-31', sampleFlags: 'g', displayPattern: '(?<year>\\d{4})-(?<month>\\d{2})' }
+    ]
+  },
+  {
+    category: 'Lookaround',
+    icon: '👁',
+    items: [
+      { pattern: '(?=...)', desc: 'Positive lookahead (must be followed by)', sampleText: '100 USD, 50 EUR', sampleFlags: 'g', displayPattern: '\\d+(?=\\sUSD)' },
+      { pattern: '(?!...)', desc: 'Negative lookahead (must NOT be followed by)', sampleText: '100 USD, 50 EUR', sampleFlags: 'g', displayPattern: '\\d+(?!\\sUSD)' },
+      { pattern: '(?<=...)', desc: 'Positive lookbehind (must follow)', sampleText: '$100, €50', sampleFlags: 'g', displayPattern: '(?<=\\$)\\d+' },
+      { pattern: '(?<!...)', desc: 'Negative lookbehind (must NOT follow)', sampleText: '$100, 50', sampleFlags: 'g', displayPattern: '(?<!\\$)\\d+' }
+    ]
+  }
+];
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+}
+
+const navTabs = document.getElementById('navTabs');
+const contentGrid = document.getElementById('contentGrid');
+
+// Build UI
+regexData.forEach((section, sIdx) => {
+  // Nav tab
+  const tab = document.createElement('button');
+  tab.className = `nav-tab ${sIdx === 0 ? 'active' : ''}`;
+  tab.textContent = section.category;
+  tab.onclick = () => {
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(`section-${sIdx}`).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+  navTabs.appendChild(tab);
+
+  // Section Header
+  const secHeader = document.createElement('div');
+  secHeader.id = `section-${sIdx}`;
+  secHeader.className = 'section-title';
+  secHeader.innerHTML = `<span class="section-icon">${section.icon}</span> ${section.category}`;
+  contentGrid.appendChild(secHeader);
+
+  // Grid
+  const grid = document.createElement('div');
+  grid.className = 'grid';
+
+  section.items.forEach((item, iIdx) => {
+    const cardId = `card-${sIdx}-${iIdx}`;
+    const defaultPattern = item.displayPattern || item.pattern;
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="card-header">
+        <div class="card-title-group">
+          <div class="pattern">${escapeHtml(item.pattern)}</div>
+          <div class="desc">${escapeHtml(item.desc)}</div>
+        </div>
+        <div class="actions">
+          <button class="btn copy-btn" data-copy="${escapeHtml(item.pattern)}">Copy</button>
+          <button class="btn test-btn" id="btn-${cardId}">Test</button>
+        </div>
+      </div>
+      <div class="tester-container" id="tester-${cardId}">
+        <div class="test-input-wrapper">
+          <span class="test-slash">/</span>
+          <input type="text" class="test-pattern-input" id="pat-${cardId}" value="${escapeHtml(defaultPattern)}" spellcheck="false">
+          <span class="test-slash">/</span>
+          <input type="text" class="test-flags-input" id="flg-${cardId}" value="${escapeHtml(item.sampleFlags)}" spellcheck="false">
+        </div>
+        <div class="test-area">
+          <div class="test-backdrop" id="bg-${cardId}"></div>
+          <textarea class="test-textarea" id="txt-${cardId}" spellcheck="false">${escapeHtml(item.sampleText)}</textarea>
+        </div>
+        <div class="error-msg" id="err-${cardId}"></div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  contentGrid.appendChild(grid);
+});
+
+// Setup event listeners and logic
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    navigator.clipboard.writeText(btn.dataset.copy).then(() => {
+      btn.textContent = 'Copied';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Copy';
+        btn.classList.remove('copied');
+      }, 1500);
+    });
+  });
+});
+
+document.querySelectorAll('.test-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    const cardId = btn.id.replace('btn-', '');
+    const tester = document.getElementById(`tester-${cardId}`);
+
+    if (tester.classList.contains('active')) {
+      tester.classList.remove('active');
+      btn.classList.remove('test-active');
+      btn.textContent = 'Test';
+    } else {
+      // Close others (optional, but good for UX)
+      // document.querySelectorAll('.tester-container.active').forEach(t => {
+      //   t.classList.remove('active');
+      //   document.getElementById(`btn-${t.id.replace('tester-', '')}`).classList.remove('test-active');
+      //   document.getElementById(`btn-${t.id.replace('tester-', '')}`).textContent = 'Test';
+      // });
+
+      tester.classList.add('active');
+      btn.classList.add('test-active');
+      btn.textContent = 'Close';
+      updateRegex(cardId);
+    }
+  });
+});
+
+function updateRegex(cardId) {
+  const patInput = document.getElementById(`pat-${cardId}`);
+  const flgInput = document.getElementById(`flg-${cardId}`);
+  const txtInput = document.getElementById(`txt-${cardId}`);
+  const bg = document.getElementById(`bg-${cardId}`);
+  const err = document.getElementById(`err-${cardId}`);
+
+  const pattern = patInput.value;
+  const flags = flgInput.value;
+  const text = txtInput.value;
+
+  // Sync scroll
+  bg.scrollTop = txtInput.scrollTop;
+
+  if (!pattern) {
+    bg.innerHTML = escapeHtml(text);
+    err.style.display = 'none';
+    return;
+  }
+
+  let regex;
+  try {
+    regex = new RegExp(pattern, flags);
+    err.style.display = 'none';
+  } catch (e) {
+    err.textContent = e.message;
+    err.style.display = 'block';
+    bg.innerHTML = escapeHtml(text);
+    return;
+  }
+
+  let highlightedText = '';
+
+  if (!regex.global) {
+    const match = regex.exec(text);
+    if (match) {
+      highlightedText = escapeHtml(text.slice(0, match.index)) +
+                        `<mark class="match-hl">${escapeHtml(match[0])}</mark>` +
+                        escapeHtml(text.slice(match.index + match[0].length));
+    } else {
+      highlightedText = escapeHtml(text);
+    }
+  } else {
+    let lastIndex = 0;
+    let match;
+    let safeLoop = 0;
+
+    while ((match = regex.exec(text)) !== null) {
+      highlightedText += escapeHtml(text.slice(lastIndex, match.index));
+      highlightedText += `<mark class="match-hl">${escapeHtml(match[0])}</mark>`;
+      lastIndex = regex.lastIndex;
+
+      if (match[0].length === 0) {
+        regex.lastIndex++;
+      }
+
+      safeLoop++;
+      if (safeLoop > 2000) break; // Infinite loop prevention
+    }
+    highlightedText += escapeHtml(text.slice(lastIndex));
+  }
+
+  if (text.endsWith('\\n')) {
+    highlightedText += '<br/>';
+  }
+
+  bg.innerHTML = highlightedText;
+}
+
+// Bind inputs
+regexData.forEach((section, sIdx) => {
+  section.items.forEach((item, iIdx) => {
+    const cardId = `card-${sIdx}-${iIdx}`;
+    ['pat-', 'flg-', 'txt-'].forEach(prefix => {
+      const el = document.getElementById(`${prefix}${cardId}`);
+      if (el) {
+        el.addEventListener('input', () => updateRegex(cardId));
+      }
+    });
+
+    const txt = document.getElementById(`txt-${cardId}`);
+    if (txt) {
+      txt.addEventListener('scroll', () => {
+        document.getElementById(`bg-${cardId}`).scrollTop = txt.scrollTop;
+      });
+    }
+  });
+});
+</script>
+</body>
+</html>
