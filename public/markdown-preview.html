@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Markdown Live Preview | Free Online Editor & Viewer</title>
+<meta name="description" content="Write Markdown and see the rendered HTML in real time. Supports GFM tables, task lists, and syntax highlighting. Free, fast, and works offline.">
+<meta property="og:title" content="Markdown Live Preview">
+<meta property="og:description" content="Write Markdown and see the rendered HTML in real time. Supports GFM tables, task lists, and syntax highlighting. Free, fast, and works offline.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Markdown Live Preview",
+  "url": "https://siliconbased.dev/markdown-preview",
+  "description": "Write Markdown and see the rendered HTML in real time. Supports GFM tables, task lists, and syntax highlighting.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+
+/* In a typical tool we have max-width: 900px, but for split screen we need it wider */
+.main { max-width: 1400px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; display: flex; flex-direction: column; }
+
+/* Card */
+.tool-card { background: #111318; border: 1px solid #1e2030; border-radius: 16px; overflow: hidden; margin-bottom: 40px; display: flex; flex-direction: column; flex: 1; min-height: 60vh; }
+.tool-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #13151d; border-bottom: 1px solid #1e2030; gap: 12px; }
+.tool-header h3 { font-size: 0.85rem; font-weight: 600; color: #ccc; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Buttons */
+.btn { background: #1e2030; border: 1px solid #2a2d40; color: #ccc; padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
+.btn:hover { background: #2a2d40; color: #fff; }
+.btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+/* Split Layout */
+.split-layout { display: flex; flex-direction: column; flex: 1; min-height: 500px; }
+.editor-col { border-bottom: 1px solid #1e2030; display: flex; flex-direction: column; min-height: 300px; }
+.preview-col { display: flex; flex-direction: column; overflow: hidden; background: #0a0b10; min-height: 300px; }
+
+@media (min-width: 769px) {
+  .split-layout { flex-direction: row; }
+  .editor-col { flex: 1; border-right: 1px solid #1e2030; border-bottom: none; min-height: auto; }
+  .preview-col { flex: 1; min-height: auto; }
+}
+
+textarea#markdownInput { flex: 1; width: 100%; background: transparent; border: none; padding: 16px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; resize: none; outline: none; line-height: 1.6; }
+textarea#markdownInput::placeholder { color: #444; }
+
+/* Markdown Body Styles */
+#htmlPreview { flex: 1; padding: 24px; overflow-y: auto; color: #e0e0e0; font-size: 1rem; line-height: 1.6; }
+.markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4, .markdown-body h5, .markdown-body h6 { color: #fff; font-weight: 600; margin-top: 24px; margin-bottom: 16px; line-height: 1.25; }
+.markdown-body h1 { font-size: 2em; padding-bottom: 0.3em; border-bottom: 1px solid #1e2030; }
+.markdown-body h2 { font-size: 1.5em; padding-bottom: 0.3em; border-bottom: 1px solid #1e2030; }
+.markdown-body h3 { font-size: 1.25em; }
+.markdown-body h4 { font-size: 1em; }
+.markdown-body h5 { font-size: 0.875em; }
+.markdown-body h6 { font-size: 0.85em; color: #888; }
+.markdown-body p, .markdown-body blockquote, .markdown-body ul, .markdown-body ol, .markdown-body dl, .markdown-body table, .markdown-body pre { margin-top: 0; margin-bottom: 16px; }
+.markdown-body blockquote { margin: 0; padding: 0 1em; color: #888; border-left: 0.25em solid #1e2030; }
+.markdown-body ul, .markdown-body ol { padding-left: 2em; }
+.markdown-body li { margin-bottom: 4px; }
+.markdown-body li > p { margin-top: 16px; }
+.markdown-body hr { height: 1px; padding: 0; margin: 24px 0; background-color: #1e2030; border: 0; }
+.markdown-body a { color: #818cf8; text-decoration: none; }
+.markdown-body a:hover { text-decoration: underline; }
+.markdown-body img { max-width: 100%; box-sizing: content-box; background-color: transparent; }
+
+/* Code blocks */
+.markdown-body code { padding: 0.2em 0.4em; margin: 0; font-size: 85%; background-color: #1e2030; border-radius: 6px; font-family: 'JetBrains Mono', monospace; }
+.markdown-body .code-block-wrapper { margin-bottom: 16px; border-radius: 8px; overflow: hidden; border: 1px solid #1e2030; background: #0d1117; }
+.markdown-body .code-header { display: flex; justify-content: space-between; align-items: center; padding: 6px 12px; background: #161b22; border-bottom: 1px solid #1e2030; }
+.markdown-body .code-lang { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #888; text-transform: uppercase; }
+.markdown-body .copy-code-btn { background: transparent; border: 1px solid #30363d; color: #8b949e; padding: 2px 8px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; transition: 0.2s; font-family: 'Inter', sans-serif; }
+.markdown-body .copy-code-btn:hover { background: #30363d; color: #c9d1d9; }
+.markdown-body .copy-code-btn.copied { color: #56d364; border-color: #2ea043; }
+.markdown-body pre { padding: 16px; overflow: auto; line-height: 1.45; background-color: #0d1117; margin: 0; font-size: 85%; }
+.markdown-body pre code { display: inline; max-width: auto; padding: 0; margin: 0; overflow: visible; line-height: inherit; word-wrap: normal; background-color: transparent; border: 0; font-size: 100%; border-radius: 0; }
+
+/* Syntax highlighting tokens */
+.token.comment { color: #8b949e; }
+.token.string { color: #a5d6ff; }
+.token.keyword { color: #ff7b72; }
+.token.number { color: #79c0ff; }
+.token.function { color: #d2a8ff; }
+
+/* Tables */
+.markdown-body .table-wrapper { overflow-x: auto; margin-bottom: 16px; }
+.markdown-body table { display: table; width: 100%; overflow: auto; border-spacing: 0; border-collapse: collapse; }
+.markdown-body table th { font-weight: 600; background: #111318; }
+.markdown-body table th, .markdown-body table td { padding: 8px 13px; border: 1px solid #1e2030; }
+.markdown-body table tr:nth-child(2n) { background-color: #111318; }
+
+/* Task lists */
+.markdown-body .task-list-item { list-style-type: none; display: flex; align-items: flex-start; gap: 8px; }
+.markdown-body .task-list-item input { margin-top: 4px; accent-color: #818cf8; }
+.markdown-body ul:has(.task-list-item) { padding-left: 0; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; max-width: 900px; margin-left: auto; margin-right: auto; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Markdown Live Preview</h1>
+  <p>Write Markdown on the left, see rendered HTML on the right in real time.</p>
+</div>
+
+<div class="main">
+  <div class="tool-card">
+    <div class="split-layout">
+      <!-- Editor Column -->
+      <div class="editor-col">
+        <div class="tool-header">
+          <h3>Markdown Input</h3>
+          <button class="btn" id="copyMdBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Copy
+          </button>
+        </div>
+        <textarea id="markdownInput" spellcheck="false" placeholder="Type some Markdown here..."></textarea>
+      </div>
+
+      <!-- Preview Column -->
+      <div class="preview-col">
+        <div class="tool-header">
+          <h3>HTML Preview</h3>
+          <button class="btn" id="copyHtmlBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Copy HTML
+          </button>
+        </div>
+        <div id="htmlPreview" class="markdown-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>What is Markdown?</h2>
+    <p>Markdown is a lightweight markup language that you can use to add formatting elements to plaintext text documents. Created by John Gruber in 2004, Markdown is now one of the world's most popular markup languages. Using Markdown is different than using a WYSIWYG editor. In an application like Microsoft Word, you click buttons to format words and phrases, and the changes are visible immediately.</p>
+
+    <h2>GitHub Flavored Markdown (GFM)</h2>
+    <p>GitHub Flavored Markdown, often shortened to GFM, is the dialect of Markdown that is currently supported for user content on GitHub.com and GitHub Enterprise. This tool supports popular GFM extensions such as:</p>
+    <ul>
+      <li><strong>Tables:</strong> Create tables with columns and rows using pipes <code>|</code> and hyphens <code>-</code>.</li>
+      <li><strong>Task Lists:</strong> Create interactive checklists using <code>- [ ]</code> for an unchecked box and <code>- [x]</code> for a checked box.</li>
+      <li><strong>Fenced Code Blocks:</strong> Add blocks of code with syntax highlighting using triple backticks <code>```</code>.</li>
+    </ul>
+
+    <h2>Client-Side Processing</h2>
+    <p>This Markdown preview tool runs entirely in your web browser using vanilla JavaScript. When you type or paste text into the editor, the conversion to HTML happens locally on your device. Your notes and data are <strong>never</strong> sent to a server, ensuring complete privacy, zero latency, and allowing the tool to work fully offline after the initial page load.</p>
+  </div>
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const markdownInput = document.getElementById('markdownInput');
+const htmlPreview = document.getElementById('htmlPreview');
+const copyMdBtn = document.getElementById('copyMdBtn');
+const copyHtmlBtn = document.getElementById('copyHtmlBtn');
+
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function parseMarkdown(md) {
+  // Normalize line endings
+  md = md.replace(/\r\n/g, '\n');
+
+  // Ensure blocks are separated properly for our simple parser
+  md = md.replace(/^(#{1,6}\s+.*)$/gm, '\n\n$1\n\n');
+
+  // Extract code blocks
+  const codeBlocks = [];
+  md = md.replace(/^```(\w*)\n([\s\S]*?)^```/gm, (match, lang, code) => {
+    codeBlocks.push({ lang, code });
+    return `\n\n@@CODE_BLOCK_${codeBlocks.length - 1}@@\n\n`;
+  });
+
+  // Extract inline code
+  const inlineCodes = [];
+  md = md.replace(/`([^`\n]+)`/g, (match, code) => {
+    inlineCodes.push(escapeHtml(code));
+    return `@@INLINE_CODE_${inlineCodes.length - 1}@@`;
+  });
+
+  // Helper for inline styles
+  function parseInline(text) {
+    let safeText = text;
+
+    // Protect inline code blocks from being parsed as italics
+    let placeholders = [];
+    safeText = safeText.replace(/@@INLINE_CODE_(\d+)@@/g, (match) => {
+      placeholders.push(match);
+      return `\uE000${placeholders.length - 1}\uE001`;
+    });
+
+    // Bold
+    safeText = safeText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    safeText = safeText.replace(/__(.*?)__/g, '<strong>$1</strong>');
+
+    // Italic
+    safeText = safeText.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    safeText = safeText.replace(/_(.*?)_/g, '<em>$1</em>');
+
+    // Strikethrough
+    safeText = safeText.replace(/~~(.*?)~~/g, '<del>$1</del>');
+
+    // Images
+    safeText = safeText.replace(/!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1">');
+
+    // Links
+    safeText = safeText.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+
+    // Restore protected inline code
+    safeText = safeText.replace(/\uE000(\d+)\uE001/g, (match, index) => {
+       return placeholders[index];
+    });
+
+    return safeText;
+  }
+
+  // Parse blocks
+  const blocks = md.split(/\n\n+/);
+  let html = '';
+
+  for (let block of blocks) {
+    block = block.trim();
+    if (!block) continue;
+
+    // Code blocks
+    if (block.match(/^@@CODE_BLOCK_\d+@@$/)) {
+      html += block + '\n\n';
+      continue;
+    }
+
+    // Headers
+    const headerMatch = block.match(/^(#{1,6})\s+(.*)$/);
+    if (headerMatch) {
+      const level = headerMatch[1].length;
+      html += `<h${level}>${parseInline(headerMatch[2])}</h${level}>\n\n`;
+      continue;
+    }
+
+    // Blockquotes
+    if (block.startsWith('> ')) {
+      const content = block.replace(/^>\s?/gm, '');
+      html += `<blockquote>\n${parseMarkdown(content).trim()}\n</blockquote>\n\n`;
+      continue;
+    }
+
+    // Horizontal rules
+    if (block.match(/^(---|\*\*\*|___)$/)) {
+      html += `<hr>\n\n`;
+      continue;
+    }
+
+    // Tables
+    if (block.includes('|') && block.includes('---')) {
+      const lines = block.split('\n');
+      if (lines.length >= 2 && lines[1].includes('|') && lines[1].includes('-')) {
+        let tableHtml = '<div class="table-wrapper"><table>\n';
+        const headers = lines[0].split('|').map(s => s.trim()).filter(s => s);
+        tableHtml += '<thead><tr>' + headers.map(h => `<th>${parseInline(h)}</th>`).join('') + '</tr></thead>\n';
+
+        tableHtml += '<tbody>\n';
+        for (let i = 2; i < lines.length; i++) {
+          const cells = lines[i].split('|').map(s => s.trim()).filter(s => s);
+          if (cells.length > 0) {
+            tableHtml += '<tr>' + cells.map(c => `<td>${parseInline(c)}</td>`).join('') + '</tr>\n';
+          }
+        }
+        tableHtml += '</tbody></table></div>\n\n';
+        html += tableHtml;
+        continue;
+      }
+    }
+
+    // Lists (Task lists and normal lists)
+    if (/^(\s*)([-*+]|\d+\.)\s+/.test(block)) {
+      const lines = block.split('\n');
+      let listHtml = '';
+      let listType = '';
+
+      for (let line of lines) {
+        const ulMatch = line.match(/^(\s*)([-*+])\s+(.*)/);
+        const olMatch = line.match(/^(\s*)(\d+)\.\s+(.*)/);
+
+        if (ulMatch || olMatch) {
+          const currentType = ulMatch ? 'ul' : 'ol';
+          if (!listType) {
+            listType = currentType;
+            listHtml += `<${listType}>\n`;
+          } else if (listType !== currentType) {
+            listHtml += `</${listType}>\n<${currentType}>\n`;
+            listType = currentType;
+          }
+
+          let content = ulMatch ? ulMatch[3] : olMatch[3];
+
+          // Task list
+          const taskMatch = content.match(/^\[([ xX])\]\s+(.*)/);
+          if (taskMatch) {
+            const checked = taskMatch[1].trim().toLowerCase() === 'x' ? 'checked' : '';
+            listHtml += `<li class="task-list-item"><input type="checkbox" disabled ${checked}> ${parseInline(taskMatch[2])}</li>\n`;
+          } else {
+            listHtml += `<li>${parseInline(content)}</li>\n`;
+          }
+        } else if (listType) {
+          // Continuation line
+          listHtml += ` ${parseInline(line.trim())}`;
+        }
+      }
+
+      if (listType) {
+         listHtml += `</${listType}>\n\n`;
+         html += listHtml;
+         continue;
+      }
+    }
+
+    // Paragraph
+    html += `<p>${parseInline(block.replace(/\n/g, ' '))}</p>\n\n`;
+  }
+
+  // Restore inline code
+  html = html.replace(/@@INLINE_CODE_(\d+)@@/g, (match, index) => {
+    return `<code>${inlineCodes[index]}</code>`;
+  });
+
+  // Restore code blocks with basic highlighting
+  html = html.replace(/@@CODE_BLOCK_(\d+)@@/g, (match, index) => {
+    const block = codeBlocks[index];
+    let codeHtml = escapeHtml(block.code);
+
+    // Simple regex-based syntax highlighting
+    const tokenRegex = /(\/\/.*|\/\*[\s\S]*?\*\/|#.*)|(['"`][\s\S]*?['"`])|\b(const|let|var|function|return|if|else|for|while|class|import|export|from|switch|case|default|break|continue|new|try|catch|finally|throw|await|async|true|false|null|undefined|boolean|string|number)\b|\b(\d+)\b|\b([a-zA-Z_]\w*)\s*(?=\()/g;
+
+    codeHtml = codeHtml.replace(tokenRegex, (match, comment, string, keyword, number, func) => {
+      if (comment) return `<span class="token comment">${comment}</span>`;
+      if (string) return `<span class="token string">${string}</span>`;
+      if (keyword) return `<span class="token keyword">${keyword}</span>`;
+      if (number) return `<span class="token number">${number}</span>`;
+      if (func) return `<span class="token function">${func}</span>`;
+      return match;
+    });
+
+    return `<div class="code-block-wrapper">
+              <div class="code-header">
+                <span class="code-lang">${block.lang || 'text'}</span>
+                <button class="copy-code-btn" data-code="${escapeHtml(block.code)}">Copy</button>
+              </div>
+              <pre><code class="language-${block.lang}">${codeHtml}</code></pre>
+            </div>`;
+  });
+
+  return html.trim();
+}
+
+function updatePreview() {
+  const md = markdownInput.value;
+  htmlPreview.innerHTML = parseMarkdown(md);
+
+  // Attach event listeners to newly generated copy buttons
+  document.querySelectorAll('.copy-code-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      // getAttribute('data-code') is already entity-decoded by the browser
+      // So we don't need to manually unescape it again.
+      const code = e.target.getAttribute('data-code');
+
+      navigator.clipboard.writeText(code).then(() => {
+        const originalText = btn.textContent;
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+  });
+}
+
+function handleCopy(btn, textToCopy) {
+  if (!textToCopy) return;
+  navigator.clipboard.writeText(textToCopy).then(() => {
+    const originalHtml = btn.innerHTML;
+    btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.innerHTML = originalHtml;
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+markdownInput.addEventListener('input', updatePreview);
+
+copyMdBtn.addEventListener('click', () => {
+  handleCopy(copyMdBtn, markdownInput.value);
+});
+
+copyHtmlBtn.addEventListener('click', () => {
+  handleCopy(copyHtmlBtn, htmlPreview.innerHTML);
+});
+
+// Initial placeholder text
+markdownInput.value = `# Welcome to Markdown Live Preview
+
+Type your Markdown on the left, and see it rendered live on the right!
+
+## Features Supported
+
+- **Bold** and *Italic* text
+- \`Inline code\` snippets
+- [Links](https://siliconbased.dev)
+
+### Lists
+
+- [x] Task 1 (completed)
+- [ ] Task 2 (pending)
+
+1. Numbered lists
+2. Are also supported
+
+### Tables
+
+| Syntax      | Description |
+| ----------- | ----------- |
+| Header      | Title       |
+| Paragraph   | Text        |
+
+### Code Blocks
+\`\`\`javascript
+// Syntax highlighting works automatically
+function greet(name) {
+  console.log(\`Hello, \${name}!\`);
+  return true;
+}
+\`\`\`
+
+> Blockquotes are also rendered perfectly!`;
+
+updatePreview();
+</script>
+</body>
+</html>
