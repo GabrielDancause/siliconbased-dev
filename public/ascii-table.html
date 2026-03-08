@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASCII Reference Table | Free Interactive Tool</title>
+<meta name="description" content="Interactive ASCII and Unicode character table. Instantly search and copy characters, decimal, hex, and octal values. Free, works offline, zero dependencies.">
+<meta property="og:title" content="ASCII Reference Table">
+<meta property="og:description" content="Interactive ASCII and Unicode character table. Instantly search and copy characters, decimal, hex, and octal values. Free, works offline, zero dependencies.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ASCII Reference Table",
+  "url": "https://siliconbased.dev/ascii-table",
+  "description": "Interactive ASCII and Unicode character table. Instantly search and copy characters, decimal, hex, and octal values. Free, works offline, zero dependencies.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 1000px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Input Section */
+.input-section { display: flex; flex-direction: column; align-items: center; margin-bottom: 32px; gap: 16px; }
+.search-input-wrapper { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: center; width: 100%; position: relative; max-width: 500px; }
+.search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #666; width: 20px; height: 20px; pointer-events: none; }
+.search-input { background: #111318; border: 2px solid #1e2030; border-radius: 12px; font-size: 1.1rem; color: #e0e0e0; font-family: 'Inter', sans-serif; width: 100%; padding: 14px 14px 14px 48px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+.search-input:focus { border-color: #818cf8; box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.15); }
+.search-input::placeholder { color: #555; }
+
+/* Table Section */
+.table-container { background: #111318; border: 1px solid #1e2030; border-radius: 16px; overflow: hidden; margin-bottom: 40px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); }
+.table-header { display: grid; grid-template-columns: 80px 1fr 1fr 1fr 1fr 80px; background: #13151d; border-bottom: 1px solid #1e2030; font-size: 0.85rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+.th-cell { padding: 16px; text-align: left; }
+.th-cell:first-child { text-align: center; }
+.th-cell:last-child { text-align: center; }
+
+.table-body { max-height: 600px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #2a2d40 #111318; }
+.table-body::-webkit-scrollbar { width: 8px; }
+.table-body::-webkit-scrollbar-track { background: #111318; }
+.table-body::-webkit-scrollbar-thumb { background: #2a2d40; border-radius: 4px; }
+.table-body::-webkit-scrollbar-thumb:hover { background: #3e4259; }
+
+.tr-row { display: grid; grid-template-columns: 80px 1fr 1fr 1fr 1fr 80px; border-bottom: 1px solid #1e2030; transition: background-color 0.15s; }
+.tr-row:last-child { border-bottom: none; }
+.tr-row:hover { background: #161821; }
+
+.td-cell { padding: 14px 16px; display: flex; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 1rem; color: #e0e0e0; }
+.td-cell.char-cell { justify-content: center; font-size: 1.2rem; font-weight: 700; color: #818cf8; background: #151722; border-right: 1px solid #1e2030; }
+.td-cell.dec-cell { color: #a5b4fc; }
+.td-cell.hex-cell { color: #fca5a5; }
+.td-cell.oct-cell { color: #86efac; }
+.td-cell.desc-cell { color: #9ca3af; font-family: 'Inter', sans-serif; font-size: 0.9rem; }
+
+/* Control Character Badge */
+.ctrl-badge { background: #1e2030; color: #888; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; font-family: 'Inter', sans-serif; letter-spacing: 0.5px; }
+
+/* Copy Button */
+.copy-btn-cell { justify-content: center; border-left: 1px solid #1e2030; background: #151722; }
+.copy-row-btn { background: transparent; border: 1px solid #2a2d40; color: #888; width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; }
+.copy-row-btn:hover { background: #2a2d40; color: #fff; }
+.copy-row-btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+.copy-row-btn svg { width: 14px; height: 14px; }
+
+/* Value with hover copy */
+.val-container { position: relative; display: flex; align-items: center; cursor: pointer; padding: 4px 8px; margin: -4px -8px; border-radius: 6px; transition: background-color 0.2s; }
+.val-container:hover { background: #1e2030; }
+.val-container::after { content: 'Copy'; position: absolute; right: 8px; opacity: 0; font-family: 'Inter', sans-serif; font-size: 0.7rem; color: #818cf8; background: #2a2d40; padding: 2px 6px; border-radius: 4px; transition: opacity 0.2s; pointer-events: none; }
+.val-container:hover::after { opacity: 1; }
+.val-container.copied::after { content: 'Copied!'; color: #4ade80; background: #1a3a1a; opacity: 1; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Empty State */
+.empty-state { padding: 48px 24px; text-align: center; color: #666; font-size: 1rem; }
+
+/* Responsive */
+@media (max-width: 850px) {
+  .table-header { display: none; } /* Hide headers on small screens */
+  .tr-row { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto auto; gap: 8px; padding: 16px; position: relative; border-bottom: 1px solid #1e2030; }
+  .td-cell { padding: 4px 0; font-size: 0.9rem; }
+  .td-cell::before { content: attr(data-label); display: inline-block; width: 60px; font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #666; text-transform: uppercase; font-weight: 600; }
+  .td-cell.char-cell { grid-column: 1 / 3; font-size: 1.5rem; background: transparent; border: none; justify-content: flex-start; padding-bottom: 12px; border-bottom: 1px solid #1e2030; margin-bottom: 8px; }
+  .td-cell.char-cell::before { display: none; }
+  .td-cell.desc-cell { grid-column: 1 / 3; }
+  .copy-btn-cell { position: absolute; top: 16px; right: 16px; background: transparent; border: none; padding: 0; }
+
+  .table-body { max-height: 70vh; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>ASCII Reference Table</h1>
+  <p>Interactive table of standard ASCII and Unicode characters. Search and copy instantly.</p>
+</div>
+
+<div class="main">
+
+  <div class="input-section">
+    <div class="search-input-wrapper">
+      <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" id="searchInput" class="search-input" autocomplete="off" spellcheck="false" placeholder="Search by char, dec, hex, oct, or description...">
+    </div>
+  </div>
+
+  <div class="table-container">
+    <div class="table-header">
+      <div class="th-cell">Char</div>
+      <div class="th-cell">Decimal</div>
+      <div class="th-cell">Hexadecimal</div>
+      <div class="th-cell">Octal</div>
+      <div class="th-cell">Description</div>
+      <div class="th-cell">Copy</div>
+    </div>
+    <div class="table-body" id="tableBody">
+      <!-- Rows will be injected here via JS -->
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>What is ASCII?</h2>
+    <p>ASCII stands for <strong>American Standard Code for Information Interchange</strong>. It is a character encoding standard for electronic communication. ASCII codes represent text in computers, telecommunications equipment, and other devices. Most modern character-encoding schemes are based on ASCII, although they support many additional characters.</p>
+
+    <h2>The Standard ASCII Table (0-127)</h2>
+    <p>The standard ASCII table consists of 128 characters (numbered 0 to 127):</p>
+    <ul>
+      <li><strong>Control Characters (0-31 & 127):</strong> These are non-printable characters originally used to control hardware devices such as printers and teletype machines. Examples include Null (<code>0</code>), Line Feed (<code>10</code>), and Carriage Return (<code>13</code>).</li>
+      <li><strong>Printable Characters (32-126):</strong> These represent letters, digits, punctuation marks, and a few miscellaneous symbols. This includes the space character (<code>32</code>), numbers 0-9 (<code>48-57</code>), uppercase letters A-Z (<code>65-90</code>), and lowercase letters a-z (<code>97-122</code>).</li>
+    </ul>
+
+    <h2>How to Read the Table</h2>
+    <p>Our interactive table allows you to view the different numeric representations of each character:</p>
+    <ul>
+      <li><strong>Char:</strong> The visual representation of the character (or a badge for control characters).</li>
+      <li><strong>Decimal (Base 10):</strong> The standard numeric value used in most programming contexts.</li>
+      <li><strong>Hexadecimal (Base 16):</strong> Commonly used in computing, often prefixed with <code>0x</code> or used in URL encoding (e.g., <code>%20</code> for space).</li>
+      <li><strong>Octal (Base 8):</strong> Older base-8 system, sometimes seen in legacy permissions or escape sequences.</li>
+      <li><strong>Description:</strong> The official name or common usage of the character.</li>
+    </ul>
+
+    <h2>Client-Side Performance</h2>
+    <p>This ASCII reference tool is built to be fast and reliable. The entire table is generated dynamically using JavaScript and runs 100% locally in your browser. There are no external database queries or API calls, meaning it works perfectly offline and responds instantly to your searches.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+// Data for ASCII 0-127
+const asciiData = [];
+const controlChars = {
+  0: "NUL (Null)", 1: "SOH (Start of Heading)", 2: "STX (Start of Text)", 3: "ETX (End of Text)",
+  4: "EOT (End of Transmission)", 5: "ENQ (Enquiry)", 6: "ACK (Acknowledge)", 7: "BEL (Bell)",
+  8: "BS (Backspace)", 9: "TAB (Horizontal Tab)", 10: "LF (Line Feed)", 11: "VT (Vertical Tab)",
+  12: "FF (Form Feed)", 13: "CR (Carriage Return)", 14: "SO (Shift Out)", 15: "SI (Shift In)",
+  16: "DLE (Data Link Escape)", 17: "DC1 (Device Control 1)", 18: "DC2 (Device Control 2)",
+  19: "DC3 (Device Control 3)", 20: "DC4 (Device Control 4)", 21: "NAK (Negative Ack)",
+  22: "SYN (Synchronous Idle)", 23: "ETB (End of Trans. Block)", 24: "CAN (Cancel)",
+  25: "EM (End of Medium)", 26: "SUB (Substitute)", 27: "ESC (Escape)",
+  28: "FS (File Separator)", 29: "GS (Group Separator)", 30: "RS (Record Separator)",
+  31: "US (Unit Separator)", 32: "Space", 127: "DEL (Delete)"
+};
+
+for (let i = 0; i < 128; i++) {
+  const isCtrl = i < 32 || i === 127;
+  const char = isCtrl ? (i === 127 ? 'DEL' : Object.keys(controlChars).find(k => parseInt(k) === i) !== undefined ? controlChars[i].split(' ')[0] : 'CTRL') : String.fromCharCode(i);
+  const desc = isCtrl ? controlChars[i] : (i === 32 ? "Space" : `Printable character '${char}'`);
+
+  asciiData.push({
+    dec: i,
+    hex: i.toString(16).toUpperCase().padStart(2, '0'),
+    oct: i.toString(8).padStart(3, '0'),
+    char: char,
+    desc: desc,
+    isCtrl: isCtrl
+  });
+}
+
+const tableBody = document.getElementById('tableBody');
+const searchInput = document.getElementById('searchInput');
+
+function renderTable(data) {
+  tableBody.innerHTML = '';
+
+  if (data.length === 0) {
+    tableBody.innerHTML = '<div class="empty-state">No matching ASCII characters found.</div>';
+    return;
+  }
+
+  data.forEach(item => {
+    const row = document.createElement('div');
+    row.className = 'tr-row';
+
+    // Char display
+    let charDisplay = item.isCtrl
+      ? `<span class="ctrl-badge">${item.char}</span>`
+      : item.char;
+
+    // HTML Entity mapping for certain chars to prevent layout breaking
+    let safeChar = item.char;
+    if (!item.isCtrl) {
+      if (item.char === '<') safeChar = '&lt;';
+      if (item.char === '>') safeChar = '&gt;';
+      if (item.char === '&') safeChar = '&amp;';
+    }
+
+    row.innerHTML = `
+      <div class="td-cell char-cell" data-label="Char">${item.isCtrl ? charDisplay : safeChar}</div>
+      <div class="td-cell dec-cell" data-label="Dec">
+        <span class="val-container" data-copy="${item.dec}">${item.dec}</span>
+      </div>
+      <div class="td-cell hex-cell" data-label="Hex">
+        <span class="val-container" data-copy="${item.hex}">${item.hex}</span>
+      </div>
+      <div class="td-cell oct-cell" data-label="Oct">
+        <span class="val-container" data-copy="${item.oct}">${item.oct}</span>
+      </div>
+      <div class="td-cell desc-cell" data-label="Desc">${item.desc}</div>
+      <div class="td-cell copy-btn-cell">
+        <button class="copy-row-btn" data-copy-all="${item.dec}" title="Copy Decimal Value">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        </button>
+      </div>
+    `;
+
+    tableBody.appendChild(row);
+  });
+
+  attachCopyListeners();
+}
+
+function attachCopyListeners() {
+  const valContainers = document.querySelectorAll('.val-container');
+  valContainers.forEach(container => {
+    container.addEventListener('click', (e) => {
+      const text = container.getAttribute('data-copy');
+      navigator.clipboard.writeText(text).then(() => {
+        container.classList.add('copied');
+        setTimeout(() => container.classList.remove('copied'), 1500);
+      });
+    });
+  });
+
+  const copyBtns = document.querySelectorAll('.copy-row-btn');
+  copyBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const text = btn.getAttribute('data-copy-all');
+      navigator.clipboard.writeText(text).then(() => {
+        btn.classList.add('copied');
+        setTimeout(() => btn.classList.remove('copied'), 1500);
+      });
+    });
+  });
+}
+
+function filterData(query) {
+  if (!query) return asciiData;
+  query = query.toLowerCase();
+
+  return asciiData.filter(item => {
+    return (
+      item.char.toLowerCase().includes(query) ||
+      item.dec.toString().includes(query) ||
+      item.hex.toLowerCase().includes(query) ||
+      item.oct.includes(query) ||
+      item.desc.toLowerCase().includes(query)
+    );
+  });
+}
+
+searchInput.addEventListener('input', (e) => {
+  const query = e.target.value.trim();
+  const filtered = filterData(query);
+  renderTable(filtered);
+});
+
+// Initial render
+renderTable(asciiData);
+</script>
+
+</body>
+</html>
