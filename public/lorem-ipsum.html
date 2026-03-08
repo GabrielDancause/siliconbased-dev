@@ -242,8 +242,9 @@ function generateSentence(forceStart = false) {
 
   if (forceStart) {
     words = [...loremStarterWords];
-    // Add more words if needed
-    for (let i = words.length; i < sentenceLength + words.length; i++) {
+    // Add more words to reach target sentence length
+    const targetLen = Math.max(sentenceLength, words.length) + 3;
+    while (words.length < targetLen) {
       words.push(getRandomWord());
     }
     // No need to capitalize as "Lorem" is already capitalized
