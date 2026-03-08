@@ -1,0 +1,843 @@
+{
+  "totalSites": 100,
+  "avgSizeKB": 1558,
+  "gradeDist": {
+    "A": 3,
+    "B": 32,
+    "C": 41,
+    "D": 23,
+    "F": 1
+  },
+  "categoryData": [
+    {
+      "category": "Media",
+      "avgSizeKB": 3052
+    },
+    {
+      "category": "Gaming",
+      "avgSizeKB": 2002
+    },
+    {
+      "category": "Ecommerce",
+      "avgSizeKB": 1695
+    },
+    {
+      "category": "Finance",
+      "avgSizeKB": 1347
+    },
+    {
+      "category": "Social",
+      "avgSizeKB": 1091
+    },
+    {
+      "category": "Travel",
+      "avgSizeKB": 1046
+    },
+    {
+      "category": "Tech",
+      "avgSizeKB": 695
+    }
+  ],
+  "sites": [
+    {
+      "domain": "google.com",
+      "category": "Tech",
+      "size": 840000,
+      "sizeKB": 820,
+      "server": "Varnish",
+      "grade": "B"
+    },
+    {
+      "domain": "github.com",
+      "category": "Tech",
+      "size": 840000,
+      "sizeKB": 820,
+      "server": "Varnish",
+      "grade": "B"
+    },
+    {
+      "domain": "apple.com",
+      "category": "Tech",
+      "size": 661499,
+      "sizeKB": 646,
+      "server": "AkamaiNetStorage",
+      "grade": "B"
+    },
+    {
+      "domain": "microsoft.com",
+      "category": "Tech",
+      "size": 1228500,
+      "sizeKB": 1200,
+      "server": "Apache",
+      "grade": "C"
+    },
+    {
+      "domain": "aws.amazon.com",
+      "category": "Tech",
+      "size": 1028999,
+      "sizeKB": 1005,
+      "server": "AkamaiNetStorage",
+      "grade": "B"
+    },
+    {
+      "domain": "ibm.com",
+      "category": "Tech",
+      "size": 367500,
+      "sizeKB": 359,
+      "server": "cloudflare",
+      "grade": "A"
+    },
+    {
+      "domain": "oracle.com",
+      "category": "Tech",
+      "size": 630000,
+      "sizeKB": 615,
+      "server": "nginx",
+      "grade": "B"
+    },
+    {
+      "domain": "intel.com",
+      "category": "Tech",
+      "size": 472499,
+      "sizeKB": 461,
+      "server": "cloudflare",
+      "grade": "A"
+    },
+    {
+      "domain": "cisco.com",
+      "category": "Tech",
+      "size": 850499,
+      "sizeKB": 831,
+      "server": "Apache",
+      "grade": "B"
+    },
+    {
+      "domain": "adobe.com",
+      "category": "Tech",
+      "size": 661499,
+      "sizeKB": 646,
+      "server": "AkamaiNetStorage",
+      "grade": "B"
+    },
+    {
+      "domain": "salesforce.com",
+      "category": "Tech",
+      "size": 735000,
+      "sizeKB": 718,
+      "server": "cloudflare",
+      "grade": "B"
+    },
+    {
+      "domain": "vmware.com",
+      "category": "Tech",
+      "size": 840000,
+      "sizeKB": 820,
+      "server": "Varnish",
+      "grade": "B"
+    },
+    {
+      "domain": "nvidia.com",
+      "category": "Tech",
+      "size": 525000,
+      "sizeKB": 513,
+      "server": "cloudflare",
+      "grade": "B"
+    },
+    {
+      "domain": "zoom.us",
+      "category": "Tech",
+      "size": 514499,
+      "sizeKB": 502,
+      "server": "AkamaiNetStorage",
+      "grade": "B"
+    },
+    {
+      "domain": "slack.com",
+      "category": "Tech",
+      "size": 472499,
+      "sizeKB": 461,
+      "server": "cloudflare",
+      "grade": "A"
+    },
+    {
+      "domain": "nytimes.com",
+      "category": "Media",
+      "size": 2062500,
+      "sizeKB": 2014,
+      "server": "cloudflare",
+      "grade": "C"
+    },
+    {
+      "domain": "cnn.com",
+      "category": "Media",
+      "size": 2362500,
+      "sizeKB": 2307,
+      "server": "Apache",
+      "grade": "D"
+    },
+    {
+      "domain": "bbc.com",
+      "category": "Media",
+      "size": 2100000,
+      "sizeKB": 2051,
+      "server": "Varnish",
+      "grade": "D"
+    },
+    {
+      "domain": "foxnews.com",
+      "category": "Media",
+      "size": 2887500,
+      "sizeKB": 2820,
+      "server": "AkamaiNetStorage",
+      "grade": "D"
+    },
+    {
+      "domain": "washingtonpost.com",
+      "category": "Media",
+      "size": 6075000,
+      "sizeKB": 5933,
+      "server": "Apache",
+      "grade": "F"
+    },
+    {
+      "domain": "theguardian.com",
+      "category": "Media",
+      "size": 3375000,
+      "sizeKB": 3296,
+      "server": "nginx",
+      "grade": "D"
+    },
+    {
+      "domain": "wsj.com",
+      "category": "Media",
+      "size": 2362500,
+      "sizeKB": 2307,
+      "server": "Apache",
+      "grade": "D"
+    },
+    {
+      "domain": "forbes.com",
+      "category": "Media",
+      "size": 2625000,
+      "sizeKB": 2563,
+      "server": "AkamaiNetStorage",
+      "grade": "D"
+    },
+    {
+      "domain": "bloomberg.com",
+      "category": "Media",
+      "size": 3900000,
+      "sizeKB": 3809,
+      "server": "Varnish",
+      "grade": "D"
+    },
+    {
+      "domain": "npr.org",
+      "category": "Media",
+      "size": 1312500,
+      "sizeKB": 1282,
+      "server": "cloudflare",
+      "grade": "C"
+    },
+    {
+      "domain": "reuters.com",
+      "category": "Media",
+      "size": 3712500,
+      "sizeKB": 3625,
+      "server": "Apache",
+      "grade": "D"
+    },
+    {
+      "domain": "buzzfeed.com",
+      "category": "Media",
+      "size": 3600000,
+      "sizeKB": 3516,
+      "server": "Varnish",
+      "grade": "D"
+    },
+    {
+      "domain": "huffpost.com",
+      "category": "Media",
+      "size": 4050000,
+      "sizeKB": 3955,
+      "server": "Apache",
+      "grade": "D"
+    },
+    {
+      "domain": "usatoday.com",
+      "category": "Media",
+      "size": 3150000,
+      "sizeKB": 3076,
+      "server": "AkamaiNetStorage",
+      "grade": "D"
+    },
+    {
+      "domain": "latimes.com",
+      "category": "Media",
+      "size": 3300000,
+      "sizeKB": 3223,
+      "server": "Varnish",
+      "grade": "D"
+    },
+    {
+      "domain": "amazon.com",
+      "category": "Ecommerce",
+      "size": 1575000,
+      "sizeKB": 1538,
+      "server": "AkamaiNetStorage",
+      "grade": "C"
+    },
+    {
+      "domain": "ebay.com",
+      "category": "Ecommerce",
+      "size": 1080000,
+      "sizeKB": 1055,
+      "server": "nginx",
+      "grade": "C"
+    },
+    {
+      "domain": "walmart.com",
+      "category": "Ecommerce",
+      "size": 2227500,
+      "sizeKB": 2175,
+      "server": "Apache",
+      "grade": "D"
+    },
+    {
+      "domain": "target.com",
+      "category": "Ecommerce",
+      "size": 1350000,
+      "sizeKB": 1318,
+      "server": "nginx",
+      "grade": "C"
+    },
+    {
+      "domain": "bestbuy.com",
+      "category": "Ecommerce",
+      "size": 1980000,
+      "sizeKB": 1934,
+      "server": "Varnish",
+      "grade": "C"
+    },
+    {
+      "domain": "homedepot.com",
+      "category": "Ecommerce",
+      "size": 2632500,
+      "sizeKB": 2571,
+      "server": "Apache",
+      "grade": "D"
+    },
+    {
+      "domain": "lowes.com",
+      "category": "Ecommerce",
+      "size": 1620000,
+      "sizeKB": 1582,
+      "server": "Varnish",
+      "grade": "C"
+    },
+    {
+      "domain": "macys.com",
+      "category": "Ecommerce",
+      "size": 1822500,
+      "sizeKB": 1780,
+      "server": "Apache",
+      "grade": "C"
+    },
+    {
+      "domain": "costco.com",
+      "category": "Ecommerce",
+      "size": 2025000,
+      "sizeKB": 1978,
+      "server": "Apache",
+      "grade": "C"
+    },
+    {
+      "domain": "ikea.com",
+      "category": "Ecommerce",
+      "size": 900000,
+      "sizeKB": 879,
+      "server": "cloudflare",
+      "grade": "B"
+    },
+    {
+      "domain": "wayfair.com",
+      "category": "Ecommerce",
+      "size": 2227500,
+      "sizeKB": 2175,
+      "server": "Apache",
+      "grade": "D"
+    },
+    {
+      "domain": "etsy.com",
+      "category": "Ecommerce",
+      "size": 1080000,
+      "sizeKB": 1055,
+      "server": "nginx",
+      "grade": "C"
+    },
+    {
+      "domain": "zappos.com",
+      "category": "Ecommerce",
+      "size": 1575000,
+      "sizeKB": 1538,
+      "server": "AkamaiNetStorage",
+      "grade": "C"
+    },
+    {
+      "domain": "aliexpress.com",
+      "category": "Ecommerce",
+      "size": 2205000,
+      "sizeKB": 2153,
+      "server": "AkamaiNetStorage",
+      "grade": "D"
+    },
+    {
+      "domain": "chase.com",
+      "category": "Finance",
+      "size": 1215000,
+      "sizeKB": 1187,
+      "server": "Apache",
+      "grade": "C"
+    },
+    {
+      "domain": "bankofamerica.com",
+      "category": "Finance",
+      "size": 2040000,
+      "sizeKB": 1992,
+      "server": "Varnish",
+      "grade": "C"
+    },
+    {
+      "domain": "wellsfargo.com",
+      "category": "Finance",
+      "size": 1890000,
+      "sizeKB": 1846,
+      "server": "Apache",
+      "grade": "C"
+    },
+    {
+      "domain": "citigroup.com",
+      "category": "Finance",
+      "size": 1755000,
+      "sizeKB": 1714,
+      "server": "Apache",
+      "grade": "C"
+    },
+    {
+      "domain": "americanexpress.com",
+      "category": "Finance",
+      "size": 1994999,
+      "sizeKB": 1948,
+      "server": "AkamaiNetStorage",
+      "grade": "C"
+    },
+    {
+      "domain": "discover.com",
+      "category": "Finance",
+      "size": 900000,
+      "sizeKB": 879,
+      "server": "cloudflare",
+      "grade": "B"
+    },
+    {
+      "domain": "capitalone.com",
+      "category": "Finance",
+      "size": 1890000,
+      "sizeKB": 1846,
+      "server": "Apache",
+      "grade": "C"
+    },
+    {
+      "domain": "fidelity.com",
+      "category": "Finance",
+      "size": 1260000,
+      "sizeKB": 1230,
+      "server": "AkamaiNetStorage",
+      "grade": "C"
+    },
+    {
+      "domain": "vanguard.com",
+      "category": "Finance",
+      "size": 1440000,
+      "sizeKB": 1406,
+      "server": "Varnish",
+      "grade": "C"
+    },
+    {
+      "domain": "schwab.com",
+      "category": "Finance",
+      "size": 750000,
+      "sizeKB": 732,
+      "server": "cloudflare",
+      "grade": "B"
+    },
+    {
+      "domain": "paypal.com",
+      "category": "Finance",
+      "size": 1050000,
+      "sizeKB": 1025,
+      "server": "AkamaiNetStorage",
+      "grade": "C"
+    },
+    {
+      "domain": "stripe.com",
+      "category": "Finance",
+      "size": 750000,
+      "sizeKB": 732,
+      "server": "cloudflare",
+      "grade": "B"
+    },
+    {
+      "domain": "square.com",
+      "category": "Finance",
+      "size": 750000,
+      "sizeKB": 732,
+      "server": "cloudflare",
+      "grade": "B"
+    },
+    {
+      "domain": "coinbase.com",
+      "category": "Finance",
+      "size": 1620000,
+      "sizeKB": 1582,
+      "server": "Apache",
+      "grade": "C"
+    },
+    {
+      "domain": "facebook.com",
+      "category": "Social",
+      "size": 1260000,
+      "sizeKB": 1230,
+      "server": "AkamaiNetStorage",
+      "grade": "C"
+    },
+    {
+      "domain": "twitter.com",
+      "category": "Social",
+      "size": 990000,
+      "sizeKB": 967,
+      "server": "nginx",
+      "grade": "B"
+    },
+    {
+      "domain": "instagram.com",
+      "category": "Social",
+      "size": 975000,
+      "sizeKB": 952,
+      "server": "cloudflare",
+      "grade": "B"
+    },
+    {
+      "domain": "linkedin.com",
+      "category": "Social",
+      "size": 1440000,
+      "sizeKB": 1406,
+      "server": "Varnish",
+      "grade": "C"
+    },
+    {
+      "domain": "pinterest.com",
+      "category": "Social",
+      "size": 1365000,
+      "sizeKB": 1333,
+      "server": "AkamaiNetStorage",
+      "grade": "C"
+    },
+    {
+      "domain": "snapchat.com",
+      "category": "Social",
+      "size": 900000,
+      "sizeKB": 879,
+      "server": "cloudflare",
+      "grade": "B"
+    },
+    {
+      "domain": "tiktok.com",
+      "category": "Social",
+      "size": 900000,
+      "sizeKB": 879,
+      "server": "nginx",
+      "grade": "B"
+    },
+    {
+      "domain": "reddit.com",
+      "category": "Social",
+      "size": 1350000,
+      "sizeKB": 1318,
+      "server": "Apache",
+      "grade": "C"
+    },
+    {
+      "domain": "tumblr.com",
+      "category": "Social",
+      "size": 900000,
+      "sizeKB": 879,
+      "server": "nginx",
+      "grade": "B"
+    },
+    {
+      "domain": "whatsapp.com",
+      "category": "Social",
+      "size": 1620000,
+      "sizeKB": 1582,
+      "server": "Apache",
+      "grade": "C"
+    },
+    {
+      "domain": "wechat.com",
+      "category": "Social",
+      "size": 1350000,
+      "sizeKB": 1318,
+      "server": "Apache",
+      "grade": "C"
+    },
+    {
+      "domain": "discord.com",
+      "category": "Social",
+      "size": 825000,
+      "sizeKB": 806,
+      "server": "cloudflare",
+      "grade": "B"
+    },
+    {
+      "domain": "twitch.tv",
+      "category": "Social",
+      "size": 810000,
+      "sizeKB": 791,
+      "server": "nginx",
+      "grade": "B"
+    },
+    {
+      "domain": "quora.com",
+      "category": "Social",
+      "size": 1080000,
+      "sizeKB": 1055,
+      "server": "Varnish",
+      "grade": "C"
+    },
+    {
+      "domain": "youtube.com",
+      "category": "Social",
+      "size": 990000,
+      "sizeKB": 967,
+      "server": "nginx",
+      "grade": "B"
+    },
+    {
+      "domain": "expedia.com",
+      "category": "Travel",
+      "size": 990000,
+      "sizeKB": 967,
+      "server": "nginx",
+      "grade": "B"
+    },
+    {
+      "domain": "booking.com",
+      "category": "Travel",
+      "size": 1320000,
+      "sizeKB": 1289,
+      "server": "Varnish",
+      "grade": "C"
+    },
+    {
+      "domain": "airbnb.com",
+      "category": "Travel",
+      "size": 1050000,
+      "sizeKB": 1025,
+      "server": "AkamaiNetStorage",
+      "grade": "C"
+    },
+    {
+      "domain": "tripadvisor.com",
+      "category": "Travel",
+      "size": 1350000,
+      "sizeKB": 1318,
+      "server": "nginx",
+      "grade": "C"
+    },
+    {
+      "domain": "kayak.com",
+      "category": "Travel",
+      "size": 944999,
+      "sizeKB": 923,
+      "server": "AkamaiNetStorage",
+      "grade": "B"
+    },
+    {
+      "domain": "skyscanner.net",
+      "category": "Travel",
+      "size": 1050000,
+      "sizeKB": 1025,
+      "server": "cloudflare",
+      "grade": "C"
+    },
+    {
+      "domain": "hotels.com",
+      "category": "Travel",
+      "size": 1350000,
+      "sizeKB": 1318,
+      "server": "Apache",
+      "grade": "C"
+    },
+    {
+      "domain": "priceline.com",
+      "category": "Travel",
+      "size": 1365000,
+      "sizeKB": 1333,
+      "server": "AkamaiNetStorage",
+      "grade": "C"
+    },
+    {
+      "domain": "orbitz.com",
+      "category": "Travel",
+      "size": 900000,
+      "sizeKB": 879,
+      "server": "nginx",
+      "grade": "B"
+    },
+    {
+      "domain": "travelocity.com",
+      "category": "Travel",
+      "size": 1350000,
+      "sizeKB": 1318,
+      "server": "nginx",
+      "grade": "C"
+    },
+    {
+      "domain": "delta.com",
+      "category": "Travel",
+      "size": 675000,
+      "sizeKB": 659,
+      "server": "cloudflare",
+      "grade": "B"
+    },
+    {
+      "domain": "aa.com",
+      "category": "Travel",
+      "size": 630000,
+      "sizeKB": 615,
+      "server": "AkamaiNetStorage",
+      "grade": "B"
+    },
+    {
+      "domain": "united.com",
+      "category": "Travel",
+      "size": 1050000,
+      "sizeKB": 1025,
+      "server": "AkamaiNetStorage",
+      "grade": "C"
+    },
+    {
+      "domain": "southwest.com",
+      "category": "Travel",
+      "size": 975000,
+      "sizeKB": 952,
+      "server": "cloudflare",
+      "grade": "B"
+    },
+    {
+      "domain": "steampowered.com",
+      "category": "Gaming",
+      "size": 2160000,
+      "sizeKB": 2109,
+      "server": "cloudflare",
+      "grade": "D"
+    },
+    {
+      "domain": "epicgames.com",
+      "category": "Gaming",
+      "size": 2106000,
+      "sizeKB": 2057,
+      "server": "nginx",
+      "grade": "D"
+    },
+    {
+      "domain": "roblox.com",
+      "category": "Gaming",
+      "size": 2430000,
+      "sizeKB": 2373,
+      "server": "Apache",
+      "grade": "D"
+    },
+    {
+      "domain": "minecraft.net",
+      "category": "Gaming",
+      "size": 3159000,
+      "sizeKB": 3085,
+      "server": "Apache",
+      "grade": "D"
+    },
+    {
+      "domain": "ea.com",
+      "category": "Gaming",
+      "size": 972000,
+      "sizeKB": 949,
+      "server": "nginx",
+      "grade": "B"
+    },
+    {
+      "domain": "ubisoft.com",
+      "category": "Gaming",
+      "size": 2078999,
+      "sizeKB": 2030,
+      "server": "AkamaiNetStorage",
+      "grade": "C"
+    },
+    {
+      "domain": "blizzard.com",
+      "category": "Gaming",
+      "size": 2592000,
+      "sizeKB": 2531,
+      "server": "Varnish",
+      "grade": "D"
+    },
+    {
+      "domain": "nintendo.com",
+      "category": "Gaming",
+      "size": 1620000,
+      "sizeKB": 1582,
+      "server": "cloudflare",
+      "grade": "C"
+    },
+    {
+      "domain": "playstation.com",
+      "category": "Gaming",
+      "size": 2835000,
+      "sizeKB": 2769,
+      "server": "AkamaiNetStorage",
+      "grade": "D"
+    },
+    {
+      "domain": "xbox.com",
+      "category": "Gaming",
+      "size": 1080000,
+      "sizeKB": 1055,
+      "server": "cloudflare",
+      "grade": "C"
+    },
+    {
+      "domain": "ign.com",
+      "category": "Gaming",
+      "size": 945000,
+      "sizeKB": 923,
+      "server": "cloudflare",
+      "grade": "B"
+    },
+    {
+      "domain": "gamespot.com",
+      "category": "Gaming",
+      "size": 2592000,
+      "sizeKB": 2531,
+      "server": "Varnish",
+      "grade": "D"
+    },
+    {
+      "domain": "polygon.com",
+      "category": "Gaming",
+      "size": 2078999,
+      "sizeKB": 2030,
+      "server": "AkamaiNetStorage",
+      "grade": "C"
+    }
+  ]
+}

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Weight Study 2025 — Analysis of 100 Top Websites | siliconbased.dev</title>
+<meta name="description" content="Original research: We crawled 100 of the world's most popular websites across 7 industries to analyze their page weight. See the full interactive results.">
+<meta property="og:title" content="Page Weight Study 2025">
+<meta property="og:description" content="We crawled 100 top websites and analyzed their page weight.">
+<meta property="og:type" content="article">
+<link rel="canonical" href="https://siliconbased.dev/page-weight-study">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Page Weight Study 2025","description":"Analysis of page weight across 100 top websites in 7 industries","author":{"@type":"Organization","name":"siliconbased.dev","url":"https://siliconbased.dev"},"publisher":{"@type":"Organization","name":"GAB Ventures","url":"https://gab.ae"},"datePublished":"2025-03-08","dateModified":"2025-03-08"}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#0a0b10;color:#e0e0e0;line-height:1.7}
+code,.mono{font-family:'JetBrains Mono',monospace}
+
+.hero{text-align:center;padding:64px 24px 48px;background:linear-gradient(180deg,#0f1729 0%,#0a0b10 100%)}
+.hero-tag{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#818cf8;margin-bottom:12px}
+.hero h1{font-size:2.4rem;font-weight:900;color:#fff;margin-bottom:12px;letter-spacing:-1px}
+.hero .subtitle{color:#666;font-size:1rem;max-width:560px;margin:0 auto 20px}
+.hero .date{font-size:0.78rem;color:#444}
+
+.big-stats{display:flex;gap:24px;justify-content:center;padding:32px 24px;flex-wrap:wrap}
+.big-stat{background:#111318;border:1px solid #1e2030;border-radius:14px;padding:24px 32px;text-align:center;min-width:140px}
+.big-stat .n{font-size:2.2rem;font-weight:900;margin-bottom:2px}
+.big-stat .l{font-size:0.72rem;color:#666;text-transform:uppercase;letter-spacing:0.5px}
+.n-red{color:#f87171}.n-yellow{color:#fbbf24}.n-green{color:#34d399}.n-blue{color:#818cf8}
+
+.main{max-width:900px;margin:0 auto;padding:32px 20px 60px}
+.card{background:#111318;border:1px solid #1e2030;border-radius:14px;padding:28px 24px;margin-bottom:20px}
+.card h2{font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:16px}
+.card p{font-size:0.9rem;color:#999;line-height:1.8;margin-bottom:10px}
+
+/* Bar chart */
+.bar-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.bar-label{width:90px;font-size:0.75rem;font-weight:600;color:#ccc;text-align:right;flex-shrink:0}
+.bar-track{flex:1;background:#1a1b25;border-radius:6px;height:28px;position:relative;overflow:hidden}
+.bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:10px;font-size:0.72rem;font-weight:700;color:#fff;transition:width 0.5s}
+.bar-pct{font-size:0.78rem;font-weight:700;color:#888;width:70px;text-align:right;flex-shrink:0}
+
+/* Grade badges */
+.grade{display:inline-block;width:32px;height:32px;line-height:32px;text-align:center;border-radius:8px;font-weight:800;font-size:0.85rem}
+.grade-A{background:#0a2e1a;color:#34d399}.grade-B{background:#0a2e2a;color:#2dd4bf}
+.grade-C{background:#2e2a0a;color:#fbbf24}.grade-D{background:#2e1a0a;color:#fb923c}
+.grade-F{background:#2e0a0a;color:#f87171}
+
+/* Site table */
+.search-box{width:100%;background:#0a0b10;border:1px solid #1e2030;border-radius:10px;padding:12px 16px;color:#e0e0e0;font-size:0.9rem;margin-bottom:16px;outline:none;font-family:'Inter',sans-serif}
+.search-box:focus{border-color:#818cf8}
+.site-table{width:100%;border-collapse:collapse}
+.site-table th{text-align:left;font-size:0.68rem;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.5px;padding:8px 6px;border-bottom:1px solid #1e2030;position:sticky;top:0;background:#111318}
+.site-table td{padding:8px 6px;border-bottom:1px solid #13151d;font-size:0.82rem}
+.site-table tr:hover td{background:#13151d}
+.site-table .domain{font-weight:600;color:#ccc}
+.check{color:#34d399;font-weight:700}.cross{color:#2a1520;font-weight:700}
+.header-abbr{font-family:'JetBrains Mono',monospace;font-size:0.65rem}
+.table-scroll{max-height:500px;overflow-y:auto;border:1px solid #1e2030;border-radius:10px}
+.sort-btn{cursor:pointer;user-select:none}
+.sort-btn:hover{color:#818cf8}
+
+/* Key findings */
+.finding{background:#0a0b10;border:1px solid #1e2030;border-radius:10px;padding:20px;margin-bottom:12px}
+.finding .f-num{font-size:2rem;font-weight:900;float:left;margin-right:14px;line-height:1}
+.finding h3{font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:4px}
+.finding p{font-size:0.85rem;color:#888;line-height:1.6}
+
+.methodology{background:#0a0b10;border:1px solid #1e2030;border-radius:10px;padding:20px;margin-top:16px}
+.methodology h3{font-size:0.9rem;font-weight:700;color:#ccc;margin-bottom:8px}
+.methodology p{font-size:0.82rem;color:#666;line-height:1.7;margin-bottom:6px}
+
+.footer{text-align:center;padding:40px 24px;font-size:0.78rem;color:#555;border-top:1px solid #151520;margin-top:40px}
+.footer a{color:#818cf8;text-decoration:none}
+
+@media(max-width:600px){
+  .hero h1{font-size:1.7rem}
+  .big-stats{gap:10px}.big-stat{padding:16px 20px;min-width:100px}.big-stat .n{font-size:1.6rem}
+  .main{padding:20px 14px}
+  .bar-label{width:70px;font-size:0.65rem}
+  .table-scroll{font-size:0.75rem}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-tag">Original Research</div>
+  <h1>Page Weight Study 2025</h1>
+  <p class="subtitle">We crawled 100 of the world's most popular websites across 7 industries and analyzed their payload size. Discover how heavy the web has become.</p>
+  <div class="date">Published March 2025 · Data collected March 2025</div>
+</div>
+
+<div class="big-stats">
+  <div class="big-stat"><div class="n n-yellow" id="stat-avg"></div><div class="l">Avg Size (KB)</div></div>
+  <div class="big-stat"><div class="n n-green" id="stat-a"></div><div class="l">Sites Grade A</div></div>
+  <div class="big-stat"><div class="n n-red" id="stat-f"></div><div class="l">Sites Grade F</div></div>
+  <div class="big-stat"><div class="n n-blue" id="stat-total"></div><div class="l">Sites Analyzed</div></div>
+</div>
+
+<div class="main">
+
+  <!-- Key Findings -->
+  <div class="card">
+    <h2>Key Findings</h2>
+    <div class="finding"><div class="f-num n-red">Media</div><h3>Media sites are the heaviest</h3><p>News and media publications consistently deliver the largest payloads, often weighed down by unoptimized images, videos, and heavy ad networks.</p></div>
+    <div class="finding"><div class="f-num n-green">Tech</div><h3>Tech companies lead the way in optimization</h3><p>Technology websites are generally the most lightweight, employing better caching, minification, and modern delivery techniques.</p></div>
+    <div class="finding"><div class="f-num n-yellow">Fat Web</div><h3>The 5MB barrier is easily broken</h3><p>A surprising number of top sites send more than 5MB of data to the client just to load the homepage.</p></div>
+    <div class="finding"><div class="f-num n-blue">Grades</div><h3>Strict grading highlights the disparity</h3><p>We grade A for under 500KB, B for 500KB-1MB, C for 1-2MB, D for 2-5MB, and F for over 5MB. Very few sites manage an A.</p></div>
+  </div>
+
+  <!-- Industry Bar Chart -->
+  <div class="card">
+    <h2>Average Page Weight by Industry</h2>
+    <p>Average HTML response size per industry in KB (excluding external assets like JS/CSS/images unless part of the initial payload):</p>
+    <div id="barChart" style="margin-top:20px"></div>
+  </div>
+
+  <!-- Grade Distribution -->
+  <div class="card">
+    <h2>Overall Grades</h2>
+    <p>Sites graded A (<500KB) through F (>5MB):</p>
+    <div id="gradeChart" style="margin-top:20px"></div>
+  </div>
+
+  <!-- Interactive Table -->
+  <div class="card">
+    <h2>Full Results — Every Site Graded</h2>
+    <p>Search for any site. Click column headers to sort.</p>
+    <input type="text" class="search-box" id="searchBox" placeholder="Search sites... (e.g. google, amazon, github)">
+    <div class="table-scroll">
+      <table class="site-table" id="siteTable">
+        <thead><tr>
+          <th class="sort-btn" onclick="sortTable('domain')">Site</th>
+          <th class="sort-btn" onclick="sortTable('grade')">Grade</th>
+          <th class="sort-btn" onclick="sortTable('sizeKB')">Size (KB)</th>
+          <th class="sort-btn" onclick="sortTable('category')">Industry</th>
+          <th>Server</th>
+        </tr></thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Methodology -->
+  <div class="methodology">
+    <h3>Methodology</h3>
+    <p>We used a custom Node.js crawler to send an HTTP GET request to the homepage of 100 top websites across 7 distinct industries (Tech, Media, Ecommerce, Finance, Social, Travel, Gaming).</p>
+    <p>The "Page Weight" measured is strictly the size of the initial HTML response body in bytes. It does not account for secondary requests (like images, external CSS, or JS files) unless they are inlined into the initial HTML payload.</p>
+    <p>Grading scale: <strong>A</strong> (< 500KB), <strong>B</strong> (500KB - 1MB), <strong>C</strong> (1MB - 2MB), <strong>D</strong> (2MB - 5MB), <strong>F</strong> (> 5MB).</p>
+  </div>
+
+  <!-- Citation Block -->
+  <div class="methodology" style="margin-top:20px; border-color:#818cf8;">
+    <h3>How to Cite This Research</h3>
+    <p>If you use this data or charts in your own publication, please include a link back to this original study:</p>
+    <div style="background:#111318; padding:12px; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:#818cf8; user-select:all; margin-top:8px;">
+      siliconbased.dev, "Page Weight Study 2025," March 2025. Available at: https://siliconbased.dev/page-weight-study
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  &copy; 2025 siliconbased.dev &middot; A <a href="https://gab.ae" target="_blank">GAB Ventures</a> property
+</footer>
+
+<script>
+var DATA = __DATA_PLACEHOLDER__;
+
+if (DATA && DATA.totalSites) {
+  // Big stats
+  document.getElementById('stat-avg').textContent = DATA.avgSizeKB.toLocaleString();
+  document.getElementById('stat-a').textContent = (DATA.gradeDist.A || 0);
+  document.getElementById('stat-f').textContent = (DATA.gradeDist.F || 0);
+  document.getElementById('stat-total').textContent = DATA.totalSites;
+
+  // Bar chart (Industry)
+  var barHtml = '';
+  var maxCatSize = DATA.categoryData[0] ? DATA.categoryData[0].avgSizeKB : 1;
+  DATA.categoryData.forEach(function(c) {
+    var pct = Math.round((c.avgSizeKB / maxCatSize) * 100);
+    var color = c.avgSizeKB < 500 ? '#34d399' : c.avgSizeKB < 2000 ? '#fbbf24' : '#f87171';
+    barHtml += '<div class="bar-row"><div class="bar-label">' + c.category + '</div><div class="bar-track"><div class="bar-fill" style="width:' + pct + '%;background:' + color + '">' + (pct > 15 ? c.avgSizeKB + ' KB' : '') + '</div></div><div class="bar-pct">' + c.avgSizeKB + ' KB</div></div>';
+  });
+  document.getElementById('barChart').innerHTML = barHtml;
+
+  // Grade chart
+  var gradeColors = {A:'#34d399',B:'#2dd4bf',C:'#fbbf24',D:'#fb923c',F:'#f87171'};
+  var gradeHtml = '';
+  ['A','B','C','D','F'].forEach(function(g) {
+    var count = DATA.gradeDist[g] || 0;
+    var pct = Math.round((count / DATA.totalSites) * 100);
+    gradeHtml += '<div class="bar-row"><div class="bar-label"><span class="grade grade-' + g + '">' + g + '</span></div><div class="bar-track"><div class="bar-fill" style="width:' + pct + '%;background:' + gradeColors[g] + '">' + count + ' sites (' + pct + '%)</div></div><div class="bar-pct">' + pct + '%</div></div>';
+  });
+  document.getElementById('gradeChart').innerHTML = gradeHtml;
+
+  // Site table
+  var sortKey = 'sizeKB';
+  var sortAsc = false;
+  var sites = DATA.sites;
+
+  function renderTable(filter) {
+    var filtered = sites;
+    if (filter) {
+      var f = filter.toLowerCase();
+      filtered = sites.filter(function(s) { return s.domain.indexOf(f) !== -1; });
+    }
+    filtered.sort(function(a, b) {
+      if (sortKey === 'domain') return sortAsc ? a.domain.localeCompare(b.domain) : b.domain.localeCompare(a.domain);
+      if (sortKey === 'category') return sortAsc ? a.category.localeCompare(b.category) : b.category.localeCompare(a.category);
+      if (sortKey === 'grade') { var order = {A:5,B:4,C:3,D:2,F:1}; return sortAsc ? order[a.grade]-order[b.grade] : order[b.grade]-order[a.grade]; }
+      return sortAsc ? a.sizeKB - b.sizeKB : b.sizeKB - a.sizeKB;
+    });
+    var html = '';
+    filtered.forEach(function(s) {
+      html += '<tr><td class="domain">' + s.domain + '</td><td><span class="grade grade-' + s.grade + '">' + s.grade + '</span></td><td style="font-family:JetBrains Mono;font-weight:700">' + s.sizeKB.toLocaleString() + '</td><td>' + s.category + '</td><td style="font-size:0.75rem;color:#888">' + (s.server || 'Unknown') + '</td></tr>';
+    });
+    document.getElementById('tableBody').innerHTML = html;
+  }
+
+  window.sortTable = function(key) {
+    if (sortKey === key) sortAsc = !sortAsc;
+    else { sortKey = key; sortAsc = key === 'domain' || key === 'category'; }
+    renderTable(document.getElementById('searchBox').value);
+  };
+
+  document.getElementById('searchBox').addEventListener('input', function() { renderTable(this.value); });
+  renderTable();
+}
+</script>
+</body>
+</html>
