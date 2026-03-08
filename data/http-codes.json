@@ -1,0 +1,979 @@
+[
+  {
+    "code": 100,
+    "name": "Continue",
+    "category": "informational",
+    "description": "The server has received the request headers and the client should proceed to send the request body. If the request body is large, this allows the client to verify that the server will accept it before sending the entire payload.",
+    "commonCauses": [
+      "Client sent 'Expect: 100-continue' header"
+    ],
+    "howToFix": [
+      "No action required; client should continue sending the request body"
+    ],
+    "relatedCodes": [101, 102, 103],
+    "exampleResponse": "HTTP/1.1 100 Continue\n\n"
+  },
+  {
+    "code": 101,
+    "name": "Switching Protocols",
+    "category": "informational",
+    "description": "The requester has asked the server to switch protocols and the server has agreed to do so.",
+    "commonCauses": [
+      "Client requested an upgrade to WebSockets",
+      "Client requested an upgrade to a newer HTTP version"
+    ],
+    "howToFix": [
+      "Ensure client handles the new protocol correctly"
+    ],
+    "relatedCodes": [100, 200, 426],
+    "exampleResponse": "HTTP/1.1 101 Switching Protocols\nUpgrade: websocket\nConnection: Upgrade\n\n"
+  },
+  {
+    "code": 102,
+    "name": "Processing",
+    "category": "informational",
+    "description": "A WebDAV request may contain many sub-requests involving file operations, requiring a long time to complete the request. This code indicates that the server has received and is processing the request, but no response is available yet.",
+    "commonCauses": [
+      "Complex WebDAV operations (e.g., copying a large directory)"
+    ],
+    "howToFix": [
+      "Wait for the final response (2xx, 4xx, or 5xx)"
+    ],
+    "relatedCodes": [100, 207, 208],
+    "exampleResponse": "HTTP/1.1 102 Processing\n\n"
+  },
+  {
+    "code": 103,
+    "name": "Early Hints",
+    "category": "informational",
+    "description": "Used to return some response headers before final HTTP message. This is often used to send 'Link' headers allowing the client to start preloading resources while the server prepares the main response.",
+    "commonCauses": [
+      "Server is configured to send Early Hints for performance optimization"
+    ],
+    "howToFix": [
+      "Ensure browser supports Early Hints (most modern browsers do)"
+    ],
+    "relatedCodes": [100, 200],
+    "exampleResponse": "HTTP/1.1 103 Early Hints\nLink: </style.css>; rel=preload; as=style\n\n"
+  },
+  {
+    "code": 200,
+    "name": "OK",
+    "category": "success",
+    "description": "Standard response for successful HTTP requests. The actual response will depend on the request method used (GET, POST, etc.). In a GET request, the response will contain an entity corresponding to the requested resource.",
+    "commonCauses": [
+      "Requested resource was found and successfully returned",
+      "Form submission or API request was processed successfully"
+    ],
+    "howToFix": [
+      "No fix needed; this is the desired outcome!"
+    ],
+    "relatedCodes": [201, 204, 304],
+    "exampleResponse": "HTTP/1.1 200 OK\nContent-Type: text/html\n\n<html>...</html>"
+  },
+  {
+    "code": 201,
+    "name": "Created",
+    "category": "success",
+    "description": "The request has been fulfilled, resulting in the creation of a new resource. This is typically the response sent after a POST request, or some PUT requests.",
+    "commonCauses": [
+      "User submitted a registration form",
+      "API client sent a POST request to create a new record (e.g., a new user or post)"
+    ],
+    "howToFix": [
+      "Client can usually find the URL of the newly created resource in the 'Location' header."
+    ],
+    "relatedCodes": [200, 202, 204],
+    "exampleResponse": "HTTP/1.1 201 Created\nLocation: /users/123\nContent-Type: application/json\n\n{\"id\": 123, \"status\": \"created\"}"
+  },
+  {
+    "code": 202,
+    "name": "Accepted",
+    "category": "success",
+    "description": "The request has been accepted for processing, but the processing has not been completed. The request might or might not eventually be acted upon, as it might be disallowed when processing actually takes place.",
+    "commonCauses": [
+      "Request submitted to an asynchronous job queue (e.g., video processing or report generation)"
+    ],
+    "howToFix": [
+      "Client should periodically poll a status endpoint provided in the response or wait for a webhook notification."
+    ],
+    "relatedCodes": [200, 201, 303],
+    "exampleResponse": "HTTP/1.1 202 Accepted\nContent-Type: application/json\n\n{\"status\": \"processing\", \"job_id\": \"abc-456\"}"
+  },
+  {
+    "code": 203,
+    "name": "Non-Authoritative Information",
+    "category": "success",
+    "description": "The server is a transforming proxy (e.g. a Web accelerator) that received a 200 OK from its origin, but is returning a modified version of the origin's response.",
+    "commonCauses": [
+      "A proxy server stripped or modified headers before passing the response to the client"
+    ],
+    "howToFix": [
+      "Usually none required, but be aware the payload might differ slightly from the origin server."
+    ],
+    "relatedCodes": [200, 214, 304],
+    "exampleResponse": "HTTP/1.1 203 Non-Authoritative Information\nContent-Type: text/html\n\n<html>...</html>"
+  },
+  {
+    "code": 204,
+    "name": "No Content",
+    "category": "success",
+    "description": "The server successfully processed the request, and is not returning any content. This is commonly used for DELETE or PUT requests where the client already knows the current state.",
+    "commonCauses": [
+      "Successful API DELETE request",
+      "Successful API PUT request where returning the updated resource is unnecessary"
+    ],
+    "howToFix": [
+      "Update the client-side UI to reflect the change (e.g., remove the deleted item from a list)."
+    ],
+    "relatedCodes": [200, 201, 205],
+    "exampleResponse": "HTTP/1.1 204 No Content\n\n"
+  },
+  {
+    "code": 205,
+    "name": "Reset Content",
+    "category": "success",
+    "description": "The server successfully processed the request, asks that the requester reset its document view, and is not returning any content.",
+    "commonCauses": [
+      "Form submission completed, telling the browser to clear the form fields for the next entry."
+    ],
+    "howToFix": [
+      "Browser/client should clear the active form or input area."
+    ],
+    "relatedCodes": [200, 204, 301],
+    "exampleResponse": "HTTP/1.1 205 Reset Content\n\n"
+  },
+  {
+    "code": 206,
+    "name": "Partial Content",
+    "category": "success",
+    "description": "The server is delivering only part of the resource (byte serving) due to a range header sent by the client. This is used for resumed downloads or streaming media.",
+    "commonCauses": [
+      "Video streaming in a browser (seeking to a specific timestamp)",
+      "Resuming a paused file download",
+      "Multi-threaded download managers fetching a file in chunks"
+    ],
+    "howToFix": [
+      "Ensure the server properly supports the 'Range' header if implementing custom file serving."
+    ],
+    "relatedCodes": [200, 416],
+    "exampleResponse": "HTTP/1.1 206 Partial Content\nContent-Range: bytes 21010-47021/47022\nContent-Length: 26012\nContent-Type: video/mp4\n\n..."
+  },
+  {
+    "code": 207,
+    "name": "Multi-Status",
+    "category": "success",
+    "description": "The message body that follows is by default an XML message and can contain a number of separate response codes, depending on how many sub-requests were made.",
+    "commonCauses": [
+      "WebDAV PROPFIND operations returning properties for multiple resources"
+    ],
+    "howToFix": [
+      "Parse the XML body to determine the success/failure of individual sub-requests."
+    ],
+    "relatedCodes": [200, 208, 424],
+    "exampleResponse": "HTTP/1.1 207 Multi-Status\nContent-Type: text/xml\n\n<?xml version=\"1.0\"?><multistatus>...</multistatus>"
+  },
+  {
+    "code": 208,
+    "name": "Already Reported",
+    "category": "success",
+    "description": "The members of a DAV binding have already been enumerated in a preceding part of the (multistatus) response, and are not being included again.",
+    "commonCauses": [
+      "WebDAV PROPFIND operation involving duplicate resources or cyclical directories."
+    ],
+    "howToFix": [
+      "No specific fix; it's an optimization to avoid redundant data transmission."
+    ],
+    "relatedCodes": [200, 207, 226],
+    "exampleResponse": "HTTP/1.1 208 Already Reported\n\n"
+  },
+  {
+    "code": 226,
+    "name": "IM Used",
+    "category": "success",
+    "description": "The server has fulfilled a request for the resource, and the response is a representation of the result of one or more instance-manipulations applied to the current instance.",
+    "commonCauses": [
+      "Client requested a delta encoding (A-IM header) and the server responded with the differences."
+    ],
+    "howToFix": [
+      "Apply the returned delta to the cached version of the resource."
+    ],
+    "relatedCodes": [200, 304],
+    "exampleResponse": "HTTP/1.1 226 IM Used\nIM: vcdiff\n\n..."
+  },
+  {
+    "code": 300,
+    "name": "Multiple Choices",
+    "category": "redirection",
+    "description": "Indicates multiple options for the resource from which the client may choose (via agent-driven content negotiation). For example, this code could be used to present multiple video format options or disambiguate a word sense.",
+    "commonCauses": [
+      "Requesting a resource that exists in multiple languages or formats without a clear preference in the Accept headers."
+    ],
+    "howToFix": [
+      "Client should parse the response body (usually HTML) to present the options to the user or automatically select one based on the 'Location' header."
+    ],
+    "relatedCodes": [301, 302, 304],
+    "exampleResponse": "HTTP/1.1 300 Multiple Choices\nContent-Type: text/html\n\n<ul><li><a href=\"/en\">English</a></li><li><a href=\"/fr\">French</a></li></ul>"
+  },
+  {
+    "code": 301,
+    "name": "Moved Permanently",
+    "category": "redirection",
+    "description": "This and all future requests should be directed to the given URI. Search engines will update their links to the new URL.",
+    "commonCauses": [
+      "A website has migrated to a new domain name.",
+      "A page URL was changed for SEO purposes.",
+      "Redirecting from HTTP to HTTPS."
+    ],
+    "howToFix": [
+      "Update bookmarks or internal links to use the new URL provided in the 'Location' header."
+    ],
+    "relatedCodes": [302, 307, 308],
+    "exampleResponse": "HTTP/1.1 301 Moved Permanently\nLocation: https://new-domain.com/page\n\n"
+  },
+  {
+    "code": 302,
+    "name": "Found",
+    "category": "redirection",
+    "description": "Tells the client to look at (browse to) another URL. The HTTP/1.0 specification (RFC 1945) required the client to perform a temporary redirect (the original describing phrase was 'Moved Temporarily').",
+    "commonCauses": [
+      "Redirecting a user after successful login.",
+      "A page is temporarily unavailable, so traffic is routed to a backup page.",
+      "A/B testing where users are routed to different versions of a page."
+    ],
+    "howToFix": [
+      "Client will automatically follow the 'Location' header. Ensure the temporary redirect isn't mistakenly used instead of a 301 (Permanent Redirect)."
+    ],
+    "relatedCodes": [301, 303, 307],
+    "exampleResponse": "HTTP/1.1 302 Found\nLocation: /dashboard\n\n"
+  },
+  {
+    "code": 303,
+    "name": "See Other",
+    "category": "redirection",
+    "description": "The response to the request can be found under another URI using the GET method. When received in response to a POST (or PUT/DELETE), the client should presume that the server has received the data and should issue a new GET request to the given URI.",
+    "commonCauses": [
+      "Post/Redirect/Get (PRG) pattern implementation to prevent duplicate form submissions."
+    ],
+    "howToFix": [
+      "Client follows the 'Location' header using a GET request."
+    ],
+    "relatedCodes": [301, 302, 307],
+    "exampleResponse": "HTTP/1.1 303 See Other\nLocation: /success-page\n\n"
+  },
+  {
+    "code": 304,
+    "name": "Not Modified",
+    "category": "redirection",
+    "description": "Indicates that the resource has not been modified since the version specified by the request headers If-Modified-Since or If-None-Match. In such case, there is no need to retransmit the resource since the client still has a previously-downloaded copy.",
+    "commonCauses": [
+      "Browser cache validation mechanism (ETags or Last-Modified headers)."
+    ],
+    "howToFix": [
+      "Client loads the resource from its local cache."
+    ],
+    "relatedCodes": [200, 204, 301],
+    "exampleResponse": "HTTP/1.1 304 Not Modified\nETag: \"33a64df5\"\n\n"
+  },
+  {
+    "code": 305,
+    "name": "Use Proxy",
+    "category": "redirection",
+    "description": "The requested resource is available only through a proxy, the address for which is provided in the response. Many HTTP clients (such as Mozilla and Internet Explorer) do not correctly handle responses with this status code, primarily for security reasons.",
+    "commonCauses": [
+      "Legacy server configurations forcing traffic through a specific proxy."
+    ],
+    "howToFix": [
+      "Avoid using this status code in modern applications as it's deprecated and poorly supported."
+    ],
+    "relatedCodes": [301, 302, 407],
+    "exampleResponse": "HTTP/1.1 305 Use Proxy\nLocation: http://proxy.example.com\n\n"
+  },
+  {
+    "code": 306,
+    "name": "Switch Proxy",
+    "category": "redirection",
+    "description": "No longer used. Originally meant 'Subsequent requests should use the specified proxy.'",
+    "commonCauses": [
+      "Obsolete standard."
+    ],
+    "howToFix": [
+      "Do not use."
+    ],
+    "relatedCodes": [305],
+    "exampleResponse": "HTTP/1.1 306 Switch Proxy\n\n"
+  },
+  {
+    "code": 307,
+    "name": "Temporary Redirect",
+    "category": "redirection",
+    "description": "In this case, the request should be repeated with another URI; however, future requests should still use the original URI. In contrast to how 302 was historically implemented, the request method is not allowed to be changed when reissuing the original request. For example, a POST request should be repeated using another POST request.",
+    "commonCauses": [
+      "API endpoints moving temporarily.",
+      "Strict enforcement of HTTP methods during redirection (unlike 302)."
+    ],
+    "howToFix": [
+      "Client follows the 'Location' header using the SAME HTTP method as the original request."
+    ],
+    "relatedCodes": [301, 302, 308],
+    "exampleResponse": "HTTP/1.1 307 Temporary Redirect\nLocation: /temporary-endpoint\n\n"
+  },
+  {
+    "code": 308,
+    "name": "Permanent Redirect",
+    "category": "redirection",
+    "description": "The request and all future requests should be repeated using another URI. 307 and 308 parallel the behaviors of 302 and 301, but do not allow the HTTP method to change. So, for example, submitting a form to a permanently redirected resource may continue smoothly.",
+    "commonCauses": [
+      "API endpoints moving permanently.",
+      "Strict enforcement of HTTP methods during permanent redirection (unlike 301)."
+    ],
+    "howToFix": [
+      "Update client configurations to use the new URL. Client follows the 'Location' header using the SAME HTTP method."
+    ],
+    "relatedCodes": [301, 307],
+    "exampleResponse": "HTTP/1.1 308 Permanent Redirect\nLocation: https://api.v2.example.com/data\n\n"
+  },
+  {
+    "code": 400,
+    "name": "Bad Request",
+    "category": "client-error",
+    "description": "The server cannot or will not process the request due to an apparent client error (e.g., malformed request syntax, size too large, invalid request message framing, or deceptive request routing).",
+    "commonCauses": [
+      "Invalid JSON/XML payload sent to an API.",
+      "Missing required query parameters or headers.",
+      "Typo in the request URL.",
+      "Corrupted cookies."
+    ],
+    "howToFix": [
+      "Check the request payload and syntax against API documentation.",
+      "Clear browser cookies and cache.",
+      "Ensure all required parameters are included in the request."
+    ],
+    "relatedCodes": [401, 403, 422],
+    "exampleResponse": "HTTP/1.1 400 Bad Request\nContent-Type: application/json\n\n{\"error\": \"Missing required field: email\"}"
+  },
+  {
+    "code": 401,
+    "name": "Unauthorized",
+    "category": "client-error",
+    "description": "Similar to 403 Forbidden, but specifically for use when authentication is required and has failed or has not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource.",
+    "commonCauses": [
+      "Missing Authorization header in request.",
+      "Expired or invalid access token (JWT, OAuth).",
+      "Incorrect username or password."
+    ],
+    "howToFix": [
+      "Login to obtain a valid token or session.",
+      "Include the correct 'Authorization: Bearer <token>' header in API requests.",
+      "Check token expiration."
+    ],
+    "relatedCodes": [403, 407],
+    "exampleResponse": "HTTP/1.1 401 Unauthorized\nWWW-Authenticate: Basic realm=\"Restricted Area\"\n\n"
+  },
+  {
+    "code": 402,
+    "name": "Payment Required",
+    "category": "client-error",
+    "description": "Reserved for future use. The original intention was that this code might be used as part of some form of digital cash or micropayment scheme, but that has not happened, and this code is not usually used. Some APIs use it when a quota is exceeded.",
+    "commonCauses": [
+      "API rate limit exceeded on a paid plan.",
+      "Account subscription expired or unpaid."
+    ],
+    "howToFix": [
+      "Check billing or subscription status on the service provider's platform.",
+      "Upgrade API plan or wait for quota reset."
+    ],
+    "relatedCodes": [403, 429],
+    "exampleResponse": "HTTP/1.1 402 Payment Required\n\n{\"error\": \"Monthly quota exceeded. Upgrade plan to continue.\"}"
+  },
+  {
+    "code": 403,
+    "name": "Forbidden",
+    "category": "client-error",
+    "description": "The request contained valid data and was understood by the server, but the server is refusing action. This may be due to the user not having the necessary permissions for a resource or needing an account of some sort, or attempting a prohibited action.",
+    "commonCauses": [
+      "Authenticated user lacks permissions/roles (e.g., standard user trying to access an admin panel).",
+      "IP address is blocked or not allowlisted.",
+      "Attempting to access a restricted directory without an index file."
+    ],
+    "howToFix": [
+      "Verify user roles and permissions.",
+      "Check IP restriction settings on the server/WAF.",
+      "Ensure file permissions on the server allow the web process to read the file."
+    ],
+    "relatedCodes": [401, 404],
+    "exampleResponse": "HTTP/1.1 403 Forbidden\nContent-Type: text/html\n\n<h1>403 Forbidden</h1><p>You don't have permission to access this resource.</p>"
+  },
+  {
+    "code": 404,
+    "name": "Not Found",
+    "category": "client-error",
+    "description": "The requested resource could not be found but may be available in the future. Subsequent requests by the client are permissible.",
+    "commonCauses": [
+      "Typo in the URL.",
+      "The page or file has been deleted or moved without a redirect.",
+      "Broken link on another page.",
+      "Missing routing configuration in single-page applications (SPA)."
+    ],
+    "howToFix": [
+      "Check the URL for spelling errors.",
+      "Implement 301 redirects if a resource has moved.",
+      "For SPAs, ensure server routing falls back to index.html."
+    ],
+    "relatedCodes": [403, 410],
+    "exampleResponse": "HTTP/1.1 404 Not Found\nContent-Type: text/html\n\n<h1>Page Not Found</h1>"
+  },
+  {
+    "code": 405,
+    "name": "Method Not Allowed",
+    "category": "client-error",
+    "description": "A request method is not supported for the requested resource; for example, a GET request on a form that requires data to be presented via POST, or a PUT request on a read-only resource.",
+    "commonCauses": [
+      "Sending a POST request to an endpoint that only accepts GET.",
+      "Submitting a standard HTML form without specifying method=\"POST\".",
+      "CORS preflight request (OPTIONS) not properly configured on the server."
+    ],
+    "howToFix": [
+      "Check the 'Allow' header in the response to see which methods are supported.",
+      "Modify the client request to use the correct HTTP method."
+    ],
+    "relatedCodes": [400, 403, 501],
+    "exampleResponse": "HTTP/1.1 405 Method Not Allowed\nAllow: GET, HEAD, OPTIONS\n\n"
+  },
+  {
+    "code": 406,
+    "name": "Not Acceptable",
+    "category": "client-error",
+    "description": "The requested resource is capable of generating only content not acceptable according to the Accept headers sent in the request.",
+    "commonCauses": [
+      "Client sent 'Accept: application/json' but the server can only return XML or HTML."
+    ],
+    "howToFix": [
+      "Modify the 'Accept' header in the client request to match formats supported by the server.",
+      "Update server to support the requested content type."
+    ],
+    "relatedCodes": [415],
+    "exampleResponse": "HTTP/1.1 406 Not Acceptable\nContent-Type: application/json\n\n{\"error\": \"Only application/xml is supported\"}"
+  },
+  {
+    "code": 407,
+    "name": "Proxy Authentication Required",
+    "category": "client-error",
+    "description": "The client must first authenticate itself with the proxy.",
+    "commonCauses": [
+      "Trying to access the internet through a corporate proxy that requires a username and password."
+    ],
+    "howToFix": [
+      "Provide proxy credentials in the browser settings or API client.",
+      "Include a 'Proxy-Authorization' header in the request."
+    ],
+    "relatedCodes": [401],
+    "exampleResponse": "HTTP/1.1 407 Proxy Authentication Required\nProxy-Authenticate: Basic realm=\"Proxy Auth\"\n\n"
+  },
+  {
+    "code": 408,
+    "name": "Request Timeout",
+    "category": "client-error",
+    "description": "The server timed out waiting for the request. According to HTTP specifications: 'The client did not produce a request within the time that the server was prepared to wait.' The client MAY repeat the request without modifications at any later time.",
+    "commonCauses": [
+      "Slow internet connection on the client side.",
+      "Large file uploads over a slow network.",
+      "Client opened a connection but never sent any data."
+    ],
+    "howToFix": [
+      "Check network connectivity.",
+      "Increase the server's request timeout configuration if expecting large uploads.",
+      "Retry the request."
+    ],
+    "relatedCodes": [504],
+    "exampleResponse": "HTTP/1.1 408 Request Timeout\nConnection: close\n\n"
+  },
+  {
+    "code": 409,
+    "name": "Conflict",
+    "category": "client-error",
+    "description": "Indicates that the request could not be processed because of conflict in the current state of the resource, such as an edit conflict between multiple simultaneous updates.",
+    "commonCauses": [
+      "Trying to create a user with an email address that already exists.",
+      "Uploading an older version of a file over a newer version (version control conflict)."
+    ],
+    "howToFix": [
+      "Resolve the conflict (e.g., use a different email address, pull latest changes before uploading).",
+      "API responses should ideally provide detail on what the conflict is."
+    ],
+    "relatedCodes": [400, 412, 422],
+    "exampleResponse": "HTTP/1.1 409 Conflict\nContent-Type: application/json\n\n{\"error\": \"Username already taken\"}"
+  },
+  {
+    "code": 410,
+    "name": "Gone",
+    "category": "client-error",
+    "description": "Indicates that the resource requested is no longer available and will not be available again. This should be used when a resource has been intentionally removed and the resource should be purged.",
+    "commonCauses": [
+      "A limited-time promotional page has expired.",
+      "An API endpoint has been permanently retired.",
+      "A user account has been permanently deleted."
+    ],
+    "howToFix": [
+      "Remove links pointing to this URL.",
+      "Clients/search engines should remove the resource from their cache/indexes."
+    ],
+    "relatedCodes": [404],
+    "exampleResponse": "HTTP/1.1 410 Gone\n\n"
+  },
+  {
+    "code": 411,
+    "name": "Length Required",
+    "category": "client-error",
+    "description": "The request did not specify the length of its content, which is required by the requested resource.",
+    "commonCauses": [
+      "Client sent a POST/PUT request without a 'Content-Length' header.",
+      "Using chunked transfer encoding when the server doesn't support it."
+    ],
+    "howToFix": [
+      "Ensure the HTTP client includes the 'Content-Length' header."
+    ],
+    "relatedCodes": [400, 413],
+    "exampleResponse": "HTTP/1.1 411 Length Required\n\n"
+  },
+  {
+    "code": 412,
+    "name": "Precondition Failed",
+    "category": "client-error",
+    "description": "The server does not meet one of the preconditions that the requester put on the request header fields.",
+    "commonCauses": [
+      "Client included an 'If-Match' or 'If-Unmodified-Since' header for optimistic concurrency control, and the server's version of the resource has changed."
+    ],
+    "howToFix": [
+      "Fetch the latest version of the resource, apply changes, and try the request again with the new ETag/Last-Modified value."
+    ],
+    "relatedCodes": [409, 428],
+    "exampleResponse": "HTTP/1.1 412 Precondition Failed\n\n"
+  },
+  {
+    "code": 413,
+    "name": "Payload Too Large",
+    "category": "client-error",
+    "description": "The request is larger than the server is willing or able to process. Previously called 'Request Entity Too Large'.",
+    "commonCauses": [
+      "Uploading a file that exceeds the server's maximum upload size limit (e.g., 'client_max_body_size' in Nginx)."
+    ],
+    "howToFix": [
+      "Compress the file before uploading.",
+      "Increase the max upload size configuration on the server.",
+      "Implement chunked file uploads."
+    ],
+    "relatedCodes": [414, 431],
+    "exampleResponse": "HTTP/1.1 413 Payload Too Large\n\n"
+  },
+  {
+    "code": 414,
+    "name": "URI Too Long",
+    "category": "client-error",
+    "description": "The URI provided was too long for the server to process. Often the result of too much data being encoded as a query-string of a GET request, in which case it should be converted to a POST request.",
+    "commonCauses": [
+      "Passing too many parameters or long base64 strings in a GET request URL."
+    ],
+    "howToFix": [
+      "Change the request method from GET to POST and move the data into the request body."
+    ],
+    "relatedCodes": [413, 431],
+    "exampleResponse": "HTTP/1.1 414 URI Too Long\n\n"
+  },
+  {
+    "code": 415,
+    "name": "Unsupported Media Type",
+    "category": "client-error",
+    "description": "The request entity has a media type which the server or resource does not support. For example, the client uploads an image as image/svg+xml, but the server requires that images use a different format.",
+    "commonCauses": [
+      "Sending JSON data but setting 'Content-Type: text/plain' or 'application/x-www-form-urlencoded'.",
+      "Uploading a file type that the server doesn't allow."
+    ],
+    "howToFix": [
+      "Set the correct 'Content-Type' header in the request (e.g., 'application/json').",
+      "Ensure uploaded files match accepted formats."
+    ],
+    "relatedCodes": [400, 406],
+    "exampleResponse": "HTTP/1.1 415 Unsupported Media Type\n\n"
+  },
+  {
+    "code": 416,
+    "name": "Range Not Satisfiable",
+    "category": "client-error",
+    "description": "The client has asked for a portion of the file (byte serving), but the server cannot supply that portion. For example, if the client asked for a part of the file that lies beyond the end of the file.",
+    "commonCauses": [
+      "Resuming a download with an incorrect byte offset.",
+      "File on the server changed size since the initial request."
+    ],
+    "howToFix": [
+      "Clear the partially downloaded file and start the download from scratch.",
+      "Client should omit the 'Range' header or provide a valid range."
+    ],
+    "relatedCodes": [206],
+    "exampleResponse": "HTTP/1.1 416 Range Not Satisfiable\nContent-Range: bytes */1000\n\n"
+  },
+  {
+    "code": 417,
+    "name": "Expectation Failed",
+    "category": "client-error",
+    "description": "The server cannot meet the requirements of the Expect request-header field.",
+    "commonCauses": [
+      "Client sent 'Expect: 100-continue' but the server or a proxy along the path does not support it or refuses to accept the request body."
+    ],
+    "howToFix": [
+      "Remove the 'Expect' header from the client request."
+    ],
+    "relatedCodes": [100],
+    "exampleResponse": "HTTP/1.1 417 Expectation Failed\n\n"
+  },
+  {
+    "code": 418,
+    "name": "I'm a teapot",
+    "category": "client-error",
+    "description": "This code was defined in 1998 as one of the traditional IETF April Fools' jokes, in RFC 2324, Hyper Text Coffee Pot Control Protocol, and is not expected to be implemented by actual HTTP servers.",
+    "commonCauses": [
+      "Attempting to brew coffee with a teapot.",
+      "Easter eggs left by developers in APIs or web servers."
+    ],
+    "howToFix": [
+      "Use a coffee maker instead."
+    ],
+    "relatedCodes": [400],
+    "exampleResponse": "HTTP/1.1 418 I'm a teapot\n\n"
+  },
+  {
+    "code": 421,
+    "name": "Misdirected Request",
+    "category": "client-error",
+    "description": "The request was directed at a server that is not able to produce a response. This can be sent by a server that is not configured to produce responses for the combination of scheme and authority that are included in the request URI.",
+    "commonCauses": [
+      "HTTP/2 connection reuse gone wrong (client reused a connection for a domain the server doesn't handle)."
+    ],
+    "howToFix": [
+      "Client should open a new connection for the request."
+    ],
+    "relatedCodes": [400],
+    "exampleResponse": "HTTP/1.1 421 Misdirected Request\n\n"
+  },
+  {
+    "code": 422,
+    "name": "Unprocessable Entity",
+    "category": "client-error",
+    "description": "The request was well-formed but was unable to be followed due to semantic errors. Commonly used by APIs for validation errors.",
+    "commonCauses": [
+      "Form validation failure (e.g., password too short, email format invalid).",
+      "Sending JSON that is syntactically correct but contains invalid data logic."
+    ],
+    "howToFix": [
+      "Check the response body for specific validation error messages.",
+      "Correct the data payload to meet the API's requirements."
+    ],
+    "relatedCodes": [400, 409],
+    "exampleResponse": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\"errors\": [{\"field\": \"password\", \"message\": \"Must be at least 8 characters\"}]}"
+  },
+  {
+    "code": 423,
+    "name": "Locked",
+    "category": "client-error",
+    "description": "The resource that is being accessed is locked. (WebDAV)",
+    "commonCauses": [
+      "Attempting to edit a file via WebDAV that another user currently has open/locked."
+    ],
+    "howToFix": [
+      "Wait for the lock to be released or forcefully unlock the resource if authorized."
+    ],
+    "relatedCodes": [403, 409],
+    "exampleResponse": "HTTP/1.1 423 Locked\n\n"
+  },
+  {
+    "code": 424,
+    "name": "Failed Dependency",
+    "category": "client-error",
+    "description": "The request failed because it depended on another request and that request failed. (WebDAV)",
+    "commonCauses": [
+      "A 'PROPPATCH' WebDAV request fails because a preceding property setting failed."
+    ],
+    "howToFix": [
+      "Fix the root cause of the initial request failure."
+    ],
+    "relatedCodes": [422, 423],
+    "exampleResponse": "HTTP/1.1 424 Failed Dependency\n\n"
+  },
+  {
+    "code": 425,
+    "name": "Too Early",
+    "category": "client-error",
+    "description": "Indicates that the server is unwilling to risk processing a request that might be replayed.",
+    "commonCauses": [
+      "Client sent a request during a TLS Early Data (0-RTT) handshake, and the server fears a replay attack for non-idempotent requests (like POST)."
+    ],
+    "howToFix": [
+      "Client should retry the request after the TLS handshake completes fully."
+    ],
+    "relatedCodes": [400, 403],
+    "exampleResponse": "HTTP/1.1 425 Too Early\n\n"
+  },
+  {
+    "code": 426,
+    "name": "Upgrade Required",
+    "category": "client-error",
+    "description": "The client should switch to a different protocol such as TLS/1.0, given in the Upgrade header field.",
+    "commonCauses": [
+      "Accessing a secure API over plain HTTP.",
+      "Server requires HTTP/2 but client used HTTP/1.1."
+    ],
+    "howToFix": [
+      "Switch to the required protocol (e.g., change 'http://' to 'https://')."
+    ],
+    "relatedCodes": [101, 301],
+    "exampleResponse": "HTTP/1.1 426 Upgrade Required\nUpgrade: TLS/1.2, HTTP/1.1\nConnection: Upgrade\n\n"
+  },
+  {
+    "code": 428,
+    "name": "Precondition Required",
+    "category": "client-error",
+    "description": "The origin server requires the request to be conditional. Intended to prevent the 'lost update' problem, where a client GETs a resource's state, modifies it, and PUTs it back to the server, when meanwhile a third party has modified the state on the server, leading to a conflict.",
+    "commonCauses": [
+      "Updating a critical resource without an 'If-Match' header containing the latest ETag."
+    ],
+    "howToFix": [
+      "Fetch the resource to get the current ETag.",
+      "Include 'If-Match: \"<ETag>\"' in the PUT/PATCH request."
+    ],
+    "relatedCodes": [409, 412],
+    "exampleResponse": "HTTP/1.1 428 Precondition Required\n\n"
+  },
+  {
+    "code": 429,
+    "name": "Too Many Requests",
+    "category": "client-error",
+    "description": "The user has sent too many requests in a given amount of time. Intended for use with rate-limiting schemes.",
+    "commonCauses": [
+      "A script or bot scraping the site too aggressively.",
+      "Exceeding the allowed number of API calls per minute for your tier.",
+      "DDoS mitigation systems triggering."
+    ],
+    "howToFix": [
+      "Implement exponential backoff in the client application.",
+      "Check the 'Retry-After' header to see how many seconds to wait before retrying.",
+      "Upgrade API plan to increase limits."
+    ],
+    "relatedCodes": [402, 503],
+    "exampleResponse": "HTTP/1.1 429 Too Many Requests\nRetry-After: 3600\nContent-Type: application/json\n\n{\"error\": \"Rate limit exceeded. Try again in 1 hour.\"}"
+  },
+  {
+    "code": 431,
+    "name": "Request Header Fields Too Large",
+    "category": "client-error",
+    "description": "The server is unwilling to process the request because either an individual header field, or all the header fields collectively, are too large.",
+    "commonCauses": [
+      "Storing too much data in cookies.",
+      "Authorization tokens (like JWTs) growing too large.",
+      "Excessive number of headers sent by the client."
+    ],
+    "howToFix": [
+      "Clear browser cookies for the site.",
+      "Reduce the payload size of JWTs.",
+      "Increase the max header size configuration on the web server (e.g., 'large_client_header_buffers' in Nginx)."
+    ],
+    "relatedCodes": [400, 414],
+    "exampleResponse": "HTTP/1.1 431 Request Header Fields Too Large\n\n"
+  },
+  {
+    "code": 451,
+    "name": "Unavailable For Legal Reasons",
+    "category": "client-error",
+    "description": "A server operator has received a legal demand to deny access to a resource or to a set of resources that includes the requested resource. The code 451 was chosen as a reference to the novel Fahrenheit 451.",
+    "commonCauses": [
+      "DMCA takedown notices.",
+      "Geo-blocking due to government censorship or local laws (e.g., GDPR restrictions)."
+    ],
+    "howToFix": [
+      "Typically cannot be fixed by the client.",
+      "Use a VPN if the restriction is geographical, though this may violate terms of service."
+    ],
+    "relatedCodes": [403, 404],
+    "exampleResponse": "HTTP/1.1 451 Unavailable For Legal Reasons\n\n"
+  },
+  {
+    "code": 500,
+    "name": "Internal Server Error",
+    "category": "server-error",
+    "description": "A generic error message, given when an unexpected condition was encountered and no more specific message is suitable.",
+    "commonCauses": [
+      "Syntax error in backend code (PHP, Node.js, Python, etc.).",
+      "Unhandled exceptions or fatal errors in application logic.",
+      "Database connection failure.",
+      "File permission issues on the server."
+    ],
+    "howToFix": [
+      "Check the server's error logs (e.g., Apache/Nginx error.log, application logs) for the exact stack trace.",
+      "Ensure database credentials are correct.",
+      "Check file ownership and permissions."
+    ],
+    "relatedCodes": [502, 503, 504],
+    "exampleResponse": "HTTP/1.1 500 Internal Server Error\nContent-Type: text/html\n\n<h1>500 Internal Server Error</h1>"
+  },
+  {
+    "code": 501,
+    "name": "Not Implemented",
+    "category": "server-error",
+    "description": "The server either does not recognize the request method, or it lacks the ability to fulfill the request. Usually this implies future availability.",
+    "commonCauses": [
+      "Client sent a request method like 'PROPFIND' but the server doesn't support WebDAV.",
+      "A newer HTTP feature is requested but the server software is old."
+    ],
+    "howToFix": [
+      "Update or configure server software to support the method.",
+      "Client should use standard methods (GET, POST, PUT, DELETE)."
+    ],
+    "relatedCodes": [405, 500],
+    "exampleResponse": "HTTP/1.1 501 Not Implemented\n\n"
+  },
+  {
+    "code": 502,
+    "name": "Bad Gateway",
+    "category": "server-error",
+    "description": "The server was acting as a gateway or proxy and received an invalid response from the upstream server.",
+    "commonCauses": [
+      "The backend application service (e.g., Node.js, PHP-FPM, Gunicorn) has crashed or is not running.",
+      "Firewall is blocking communication between the reverse proxy (Nginx/Apache) and the backend server.",
+      "Misconfigured proxy settings."
+    ],
+    "howToFix": [
+      "Restart the backend application service.",
+      "Check firewall rules between the proxy and the backend.",
+      "Review proxy logs to determine why the upstream connection failed."
+    ],
+    "relatedCodes": [500, 503, 504],
+    "exampleResponse": "HTTP/1.1 502 Bad Gateway\n\n"
+  },
+  {
+    "code": 503,
+    "name": "Service Unavailable",
+    "category": "server-error",
+    "description": "The server cannot handle the request (because it is overloaded or down for maintenance). Generally, this is a temporary state.",
+    "commonCauses": [
+      "Server is undergoing scheduled maintenance.",
+      "Sudden spike in traffic causing CPU/memory exhaustion.",
+      "Application is restarting."
+    ],
+    "howToFix": [
+      "Wait and try again later. The server should ideally send a 'Retry-After' header.",
+      "Scale up server resources if the overload is consistent.",
+      "Setup a proper maintenance page."
+    ],
+    "relatedCodes": [429, 500, 502],
+    "exampleResponse": "HTTP/1.1 503 Service Unavailable\nRetry-After: 300\n\n"
+  },
+  {
+    "code": 504,
+    "name": "Gateway Timeout",
+    "category": "server-error",
+    "description": "The server was acting as a gateway or proxy and did not receive a timely response from the upstream server.",
+    "commonCauses": [
+      "Backend server is taking too long to process a request (e.g., complex database query or third-party API call).",
+      "Network connectivity issues between the proxy and backend.",
+      "Backend service is deadlocked."
+    ],
+    "howToFix": [
+      "Optimize slow database queries or application logic.",
+      "Increase proxy timeout settings (e.g., 'proxy_read_timeout' in Nginx) for legitimately slow operations.",
+      "Implement background workers for long-running tasks."
+    ],
+    "relatedCodes": [408, 502, 503],
+    "exampleResponse": "HTTP/1.1 504 Gateway Timeout\n\n"
+  },
+  {
+    "code": 505,
+    "name": "HTTP Version Not Supported",
+    "category": "server-error",
+    "description": "The server does not support the HTTP protocol version used in the request.",
+    "commonCauses": [
+      "Client attempts to communicate using HTTP/2 to a server that only supports HTTP/1.1.",
+      "Client uses a malformed or obsolete HTTP version."
+    ],
+    "howToFix": [
+      "Upgrade server software to support modern HTTP versions.",
+      "Client should fall back to a widely supported version like HTTP/1.1."
+    ],
+    "relatedCodes": [400, 501],
+    "exampleResponse": "HTTP/1.1 505 HTTP Version Not Supported\n\n"
+  },
+  {
+    "code": 506,
+    "name": "Variant Also Negotiates",
+    "category": "server-error",
+    "description": "Transparent content negotiation for the request results in a circular reference.",
+    "commonCauses": [
+      "Misconfiguration in server-side content negotiation (e.g., Apache mod_negotiation)."
+    ],
+    "howToFix": [
+      "Check and correct server configuration files related to content negotiation."
+    ],
+    "relatedCodes": [300, 500],
+    "exampleResponse": "HTTP/1.1 506 Variant Also Negotiates\n\n"
+  },
+  {
+    "code": 507,
+    "name": "Insufficient Storage",
+    "category": "server-error",
+    "description": "The server is unable to store the representation needed to complete the request. (WebDAV)",
+    "commonCauses": [
+      "Server's hard drive or allocated quota is completely full.",
+      "Database has reached its maximum size."
+    ],
+    "howToFix": [
+      "Free up disk space on the server.",
+      "Increase storage quotas.",
+      "Rotate or delete old logs."
+    ],
+    "relatedCodes": [413, 500],
+    "exampleResponse": "HTTP/1.1 507 Insufficient Storage\n\n"
+  },
+  {
+    "code": 508,
+    "name": "Loop Detected",
+    "category": "server-error",
+    "description": "The server detected an infinite loop while processing a request. (WebDAV)",
+    "commonCauses": [
+      "Infinite redirect loop (e.g., Page A redirects to Page B, which redirects back to Page A).",
+      "WebDAV operation involving linked directories causing a cycle."
+    ],
+    "howToFix": [
+      "Fix routing or redirect rules in the application or proxy (e.g., .htaccess or Nginx conf).",
+      "Remove cyclical directory symlinks."
+    ],
+    "relatedCodes": [301, 302, 500],
+    "exampleResponse": "HTTP/1.1 508 Loop Detected\n\n"
+  },
+  {
+    "code": 510,
+    "name": "Not Extended",
+    "category": "server-error",
+    "description": "Further extensions to the request are required for the server to fulfill it.",
+    "commonCauses": [
+      "Server requires an HTTP extension framework that isn't present in the request."
+    ],
+    "howToFix": [
+      "Client needs to implement the required extension.",
+      "Server administrator should evaluate if the extension is strictly necessary."
+    ],
+    "relatedCodes": [426, 501],
+    "exampleResponse": "HTTP/1.1 510 Not Extended\n\n"
+  },
+  {
+    "code": 511,
+    "name": "Network Authentication Required",
+    "category": "server-error",
+    "description": "The client needs to authenticate to gain network access. Intended for use by intercepting proxies used to control access to the network (e.g., \"captive portals\").",
+    "commonCauses": [
+      "Connecting to a public Wi-Fi network (hotel, airport) that requires agreeing to Terms of Service or logging in before granting internet access."
+    ],
+    "howToFix": [
+      "Open a web browser and complete the captive portal login process."
+    ],
+    "relatedCodes": [401, 407],
+    "exampleResponse": "HTTP/1.1 511 Network Authentication Required\n\n"
+  }
+]
