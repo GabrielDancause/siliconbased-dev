@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSP Header Generator — Content Security Policy Builder | Free Online Tool</title>
+<meta name="description" content="Free interactive Content Security Policy (CSP) header generator. Build and test CSP headers visually with common CDN presets. Works offline.">
+<meta property="og:title" content="CSP Header Generator — Content Security Policy Builder">
+<meta property="og:description" content="Free interactive Content Security Policy (CSP) header generator. Build and test CSP headers visually with common CDN presets. Works offline.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "CSP Header Generator",
+  "url": "https://siliconbased.dev/csp-generator",
+  "description": "Interactive Content Security Policy (CSP) header generator. Build and test CSP headers visually with common CDN presets.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+
+.main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+.layout-grid { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: start; }
+@media (min-width: 992px) {
+  .layout-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.builder-section { display: flex; flex-direction: column; gap: 24px; }
+.output-section { display: flex; flex-direction: column; gap: 24px; position: sticky; top: 24px; }
+
+.card { background: #111318; border: 1px solid #1e2030; border-radius: 14px; overflow: hidden; }
+.card-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; background: #13151d; border-bottom: 1px solid #1e2030; }
+.card-header h3 { font-size: 0.85rem; font-weight: 600; color: #ccc; }
+.card-body { padding: 20px; }
+
+.btn-primary { background: #818cf8; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+.btn-primary:hover { background: #6366f1; }
+.btn-primary.copied { background: #4ade80; color: #1a3a1a; }
+
+.btn-secondary { background: #1e2030; color: #ccc; border: 1px solid #2a2d40; padding: 6px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; }
+.btn-secondary:hover { background: #2a2d40; color: #fff; }
+
+/* Form styles */
+.directive-group { border: 1px solid #1e2030; border-radius: 10px; margin-bottom: 16px; overflow: hidden; background: #0d0f14; }
+.directive-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #111318; cursor: pointer; user-select: none; }
+.directive-header:hover { background: #151822; }
+.directive-title { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; font-weight: 600; color: #e0e0e0; display: flex; align-items: center; gap: 8px; }
+.directive-status { font-size: 0.75rem; color: #888; padding: 2px 8px; border-radius: 12px; background: #1e2030; }
+.directive-status.active { background: rgba(129, 140, 248, 0.15); color: #818cf8; }
+.directive-body { padding: 16px; border-top: 1px solid #1e2030; display: none; }
+.directive-group.expanded .directive-body { display: block; }
+.directive-group.expanded .directive-header { border-bottom: 1px solid #1e2030; }
+
+.checkbox-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.checkbox-label { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #ccc; cursor: pointer; }
+.checkbox-label input { appearance: none; width: 16px; height: 16px; border: 1px solid #38444d; border-radius: 4px; background: #111318; outline: none; cursor: pointer; position: relative; }
+.checkbox-label input:checked { background: #818cf8; border-color: #818cf8; }
+.checkbox-label input:checked::after { content: ''; position: absolute; left: 4px; top: 1px; width: 4px; height: 8px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.checkbox-label code { color: #818cf8; font-size: 0.8rem; }
+
+.input-row { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+.input-row label { font-size: 0.8rem; color: #888; font-weight: 500; }
+.custom-input { background: #111318; border: 1px solid #1e2030; border-radius: 8px; padding: 10px 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #fff; outline: none; width: 100%; transition: border-color 0.2s; }
+.custom-input:focus { border-color: #818cf8; }
+.custom-input::placeholder { color: #444; }
+
+/* Output styles */
+.code-output { background: #0a0b10; border: 1px solid #1e2030; border-radius: 10px; padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #e0e0e0; white-space: pre-wrap; word-break: break-all; min-height: 120px; line-height: 1.5; }
+.code-output .directive { color: #818cf8; font-weight: 600; }
+.code-output .value { color: #ce9178; }
+.code-output .keyword { color: #569cd6; }
+
+.meta-output { background: #0a0b10; border: 1px solid #1e2030; border-radius: 10px; padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #888; margin-top: 16px; white-space: pre-wrap; word-break: break-all; }
+.meta-output .tag { color: #569cd6; }
+.meta-output .attr { color: #9cdcfe; }
+.meta-output .val { color: #ce9178; }
+
+.presets-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; margin-top: 8px; }
+.preset-btn { background: #111318; border: 1px solid #1e2030; color: #aaa; padding: 6px 10px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; transition: all 0.2s; text-align: left; }
+.preset-btn:hover { background: #1e2030; color: #fff; }
+
+.empty-state { color: #555; font-style: italic; text-align: center; padding: 20px 0; }
+
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-family: 'JetBrains Mono', monospace; font-size: 0.85em; }
+
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* SVG Icons */
+.icon { display: inline-block; width: 1em; height: 1em; stroke-width: 0; stroke: currentColor; fill: currentColor; }
+.chevron { transition: transform 0.2s; }
+.expanded .chevron { transform: rotate(180deg); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>CSP Header <span>Generator</span></h1>
+  <p>Build Content Security Policy headers visually. Test common CDNs.</p>
+</div>
+
+<div class="main">
+  <div class="layout-grid">
+    <!-- Left Column: Builder -->
+    <div class="builder-section" id="builderSection">
+      <div class="card">
+        <div class="card-header">
+          <h3>Common Presets</h3>
+        </div>
+        <div class="card-body" style="padding: 16px;">
+          <div class="presets-grid">
+            <button class="preset-btn" data-preset="basic">Basic (Default)</button>
+            <button class="preset-btn" data-preset="strict">Strict (Zero Trust)</button>
+            <button class="preset-btn" data-preset="spa">React / SPA</button>
+            <button class="preset-btn" data-preset="reset">Reset All</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Directives will be injected here via JS -->
+    </div>
+
+    <!-- Right Column: Output -->
+    <div class="output-section">
+      <div class="card">
+        <div class="card-header">
+          <h3>Generated Policy</h3>
+          <button class="btn-primary" id="copyCodeBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Copy Policy
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="code-output" id="codeOutput">
+            <div class="empty-state">Select directives to generate your policy...</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>HTML Meta Tag Implementation</h3>
+          <button class="btn-secondary" id="copyMetaBtn">Copy Meta Tag</button>
+        </div>
+        <div class="card-body" style="padding: 0 20px 20px 20px;">
+          <div class="meta-output" id="metaOutput">
+            &lt;meta http-equiv="Content-Security-Policy" content="..."&gt;
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>What is a Content Security Policy (CSP)?</h2>
+    <p>A Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross-Site Scripting (XSS) and data injection attacks. These attacks are used for everything from data theft to site defacement to the distribution of malware.</p>
+
+    <h2>How does CSP work?</h2>
+    <p>CSP is implemented by configuring your web server to return the <code>Content-Security-Policy</code> HTTP header. Alternatively, the <code>&lt;meta&gt;</code> element can be used to configure a policy, for example: <code>&lt;meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src https://*;"&gt;</code></p>
+    <p>A primary goal of CSP is to mitigate and report XSS attacks. XSS attacks exploit the browser's trust in the content received from the server. By specifying the domains that the browser should consider to be valid sources of executable scripts, a CSP significantly reduces the attack surface.</p>
+
+    <h2>Common CSP Directives</h2>
+    <ul>
+      <li><code>default-src</code>: Serves as a fallback for the other fetch directives.</li>
+      <li><code>script-src</code>: Specifies valid sources for JavaScript.</li>
+      <li><code>style-src</code>: Specifies valid sources for stylesheets.</li>
+      <li><code>img-src</code>: Specifies valid sources of images and favicons.</li>
+      <li><code>connect-src</code>: Restricts the URLs which can be loaded using script interfaces.</li>
+      <li><code>font-src</code>: Specifies valid sources for fonts loaded using <code>@font-face</code>.</li>
+    </ul>
+
+    <h2>Keywords</h2>
+    <ul>
+      <li><code>'self'</code>: Matches the current origin, but not subdomains.</li>
+      <li><code>'unsafe-inline'</code>: Allows the use of inline resources, such as inline <code>&lt;script&gt;</code> elements, <code>javascript:</code> URLs, inline event handlers, and inline <code>&lt;style&gt;</code> elements.</li>
+      <li><code>'unsafe-eval'</code>: Allows the use of <code>eval()</code> and similar methods for creating code from strings.</li>
+      <li><code>'none'</code>: Prevents loading any resources for this directive.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<!-- Template for directive group -->
+<template id="directiveTemplate">
+  <div class="directive-group">
+    <div class="directive-header">
+      <div class="directive-title">
+        <span class="d-name"></span>
+        <span class="directive-status">Inactive</span>
+      </div>
+      <svg class="icon chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    <div class="directive-body">
+      <div class="checkbox-grid">
+        <label class="checkbox-label" title="Matches the same origin (scheme, host, and port)."><input type="checkbox" value="'self'"> <code>'self'</code></label>
+        <label class="checkbox-label" title="Allows the use of inline resources, such as inline <script> elements."><input type="checkbox" value="'unsafe-inline'"> <code>'unsafe-inline'</code></label>
+        <label class="checkbox-label" title="Allows the use of eval() and similar methods for creating code from strings."><input type="checkbox" value="'unsafe-eval'"> <code>'unsafe-eval'</code></label>
+        <label class="checkbox-label" title="Prevents loading any resources for this directive."><input type="checkbox" value="'none'"> <code>'none'</code></label>
+      </div>
+
+      <div class="input-row">
+        <label>Custom Sources (space-separated URIs)</label>
+        <input type="text" class="custom-input" placeholder="e.g. https://api.example.com *.cdn.com">
+      </div>
+
+      <div class="cdn-presets" style="margin-top: 16px;">
+        <label style="font-size: 0.75rem; color: #666; font-weight: 500;">Common CDNs / Services</label>
+        <div class="presets-grid cdn-grid">
+          <!-- CDN buttons injected via JS based on directive -->
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+// CSP Directive Definitions
+const directives = [
+  {
+    name: 'default-src',
+    desc: 'Serves as a fallback for the other fetch directives.',
+    cdns: []
+  },
+  {
+    name: 'script-src',
+    desc: 'Specifies valid sources for JavaScript.',
+    cdns: [
+      { label: 'Google Analytics', val: 'https://www.google-analytics.com https://ssl.google-analytics.com' },
+      { label: 'Google Tag Manager', val: 'https://www.googletagmanager.com' },
+      { label: 'Cloudflare', val: 'https://cdnjs.cloudflare.com' },
+      { label: 'unpkg', val: 'https://unpkg.com' },
+      { label: 'jsDelivr', val: 'https://cdn.jsdelivr.net' }
+    ]
+  },
+  {
+    name: 'style-src',
+    desc: 'Specifies valid sources for stylesheets.',
+    cdns: [
+      { label: 'Google Fonts', val: 'https://fonts.googleapis.com' },
+      { label: 'Cloudflare', val: 'https://cdnjs.cloudflare.com' },
+      { label: 'jsDelivr', val: 'https://cdn.jsdelivr.net' }
+    ]
+  },
+  {
+    name: 'img-src',
+    desc: 'Specifies valid sources of images and favicons.',
+    cdns: [
+      { label: 'Data URIs (base64)', val: 'data:' },
+      { label: 'Google Analytics', val: 'https://www.google-analytics.com' },
+      { label: 'Gravatar', val: 'https://www.gravatar.com' },
+      { label: 'Unsplash', val: 'https://images.unsplash.com' }
+    ]
+  },
+  {
+    name: 'font-src',
+    desc: 'Specifies valid sources for fonts loaded using @font-face.',
+    cdns: [
+      { label: 'Google Fonts', val: 'https://fonts.gstatic.com' },
+      { label: 'Cloudflare', val: 'https://cdnjs.cloudflare.com' },
+      { label: 'Data URIs (base64)', val: 'data:' }
+    ]
+  },
+  {
+    name: 'connect-src',
+    desc: 'Restricts the URLs which can be loaded using script interfaces (Fetch, XHR, WebSockets).',
+    cdns: [
+      { label: 'Google Analytics', val: 'https://www.google-analytics.com' }
+    ]
+  },
+  {
+    name: 'frame-src',
+    desc: 'Specifies valid sources for nested browsing contexts (iframes).',
+    cdns: [
+      { label: 'YouTube', val: 'https://www.youtube.com' },
+      { label: 'Vimeo', val: 'https://player.vimeo.com' },
+      { label: 'Google Maps', val: 'https://www.google.com/maps/' }
+    ]
+  },
+  {
+    name: 'media-src',
+    desc: 'Specifies valid sources for loading media using the <audio> and <video> elements.',
+    cdns: []
+  },
+  {
+    name: 'object-src',
+    desc: 'Specifies valid sources for the <object>, <embed>, and <applet> elements.',
+    cdns: []
+  }
+];
+
+// Presets mapping
+const presets = {
+  basic: {
+    'default-src': ["'none'"],
+    'script-src': ["'self'"],
+    'style-src': ["'self'"],
+    'img-src': ["'self'"],
+    'font-src': ["'self'"],
+    'connect-src': ["'self'"]
+  },
+  strict: {
+    'default-src': ["'none'"]
+  },
+  spa: {
+    'default-src': ["'none'"],
+    'script-src': ["'self'", "'unsafe-inline'"],
+    'style-src': ["'self'", "'unsafe-inline'"],
+    'img-src': ["'self'", "data:"],
+    'font-src': ["'self'", "data:"],
+    'connect-src': ["'self'"]
+  },
+  reset: {}
+};
+
+// DOM Elements
+const builderSection = document.getElementById('builderSection');
+const template = document.getElementById('directiveTemplate');
+const codeOutput = document.getElementById('codeOutput');
+const metaOutput = document.getElementById('metaOutput');
+const copyCodeBtn = document.getElementById('copyCodeBtn');
+const copyMetaBtn = document.getElementById('copyMetaBtn');
+
+// State
+let cspState = {};
+
+function init() {
+  // Initialize state and UI
+  directives.forEach(dir => {
+    cspState[dir.name] = {
+      checkboxes: new Set(),
+      custom: '',
+      cdns: new Set()
+    };
+    createDirectiveUI(dir);
+  });
+
+  // Setup presets
+  document.querySelectorAll('.preset-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      applyPreset(e.target.dataset.preset);
+    });
+  });
+
+  // Copy buttons
+  setupCopyBtn(copyCodeBtn, () => generateCSPString().replace(/<[^>]*>?/gm, ''));
+  setupCopyBtn(copyMetaBtn, () => {
+    const policy = generateCSPString().replace(/<[^>]*>?/gm, '');
+    return `<meta http-equiv="Content-Security-Policy" content="${policy}">`;
+  });
+
+  updateOutput();
+}
+
+function createDirectiveUI(dir) {
+  const clone = template.content.cloneNode(true);
+  const group = clone.querySelector('.directive-group');
+  const header = clone.querySelector('.directive-header');
+  const title = clone.querySelector('.d-name');
+
+  group.dataset.directive = dir.name;
+  title.textContent = dir.name;
+  title.title = dir.desc;
+
+  // Toggle expansion
+  header.addEventListener('click', () => {
+    group.classList.toggle('expanded');
+  });
+
+  // Checkboxes
+  const checkboxes = clone.querySelectorAll('input[type="checkbox"]');
+  checkboxes.forEach(cb => {
+    cb.addEventListener('change', (e) => {
+      if (e.target.checked) {
+        cspState[dir.name].checkboxes.add(e.target.value);
+        if (e.target.value === "'none'") {
+          // Uncheck others if 'none' is selected
+          checkboxes.forEach(other => {
+            if (other !== cb) {
+              other.checked = false;
+              cspState[dir.name].checkboxes.delete(other.value);
+            }
+          });
+        } else {
+          // Uncheck 'none' if something else is selected
+          const noneCb = Array.from(checkboxes).find(c => c.value === "'none'");
+          if (noneCb && noneCb.checked) {
+            noneCb.checked = false;
+            cspState[dir.name].checkboxes.delete("'none'");
+          }
+        }
+      } else {
+        cspState[dir.name].checkboxes.delete(e.target.value);
+      }
+      updateOutput();
+    });
+  });
+
+  // Custom Input
+  const customInput = clone.querySelector('.custom-input');
+  customInput.addEventListener('input', (e) => {
+    cspState[dir.name].custom = e.target.value;
+    updateOutput();
+  });
+
+  // CDN Presets
+  const cdnContainer = clone.querySelector('.cdn-presets');
+  const cdnGrid = clone.querySelector('.cdn-grid');
+
+  if (dir.cdns.length > 0) {
+    dir.cdns.forEach(cdn => {
+      const btn = document.createElement('button');
+      btn.className = 'preset-btn';
+      btn.textContent = cdn.label;
+      btn.title = cdn.val;
+      btn.addEventListener('click', () => {
+        const valArr = cdn.val.split(' ');
+        valArr.forEach(v => {
+          if (cspState[dir.name].cdns.has(v)) {
+            cspState[dir.name].cdns.delete(v);
+            btn.style.background = '#111318';
+            btn.style.color = '#aaa';
+          } else {
+            cspState[dir.name].cdns.add(v);
+            btn.style.background = '#818cf8';
+            btn.style.color = '#fff';
+            btn.style.borderColor = '#818cf8';
+          }
+        });
+        updateOutput();
+      });
+      cdnGrid.appendChild(btn);
+    });
+  } else {
+    cdnContainer.style.display = 'none';
+  }
+
+  builderSection.appendChild(group);
+}
+
+function applyPreset(presetName) {
+  const preset = presets[presetName];
+
+  // Reset all first
+  directives.forEach(dir => {
+    cspState[dir.name].checkboxes.clear();
+    cspState[dir.name].custom = '';
+    cspState[dir.name].cdns.clear();
+
+    const group = document.querySelector(`.directive-group[data-directive="${dir.name}"]`);
+    if (group) {
+      group.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+      group.querySelector('.custom-input').value = '';
+      group.querySelectorAll('.cdn-grid .preset-btn').forEach(btn => {
+        btn.style.background = '#111318';
+        btn.style.color = '#aaa';
+        btn.style.borderColor = '#1e2030';
+      });
+      group.classList.remove('expanded');
+    }
+  });
+
+  // Apply new preset
+  if (presetName !== 'reset') {
+    Object.keys(preset).forEach(dirName => {
+      const vals = preset[dirName];
+      const group = document.querySelector(`.directive-group[data-directive="${dirName}"]`);
+
+      if (group) {
+        vals.forEach(v => {
+          if (v.startsWith("'")) {
+            cspState[dirName].checkboxes.add(v);
+            const cb = Array.from(group.querySelectorAll('input[type="checkbox"]')).find(c => c.value === v);
+            if (cb) cb.checked = true;
+          } else {
+             // Treat as custom
+             cspState[dirName].custom += (cspState[dirName].custom ? ' ' : '') + v;
+             group.querySelector('.custom-input').value = cspState[dirName].custom;
+          }
+        });
+      }
+    });
+  }
+
+  updateOutput();
+}
+
+function generateCSPString() {
+  let policies = [];
+
+  directives.forEach(dir => {
+    const state = cspState[dir.name];
+    let parts = [];
+
+    // Add checkboxes
+    if (state.checkboxes.size > 0) {
+      parts.push(Array.from(state.checkboxes).join(' '));
+    }
+
+    // Add CDNs
+    if (state.cdns.size > 0) {
+      parts.push(Array.from(state.cdns).join(' '));
+    }
+
+    // Add Custom
+    if (state.custom.trim()) {
+      parts.push(state.custom.trim().replace(/\s+/g, ' ')); // collapse spaces
+    }
+
+    if (parts.length > 0) {
+      policies.push(`<span class="directive">${dir.name}</span> <span class="value">${parts.join(' ')}</span>;`);
+    }
+  });
+
+  return policies.join('\n');
+}
+
+function updateOutput() {
+  const htmlStr = generateCSPString();
+
+  if (!htmlStr) {
+    codeOutput.innerHTML = '<div class="empty-state">Select directives to generate your policy...</div>';
+    metaOutput.innerHTML = '&lt;meta http-equiv="Content-Security-Policy" content="..."&gt;';
+
+    // Reset all status pills
+    document.querySelectorAll('.directive-status').forEach(el => {
+      el.textContent = 'Inactive';
+      el.classList.remove('active');
+    });
+    return;
+  }
+
+  codeOutput.innerHTML = htmlStr;
+
+  const rawString = htmlStr.replace(/<[^>]*>?/gm, '').replace(/\n/g, ' ');
+  metaOutput.innerHTML = `&lt;<span class="tag">meta</span> <span class="attr">http-equiv</span>=<span class="val">"Content-Security-Policy"</span> <span class="attr">content</span>=<span class="val">"${rawString}"</span>&gt;`;
+
+  // Update status pills
+  directives.forEach(dir => {
+    const state = cspState[dir.name];
+    const group = document.querySelector(`.directive-group[data-directive="${dir.name}"]`);
+    if (!group) return;
+
+    const status = group.querySelector('.directive-status');
+    const hasData = state.checkboxes.size > 0 || state.cdns.size > 0 || state.custom.trim() !== '';
+
+    if (hasData) {
+      status.textContent = 'Active';
+      status.classList.add('active');
+    } else {
+      status.textContent = 'Inactive';
+      status.classList.remove('active');
+    }
+  });
+}
+
+function setupCopyBtn(btn, textGetter) {
+  btn.addEventListener('click', () => {
+    const text = textGetter();
+    if (!text) return;
+
+    navigator.clipboard.writeText(text).then(() => {
+      const originalHtml = btn.innerHTML;
+      btn.innerHTML = '✓ Copied!';
+      btn.classList.add('copied');
+
+      setTimeout(() => {
+        btn.innerHTML = originalHtml;
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  });
+}
+
+// Start
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
