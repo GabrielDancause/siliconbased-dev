@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WHOIS Lookup Parser | Parse Domain Details Offline</title>
+<meta name="description" content="Parse raw WHOIS data to extract domain registration details like registrar, creation date, expiry, and nameservers. Free, offline-capable, runs completely in your browser.">
+<meta property="og:title" content="WHOIS Lookup Parser">
+<meta property="og:description" content="Parse raw WHOIS data to extract domain registration details like registrar, creation date, expiry, and nameservers. Free, offline-capable, runs completely in your browser.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "WHOIS Lookup Parser",
+  "url": "https://siliconbased.dev/whois-lookup",
+  "description": "Interactive tool to parse raw WHOIS records and extract registrar, creation date, expiry date, and nameservers locally in your browser.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+.hero { text-align: center; padding: 48px 24px 24px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.4rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+.tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; align-items: stretch; }
+@media (max-width: 800px) { .tool-grid { grid-template-columns: 1fr; } }
+
+.pane { display: flex; flex-direction: column; }
+.input-header, .output-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.header-title { font-size: 0.85rem; font-weight: 600; color: #ccc; text-transform: uppercase; letter-spacing: 0.5px; }
+.header-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.action-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.action-btn:hover { background: #2a2d40; color: #ccc; }
+
+textarea.data-area { flex: 1; min-height: 400px; background: #111318; border: 2px solid #1e2030; border-radius: 12px; padding: 16px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; resize: vertical; outline: none; transition: border-color 0.2s; line-height: 1.6; white-space: pre; }
+textarea.data-area:focus { border-color: #818cf8; }
+
+.copy-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 6px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; flex-shrink: 0; }
+.copy-btn:hover { background: #2a2d40; color: #ccc; }
+.copy-btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+.result-card { background: #111318; border: 2px solid #1e2030; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 20px; flex: 1; overflow-y: auto; }
+.result-item { display: flex; flex-direction: column; gap: 8px; }
+.result-label { font-size: 0.8rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+.result-value-container { display: flex; gap: 8px; align-items: center; }
+.result-value { flex: 1; background: #0a0b10; border: 1px solid #1e2030; border-radius: 8px; padding: 10px 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: #e0e0e0; min-height: 42px; display: flex; align-items: center; word-break: break-all; }
+.ns-list { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+.ns-item { display: flex; gap: 8px; align-items: center; width: 100%; }
+.empty-state { color: #555; font-style: italic; }
+
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>WHOIS <span>Lookup Parser</span></h1>
+  <p>Parse raw WHOIS output to extract domain registration details instantly, 100% offline.</p>
+</div>
+
+<div class="main">
+  <div class="tool-grid">
+    <div class="pane">
+      <div class="input-header">
+        <div class="header-title">Raw WHOIS Data</div>
+        <div class="header-actions">
+          <button class="action-btn" id="sampleBtn">Sample</button>
+          <button class="action-btn" id="clearBtn">Clear</button>
+        </div>
+      </div>
+      <textarea id="dataInput" class="data-area" placeholder="Paste your raw WHOIS response text here..." spellcheck="false"></textarea>
+    </div>
+
+    <div class="pane">
+      <div class="output-header">
+        <div class="header-title">Parsed Details</div>
+      </div>
+      <div class="result-card">
+        <div class="result-item">
+          <div class="result-label">Domain Name</div>
+          <div class="result-value-container">
+            <div class="result-value" id="outDomain"><span class="empty-state">Not found</span></div>
+            <button class="copy-btn" data-target="outDomain">Copy</button>
+          </div>
+        </div>
+
+        <div class="result-item">
+          <div class="result-label">Registrar</div>
+          <div class="result-value-container">
+            <div class="result-value" id="outRegistrar"><span class="empty-state">Not found</span></div>
+            <button class="copy-btn" data-target="outRegistrar">Copy</button>
+          </div>
+        </div>
+
+        <div class="result-item">
+          <div class="result-label">Creation Date</div>
+          <div class="result-value-container">
+            <div class="result-value" id="outCreation"><span class="empty-state">Not found</span></div>
+            <button class="copy-btn" data-target="outCreation">Copy</button>
+          </div>
+        </div>
+
+        <div class="result-item">
+          <div class="result-label">Expiry Date</div>
+          <div class="result-value-container">
+            <div class="result-value" id="outExpiry"><span class="empty-state">Not found</span></div>
+            <button class="copy-btn" data-target="outExpiry">Copy</button>
+          </div>
+        </div>
+
+        <div class="result-item">
+          <div class="result-label">Name Servers</div>
+          <div id="outNsList" class="ns-list">
+            <div class="result-value-container"><div class="result-value"><span class="empty-state">Not found</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>What is WHOIS Data?</h2>
+    <p>WHOIS is a query and response protocol that is widely used for querying databases that store the registered users or assignees of an Internet resource, such as a domain name, an IP address block, or an autonomous system. The raw text response from a WHOIS server contains valuable information about domain ownership, registration dates, and technical details like nameservers.</p>
+
+    <h2>Why Use a Local WHOIS Parser?</h2>
+    <p>Many online WHOIS lookup tools limit the number of queries you can make, log your searches, or obscure data behind CAPTCHAs. If you use a command-line <code>whois</code> tool or have bulk raw WHOIS data, this parser allows you to easily extract key fields like the Registrar, Creation Date, Expiry Date, and Nameservers without making any external API calls. Everything runs securely and offline in your browser.</p>
+
+    <h2>Common WHOIS Fields</h2>
+    <ul>
+      <li><strong>Domain Name:</strong> The actual registered internet resource name (e.g., example.com).</li>
+      <li><strong>Registrar:</strong> The organization or entity that manages the reservation of the domain name (e.g., Namecheap, GoDaddy).</li>
+      <li><strong>Creation Date:</strong> The exact date and time the domain was first registered.</li>
+      <li><strong>Expiry Date:</strong> The date and time when the current registration period ends. If not renewed, the domain may become available for others to register.</li>
+      <li><strong>Name Servers:</strong> The DNS servers responsible for translating the domain name into an IP address, directing traffic to the correct web host.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const dataInput = document.getElementById('dataInput');
+  const clearBtn = document.getElementById('clearBtn');
+  const sampleBtn = document.getElementById('sampleBtn');
+
+  const outDomain = document.getElementById('outDomain');
+  const outRegistrar = document.getElementById('outRegistrar');
+  const outCreation = document.getElementById('outCreation');
+  const outExpiry = document.getElementById('outExpiry');
+  const outNsList = document.getElementById('outNsList');
+  const copyBtns = document.querySelectorAll('.copy-btn');
+
+  const SAMPLE_DATA = `Domain Name: example.com
+Registry Domain ID: 2336799_DOMAIN_COM-VRSN
+Registrar WHOIS Server: whois.iana.org
+Registrar URL: http://res.iana.org
+Updated Date: 2023-08-14T07:01:44Z
+Creation Date: 1995-08-14T04:00:00Z
+Registry Expiry Date: 2024-08-13T04:00:00Z
+Registrar: RESERVED-Internet Assigned Numbers Authority
+Registrar IANA ID: 376
+Registrar Abuse Contact Email: abuse@iana.org
+Registrar Abuse Contact Phone: +1.3103015820
+Domain Status: clientDeleteProhibited https://icann.org/epp#clientDeleteProhibited
+Domain Status: clientTransferProhibited https://icann.org/epp#clientTransferProhibited
+Domain Status: clientUpdateProhibited https://icann.org/epp#clientUpdateProhibited
+Name Server: a.iana-servers.net
+Name Server: b.iana-servers.net
+DNSSEC: signedDelegation
+DNSSEC DS Data: 31589 8 2 3490A6806D47F17A34C29E2CE80E8A999FFBE4BEF8CD16EBBE0E2A012015AD6F
+URL of the ICANN Whois Inaccuracy Complaint Form: https://www.icann.org/wicf/
+>>> Last update of whois database: 2024-03-20T12:00:00Z <<<`;
+
+  function parseWhois(text) {
+    const result = {
+      domain: '',
+      registrar: '',
+      creationDate: '',
+      expiryDate: '',
+      nameservers: []
+    };
+
+    const lines = text.split(/\r?\n/);
+
+    // Regex patterns for common WHOIS formats
+    const domainRegex = /^(?:Domain Name|Domain):\s*(.+)$/i;
+    const registrarRegex = /^(?:Registrar|Sponsoring Registrar):\s*(.+)$/i;
+    const creationRegex = /^(?:Creation Date|Created On|Registered On|Registration Time):\s*(.+)$/i;
+    const expiryRegex = /^(?:Registry Expiry Date|Expiration Date|Expires On|Registrar Registration Expiration Date|Expiration Time):\s*(.+)$/i;
+    const nsRegex = /^(?:Name Server|Nameservers|Name servers|nserver):\s*(.+)$/i;
+
+    lines.forEach(line => {
+      line = line.trim();
+      let match;
+
+      if (!result.domain && (match = line.match(domainRegex))) {
+        result.domain = match[1].trim().toLowerCase();
+      } else if (!result.registrar && (match = line.match(registrarRegex))) {
+        result.registrar = match[1].trim();
+      } else if (!result.creationDate && (match = line.match(creationRegex))) {
+        result.creationDate = match[1].trim();
+      } else if (!result.expiryDate && (match = line.match(expiryRegex))) {
+        result.expiryDate = match[1].trim();
+      } else if ((match = line.match(nsRegex))) {
+        const nsStr = match[1].trim();
+        const nss = nsStr.split(/[\s,]+/);
+        nss.forEach(ns => {
+          if (ns && !result.nameservers.includes(ns.toLowerCase())) {
+            result.nameservers.push(ns.toLowerCase());
+          }
+        });
+      }
+    });
+
+    return result;
+  }
+
+  function updateOutput(data) {
+    const emptySpan = '<span class="empty-state">Not found</span>';
+
+    outDomain.innerHTML = data.domain ? escapeHtml(data.domain) : emptySpan;
+    outRegistrar.innerHTML = data.registrar ? escapeHtml(data.registrar) : emptySpan;
+    outCreation.innerHTML = data.creationDate ? escapeHtml(data.creationDate) : emptySpan;
+    outExpiry.innerHTML = data.expiryDate ? escapeHtml(data.expiryDate) : emptySpan;
+
+    outNsList.innerHTML = '';
+    if (data.nameservers.length > 0) {
+      data.nameservers.forEach(ns => {
+        const nsContainer = document.createElement('div');
+        nsContainer.className = 'result-value-container';
+
+        const nsValue = document.createElement('div');
+        nsValue.className = 'result-value';
+        nsValue.textContent = ns;
+
+        const copyBtn = document.createElement('button');
+        copyBtn.className = 'copy-btn';
+        copyBtn.textContent = 'Copy';
+        copyBtn.addEventListener('click', () => copyToClipboard(ns, copyBtn));
+
+        nsContainer.appendChild(nsValue);
+        nsContainer.appendChild(copyBtn);
+        outNsList.appendChild(nsContainer);
+      });
+    } else {
+      outNsList.innerHTML = `<div class="result-value-container"><div class="result-value">${emptySpan}</div></div>`;
+    }
+  }
+
+  function escapeHtml(unsafe) {
+    return unsafe
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;");
+  }
+
+  function processInput() {
+    const text = dataInput.value;
+    const parsed = parseWhois(text);
+    updateOutput(parsed);
+  }
+
+  function copyToClipboard(text, btn) {
+    if (!text || text === 'Not found') return;
+    navigator.clipboard.writeText(text).then(() => {
+      const originalText = btn.textContent;
+      btn.textContent = '✓';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.classList.remove('copied');
+      }, 1500);
+    });
+  }
+
+  // Event Listeners
+  dataInput.addEventListener('input', processInput);
+
+  clearBtn.addEventListener('click', () => {
+    dataInput.value = '';
+    processInput();
+    dataInput.focus();
+  });
+
+  sampleBtn.addEventListener('click', () => {
+    dataInput.value = SAMPLE_DATA;
+    processInput();
+  });
+
+  copyBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const targetId = e.target.getAttribute('data-target');
+      if (targetId) {
+        const el = document.getElementById(targetId);
+        if (el && !el.querySelector('.empty-state')) {
+          copyToClipboard(el.textContent, e.target);
+        }
+      }
+    });
+  });
+
+  // Initial render
+  processInput();
+});
+</script>
+</body>
+</html>
