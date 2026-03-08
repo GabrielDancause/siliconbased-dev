@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Agent Parser | Free Online Tool</title>
+<meta name="description" content="Parse user agent strings instantly. Detect browser, operating system, device type, and identify bots. Free, secure, and works offline.">
+<meta property="og:title" content="User Agent Parser">
+<meta property="og:description" content="Parse user agent strings instantly. Detect browser, operating system, device type, and identify bots. Free, secure, and works offline.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "User Agent Parser",
+  "url": "https://siliconbased.dev/user-agent-parser",
+  "description": "Parse user agent strings instantly. Detect browser, operating system, device type, and identify bots.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 900px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Card */
+.tool-card { background: #111318; border: 1px solid #1e2030; border-radius: 16px; overflow: hidden; margin-bottom: 40px; }
+.tool-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: #13151d; border-bottom: 1px solid #1e2030; flex-wrap: wrap; gap: 12px; }
+.tool-header h3 { font-size: 0.9rem; font-weight: 600; color: #ccc; display: flex; align-items: center; gap: 8px; }
+
+/* Custom Form Controls */
+.form-group { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 200px; }
+.form-label { font-size: 0.85rem; font-weight: 600; color: #818cf8; }
+.form-control { background: #0a0b10; border: 1px solid #1e2030; color: #e0e0e0; font-family: 'Inter', sans-serif; font-size: 0.95rem; padding: 10px 14px; border-radius: 8px; outline: none; transition: border-color 0.2s; }
+.form-control:focus { border-color: #818cf8; }
+
+/* Inputs/Outputs */
+.tool-body { padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+.textarea-wrapper { position: relative; display: flex; flex-direction: column; gap: 8px; }
+.textarea-label { font-size: 0.85rem; font-weight: 600; color: #818cf8; display: flex; justify-content: space-between; }
+
+.input-area { width: 100%; min-height: 120px; background: #0a0b10; border: 1px solid #1e2030; border-radius: 12px; padding: 16px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; resize: vertical; outline: none; transition: border-color 0.2s; line-height: 1.5; white-space: pre-wrap; word-break: break-all; }
+.input-area:focus { border-color: #818cf8; }
+.input-area::placeholder { color: #444; }
+
+/* Actions */
+.actions-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.btn { background: #1e2030; border: 1px solid #2a2d40; color: #ccc; padding: 10px 20px; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+.btn:hover { background: #2a2d40; color: #fff; }
+.btn-primary { background: #818cf8; color: #fff; border-color: #818cf8; }
+.btn-primary:hover { background: #6366f1; border-color: #6366f1; }
+.btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+/* Parse Results */
+.parse-results { background: #0a0b10; border: 1px solid #1e2030; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.result-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #151520; padding-bottom: 12px; }
+.result-item:last-child { border-bottom: none; padding-bottom: 0; }
+.result-label { font-size: 0.9rem; color: #888; }
+.result-value { font-size: 0.95rem; color: #e0e0e0; font-weight: 500; text-align: right; word-break: break-all; max-width: 65%; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .actions-row { flex-direction: column; align-items: stretch; }
+  .btn { justify-content: center; }
+  .tool-header { flex-direction: column; align-items: flex-start; }
+  .result-item { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .result-value { text-align: left; max-width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>User Agent <span>Parser</span></h1>
+  <p>Instantly parse user agent strings to extract browser, OS, device, and bot details.</p>
+</div>
+
+<div class="main">
+  <div class="tool-card">
+    <div class="tool-header">
+      <h3>Parse User Agent String</h3>
+    </div>
+    <div class="tool-body">
+      <div class="textarea-wrapper">
+        <label class="textarea-label" for="uaInput">User Agent String</label>
+        <textarea class="input-area" id="uaInput" placeholder="Enter a User Agent string to parse..." spellcheck="false"></textarea>
+      </div>
+
+      <div class="actions-row">
+        <button class="btn btn-primary" id="useMyUABtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          Use My User Agent
+        </button>
+        <button class="btn" id="copyResultBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          Copy Results (JSON)
+        </button>
+      </div>
+
+      <div class="parse-results" id="parseResults">
+        <div class="result-item">
+          <div class="result-label">Browser</div>
+          <div class="result-value" id="resBrowser">-</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Operating System</div>
+          <div class="result-value" id="resOS">-</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Device Type</div>
+          <div class="result-value" id="resDevice">-</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Bot / Crawler</div>
+          <div class="result-value" id="resBot">-</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>What is a User Agent?</h2>
+    <p>A <strong>User Agent</strong> (UA) string is a snippet of text that a web browser (or any other application) sends to the web server it connects to. This string contains information about the application type, operating system, software vendor, and software revision.</p>
+    <p>Web servers use this information to serve different versions of a web page based on the device, such as sending a mobile-optimized layout when a mobile phone is detected, or for analytical purposes to understand what browsers their users are running.</p>
+
+    <h2>Why parse User Agent strings?</h2>
+    <p>Parsing UA strings allows developers to extract meaningful data from the raw text. Common use cases include:</p>
+    <ul>
+      <li><strong>Analytics & Logging:</strong> Determining the breakdown of operating systems (Windows, macOS, iOS, Android) and browsers (Chrome, Safari, Firefox) visiting a site.</li>
+      <li><strong>Feature Detection Support:</strong> While feature detection is generally preferred over browser sniffing, UA parsing is sometimes necessary to apply workarounds for specific legacy browser bugs.</li>
+      <li><strong>Bot Detection:</strong> Identifying automated crawlers (like Googlebot or Bingbot) and malicious scrapers to filter out non-human traffic from analytics or apply rate limiting.</li>
+    </ul>
+
+    <h2>Client-Side Security & Privacy</h2>
+    <p>This User Agent Parser runs <strong>completely within your web browser</strong>. When you paste a user agent string to analyze it or click "Use My User Agent", the data is parsed locally using JavaScript. It is never transmitted to an external server or stored in a database. Because it is a zero-dependency vanilla JS tool, it also works completely offline after the initial page load.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+// Elements
+const uaInput = document.getElementById('uaInput');
+const useMyUABtn = document.getElementById('useMyUABtn');
+const copyResultBtn = document.getElementById('copyResultBtn');
+
+const resBrowser = document.getElementById('resBrowser');
+const resOS = document.getElementById('resOS');
+const resDevice = document.getElementById('resDevice');
+const resBot = document.getElementById('resBot');
+
+let currentParsedJSON = '{}';
+
+// Lightweight User Agent Parser Logic
+function parseUserAgent(ua) {
+  if (!ua || ua.trim() === '') {
+    return {
+      browser: '-',
+      os: '-',
+      device: '-',
+      bot: '-'
+    };
+  }
+
+  const result = {
+    browser: 'Unknown',
+    os: 'Unknown',
+    device: 'Desktop',
+    bot: 'No'
+  };
+
+  // Bot Detection
+  const botRegex = /(bot|crawler|spider|slurp|yahoo|googlebot|bingbot|yandexbot|duckduckbot|baiduspider|curl|wget)/i;
+  if (botRegex.test(ua)) {
+    result.bot = 'Yes (Bot/Crawler)';
+    result.device = 'Server/Bot';
+  }
+
+  // Device Detection
+  if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+    result.device = 'Tablet';
+  } else if (/Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
+    result.device = 'Mobile';
+  }
+
+  // OS Detection
+  if (/windows nt 10/i.test(ua)) result.os = 'Windows 10/11';
+  else if (/windows nt 6.3/i.test(ua)) result.os = 'Windows 8.1';
+  else if (/windows nt 6.2/i.test(ua)) result.os = 'Windows 8';
+  else if (/windows nt 6.1/i.test(ua)) result.os = 'Windows 7';
+  else if (/windows nt/i.test(ua)) result.os = 'Windows (Older)';
+  else if (/mac os x/i.test(ua)) {
+    const match = ua.match(/mac os x (\d+(_|\.)\d+(_|\.)?\d*)/i);
+    result.os = match ? `macOS ${match[1].replace(/_/g, '.')}` : 'macOS';
+  }
+  else if (/android/i.test(ua)) {
+    const match = ua.match(/android\s([0-9\.]*)/i);
+    result.os = match ? `Android ${match[1]}` : 'Android';
+  }
+  else if (/ios|iphone|ipad|ipod/i.test(ua)) {
+    const match = ua.match(/os (\d+(_|\.)\d+(_|\.)?\d*)/i);
+    result.os = match ? `iOS ${match[1].replace(/_/g, '.')}` : 'iOS';
+  }
+  else if (/linux/i.test(ua)) result.os = 'Linux';
+  else if (/cros/i.test(ua)) result.os = 'Chrome OS';
+
+  // Browser Detection
+  if (/edg/i.test(ua)) {
+    const match = ua.match(/edg\/(\d+)/i);
+    result.browser = match ? `Edge ${match[1]}` : 'Edge';
+  } else if (/opr|opera/i.test(ua)) {
+    const match = ua.match(/(opr|opera)\/(\d+)/i);
+    result.browser = match ? `Opera ${match[2]}` : 'Opera';
+  } else if (/chrome/i.test(ua)) {
+    const match = ua.match(/chrome\/(\d+)/i);
+    result.browser = match ? `Chrome ${match[1]}` : 'Chrome';
+  } else if (/safari/i.test(ua) && !/chrome/i.test(ua)) {
+    const match = ua.match(/version\/(\d+(\.\d+)?)/i);
+    result.browser = match ? `Safari ${match[1]}` : 'Safari';
+  } else if (/firefox|fxios/i.test(ua)) {
+    const match = ua.match(/(firefox|fxios)\/(\d+)/i);
+    result.browser = match ? `Firefox ${match[2]}` : 'Firefox';
+  } else if (/trident/i.test(ua) || /msie/i.test(ua)) {
+    result.browser = 'Internet Explorer';
+  } else if (result.bot !== 'No') {
+    const match = ua.match(/(googlebot|bingbot|yandexbot|duckduckbot|baiduspider|slurp|curl|wget)[\/\s]?(\d+\.\d+|\d+)?/i);
+    if (match) {
+        result.browser = match[1] + (match[2] ? ` ${match[2]}` : '');
+    } else {
+        result.browser = 'Bot/Crawler';
+    }
+  }
+
+  return result;
+}
+
+function updateUI() {
+  const parsed = parseUserAgent(uaInput.value);
+  currentParsedJSON = JSON.stringify(parsed, null, 2);
+
+  resBrowser.textContent = parsed.browser;
+  resOS.textContent = parsed.os;
+  resDevice.textContent = parsed.device;
+  resBot.textContent = parsed.bot;
+
+  // Highlight bot text if yes
+  if (parsed.bot !== 'No' && parsed.bot !== '-') {
+    resBot.style.color = '#ef4444'; // Red for bot
+  } else {
+    resBot.style.color = '#e0e0e0';
+  }
+}
+
+// Event Listeners
+uaInput.addEventListener('input', updateUI);
+
+useMyUABtn.addEventListener('click', () => {
+  uaInput.value = navigator.userAgent;
+  updateUI();
+});
+
+copyResultBtn.addEventListener('click', () => {
+  if (!currentParsedJSON || currentParsedJSON === '{}') return;
+  navigator.clipboard.writeText(currentParsedJSON).then(() => {
+    const originalText = copyResultBtn.innerHTML;
+    copyResultBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied JSON!';
+    copyResultBtn.classList.add('copied');
+    setTimeout(() => {
+      copyResultBtn.innerHTML = originalText;
+      copyResultBtn.classList.remove('copied');
+    }, 2000);
+  });
+});
+
+// Init
+uaInput.value = navigator.userAgent;
+updateUI();
+</script>
+</body>
+</html>
