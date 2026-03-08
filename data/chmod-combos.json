@@ -1,0 +1,1352 @@
+[
+  {
+    "octal": "777",
+    "symbolic": "rwxrwxrwx",
+    "owner": {
+      "read": true,
+      "write": true,
+      "execute": true
+    },
+    "group": {
+      "read": true,
+      "write": true,
+      "execute": true
+    },
+    "others": {
+      "read": true,
+      "write": true,
+      "execute": true
+    },
+    "title": "Owner full access, Group full access, Others full access",
+    "commonUse": "When you need to give absolutely everyone full access. Generally avoid this except in very temporary or strictly isolated environments.",
+    "security": "dangerous",
+    "relatedCommands": [
+      "chmod 777 filename",
+      "chmod -R 777 directory/",
+      "find . -type f -exec chmod 777 {} +"
+    ]
+  },
+  {
+    "octal": "775",
+    "symbolic": "rwxrwxr-x",
+    "owner": {
+      "read": true,
+      "write": true,
+      "execute": true
+    },
+    "group": {
+      "read": true,
+      "write": true,
+      "execute": true
+    },
+    "others": {
+      "read": true,
+      "write": false,
+      "execute": true
+    },
+    "title": "Owner full access, Group full access, Others read and execute",
+    "commonUse": "For shared directories where both the owner and group members need full access, and others can read/execute.",
+    "security": "dangerous",
+    "relatedCommands": [
+      "chmod 775 filename",
+      "chmod -R 775 directory/",
+      "find . -type f -exec chmod 775 {} +"
+    ]
+  },
+  {
+    "octal": "755",
+    "symbolic": "rwxr-xr-x",
+    "owner": {
+      "read": true,
+      "write": true,
+      "execute": true
+    },
+    "group": {
+      "read": true,
+      "write": false,
+      "execute": true
+    },
+    "others": {
+      "read": true,
+      "write": false,
+      "execute": true
+    },
+    "title": "Owner full access, Group read and execute, Others read and execute",
+    "commonUse": "Standard for executable scripts and directories where the owner needs full control but others only need to read and execute/enter.",
+    "security": "moderate",
+    "relatedCommands": [
+      "chmod 755 filename",
+      "chmod -R 755 directory/",
+      "find . -type f -exec chmod 755 {} +"
+    ]
+  },
+  {
+    "octal": "750",
+    "symbolic": "rwxr-x---",
+    "owner": {
+      "read": true,
+      "write": true,
+      "execute": true
+    },
+    "group": {
+      "read": true,
+      "write": false,
+      "execute": true
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "title": "Owner full access, Group read and execute, Others no permissions",
+    "commonUse": "A specific configuration where Owner has full access, group and others have varying access (50).",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 750 filename",
+      "chmod -R 750 directory/",
+      "find . -type f -exec chmod 750 {} +"
+    ]
+  },
+  {
+    "octal": "744",
+    "symbolic": "rwxr--r--",
+    "owner": {
+      "read": true,
+      "write": true,
+      "execute": true
+    },
+    "group": {
+      "read": true,
+      "write": false,
+      "execute": false
+    },
+    "others": {
+      "read": true,
+      "write": false,
+      "execute": false
+    },
+    "title": "Owner full access, Group read, Others read",
+    "commonUse": "A specific configuration where Owner has full access, others can only read.",
+    "security": "moderate",
+    "relatedCommands": [
+      "chmod 744 filename",
+      "chmod -R 744 directory/",
+      "find . -type f -exec chmod 744 {} +"
+    ]
+  },
+  {
+    "octal": "711",
+    "symbolic": "rwx--x--x",
+    "owner": {
+      "read": true,
+      "write": true,
+      "execute": true
+    },
+    "group": {
+      "read": false,
+      "write": false,
+      "execute": true
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": true
+    },
+    "title": "Owner full access, Group execute, Others execute",
+    "commonUse": "A specific configuration where Owner has full access.",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 711 filename",
+      "chmod -R 711 directory/",
+      "find . -type f -exec chmod 711 {} +"
+    ]
+  },
+  {
+    "octal": "700",
+    "symbolic": "rwx------",
+    "owner": {
+      "read": true,
+      "write": true,
+      "execute": true
+    },
+    "group": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "title": "Owner full access, Group no permissions, Others no permissions",
+    "commonUse": "For private directories (like ~/.ssh) where only the owner should have any access at all.",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 700 filename",
+      "chmod -R 700 directory/",
+      "find . -type f -exec chmod 700 {} +"
+    ]
+  },
+  {
+    "octal": "666",
+    "symbolic": "rw-rw-rw-",
+    "owner": {
+      "read": true,
+      "write": true,
+      "execute": false
+    },
+    "group": {
+      "read": true,
+      "write": true,
+      "execute": false
+    },
+    "others": {
+      "read": true,
+      "write": true,
+      "execute": false
+    },
+    "title": "Owner read and write, Group read and write, Others read and write",
+    "commonUse": "When all users need to read and write to a file, but not execute it.",
+    "security": "dangerous",
+    "relatedCommands": [
+      "chmod 666 filename",
+      "chmod -R 666 directory/",
+      "find . -type f -exec chmod 666 {} +"
+    ]
+  },
+  {
+    "octal": "664",
+    "symbolic": "rw-rw-r--",
+    "owner": {
+      "read": true,
+      "write": true,
+      "execute": false
+    },
+    "group": {
+      "read": true,
+      "write": true,
+      "execute": false
+    },
+    "others": {
+      "read": true,
+      "write": false,
+      "execute": false
+    },
+    "title": "Owner read and write, Group read and write, Others read",
+    "commonUse": "For shared files where both the owner and group members can edit, and others can read.",
+    "security": "dangerous",
+    "relatedCommands": [
+      "chmod 664 filename",
+      "chmod -R 664 directory/",
+      "find . -type f -exec chmod 664 {} +"
+    ]
+  },
+  {
+    "octal": "655",
+    "symbolic": "rw-r-xr-x",
+    "owner": {
+      "read": true,
+      "write": true,
+      "execute": false
+    },
+    "group": {
+      "read": true,
+      "write": false,
+      "execute": true
+    },
+    "others": {
+      "read": true,
+      "write": false,
+      "execute": true
+    },
+    "title": "Owner read and write, Group read and execute, Others read and execute",
+    "commonUse": "A specific configuration where Owner can read and write, others can read and execute.",
+    "security": "moderate",
+    "relatedCommands": [
+      "chmod 655 filename",
+      "chmod -R 655 directory/",
+      "find . -type f -exec chmod 655 {} +"
+    ]
+  },
+  {
+    "octal": "644",
+    "symbolic": "rw-r--r--",
+    "owner": {
+      "read": true,
+      "write": true,
+      "execute": false
+    },
+    "group": {
+      "read": true,
+      "write": false,
+      "execute": false
+    },
+    "others": {
+      "read": true,
+      "write": false,
+      "execute": false
+    },
+    "title": "Owner read and write, Group read, Others read",
+    "commonUse": "Standard for most files (like HTML, text, or config files). The owner can edit, and everyone else can only read.",
+    "security": "moderate",
+    "relatedCommands": [
+      "chmod 644 filename",
+      "chmod -R 644 directory/",
+      "find . -type f -exec chmod 644 {} +"
+    ]
+  },
+  {
+    "octal": "640",
+    "symbolic": "rw-r-----",
+    "owner": {
+      "read": true,
+      "write": true,
+      "execute": false
+    },
+    "group": {
+      "read": true,
+      "write": false,
+      "execute": false
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "title": "Owner read and write, Group read, Others no permissions",
+    "commonUse": "A specific configuration where Owner can read and write, group and others have varying access (40).",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 640 filename",
+      "chmod -R 640 directory/",
+      "find . -type f -exec chmod 640 {} +"
+    ]
+  },
+  {
+    "octal": "600",
+    "symbolic": "rw-------",
+    "owner": {
+      "read": true,
+      "write": true,
+      "execute": false
+    },
+    "group": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "title": "Owner read and write, Group no permissions, Others no permissions",
+    "commonUse": "For private files (like SSH keys or config files with passwords) where only the owner can read and write.",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 600 filename",
+      "chmod -R 600 directory/",
+      "find . -type f -exec chmod 600 {} +"
+    ]
+  },
+  {
+    "octal": "555",
+    "symbolic": "r-xr-xr-x",
+    "owner": {
+      "read": true,
+      "write": false,
+      "execute": true
+    },
+    "group": {
+      "read": true,
+      "write": false,
+      "execute": true
+    },
+    "others": {
+      "read": true,
+      "write": false,
+      "execute": true
+    },
+    "title": "Owner read and execute, Group read and execute, Others read and execute",
+    "commonUse": "A specific configuration where Owner can read and execute, others can read and execute.",
+    "security": "moderate",
+    "relatedCommands": [
+      "chmod 555 filename",
+      "chmod -R 555 directory/",
+      "find . -type f -exec chmod 555 {} +"
+    ]
+  },
+  {
+    "octal": "551",
+    "symbolic": "r-xr-x--x",
+    "owner": {
+      "read": true,
+      "write": false,
+      "execute": true
+    },
+    "group": {
+      "read": true,
+      "write": false,
+      "execute": true
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": true
+    },
+    "title": "Owner read and execute, Group read and execute, Others execute",
+    "commonUse": "A specific configuration where Owner can read and execute, group and others have varying access (51).",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 551 filename",
+      "chmod -R 551 directory/",
+      "find . -type f -exec chmod 551 {} +"
+    ]
+  },
+  {
+    "octal": "544",
+    "symbolic": "r-xr--r--",
+    "owner": {
+      "read": true,
+      "write": false,
+      "execute": true
+    },
+    "group": {
+      "read": true,
+      "write": false,
+      "execute": false
+    },
+    "others": {
+      "read": true,
+      "write": false,
+      "execute": false
+    },
+    "title": "Owner read and execute, Group read, Others read",
+    "commonUse": "A specific configuration where Owner can read and execute, others can only read.",
+    "security": "moderate",
+    "relatedCommands": [
+      "chmod 544 filename",
+      "chmod -R 544 directory/",
+      "find . -type f -exec chmod 544 {} +"
+    ]
+  },
+  {
+    "octal": "511",
+    "symbolic": "r-x--x--x",
+    "owner": {
+      "read": true,
+      "write": false,
+      "execute": true
+    },
+    "group": {
+      "read": false,
+      "write": false,
+      "execute": true
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": true
+    },
+    "title": "Owner read and execute, Group execute, Others execute",
+    "commonUse": "A specific configuration where Owner can read and execute.",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 511 filename",
+      "chmod -R 511 directory/",
+      "find . -type f -exec chmod 511 {} +"
+    ]
+  },
+  {
+    "octal": "500",
+    "symbolic": "r-x------",
+    "owner": {
+      "read": true,
+      "write": false,
+      "execute": true
+    },
+    "group": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "title": "Owner read and execute, Group no permissions, Others no permissions",
+    "commonUse": "A specific configuration where Owner can read and execute, no one else has access.",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 500 filename",
+      "chmod -R 500 directory/",
+      "find . -type f -exec chmod 500 {} +"
+    ]
+  },
+  {
+    "octal": "477",
+    "symbolic": "r--rwxrwx",
+    "owner": {
+      "read": true,
+      "write": false,
+      "execute": false
+    },
+    "group": {
+      "read": true,
+      "write": true,
+      "execute": true
+    },
+    "others": {
+      "read": true,
+      "write": true,
+      "execute": true
+    },
+    "title": "Owner read, Group full access, Others full access",
+    "commonUse": "A specific configuration where Owner can only read.",
+    "security": "dangerous",
+    "relatedCommands": [
+      "chmod 477 filename",
+      "chmod -R 477 directory/",
+      "find . -type f -exec chmod 477 {} +"
+    ]
+  },
+  {
+    "octal": "444",
+    "symbolic": "r--r--r--",
+    "owner": {
+      "read": true,
+      "write": false,
+      "execute": false
+    },
+    "group": {
+      "read": true,
+      "write": false,
+      "execute": false
+    },
+    "others": {
+      "read": true,
+      "write": false,
+      "execute": false
+    },
+    "title": "Owner read, Group read, Others read",
+    "commonUse": "For read-only files that should not be modified by anyone, including the owner.",
+    "security": "moderate",
+    "relatedCommands": [
+      "chmod 444 filename",
+      "chmod -R 444 directory/",
+      "find . -type f -exec chmod 444 {} +"
+    ]
+  },
+  {
+    "octal": "400",
+    "symbolic": "r--------",
+    "owner": {
+      "read": true,
+      "write": false,
+      "execute": false
+    },
+    "group": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "title": "Owner read, Group no permissions, Others no permissions",
+    "commonUse": "A specific configuration where Owner can only read, no one else has access.",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 400 filename",
+      "chmod -R 400 directory/",
+      "find . -type f -exec chmod 400 {} +"
+    ]
+  },
+  {
+    "octal": "333",
+    "symbolic": "-wx-wx-wx",
+    "owner": {
+      "read": false,
+      "write": true,
+      "execute": true
+    },
+    "group": {
+      "read": false,
+      "write": true,
+      "execute": true
+    },
+    "others": {
+      "read": false,
+      "write": true,
+      "execute": true
+    },
+    "title": "Owner write and execute, Group write and execute, Others write and execute",
+    "commonUse": "A specific configuration where Owner has specific access (3).",
+    "security": "moderate",
+    "relatedCommands": [
+      "chmod 333 filename",
+      "chmod -R 333 directory/",
+      "find . -type f -exec chmod 333 {} +"
+    ]
+  },
+  {
+    "octal": "311",
+    "symbolic": "-wx--x--x",
+    "owner": {
+      "read": false,
+      "write": true,
+      "execute": true
+    },
+    "group": {
+      "read": false,
+      "write": false,
+      "execute": true
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": true
+    },
+    "title": "Owner write and execute, Group execute, Others execute",
+    "commonUse": "A specific configuration where Owner has specific access (3).",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 311 filename",
+      "chmod -R 311 directory/",
+      "find . -type f -exec chmod 311 {} +"
+    ]
+  },
+  {
+    "octal": "300",
+    "symbolic": "-wx------",
+    "owner": {
+      "read": false,
+      "write": true,
+      "execute": true
+    },
+    "group": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "title": "Owner write and execute, Group no permissions, Others no permissions",
+    "commonUse": "A specific configuration where Owner has specific access (3), no one else has access.",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 300 filename",
+      "chmod -R 300 directory/",
+      "find . -type f -exec chmod 300 {} +"
+    ]
+  },
+  {
+    "octal": "222",
+    "symbolic": "-w--w--w-",
+    "owner": {
+      "read": false,
+      "write": true,
+      "execute": false
+    },
+    "group": {
+      "read": false,
+      "write": true,
+      "execute": false
+    },
+    "others": {
+      "read": false,
+      "write": true,
+      "execute": false
+    },
+    "title": "Owner write, Group write, Others write",
+    "commonUse": "A specific configuration where Owner has specific access (2).",
+    "security": "moderate",
+    "relatedCommands": [
+      "chmod 222 filename",
+      "chmod -R 222 directory/",
+      "find . -type f -exec chmod 222 {} +"
+    ]
+  },
+  {
+    "octal": "200",
+    "symbolic": "-w-------",
+    "owner": {
+      "read": false,
+      "write": true,
+      "execute": false
+    },
+    "group": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "title": "Owner write, Group no permissions, Others no permissions",
+    "commonUse": "A specific configuration where Owner has specific access (2), no one else has access.",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 200 filename",
+      "chmod -R 200 directory/",
+      "find . -type f -exec chmod 200 {} +"
+    ]
+  },
+  {
+    "octal": "111",
+    "symbolic": "--x--x--x",
+    "owner": {
+      "read": false,
+      "write": false,
+      "execute": true
+    },
+    "group": {
+      "read": false,
+      "write": false,
+      "execute": true
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": true
+    },
+    "title": "Owner execute, Group execute, Others execute",
+    "commonUse": "A specific configuration where Owner has specific access (1).",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 111 filename",
+      "chmod -R 111 directory/",
+      "find . -type f -exec chmod 111 {} +"
+    ]
+  },
+  {
+    "octal": "100",
+    "symbolic": "--x------",
+    "owner": {
+      "read": false,
+      "write": false,
+      "execute": true
+    },
+    "group": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "title": "Owner execute, Group no permissions, Others no permissions",
+    "commonUse": "A specific configuration where Owner has specific access (1), no one else has access.",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 100 filename",
+      "chmod -R 100 directory/",
+      "find . -type f -exec chmod 100 {} +"
+    ]
+  },
+  {
+    "octal": "000",
+    "symbolic": "---------",
+    "owner": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "group": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "title": "Owner no permissions, Group no permissions, Others no permissions",
+    "commonUse": "When you want to remove all permissions from a file, effectively locking everyone out.",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 000 filename",
+      "chmod -R 000 directory/",
+      "find . -type f -exec chmod 000 {} +"
+    ]
+  },
+  {
+    "octal": "770",
+    "symbolic": "rwxrwx---",
+    "owner": {
+      "read": true,
+      "write": true,
+      "execute": true
+    },
+    "group": {
+      "read": true,
+      "write": true,
+      "execute": true
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "title": "Owner full access, Group full access, Others no permissions",
+    "commonUse": "A specific configuration where Owner has full access, group and others have varying access (70).",
+    "security": "moderate",
+    "relatedCommands": [
+      "chmod 770 filename",
+      "chmod -R 770 directory/",
+      "find . -type f -exec chmod 770 {} +"
+    ]
+  },
+  {
+    "octal": "660",
+    "symbolic": "rw-rw----",
+    "owner": {
+      "read": true,
+      "write": true,
+      "execute": false
+    },
+    "group": {
+      "read": true,
+      "write": true,
+      "execute": false
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "title": "Owner read and write, Group read and write, Others no permissions",
+    "commonUse": "A specific configuration where Owner can read and write, group and others have varying access (60).",
+    "security": "moderate",
+    "relatedCommands": [
+      "chmod 660 filename",
+      "chmod -R 660 directory/",
+      "find . -type f -exec chmod 660 {} +"
+    ]
+  },
+  {
+    "octal": "550",
+    "symbolic": "r-xr-x---",
+    "owner": {
+      "read": true,
+      "write": false,
+      "execute": true
+    },
+    "group": {
+      "read": true,
+      "write": false,
+      "execute": true
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "title": "Owner read and execute, Group read and execute, Others no permissions",
+    "commonUse": "A specific configuration where Owner can read and execute, group and others have varying access (50).",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 550 filename",
+      "chmod -R 550 directory/",
+      "find . -type f -exec chmod 550 {} +"
+    ]
+  },
+  {
+    "octal": "440",
+    "symbolic": "r--r-----",
+    "owner": {
+      "read": true,
+      "write": false,
+      "execute": false
+    },
+    "group": {
+      "read": true,
+      "write": false,
+      "execute": false
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "title": "Owner read, Group read, Others no permissions",
+    "commonUse": "A specific configuration where Owner can only read, group and others have varying access (40).",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 440 filename",
+      "chmod -R 440 directory/",
+      "find . -type f -exec chmod 440 {} +"
+    ]
+  },
+  {
+    "octal": "330",
+    "symbolic": "-wx-wx---",
+    "owner": {
+      "read": false,
+      "write": true,
+      "execute": true
+    },
+    "group": {
+      "read": false,
+      "write": true,
+      "execute": true
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "title": "Owner write and execute, Group write and execute, Others no permissions",
+    "commonUse": "A specific configuration where Owner has specific access (3), group and others have varying access (30).",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 330 filename",
+      "chmod -R 330 directory/",
+      "find . -type f -exec chmod 330 {} +"
+    ]
+  },
+  {
+    "octal": "220",
+    "symbolic": "-w--w----",
+    "owner": {
+      "read": false,
+      "write": true,
+      "execute": false
+    },
+    "group": {
+      "read": false,
+      "write": true,
+      "execute": false
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "title": "Owner write, Group write, Others no permissions",
+    "commonUse": "A specific configuration where Owner has specific access (2), group and others have varying access (20).",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 220 filename",
+      "chmod -R 220 directory/",
+      "find . -type f -exec chmod 220 {} +"
+    ]
+  },
+  {
+    "octal": "110",
+    "symbolic": "--x--x---",
+    "owner": {
+      "read": false,
+      "write": false,
+      "execute": true
+    },
+    "group": {
+      "read": false,
+      "write": false,
+      "execute": true
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "title": "Owner execute, Group execute, Others no permissions",
+    "commonUse": "A specific configuration where Owner has specific access (1), group and others have varying access (10).",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 110 filename",
+      "chmod -R 110 directory/",
+      "find . -type f -exec chmod 110 {} +"
+    ]
+  },
+  {
+    "octal": "754",
+    "symbolic": "rwxr-xr--",
+    "owner": {
+      "read": true,
+      "write": true,
+      "execute": true
+    },
+    "group": {
+      "read": true,
+      "write": false,
+      "execute": true
+    },
+    "others": {
+      "read": true,
+      "write": false,
+      "execute": false
+    },
+    "title": "Owner full access, Group read and execute, Others read",
+    "commonUse": "A specific configuration where Owner has full access, group and others have varying access (54).",
+    "security": "moderate",
+    "relatedCommands": [
+      "chmod 754 filename",
+      "chmod -R 754 directory/",
+      "find . -type f -exec chmod 754 {} +"
+    ]
+  },
+  {
+    "octal": "740",
+    "symbolic": "rwxr-----",
+    "owner": {
+      "read": true,
+      "write": true,
+      "execute": true
+    },
+    "group": {
+      "read": true,
+      "write": false,
+      "execute": false
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "title": "Owner full access, Group read, Others no permissions",
+    "commonUse": "A specific configuration where Owner has full access, group and others have varying access (40).",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 740 filename",
+      "chmod -R 740 directory/",
+      "find . -type f -exec chmod 740 {} +"
+    ]
+  },
+  {
+    "octal": "731",
+    "symbolic": "rwx-wx--x",
+    "owner": {
+      "read": true,
+      "write": true,
+      "execute": true
+    },
+    "group": {
+      "read": false,
+      "write": true,
+      "execute": true
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": true
+    },
+    "title": "Owner full access, Group write and execute, Others execute",
+    "commonUse": "A specific configuration where Owner has full access, group and others have varying access (31).",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 731 filename",
+      "chmod -R 731 directory/",
+      "find . -type f -exec chmod 731 {} +"
+    ]
+  },
+  {
+    "octal": "721",
+    "symbolic": "rwx-w---x",
+    "owner": {
+      "read": true,
+      "write": true,
+      "execute": true
+    },
+    "group": {
+      "read": false,
+      "write": true,
+      "execute": false
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": true
+    },
+    "title": "Owner full access, Group write, Others execute",
+    "commonUse": "A specific configuration where Owner has full access, group and others have varying access (21).",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 721 filename",
+      "chmod -R 721 directory/",
+      "find . -type f -exec chmod 721 {} +"
+    ]
+  },
+  {
+    "octal": "710",
+    "symbolic": "rwx--x---",
+    "owner": {
+      "read": true,
+      "write": true,
+      "execute": true
+    },
+    "group": {
+      "read": false,
+      "write": false,
+      "execute": true
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "title": "Owner full access, Group execute, Others no permissions",
+    "commonUse": "A specific configuration where Owner has full access, group and others have varying access (10).",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 710 filename",
+      "chmod -R 710 directory/",
+      "find . -type f -exec chmod 710 {} +"
+    ]
+  },
+  {
+    "octal": "653",
+    "symbolic": "rw-r-x-wx",
+    "owner": {
+      "read": true,
+      "write": true,
+      "execute": false
+    },
+    "group": {
+      "read": true,
+      "write": false,
+      "execute": true
+    },
+    "others": {
+      "read": false,
+      "write": true,
+      "execute": true
+    },
+    "title": "Owner read and write, Group read and execute, Others write and execute",
+    "commonUse": "A specific configuration where Owner can read and write, group and others have varying access (53).",
+    "security": "moderate",
+    "relatedCommands": [
+      "chmod 653 filename",
+      "chmod -R 653 directory/",
+      "find . -type f -exec chmod 653 {} +"
+    ]
+  },
+  {
+    "octal": "651",
+    "symbolic": "rw-r-x--x",
+    "owner": {
+      "read": true,
+      "write": true,
+      "execute": false
+    },
+    "group": {
+      "read": true,
+      "write": false,
+      "execute": true
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": true
+    },
+    "title": "Owner read and write, Group read and execute, Others execute",
+    "commonUse": "A specific configuration where Owner can read and write, group and others have varying access (51).",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 651 filename",
+      "chmod -R 651 directory/",
+      "find . -type f -exec chmod 651 {} +"
+    ]
+  },
+  {
+    "octal": "642",
+    "symbolic": "rw-r---w-",
+    "owner": {
+      "read": true,
+      "write": true,
+      "execute": false
+    },
+    "group": {
+      "read": true,
+      "write": false,
+      "execute": false
+    },
+    "others": {
+      "read": false,
+      "write": true,
+      "execute": false
+    },
+    "title": "Owner read and write, Group read, Others write",
+    "commonUse": "A specific configuration where Owner can read and write, group and others have varying access (42).",
+    "security": "moderate",
+    "relatedCommands": [
+      "chmod 642 filename",
+      "chmod -R 642 directory/",
+      "find . -type f -exec chmod 642 {} +"
+    ]
+  },
+  {
+    "octal": "631",
+    "symbolic": "rw--wx--x",
+    "owner": {
+      "read": true,
+      "write": true,
+      "execute": false
+    },
+    "group": {
+      "read": false,
+      "write": true,
+      "execute": true
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": true
+    },
+    "title": "Owner read and write, Group write and execute, Others execute",
+    "commonUse": "A specific configuration where Owner can read and write, group and others have varying access (31).",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 631 filename",
+      "chmod -R 631 directory/",
+      "find . -type f -exec chmod 631 {} +"
+    ]
+  },
+  {
+    "octal": "621",
+    "symbolic": "rw--w---x",
+    "owner": {
+      "read": true,
+      "write": true,
+      "execute": false
+    },
+    "group": {
+      "read": false,
+      "write": true,
+      "execute": false
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": true
+    },
+    "title": "Owner read and write, Group write, Others execute",
+    "commonUse": "A specific configuration where Owner can read and write, group and others have varying access (21).",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 621 filename",
+      "chmod -R 621 directory/",
+      "find . -type f -exec chmod 621 {} +"
+    ]
+  },
+  {
+    "octal": "610",
+    "symbolic": "rw---x---",
+    "owner": {
+      "read": true,
+      "write": true,
+      "execute": false
+    },
+    "group": {
+      "read": false,
+      "write": false,
+      "execute": true
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": false
+    },
+    "title": "Owner read and write, Group execute, Others no permissions",
+    "commonUse": "A specific configuration where Owner can read and write, group and others have varying access (10).",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 610 filename",
+      "chmod -R 610 directory/",
+      "find . -type f -exec chmod 610 {} +"
+    ]
+  },
+  {
+    "octal": "543",
+    "symbolic": "r-xr---wx",
+    "owner": {
+      "read": true,
+      "write": false,
+      "execute": true
+    },
+    "group": {
+      "read": true,
+      "write": false,
+      "execute": false
+    },
+    "others": {
+      "read": false,
+      "write": true,
+      "execute": true
+    },
+    "title": "Owner read and execute, Group read, Others write and execute",
+    "commonUse": "A specific configuration where Owner can read and execute, group and others have varying access (43).",
+    "security": "moderate",
+    "relatedCommands": [
+      "chmod 543 filename",
+      "chmod -R 543 directory/",
+      "find . -type f -exec chmod 543 {} +"
+    ]
+  },
+  {
+    "octal": "531",
+    "symbolic": "r-x-wx--x",
+    "owner": {
+      "read": true,
+      "write": false,
+      "execute": true
+    },
+    "group": {
+      "read": false,
+      "write": true,
+      "execute": true
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": true
+    },
+    "title": "Owner read and execute, Group write and execute, Others execute",
+    "commonUse": "A specific configuration where Owner can read and execute, group and others have varying access (31).",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 531 filename",
+      "chmod -R 531 directory/",
+      "find . -type f -exec chmod 531 {} +"
+    ]
+  },
+  {
+    "octal": "521",
+    "symbolic": "r-x-w---x",
+    "owner": {
+      "read": true,
+      "write": false,
+      "execute": true
+    },
+    "group": {
+      "read": false,
+      "write": true,
+      "execute": false
+    },
+    "others": {
+      "read": false,
+      "write": false,
+      "execute": true
+    },
+    "title": "Owner read and execute, Group write, Others execute",
+    "commonUse": "A specific configuration where Owner can read and execute, group and others have varying access (21).",
+    "security": "safe",
+    "relatedCommands": [
+      "chmod 521 filename",
+      "chmod -R 521 directory/",
+      "find . -type f -exec chmod 521 {} +"
+    ]
+  }
+]

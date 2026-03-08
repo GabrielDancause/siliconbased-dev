@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>chmod 544 (r-xr--r--) — Linux File Permissions Explained</title>
+  <meta name="description" content="What does chmod 544 do? Learn about the r-xr--r-- permission, when to use it, and see examples. Owner read and execute, Group read, Others read">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #0a0b10;
+      --card-bg: #111318;
+      --border-color: #1e2030;
+      --accent-color: #818cf8;
+      --text-primary: #e0e0e0;
+      --text-secondary: #888888;
+
+      --safe-color: #22c55e;
+      --moderate-color: #eab308;
+      --dangerous-color: #ef4444;
+
+      --safe-bg: rgba(34, 197, 94, 0.1);
+      --moderate-bg: rgba(234, 179, 8, 0.1);
+      --dangerous-bg: rgba(239, 68, 68, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 1rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      width: 100%;
+      flex-grow: 1;
+      padding-bottom: 3rem;
+    }
+
+    header {
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    h1 .code-font {
+      color: var(--accent-color);
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .code-font {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 640px) {
+      .hero-section {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+    }
+
+    .octal-display {
+      font-size: 6rem;
+      font-weight: 900;
+      line-height: 1;
+      color: var(--accent-color);
+      text-align: center;
+    }
+
+    .symbolic-display {
+      font-size: 1.5rem;
+      color: var(--text-secondary);
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    .hero-details {
+      flex: 1;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .badge-safe {
+      background-color: var(--safe-bg);
+      color: var(--safe-color);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+
+    .badge-moderate {
+      background-color: var(--moderate-bg);
+      color: var(--moderate-color);
+      border: 1px solid rgba(234, 179, 8, 0.2);
+    }
+
+    .badge-dangerous {
+      background-color: var(--dangerous-bg);
+      color: var(--dangerous-color);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+
+    .description {
+      font-size: 1.125rem;
+      color: var(--text-primary);
+    }
+
+    .permission-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    @media (min-width: 640px) {
+      .permission-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .grid-col {
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .col-header {
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 0.75rem;
+      text-align: center;
+      font-weight: 600;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .perm-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .perm-row:last-child {
+      border-bottom: none;
+    }
+
+    .perm-name {
+      color: var(--text-secondary);
+    }
+
+    .perm-icon {
+      font-weight: bold;
+    }
+
+    .perm-yes {
+      color: var(--safe-color);
+    }
+
+    .perm-no {
+      color: var(--text-secondary);
+      opacity: 0.5;
+    }
+
+    .commands-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .command-box {
+      background-color: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 1rem;
+      position: relative;
+    }
+
+    .command-box code {
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      word-break: break-all;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+
+    .related-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1rem;
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: all 0.2s ease;
+    }
+
+    .related-link:hover {
+      background-color: rgba(129, 140, 248, 0.1);
+      border-color: var(--accent-color);
+      transform: translateY(-2px);
+    }
+
+    .related-octal {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      margin-bottom: 0.25rem;
+    }
+
+    .related-symbolic {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .nav-links {
+      margin-top: 3rem;
+      text-align: center;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: var(--accent-color);
+      color: #fff;
+      text-decoration: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: background-color 0.2s;
+    }
+
+    .btn:hover {
+      background-color: #6366f1;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      margin-top: auto;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    footer a {
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+
+  <script type="application/ld+json">
+    {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "chmod 544 (r-xr--r--) — Linux File Permissions Explained",
+  "description": "A specific configuration where Owner can read and execute, others can only read.",
+  "url": "https://siliconbased.dev/chmod/544.html"
+}
+  </script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>chmod <span class="code-font">544</span> — r-xr--r--</h1>
+    </header>
+
+    <div class="card hero-section">
+      <div>
+        <div class="octal-display code-font">544</div>
+        <div class="symbolic-display code-font">r-xr--r--</div>
+      </div>
+
+      <div class="hero-details">
+        <span class="badge badge-moderate">Moderate Risk</span>
+        <p class="description"><strong>Owner read and execute, Group read, Others read</strong></p>
+      </div>
+    </div>
+
+    <h2>What does chmod 544 do?</h2>
+    <div class="card">
+      <p>The permission <code class="code-font">544</code> grants specific access rights to three different groups of users:</p>
+
+      <div class="permission-grid">
+
+      <div class="grid-col">
+        <div class="col-header">Owner (User)</div>
+
+    <div class="perm-row">
+      <span class="perm-name">Read (r)</span>
+      <span class="perm-icon perm-yes">✓</span>
+    </div>
+
+
+    <div class="perm-row">
+      <span class="perm-name">Write (w)</span>
+      <span class="perm-icon perm-no">✗</span>
+    </div>
+
+
+    <div class="perm-row">
+      <span class="perm-name">Execute (x)</span>
+      <span class="perm-icon perm-yes">✓</span>
+    </div>
+
+      </div>
+
+      <div class="grid-col">
+        <div class="col-header">Group</div>
+
+    <div class="perm-row">
+      <span class="perm-name">Read (r)</span>
+      <span class="perm-icon perm-yes">✓</span>
+    </div>
+
+
+    <div class="perm-row">
+      <span class="perm-name">Write (w)</span>
+      <span class="perm-icon perm-no">✗</span>
+    </div>
+
+
+    <div class="perm-row">
+      <span class="perm-name">Execute (x)</span>
+      <span class="perm-icon perm-no">✗</span>
+    </div>
+
+      </div>
+
+      <div class="grid-col">
+        <div class="col-header">Others (Public)</div>
+
+    <div class="perm-row">
+      <span class="perm-name">Read (r)</span>
+      <span class="perm-icon perm-yes">✓</span>
+    </div>
+
+
+    <div class="perm-row">
+      <span class="perm-name">Write (w)</span>
+      <span class="perm-icon perm-no">✗</span>
+    </div>
+
+
+    <div class="perm-row">
+      <span class="perm-name">Execute (x)</span>
+      <span class="perm-icon perm-no">✗</span>
+    </div>
+
+      </div>
+
+      </div>
+    </div>
+
+    <h2>When to use chmod 544</h2>
+    <div class="card">
+      <p>A specific configuration where Owner can read and execute, others can only read.</p>
+    </div>
+
+    <h2>Ready-to-copy Commands</h2>
+    <div class="card">
+      <div class="commands-list">
+        <div class="command-box">
+          <code class="code-font">chmod 544 filename</code>
+        </div>
+        <div class="command-box">
+          <code class="code-font">chmod -R 544 directory/</code>
+        </div>
+        <div class="command-box">
+          <code class="code-font">find . -type f -exec chmod 544 {} +</code>
+        </div>
+      </div>
+    </div>
+
+    <h2>Related chmod values</h2>
+    <div class="related-grid">
+
+      <a href="/chmod/543.html" class="related-link">
+        <span class="related-octal code-font">543</span>
+        <span class="related-symbolic code-font">r-xr---wx</span>
+      </a>
+
+      <a href="/chmod/555.html" class="related-link">
+        <span class="related-octal code-font">555</span>
+        <span class="related-symbolic code-font">r-xr-xr-x</span>
+      </a>
+
+      <a href="/chmod/551.html" class="related-link">
+        <span class="related-octal code-font">551</span>
+        <span class="related-symbolic code-font">r-xr-x--x</span>
+      </a>
+
+      <a href="/chmod/511.html" class="related-link">
+        <span class="related-octal code-font">511</span>
+        <span class="related-symbolic code-font">r-x--x--x</span>
+      </a>
+
+      <a href="/chmod/500.html" class="related-link">
+        <span class="related-octal code-font">500</span>
+        <span class="related-symbolic code-font">r-x------</span>
+      </a>
+
+    </div>
+
+    <div class="nav-links">
+      <a href="/chmod-calculator" class="btn">Full chmod Calculator →</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 siliconbased.dev &middot; A GAB Ventures property</p>
+    <p><a href="https://gab.ae" target="_blank" rel="noopener noreferrer">gab.ae</a></p>
+  </footer>
+</body>
+</html>
