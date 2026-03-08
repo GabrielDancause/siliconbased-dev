@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevBox — Paste Anything, Decode Everything | Developer Swiss Army Knife</title>
+<meta name="description" content="Free universal developer tool: paste JSON, JWT, base64, timestamps, regex, cron, colors, URLs, CSV, or SQL and instantly get conversions, formatting, validation, and visual breakdowns.">
+<meta property="og:title" content="DevBox — Paste Anything, Decode Everything">
+<meta property="og:description" content="The developer Swiss Army knife. Auto-detects JSON, JWT, base64, timestamps, cron, colors, regex, and 10+ formats.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "DevBox",
+  "url": "https://siliconbased.dev/devbox",
+  "description": "Universal developer tool that auto-detects and converts JSON, JWT, base64, timestamps, cron expressions, colors, regex, CSV, and more.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+.hero { text-align: center; padding: 48px 24px 24px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.4rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #666; font-size: 0.95rem; }
+.main { max-width: 900px; margin: 0 auto; padding: 24px 20px 80px; }
+.input-zone { position: relative; margin-bottom: 24px; }
+.input-zone textarea { width: 100%; min-height: 140px; background: #111318; border: 2px solid #1e2030; border-radius: 16px; padding: 20px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; resize: vertical; outline: none; transition: border-color 0.2s; line-height: 1.6; }
+.input-zone textarea:focus { border-color: #818cf8; }
+.input-zone textarea::placeholder { color: #444; }
+.clear-btn { position: absolute; top: 12px; right: 14px; background: #1e2030; border: none; color: #888; padding: 4px 12px; border-radius: 8px; font-size: 0.75rem; cursor: pointer; font-family: 'Inter', sans-serif; }
+.clear-btn:hover { background: #2a2d40; color: #ccc; }
+.detection { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+.detect-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 600; background: #1a1d2e; color: #818cf8; border: 1px solid #2a2d4e; transition: all 0.3s; }
+.detect-badge.active { background: #1e1b4b; border-color: #818cf8; box-shadow: 0 0 20px rgba(129,140,248,0.15); }
+.detect-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: #818cf8; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+.results { display: flex; flex-direction: column; gap: 16px; }
+.result-card { background: #111318; border: 1px solid #1e2030; border-radius: 14px; overflow: hidden; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.result-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; background: #13151d; border-bottom: 1px solid #1e2030; }
+.result-header h3 { font-size: 0.85rem; font-weight: 600; color: #ccc; display: flex; align-items: center; gap: 8px; }
+.result-header .sub { font-weight: 400; color: #555; font-size: 0.75rem; margin-left: 6px; }
+.copy-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 4px 12px; border-radius: 8px; font-size: 0.72rem; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.copy-btn:hover { background: #2a2d40; color: #ccc; }
+.copy-btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+.result-body { padding: 16px 18px; }
+.result-body pre { font-size: 0.82rem; line-height: 1.7; white-space: pre-wrap; word-break: break-all; color: #b0b8d0; max-height: 400px; overflow-y: auto; }
+.kv-grid { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; align-items: baseline; }
+.kv-key { font-size: 0.78rem; color: #666; font-weight: 500; text-transform: uppercase; letter-spacing: 0.3px; }
+.kv-val { font-size: 0.88rem; color: #c8d0e8; font-family: 'JetBrains Mono', monospace; word-break: break-all; }
+.kv-val.hl { color: #818cf8; }
+.color-swatch { width: 100%; height: 80px; border-radius: 10px; margin-bottom: 14px; border: 1px solid #222; }
+.color-variants { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-top: 12px; }
+.color-var { display: flex; align-items: center; gap: 10px; background: #0d0e14; padding: 10px 14px; border-radius: 10px; }
+.color-dot { width: 28px; height: 28px; border-radius: 6px; flex-shrink: 0; border: 1px solid #222; }
+.color-label { font-size: 0.72rem; color: #666; }
+.color-value { font-size: 0.8rem; color: #b0b8d0; font-family: 'JetBrains Mono', monospace; }
+.cron-visual { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.cron-part { background: #1a1d2e; border: 1px solid #2a2d4e; border-radius: 10px; padding: 10px 14px; text-align: center; min-width: 80px; }
+.cron-part .val { font-size: 1.1rem; font-weight: 700; color: #818cf8; font-family: 'JetBrains Mono', monospace; }
+.cron-part .lbl { font-size: 0.68rem; color: #555; text-transform: uppercase; margin-top: 4px; }
+.regex-test-area { margin-top: 12px; }
+.regex-test-area textarea { width: 100%; min-height: 60px; background: #0d0e14; border: 1px solid #1e2030; border-radius: 10px; padding: 12px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; outline: none; resize: vertical; }
+.regex-test-area textarea:focus { border-color: #818cf8; }
+.jwt-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.jwt-header-label { color: #f87171; }
+.jwt-payload-label { color: #818cf8; }
+.jwt-sig-label { color: #4ade80; }
+.empty-state { text-align: center; padding: 80px 24px; color: #333; }
+.empty-state .big-icon { font-size: 3rem; margin-bottom: 16px; opacity: 0.5; }
+.empty-state p { font-size: 0.9rem; margin-bottom: 8px; }
+.empty-state .hints { font-size: 0.78rem; color: #444; line-height: 2; }
+.empty-state .hints code { background: #111318; padding: 2px 8px; border-radius: 4px; color: #818cf8; font-size: 0.75rem; }
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #333; border-top: 1px solid #151520; }
+.footer a { color: #818cf8; text-decoration: none; }
+@media (max-width: 600px) {
+  .hero h1 { font-size: 1.8rem; }
+  .main { padding: 16px 14px 60px; }
+  .kv-grid { grid-template-columns: 1fr; gap: 2px 0; }
+  .kv-key { margin-top: 8px; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Dev<span>Box</span> ⚡</h1>
+  <p>Paste anything. We'll figure it out.</p>
+</div>
+
+<div class="main">
+  <div class="input-zone">
+    <textarea id="input" placeholder="Paste JSON, JWT, base64, timestamp, color, cron, regex, URL, CSV, HTML, SQL... anything." spellcheck="false"></textarea>
+    <button class="clear-btn" id="clearBtn" style="display:none;">Clear</button>
+  </div>
+  <div class="detection" id="detection"></div>
+  <div class="results" id="results">
+    <div class="empty-state" id="emptyState">
+      <div class="big-icon">⚡</div>
+      <p>Paste something to get started</p>
+      <div class="hints">
+        Try: <code>{"name":"test"}</code> · <code>#ff6b35</code> · <code>1719849600</code> · <code>eyJhbGciOi...</code><br>
+        <code>*/5 * * * *</code> · <code>^[a-z]+@[a-z]+\.[a-z]{2,}$</code> · <code>aGVsbG8gd29ybGQ=</code> · <code>SELECT * FROM</code>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+var input = document.getElementById('input');
+var results = document.getElementById('results');
+var detection = document.getElementById('detection');
+var emptyState = document.getElementById('emptyState');
+var clearBtn = document.getElementById('clearBtn');
+var debounceTimer;
+
+input.addEventListener('input', function() {
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(function() { analyze(input.value.trim()); }, 150);
+  clearBtn.style.display = input.value ? 'block' : 'none';
+});
+
+clearBtn.addEventListener('click', function() {
+  input.value = '';
+  clearBtn.style.display = 'none';
+  results.innerHTML = '';
+  detection.innerHTML = '';
+  results.appendChild(emptyState);
+  emptyState.style.display = '';
+});
+
+function analyze(val) {
+  results.innerHTML = '';
+  detection.innerHTML = '';
+  if (!val) { results.appendChild(emptyState); emptyState.style.display = ''; return; }
+  emptyState.style.display = 'none';
+
+  var detections = detect(val);
+  if (detections.length === 0) {
+    detection.innerHTML = '<span class="detect-badge">🤷 Unknown format</span>';
+    addCard('📝 Raw Text', val.length + ' characters · ' + val.split(/\n/).length + ' lines · ' + new Blob([val]).size + ' bytes', val);
+    return;
+  }
+
+  detections.forEach(function(d) {
+    var badge = document.createElement('span');
+    badge.className = 'detect-badge active';
+    badge.innerHTML = '<span class="dot"></span> ' + d.label;
+    detection.appendChild(badge);
+  });
+
+  detections.forEach(function(d) { d.render(val); });
+}
+
+function detect(val) {
+  var found = [];
+  var trimmed = val.trim();
+
+  // JWT
+  if (/^eyJ[A-Za-z0-9_-]+\.eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.test(trimmed.replace(/\s/g,''))) {
+    found.push({ label: '🔐 JWT', render: renderJWT });
+  }
+
+  // JSON
+  if (/^[\[{]/.test(trimmed)) {
+    try { JSON.parse(val); found.push({ label: '📦 JSON', render: renderJSON }); } catch(e) {}
+  }
+
+  // Base64
+  if (/^[A-Za-z0-9+/=\n\r]{8,}$/.test(trimmed) && trimmed.length % 4 <= 1) {
+    try {
+      var decoded = atob(trimmed.replace(/\s/g,''));
+      if (decoded.length > 0 && /^[\x20-\x7e\n\r\t]+$/.test(decoded)) {
+        found.push({ label: '🔤 Base64', render: renderBase64 });
+      }
+    } catch(e) {}
+  }
+
+  // Unix timestamp
+  if (/^\d{10,13}$/.test(trimmed)) found.push({ label: '⏱️ Timestamp', render: renderTimestamp });
+
+  // ISO date
+  if (/^\d{4}-\d{2}-\d{2}(T|\s)\d{2}:\d{2}/.test(trimmed)) found.push({ label: '📅 Date', render: renderISODate });
+
+  // Color
+  if (/^#([0-9a-fA-F]{3,8})$/.test(trimmed) || /^rgba?\(\s*\d/.test(trimmed) || /^hsla?\(\s*\d/.test(trimmed)) {
+    found.push({ label: '🎨 Color', render: renderColor });
+  }
+
+  // Cron
+  if (/^[*0-9/,\-]+(\s+[*0-9/,\-LW#]+){4,5}$/.test(trimmed)) found.push({ label: '⏰ Cron', render: renderCron });
+
+  // Regex
+  if (/^\/.*\/[gimsuy]*$/.test(trimmed)) found.push({ label: '🔍 Regex', render: renderRegex });
+
+  // URL
+  if (/^https?:\/\/.+/.test(trimmed)) found.push({ label: '🔗 URL', render: renderURL });
+
+  // CSV
+  if (val.indexOf(',') !== -1 && val.indexOf('\n') !== -1 && val.split('\n').length > 1) {
+    var lines = trimmed.split('\n');
+    var cols = lines[0].split(',').length;
+    if (cols > 1 && lines.slice(1).some(function(l) { return l.split(',').length === cols; })) {
+      found.push({ label: '📊 CSV', render: renderCSV });
+    }
+  }
+
+  // SQL
+  if (/^(SELECT|INSERT|UPDATE|DELETE|CREATE|ALTER|DROP|WITH)\s/i.test(trimmed)) found.push({ label: '🗄️ SQL', render: renderSQL });
+
+  // HTML
+  if (/<[a-z][\s\S]*>/i.test(val) && /<\/[a-z]+>/i.test(val)) found.push({ label: '🌐 HTML', render: renderHTML });
+
+  // UUID
+  if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(trimmed)) found.push({ label: '🆔 UUID', render: renderUUID });
+
+  // IP Address
+  if (/^(\d{1,3}\.){3}\d{1,3}(\/\d{1,2})?$/.test(trimmed)) found.push({ label: '🌐 IPv4', render: renderIP });
+
+  return found;
+}
+
+function addCard(title, subtitle, content, copyText) {
+  var card = document.createElement('div');
+  card.className = 'result-card';
+  var safe = copyText || content;
+  card.innerHTML = '<div class="result-header"><h3>' + title + (subtitle ? '<span class="sub">' + subtitle + '</span>' : '') + '</h3><button class="copy-btn" data-copy="' + esc(safe) + '">Copy</button></div><div class="result-body"><pre>' + esc(content) + '</pre></div>';
+  card.querySelector('.copy-btn').addEventListener('click', function() { doCopy(this); });
+  results.appendChild(card);
+  return card;
+}
+
+function addCardRaw(title, subtitle, html, copyText) {
+  var card = document.createElement('div');
+  card.className = 'result-card';
+  card.innerHTML = '<div class="result-header"><h3>' + title + (subtitle ? '<span class="sub">' + subtitle + '</span>' : '') + '</h3>' + (copyText ? '<button class="copy-btn" data-copy="' + esc(copyText) + '">Copy</button>' : '') + '</div><div class="result-body">' + html + '</div>';
+  var btn = card.querySelector('.copy-btn');
+  if (btn) btn.addEventListener('click', function() { doCopy(this); });
+  results.appendChild(card);
+  return card;
+}
+
+function doCopy(btn) {
+  navigator.clipboard.writeText(btn.getAttribute('data-copy')).then(function() {
+    btn.textContent = '✓ Copied';
+    btn.classList.add('copied');
+    setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+  });
+}
+
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// === RENDERERS ===
+
+function renderJSON(val) {
+  try {
+    var obj = JSON.parse(val);
+    var pretty = JSON.stringify(obj, null, 2);
+    var compact = JSON.stringify(obj);
+    var keys = countKeys(obj);
+    var depth = maxDepth(obj);
+    addCard('📦 Formatted JSON', keys + ' keys · depth ' + depth, pretty);
+    addCard('📦 Minified', compact.length + ' chars', compact);
+    var types = analyzeTypes(obj, '');
+    addCardRaw('📐 Structure', '', '<div class="kv-grid">' + types + '</div>');
+  } catch(e) {}
+}
+
+function countKeys(obj) {
+  if (typeof obj !== 'object' || obj === null) return 0;
+  if (Array.isArray(obj)) return obj.reduce(function(s, v) { return s + countKeys(v); }, 0);
+  return Object.keys(obj).reduce(function(s, k) { return s + 1 + countKeys(obj[k]); }, 0);
+}
+
+function maxDepth(obj, d) {
+  d = d || 0;
+  if (typeof obj !== 'object' || obj === null) return d;
+  if (Array.isArray(obj)) return Math.max.apply(null, [d+1].concat(obj.map(function(v) { return maxDepth(v, d+1); })));
+  return Math.max.apply(null, [d+1].concat(Object.values(obj).map(function(v) { return maxDepth(v, d+1); })));
+}
+
+function analyzeTypes(obj, prefix) {
+  if (typeof obj !== 'object' || obj === null) return '';
+  var html = '';
+  if (Array.isArray(obj)) {
+    html += '<span class="kv-key">' + (prefix || 'root') + '</span><span class="kv-val">Array[' + obj.length + ']</span>';
+    if (obj.length > 0 && typeof obj[0] === 'object') html += analyzeTypes(obj[0], prefix + '[0].');
+  } else {
+    Object.keys(obj).forEach(function(k) {
+      var v = obj[k];
+      var path = prefix ? prefix + k : k;
+      var type = v === null ? 'null' : Array.isArray(v) ? 'Array[' + v.length + ']' : typeof v;
+      html += '<span class="kv-key">' + esc(path) + '</span><span class="kv-val">' + type + '</span>';
+      if (typeof v === 'object' && v !== null && !Array.isArray(v)) html += analyzeTypes(v, path + '.');
+    });
+  }
+  return html;
+}
+
+function renderJWT(val) {
+  var token = val.trim().replace(/\s/g,'');
+  var parts = token.split('.');
+  try {
+    var header = JSON.parse(atob(parts[0].replace(/-/g,'+').replace(/_/g,'/')));
+    var payload = JSON.parse(atob(parts[1].replace(/-/g,'+').replace(/_/g,'/')));
+    addCardRaw('🔐 JWT Header', '', '<div class="jwt-label jwt-header-label">Header</div><pre>' + esc(JSON.stringify(header, null, 2)) + '</pre>', JSON.stringify(header, null, 2));
+
+    var extra = '';
+    if (payload.exp) {
+      var expDate = new Date(payload.exp * 1000);
+      extra += '\n\n⏱️ Expires: ' + expDate.toISOString() + ' (' + (expDate < new Date() ? '❌ EXPIRED' : '✅ Valid') + ')';
+    }
+    if (payload.iat) extra += '\n📅 Issued: ' + new Date(payload.iat * 1000).toISOString();
+    addCardRaw('🔐 JWT Payload', '', '<div class="jwt-label jwt-payload-label">Payload</div><pre>' + esc(JSON.stringify(payload, null, 2)) + extra + '</pre>', JSON.stringify(payload, null, 2));
+    addCardRaw('🔐 Signature', header.alg || 'unknown', '<div class="jwt-label jwt-sig-label">Signature (base64url)</div><pre style="color:#4ade80;">' + esc(parts[2]) + '</pre>');
+  } catch(e) {}
+}
+
+function renderBase64(val) {
+  try {
+    var clean = val.trim().replace(/\s/g,'');
+    var decoded = atob(clean);
+    addCard('🔤 Decoded (UTF-8)', decoded.length + ' chars', decoded);
+    var hex = '';
+    for (var i = 0; i < Math.min(decoded.length, 256); i++) {
+      hex += decoded.charCodeAt(i).toString(16).padStart(2, '0') + ' ';
+      if ((i + 1) % 16 === 0) hex += '\n';
+    }
+    if (decoded.length > 256) hex += '\n... (' + (decoded.length - 256) + ' more bytes)';
+    addCard('🔢 Hex Dump', '', hex.trim());
+  } catch(e) {}
+}
+
+function renderTimestamp(val) {
+  var num = parseInt(val.trim());
+  var ms = num > 9999999999 ? num : num * 1000;
+  var date = new Date(ms);
+  if (isNaN(date.getTime())) return;
+  var now = Date.now();
+  var diff = ms - now;
+  var ago = diff < 0 ? formatDuration(-diff) + ' ago' : 'in ' + formatDuration(diff);
+  addCardRaw('⏱️ Timestamp', '', '<div class="kv-grid">' +
+    '<span class="kv-key">UTC</span><span class="kv-val hl">' + date.toUTCString() + '</span>' +
+    '<span class="kv-key">ISO 8601</span><span class="kv-val">' + date.toISOString() + '</span>' +
+    '<span class="kv-key">Local</span><span class="kv-val">' + date.toLocaleString() + '</span>' +
+    '<span class="kv-key">Relative</span><span class="kv-val">' + ago + '</span>' +
+    '<span class="kv-key">Unix (s)</span><span class="kv-val">' + Math.floor(ms/1000) + '</span>' +
+    '<span class="kv-key">Unix (ms)</span><span class="kv-val">' + ms + '</span>' +
+    '<span class="kv-key">Day of week</span><span class="kv-val">' + date.toLocaleDateString('en',{weekday:'long'}) + '</span>' +
+    '<span class="kv-key">Week #</span><span class="kv-val">' + getWeekNumber(date) + '</span>' +
+    '</div>', date.toISOString());
+}
+
+function renderISODate(val) {
+  var date = new Date(val.trim());
+  if (isNaN(date.getTime())) return;
+  renderTimestamp(String(date.getTime()));
+}
+
+function formatDuration(ms) {
+  var s = Math.floor(ms/1000), m = Math.floor(s/60), h = Math.floor(m/60), d = Math.floor(h/24), y = Math.floor(d/365);
+  if (y > 0) return y + 'y ' + (d%365) + 'd';
+  if (d > 0) return d + 'd ' + (h%24) + 'h';
+  if (h > 0) return h + 'h ' + (m%60) + 'm';
+  if (m > 0) return m + 'm ' + (s%60) + 's';
+  return s + 's';
+}
+
+function getWeekNumber(d) {
+  var start = new Date(d.getFullYear(), 0, 1);
+  return Math.ceil(((d - start) / 86400000 + start.getDay() + 1) / 7);
+}
+
+function renderColor(val) {
+  var v = val.trim();
+  var r, g, b, a = 1;
+  if (v.charAt(0) === '#') {
+    var hex = v.slice(1);
+    if (hex.length === 3) { r = parseInt(hex[0]+hex[0],16); g = parseInt(hex[1]+hex[1],16); b = parseInt(hex[2]+hex[2],16); }
+    else if (hex.length === 6) { r = parseInt(hex.slice(0,2),16); g = parseInt(hex.slice(2,4),16); b = parseInt(hex.slice(4,6),16); }
+    else if (hex.length === 8) { r = parseInt(hex.slice(0,2),16); g = parseInt(hex.slice(2,4),16); b = parseInt(hex.slice(4,6),16); a = parseInt(hex.slice(6,8),16)/255; }
+  } else if (v.indexOf('rgb') === 0) {
+    var m = v.match(/[\d.]+/g);
+    if (m) { r = +m[0]; g = +m[1]; b = +m[2]; if (m[3]) a = +m[3]; }
+  } else if (v.indexOf('hsl') === 0) {
+    var m2 = v.match(/[\d.]+/g);
+    if (m2) { var rgb = hslToRgb(+m2[0], +m2[1], +m2[2]); r = rgb[0]; g = rgb[1]; b = rgb[2]; if (m2[3]) a = +m2[3]; }
+  }
+  if (r === undefined) return;
+
+  var hex6 = '#' + r.toString(16).padStart(2,'0') + g.toString(16).padStart(2,'0') + b.toString(16).padStart(2,'0');
+  var hslArr = rgbToHsl(r, g, b);
+  var h = hslArr[0], s = hslArr[1], l = hslArr[2];
+  var lum = (0.299*r + 0.587*g + 0.114*b) / 255;
+
+  var comp = 'hsl(' + ((h+180)%360) + ', ' + s + '%, ' + l + '%)';
+  var ana1 = 'hsl(' + ((h+30)%360) + ', ' + s + '%, ' + l + '%)';
+  var ana2 = 'hsl(' + ((h+330)%360) + ', ' + s + '%, ' + l + '%)';
+  var tri1 = 'hsl(' + ((h+120)%360) + ', ' + s + '%, ' + l + '%)';
+  var tri2 = 'hsl(' + ((h+240)%360) + ', ' + s + '%, ' + l + '%)';
+
+  addCardRaw('🎨 Color', '', '<div class="color-swatch" style="background:' + hex6 + ';"></div>' +
+    '<div class="kv-grid">' +
+    '<span class="kv-key">HEX</span><span class="kv-val hl">' + hex6 + '</span>' +
+    '<span class="kv-key">RGB</span><span class="kv-val">rgb(' + r + ', ' + g + ', ' + b + ')</span>' +
+    '<span class="kv-key">HSL</span><span class="kv-val">hsl(' + h + ', ' + s + '%, ' + l + '%)</span>' +
+    '<span class="kv-key">Luminance</span><span class="kv-val">' + (lum*100).toFixed(1) + '% — ' + (lum > 0.5 ? 'Light (use dark text)' : 'Dark (use light text)') + '</span>' +
+    '<span class="kv-key">CSS Variable</span><span class="kv-val">--color-primary: ' + hex6 + ';</span>' +
+    '<span class="kv-key">Tailwind</span><span class="kv-val">bg-[' + hex6 + '] text-[' + hex6 + ']</span>' +
+    '</div>' +
+    '<div class="color-variants" style="margin-top:16px;">' +
+    '<div class="color-var"><div class="color-dot" style="background:' + comp + '"></div><div><div class="color-label">Complementary</div><div class="color-value">' + comp + '</div></div></div>' +
+    '<div class="color-var"><div class="color-dot" style="background:' + ana1 + '"></div><div><div class="color-label">Analogous</div><div class="color-value">' + ana1 + '</div></div></div>' +
+    '<div class="color-var"><div class="color-dot" style="background:' + ana2 + '"></div><div><div class="color-label">Analogous</div><div class="color-value">' + ana2 + '</div></div></div>' +
+    '<div class="color-var"><div class="color-dot" style="background:' + tri1 + '"></div><div><div class="color-label">Triadic</div><div class="color-value">' + tri1 + '</div></div></div>' +
+    '<div class="color-var"><div class="color-dot" style="background:' + tri2 + '"></div><div><div class="color-label">Triadic</div><div class="color-value">' + tri2 + '</div></div></div>' +
+    '</div>', hex6);
+}
+
+function rgbToHsl(r,g,b) {
+  r/=255; g/=255; b/=255;
+  var max=Math.max(r,g,b), min=Math.min(r,g,b), l=(max+min)/2;
+  var h=0, s=0;
+  if (max!==min) {
+    var d=max-min;
+    s=l>0.5?d/(2-max-min):d/(max+min);
+    if (max===r) h=((g-b)/d+(g<b?6:0))*60;
+    else if (max===g) h=((b-r)/d+2)*60;
+    else h=((r-g)/d+4)*60;
+  }
+  return [Math.round(h), Math.round(s*100), Math.round(l*100)];
+}
+
+function hslToRgb(h,s,l) {
+  s/=100; l/=100;
+  var c=(1-Math.abs(2*l-1))*s, x=c*(1-Math.abs((h/60)%2-1)), m=l-c/2;
+  var r=0,g=0,b=0;
+  if(h<60){r=c;g=x;}else if(h<120){r=x;g=c;}else if(h<180){g=c;b=x;}else if(h<240){g=x;b=c;}else if(h<300){r=x;b=c;}else{r=c;b=x;}
+  return [Math.round((r+m)*255),Math.round((g+m)*255),Math.round((b+m)*255)];
+}
+
+function renderCron(val) {
+  var parts = val.trim().split(/\s+/);
+  var labels = ['Minute', 'Hour', 'Day', 'Month', 'Weekday'];
+  if (parts.length === 6) labels.unshift('Second');
+  var visual = '<div class="cron-visual">';
+  parts.forEach(function(p, i) {
+    visual += '<div class="cron-part"><div class="val">' + esc(p) + '</div><div class="lbl">' + (labels[i] || '') + '</div></div>';
+  });
+  visual += '</div>';
+  var explanation = explainCron(parts);
+  addCardRaw('⏰ Cron Expression', '', visual + '<div class="kv-grid">' +
+    '<span class="kv-key">Human</span><span class="kv-val hl">' + explanation + '</span>' +
+    '<span class="kv-key">Expression</span><span class="kv-val">' + esc(val.trim()) + '</span>' +
+    '</div>', val.trim());
+}
+
+function explainCron(parts) {
+  var p = parts.length === 6 ? parts.slice(1) : parts;
+  var desc = '';
+  if (p[0] === '*' && p[1] === '*') desc = 'Every minute';
+  else if (p[0].indexOf('/') !== -1) desc = 'Every ' + p[0].split('/')[1] + ' minutes';
+  else if (p[0] !== '*' && p[1] !== '*') desc = 'At ' + p[1].padStart(2,'0') + ':' + p[0].padStart(2,'0');
+  else if (p[0] !== '*') desc = 'At minute ' + p[0];
+  else desc = 'Every minute of hour ' + p[1];
+  if (p[2] !== '*') desc += ', on day ' + p[2];
+  if (p[3] !== '*') desc += ', in month ' + p[3];
+  if (p[4] !== '*') {
+    var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    desc += ', on ' + p[4].split(',').map(function(d) { return days[+d] || d; }).join(', ');
+  }
+  return desc;
+}
+
+function renderRegex(val) {
+  var pattern = val.trim();
+  var flags = '';
+  var m = pattern.match(/^\/(.+)\/([gimsuy]*)$/);
+  if (m) { pattern = m[1]; flags = m[2]; }
+  var explained = pattern
+    .replace(/\^/g, '^ (start)')
+    .replace(/\$/g, '$ (end)')
+    .replace(/\\d/g, '\\d (digit)')
+    .replace(/\\w/g, '\\w (word char)')
+    .replace(/\\s/g, '\\s (whitespace)');
+  var flagNames = {g:'global',i:'case-insensitive',m:'multiline',s:'dotAll',u:'unicode',y:'sticky'};
+  var flagStr = flags ? flags.split('').map(function(f) { return flagNames[f] || f; }).join(', ') : 'none';
+
+  addCardRaw('🔍 Regex Breakdown', '', '<div class="kv-grid">' +
+    '<span class="kv-key">Pattern</span><span class="kv-val hl" style="font-size:1rem;">/' + esc(pattern) + '/' + flags + '</span>' +
+    '<span class="kv-key">Flags</span><span class="kv-val">' + flagStr + '</span>' +
+    '<span class="kv-key">Explained</span><span class="kv-val">' + esc(explained) + '</span>' +
+    '</div>' +
+    '<div class="regex-test-area" style="margin-top:16px;">' +
+    '<div style="font-size:0.78rem;color:#666;margin-bottom:6px;font-weight:600;">TEST STRING</div>' +
+    '<textarea id="regexTest" placeholder="Type a test string to see matches..." oninput="testRegex()"></textarea>' +
+    '<div id="regexResult" style="margin-top:10px;font-size:0.85rem;"></div>' +
+    '</div>');
+
+  window._rxP = pattern;
+  window._rxF = flags || 'g';
+}
+
+window.testRegex = function() {
+  var test = document.getElementById('regexTest').value;
+  var rd = document.getElementById('regexResult');
+  if (!test) { rd.innerHTML = ''; return; }
+  try {
+    var re = new RegExp(window._rxP, 'g' + window._rxF.replace('g',''));
+    var matches = [];
+    var m;
+    while ((m = re.exec(test)) !== null) { matches.push(m); if (!re.global) break; }
+    if (matches.length === 0) { rd.innerHTML = '<span style="color:#f87171;">No matches</span>'; }
+    else {
+      rd.innerHTML = '<span style="color:#4ade80;">' + matches.length + ' match' + (matches.length>1?'es':'') + '</span><pre style="margin-top:8px;padding:12px;background:#0d0e14;border-radius:8px;">' +
+        matches.map(function(m, i) {
+          return '<span style="background:rgba(129,140,248,0.2);border-radius:3px;padding:1px 2px;color:#a5b4fc;">' + esc(m[0]) + '</span> at index ' + m.index;
+        }).join('\n') + '</pre>';
+    }
+  } catch(e) { rd.innerHTML = '<span style="color:#f87171;">Invalid regex: ' + esc(e.message) + '</span>'; }
+};
+
+function renderURL(val) {
+  try {
+    var url = new URL(val.trim());
+    var params = [];
+    url.searchParams.forEach(function(v, k) { params.push([k, v]); });
+    var kvHtml = '<span class="kv-key">Protocol</span><span class="kv-val">' + url.protocol + '</span>' +
+      '<span class="kv-key">Host</span><span class="kv-val hl">' + url.hostname + '</span>' +
+      '<span class="kv-key">Port</span><span class="kv-val">' + (url.port || '(default)') + '</span>' +
+      '<span class="kv-key">Path</span><span class="kv-val">' + url.pathname + '</span>' +
+      '<span class="kv-key">Hash</span><span class="kv-val">' + (url.hash || '(none)') + '</span>';
+    if (params.length > 0) {
+      kvHtml += '<span class="kv-key" style="margin-top:12px;grid-column:1/-1;border-top:1px solid #1e2030;padding-top:10px;">Query Parameters</span><span></span>';
+      params.forEach(function(p) { kvHtml += '<span class="kv-key">' + esc(p[0]) + '</span><span class="kv-val">' + esc(decodeURIComponent(p[1])) + '</span>'; });
+    }
+    addCardRaw('🔗 URL Breakdown', params.length + ' params', '<div class="kv-grid">' + kvHtml + '</div>', val.trim());
+  } catch(e) {}
+}
+
+function renderCSV(val) {
+  var lines = val.trim().split('\n').map(function(l) { return l.split(',').map(function(c) { return c.trim().replace(/^"|"$/g, ''); }); });
+  var headers = lines[0];
+  var rows = lines.slice(1).filter(function(r) { return r.length === headers.length; });
+  var tableHtml = '<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:0.82rem;">';
+  tableHtml += '<tr>' + headers.map(function(h) { return '<th style="text-align:left;padding:8px 12px;border-bottom:2px solid #2a2d4e;color:#818cf8;font-weight:600;font-size:0.75rem;text-transform:uppercase;">' + esc(h) + '</th>'; }).join('') + '</tr>';
+  rows.slice(0, 50).forEach(function(row, i) {
+    tableHtml += '<tr style="background:' + (i%2?'#0d0e14':'transparent') + '">' + row.map(function(c) { return '<td style="padding:6px 12px;border-bottom:1px solid #1a1d2e;color:#b0b8d0;">' + esc(c) + '</td>'; }).join('') + '</tr>';
+  });
+  tableHtml += '</table></div>';
+  addCardRaw('📊 CSV Table', headers.length + ' columns · ' + rows.length + ' rows', tableHtml);
+  var jsonArr = rows.map(function(r) { var o = {}; headers.forEach(function(h, i) { o[h] = r[i]; }); return o; });
+  addCard('📦 As JSON', '', JSON.stringify(jsonArr, null, 2));
+}
+
+function renderSQL(val) {
+  var keywords = ['SELECT','FROM','WHERE','JOIN','LEFT','RIGHT','INNER','OUTER','ON','AND','OR','NOT','IN','EXISTS','BETWEEN','LIKE','ORDER','BY','GROUP','HAVING','LIMIT','OFFSET','INSERT','INTO','VALUES','UPDATE','SET','DELETE','CREATE','TABLE','ALTER','DROP','INDEX','DISTINCT','AS','CASE','WHEN','THEN','ELSE','END','UNION','ALL','WITH','NULL','IS','ASC','DESC','COUNT','SUM','AVG','MIN','MAX'];
+  var formatted = val.trim().replace(/\b(SELECT|FROM|WHERE|JOIN|LEFT JOIN|RIGHT JOIN|INNER JOIN|ORDER BY|GROUP BY|HAVING|LIMIT|INSERT INTO|VALUES|UPDATE|SET|DELETE FROM|CREATE TABLE|AND|OR)\b/gi, '\n$1').replace(/^\n/, '');
+  var highlighted = esc(formatted);
+  keywords.forEach(function(kw) { highlighted = highlighted.replace(new RegExp('\\b(' + kw + ')\\b', 'gi'), '<span style="color:#818cf8;font-weight:600;">$1</span>'); });
+  highlighted = highlighted.replace(/'([^']*)'/g, '<span style="color:#4ade80;">\'$1\'</span>');
+  highlighted = highlighted.replace(/\b(\d+)\b/g, '<span style="color:#fbbf24;">$1</span>');
+  addCardRaw('🗄️ Formatted SQL', '', '<pre style="line-height:1.8;">' + highlighted + '</pre>', formatted);
+}
+
+function renderHTML(val) {
+  var formatted = val.replace(/></g, '>\n<');
+  addCard('🌐 Formatted HTML', '', formatted);
+  var textOnly = val.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  if (textOnly) addCard('📝 Text Only', textOnly.split(/\s+/).length + ' words', textOnly);
+}
+
+function renderUUID(val) {
+  var uuid = val.trim().toLowerCase();
+  var version = uuid[14];
+  var vNames = {'1':'Time-based','2':'DCE','3':'MD5 hash','4':'Random','5':'SHA-1 hash','6':'Sortable time','7':'Unix time'};
+  addCardRaw('🆔 UUID', '', '<div class="kv-grid">' +
+    '<span class="kv-key">UUID</span><span class="kv-val hl">' + uuid + '</span>' +
+    '<span class="kv-key">Version</span><span class="kv-val">' + version + ' (' + (vNames[version] || 'Unknown') + ')</span>' +
+    '<span class="kv-key">Uppercase</span><span class="kv-val">' + uuid.toUpperCase() + '</span>' +
+    '<span class="kv-key">No dashes</span><span class="kv-val">' + uuid.replace(/-/g,'') + '</span>' +
+    '<span class="kv-key">URN</span><span class="kv-val">urn:uuid:' + uuid + '</span>' +
+    '</div>', uuid);
+}
+
+function renderIP(val) {
+  var raw = val.trim();
+  var ipCidr = raw.split('/');
+  var ip = ipCidr[0], cidr = ipCidr[1];
+  var parts = ip.split('.').map(Number);
+  if (parts.some(function(p) { return p < 0 || p > 255; })) return;
+  var ipClass = parts[0] < 128 ? 'A' : parts[0] < 192 ? 'B' : parts[0] < 224 ? 'C' : parts[0] < 240 ? 'D (Multicast)' : 'E (Reserved)';
+  var isPrivate = (parts[0]===10) || (parts[0]===172 && parts[1]>=16 && parts[1]<=31) || (parts[0]===192 && parts[1]===168) || (parts[0]===127);
+  var binary = parts.map(function(p) { return p.toString(2).padStart(8, '0'); }).join('.');
+  var decimal = parts.reduce(function(acc, p, i) { return acc + p * Math.pow(256, 3 - i); }, 0);
+  var hex = parts.map(function(p) { return p.toString(16).padStart(2, '0'); }).join(':');
+  var netInfo = '';
+  if (cidr) {
+    var mask = ~(Math.pow(2, 32 - parseInt(cidr)) - 1) >>> 0;
+    var maskParts = [(mask>>>24)&255, (mask>>>16)&255, (mask>>>8)&255, mask&255];
+    var hosts = Math.pow(2, 32 - parseInt(cidr)) - 2;
+    netInfo = '<span class="kv-key">CIDR</span><span class="kv-val">/' + cidr + '</span>' +
+      '<span class="kv-key">Subnet mask</span><span class="kv-val">' + maskParts.join('.') + '</span>' +
+      '<span class="kv-key">Usable hosts</span><span class="kv-val">' + hosts.toLocaleString() + '</span>';
+  }
+  addCardRaw('🌐 IPv4 Address', '', '<div class="kv-grid">' +
+    '<span class="kv-key">Address</span><span class="kv-val hl">' + ip + '</span>' +
+    '<span class="kv-key">Class</span><span class="kv-val">' + ipClass + '</span>' +
+    '<span class="kv-key">Type</span><span class="kv-val">' + (isPrivate ? '🔒 Private' : '🌍 Public') + '</span>' +
+    '<span class="kv-key">Binary</span><span class="kv-val">' + binary + '</span>' +
+    '<span class="kv-key">Decimal</span><span class="kv-val">' + decimal + '</span>' +
+    '<span class="kv-key">Hex</span><span class="kv-val">' + hex + '</span>' +
+    netInfo + '</div>', ip);
+}
+
+input.focus();
+</script>
+</body>
+</html>

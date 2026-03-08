@@ -1,0 +1,120 @@
+---
+import BaseHead from '../layouts/BaseHead.astro';
+
+const tools = [
+  {
+    name: "DevBox",
+    slug: "/devbox",
+    emoji: "⚡",
+    desc: "Paste anything — JSON, JWT, base64, timestamps, regex, cron, colors, URLs — and get instant conversions and breakdowns.",
+    badge: "NEW",
+  },
+];
+---
+<html lang="en">
+<head>
+  <BaseHead
+    title="Silicon Based — Developer Tools & Digital Utilities"
+    description="Free developer tools, digital marketing utilities, creator analytics, and e-commerce calculators. Built for devs who ship fast."
+    ogTitle="Silicon Based — Dev Tools That Don't Suck"
+    ogDescription="Free developer tools and digital utilities. JSON, JWT, regex, cron, colors, timestamps and more."
+  />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #0a0b10; color: #e0e0e0; }
+    .hero {
+      text-align: center;
+      padding: 100px 24px 80px;
+      background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 40% 30%, rgba(99,102,241,0.06) 0%, transparent 60%);
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero h1 {
+      font-size: 3.2rem;
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #fff 0%, #818cf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p { color: #666; font-size: 1.05rem; max-width: 480px; margin: 0 auto; }
+
+    .grid {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px 100px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 16px;
+    }
+    .tool-card {
+      background: #111318;
+      border: 2px solid #1e2030;
+      border-radius: 16px;
+      padding: 32px 28px;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+    .tool-card:hover { border-color: #818cf8; transform: translateY(-3px); box-shadow: 0 8px 30px rgba(99,102,241,0.1); }
+    .tool-card .badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: #818cf8;
+      color: #0a0b10;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+    .tool-card .emoji { font-size: 2.2rem; margin-bottom: 14px; display: block; }
+    .tool-card h2 { font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 8px; }
+    .tool-card p { font-size: 0.88rem; color: #888; line-height: 1.6; }
+    .tool-card .arrow { color: #818cf8; font-size: 0.85rem; margin-top: 14px; display: inline-block; font-weight: 600; }
+
+    .footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #333; border-top: 1px solid #151520; }
+    .footer a { color: #818cf8; text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 2.2rem; }
+      .hero { padding: 70px 20px 50px; }
+      .grid { grid-template-columns: 1fr; padding: 0 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-content">
+    <h1>silicon based</h1>
+    <p>Free developer tools that don't suck. Built for devs who ship fast.</p>
+  </div>
+</div>
+<div class="grid">
+  {tools.map(tool => (
+    <a class="tool-card" href={tool.slug}>
+      {tool.badge && <span class="badge">{tool.badge}</span>}
+      <span class="emoji">{tool.emoji}</span>
+      <h2>{tool.name}</h2>
+      <p>{tool.desc}</p>
+      <span class="arrow">Try it →</span>
+    </a>
+  ))}
+</div>
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+</body>
+</html>
