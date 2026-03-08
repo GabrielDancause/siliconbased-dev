@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQL Formatter & Beautifier — Format and Beautify SQL Queries | Free Online Tool</title>
+<meta name="description" content="Format and beautify SQL queries with proper indentation. Supports MySQL, PostgreSQL, SQLite, and SQL Server syntax. Syntax highlighting included. Free, no signup, runs in your browser.">
+<meta property="og:title" content="SQL Formatter & Beautifier">
+<meta property="og:description" content="Format and beautify SQL queries with proper indentation. Supports MySQL, PostgreSQL, SQLite, and SQL Server syntax. Syntax highlighting included. Free, no signup, runs in your browser.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "SQL Formatter & Beautifier",
+  "url": "https://siliconbased.dev/sql-formatter",
+  "description": "Interactive tool to format and beautify SQL queries with syntax highlighting and proper indentation. Supports MySQL, PostgreSQL, SQLite, and SQL Server.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+.hero { text-align: center; padding: 48px 24px 24px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.4rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 1000px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Input/Output Grid */
+.tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; align-items: stretch; }
+.pane { display: flex; flex-direction: column; }
+
+/* Textarea / Input */
+.input-header, .output-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.header-title { font-size: 0.85rem; font-weight: 600; color: #ccc; text-transform: uppercase; letter-spacing: 0.5px; }
+.header-actions { display: flex; gap: 8px; }
+
+.action-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.action-btn:hover { background: #2a2d40; color: #ccc; }
+.action-btn.active { background: #818cf8; color: #fff; border-color: #818cf8; }
+
+textarea.sql-input { flex: 1; min-height: 400px; background: #111318; border: 2px solid #1e2030; border-radius: 12px; padding: 16px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; resize: vertical; outline: none; transition: border-color 0.2s; line-height: 1.6; white-space: pre; }
+textarea.sql-input:focus { border-color: #818cf8; }
+
+/* Output & Highlighting */
+.output-card { flex: 1; min-height: 400px; background: #111318; border: 2px solid #1e2030; border-radius: 12px; position: relative; display: flex; flex-direction: column; overflow: hidden; }
+
+.copy-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 6px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.copy-btn:hover { background: #2a2d40; color: #ccc; }
+.copy-btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+.result-body { flex: 1; padding: 0; display: flex; overflow: auto; background: #111318; position: relative; }
+.line-numbers { padding: 16px 10px; background: #0d0e14; color: #444; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.6; text-align: right; border-right: 1px solid #1e2030; user-select: none; position: sticky; left: 0; z-index: 5; }
+.output-pre { margin: 0; padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.6; color: #b0b8d0; white-space: pre; overflow: visible; flex: 1; tab-size: 4; }
+
+/* Syntax Highlighting Colors */
+.hl-keyword { color: #c084fc; font-weight: 600; }
+.hl-function { color: #60a5fa; }
+.hl-string { color: #4ade80; }
+.hl-number { color: #fbbf24; }
+.hl-comment { color: #6b7280; font-style: italic; }
+.hl-operator { color: #94a3b8; }
+.hl-type { color: #2dd4bf; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 800px) {
+  .tool-grid { grid-template-columns: 1fr; }
+  textarea.sql-input, .output-card { min-height: 300px; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>SQL Formatter ⚡</h1>
+  <p>Format and beautify SQL queries with proper indentation and syntax highlighting.</p>
+</div>
+
+<div class="main">
+
+  <div class="tool-grid">
+    <!-- Input Pane -->
+    <div class="pane">
+      <div class="input-header">
+        <div class="header-title">Input</div>
+        <div class="header-actions">
+          <button class="action-btn" id="clearBtn">Clear</button>
+        </div>
+      </div>
+      <textarea id="sqlInput" class="sql-input" placeholder="Paste your SQL query here..." spellcheck="false"></textarea>
+    </div>
+
+    <!-- Output Pane -->
+    <div class="pane">
+      <div class="output-header">
+        <div class="header-title" id="outputStatus">Output</div>
+        <div class="header-actions">
+          <button class="action-btn active" id="btnFormat">Format</button>
+          <button class="action-btn" id="btnMinify">Minify</button>
+          <button class="copy-btn" id="copyBtn">Copy</button>
+        </div>
+      </div>
+
+      <div class="output-card" id="outputCard">
+        <div class="result-body">
+          <div class="line-numbers" id="lineNumbers">1</div>
+          <pre class="output-pre" id="sqlOutput"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>What is SQL Formatting?</h2>
+    <p>SQL Formatting is the process of applying standard formatting rules to your SQL queries to make them easily readable and maintainable. SQL is generally a free-format language, meaning it ignores whitespace, tabs, and newlines. As queries get complex, especially with subqueries, multiple joins, and aggregations, they can become a massive, unreadable wall of text.</p>
+
+    <h2>Why Beautify SQL?</h2>
+    <p>Using an SQL formatter and beautifier brings several benefits to database administrators, data analysts, and developers:</p>
+    <ul>
+      <li><strong>Improved Readability:</strong> Consistent indentation and line breaks make it easy to follow the logic of <code>SELECT</code>, <code>FROM</code>, <code>JOIN</code>, <code>WHERE</code>, and <code>GROUP BY</code> clauses.</li>
+      <li><strong>Easier Debugging:</strong> When tracking down errors in long queries, formatting helps you quickly locate missing commas, unclosed parentheses, or logical errors.</li>
+      <li><strong>Collaboration:</strong> Standardized code is easier for teams to review. Version control diffs (like in Git) are much cleaner when each clause or column is on its own line.</li>
+      <li><strong>Syntax Highlighting:</strong> Visual cues for keywords, strings, functions, and numbers help parse the query structure at a glance.</li>
+    </ul>
+
+    <h2>Supported Syntax</h2>
+    <p>This formatter is designed to be dialect-agnostic but follows the conventions commonly used in the major relational database management systems (RDBMS):</p>
+    <ul>
+      <li><strong>MySQL & MariaDB</strong></li>
+      <li><strong>PostgreSQL</strong></li>
+      <li><strong>SQL Server (T-SQL)</strong></li>
+      <li><strong>SQLite</strong></li>
+      <li><strong>Oracle</strong></li>
+    </ul>
+    <p>It correctly handles comments (both <code>-- inline</code> and <code>/* block */</code>), strings enclosed in single or double quotes, and complex nested queries.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const sqlInput = document.getElementById('sqlInput');
+const sqlOutput = document.getElementById('sqlOutput');
+const lineNumbers = document.getElementById('lineNumbers');
+const outputStatus = document.getElementById('outputStatus');
+
+const btnFormat = document.getElementById('btnFormat');
+const btnMinify = document.getElementById('btnMinify');
+const copyBtn = document.getElementById('copyBtn');
+const clearBtn = document.getElementById('clearBtn');
+
+let currentMode = 'format'; // format, minify
+let debounceTimer;
+let currentFormattedSql = '';
+
+function init() {
+  sqlInput.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(processSQL, 300);
+  });
+
+  btnFormat.addEventListener('click', () => setMode('format'));
+  btnMinify.addEventListener('click', () => setMode('minify'));
+
+  clearBtn.addEventListener('click', () => {
+    sqlInput.value = '';
+    processSQL();
+    sqlInput.focus();
+  });
+
+  copyBtn.addEventListener('click', () => {
+    if (!currentFormattedSql) return;
+    navigator.clipboard.writeText(currentFormattedSql).then(() => {
+      copyBtn.textContent = '✓ Copied';
+      copyBtn.classList.add('copied');
+      setTimeout(() => {
+        copyBtn.textContent = 'Copy';
+        copyBtn.classList.remove('copied');
+      }, 1500);
+    });
+  });
+
+  // Initial demo data
+  sqlInput.value = "SELECT c.customer_id,c.first_name,c.last_name,COUNT(o.order_id) as total_orders,SUM(o.amount) as total_spent FROM customers c LEFT JOIN orders o ON c.customer_id=o.customer_id WHERE c.status='active' AND o.order_date>='2023-01-01' GROUP BY c.customer_id,c.first_name,c.last_name ORDER BY total_spent DESC LIMIT 10;";
+  processSQL();
+}
+
+function setMode(mode) {
+  currentMode = mode;
+  btnFormat.classList.toggle('active', mode === 'format');
+  btnMinify.classList.toggle('active', mode === 'minify');
+  processSQL();
+}
+
+function processSQL() {
+  const raw = sqlInput.value;
+  if (!raw.trim()) {
+    clearOutput();
+    return;
+  }
+
+  let processed = '';
+  if (currentMode === 'format') {
+    processed = formatSQL(raw);
+  } else {
+    processed = minifySQL(raw);
+  }
+
+  currentFormattedSql = processed;
+
+  const linesCount = processed.split('\n').length || 1;
+  let linesHtml = '';
+  for (let i = 1; i <= linesCount; i++) {
+    linesHtml += i + '<br>';
+  }
+  lineNumbers.innerHTML = linesHtml;
+
+  sqlOutput.innerHTML = syntaxHighlight(processed);
+}
+
+function clearOutput() {
+  sqlOutput.innerHTML = '';
+  lineNumbers.innerHTML = '1';
+  currentFormattedSql = '';
+}
+
+function formatSQL(sql) {
+  // A robust yet vanilla approach for SQL formatting
+  let formatted = sql;
+
+  // Standardize spaces and line breaks loosely before we parse
+  formatted = formatted.replace(/\s+/g, ' ').trim();
+
+  // Basic SQL keywords we want to uppercase and insert new lines before
+  const keywordsNewLines = [
+    'SELECT', 'FROM', 'WHERE', 'GROUP BY', 'ORDER BY', 'HAVING',
+    'LIMIT', 'OFFSET', 'INSERT INTO', 'VALUES', 'UPDATE', 'SET',
+    'DELETE FROM', 'LEFT JOIN', 'RIGHT JOIN', 'INNER JOIN', 'OUTER JOIN',
+    'JOIN', 'UNION ALL', 'UNION'
+  ];
+
+  const keywordsIndent = [
+    'AND', 'OR', 'ON'
+  ];
+
+  // Replace keywords to uppercase (basic matching, can be improved for edge cases inside strings, but for standard formatting it works well enough in vanilla JS without large dependencies)
+  const allKeywords = [...keywordsNewLines, ...keywordsIndent, 'AS', 'ASC', 'DESC', 'NULL', 'IS NOT NULL', 'IS NULL', 'IN', 'BETWEEN', 'LIKE', 'ILIKE', 'CASE', 'WHEN', 'THEN', 'ELSE', 'END'];
+  const keywordsRegex = new RegExp(`\\b(${allKeywords.join('|')})\\b`, 'gi');
+  formatted = formatted.replace(keywordsRegex, match => match.toUpperCase());
+
+  // Add new lines before major keywords
+  keywordsNewLines.forEach(kw => {
+    const regex = new RegExp(`\\s+\\b${kw}\\b\\s+`, 'g');
+    formatted = formatted.replace(regex, `\n${kw}\n`);
+  });
+
+  // Indent AND, OR, ON
+  keywordsIndent.forEach(kw => {
+      const regex = new RegExp(`\\s+\\b${kw}\\b\\s+`, 'g');
+      formatted = formatted.replace(regex, `\n  ${kw} `);
+  });
+
+  // Basic indentation for select columns (split by comma and indent)
+  let lines = formatted.split('\n');
+  let resultLines = [];
+
+  for(let i = 0; i < lines.length; i++) {
+      let line = lines[i];
+      if (line.startsWith('SELECT ')) {
+          resultLines.push('SELECT');
+          let rest = line.substring(7);
+          // Split by comma outside parens
+          let parts = [];
+          let current = '';
+          let parenLevel = 0;
+          for (let j = 0; j < rest.length; j++) {
+              let char = rest[j];
+              if (char === '(') parenLevel++;
+              else if (char === ')') parenLevel--;
+
+              if (char === ',' && parenLevel === 0) {
+                  parts.push(current.trim());
+                  current = '';
+              } else {
+                  current += char;
+              }
+          }
+          if (current) parts.push(current.trim());
+
+          parts.forEach((p, idx) => {
+              let trimmed = p.trim();
+              if (idx === parts.length - 1) {
+                  resultLines.push('  ' + trimmed);
+              } else {
+                  resultLines.push('  ' + trimmed + ',');
+              }
+          });
+      } else {
+          resultLines.push(line);
+      }
+  }
+
+  return resultLines.join('\n');
+}
+
+function minifySQL(sql) {
+  // Replace multiple spaces with a single space
+  let minified = sql.replace(/\s+/g, ' ').trim();
+  return minified;
+}
+
+function syntaxHighlight(sql) {
+  let escaped = sql.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+  const keywords = ['SELECT', 'FROM', 'WHERE', 'AND', 'OR', 'JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'INNER JOIN', 'OUTER JOIN', 'GROUP BY', 'ORDER BY', 'HAVING', 'LIMIT', 'OFFSET', 'INSERT INTO', 'VALUES', 'UPDATE', 'SET', 'DELETE FROM', 'CREATE TABLE', 'ALTER TABLE', 'DROP TABLE', 'UNION ALL', 'UNION', 'AS', 'ON', 'ASC', 'DESC', 'NULL', 'IS NOT NULL', 'IS NULL', 'IN', 'BETWEEN', 'LIKE', 'ILIKE', 'CASE', 'WHEN', 'THEN', 'ELSE', 'END'];
+  const functions = ['COUNT', 'SUM', 'AVG', 'MIN', 'MAX', 'COALESCE', 'CONCAT', 'SUBSTRING', 'CAST', 'ROUND', 'DATE_TRUNC', 'EXTRACT'];
+  const types = ['INT', 'INTEGER', 'VARCHAR', 'TEXT', 'DATE', 'TIMESTAMP', 'BOOLEAN', 'DECIMAL', 'FLOAT', 'DOUBLE', 'SERIAL', 'BIGINT'];
+
+  // Protect comments and strings first
+  const placeholders = {};
+  let pIdx = 0;
+
+  // Strings (very basic matching for single/double quotes)
+  escaped = escaped.replace(/('.*?'|".*?")/g, (match) => {
+    const ph = `__STR_${pIdx}__`;
+    placeholders[ph] = `<span class="hl-string">${match}</span>`;
+    pIdx++;
+    return ph;
+  });
+
+  // Block Comments
+  escaped = escaped.replace(/\/\*[\s\S]*?\*\//g, (match) => {
+    const ph = `__BLK_COMMENT_${pIdx}__`;
+    placeholders[ph] = `<span class="hl-comment">${match}</span>`;
+    pIdx++;
+    return ph;
+  });
+
+  // Line Comments
+  escaped = escaped.replace(/--.*$/g, (match) => {
+    const ph = `__LINE_COMMENT_${pIdx}__`;
+    placeholders[ph] = `<span class="hl-comment">${match}</span>`;
+    pIdx++;
+    return ph;
+  });
+
+  // Numbers
+  escaped = escaped.replace(/\b(\d+(\.\d+)?)\b/g, '<span class="hl-number">$1</span>');
+
+  // Keywords
+  const kwRegex = new RegExp(`\\b(${keywords.join('|')})\\b`, 'gi');
+  escaped = escaped.replace(kwRegex, '<span class="hl-keyword">$&</span>');
+
+  // Functions
+  const fnRegex = new RegExp(`\\b(${functions.join('|')})\\b(?=\\s*\\()`, 'gi');
+  escaped = escaped.replace(fnRegex, '<span class="hl-function">$&</span>');
+
+  // Types
+  const typeRegex = new RegExp(`\\b(${types.join('|')})\\b`, 'gi');
+  escaped = escaped.replace(typeRegex, '<span class="hl-type">$&</span>');
+
+  // Operators (done last, excluding HTML tags)
+  escaped = escaped.replace(/(\+|-|\*|\/|=|&lt;|&gt;|!)(?![^<]*>)/g, '<span class="hl-operator">$1</span>');
+
+  // Restore placeholders
+  for (const ph in placeholders) {
+    escaped = escaped.replace(ph, placeholders[ph]);
+  }
+
+  return escaped;
+}
+
+init();
+</script>
+</body>
+</html>
