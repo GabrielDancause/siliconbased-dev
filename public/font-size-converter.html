@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Font Size Converter | px, rem, em, pt, vw</title>
+<meta name="description" content="Free interactive font size converter. Instantly convert between px, rem, em, pt, and vw units. Preview typography scales and generate responsive sizing tables.">
+<meta property="og:title" content="Font Size Converter | px, rem, em, pt, vw">
+<meta property="og:description" content="Free interactive font size converter. Instantly convert between px, rem, em, pt, and vw units. Preview typography scales and generate responsive sizing tables.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Font Size Converter",
+    "url": "https://siliconbased.dev/font-size-converter",
+    "description": "Free interactive font size converter. Instantly convert between px, rem, em, pt, and vw units. Preview typography scales and generate responsive sizing tables.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Understanding Font Size Units: px, rem, em",
+    "author": { "@type": "Organization", "name": "GAB Ventures" },
+    "publisher": { "@type": "Organization", "name": "siliconbased.dev" }
+  }
+]
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 1000px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Cards & Layout */
+.panel { background: #111318; border: 1px solid #1e2030; border-radius: 16px; padding: 24px; margin-bottom: 32px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); }
+.panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 16px; }
+.panel-title { font-size: 1.2rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 8px; }
+
+/* Base Font Size Input */
+.base-settings { display: flex; align-items: center; gap: 12px; background: #151722; padding: 12px 16px; border-radius: 12px; border: 1px solid #1e2030; }
+.base-settings label { font-size: 0.9rem; font-weight: 600; color: #a5b4fc; }
+.base-input-wrapper { display: flex; align-items: center; background: #0a0b10; border: 1px solid #2a2d40; border-radius: 8px; overflow: hidden; }
+.base-input { background: transparent; border: none; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; width: 60px; padding: 8px 12px; text-align: center; outline: none; font-weight: 600; }
+.base-unit { background: #1e2030; color: #888; padding: 8px 12px; font-size: 0.9rem; font-weight: 600; user-select: none; }
+.viewport-settings { display: flex; align-items: center; gap: 12px; margin-top: 12px; background: #151722; padding: 12px 16px; border-radius: 12px; border: 1px solid #1e2030; }
+.viewport-settings label { font-size: 0.9rem; font-weight: 600; color: #a5b4fc; }
+
+/* Converter Grid */
+.converter-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.input-card { background: #151722; border: 1px solid #1e2030; border-radius: 12px; padding: 16px; position: relative; transition: border-color 0.2s, box-shadow 0.2s; }
+.input-card:focus-within { border-color: #818cf8; box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.15); }
+.input-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.unit-label { font-size: 1.1rem; font-weight: 700; color: #e0e0e0; }
+.unit-desc { font-size: 0.75rem; color: #888; background: #1e2030; padding: 2px 8px; border-radius: 12px; }
+.input-group { display: flex; align-items: center; }
+.converter-input { flex: 1; background: transparent; border: none; font-family: 'JetBrains Mono', monospace; font-size: 2rem; font-weight: 600; color: #818cf8; outline: none; width: 100%; min-width: 0; }
+.copy-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; margin-left: 12px; flex-shrink: 0; }
+.copy-btn:hover { background: #2a2d40; color: #fff; }
+.copy-btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+.copy-btn svg { width: 14px; height: 14px; }
+
+/* Visual Scale Preview */
+.scale-preview { display: flex; flex-direction: column; gap: 16px; padding: 16px; background: #151722; border-radius: 12px; border: 1px solid #1e2030; overflow-x: auto; }
+.scale-item { display: flex; align-items: center; border-bottom: 1px solid #1e2030; padding-bottom: 16px; }
+.scale-item:last-child { border-bottom: none; padding-bottom: 0; }
+.scale-label { width: 120px; flex-shrink: 0; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #888; display: flex; flex-direction: column; gap: 4px; }
+.scale-label .px-val { color: #a5b4fc; font-weight: 600; }
+.scale-text { color: #e0e0e0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2; font-weight: 500; }
+
+/* Table Section */
+.table-container { background: #151722; border: 1px solid #1e2030; border-radius: 12px; overflow: hidden; }
+.table-header { display: grid; grid-template-columns: repeat(5, 1fr) 60px; background: #13151d; border-bottom: 1px solid #1e2030; font-size: 0.85rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+.th-cell { padding: 16px; text-align: left; }
+.th-cell:last-child { text-align: center; }
+
+.table-body { max-height: 400px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #2a2d40 #111318; }
+.table-body::-webkit-scrollbar { width: 8px; }
+.table-body::-webkit-scrollbar-track { background: #111318; }
+.table-body::-webkit-scrollbar-thumb { background: #2a2d40; border-radius: 4px; }
+.table-body::-webkit-scrollbar-thumb:hover { background: #3e4259; }
+
+.tr-row { display: grid; grid-template-columns: repeat(5, 1fr) 60px; border-bottom: 1px solid #1e2030; transition: background-color 0.15s; }
+.tr-row:last-child { border-bottom: none; }
+.tr-row:hover { background: #1a1c29; }
+
+.td-cell { padding: 14px 16px; display: flex; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; color: #e0e0e0; }
+.td-cell.px-cell { font-weight: 700; color: #818cf8; }
+.td-cell.copy-btn-cell { justify-content: center; border-left: 1px solid #1e2030; }
+
+/* Value with hover copy in table */
+.val-container { position: relative; display: flex; align-items: center; cursor: pointer; padding: 4px 8px; margin: -4px -8px; border-radius: 6px; transition: background-color 0.2s; }
+.val-container:hover { background: #2a2d40; }
+.val-container::after { content: 'Copy'; position: absolute; right: 8px; opacity: 0; font-family: 'Inter', sans-serif; font-size: 0.7rem; color: #818cf8; background: #1e2030; padding: 2px 6px; border-radius: 4px; transition: opacity 0.2s; pointer-events: none; }
+.val-container:hover::after { opacity: 1; }
+.val-container.copied::after { content: 'Copied!'; color: #4ade80; background: #1a3a1a; opacity: 1; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .table-header { display: none; }
+  .tr-row { display: flex; flex-wrap: wrap; padding: 16px; gap: 8px; position: relative; }
+  .td-cell { width: 48%; padding: 4px 0; font-size: 0.9rem; flex-direction: column; align-items: flex-start; gap: 4px; }
+  .td-cell::before { content: attr(data-label); display: block; font-family: 'Inter', sans-serif; font-size: 0.7rem; color: #666; text-transform: uppercase; font-weight: 600; }
+  .td-cell.copy-btn-cell { position: absolute; top: 16px; right: 16px; width: auto; border: none; justify-content: flex-end; }
+  .td-cell.copy-btn-cell::before { display: none; }
+  .val-container { margin: 0; padding: 0; }
+  .val-container:hover { background: transparent; }
+  .val-container::after { top: -20px; right: 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Font Size Converter</h1>
+  <p>Convert typography sizes across px, rem, em, pt, and vw instantly.</p>
+</div>
+
+<div class="main">
+
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+        Converter
+      </div>
+      <div>
+        <div class="base-settings">
+          <label for="basePx">Base Font Size:</label>
+          <div class="base-input-wrapper">
+            <input type="number" id="basePx" class="base-input" value="16" min="1" step="1">
+            <div class="base-unit">px</div>
+          </div>
+        </div>
+        <div class="viewport-settings">
+          <label for="viewportWidth">Viewport Width:</label>
+          <div class="base-input-wrapper">
+            <input type="number" id="viewportWidth" class="base-input" value="1920" min="1" step="1" style="width: 80px;">
+            <div class="base-unit">px</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="converter-grid">
+      <div class="input-card">
+        <div class="input-header">
+          <span class="unit-label">Pixels (px)</span>
+          <span class="unit-desc">Absolute</span>
+        </div>
+        <div class="input-group">
+          <input type="number" id="inPx" class="converter-input" value="16" step="0.01">
+          <button class="copy-btn" data-target="inPx" title="Copy px">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          </button>
+        </div>
+      </div>
+      <div class="input-card">
+        <div class="input-header">
+          <span class="unit-label">Rem (rem)</span>
+          <span class="unit-desc">Root Relative</span>
+        </div>
+        <div class="input-group">
+          <input type="number" id="inRem" class="converter-input" value="1" step="0.001">
+          <button class="copy-btn" data-target="inRem" title="Copy rem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          </button>
+        </div>
+      </div>
+      <div class="input-card">
+        <div class="input-header">
+          <span class="unit-label">Em (em)</span>
+          <span class="unit-desc">Parent Relative</span>
+        </div>
+        <div class="input-group">
+          <input type="number" id="inEm" class="converter-input" value="1" step="0.001">
+          <button class="copy-btn" data-target="inEm" title="Copy em">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          </button>
+        </div>
+      </div>
+      <div class="input-card">
+        <div class="input-header">
+          <span class="unit-label">Points (pt)</span>
+          <span class="unit-desc">Print</span>
+        </div>
+        <div class="input-group">
+          <input type="number" id="inPt" class="converter-input" value="12" step="0.01">
+          <button class="copy-btn" data-target="inPt" title="Copy pt">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          </button>
+        </div>
+      </div>
+      <div class="input-card">
+        <div class="input-header">
+          <span class="unit-label">Viewport (vw)</span>
+          <span class="unit-desc">Screen Relative</span>
+        </div>
+        <div class="input-group">
+          <input type="number" id="inVw" class="converter-input" value="0.833" step="0.001">
+          <button class="copy-btn" data-target="inVw" title="Copy vw">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">Visual Scale Preview</div>
+    </div>
+    <div class="scale-preview" id="scalePreview">
+      <!-- Injected via JS -->
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">Responsive Sizing Table</div>
+    </div>
+    <div class="table-container">
+      <div class="table-header">
+        <div class="th-cell">Pixels (px)</div>
+        <div class="th-cell">Rem / Em</div>
+        <div class="th-cell">Points (pt)</div>
+        <div class="th-cell">Percent (%)</div>
+        <div class="th-cell">Viewport (vw)</div>
+        <div class="th-cell">Copy</div>
+      </div>
+      <div class="table-body" id="sizingTable">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>Understanding Font Size Units</h2>
+    <p>Choosing the right CSS unit for typography is crucial for building accessible and responsive web designs. Here is a breakdown of the most common units:</p>
+
+    <h3>Pixels (px)</h3>
+    <p>Pixels are absolute units. One pixel represents one dot on a screen (historically, though modern high-DPI screens abstract this). While px is precise, it does not scale with user accessibility settings. If a user increases their browser's default font size, text set in px will not adapt.</p>
+
+    <h3>Rem (Root Em)</h3>
+    <p>Rem is a relative unit based on the root element's (<code>&lt;html&gt;</code>) font size. By default in most browsers, 1rem equals 16px. Because it respects the user's base font size settings, rem is widely considered the best unit for web accessibility. If a visually impaired user sets their base size to 24px, your 2rem heading scales gracefully to 48px.</p>
+
+    <h3>Em</h3>
+    <p>Em is also a relative unit, but it is based on the font size of its immediate parent element. This can cause compounding effects. For example, if a list is set to 1.2em, and contains a nested list also set to 1.2em, the nested text will actually be 1.44em relative to the root. Ems are best used for margins and padding that need to scale directly with the local text size, rather than for typography itself.</p>
+
+    <h3>Points (pt)</h3>
+    <p>Points are an absolute unit primarily used in print media. 1 point is exactly 1/72 of an inch. While you can use pt in CSS, it is generally recommended only for print stylesheets (e.g., <code>@media print</code>), as screen rendering of physical units can be unpredictable across different devices.</p>
+
+    <h3>Viewport Width (vw)</h3>
+    <p>Viewport Width is a relative unit representing 1% of the browser's total width. 10vw means 10% of the screen width. While great for massive hero typography that needs to fluidly scale down on mobile, it can cause text to become unreadably small on narrow screens or excessively large on ultrawide monitors. It is often combined with <code>clamp()</code> in modern CSS to provide safe minimum and maximum boundaries.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const inputs = {
+  px: document.getElementById('inPx'),
+  rem: document.getElementById('inRem'),
+  em: document.getElementById('inEm'),
+  pt: document.getElementById('inPt'),
+  vw: document.getElementById('inVw')
+};
+
+const settings = {
+  basePx: document.getElementById('basePx'),
+  viewportWidth: document.getElementById('viewportWidth')
+};
+
+const scalePreview = document.getElementById('scalePreview');
+const sizingTable = document.getElementById('sizingTable');
+const copyBtns = document.querySelectorAll('.copy-btn');
+
+function getBase() {
+  return parseFloat(settings.basePx.value) || 16;
+}
+
+function getViewport() {
+  return parseFloat(settings.viewportWidth.value) || 1920;
+}
+
+function updateInputs(source, value) {
+  const base = getBase();
+  const vwWidth = getViewport();
+
+  if (isNaN(value)) return;
+
+  let pxVal = 0;
+
+  // Convert source to px first
+  switch (source) {
+    case 'px': pxVal = value; break;
+    case 'rem': pxVal = value * base; break;
+    case 'em': pxVal = value * base; break;
+    case 'pt': pxVal = value * (96 / 72); break; // 1pt = 1/72 inch, assuming 96dpi
+    case 'vw': pxVal = (value * vwWidth) / 100; break;
+  }
+
+  // Update other inputs if they aren't the active element
+  const update = (id, val) => {
+    if (document.activeElement !== inputs[id]) {
+      inputs[id].value = parseFloat(val.toFixed(4));
+    }
+  };
+
+  if (source !== 'px') update('px', pxVal);
+  if (source !== 'rem') update('rem', pxVal / base);
+  if (source !== 'em') update('em', pxVal / base);
+  if (source !== 'pt') update('pt', pxVal * (72 / 96));
+  if (source !== 'vw') update('vw', (pxVal / vwWidth) * 100);
+}
+
+function renderScalePreview() {
+  const base = getBase();
+  const scales = [
+    { label: 'xs', rem: 0.75 },
+    { label: 'sm', rem: 0.875 },
+    { label: 'base', rem: 1 },
+    { label: 'lg', rem: 1.125 },
+    { label: 'xl', rem: 1.25 },
+    { label: '2xl', rem: 1.5 },
+    { label: '3xl', rem: 1.875 },
+    { label: '4xl', rem: 2.25 },
+    { label: '5xl', rem: 3 }
+  ];
+
+  scalePreview.innerHTML = scales.map(s => {
+    const px = parseFloat((s.rem * base).toFixed(2));
+    return `
+      <div class="scale-item">
+        <div class="scale-label">
+          <span>${s.label} (${s.rem}rem)</span>
+          <span class="px-val">${px}px</span>
+        </div>
+        <div class="scale-text" style="font-size: ${px}px;">The quick brown fox jumps over the lazy dog.</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderSizingTable() {
+  const base = getBase();
+  const vwWidth = getViewport();
+  const sizes = [10, 12, 14, 16, 18, 20, 24, 30, 36, 48, 60, 72, 96];
+
+  sizingTable.innerHTML = sizes.map(px => {
+    const rem = parseFloat((px / base).toFixed(4));
+    const pt = parseFloat((px * (72 / 96)).toFixed(2));
+    const percent = parseFloat(((px / base) * 100).toFixed(1));
+    const vw = parseFloat(((px / vwWidth) * 100).toFixed(4));
+
+    return `
+      <div class="tr-row">
+        <div class="td-cell px-cell" data-label="Pixels (px)">
+          <span class="val-container" data-copy="${px}px">${px}px</span>
+        </div>
+        <div class="td-cell" data-label="Rem / Em">
+          <span class="val-container" data-copy="${rem}rem">${rem}rem</span>
+        </div>
+        <div class="td-cell" data-label="Points (pt)">
+          <span class="val-container" data-copy="${pt}pt">${pt}pt</span>
+        </div>
+        <div class="td-cell" data-label="Percent (%)">
+          <span class="val-container" data-copy="${percent}%">${percent}%</span>
+        </div>
+        <div class="td-cell" data-label="Viewport (vw)">
+          <span class="val-container" data-copy="${vw}vw">${vw}vw</span>
+        </div>
+        <div class="td-cell copy-btn-cell">
+          <button class="copy-btn copy-row-btn" data-copy-all="font-size: ${rem}rem;" title="Copy CSS Rule">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  attachTableCopyListeners();
+}
+
+function attachTableCopyListeners() {
+  const valContainers = document.querySelectorAll('.val-container');
+  valContainers.forEach(container => {
+    container.addEventListener('click', () => {
+      const text = container.getAttribute('data-copy');
+      navigator.clipboard.writeText(text).then(() => {
+        container.classList.add('copied');
+        setTimeout(() => container.classList.remove('copied'), 1500);
+      });
+    });
+  });
+
+  const rowBtns = document.querySelectorAll('.copy-row-btn');
+  rowBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const text = btn.getAttribute('data-copy-all');
+      navigator.clipboard.writeText(text).then(() => {
+        btn.classList.add('copied');
+        setTimeout(() => btn.classList.remove('copied'), 1500);
+      });
+    });
+  });
+}
+
+// Event Listeners
+Object.keys(inputs).forEach(key => {
+  inputs[key].addEventListener('input', (e) => {
+    updateInputs(key, parseFloat(e.target.value));
+  });
+});
+
+[settings.basePx, settings.viewportWidth].forEach(el => {
+  el.addEventListener('input', () => {
+    // Re-calculate based on current px value
+    updateInputs('px', parseFloat(inputs.px.value) || getBase());
+    renderScalePreview();
+    renderSizingTable();
+  });
+});
+
+copyBtns.forEach(btn => {
+  if (btn.classList.contains('copy-row-btn')) return; // handled separately
+  btn.addEventListener('click', () => {
+    const targetId = btn.getAttribute('data-target');
+    const input = document.getElementById(targetId);
+    let unit = targetId.replace('in', '').toLowerCase();
+
+    navigator.clipboard.writeText(input.value + unit).then(() => {
+      btn.classList.add('copied');
+      setTimeout(() => btn.classList.remove('copied'), 1500);
+    });
+  });
+});
+
+// Initialization
+function init() {
+  renderScalePreview();
+  renderSizingTable();
+}
+
+init();
+</script>
+</body>
+</html>
