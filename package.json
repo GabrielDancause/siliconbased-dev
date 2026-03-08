@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "astro": "^5.17.1",
+    "cheerio": "^1.2.0",
     "smol-toml": "^1.6.0"
   },
   "devDependencies": {
