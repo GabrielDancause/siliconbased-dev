@@ -1,0 +1,118 @@
+---
+import BaseHead from './BaseHead.astro';
+const { page } = Astro.props;
+const accent = page.accentColor || '#0F1729';
+---
+<html lang="en">
+<head>
+    <BaseHead title={page.title} description={page.description} ogTitle={page.ogTitle} ogDescription={page.ogDescription} />
+    <style define:vars={{ accent }}>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #fafafa; color: #1a1a1a; line-height: 1.7; }
+        .back-link { position: absolute; top: 18px; left: 24px; z-index: 10; }
+        .back-link a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.82rem; font-weight: 500; }
+        .back-link a:hover { color: #fff; }
+        .hero { color: #fff; padding: 72px 24px 56px; text-align: center; position: relative; }
+        .hero .location { display: inline-block; background: rgba(255,255,255,0.15); padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 16px; text-transform: uppercase; }
+        .hero h1 { font-size: 2.4rem; font-weight: 700; margin-bottom: 12px; line-height: 1.15; }
+        .hero .tagline { font-size: 1.1rem; opacity: 0.85; max-width: 540px; margin: 0 auto 24px; font-style: italic; }
+        .hero .cta { display: inline-block; background: #fff; color: var(--accent); padding: 12px 28px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: transform 0.15s; }
+        .hero .cta:hover { transform: translateY(-2px); }
+        .container { max-width: 720px; margin: 0 auto; padding: 40px 20px 60px; }
+        .quick-facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 40px; }
+        .fact { background: #fff; border-radius: 12px; padding: 20px 16px; text-align: center; border: 1px solid rgba(0,0,0,0.04); box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+        .fact .icon { font-size: 1.5rem; margin-bottom: 6px; }
+        .fact .label { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.3px; }
+        .fact .value { font-size: 0.92rem; font-weight: 600; color: var(--accent); }
+        .section { margin-bottom: 40px; }
+        .section h2 { font-size: 1.5rem; font-weight: 700; color: var(--accent); margin-bottom: 16px; }
+        .section p { font-size: 0.94rem; color: #555; line-height: 1.8; margin-bottom: 14px; }
+        .highlight-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 16px; }
+        .highlight-card { background: #fff; border-radius: 12px; padding: 22px 18px; border: 1px solid rgba(0,0,0,0.04); box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+        .highlight-card .h-icon { font-size: 1.3rem; margin-bottom: 8px; }
+        .highlight-card h3 { font-size: 1rem; font-weight: 600; color: var(--accent); margin-bottom: 6px; }
+        .highlight-card p { font-size: 0.84rem; color: #777; line-height: 1.6; margin: 0; }
+        .highlight-card :global(a) { color: var(--accent); font-weight: 600; text-decoration: none; }
+        .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 16px; }
+        .info-card { background: #fff; border-radius: 12px; padding: 20px 18px; border: 1px solid rgba(0,0,0,0.04); box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+        .info-card h3 { font-size: 0.85rem; font-weight: 600; color: var(--accent); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.3px; }
+        .info-card p { font-size: 0.88rem; color: #555; line-height: 1.6; margin: 0; }
+        .info-card :global(a) { color: var(--accent); font-weight: 600; }
+        .cta-banner { background: var(--accent); border-radius: 14px; padding: 36px 28px; text-align: center; margin-top: 44px; }
+        .cta-banner h2 { color: #FAF8EB; font-size: 1.4rem; margin-bottom: 10px; }
+        .cta-banner p { color: rgba(250,248,235,0.7); font-size: 0.9rem; margin-bottom: 20px; }
+        .cta-banner a { display: inline-block; background: #FAF8EB; color: var(--accent); padding: 12px 28px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; text-decoration: none; }
+        .cta-banner a:hover { transform: translateY(-2px); }
+        .footer { text-align: center; padding: 40px 24px; font-size: 0.82rem; color: #aaa; border-top: 1px solid #eee; }
+        .footer a { color: var(--accent); text-decoration: none; }
+        @media (max-width: 600px) {
+            .hero { padding: 56px 18px 44px; }
+            .hero h1 { font-size: 2rem; }
+            .quick-facts { grid-template-columns: repeat(2, 1fr); }
+            .highlight-grid, .info-grid { grid-template-columns: 1fr; }
+            .container { padding: 28px 16px 48px; }
+        }
+    </style>
+</head>
+<body>
+<div class="hero" style={`background: ${page.heroGradient};`}>
+    {page.backLink && <div class="back-link"><a href={page.backLink.href}>{page.backLink.text}</a></div>}
+    {page.heroLocation && <div class="location">{page.heroLocation}</div>}
+    <h1 set:html={page.h1} />
+    {page.tagline && <p class="tagline">{page.tagline}</p>}
+    {page.heroCta && (
+        page.heroCta.external
+            ? <a href={page.heroCta.href} class="cta" target="_blank" rel="noopener">{page.heroCta.text}</a>
+            : <a href={page.heroCta.href} class="cta">{page.heroCta.text}</a>
+    )}
+</div>
+<div class="container">
+    {page.quickFacts && page.quickFacts.length > 0 && (
+        <div class="quick-facts">
+            {page.quickFacts.map((f: any) => (
+                <div class="fact">
+                    <div class="icon">{f.icon}</div>
+                    <div class="value">{f.value}</div>
+                    <div class="label">{f.label}</div>
+                </div>
+            ))}
+        </div>
+    )}
+    {page.sections?.map((section: any) => (
+        <div class="section">
+            <h2>{section.title}</h2>
+            {section.paragraphs?.map((p: string) => <p set:html={p} />)}
+            {section.highlightCards && (
+                <div class="highlight-grid">
+                    {section.highlightCards.map((c: any) => (
+                        <div class="highlight-card">
+                            <div class="h-icon">{c.icon}</div>
+                            <h3>{c.title}</h3>
+                            <p set:html={c.description} />
+                        </div>
+                    ))}
+                </div>
+            )}
+            {section.infoCards && (
+                <div class="info-grid">
+                    {section.infoCards.map((ic: any) => (
+                        <div class="info-card">
+                            <h3>{ic.title}</h3>
+                            <p set:html={ic.content} />
+                        </div>
+                    ))}
+                </div>
+            )}
+        </div>
+    ))}
+    {page.ctaBanner && (
+        <div class="cta-banner">
+            <h2>{page.ctaBanner.title}</h2>
+            <p>{page.ctaBanner.text}</p>
+            {page.ctaBanner.links.map((l: any) => <a href={l.href}>{l.text}</a>)}
+        </div>
+    )}
+</div>
+{page.footer && <div class="footer"><p set:html={page.footer} /></div>}
+</body>
+</html>

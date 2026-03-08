@@ -1,0 +1,23 @@
+{
+  "slug": "",
+  "title": "siliconbased.dev — Developer tools, marketing analytics & digital utilities",
+  "description": "Developer tools, marketing analytics & digital utilities",
+  "ogTitle": "siliconbased.dev",
+  "ogDescription": "Developer tools, marketing analytics & digital utilities",
+  "heroGradient": "linear-gradient(135deg, #0F1729 0%, #1a3a5c 100%)",
+  "accentColor": "#0F1729",
+  "heroLocation": null,
+  "h1": "siliconbased 🚀",
+  "tagline": "Developer tools, marketing analytics & digital utilities",
+  "backLink": null,
+  "pageType": "guide",
+  "quickFacts": [],
+  "sections": [
+    {
+      "title": "Coming Soon",
+      "paragraphs": ["We're building something useful. Check back soon."]
+    }
+  ],
+  "ctaBanner": null,
+  "footer": "© 2025 siliconbased.dev"
+}

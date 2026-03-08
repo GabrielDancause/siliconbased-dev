@@ -1,0 +1,53 @@
+---
+import BaseHead from './BaseHead.astro';
+const { page } = Astro.props;
+const accent = page.accentColor || '#0F1729';
+---
+<html lang="en">
+<head>
+    <BaseHead title={page.title} description={page.description} ogTitle={page.ogTitle} ogDescription={page.ogDescription} />
+    <style define:vars={{ accent }}>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #fafafa; color: #1a1a1a; line-height: 1.7; }
+        .hero { color: #fff; padding: 72px 24px 56px; text-align: center; }
+        .hero h1 { font-size: 2.4rem; font-weight: 700; margin-bottom: 12px; line-height: 1.15; }
+        .hero .tagline { font-size: 1.1rem; opacity: 0.85; max-width: 540px; margin: 0 auto; font-style: italic; }
+        .container { max-width: 720px; margin: 0 auto; padding: 40px 20px 60px; }
+        .list-item { background: #fff; border-radius: 14px; padding: 28px 24px; margin-bottom: 18px; border: 1px solid rgba(0,0,0,0.04); box-shadow: 0 1px 4px rgba(0,0,0,0.04); position: relative; }
+        .list-item .rank { position: absolute; top: -12px; left: 20px; background: var(--accent); color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; }
+        .list-item h3 { font-size: 1.15rem; font-weight: 600; color: var(--accent); margin-bottom: 8px; padding-left: 4px; }
+        .list-item p { font-size: 0.9rem; color: #666; line-height: 1.7; }
+        .list-item :global(a) { color: var(--accent); font-weight: 600; text-decoration: none; }
+        .list-item .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+        .list-item .tag { background: #f0f0f0; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; color: #666; }
+        .footer { text-align: center; padding: 40px 24px; font-size: 0.82rem; color: #aaa; border-top: 1px solid #eee; }
+        .footer a { color: var(--accent); text-decoration: none; }
+        @media (max-width: 600px) {
+            .hero { padding: 56px 18px 44px; }
+            .hero h1 { font-size: 2rem; }
+            .container { padding: 28px 16px 48px; }
+        }
+    </style>
+</head>
+<body>
+<div class="hero" style={`background: ${page.heroGradient};`}>
+    <h1 set:html={page.h1} />
+    {page.tagline && <p class="tagline">{page.tagline}</p>}
+</div>
+<div class="container">
+    {page.items?.map((item: any, i: number) => (
+        <div class="list-item">
+            <div class="rank">{i + 1}</div>
+            <h3>{item.title}</h3>
+            <p set:html={item.description} />
+            {item.tags && (
+                <div class="tags">
+                    {item.tags.map((t: string) => <span class="tag">{t}</span>)}
+                </div>
+            )}
+        </div>
+    ))}
+</div>
+{page.footer && <div class="footer"><p set:html={page.footer} /></div>}
+</body>
+</html>

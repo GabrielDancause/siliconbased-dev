@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import GuideLayout from '../layouts/GuideLayout.astro';
+import ToolLayout from '../layouts/ToolLayout.astro';
+import ListLayout from '../layouts/ListLayout.astro';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
+  return pages.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { page: entry.data },
+  }));
+}
+
+const { page } = Astro.props;
+const layouts: Record<string, any> = {
+  guide: GuideLayout,
+  tool: ToolLayout,
+  list: ListLayout,
+};
+const Layout = layouts[page.pageType] || GuideLayout;
+---
+<Layout page={page} />
