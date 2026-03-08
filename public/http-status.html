@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTTP Status Code Reference | Search & Troubleshooting</title>
+<meta name="description" content="Interactive HTTP status code reference. Search, examples, troubleshooting, and definitions for all HTTP status codes. Free and offline-capable.">
+<meta property="og:title" content="HTTP Status Code Reference">
+<meta property="og:description" content="Interactive HTTP status code reference. Search, examples, troubleshooting, and definitions for all HTTP status codes. Free and offline-capable.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "HTTP Status Code Reference",
+  "url": "https://siliconbased.dev/http-status",
+  "description": "Interactive HTTP status code reference tool with search, examples, and troubleshooting for all standard HTTP status codes.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+/* Hero Section */
+.hero { text-align: center; padding: 48px 24px 24px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.4rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+
+/* Main Content */
+.main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* UI Controls */
+.controls { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; background: #111318; padding: 20px; border-radius: 12px; border: 1px solid #1e2030; }
+.search-bar { position: relative; width: 100%; }
+.search-bar input { width: 100%; padding: 14px 16px 14px 44px; background: #0a0b10; border: 1px solid #2a2d40; border-radius: 8px; color: #fff; font-family: 'Inter', sans-serif; font-size: 1rem; outline: none; transition: border-color 0.2s; }
+.search-bar input:focus { border-color: #818cf8; }
+.search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: #888; }
+
+.filters { display: flex; gap: 8px; flex-wrap: wrap; }
+.filter-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.filter-btn:hover { background: #2a2d40; color: #ccc; }
+.filter-btn.active { background: #818cf8; color: #fff; border-color: #818cf8; }
+
+/* Status Cards Grid */
+.status-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+
+/* Status Card */
+.status-card { background: #111318; border: 1px solid #1e2030; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 12px; transition: border-color 0.2s, transform 0.2s; position: relative; }
+.status-card:hover { border-color: #2a2d40; transform: translateY(-2px); }
+
+.card-header { display: flex; justify-content: space-between; align-items: flex-start; }
+.status-code { font-size: 2rem; font-weight: 800; font-family: 'JetBrains Mono', monospace; line-height: 1; margin-bottom: 4px; }
+.status-name { font-size: 1.1rem; font-weight: 600; color: #e0e0e0; }
+
+/* Status Category Colors */
+.cat-1xx .status-code { color: #60a5fa; } /* Info */
+.cat-2xx .status-code { color: #4ade80; } /* Success */
+.cat-3xx .status-code { color: #fbbf24; } /* Redirect */
+.cat-4xx .status-code { color: #f87171; } /* Client Error */
+.cat-5xx .status-code { color: #f43f5e; } /* Server Error */
+
+.copy-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 6px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; display: flex; align-items: center; gap: 6px; }
+.copy-btn:hover { background: #2a2d40; color: #ccc; }
+.copy-btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+.copy-btn svg { width: 14px; height: 14px; }
+
+.status-desc { font-size: 0.9rem; color: #888; line-height: 1.5; }
+
+/* Expandable Details */
+.card-details { margin-top: 12px; padding-top: 12px; border-top: 1px solid #1e2030; display: none; flex-direction: column; gap: 12px; }
+.status-card.expanded .card-details { display: flex; }
+
+.detail-section h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; color: #888; margin-bottom: 6px; font-weight: 600; }
+.detail-section p { font-size: 0.85rem; color: #ccc; line-height: 1.5; }
+.detail-section code { background: #0a0b10; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.8em; border: 1px solid #1e2030; }
+
+.expand-btn { background: none; border: none; color: #818cf8; font-size: 0.85rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; display: flex; align-items: center; gap: 6px; padding: 4px 0; width: fit-content; }
+.expand-btn:hover { text-decoration: underline; }
+.expand-btn svg { width: 16px; height: 16px; transition: transform 0.2s; }
+.status-card.expanded .expand-btn svg { transform: rotate(180deg); }
+
+.no-results { grid-column: 1 / -1; text-align: center; padding: 40px; color: #888; font-size: 1.1rem; background: #111318; border-radius: 12px; border: 1px dashed #2a2d40; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .hero h1 { font-size: 2rem; }
+  .status-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>HTTP Status Code <span>Reference</span></h1>
+  <p>Search, examples, and troubleshooting for HTTP response status codes.</p>
+</div>
+
+<div class="main">
+  <div class="controls">
+    <div class="search-bar">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" id="searchInput" placeholder="Search by status code or name (e.g., 404, Not Found)...">
+    </div>
+    <div class="filters" id="categoryFilters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="1xx">1xx Info</button>
+      <button class="filter-btn" data-filter="2xx">2xx Success</button>
+      <button class="filter-btn" data-filter="3xx">3xx Redirect</button>
+      <button class="filter-btn" data-filter="4xx">4xx Client Error</button>
+      <button class="filter-btn" data-filter="5xx">5xx Server Error</button>
+    </div>
+  </div>
+
+  <div class="status-grid" id="statusGrid">
+    <!-- Status cards will be dynamically injected here -->
+  </div>
+
+  <div class="seo-content">
+    <h2>Understanding HTTP Status Codes</h2>
+    <p>HTTP status codes are three-digit numbers returned by a server in response to a client's request made to the server. They provide a quick way to understand whether a specific HTTP request has been successfully completed, and if not, why.</p>
+
+    <h3>Status Code Categories</h3>
+    <p>Status codes are divided into five distinct classes (or categories). The first digit of the status code defines its class of response:</p>
+    <ul>
+      <li><code>1xx</code> <strong>Informational responses (100–199):</strong> The request was received, continuing process. These are generally provisional responses.</li>
+      <li><code>2xx</code> <strong>Successful responses (200–299):</strong> The request was successfully received, understood, and accepted. (e.g., <code>200 OK</code>).</li>
+      <li><code>3xx</code> <strong>Redirection messages (300–399):</strong> Further action needs to be taken in order to complete the request. Usually used for URL redirects.</li>
+      <li><code>4xx</code> <strong>Client error responses (400–499):</strong> The request contains bad syntax or cannot be fulfilled. The error is on the client's side (e.g., <code>404 Not Found</code>).</li>
+      <li><code>5xx</code> <strong>Server error responses (500–599):</strong> The server failed to fulfill a valid request. The error is on the server's side (e.g., <code>500 Internal Server Error</code>).</li>
+    </ul>
+
+    <h2>Troubleshooting Common HTTP Errors</h2>
+    <p>When you encounter HTTP errors (4xx or 5xx), here are some general troubleshooting steps:</p>
+    <ul>
+      <li><strong>400 Bad Request:</strong> Check the URL for typos. Ensure the request payload or syntax is properly formatted.</li>
+      <li><strong>401 Unauthorized / 403 Forbidden:</strong> Verify your authentication credentials. Check if you have the necessary permissions to access the resource.</li>
+      <li><strong>404 Not Found:</strong> Double-check the URL. The resource may have been moved or deleted. If you own the site, check your routing or rewrite rules.</li>
+      <li><strong>500 Internal Server Error:</strong> Look into your server's error logs. This is a generic catch-all for unexpected server conditions, often caused by misconfigured software or code bugs.</li>
+      <li><strong>502 Bad Gateway / 504 Gateway Timeout:</strong> These often indicate network issues between servers (e.g., a reverse proxy like Nginx failing to reach the backend application). Check the health of your upstream servers.</li>
+    </ul>
+
+    <p>This reference tool runs entirely in your browser and works offline after the initial load, allowing developers to quickly look up status codes without relying on an internet connection.</p>
+  </div>
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const statusCodes = [
+  { code: 100, name: "Continue", cat: "1xx", desc: "The server has received the request headers and the client should proceed to send the request body." },
+  { code: 101, name: "Switching Protocols", cat: "1xx", desc: "The requester has asked the server to switch protocols and the server has agreed to do so." },
+  { code: 102, name: "Processing", cat: "1xx", desc: "A WebDAV request may contain many sub-requests involving file operations, requiring a long time to complete the request." },
+  { code: 103, name: "Early Hints", cat: "1xx", desc: "Used to return some response headers before final HTTP message." },
+  { code: 200, name: "OK", cat: "2xx", desc: "Standard response for successful HTTP requests." },
+  { code: 201, name: "Created", cat: "2xx", desc: "The request has been fulfilled, resulting in the creation of a new resource." },
+  { code: 202, name: "Accepted", cat: "2xx", desc: "The request has been accepted for processing, but the processing has not been completed." },
+  { code: 203, name: "Non-Authoritative Information", cat: "2xx", desc: "The server is a transforming proxy (e.g. a Web accelerator) that received a 200 OK from its origin, but is returning a modified version of the origin's response." },
+  { code: 204, name: "No Content", cat: "2xx", desc: "The server successfully processed the request, and is not returning any content." },
+  { code: 205, name: "Reset Content", cat: "2xx", desc: "The server successfully processed the request, asks that the requester reset its document view, and is not returning any content." },
+  { code: 206, name: "Partial Content", cat: "2xx", desc: "The server is delivering only part of the resource (byte serving) due to a range header sent by the client." },
+  { code: 207, name: "Multi-Status", cat: "2xx", desc: "The message body that follows is by default an XML message and can contain a number of separate response codes, depending on how many sub-requests were made." },
+  { code: 208, name: "Already Reported", cat: "2xx", desc: "The members of a DAV binding have already been enumerated in a preceding part of the (multistatus) response, and are not being included again." },
+  { code: 226, name: "IM Used", cat: "2xx", desc: "The server has fulfilled a request for the resource, and the response is a representation of the result of one or more instance-manipulations applied to the current instance." },
+  { code: 300, name: "Multiple Choices", cat: "3xx", desc: "Indicates multiple options for the resource from which the client may choose (via agent-driven content negotiation)." },
+  { code: 301, name: "Moved Permanently", cat: "3xx", desc: "This and all future requests should be directed to the given URI." },
+  { code: 302, name: "Found", cat: "3xx", desc: "Tells the client to look at (browse to) another URL. The HTTP/1.0 specification (RFC 1945) required the client to perform a temporary redirect." },
+  { code: 303, name: "See Other", cat: "3xx", desc: "The response to the request can be found under another URI using the GET method." },
+  { code: 304, name: "Not Modified", cat: "3xx", desc: "Indicates that the resource has not been modified since the version specified by the request headers If-Modified-Since or If-None-Match." },
+  { code: 305, name: "Use Proxy", cat: "3xx", desc: "The requested resource is available only through a proxy, the address for which is provided in the response." },
+  { code: 306, name: "Switch Proxy", cat: "3xx", desc: "No longer used. Originally meant 'Subsequent requests should use the specified proxy.'" },
+  { code: 307, name: "Temporary Redirect", cat: "3xx", desc: "In this case, the request should be repeated with another URI; however, future requests should still use the original URI." },
+  { code: 308, name: "Permanent Redirect", cat: "3xx", desc: "The request and all future requests should be repeated using another URI." },
+  { code: 400, name: "Bad Request", cat: "4xx", desc: "The server cannot or will not process the request due to an apparent client error (e.g., malformed request syntax, size too large, invalid request message framing, or deceptive request routing)." },
+  { code: 401, name: "Unauthorized", cat: "4xx", desc: "Similar to 403 Forbidden, but specifically for use when authentication is required and has failed or has not yet been provided." },
+  { code: 402, name: "Payment Required", cat: "4xx", desc: "Reserved for future use. The original intention was that this code might be used as part of some form of digital cash or micropayment scheme." },
+  { code: 403, name: "Forbidden", cat: "4xx", desc: "The request contained valid data and was understood by the server, but the server is refusing action. This may be due to the user not having the necessary permissions." },
+  { code: 404, name: "Not Found", cat: "4xx", desc: "The requested resource could not be found but may be available in the future. Subsequent requests by the client are permissible." },
+  { code: 405, name: "Method Not Allowed", cat: "4xx", desc: "A request method is not supported for the requested resource; for example, a GET request on a form that requires data to be presented via POST." },
+  { code: 406, name: "Not Acceptable", cat: "4xx", desc: "The requested resource is capable of generating only content not acceptable according to the Accept headers sent in the request." },
+  { code: 407, name: "Proxy Authentication Required", cat: "4xx", desc: "The client must first authenticate itself with the proxy." },
+  { code: 408, name: "Request Timeout", cat: "4xx", desc: "The server timed out waiting for the request. According to HTTP specifications: 'The client did not produce a request within the time that the server was prepared to wait.'" },
+  { code: 409, name: "Conflict", cat: "4xx", desc: "Indicates that the request could not be processed because of conflict in the current state of the resource, such as an edit conflict between multiple simultaneous updates." },
+  { code: 410, name: "Gone", cat: "4xx", desc: "Indicates that the resource requested is no longer available and will not be available again. This should be used when a resource has been intentionally removed." },
+  { code: 411, name: "Length Required", cat: "4xx", desc: "The request did not specify the length of its content, which is required by the requested resource." },
+  { code: 412, name: "Precondition Failed", cat: "4xx", desc: "The server does not meet one of the preconditions that the requester put on the request header fields." },
+  { code: 413, name: "Payload Too Large", cat: "4xx", desc: "The request is larger than the server is willing or able to process." },
+  { code: 414, name: "URI Too Long", cat: "4xx", desc: "The URI provided was too long for the server to process. Often the result of too much data being encoded as a query-string of a GET request." },
+  { code: 415, name: "Unsupported Media Type", cat: "4xx", desc: "The request entity has a media type which the server or resource does not support." },
+  { code: 416, name: "Range Not Satisfiable", cat: "4xx", desc: "The client has asked for a portion of the file (byte serving), but the server cannot supply that portion." },
+  { code: 417, name: "Expectation Failed", cat: "4xx", desc: "The server cannot meet the requirements of the Expect request-header field." },
+  { code: 418, name: "I'm a teapot", cat: "4xx", desc: "This code was defined in 1998 as one of the traditional IETF April Fools' jokes, in RFC 2324, Hyper Text Coffee Pot Control Protocol." },
+  { code: 421, name: "Misdirected Request", cat: "4xx", desc: "The request was directed at a server that is not able to produce a response." },
+  { code: 422, name: "Unprocessable Entity", cat: "4xx", desc: "The request was well-formed but was unable to be followed due to semantic errors." },
+  { code: 423, name: "Locked", cat: "4xx", desc: "The resource that is being accessed is locked." },
+  { code: 424, name: "Failed Dependency", cat: "4xx", desc: "The request failed because it depended on another request and that request failed." },
+  { code: 425, name: "Too Early", cat: "4xx", desc: "Indicates that the server is unwilling to risk processing a request that might be replayed." },
+  { code: 426, name: "Upgrade Required", cat: "4xx", desc: "The client should switch to a different protocol such as TLS/1.0, given in the Upgrade header field." },
+  { code: 428, name: "Precondition Required", cat: "4xx", desc: "The origin server requires the request to be conditional. Intended to prevent the 'lost update' problem." },
+  { code: 429, name: "Too Many Requests", cat: "4xx", desc: "The user has sent too many requests in a given amount of time. Intended for use with rate-limiting schemes." },
+  { code: 431, name: "Request Header Fields Too Large", cat: "4xx", desc: "The server is unwilling to process the request because either an individual header field, or all the header fields collectively, are too large." },
+  { code: 451, name: "Unavailable For Legal Reasons", cat: "4xx", desc: "A server operator has received a legal demand to deny access to a resource or to a set of resources that includes the requested resource." },
+  { code: 500, name: "Internal Server Error", cat: "5xx", desc: "A generic error message, given when an unexpected condition was encountered and no more specific message is suitable." },
+  { code: 501, name: "Not Implemented", cat: "5xx", desc: "The server either does not recognize the request method, or it lacks the ability to fulfill the request." },
+  { code: 502, name: "Bad Gateway", cat: "5xx", desc: "The server was acting as a gateway or proxy and received an invalid response from the upstream server." },
+  { code: 503, name: "Service Unavailable", cat: "5xx", desc: "The server cannot handle the request (because it is overloaded or down for maintenance). Generally, this is a temporary state." },
+  { code: 504, name: "Gateway Timeout", cat: "5xx", desc: "The server was acting as a gateway or proxy and did not receive a timely response from the upstream server." },
+  { code: 505, name: "HTTP Version Not Supported", cat: "5xx", desc: "The server does not support the HTTP protocol version used in the request." },
+  { code: 506, name: "Variant Also Negotiates", cat: "5xx", desc: "Transparent content negotiation for the request results in a circular reference." },
+  { code: 507, name: "Insufficient Storage", cat: "5xx", desc: "The server is unable to store the representation needed to complete the request." },
+  { code: 508, name: "Loop Detected", cat: "5xx", desc: "The server detected an infinite loop while processing a request." },
+  { code: 510, name: "Not Extended", cat: "5xx", desc: "Further extensions to the request are required for the server to fulfill it." },
+  { code: 511, name: "Network Authentication Required", cat: "5xx", desc: "The client needs to authenticate to gain network access. Intended for use by intercepting proxies used to control access to the network." }
+];
+
+const statusGrid = document.getElementById('statusGrid');
+const searchInput = document.getElementById('searchInput');
+const filterBtns = document.querySelectorAll('.filter-btn');
+
+let currentFilter = 'all';
+let currentSearch = '';
+
+function renderStatusCards() {
+  statusGrid.innerHTML = '';
+
+  const filteredCodes = statusCodes.filter(item => {
+    const matchesFilter = currentFilter === 'all' || item.cat === currentFilter;
+    const matchesSearch = item.code.toString().includes(currentSearch) ||
+                          item.name.toLowerCase().includes(currentSearch.toLowerCase()) ||
+                          item.desc.toLowerCase().includes(currentSearch.toLowerCase());
+    return matchesFilter && matchesSearch;
+  });
+
+  if (filteredCodes.length === 0) {
+    statusGrid.innerHTML = '<div class="no-results">No status codes found matching your criteria.</div>';
+    return;
+  }
+
+  filteredCodes.forEach(item => {
+    const card = document.createElement('div');
+    card.className = `status-card cat-${item.cat}`;
+    card.innerHTML = `
+      <div class="card-header">
+        <div>
+          <div class="status-code">${item.code}</div>
+          <div class="status-name">${item.name}</div>
+        </div>
+        <button class="copy-btn" onclick="copyCode(this, '${item.code}')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          Copy
+        </button>
+      </div>
+      <div class="status-desc">${item.desc}</div>
+      <button class="expand-btn" onclick="toggleDetails(this)">
+        Details
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="card-details">
+        <div class="detail-section">
+          <h4>Category</h4>
+          <p>${getCategoryName(item.cat)}</p>
+        </div>
+        <div class="detail-section">
+          <h4>Common Use Case</h4>
+          <p>${getUseCase(item.code)}</p>
+        </div>
+      </div>
+    `;
+    statusGrid.appendChild(card);
+  });
+}
+
+function getCategoryName(cat) {
+  switch(cat) {
+    case '1xx': return '1xx Informational - Request received, continuing process';
+    case '2xx': return '2xx Success - The action was successfully received, understood, and accepted';
+    case '3xx': return '3xx Redirection - Further action must be taken in order to complete the request';
+    case '4xx': return '4xx Client Error - The request contains bad syntax or cannot be fulfilled';
+    case '5xx': return '5xx Server Error - The server failed to fulfill an apparently valid request';
+    default: return 'Unknown Category';
+  }
+}
+
+function getUseCase(code) {
+  const useCases = {
+    200: "Standard response for successful HTTP requests. The actual response will depend on the request method used (GET, POST, etc.).",
+    201: "Commonly used in response to a POST request when a new resource is successfully created.",
+    204: "Often used with DELETE requests when the resource is deleted successfully but no response body is needed.",
+    301: "Used when a URL has moved permanently. Browsers and search engines will update their links.",
+    302: "Used when a URL is moved temporarily. Browsers will redirect, but search engines won't update their links.",
+    304: "Used for caching. Tells the client the resource hasn't changed, so it can use its cached version.",
+    400: "Often returned when a client sends invalid JSON/XML in a request body or misses required parameters.",
+    401: "Returned when authentication fails or hasn't been provided yet.",
+    403: "Returned when the user is authenticated but doesn't have permissions to perform the requested action.",
+    404: "Returned when a user navigates to a URL that doesn't exist on the server.",
+    405: "Returned when you try to POST to an endpoint that only accepts GET requests, for example.",
+    429: "Used in rate limiting APIs to tell the client they have sent too many requests in a given time period.",
+    500: "A generic error when the server code throws an unhandled exception or crashes.",
+    502: "Commonly seen when a reverse proxy (like Nginx) tries to forward a request to an upstream backend that is not running.",
+    503: "Used when a server is temporarily down for maintenance or is overloaded.",
+    504: "Used when a proxy waits too long for an upstream server to respond."
+  };
+  return useCases[code] || "Refer to the main description for general usage.";
+}
+
+function copyCode(btn, code) {
+  navigator.clipboard.writeText(code).then(() => {
+    const originalText = btn.innerHTML;
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied`;
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.innerHTML = originalText;
+      btn.classList.remove('copied');
+    }, 1500);
+  });
+}
+
+function toggleDetails(btn) {
+  const card = btn.closest('.status-card');
+  card.classList.toggle('expanded');
+}
+
+// Event Listeners
+searchInput.addEventListener('input', (e) => {
+  currentSearch = e.target.value;
+  renderStatusCards();
+});
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.filter;
+    renderStatusCards();
+  });
+});
+
+// Initial render
+renderStatusCards();
+</script>
+</body>
+</html>
