@@ -1,0 +1,23 @@
+
+> siliconbased-dev@0.0.1 dev
+> astro dev
+
+03:37:19 [types] Generated 1ms
+03:37:19 [content] Syncing content
+03:37:19 [content] Synced content
+
+ astro  v5.18.0 ready in 714 ms
+
+┃ Local    http://localhost:4321/
+┃ Network  use --host to expose
+
+03:37:19 watching for file changes...
+03:37:59 [WARN] [router] getStaticPaths() returned an invalid path param: "slug". `undefined` expected for an optional param, but got empty string.
+03:37:59 [WARN] [router] A `getStaticPaths()` route pattern was matched, but no matching static path was found for requested path `/og-preview`.
+
+Possible dynamic routes being matched: src/pages/[...slug].astro.
+03:37:59 [404] /og-preview 18ms
+03:39:27 [watch] public/og-preview.html
+03:40:02 [watch] public/og-preview.html
+03:40:50 [watch] public/og-preview.html
+03:40:57 [watch] public/og-preview.html
