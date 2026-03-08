@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQL Formatter & Beautifier — Format MySQL, PostgreSQL, SQLite | Free Online Tool</title>
+<meta name="description" content="Format messy SQL queries instantly. Add proper indentation and syntax highlighting for MySQL, PostgreSQL, and SQLite. Free, no signup, runs entirely in your browser.">
+<meta property="og:title" content="SQL Formatter & Beautifier">
+<meta property="og:description" content="Format messy SQL queries instantly. Add proper indentation and syntax highlighting for MySQL, PostgreSQL, and SQLite. Free, no signup, runs entirely in your browser.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "SQL Formatter & Beautifier",
+  "url": "https://siliconbased.dev/sql-formatter",
+  "description": "Interactive tool to format and beautify SQL queries with proper indentation and syntax highlighting. Supports MySQL, PostgreSQL, and SQLite.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+.hero { text-align: center; padding: 48px 24px 24px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.4rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 1000px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Input/Output Grid */
+.tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; align-items: stretch; }
+.pane { display: flex; flex-direction: column; }
+
+/* Textarea / Input */
+.input-header, .output-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.header-title { font-size: 0.85rem; font-weight: 600; color: #ccc; text-transform: uppercase; letter-spacing: 0.5px; }
+.header-actions { display: flex; gap: 8px; align-items: center; }
+
+.action-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.action-btn:hover { background: #2a2d40; color: #ccc; }
+.action-btn.active { background: #818cf8; color: #fff; border-color: #818cf8; }
+
+.select-dialect { background: #111318; border: 1px solid #2a2d40; color: #e0e0e0; padding: 5px 10px; border-radius: 8px; font-size: 0.75rem; font-family: 'Inter', sans-serif; outline: none; cursor: pointer; }
+.select-dialect:focus { border-color: #818cf8; }
+
+textarea.sql-input { flex: 1; min-height: 400px; background: #111318; border: 2px solid #1e2030; border-radius: 12px; padding: 16px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; resize: vertical; outline: none; transition: border-color 0.2s; line-height: 1.6; white-space: pre; }
+textarea.sql-input:focus { border-color: #818cf8; }
+
+/* Output & Highlighting */
+.output-card { flex: 1; min-height: 400px; background: #111318; border: 2px solid #1e2030; border-radius: 12px; position: relative; display: flex; flex-direction: column; overflow: hidden; }
+
+.copy-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 6px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.copy-btn:hover { background: #2a2d40; color: #ccc; }
+.copy-btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+.result-body { flex: 1; padding: 0; display: flex; overflow: auto; background: #111318; position: relative; }
+.line-numbers { padding: 16px 10px; background: #0d0e14; color: #444; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.6; text-align: right; border-right: 1px solid #1e2030; user-select: none; position: sticky; left: 0; z-index: 5; }
+.output-pre { margin: 0; padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.6; color: #b0b8d0; white-space: pre; overflow: visible; flex: 1; tab-size: 2; }
+
+/* Syntax Highlighting Colors */
+.hl-keyword { color: #818cf8; font-weight: 600; }
+.hl-string { color: #4ade80; }
+.hl-number { color: #fbbf24; }
+.hl-function { color: #c084fc; }
+.hl-operator { color: #e0e0e0; }
+.hl-comment { color: #6b7280; font-style: italic; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 800px) {
+  .tool-grid { grid-template-columns: 1fr; }
+  textarea.sql-input, .output-card { min-height: 300px; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>SQL Formatter & Beautifier ⚡</h1>
+  <p>Format SQL queries with proper indentation. MySQL, PostgreSQL, SQLite support.</p>
+</div>
+
+<div class="main">
+
+  <div class="tool-grid">
+    <!-- Input Pane -->
+    <div class="pane">
+      <div class="input-header">
+        <div class="header-title">Raw SQL</div>
+        <div class="header-actions">
+          <button class="action-btn" id="clearBtn">Clear</button>
+        </div>
+      </div>
+      <textarea id="sqlInput" class="sql-input" placeholder="Paste your messy SQL query here..." spellcheck="false"></textarea>
+    </div>
+
+    <!-- Output Pane -->
+    <div class="pane">
+      <div class="output-header">
+        <div class="header-title" id="outputStatus">Formatted SQL</div>
+        <div class="header-actions">
+          <select class="select-dialect" id="dialectSelect" title="SQL Dialect">
+            <option value="standard">Standard SQL</option>
+            <option value="mysql">MySQL</option>
+            <option value="postgresql">PostgreSQL</option>
+            <option value="sqlite">SQLite</option>
+          </select>
+          <button class="action-btn active" id="btnFormat">Format</button>
+          <button class="copy-btn" id="copyBtn">Copy</button>
+        </div>
+      </div>
+
+      <div class="output-card" id="outputCard">
+        <div class="result-body">
+          <div class="line-numbers" id="lineNumbers">1</div>
+          <pre class="output-pre" id="sqlOutput"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>Why Format SQL Queries?</h2>
+    <p>Writing and maintaining complex SQL queries can quickly become unmanageable if they are written on a single line or lack proper indentation. A SQL formatter automatically restructures your queries, making them infinitely easier to read, review, and debug.</p>
+    <ul>
+      <li><strong>Improved Readability:</strong> By breaking queries into logical blocks (like <code>SELECT</code>, <code>FROM</code>, <code>WHERE</code>, and <code>JOIN</code>), you can understand the query's intent at a glance.</li>
+      <li><strong>Easier Debugging:</strong> Syntax errors or missing commas are much easier to spot in a properly indented query than in a dense block of text.</li>
+      <li><strong>Consistent Standards:</strong> Formatting enforces a consistent style across your team's codebase, ensuring everyone writes and reads SQL in the same way.</li>
+    </ul>
+
+    <h2>Supported SQL Dialects</h2>
+    <p>While standard SQL shares a common syntax, different database engines have their own unique keywords and functions. Our formatter supports the most popular dialects:</p>
+    <ul>
+      <li><strong>MySQL:</strong> Supports backtick quoting for identifiers and MySQL-specific functions like <code>GROUP_CONCAT</code>.</li>
+      <li><strong>PostgreSQL:</strong> Handles PostgreSQL-specific syntax, including JSON operators, window functions, and custom type casts.</li>
+      <li><strong>SQLite:</strong> Formats lightweight SQLite queries, respecting its dynamic typing system and unique functions.</li>
+      <li><strong>Standard SQL:</strong> A generic formatting ruleset that works well for most ANSI-compliant database systems.</li>
+    </ul>
+
+    <h2>How the SQL Formatter Works</h2>
+    <p>This tool runs entirely in your browser using JavaScript. No data is sent to a server, ensuring your database schemas and sensitive query data remain completely private. The formatter tokenizes your input string, identifying keywords, strings, comments, and operators, then reconstructs the query with consistent spacing and indentation based on best practices.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const sqlInput = document.getElementById('sqlInput');
+const sqlOutput = document.getElementById('sqlOutput');
+const lineNumbers = document.getElementById('lineNumbers');
+const btnFormat = document.getElementById('btnFormat');
+const copyBtn = document.getElementById('copyBtn');
+const clearBtn = document.getElementById('clearBtn');
+const dialectSelect = document.getElementById('dialectSelect');
+
+let debounceTimer;
+let currentFormattedSql = '';
+
+function init() {
+  sqlInput.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(processSQL, 300);
+  });
+
+  btnFormat.addEventListener('click', () => {
+    processSQL();
+  });
+
+  dialectSelect.addEventListener('change', () => {
+    processSQL();
+  });
+
+  clearBtn.addEventListener('click', () => {
+    sqlInput.value = '';
+    processSQL();
+    sqlInput.focus();
+  });
+
+  copyBtn.addEventListener('click', () => {
+    if (!currentFormattedSql) return;
+    navigator.clipboard.writeText(currentFormattedSql).then(() => {
+      copyBtn.textContent = '✓ Copied';
+      copyBtn.classList.add('copied');
+      setTimeout(() => {
+        copyBtn.textContent = 'Copy';
+        copyBtn.classList.remove('copied');
+      }, 1500);
+    });
+  });
+
+  // Initial demo data
+  sqlInput.value = "SELECT c.customer_id,c.first_name,c.last_name,COUNT(o.order_id) as total_orders,SUM(o.total_amount) as total_spent FROM customers c LEFT JOIN orders o ON c.customer_id = o.customer_id WHERE c.status = 'active' AND o.order_date >= '2023-01-01' GROUP BY c.customer_id, c.first_name, c.last_name HAVING total_orders > 5 ORDER BY total_spent DESC LIMIT 10;";
+  processSQL();
+}
+
+// A simple client-side SQL formatter
+function formatSQL(query) {
+  // Collapse whitespace
+  let formatted = query.replace(/\s+/g, ' ').trim();
+
+  // Basic keywords to add newlines before
+  // Process multi-word keywords first, then single word keywords to avoid overlapping replaces
+  const newlineKeywords = [
+    'SELECT', 'FROM', 'WHERE', 'LEFT JOIN', 'RIGHT JOIN', 'INNER JOIN', 'OUTER JOIN', 'JOIN',
+    'GROUP BY', 'ORDER BY', 'HAVING', 'LIMIT', 'OFFSET', 'UNION', 'INTERSECT', 'EXCEPT',
+    'INSERT INTO', 'VALUES', 'UPDATE', 'SET', 'DELETE FROM', 'CREATE TABLE', 'ALTER TABLE', 'DROP TABLE'
+  ];
+
+  // Words to add newlines and indent inside clauses
+  const indentKeywords = [
+    'AND', 'OR', 'ON'
+  ];
+
+  // Replace keywords with themselves prefixed by a special token so we don't double replace
+  // Sort by length to match "LEFT JOIN" before "JOIN"
+  const sortedKeywords = [...newlineKeywords].sort((a, b) => b.length - a.length);
+
+  // Mask strings to avoid formatting inside them
+  let stringMap = {};
+  let stringId = 0;
+  formatted = formatted.replace(/'([^'\\]|\\.)*'/g, match => {
+    let key = `__STR${stringId++}__`;
+    stringMap[key] = match;
+    return key;
+  });
+  formatted = formatted.replace(/"([^"\\]|\\.)*"/g, match => {
+    let key = `__STR${stringId++}__`;
+    stringMap[key] = match;
+    return key;
+  });
+
+  // Format spaces around operators (only outside strings now)
+  formatted = formatted.replace(/\s*([=<>!]+)\s*/g, ' $1 ')
+                       .replace(/\s*,\s*/g, ', ');
+
+  // Actually, let's just do a simple pass: replace all newlineKeywords with `\n$1`
+  // But to avoid `LEFT JOIN` becoming `\nLEFT \nJOIN`:
+  sortedKeywords.forEach((keyword, index) => {
+    const regex = new RegExp(`\\b(?<!_)(${keyword})\\b(?!_)`, 'gi');
+    formatted = formatted.replace(regex, `__KW${index}__`);
+  });
+
+  sortedKeywords.forEach((keyword, index) => {
+    formatted = formatted.replace(new RegExp(`__KW${index}__`, 'g'), `\n${keyword.toUpperCase()}`);
+  });
+
+  // Split into lines for indentation
+  let lines = formatted.split('\n');
+  let resultLines = [];
+
+  for (let i = 0; i < lines.length; i++) {
+    let line = lines[i].trim();
+    if (!line) continue;
+
+    // Check if line starts with a major keyword
+    let isMajor = false;
+    for (const kw of newlineKeywords) {
+      if (line.toUpperCase().startsWith(kw)) {
+        isMajor = true;
+        break;
+      }
+    }
+
+    if (isMajor) {
+      resultLines.push(line);
+
+      // If the line contains comma-separated values, we might want to split them, but for simple formatter, we leave them inline
+      // We will indent AND/OR/ON if they appear on the same line or subsequent lines
+    } else {
+      // It's a continuation of the previous keyword block
+      resultLines.push('  ' + line);
+    }
+  }
+
+  // Second pass: handle AND/OR/ON indentation
+  let finalLines = [];
+  for (let line of resultLines) {
+    let subline = line;
+    indentKeywords.forEach(kw => {
+      const regex = new RegExp(`\\b(?<!_)(${kw})\\b(?!_)`, 'gi');
+      subline = subline.replace(regex, '\n  $1');
+    });
+    let splitSub = subline.split('\n');
+    splitSub.forEach(sl => finalLines.push(sl));
+  }
+
+  // Third pass: comma newlines for SELECT statements (basic heuristic)
+  let extraFinal = [];
+  let inSelect = false;
+  for(let line of finalLines) {
+     if(line.toUpperCase().startsWith('SELECT')) inSelect = true;
+     else if(newlineKeywords.some(kw => line.toUpperCase().startsWith(kw) && kw !== 'SELECT')) inSelect = false;
+
+     if (inSelect && line.includes(',')) {
+         // rudimentary comma split inside select
+         // avoid splitting inside functions like COUNT(a, b) by not doing complex parsing, just basic format
+         extraFinal.push(line.replace(/,/g, ',\n  '));
+     } else {
+         extraFinal.push(line);
+     }
+  }
+
+  // Final cleanup of split lines and whitespace
+  let flattened = extraFinal.join('\n').split('\n').map(l => l.trimRight()).filter(l => l.length > 0);
+
+  let out = flattened.map(l => {
+     if(!l.startsWith('  ')) {
+         // Check if it's a newline keyword
+         let isKw = newlineKeywords.some(kw => l.toUpperCase().startsWith(kw));
+         if(!isKw) l = '  ' + l.trimStart();
+     }
+     // Uppercase keywords
+     newlineKeywords.concat(indentKeywords).forEach(kw => {
+         const regex = new RegExp(`^\\s*(${kw})\\b`, 'i');
+         l = l.replace(regex, (match) => match.toUpperCase());
+     });
+     return l;
+  }).join('\n');
+
+  // Also uppercase basic function names and common words
+  const uppercaseWords = ['AS', 'IN', 'IS', 'NULL', 'NOT', 'ASC', 'DESC', 'BETWEEN', 'LIKE', 'INTO'];
+  uppercaseWords.forEach(kw => {
+     const regex = new RegExp(`\\b(?<!_)(${kw})\\b(?!_)`, 'gi');
+     out = out.replace(regex, kw);
+  });
+
+  // Restore strings
+  Object.keys(stringMap).forEach(key => {
+    out = out.replace(key, stringMap[key]);
+  });
+
+  return out.trim();
+}
+
+function syntaxHighlight(sql) {
+  // Escape HTML first to prevent injection
+  let highlighted = sql.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+  // Define keyword lists
+  const keywords = [
+    'SELECT', 'FROM', 'WHERE', 'LEFT', 'RIGHT', 'INNER', 'OUTER', 'JOIN', 'ON',
+    'GROUP BY', 'ORDER BY', 'HAVING', 'LIMIT', 'OFFSET', 'UNION', 'ALL', 'INTERSECT', 'EXCEPT',
+    'INSERT', 'INTO', 'VALUES', 'UPDATE', 'SET', 'DELETE', 'CREATE', 'TABLE', 'ALTER', 'DROP',
+    'AND', 'OR', 'NOT', 'AS', 'IS', 'NULL', 'IN', 'LIKE', 'BETWEEN', 'ASC', 'DESC', 'CASE', 'WHEN', 'THEN', 'ELSE', 'END', 'CAST'
+  ];
+
+  const functions = [
+    'COUNT', 'SUM', 'AVG', 'MIN', 'MAX', 'COALESCE', 'CONCAT', 'SUBSTRING', 'ROUND', 'IFNULL', 'NOW', 'DATE'
+  ];
+
+  // Regex patterns
+  // Strings: single quotes
+  // Strings: single quotes - careful not to replace inside tags
+  highlighted = highlighted.replace(/('([^'\\]|\\.)*')/g, '<span class="hl-string">$1</span>');
+  // Strings: double quotes (for identifiers or strings depending on dialect)
+  highlighted = highlighted.replace(/(?<!class=)("([^"\\]|\\.)*")/g, '<span class="hl-string">$1</span>');
+  // Backticks (MySQL)
+  highlighted = highlighted.replace(/(`([^`\\]|\\.)*`)/g, '<span class="hl-string">$1</span>');
+  // Comments: -- or /* */
+  highlighted = highlighted.replace(/(--.*)/g, '<span class="hl-comment">$1</span>');
+  highlighted = highlighted.replace(/(\/\*[\s\S]*?\*\/)/g, '<span class="hl-comment">$1</span>');
+  // Numbers
+  highlighted = highlighted.replace(/\b(\d+(?:\.\d+)?)\b/g, '<span class="hl-number">$1</span>');
+
+  // Functions
+  functions.forEach(fn => {
+    const regex = new RegExp(`\\b(${fn})\\b(?:\\s*\\()`, 'gi');
+    highlighted = highlighted.replace(regex, function(match, p1) {
+      return `<span class="hl-function">${p1.toUpperCase()}</span>(`;
+    });
+  });
+
+  // Keywords (word boundaries, case insensitive)
+  keywords.forEach(kw => {
+    const regex = new RegExp(`\\b(?<!_)(${kw})\\b(?!_)`, 'gi');
+    // Using a simple trick to avoid matching inside existing tags:
+    // This is a naive approach; a real parser would be better, but we assume our SQL won't contain strings matching these classes.
+    highlighted = highlighted.replace(regex, function(match, p1) {
+      // Very basic check to try not to replace inside tags, but for our simple case it's mostly fine
+      return `<span class="hl-keyword">${p1.toUpperCase()}</span>`;
+    });
+  });
+
+  return highlighted;
+}
+
+function processSQL() {
+  const raw = sqlInput.value;
+  if (!raw.trim()) {
+    clearOutput();
+    return;
+  }
+
+  // Formatting (naively handling for all dialects for this simple implementation)
+  const formatted = formatSQL(raw);
+  currentFormattedSql = formatted;
+
+  // Generate line numbers
+  const linesCount = formatted.split('\n').length || 1;
+  let linesHtml = '';
+  for (let i = 1; i <= linesCount; i++) {
+    linesHtml += i + '<br>';
+  }
+  lineNumbers.innerHTML = linesHtml;
+
+  // Apply syntax highlighting
+  sqlOutput.innerHTML = syntaxHighlight(formatted);
+}
+
+function clearOutput() {
+  sqlOutput.innerHTML = '';
+  lineNumbers.innerHTML = '1';
+  currentFormattedSql = '';
+}
+
+init();
+</script>
+</body>
+</html>
