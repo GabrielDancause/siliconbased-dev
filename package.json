@@ -7,7 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "generate:chmod": "node scripts/generate-chmod-pages.js"
+    "generate:chmod": "node scripts/generate-chmod-pages.cjs"
   },
   "dependencies": {
     "astro": "^5.17.1",
