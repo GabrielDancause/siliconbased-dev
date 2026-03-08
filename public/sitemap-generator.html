@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XML Sitemap Generator — Create sitemaps online | Free Online Tool</title>
+<meta name="description" content="Free interactive XML sitemap generator. Quickly build sitemaps with custom URLs, priorities, frequencies, and last modified dates for SEO.">
+<meta property="og:title" content="XML Sitemap Generator — Create sitemaps online">
+<meta property="og:description" content="Free interactive XML sitemap generator. Quickly build sitemaps with custom URLs, priorities, frequencies, and last modified dates for SEO.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "XML Sitemap Generator",
+  "url": "https://siliconbased.dev/sitemap-generator.html",
+  "description": "Interactive XML Sitemap Generator. Visually build sitemaps with URLs, priority, change frequency, and last modified dates.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+
+.main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+.layout-grid { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: start; }
+@media (min-width: 992px) {
+  .layout-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.card { background: #111318; border: 1px solid #1e2030; border-radius: 14px; overflow: hidden; margin-bottom: 32px; }
+.card-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; background: #13151d; border-bottom: 1px solid #1e2030; }
+.card-header h3 { font-size: 0.85rem; font-weight: 600; color: #ccc; }
+.card-header .actions { display: flex; gap: 8px; }
+.card-body { padding: 20px; }
+
+.input-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.input-group:last-child { margin-bottom: 0; }
+.input-group label { font-size: 0.85rem; font-weight: 600; color: #ccc; display: flex; align-items: center; justify-content: space-between; }
+.input-group input, .input-group select, .input-group textarea { background: #111318; border: 1px solid #1e2030; border-radius: 10px; padding: 12px 16px; font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #fff; outline: none; transition: all 0.2s; width: 100%; }
+.input-group textarea { resize: vertical; min-height: 120px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+.input-group input:focus, .input-group select:focus, .input-group textarea:focus { border-color: #818cf8; box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.2); }
+.input-group input::placeholder, .input-group textarea::placeholder { color: #555; }
+.input-hint { font-size: 0.75rem; color: #666; }
+
+.btn-secondary { background: #1e2030; color: #fff; border: 1px solid #2a2d40; padding: 8px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+.btn-secondary:hover { background: #2a2d40; border-color: #3f4460; }
+
+.btn-primary { background: #818cf8; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+.btn-primary:hover { background: #6366f1; }
+.btn-primary.copied { background: #4ade80; color: #1a3a1a; }
+
+.code-output { background: #0a0b10; border: 1px solid #1e2030; border-radius: 10px; padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: #e0e0e0; white-space: pre-wrap; word-break: break-all; min-height: 300px; max-height: 500px; overflow-y: auto; line-height: 1.5; }
+.code-output .xml-tag { color: #818cf8; font-weight: 600; }
+.code-output .xml-content { color: #e0e0e0; }
+
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-family: 'JetBrains Mono', monospace; font-size: 0.85em; }
+
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #0a0b10; }
+::-webkit-scrollbar-thumb { background: #1e2030; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #2a2d40; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>XML Sitemap <span>Generator</span></h1>
+  <p>Create search engine optimized sitemaps quickly</p>
+</div>
+
+<div class="main">
+  <div class="layout-grid">
+    <!-- Left Column: Inputs -->
+    <div class="input-section">
+      <div class="card">
+        <div class="card-header">
+          <h3>Sitemap URLs</h3>
+        </div>
+        <div class="card-body">
+          <div class="input-group">
+            <label>URLs (one per line)</label>
+            <textarea id="urlsInput" placeholder="https://example.com/
+https://example.com/about
+https://example.com/contact"></textarea>
+            <div class="input-hint">Enter the full absolute URL including http:// or https://</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>Global Settings</h3>
+        </div>
+        <div class="card-body">
+          <div class="input-group">
+            <label>Last Modified <span style="font-weight:normal; font-size: 0.75rem;"><a href="#" id="setTodayBtn" style="color: #818cf8; text-decoration: none;">Set to Today</a></span></label>
+            <input type="date" id="lastModInput">
+            <div class="input-hint">Optional. The date the pages were last modified.</div>
+          </div>
+
+          <div class="input-group">
+            <label>Change Frequency</label>
+            <select id="changeFreqInput">
+              <option value="">None (Omit)</option>
+              <option value="always">Always</option>
+              <option value="hourly">Hourly</option>
+              <option value="daily">Daily</option>
+              <option value="weekly" selected>Weekly</option>
+              <option value="monthly">Monthly</option>
+              <option value="yearly">Yearly</option>
+              <option value="never">Never</option>
+            </select>
+            <div class="input-hint">Optional. How frequently the pages are likely to change.</div>
+          </div>
+
+          <div class="input-group">
+            <label>Priority</label>
+            <select id="priorityInput">
+              <option value="">None (Omit)</option>
+              <option value="0.0">0.0</option>
+              <option value="0.1">0.1</option>
+              <option value="0.2">0.2</option>
+              <option value="0.3">0.3</option>
+              <option value="0.4">0.4</option>
+              <option value="0.5" selected>0.5 (Default)</option>
+              <option value="0.6">0.6</option>
+              <option value="0.7">0.7</option>
+              <option value="0.8">0.8</option>
+              <option value="0.9">0.9</option>
+              <option value="1.0">1.0</option>
+            </select>
+            <div class="input-hint">Optional. The priority of these URLs relative to other URLs on your site.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Previews and Code -->
+    <div class="preview-section">
+      <div class="card" style="position: sticky; top: 24px;">
+        <div class="card-header">
+          <h3>XML Output</h3>
+          <div class="actions">
+            <button class="btn-secondary" id="downloadBtn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Download
+            </button>
+            <button class="btn-primary" id="copyCodeBtn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="code-output" id="codeOutput"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>What is an XML Sitemap?</h2>
+    <p>An XML sitemap is a file that lists a website's essential pages, making sure search engines like Google and Bing can find and crawl them all. It helps search engines understand your website's structure, which pages are most important, and when they were last updated.</p>
+
+    <h2>Sitemap Tags Explained</h2>
+    <ul>
+      <li><code>&lt;urlset&gt;</code>: The required root tag of the sitemap file.</li>
+      <li><code>&lt;url&gt;</code>: The parent tag for each URL entry.</li>
+      <li><code>&lt;loc&gt;</code>: The absolute URL of the page. This is the only required tag for each entry.</li>
+      <li><code>&lt;lastmod&gt;</code>: The date the file was last modified, usually in YYYY-MM-DD format.</li>
+      <li><code>&lt;changefreq&gt;</code>: How frequently the page is likely to change. This provides a hint to search engines, though they may not always adhere to it.</li>
+      <li><code>&lt;priority&gt;</code>: The priority of this URL relative to other URLs on your site, ranging from 0.0 to 1.0. The default is 0.5.</li>
+    </ul>
+
+    <h2>Best Practices</h2>
+    <ul>
+      <li>Only include URLs that you want search engines to index. Exclude private pages, utility pages, or pages blocked by robots.txt.</li>
+      <li>Keep your sitemaps under 50MB and 50,000 URLs. If you have more, split them into multiple sitemaps and use a sitemap index file.</li>
+      <li>Submit your sitemap directly to search engines via Google Search Console or Bing Webmaster Tools.</li>
+      <li>Update the <code>&lt;lastmod&gt;</code> tag only when the page's content has changed significantly.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const urlsInput = document.getElementById('urlsInput');
+const lastModInput = document.getElementById('lastModInput');
+const changeFreqInput = document.getElementById('changeFreqInput');
+const priorityInput = document.getElementById('priorityInput');
+const setTodayBtn = document.getElementById('setTodayBtn');
+const codeOutput = document.getElementById('codeOutput');
+const copyCodeBtn = document.getElementById('copyCodeBtn');
+const downloadBtn = document.getElementById('downloadBtn');
+
+function escapeXml(unsafe) {
+    return unsafe.replace(/[<>&'"]/g, function (c) {
+        switch (c) {
+            case '<': return '&lt;';
+            case '>': return '&gt;';
+            case '&': return '&amp;';
+            case '\'': return '&apos;';
+            case '"': return '&quot;';
+        }
+    });
+}
+
+function generateXml() {
+    const urlsText = urlsInput.value.trim();
+    const lastMod = lastModInput.value;
+    const changeFreq = changeFreqInput.value;
+    const priority = priorityInput.value;
+
+    if (!urlsText) {
+        return '';
+    }
+
+    const urls = urlsText.split('\n').map(u => u.trim()).filter(u => u);
+
+    if (urls.length === 0) {
+        return '';
+    }
+
+    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+
+    urls.forEach(url => {
+        xml += '  <url>\n';
+        xml += `    <loc>${escapeXml(url)}</loc>\n`;
+
+        if (lastMod) {
+            xml += `    <lastmod>${escapeXml(lastMod)}</lastmod>\n`;
+        }
+
+        if (changeFreq) {
+            xml += `    <changefreq>${escapeXml(changeFreq)}</changefreq>\n`;
+        }
+
+        if (priority) {
+            xml += `    <priority>${escapeXml(priority)}</priority>\n`;
+        }
+
+        xml += '  </url>\n';
+    });
+
+    xml += '</urlset>';
+
+    return xml;
+}
+
+function updateOutput() {
+    const xml = generateXml();
+
+    if (!xml) {
+        codeOutput.innerHTML = '<span style="color: #666;">&lt;!-- Enter URLs to generate XML --&gt;</span>';
+        return;
+    }
+
+    // Basic syntax highlighting
+    const highlighted = escapeXml(xml)
+        .replace(/&lt;([^\/?!][^&]*)&gt;/g, '<span class="xml-tag">&lt;$1&gt;</span>')
+        .replace(/&lt;\/([^&]+)&gt;/g, '<span class="xml-tag">&lt;/$1&gt;</span>')
+        .replace(/&lt;\?([^&]+)\?&gt;/g, '<span style="color: #c084fc;">&lt;?$1?&gt;</span>');
+
+    codeOutput.innerHTML = highlighted;
+}
+
+// Event Listeners
+urlsInput.addEventListener('input', updateOutput);
+lastModInput.addEventListener('input', updateOutput);
+changeFreqInput.addEventListener('change', updateOutput);
+priorityInput.addEventListener('change', updateOutput);
+
+setTodayBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const today = new Date().toISOString().split('T')[0];
+    lastModInput.value = today;
+    updateOutput();
+});
+
+// Copy functionality
+copyCodeBtn.addEventListener('click', () => {
+    const xml = generateXml();
+    if (!xml) return;
+
+    navigator.clipboard.writeText(xml).then(() => {
+        const originalText = copyCodeBtn.innerHTML;
+        copyCodeBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+        copyCodeBtn.classList.add('copied');
+
+        setTimeout(() => {
+            copyCodeBtn.innerHTML = originalText;
+            copyCodeBtn.classList.remove('copied');
+        }, 2000);
+    });
+});
+
+// Download functionality
+downloadBtn.addEventListener('click', () => {
+    const xml = generateXml();
+    if (!xml) return;
+
+    const blob = new Blob([xml], { type: 'application/xml' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'sitemap.xml';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+});
+
+// Initialize with example
+urlsInput.value = "https://example.com/\nhttps://example.com/about\nhttps://example.com/contact";
+updateOutput();
+</script>
+</body>
+</html>
