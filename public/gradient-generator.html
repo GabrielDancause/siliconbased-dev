@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Gradient Generator | Free Online Tool</title>
+<meta name="description" content="Create linear and radial CSS gradients visually. Adjust colors, angles, and positions. Browse preset gallery and copy CSS code instantly.">
+<meta property="og:title" content="CSS Gradient Generator">
+<meta property="og:description" content="Create linear and radial CSS gradients visually. Adjust colors, angles, and positions. Browse preset gallery and copy CSS code instantly.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "CSS Gradient Generator",
+  "url": "https://siliconbased.dev/gradient-generator",
+  "description": "Create linear and radial CSS gradients visually. Adjust colors, angles, and positions. Browse preset gallery and copy CSS code instantly.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 800px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Preview */
+.preview-box { width: 100%; height: 240px; border-radius: 16px; border: 1px solid #1e2030; margin-bottom: 24px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); background: linear-gradient(90deg, #818cf8 0%, #c084fc 100%); }
+
+/* Controls Grid */
+.controls-card { background: #111318; border: 1px solid #1e2030; border-radius: 14px; padding: 20px; margin-bottom: 24px; display: flex; flex-direction: column; gap: 20px; }
+
+/* Settings row: Type & Angle */
+.settings-row { display: flex; gap: 24px; flex-wrap: wrap; }
+.setting-group { flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 8px; }
+.setting-label { font-size: 0.85rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+
+.segmented-control { display: flex; background: #0a0b10; border: 1px solid #1e2030; border-radius: 8px; padding: 4px; }
+.segment-btn { flex: 1; background: transparent; border: none; color: #888; padding: 8px; border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+.segment-btn.active { background: #1e2030; color: #e0e0e0; }
+
+.range-slider { -webkit-appearance: none; width: 100%; height: 6px; background: #1e2030; border-radius: 3px; outline: none; }
+.range-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #818cf8; cursor: pointer; border: 2px solid #fff; }
+.range-slider:disabled::-webkit-slider-thumb { background: #444; border-color: #888; cursor: not-allowed; }
+
+.angle-display { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: #e0e0e0; background: #0a0b10; border: 1px solid #1e2030; padding: 4px 8px; border-radius: 6px; text-align: right; width: 60px; }
+.slider-header { display: flex; justify-content: space-between; align-items: center; }
+
+/* Color Stops */
+.stops-list { display: flex; flex-direction: column; gap: 12px; }
+.stop-item { display: flex; align-items: center; gap: 12px; background: #0a0b10; border: 1px solid #1e2030; padding: 12px; border-radius: 10px; flex-wrap: wrap; }
+.stop-color { width: 36px; height: 36px; border: none; border-radius: 8px; cursor: pointer; background: none; padding: 0; }
+.stop-color::-webkit-color-swatch-wrapper { padding: 0; }
+.stop-color::-webkit-color-swatch { border: 1px solid #1e2030; border-radius: 8px; }
+.stop-hex { background: #111318; border: 1px solid #1e2030; border-radius: 6px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; padding: 6px 8px; width: 85px; outline: none; }
+.stop-hex:focus { border-color: #818cf8; }
+.stop-pos-wrapper { flex: 1; display: flex; align-items: center; gap: 12px; min-width: 150px; }
+.stop-pos-val { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #888; width: 45px; text-align: right; }
+.btn-remove { background: #3a1a1a; border: 1px solid #4a2a2a; color: #f87171; width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.2rem; transition: all 0.2s; }
+.btn-remove:hover { background: #4a2a2a; }
+.btn-remove:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-add { background: #1e2030; border: 1px solid #2a2d40; color: #e0e0e0; padding: 10px; border-radius: 8px; font-size: 0.9rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; width: 100%; margin-top: 8px; }
+.btn-add:hover { background: #2a2d40; }
+
+/* Output Code */
+.output-card { background: #111318; border: 1px solid #1e2030; border-radius: 14px; padding: 16px; margin-bottom: 32px; position: relative; }
+.output-code { font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; color: #a5b4fc; word-break: break-all; line-height: 1.5; padding-right: 80px; }
+.copy-btn { position: absolute; top: 16px; right: 16px; background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 6px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.copy-btn:hover { background: #2a2d40; color: #ccc; }
+.copy-btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+/* Presets */
+.presets-section { margin-bottom: 32px; }
+.section-title { font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 16px; border-bottom: 1px solid #1e2030; padding-bottom: 8px; }
+.presets-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 16px; }
+.preset-item { height: 80px; border-radius: 10px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
+.preset-item:hover { transform: scale(1.05); border-color: #818cf8; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+@media (max-width: 600px) {
+  .stop-item { flex-direction: column; align-items: stretch; }
+  .stop-pos-wrapper { width: 100%; }
+  .btn-remove { align-self: flex-end; }
+  .stop-hex { width: auto; flex: 1; }
+  .stop-color-row { display: flex; gap: 12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>CSS Gradient Generator 🎨</h1>
+  <p>Create linear and radial gradients visually. Preset gallery. Copy CSS.</p>
+</div>
+
+<div class="main">
+
+  <div class="preview-box" id="gradientPreview"></div>
+
+  <div class="controls-card">
+    <div class="settings-row">
+      <div class="setting-group">
+        <span class="setting-label">Style</span>
+        <div class="segmented-control">
+          <button class="segment-btn active" data-type="linear">Linear</button>
+          <button class="segment-btn" data-type="radial">Radial</button>
+        </div>
+      </div>
+      <div class="setting-group" id="angleGroup">
+        <div class="slider-header">
+          <span class="setting-label">Angle</span>
+          <div class="angle-display"><span id="angleVal">90</span>°</div>
+        </div>
+        <input type="range" class="range-slider" id="angleSlider" min="0" max="360" value="90">
+      </div>
+    </div>
+
+    <div class="setting-group" style="margin-top: 8px;">
+      <span class="setting-label">Colors</span>
+      <div class="stops-list" id="stopsList">
+        <!-- Stops generated by JS -->
+      </div>
+      <button class="btn-add" id="btnAddStop">+ Add Color</button>
+    </div>
+  </div>
+
+  <div class="output-card">
+    <div class="output-code" id="outputCode">background: linear-gradient(90deg, #818cf8 0%, #c084fc 100%);</div>
+    <button class="copy-btn" id="btnCopy">Copy CSS</button>
+  </div>
+
+  <div class="presets-section">
+    <div class="section-title">Presets</div>
+    <div class="presets-grid" id="presetsGrid">
+      <!-- Presets generated by JS -->
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>Understanding CSS Gradients</h2>
+    <p>CSS gradients allow you to display smooth transitions between two or more specified colors. By utilizing gradients, you can decrease download times and bandwidth usage since gradients are generated by the browser instead of using image files.</p>
+
+    <h2>Linear vs. Radial Gradients</h2>
+    <ul>
+      <li><strong>Linear Gradients:</strong> These go down/up/left/right/diagonally. To create a linear gradient, you must define at least two color stops. You can also define a starting point and a direction (or an angle). Example: <code>linear-gradient(90deg, #818cf8, #c084fc)</code>.</li>
+      <li><strong>Radial Gradients:</strong> A radial gradient is defined by its center. The colors transition in a circular or elliptical pattern outward from the center. Example: <code>radial-gradient(circle, #818cf8, #c084fc)</code>.</li>
+    </ul>
+
+    <h2>Tips for Creating Beautiful Gradients</h2>
+    <ul>
+      <li><strong>Use analogous colors:</strong> Colors that are next to each other on the color wheel often blend beautifully without creating "muddy" mid-tones.</li>
+      <li><strong>Mind the color stops:</strong> Adjusting where a color begins and ends (e.g., 0% vs. 50%) can drastically change the feel of the gradient.</li>
+      <li><strong>Avoid clashing colors:</strong> Transitioning between complementary colors (like red to green) can create an unappealing gray tone in the middle. If you must, add a carefully chosen mid-point color to bridge the gap.</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+// State
+let gradientType = 'linear'; // 'linear' or 'radial'
+let angle = 90;
+let stops = [
+  { color: '#818cf8', pos: 0 },
+  { color: '#c084fc', pos: 100 }
+];
+
+const presets = [
+  { type: 'linear', angle: 90, stops: [{ color: '#818cf8', pos: 0 }, { color: '#c084fc', pos: 100 }] },
+  { type: 'linear', angle: 135, stops: [{ color: '#f6d365', pos: 0 }, { color: '#fda085', pos: 100 }] },
+  { type: 'linear', angle: 45, stops: [{ color: '#84fab0', pos: 0 }, { color: '#8fd3f4', pos: 100 }] },
+  { type: 'linear', angle: 180, stops: [{ color: '#a18cd1', pos: 0 }, { color: '#fbc2eb', pos: 100 }] },
+  { type: 'linear', angle: 90, stops: [{ color: '#ff9a9e', pos: 0 }, { color: '#fecfef', pos: 99 }, { color: '#fecfef', pos: 100 }] },
+  { type: 'radial', angle: 90, stops: [{ color: '#fbc2eb', pos: 0 }, { color: '#a6c1ee', pos: 100 }] },
+  { type: 'linear', angle: 120, stops: [{ color: '#e0c3fc', pos: 0 }, { color: '#8ec5fc', pos: 100 }] },
+  { type: 'linear', angle: 90, stops: [{ color: '#4facfe', pos: 0 }, { color: '#00f2fe', pos: 100 }] },
+  { type: 'linear', angle: 135, stops: [{ color: '#667eea', pos: 0 }, { color: '#764ba2', pos: 100 }] },
+  { type: 'radial', angle: 90, stops: [{ color: '#43e97b', pos: 0 }, { color: '#38f9d7', pos: 100 }] },
+  { type: 'linear', angle: 45, stops: [{ color: '#fa709a', pos: 0 }, { color: '#fee140', pos: 100 }] },
+  { type: 'linear', angle: 90, stops: [{ color: '#30cfd0', pos: 0 }, { color: '#330867', pos: 100 }] }
+];
+
+// Elements
+const preview = document.getElementById('gradientPreview');
+const outputCode = document.getElementById('outputCode');
+const typeBtns = document.querySelectorAll('.segment-btn');
+const angleSlider = document.getElementById('angleSlider');
+const angleVal = document.getElementById('angleVal');
+const stopsList = document.getElementById('stopsList');
+const btnAddStop = document.getElementById('btnAddStop');
+const btnCopy = document.getElementById('btnCopy');
+const presetsGrid = document.getElementById('presetsGrid');
+const angleGroup = document.getElementById('angleGroup');
+
+// Functions
+function generateCSS() {
+  const sortedStops = [...stops].sort((a, b) => a.pos - b.pos);
+  const stopsStr = sortedStops.map(s => `${s.color} ${s.pos}%`).join(', ');
+
+  let cssStr = '';
+  if (gradientType === 'linear') {
+    cssStr = `background: linear-gradient(${angle}deg, ${stopsStr});`;
+  } else {
+    cssStr = `background: radial-gradient(circle, ${stopsStr});`;
+  }
+  return cssStr;
+}
+
+function updateUI() {
+  const css = generateCSS();
+  preview.style.cssText = css;
+  outputCode.textContent = css;
+
+  // Update angle slider disabled state
+  if (gradientType === 'radial') {
+    angleSlider.disabled = true;
+    angleGroup.style.opacity = '0.5';
+  } else {
+    angleSlider.disabled = false;
+    angleGroup.style.opacity = '1';
+  }
+
+  // Update Type Buttons
+  typeBtns.forEach(btn => {
+    if (btn.dataset.type === gradientType) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+
+  // Update angle val
+  angleSlider.value = angle;
+  angleVal.textContent = angle;
+}
+
+function renderStops() {
+  stopsList.innerHTML = '';
+  stops.forEach((stop, index) => {
+    const item = document.createElement('div');
+    item.className = 'stop-item';
+
+    const colorRow = document.createElement('div');
+    colorRow.className = 'stop-color-row';
+
+    const colorInput = document.createElement('input');
+    colorInput.type = 'color';
+    colorInput.className = 'stop-color';
+    colorInput.value = stop.color;
+
+    const hexInput = document.createElement('input');
+    hexInput.type = 'text';
+    hexInput.className = 'stop-hex';
+    hexInput.value = stop.color;
+    hexInput.spellcheck = false;
+
+    colorRow.appendChild(colorInput);
+    colorRow.appendChild(hexInput);
+
+    const posWrapper = document.createElement('div');
+    posWrapper.className = 'stop-pos-wrapper';
+
+    const posSlider = document.createElement('input');
+    posSlider.type = 'range';
+    posSlider.className = 'range-slider';
+    posSlider.min = 0;
+    posSlider.max = 100;
+    posSlider.value = stop.pos;
+
+    const posVal = document.createElement('span');
+    posVal.className = 'stop-pos-val';
+    posVal.textContent = `${stop.pos}%`;
+
+    posWrapper.appendChild(posSlider);
+    posWrapper.appendChild(posVal);
+
+    const removeBtn = document.createElement('button');
+    removeBtn.className = 'btn-remove';
+    removeBtn.innerHTML = '×';
+    removeBtn.title = 'Remove color';
+    if (stops.length <= 2) {
+      removeBtn.disabled = true;
+    }
+
+    // Events
+    colorInput.addEventListener('input', (e) => {
+      stop.color = e.target.value;
+      hexInput.value = e.target.value;
+      updateUI();
+    });
+
+    hexInput.addEventListener('change', (e) => {
+      let val = e.target.value;
+      if (!val.startsWith('#')) val = '#' + val;
+      if (/^#[0-9A-F]{6}$/i.test(val) || /^#[0-9A-F]{3}$/i.test(val)) {
+        stop.color = val;
+        colorInput.value = val;
+        updateUI();
+      } else {
+        hexInput.value = stop.color; // revert
+      }
+    });
+
+    posSlider.addEventListener('input', (e) => {
+      stop.pos = parseInt(e.target.value);
+      posVal.textContent = `${stop.pos}%`;
+      updateUI();
+    });
+
+    removeBtn.addEventListener('click', () => {
+      if (stops.length > 2) {
+        stops.splice(index, 1);
+        renderStops();
+        updateUI();
+      }
+    });
+
+    item.appendChild(colorRow);
+    item.appendChild(posWrapper);
+    item.appendChild(removeBtn);
+
+    stopsList.appendChild(item);
+  });
+}
+
+function renderPresets() {
+  presetsGrid.innerHTML = '';
+  presets.forEach(p => {
+    const item = document.createElement('div');
+    item.className = 'preset-item';
+
+    const stopsStr = p.stops.map(s => `${s.color} ${s.pos}%`).join(', ');
+    const cssStr = p.type === 'linear'
+      ? `linear-gradient(${p.angle}deg, ${stopsStr})`
+      : `radial-gradient(circle, ${stopsStr})`;
+
+    item.style.background = cssStr;
+
+    item.addEventListener('click', () => {
+      gradientType = p.type;
+      angle = p.angle;
+      stops = JSON.parse(JSON.stringify(p.stops)); // deep copy
+      renderStops();
+      updateUI();
+    });
+
+    presetsGrid.appendChild(item);
+  });
+}
+
+// Event Listeners
+typeBtns.forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    gradientType = e.target.dataset.type;
+    updateUI();
+  });
+});
+
+angleSlider.addEventListener('input', (e) => {
+  angle = parseInt(e.target.value);
+  angleVal.textContent = angle;
+  updateUI();
+});
+
+btnAddStop.addEventListener('click', () => {
+  // Add stop between last two or at end
+  const newStop = { color: '#ffffff', pos: 50 };
+  if (stops.length >= 2) {
+    const s1 = stops[stops.length - 2];
+    const s2 = stops[stops.length - 1];
+    newStop.pos = Math.floor((s1.pos + s2.pos) / 2);
+  }
+  stops.push(newStop);
+  renderStops();
+  updateUI();
+});
+
+btnCopy.addEventListener('click', () => {
+  navigator.clipboard.writeText(outputCode.textContent).then(() => {
+    const orig = btnCopy.textContent;
+    btnCopy.textContent = 'Copied!';
+    btnCopy.classList.add('copied');
+    setTimeout(() => {
+      btnCopy.textContent = orig;
+      btnCopy.classList.remove('copied');
+    }, 1500);
+  });
+});
+
+// Init
+renderPresets();
+renderStops();
+updateUI();
+
+</script>
+</body>
+</html>
