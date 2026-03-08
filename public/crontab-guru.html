@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crontab Guru — Cron Schedule Expression Editor</title>
+<meta name="description" content="Quick and simple editor for cron schedule expressions. Test your cron schedules, validate cron expressions, get plain English explanations, and see the next 10 run times instantly.">
+<meta property="og:title" content="Crontab Guru — Cron Schedule Expression Editor">
+<meta property="og:description" content="Quick and simple editor for cron schedule expressions. Test your cron schedules, validate cron expressions, get plain English explanations, and see the next 10 run times instantly.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Crontab Guru",
+  "url": "https://siliconbased.dev/crontab-guru",
+  "description": "Quick and simple editor for cron schedule expressions. Test your cron schedules, validate cron expressions, get plain English explanations, and see the next 10 run times instantly.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 800px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Input Section */
+.input-section { display: flex; flex-direction: column; align-items: center; margin-bottom: 32px; width: 100%; }
+.cron-input-wrapper { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; width: 100%; justify-content: center; position: relative; }
+.cron-input { background: #111318; border: 2px solid #1e2030; border-radius: 12px; font-size: 2.5rem; font-weight: 700; color: #818cf8; font-family: 'JetBrains Mono', monospace; text-align: center; width: 100%; max-width: 600px; padding: 12px 16px; outline: none; transition: border-color 0.2s; letter-spacing: 2px; }
+.cron-input:focus { border-color: #818cf8; }
+.cron-input.invalid { border-color: #ef4444; color: #ef4444; }
+.explanation { font-size: 1.25rem; color: #b0b8d0; font-weight: 500; text-align: center; min-height: 2em; display: flex; align-items: center; justify-content: center; }
+.explanation.error { color: #ef4444; font-size: 1.1rem; }
+
+/* Grid */
+.cron-labels { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto; }
+.label-col { text-align: center; color: #888; font-size: 0.85rem; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
+
+/* Result Card */
+.result-card { background: #111318; border: 1px solid #1e2030; border-radius: 14px; overflow: hidden; margin-bottom: 40px; }
+.result-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; background: #13151d; border-bottom: 1px solid #1e2030; }
+.result-header h3 { font-size: 0.85rem; font-weight: 600; color: #ccc; display: flex; align-items: center; gap: 8px; }
+.copy-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 6px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.copy-btn:hover { background: #2a2d40; color: #ccc; }
+.copy-btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+.result-body { padding: 0; }
+.next-runs-list { list-style: none; }
+.next-runs-list li { padding: 14px 20px; border-bottom: 1px solid #1e2030; font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; color: #c8d0e8; display: flex; align-items: center; }
+.next-runs-list li:last-child { border-bottom: none; }
+.run-number { color: #666; font-size: 0.8rem; width: 24px; display: inline-block; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+.seo-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 0.9rem; }
+.seo-table th { text-align: left; padding: 10px 14px; border-bottom: 2px solid #2a2d4e; color: #ccc; font-weight: 600; background: #111318; }
+.seo-table td { padding: 10px 14px; border-bottom: 1px solid #1e2030; color: #aaa; }
+.seo-table tr:hover td { background: #111318; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cron-input { font-size: 1.8rem; }
+  .explanation { font-size: 1.1rem; }
+  .cron-labels { grid-template-columns: repeat(5, 1fr); gap: 4px; }
+  .label-col { font-size: 0.7rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Crontab Guru ⏱️</h1>
+  <p>Quick and simple editor for cron schedule expressions.</p>
+</div>
+
+<div class="main">
+
+  <div class="input-section">
+    <div class="cron-input-wrapper">
+      <input type="text" id="cronInput" class="cron-input" value="* * * * *" spellcheck="false" autocomplete="off">
+    </div>
+    <div class="cron-labels">
+      <div class="label-col">Minute</div>
+      <div class="label-col">Hour</div>
+      <div class="label-col">Day</div>
+      <div class="label-col">Month</div>
+      <div class="label-col">Weekday</div>
+    </div>
+    <div id="explanation" class="explanation">Loading...</div>
+  </div>
+
+  <div class="result-card">
+    <div class="result-header">
+      <h3>Next 10 Scheduled Runs</h3>
+      <button class="copy-btn" id="copyBtn">Copy Expression</button>
+    </div>
+    <div class="result-body">
+      <ul class="next-runs-list" id="nextRunsList">
+        <!-- populated via JS -->
+      </ul>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>What is a Cron Expression?</h2>
+    <p>A cron expression is a string consisting of five or six fields separated by white space that represents a set of times, normally as a schedule to execute some routine. It is most commonly used in Unix-like operating systems via the <code>cron</code> daemon to schedule jobs (cron jobs) to run periodically at fixed times, dates, or intervals.</p>
+    <p>The standard cron expression formats used in this editor consist of five fields:</p>
+    <table class="seo-table">
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Allowed Values</th>
+          <th>Allowed Special Characters</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Minute</td><td>0-59</td><td><code>* , - /</code></td></tr>
+        <tr><td>Hour</td><td>0-23</td><td><code>* , - /</code></td></tr>
+        <tr><td>Day of Month</td><td>1-31</td><td><code>* , - /</code></td></tr>
+        <tr><td>Month</td><td>1-12 (or JAN-DEC)</td><td><code>* , - /</code></td></tr>
+        <tr><td>Day of Week</td><td>0-6 (0=Sun)</td><td><code>* , - /</code></td></tr>
+      </tbody>
+    </table>
+
+    <h2>Understanding Special Characters</h2>
+    <p>Cron expressions use special characters to denote ranges and intervals:</p>
+    <ul>
+      <li><strong>Asterisk (<code>*</code>):</strong> Represents all allowed values. For instance, an asterisk in the minute field signifies "every minute".</li>
+      <li><strong>Comma (<code>,</code>):</strong> Specifies a list of discrete values. For example, <code>1,5,10</code> in the minute field denotes "at minutes 1, 5, and 10".</li>
+      <li><strong>Hyphen (<code>-</code>):</strong> Defines a range of values. For example, <code>1-5</code> in the day of week field translates to "Monday through Friday".</li>
+      <li><strong>Slash (<code>/</code>):</strong> Denotes an increment or step value. For example, <code>*/15</code> in the minute field means "every 15 minutes", starting from the minimum value.</li>
+    </ul>
+
+    <h2>Common Cron Schedules</h2>
+    <ul>
+      <li><code>* * * * *</code>: Run every minute.</li>
+      <li><code>0 * * * *</code>: Run at the beginning of every hour.</li>
+      <li><code>0 0 * * *</code>: Run once a day at midnight.</li>
+      <li><code>0 9 * * 1-5</code>: Run at 9:00 AM every weekday (Monday through Friday).</li>
+      <li><code>0 0 1,15 * *</code>: Run at midnight on the 1st and 15th days of every month.</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+// Logic for cron generation, parsing, english translation and calculating next dates.
+
+const cronInput = document.getElementById('cronInput');
+const explanationDiv = document.getElementById('explanation');
+const nextRunsList = document.getElementById('nextRunsList');
+const copyBtn = document.getElementById('copyBtn');
+
+// Cron Parsing and validation
+const limits = [
+  { min: 0, max: 59 }, // minute
+  { min: 0, max: 23 }, // hour
+  { min: 1, max: 31 }, // day
+  { min: 1, max: 12 }, // month
+  { min: 0, max: 7 }   // weekday (0 and 7 are Sunday)
+];
+
+function parseField(fieldStr, limit) {
+  if (fieldStr === '*') return { type: 'all' };
+
+  if (fieldStr.includes('/')) {
+    const parts = fieldStr.split('/');
+    if (parts.length !== 2) return null;
+    const base = parts[0] === '*' ? '*' : parts[0];
+    const step = parseInt(parts[1], 10);
+    if (isNaN(step) || step <= 0) return null;
+    if (base !== '*' && isNaN(parseInt(base, 10))) return null; // simplistic
+    return { type: 'step', base: base, step: step };
+  }
+
+  if (fieldStr.includes(',')) {
+    const parts = fieldStr.split(',');
+    const vals = parts.map(p => parseInt(p, 10));
+    if (vals.some(isNaN)) return null;
+    if (vals.some(v => v < limit.min || v > limit.max)) return null;
+    return { type: 'list', vals: vals };
+  }
+
+  if (fieldStr.includes('-')) {
+    const parts = fieldStr.split('-');
+    if (parts.length !== 2) return null;
+    const start = parseInt(parts[0], 10);
+    const end = parseInt(parts[1], 10);
+    if (isNaN(start) || isNaN(end)) return null;
+    if (start < limit.min || end > limit.max || start > end) return null;
+    return { type: 'range', start: start, end: end };
+  }
+
+  const val = parseInt(fieldStr, 10);
+  if (isNaN(val) || val < limit.min || val > limit.max) return null;
+  return { type: 'exact', val: val };
+}
+
+function matchField(val, parsed, limit) {
+  if (parsed.type === 'all') return true;
+  if (parsed.type === 'exact') return val === parsed.val || (limit.max===7 && parsed.val===7 && val===0); // Handle Sunday=7
+  if (parsed.type === 'list') {
+     if(parsed.vals.includes(val)) return true;
+     if(limit.max===7 && parsed.vals.includes(7) && val===0) return true;
+     return false;
+  }
+  if (parsed.type === 'range') {
+     let inRange = val >= parsed.start && val <= parsed.end;
+     if(!inRange && limit.max===7 && parsed.end===7 && val===0) return true;
+     return inRange;
+  }
+  if (parsed.type === 'step') {
+    if (parsed.base === '*') {
+      return val % parsed.step === 0;
+    } else {
+      // e.g. 5/15 means 5, 20, 35, 50
+      let start = parseInt(parsed.base, 10);
+      if(val < start) return false;
+      return (val - start) % parsed.step === 0;
+    }
+  }
+  return false;
+}
+
+function getNextDates(cronStr, count) {
+  const parts = cronStr.trim().split(/\s+/);
+  if (parts.length !== 5) return { error: "Invalid cron format (must have 5 parts)" };
+
+  const parsedParts = [];
+  for (let i = 0; i < 5; i++) {
+    const p = parseField(parts[i], limits[i]);
+    if (!p) return { error: `Invalid value in field ${i+1} ('${parts[i]}')` };
+    parsedParts.push(p);
+  }
+
+  const results = [];
+  let d = new Date();
+  d.setSeconds(0);
+  d.setMilliseconds(0);
+  d.setMinutes(d.getMinutes() + 1); // Start checking from next minute
+
+  // Failsafe to prevent infinite loops on impossible dates (e.g. Feb 30)
+  let iterations = 0;
+  const maxIterations = 100000;
+
+  while (results.length < count && iterations < maxIterations) {
+    iterations++;
+
+    let month = d.getMonth() + 1;
+    if (!matchField(month, parsedParts[3], limits[3])) {
+      d.setMonth(d.getMonth() + 1, 1);
+      d.setHours(0, 0, 0);
+      continue;
+    }
+
+    let date = d.getDate();
+    let dayOfWeek = d.getDay();
+    let dateMatch = matchField(date, parsedParts[2], limits[2]);
+    let dayMatch = matchField(dayOfWeek, parsedParts[4], limits[4]);
+
+    // In cron, if either day of month OR day of week is set (not *), they act as OR.
+    // If both are set, it matches if EITHER matches.
+    let isDomRestricted = parts[2] !== '*';
+    let isDowRestricted = parts[4] !== '*';
+
+    let validDay = false;
+    if (!isDomRestricted && !isDowRestricted) validDay = true;
+    else if (isDomRestricted && !isDowRestricted) validDay = dateMatch;
+    else if (!isDomRestricted && isDowRestricted) validDay = dayMatch;
+    else validDay = dateMatch || dayMatch; // Both restricted = OR logic
+
+    if (!validDay) {
+      d.setDate(d.getDate() + 1);
+      d.setHours(0, 0, 0);
+      continue;
+    }
+
+    let hour = d.getHours();
+    if (!matchField(hour, parsedParts[1], limits[1])) {
+      d.setHours(d.getHours() + 1, 0, 0);
+      continue;
+    }
+
+    let min = d.getMinutes();
+    if (!matchField(min, parsedParts[0], limits[0])) {
+      d.setMinutes(d.getMinutes() + 1);
+      continue;
+    }
+
+    // Found a match
+    results.push(new Date(d));
+    d.setMinutes(d.getMinutes() + 1);
+  }
+
+  if (iterations >= maxIterations) return { error: "Expression matches no dates or impossible to compute." };
+
+  return { dates: results };
+}
+
+// Very basic English translation
+function describeField(val, type) {
+    if (val === '*') return 'every ' + type;
+    if (val.startsWith('*/')) return `every ${val.substring(2)} ${type}s`;
+    return `${val}`;
+}
+
+function toEnglish(cronStr) {
+  const parts = cronStr.trim().split(/\s+/);
+  if(parts.length !== 5) return "";
+
+  let desc = `Runs `;
+
+  // Minute
+  if(parts[0] === '*' && parts[1] === '*') desc += `every minute`;
+  else if(parts[0] !== '*' && parts[1] === '*') {
+      if(parts[0].startsWith('*/')) desc += `every ${parts[0].substring(2)} minutes`;
+      else desc += `at minute ${parts[0]} of every hour`;
+  }
+  else if(parts[0] === '0' && parts[1] !== '*') {
+      if(parts[1].startsWith('*/')) desc += `every ${parts[1].substring(2)} hours`;
+      else desc += `at hour ${parts[1]}`;
+  }
+  else {
+      desc += `at ${describeField(parts[0], 'minute')} past ${describeField(parts[1], 'hour')}`;
+  }
+
+  // Day / Month / Weekday
+  let dom = parts[2] !== '*';
+  let mon = parts[3] !== '*';
+  let dow = parts[4] !== '*';
+
+  if (dom) {
+      if(parts[2].startsWith('*/')) desc += `, every ${parts[2].substring(2)} days`;
+      else desc += `, on day ${parts[2]} of the month`;
+  }
+  if (mon) {
+      if(parts[3].startsWith('*/')) desc += `, every ${parts[3].substring(2)} months`;
+      else desc += `, only in month ${parts[3]}`;
+  }
+  if (dow) {
+       let dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+       let dowStr = parts[4];
+       // Attempt to map simple numbers to names
+       if(dowStr.length===1 && !isNaN(parseInt(dowStr))) {
+           dowStr = dayNames[parseInt(dowStr)];
+       }
+       if(dom || mon) desc += ` and on ${dowStr}`;
+       else desc += `, only on ${dowStr}`;
+  }
+
+  return desc + '.';
+}
+
+function updateUI() {
+  const val = cronInput.value;
+  const parts = val.trim().split(/\s+/);
+
+  if (parts.length === 5) {
+    cronInput.classList.remove('invalid');
+    explanationDiv.classList.remove('error');
+
+    // Update Explainer
+    explanationDiv.textContent = toEnglish(val);
+
+    // Calculate dates
+    const res = getNextDates(val, 10);
+    nextRunsList.innerHTML = '';
+
+    if (res.error) {
+        cronInput.classList.add('invalid');
+        explanationDiv.textContent = res.error;
+        explanationDiv.classList.add('error');
+        nextRunsList.innerHTML = '<li><span class="run-number">-</span> Error calculating dates</li>';
+    } else {
+        res.dates.forEach((d, i) => {
+            const li = document.createElement('li');
+            li.innerHTML = `<span class="run-number">${i+1}.</span> ${d.toLocaleString(undefined, {
+                weekday: 'short', year: 'numeric', month: 'short', day: 'numeric',
+                hour: '2-digit', minute:'2-digit', second:'2-digit'
+            })}`;
+            nextRunsList.appendChild(li);
+        });
+    }
+  } else {
+      cronInput.classList.add('invalid');
+      explanationDiv.textContent = 'A valid cron expression has exactly 5 parts.';
+      explanationDiv.classList.add('error');
+      nextRunsList.innerHTML = '';
+  }
+}
+
+// Events
+cronInput.addEventListener('input', updateUI);
+
+copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(cronInput.value).then(() => {
+        copyBtn.textContent = '✓ Copied';
+        copyBtn.classList.add('copied');
+        setTimeout(() => {
+            copyBtn.textContent = 'Copy Expression';
+            copyBtn.classList.remove('copied');
+        }, 1500);
+    });
+});
+
+// Init
+updateUI();
+
+</script>
+</body>
+</html>
