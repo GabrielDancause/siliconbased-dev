@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YAML ↔ JSON Converter — Fast, Free & Offline Tool</title>
+<meta name="description" content="Convert between YAML and JSON formats instantly. Validates syntax, shows errors with line numbers, and supports nested structures. Free, no signup, runs offline in your browser.">
+<meta property="og:title" content="YAML ↔ JSON Converter">
+<meta property="og:description" content="Convert between YAML and JSON formats instantly. Validates syntax, shows errors with line numbers, and supports nested structures. Free, no signup, runs offline in your browser.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "YAML to JSON Converter",
+  "url": "https://siliconbased.dev/yaml-json",
+  "description": "Interactive tool to convert between YAML and JSON. Validates syntax, shows errors with line numbers, and highlights syntax.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+.hero { text-align: center; padding: 48px 24px 24px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.4rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Input/Output Grid */
+.tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; align-items: stretch; }
+.pane { display: flex; flex-direction: column; }
+
+/* Textarea / Input */
+.pane-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.header-title { font-size: 0.85rem; font-weight: 600; color: #ccc; text-transform: uppercase; letter-spacing: 0.5px; }
+.header-actions { display: flex; gap: 8px; }
+
+.action-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.action-btn:hover { background: #2a2d40; color: #ccc; }
+.action-btn.active { background: #818cf8; color: #fff; border-color: #818cf8; }
+
+.copy-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 6px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.copy-btn:hover { background: #2a2d40; color: #ccc; }
+.copy-btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+.editor-wrap { flex: 1; display: flex; flex-direction: column; position: relative; min-height: 400px; background: #111318; border: 2px solid #1e2030; border-radius: 12px; overflow: hidden; }
+.editor-wrap.error-state { border-color: #f87171; background: rgba(248, 113, 113, 0.05); }
+
+textarea.code-input { flex: 1; width: 100%; height: 100%; background: transparent; border: none; padding: 16px 16px 16px 44px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; resize: none; outline: none; line-height: 1.6; white-space: pre; position: absolute; top: 0; left: 0; z-index: 2; color: transparent; caret-color: #e0e0e0; overflow: auto; word-wrap: normal; overflow-wrap: normal; }
+.result-body { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; padding: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+
+.line-numbers { padding: 16px 10px; background: #0d0e14; color: #444; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.6; text-align: right; border-right: 1px solid #1e2030; user-select: none; z-index: 5; width: 44px; flex-shrink: 0; box-sizing: border-box; }
+.output-pre { margin: 0; padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.6; color: #b0b8d0; white-space: pre; flex: 1; tab-size: 2; overflow-wrap: normal; word-wrap: normal; display: block; min-width: 100%; box-sizing: border-box; }
+
+/* Syntax Highlighting Colors */
+.hl-key { color: #818cf8; }
+.hl-str { color: #4ade80; }
+.hl-num { color: #fbbf24; }
+.hl-bool { color: #c084fc; }
+.hl-null { color: #f87171; }
+.hl-comment { color: #6b7280; font-style: italic; }
+.hl-default { color: #e0e0e0; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; }
+.seo-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 0.9rem; }
+.seo-table th { text-align: left; padding: 10px 14px; border-bottom: 2px solid #2a2d4e; color: #ccc; font-weight: 600; background: #111318; }
+.seo-table td { padding: 10px 14px; border-bottom: 1px solid #1e2030; color: #aaa; }
+.seo-table tr:hover td { background: #111318; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Error Display */
+.error-msg { background: #f87171; color: #fff; padding: 12px 16px; font-size: 0.85rem; font-weight: 500; display: none; align-items: flex-start; gap: 10px; font-family: 'JetBrains Mono', monospace; word-break: break-word; border-bottom: 1px solid #dc2626; z-index: 10; position: relative; }
+.error-msg svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; }
+
+/* Readonly overlay style for output pane */
+textarea[readonly] { z-index: -1; } /* Output pane doesn't need caret */
+
+/* Middle controls */
+.controls-bar { display: flex; justify-content: center; margin-bottom: 24px; gap: 16px; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .tool-grid { grid-template-columns: 1fr; }
+  .editor-wrap { min-height: 300px; }
+  .controls-bar { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>YAML ↔ JSON Converter 🔄</h1>
+  <p>Convert between YAML and JSON instantly. Validates syntax and formats output offline.</p>
+</div>
+
+<div class="main">
+
+  <div class="controls-bar">
+    <button class="action-btn active" id="btnYamlToJson">YAML → JSON</button>
+    <button class="action-btn" id="btnJsonToYaml">JSON → YAML</button>
+  </div>
+
+  <div class="tool-grid">
+    <!-- Input Pane -->
+    <div class="pane">
+      <div class="pane-header">
+        <div class="header-title" id="inputTitle">Input (YAML)</div>
+        <div class="header-actions">
+          <button class="action-btn" id="clearBtn">Clear</button>
+        </div>
+      </div>
+      <div class="editor-wrap" id="inputWrap">
+        <textarea id="codeInput" class="code-input" spellcheck="false"></textarea>
+        <div class="result-body">
+          <div class="line-numbers" id="inputLineNumbers">1</div>
+          <pre class="output-pre" id="inputDisplay"></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Output Pane -->
+    <div class="pane">
+      <div class="pane-header">
+        <div class="header-title" id="outputStatus">Output (JSON)</div>
+        <div class="header-actions">
+          <button class="copy-btn" id="copyBtn">Copy</button>
+        </div>
+      </div>
+
+      <div class="editor-wrap" id="outputWrap">
+        <div class="error-msg" id="errorMsg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          <span id="errorText">Invalid syntax</span>
+        </div>
+        <textarea id="codeOutput" class="code-input" readonly spellcheck="false"></textarea>
+        <div class="result-body">
+          <div class="line-numbers" id="outputLineNumbers">1</div>
+          <pre class="output-pre" id="outputDisplay"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>YAML vs JSON: What's the Difference?</h2>
+    <p>Both YAML (YAML Ain't Markup Language) and JSON (JavaScript Object Notation) are widely used data serialization formats. While they serve a similar purpose—structuring data so it can be exchanged between systems—their design philosophies differ.</p>
+    <ul>
+      <li><strong>JSON</strong> is optimized for machines. It is strict, relies heavily on braces <code>{}</code> and brackets <code>[]</code>, requires quotes around keys, and does not allow comments. This makes it incredibly fast to parse.</li>
+      <li><strong>YAML</strong> is optimized for human readability. It uses indentation (spaces) to define structure instead of brackets, allows comments, and doesn't require quotes for most strings. It's heavily used in configuration files like Docker Compose, Kubernetes manifests, and CI/CD pipelines.</li>
+    </ul>
+
+    <h2>Why Convert Between YAML and JSON?</h2>
+    <p>Because JSON is easily parsed by web browsers and most programming languages, it is the standard for APIs and data exchange. However, JSON is notoriously difficult for humans to write manually due to its strict syntax. YAML is much easier to write and read.</p>
+    <p>Converting YAML to JSON is incredibly common when a human-written configuration file needs to be ingested by an application. Conversely, converting JSON to YAML is useful when you want to take a raw API response and make it readable or editable by a human.</p>
+
+    <h2>YAML Syntax Rules & Common Errors</h2>
+    <p>When converting YAML to JSON, syntax errors usually stem from indentation issues. Here are the main rules to remember:</p>
+    <table class="seo-table">
+      <thead>
+        <tr>
+          <th>Rule</th>
+          <th>YAML Example</th>
+          <th>JSON Equivalent</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Indentation</strong> (Use spaces, not tabs)</td>
+          <td><pre>user:<br>  name: Gab</pre></td>
+          <td><code>{"user": {"name": "Gab"}}</code></td>
+        </tr>
+        <tr>
+          <td><strong>Lists/Arrays</strong> (Use hyphens)</td>
+          <td><pre>colors:<br>  - red<br>  - blue</pre></td>
+          <td><code>{"colors": ["red", "blue"]}</code></td>
+        </tr>
+        <tr>
+          <td><strong>Comments</strong> (Ignored in JSON)</td>
+          <td><pre>port: 8080 # App port</pre></td>
+          <td><code>{"port": 8080}</code></td>
+        </tr>
+        <tr>
+          <td><strong>Booleans & Nulls</strong></td>
+          <td><pre>active: true<br>data: null</pre></td>
+          <td><code>{"active": true, "data": null}</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+// --- Custom YAML Parser & Stringifier ---
+// A lightweight subset of YAML 1.2 to handle standard valid configuration YAML files
+// without external dependencies. Supports nested mappings, sequences, strings, numbers, booleans, and nulls.
+const MinimalYAML = {
+  parse(str) {
+    if (!str || !str.trim()) return {};
+    let lines = str.split('\n');
+    let idx = 0;
+
+    function getIndent(line) {
+      const match = line.match(/^ */);
+      return match ? match[0].length : 0;
+    }
+
+    function parseValue(valStr) {
+      valStr = valStr.trim();
+      if (!valStr) return null;
+      if (valStr === 'true') return true;
+      if (valStr === 'false') return false;
+      if (valStr === 'null' || valStr === '~') return null;
+      if (/^-?\d+(\.\d+)?$/.test(valStr)) return Number(valStr);
+      if (valStr.startsWith('"') && valStr.endsWith('"')) return valStr.slice(1, -1).replace(/\\"/g, '"');
+      if (valStr.startsWith("'") && valStr.endsWith("'")) return valStr.slice(1, -1).replace(/\\'/g, "'");
+      if (valStr.startsWith('[') && valStr.endsWith(']')) {
+         try { return JSON.parse(valStr); } catch(e) { return valStr; }
+      }
+      if (valStr.startsWith('{') && valStr.endsWith('}')) {
+         try { return JSON.parse(valStr); } catch(e) { return valStr; }
+      }
+      return valStr;
+    }
+
+    function parseBlock(currentIndent) {
+      let result = undefined;
+      let isArray = false;
+      let isObject = false;
+
+      while (idx < lines.length) {
+        let line = lines[idx];
+        if (line.trim() === '' || line.trim().startsWith('#')) {
+          idx++;
+          continue;
+        }
+
+        let indent = getIndent(line);
+        if (indent < currentIndent) break;
+
+        let trimmed = line.trim();
+        // Remove inline comments
+        let commentIdx = trimmed.indexOf(' #');
+        if (commentIdx !== -1) {
+           trimmed = trimmed.substring(0, commentIdx).trim();
+        }
+
+        if (trimmed.startsWith('- ')) {
+          if (!isArray && result === undefined) {
+            isArray = true;
+            result = [];
+          } else if (isObject) {
+            break;
+          }
+
+          let valStr = trimmed.substring(2).trim();
+          let baseIndent = indent;
+          idx++;
+          if (valStr === '') {
+             let nextIndent = getNextIndent();
+             if (nextIndent > indent) {
+                 result.push(parseBlock(nextIndent));
+             } else {
+                 result.push(null);
+             }
+          } else {
+             let colonIdx = valStr.indexOf(': ');
+             if (colonIdx === -1 && valStr.endsWith(':')) colonIdx = valStr.length - 1;
+
+             if (colonIdx !== -1) {
+                 let k = valStr.substring(0, colonIdx).trim();
+                 let v = valStr.substring(colonIdx + 1).trim();
+                 if (k.startsWith('"') && k.endsWith('"')) k = k.slice(1, -1);
+                 else if (k.startsWith("'") && k.endsWith("'")) k = k.slice(1, -1);
+
+                 let obj = {};
+                 if (v === '') {
+                     let nextIndent = getNextIndent();
+                     if (nextIndent > indent) {
+                         obj[k] = parseBlock(nextIndent);
+                     } else {
+                         obj[k] = null;
+                     }
+                 } else {
+                     obj[k] = parseValue(v);
+                 }
+
+                 let nextIndent = getNextIndent();
+                 if (nextIndent > baseIndent) {
+                     let restObj = parseBlock(nextIndent);
+                     if (typeof restObj === 'object' && !Array.isArray(restObj) && restObj !== null) {
+                         Object.assign(obj, restObj);
+                     }
+                 }
+                 result.push(obj);
+             } else {
+                 result.push(parseValue(valStr));
+             }
+          }
+        } else {
+          let colonIdx = trimmed.indexOf(': ');
+          if (colonIdx === -1 && trimmed.endsWith(':')) colonIdx = trimmed.length - 1;
+
+          if (colonIdx !== -1) {
+            if (!isObject && result === undefined) {
+              isObject = true;
+              result = {};
+            } else if (isArray) {
+              break;
+            }
+
+            let key = trimmed.substring(0, colonIdx).trim();
+            if (key.startsWith('"') && key.endsWith('"')) key = key.slice(1, -1);
+            else if (key.startsWith("'") && key.endsWith("'")) key = key.slice(1, -1);
+
+            let valStr = trimmed.substring(colonIdx + 1).trim();
+            idx++;
+
+            if (valStr === '' || valStr === '|' || valStr === '|-') {
+               if (valStr.startsWith('|')) {
+                   let strResult = [];
+                   let nextIndent = getNextIndent();
+                   if (nextIndent === 0) nextIndent = currentIndent + 2;
+                   while (idx < lines.length) {
+                       let nextLine = lines[idx];
+                       if (nextLine.trim() === '') {
+                           strResult.push('');
+                           idx++;
+                           continue;
+                       }
+                       if (getIndent(nextLine) >= nextIndent) {
+                           strResult.push(nextLine.substring(nextIndent));
+                           idx++;
+                       } else {
+                           break;
+                       }
+                   }
+                   result[key] = strResult.join('\n') + (valStr === '|' ? '\n' : '');
+               } else {
+                   let nextIndent = getNextIndent();
+                   if (nextIndent > indent) {
+                       result[key] = parseBlock(nextIndent);
+                   } else {
+                       result[key] = null;
+                   }
+               }
+            } else {
+               result[key] = parseValue(valStr);
+            }
+          } else {
+            if (result === undefined) {
+               let val = parseValue(trimmed);
+               idx++;
+               return val;
+            } else {
+               break;
+            }
+          }
+        }
+      }
+      return result !== undefined ? result : {};
+    }
+
+    function getNextIndent() {
+        let i = idx;
+        while (i < lines.length) {
+            if (lines[i].trim() !== '' && !lines[i].trim().startsWith('#')) {
+                return getIndent(lines[i]);
+            }
+            i++;
+        }
+        return 0;
+    }
+
+    try {
+      let parsed = parseBlock(0);
+      return parsed;
+    } catch(e) {
+      throw new Error(`Syntax error at line ${idx + 1}`);
+    }
+  },
+
+  stringify(obj, indentStr = '  ', level = 0) {
+    if (obj === null || obj === undefined) return 'null';
+    if (typeof obj === 'number' || typeof obj === 'boolean') return String(obj);
+    if (typeof obj === 'string') {
+      if (obj.includes('\n')) {
+          return '|\n' + obj.split('\n').map(l => indentStr.repeat(level + 1) + l).join('\n');
+      }
+      if (obj.includes(': ') || obj.includes('#') || obj.startsWith(' ') || obj.endsWith(' ') || obj === '' || /^\d/.test(obj) || obj === 'true' || obj === 'false' || obj === 'null') {
+        return `"${obj.replace(/"/g, '\\"')}"`;
+      }
+      return obj;
+    }
+
+    if (Array.isArray(obj)) {
+      if (obj.length === 0) return '[]';
+      let res = '';
+      for (let i = 0; i < obj.length; i++) {
+        let item = obj[i];
+        let itemStr = this.stringify(item, indentStr, level + 1);
+        if (typeof item === 'object' && item !== null && Object.keys(item).length > 0) {
+           res += `${i > 0 ? '\n' : ''}${indentStr.repeat(level)}- ${itemStr.trimStart()}`;
+        } else {
+           res += `${i > 0 ? '\n' : ''}${indentStr.repeat(level)}- ${itemStr}`;
+        }
+      }
+      return res;
+    }
+
+    if (typeof obj === 'object') {
+      const keys = Object.keys(obj);
+      if (keys.length === 0) return '{}';
+      let res = '';
+      for (let i = 0; i < keys.length; i++) {
+        let k = keys[i];
+        let v = obj[k];
+        let safeKey = k;
+        if (safeKey.match(/[^a-zA-Z0-9_-]/) || safeKey === '') safeKey = `"${safeKey.replace(/"/g, '\\"')}"`;
+
+        let valStr = this.stringify(v, indentStr, level + 1);
+        if (typeof v === 'object' && v !== null && Object.keys(v).length > 0) {
+          res += `${i > 0 ? '\n' : ''}${indentStr.repeat(level)}${safeKey}:\n${valStr}`;
+        } else {
+          res += `${i > 0 ? '\n' : ''}${indentStr.repeat(level)}${safeKey}: ${valStr}`;
+        }
+      }
+      return res;
+    }
+    return '';
+  }
+};
+
+// --- App Logic ---
+const codeInput = document.getElementById('codeInput');
+const codeOutput = document.getElementById('codeOutput');
+const inputDisplay = document.getElementById('inputDisplay');
+const outputDisplay = document.getElementById('outputDisplay');
+const inputLineNumbers = document.getElementById('inputLineNumbers');
+const outputLineNumbers = document.getElementById('outputLineNumbers');
+const errorMsg = document.getElementById('errorMsg');
+const errorText = document.getElementById('errorText');
+const outputWrap = document.getElementById('outputWrap');
+const outputStatus = document.getElementById('outputStatus');
+
+const btnYamlToJson = document.getElementById('btnYamlToJson');
+const btnJsonToYaml = document.getElementById('btnJsonToYaml');
+const copyBtn = document.getElementById('copyBtn');
+const clearBtn = document.getElementById('clearBtn');
+const inputTitle = document.getElementById('inputTitle');
+
+let currentMode = 'yaml-to-json'; // 'yaml-to-json' | 'json-to-yaml'
+let debounceTimer;
+let currentValidOutput = '';
+
+function init() {
+  codeInput.addEventListener('input', () => {
+    syncInputDisplay();
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(processConversion, 300);
+  });
+
+  codeInput.addEventListener('scroll', () => {
+    // The visual highlighting pre block needs to match the textarea scroll
+    // Since the line numbers stay fixed on the left, we only scroll the `output-pre` inside `result-body`
+    const pre = inputDisplay;
+    const lineNums = inputLineNumbers;
+    pre.style.transform = `translate(${-codeInput.scrollLeft}px, ${-codeInput.scrollTop}px)`;
+    lineNums.style.transform = `translateY(${-codeInput.scrollTop}px)`;
+  });
+
+  codeOutput.addEventListener('scroll', () => {
+    const pre = outputDisplay;
+    const lineNums = outputLineNumbers;
+    pre.style.transform = `translate(${-codeOutput.scrollLeft}px, ${-codeOutput.scrollTop}px)`;
+    lineNums.style.transform = `translateY(${-codeOutput.scrollTop}px)`;
+  });
+
+  btnYamlToJson.addEventListener('click', () => setMode('yaml-to-json'));
+  btnJsonToYaml.addEventListener('click', () => setMode('json-to-yaml'));
+
+  clearBtn.addEventListener('click', () => {
+    codeInput.value = '';
+    syncInputDisplay();
+    processConversion();
+    codeInput.focus();
+  });
+
+  copyBtn.addEventListener('click', () => {
+    if (!currentValidOutput) return;
+    navigator.clipboard.writeText(currentValidOutput).then(() => {
+      copyBtn.textContent = '✓ Copied';
+      copyBtn.classList.add('copied');
+      setTimeout(() => {
+        copyBtn.textContent = 'Copy';
+        copyBtn.classList.remove('copied');
+      }, 1500);
+    });
+  });
+
+  // Initial Demo Data
+  codeInput.value = 'name: "YAML ↔ JSON Converter"\nversion: 1.0\nfeatures:\n  - "YAML to JSON"\n  - "JSON to YAML"\n  - "Syntax Highlighting"\noffline_ready: true\nsettings:\n  theme: dark';
+  syncInputDisplay();
+  processConversion();
+}
+
+function setMode(mode) {
+  if (currentMode === mode) return;
+
+  // Swap contents if possible to make toggling smooth
+  if (currentValidOutput) {
+    codeInput.value = currentValidOutput;
+  }
+
+  currentMode = mode;
+  btnYamlToJson.classList.toggle('active', mode === 'yaml-to-json');
+  btnJsonToYaml.classList.toggle('active', mode === 'json-to-yaml');
+
+  if (mode === 'yaml-to-json') {
+    inputTitle.textContent = 'Input (YAML)';
+    outputStatus.textContent = 'Output (JSON)';
+  } else {
+    inputTitle.textContent = 'Input (JSON)';
+    outputStatus.textContent = 'Output (YAML)';
+  }
+
+  syncInputDisplay();
+  processConversion();
+}
+
+function syncInputDisplay() {
+  const val = codeInput.value;
+  inputDisplay.innerHTML = highlightSyntax(val, currentMode === 'yaml-to-json' ? 'yaml' : 'json');
+  updateLineNumbers(val, inputLineNumbers);
+}
+
+function processConversion() {
+  const raw = codeInput.value;
+  if (!raw.trim()) {
+    clearOutput();
+    return;
+  }
+
+  try {
+    let parsedObj, outStr;
+    if (currentMode === 'yaml-to-json') {
+      parsedObj = MinimalYAML.parse(raw);
+      outStr = JSON.stringify(parsedObj, null, 2);
+    } else {
+      parsedObj = JSON.parse(raw);
+      outStr = MinimalYAML.stringify(parsedObj);
+    }
+    showSuccess(outStr);
+  } catch (err) {
+    showError(err.message, raw);
+  }
+}
+
+function clearOutput() {
+  codeOutput.value = '';
+  outputDisplay.innerHTML = '';
+  updateLineNumbers('', outputLineNumbers);
+  errorMsg.style.display = 'none';
+  outputWrap.classList.remove('error-state');
+  outputStatus.style.color = '#ccc';
+  currentValidOutput = '';
+}
+
+function showSuccess(outStr) {
+  errorMsg.style.display = 'none';
+  outputWrap.classList.remove('error-state');
+
+  if (currentMode === 'yaml-to-json') {
+    outputStatus.textContent = '✓ Valid JSON';
+  } else {
+    outputStatus.textContent = '✓ Valid YAML';
+  }
+  outputStatus.style.color = '#4ade80';
+
+  currentValidOutput = outStr;
+  codeOutput.value = outStr;
+
+  updateLineNumbers(outStr, outputLineNumbers);
+  outputDisplay.innerHTML = highlightSyntax(outStr, currentMode === 'yaml-to-json' ? 'json' : 'yaml');
+}
+
+function showError(msg, raw) {
+  errorMsg.style.display = 'flex';
+  outputWrap.classList.add('error-state');
+
+  outputStatus.textContent = currentMode === 'yaml-to-json' ? 'Invalid YAML' : 'Invalid JSON';
+  outputStatus.style.color = '#f87171';
+
+  let enhancedMsg = msg;
+  // If JSON error, try to extract line/col
+  if (currentMode === 'json-to-yaml' && msg.includes('position')) {
+    const match = msg.match(/position (\d+)/);
+    if (match && !msg.toLowerCase().includes('line')) {
+      const pos = parseInt(match[1], 10);
+      const textUpToPos = raw.substring(0, pos);
+      const lines = textUpToPos.split('\n');
+      const lineNum = lines.length;
+      const colNum = lines[lines.length - 1].length + 1;
+      enhancedMsg = `${msg} (Line ${lineNum}, Column ${colNum})`;
+    }
+  }
+
+  errorText.textContent = enhancedMsg;
+  codeOutput.value = '';
+  outputDisplay.innerHTML = '';
+  updateLineNumbers('', outputLineNumbers);
+  currentValidOutput = '';
+}
+
+function updateLineNumbers(text, container) {
+  const linesCount = text.split('\n').length || 1;
+  let linesHtml = '';
+  for (let i = 1; i <= linesCount; i++) {
+    linesHtml += i + '<br>';
+  }
+  container.innerHTML = linesHtml || '1';
+}
+
+function highlightSyntax(text, lang) {
+  text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+  if (lang === 'json') {
+    return text.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+      let cls = 'hl-num';
+      if (/^"/.test(match)) {
+        if (/:$/.test(match)) cls = 'hl-key';
+        else cls = 'hl-str';
+      } else if (/true|false/.test(match)) cls = 'hl-bool';
+      else if (/null/.test(match)) cls = 'hl-null';
+      return `<span class="${cls}">${match}</span>`;
+    });
+  } else if (lang === 'yaml') {
+    // Basic YAML highlighting
+    const lines = text.split('\n');
+    return lines.map(line => {
+      // Comments
+      const commentIdx = line.indexOf('#');
+      if (commentIdx !== -1) {
+        const before = line.substring(0, commentIdx);
+        const comment = line.substring(commentIdx);
+        return highlightYamlLine(before) + `<span class="hl-comment">${comment}</span>`;
+      }
+      return highlightYamlLine(line);
+    }).join('\n');
+  }
+  return text;
+}
+
+function highlightYamlLine(line) {
+  // Key: Value
+  const colonIdx = line.indexOf(':');
+  if (colonIdx !== -1) {
+    const isArrayItem = line.trim().startsWith('-');
+    if (!isArrayItem || line.indexOf(': ') !== -1) {
+       const key = line.substring(0, colonIdx);
+       const val = line.substring(colonIdx + 1);
+       return `<span class="hl-key">${key}</span>:` + highlightYamlValue(val);
+    }
+  }
+
+  // Array items or plain values
+  if (line.trim().startsWith('- ')) {
+     return `<span class="hl-default">- </span>` + highlightYamlValue(line.substring(line.indexOf('- ') + 2));
+  }
+  return highlightYamlValue(line);
+}
+
+function highlightYamlValue(val) {
+  if (!val.trim()) return val;
+  const t = val.trim();
+  let cls = 'hl-default';
+  if (t === 'true' || t === 'false') cls = 'hl-bool';
+  else if (t === 'null' || t === '~') cls = 'hl-null';
+  else if (/^-?\d+(\.\d+)?$/.test(t)) cls = 'hl-num';
+  else if (t.startsWith('"') || t.startsWith("'")) cls = 'hl-str';
+
+  // Preserve spaces
+  return val.replace(t, `<span class="${cls}">${t}</span>`);
+}
+
+init();
+</script>
+
+</body>
+</html>
