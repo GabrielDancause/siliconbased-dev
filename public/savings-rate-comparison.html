@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>High-Yield Savings Account Rates 2025 | firemaths.info</title>
+  <link rel="canonical" href="https://firemaths.info/savings-rate-comparison">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0a0b10;
+      --card-bg: #111318;
+      --border: #1e2030;
+      --accent: #D4A017;
+      --text: #e0e0e0;
+      --text-muted: #888888;
+      --danger: #ef4444;
+      --success: #10b981;
+      --font-ui: 'Inter', sans-serif;
+      --font-code: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-ui);
+      line-height: 1.6;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .tag {
+      display: inline-block;
+      background-color: rgba(212, 160, 23, 0.1);
+      color: var(--accent);
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(212, 160, 23, 0.3);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem 0;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.125rem;
+      margin-bottom: 3rem;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .stat-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      font-family: var(--font-code);
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Key Findings */
+    .findings-container {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .findings-container h2 {
+      margin-top: 0;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .findings-list {
+      margin: 0;
+      padding-left: 1.5rem;
+      color: var(--text);
+    }
+
+    .findings-list li {
+      margin-bottom: 0.75rem;
+    }
+
+    .findings-list li strong {
+      color: var(--accent);
+    }
+
+    /* Chart */
+    .chart-container {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      overflow-x: auto;
+    }
+
+    .chart-container h2 {
+      margin-top: 0;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .chart-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      gap: 1rem;
+    }
+
+    .chart-label {
+      width: 180px;
+      flex-shrink: 0;
+      font-size: 0.875rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: right;
+    }
+
+    .chart-bar-container {
+      flex-grow: 1;
+      background-color: var(--bg);
+      height: 24px;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .chart-bar {
+      background-color: var(--accent);
+      height: 100%;
+      min-width: 2px;
+      transition: width 0.5s ease;
+    }
+
+    .chart-value {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-code);
+      font-size: 0.75rem;
+      color: var(--bg);
+      font-weight: 700;
+    }
+
+    /* Table & Controls */
+    .controls {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    select {
+      background-color: var(--card-bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-family: var(--font-ui);
+      font-size: 0.875rem;
+      outline: none;
+      cursor: pointer;
+    }
+
+    select:focus {
+      border-color: var(--accent);
+    }
+
+    .table-container {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      overflow-x: auto;
+      margin-bottom: 3rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    th:hover {
+      color: var(--text);
+    }
+
+    th.sort-asc::after { content: " ↑"; color: var(--accent); }
+    th.sort-desc::after { content: " ↓"; color: var(--accent); }
+
+    td {
+      font-size: 0.9375rem;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover { background-color: rgba(255, 255, 255, 0.02); }
+
+    .col-apy {
+      font-family: var(--font-code);
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .col-money {
+      font-family: var(--font-code);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.125rem 0.5rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .badge-online { background-color: rgba(59, 130, 246, 0.1); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.2); }
+    .badge-traditional { background-color: rgba(168, 85, 247, 0.1); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.2); }
+    .badge-cu { background-color: rgba(16, 185, 129, 0.1); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.2); }
+    .badge-neobank { background-color: rgba(245, 158, 11, 0.1); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.2); }
+
+    /* Footer & Disclaimer */
+    .disclaimer {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      background-color: rgba(0,0,0,0.2);
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+
+    @media (max-width: 768px) {
+      .container { padding: 1rem; }
+      h1 { font-size: 2rem; }
+      .chart-label { width: 100px; font-size: 0.75rem; }
+      th, td { padding: 0.75rem 1rem; }
+    }
+  </style>
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "High-Yield Savings Account Rates 2025 — Every Major Bank Compared",
+        "description": "A comprehensive, interactive comparison of savings account interest rates (APY) across major US banks, credit unions, and neobanks.",
+        "author": {
+          "@type": "Organization",
+          "name": "firemaths.info",
+          "url": "https://firemaths.info"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "firemaths.info"
+        },
+        "datePublished": "2025-03-08"
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Savings Rate Comparison Tool",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "All",
+        "description": "Interactive tool to filter and sort current high-yield savings account rates, minimum deposits, and fees."
+      }
+    ]
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="tag">Original Research</div>
+    <h1 id="page-title">High-Yield Savings Account Rates 2025</h1>
+    <div class="subtitle" id="page-subtitle">Comparing accounts to find the best places for your cash.</div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value" id="stat-max-apy">0%</div>
+        <div class="stat-label">Highest APY</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-avg-apy">0%</div>
+        <div class="stat-label">Average APY</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-total-accounts">0</div>
+        <div class="stat-label">Banks Compared</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-no-fee">0%</div>
+        <div class="stat-label">Charge No Fees</div>
+      </div>
+    </div>
+
+    <div class="findings-container">
+      <h2>🔍 Key Findings</h2>
+      <ul class="findings-list" id="findings-list">
+        <!-- Injected via JS -->
+      </ul>
+    </div>
+
+    <div class="chart-container">
+      <h2>Rate Distribution by Bank Type</h2>
+      <div id="distribution-chart">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <h2>Top 15 Accounts by APY</h2>
+      <div id="chart-bars">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+
+    <h2>Complete Rate Comparison</h2>
+    <div class="controls">
+      <select id="filter-type">
+        <option value="all">All Bank Types</option>
+        <option value="online">Online Banks</option>
+        <option value="traditional">Traditional Banks</option>
+        <option value="credit-union">Credit Unions</option>
+        <option value="neobank">Neobanks</option>
+      </select>
+      <select id="filter-fee">
+        <option value="all">Any Fee Structure</option>
+        <option value="no-fee">No Monthly Fee Only</option>
+      </select>
+      <select id="filter-apy">
+        <option value="all">Any APY Range</option>
+        <option value="high">5.00% and above</option>
+        <option value="med">4.00% - 4.99%</option>
+        <option value="low">Below 4.00%</option>
+      </select>
+      <select id="filter-min">
+        <option value="all">Any Minimum Deposit</option>
+        <option value="zero">$0 Minimum Only</option>
+        <option value="under500">Under $500</option>
+      </select>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th data-sort="bankName">Institution</th>
+            <th data-sort="apyPct" class="sort-desc">APY</th>
+            <th data-sort="minDeposit">Min. Deposit</th>
+            <th data-sort="monthlyFee">Monthly Fee</th>
+            <th data-sort="bankType">Type</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <!-- Injected via JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <div class="disclaimer">
+      <strong>Methodology & Disclaimer:</strong> Rates are compiled programmatically by cross-referencing major financial comparison sites.
+      <br><br>
+      Rates, fees, and terms are subject to change by the financial institutions at any time without notice. We attempt to keep this data accurate, but you must verify the APY and terms directly with the bank before opening an account. This tool does not constitute financial advice. Data crawled on: <span id="crawl-date"></span>.
+    </div>
+
+    <footer>
+      © 2025 firemaths.info · A GAB Ventures property<br>
+      <a href="https://firemaths.info">firemaths.info</a> | <a href="https://gab.ae">gab.ae</a>
+    </footer>
+  </div>
+
+  <script type="application/json" id="savings-data">
+{
+  "crawlDate": "2026-03-08T13:25:12.778Z",
+  "methodology": "Scraped 6 comparison sites, cross-referenced rates for 37 accounts",
+  "totalAccounts": 37,
+  "sources": [
+    "https://www.bankrate.com/banking/savings/best-high-yield-savings-accounts/",
+    "https://www.nerdwallet.com/best/banking/high-yield-online-savings-accounts",
+    "https://www.depositaccounts.com/savings/",
+    "https://www.forbes.com/advisor/banking/savings/best-high-yield-savings-accounts/",
+    "https://www.cnbc.com/select/best-high-yield-savings-accounts/",
+    "https://money.usnews.com/banking/savings-accounts"
+  ],
+  "accounts": [
+    {
+      "bankName": "Varo Bank",
+      "accountName": "Savings",
+      "apyPct": 5,
+      "minDeposit": null,
+      "minBalanceForAPY": null,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "neobank",
+      "atmAccess": true,
+      "mobileApp": true,
+      "notableFeature": "4.8."
+    },
+    {
+      "bankName": "Newtek Bank",
+      "accountName": "Savings",
+      "apyPct": 4.2,
+      "minDeposit": 100,
+      "minBalanceForAPY": 100,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "4.8."
+    },
+    {
+      "bankName": "Openbank",
+      "accountName": "Savings",
+      "apyPct": 4.09,
+      "minDeposit": null,
+      "minBalanceForAPY": null,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "Best for Standalone savings account"
+    },
+    {
+      "bankName": "Vio Bank",
+      "accountName": "Savings",
+      "apyPct": 4.03,
+      "minDeposit": 100,
+      "minBalanceForAPY": 100,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "4.7."
+    },
+    {
+      "bankName": "Peak Bank Envision",
+      "accountName": "Savings",
+      "apyPct": 4.02,
+      "minDeposit": null,
+      "minBalanceForAPY": null,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "Best for Strong APY and high mobile app ratin"
+    },
+    {
+      "bankName": "My Banking Direct",
+      "accountName": "Savings",
+      "apyPct": 4.02,
+      "minDeposit": 500,
+      "minBalanceForAPY": 500,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "4.5."
+    },
+    {
+      "bankName": "Climate First Bank",
+      "accountName": "Savings",
+      "apyPct": 4.01,
+      "minDeposit": 50,
+      "minBalanceForAPY": 50,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "4.0."
+    },
+    {
+      "bankName": "LendingClub LevelUp",
+      "accountName": "Savings",
+      "apyPct": 4,
+      "minDeposit": null,
+      "minBalanceForAPY": null,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "Best for APY boosts"
+    },
+    {
+      "bankName": "Bask Interest",
+      "accountName": "Savings",
+      "apyPct": 4,
+      "minDeposit": null,
+      "minBalanceForAPY": null,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "Best for Online access to savings and CDs"
+    },
+    {
+      "bankName": "Bread",
+      "accountName": "Savings",
+      "apyPct": 4,
+      "minDeposit": 100,
+      "minBalanceForAPY": 100,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "4.9."
+    },
+    {
+      "bankName": "EverBank Performance",
+      "accountName": "Savings",
+      "apyPct": 3.9,
+      "minDeposit": null,
+      "minBalanceForAPY": null,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "Best for Combination savings, CDs, money mark"
+    },
+    {
+      "bankName": "Popular Direct",
+      "accountName": "Savings",
+      "apyPct": 3.9,
+      "minDeposit": 100,
+      "minBalanceForAPY": 100,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "4.5."
+    },
+    {
+      "bankName": "Forbright Bank Growth",
+      "accountName": "Savings",
+      "apyPct": 3.85,
+      "minDeposit": null,
+      "minBalanceForAPY": null,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "Best for High-yield savings with an eco-frien"
+    },
+    {
+      "bankName": "Ivy Bank",
+      "accountName": "Savings",
+      "apyPct": 3.85,
+      "minDeposit": 2500,
+      "minBalanceForAPY": 2500,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "4.6."
+    },
+    {
+      "bankName": "Zynlo Bank",
+      "accountName": "Savings",
+      "apyPct": 3.85,
+      "minDeposit": null,
+      "minBalanceForAPY": null,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "4.7."
+    },
+    {
+      "bankName": "Western Alliance Bank",
+      "accountName": "Savings",
+      "apyPct": 3.8,
+      "minDeposit": null,
+      "minBalanceForAPY": null,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "Best for Personal high-yield savings from a b"
+    },
+    {
+      "bankName": "Valley Bank",
+      "accountName": "Savings",
+      "apyPct": 3.79,
+      "minDeposit": 1500,
+      "minBalanceForAPY": 1500,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "Best for Competitive APY with sign-up bonus f"
+    },
+    {
+      "bankName": "CIT Bank Platinum",
+      "accountName": "Savings",
+      "apyPct": 3.75,
+      "minDeposit": null,
+      "minBalanceForAPY": null,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "Best for Multiple high-yield savings options"
+    },
+    {
+      "bankName": "E*TRADE Premium",
+      "accountName": "Savings",
+      "apyPct": 3.75,
+      "minDeposit": 2000,
+      "minBalanceForAPY": 2000,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "Best for Linking to investment accounts"
+    },
+    {
+      "bankName": "Axos Bank Summit",
+      "accountName": "Savings",
+      "apyPct": 3.75,
+      "minDeposit": null,
+      "minBalanceForAPY": null,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "Best for Best for multiple checking and savin"
+    },
+    {
+      "bankName": "BrioDirect",
+      "accountName": "Savings",
+      "apyPct": 3.75,
+      "minDeposit": 5000,
+      "minBalanceForAPY": 5000,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "4.1."
+    },
+    {
+      "bankName": "Poppy Bank",
+      "accountName": "Savings",
+      "apyPct": 3.75,
+      "minDeposit": null,
+      "minBalanceForAPY": null,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "4.2."
+    },
+    {
+      "bankName": "Bask Bank",
+      "accountName": "Savings",
+      "apyPct": 3.75,
+      "minDeposit": null,
+      "minBalanceForAPY": null,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "4.3."
+    },
+    {
+      "bankName": "Barclays Tiered",
+      "accountName": "Savings",
+      "apyPct": 3.7,
+      "minDeposit": 200,
+      "minBalanceForAPY": 200,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "Best for Online savings tools"
+    },
+    {
+      "bankName": "Marcus by Goldman Sachs Online",
+      "accountName": "Savings",
+      "apyPct": 3.65,
+      "minDeposit": 1500,
+      "minBalanceForAPY": 1500,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "Best for Great track record of strong rates"
+    },
+    {
+      "bankName": "Salem Five Direct",
+      "accountName": "Savings",
+      "apyPct": 3.61,
+      "minDeposit": 10,
+      "minBalanceForAPY": 10,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "4.1."
+    },
+    {
+      "bankName": "TAB Bank",
+      "accountName": "Savings",
+      "apyPct": 3.61,
+      "minDeposit": null,
+      "minBalanceForAPY": null,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "4.3."
+    },
+    {
+      "bankName": "Synchrony Bank",
+      "accountName": "Savings",
+      "apyPct": 3.5,
+      "minDeposit": null,
+      "minBalanceForAPY": null,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "Best for ATM fee reimbursements"
+    },
+    {
+      "bankName": "Quontic Bank",
+      "accountName": "Savings",
+      "apyPct": 3.5,
+      "minDeposit": 100,
+      "minBalanceForAPY": 100,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "4.4."
+    },
+    {
+      "bankName": "American Express",
+      "accountName": "Savings",
+      "apyPct": 3.3,
+      "minDeposit": null,
+      "minBalanceForAPY": null,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "Best for Combination savings, credit card and"
+    },
+    {
+      "bankName": "Capital One 360 Performance",
+      "accountName": "Savings",
+      "apyPct": 3.3,
+      "minDeposit": null,
+      "minBalanceForAPY": null,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "Best for Access to in-person withdrawals"
+    },
+    {
+      "bankName": "SoFi",
+      "accountName": "Savings",
+      "apyPct": 3.3,
+      "minDeposit": null,
+      "minBalanceForAPY": null,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": true,
+      "mobileApp": true,
+      "notableFeature": "5.0."
+    },
+    {
+      "bankName": "Ally",
+      "accountName": "Savings",
+      "apyPct": 3.3,
+      "minDeposit": null,
+      "minBalanceForAPY": null,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": true,
+      "mobileApp": true,
+      "notableFeature": "3.20% APY."
+    },
+    {
+      "bankName": "UFB Portfolio",
+      "accountName": "Savings",
+      "apyPct": 3.26,
+      "minDeposit": null,
+      "minBalanceForAPY": null,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "Best for Strong mobile app and customer servi"
+    },
+    {
+      "bankName": "UFB Direct",
+      "accountName": "Savings",
+      "apyPct": 3.26,
+      "minDeposit": null,
+      "minBalanceForAPY": null,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "online",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "4.4."
+    },
+    {
+      "bankName": "Bank of America",
+      "accountName": "Savings",
+      "apyPct": 0.01,
+      "minDeposit": null,
+      "minBalanceForAPY": null,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "traditional",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "0.01% APY."
+    },
+    {
+      "bankName": "Chase Bank",
+      "accountName": "Savings",
+      "apyPct": 0.01,
+      "minDeposit": null,
+      "minBalanceForAPY": null,
+      "monthlyFee": 0,
+      "fdicInsured": true,
+      "bankType": "traditional",
+      "atmAccess": false,
+      "mobileApp": true,
+      "notableFeature": "0.01% APY."
+    }
+  ]
+}
+</script>
+<script>
+const rawData = document.getElementById('savings-data').textContent.trim();
+let studyData;
+try {
+  studyData = JSON.parse(rawData);
+} catch (e) {
+  console.error("Failed to parse data", e);
+  studyData = { accounts: [], crawlDate: new Date().toISOString() };
+}
+
+let accounts = studyData.accounts;
+let currentSort = { col: 'apyPct', asc: false };
+
+// Format helpers
+const fmtMoney = (val) => val === null ? '-' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(val);
+const fmtPct = (val) => val === null ? '-' : Number(val).toFixed(2) + '%';
+const fmtType = (type) => {
+  const map = { 'online': 'Online', 'traditional': 'Traditional', 'credit-union': 'Credit Union', 'neobank': 'Neobank' };
+  return map[type] || type;
+};
+const getTypeBadgeClass = (type) => {
+  const map = { 'online': 'badge-online', 'traditional': 'badge-traditional', 'credit-union': 'badge-cu', 'neobank': 'badge-neobank' };
+  return map[type] || 'badge-online';
+};
+
+function init() {
+  document.getElementById('page-title').textContent = `High-Yield Savings Account Rates 2025 — ${accounts.length} Banks Compared`;
+  document.getElementById('crawl-date').textContent = new Date(studyData.crawlDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+  updateStats();
+  renderChart();
+  renderDistribution();
+  generateFindings();
+
+  // Event listeners
+  document.querySelectorAll('th[data-sort]').forEach(th => {
+    th.addEventListener('click', () => {
+      const col = th.dataset.sort;
+      if (currentSort.col === col) {
+        currentSort.asc = !currentSort.asc;
+      } else {
+        currentSort.col = col;
+        currentSort.asc = (col === 'bankName' || col === 'bankType');
+      }
+      document.querySelectorAll('th').forEach(h => h.classList.remove('sort-asc', 'sort-desc'));
+      th.classList.add(currentSort.asc ? 'sort-asc' : 'sort-desc');
+      renderTable();
+    });
+  });
+
+  document.getElementById('filter-type').addEventListener('change', renderTable);
+  document.getElementById('filter-fee').addEventListener('change', renderTable);
+  document.getElementById('filter-apy').addEventListener('change', renderTable);
+  document.getElementById('filter-min').addEventListener('change', renderTable);
+
+  renderTable();
+}
+
+function updateStats() {
+  if (accounts.length === 0) return;
+  const apys = accounts.map(a => a.apyPct).filter(a => a > 0);
+  const maxApy = Math.max(...apys);
+  const avgApy = apys.reduce((sum, a) => sum + a, 0) / apys.length;
+  const noFee = accounts.filter(a => a.monthlyFee === 0).length;
+
+  document.getElementById('stat-max-apy').textContent = fmtPct(maxApy);
+  document.getElementById('stat-avg-apy').textContent = fmtPct(avgApy);
+  document.getElementById('stat-total-accounts').textContent = accounts.length;
+  document.getElementById('stat-no-fee').textContent = Math.round((noFee / accounts.length) * 100) + '%';
+}
+
+function renderDistribution() {
+  const container = document.getElementById('distribution-chart');
+  if (accounts.length === 0) return;
+
+  const groups = {
+    'online': { label: 'Online Banks', sum: 0, count: 0 },
+    'neobank': { label: 'Neobanks', sum: 0, count: 0 },
+    'credit-union': { label: 'Credit Unions', sum: 0, count: 0 },
+    'traditional': { label: 'Traditional Banks', sum: 0, count: 0 }
+  };
+
+  accounts.forEach(a => {
+    if (groups[a.bankType] && a.apyPct > 0) {
+      groups[a.bankType].sum += a.apyPct;
+      groups[a.bankType].count++;
+    }
+  });
+
+  const avgs = Object.values(groups)
+    .filter(g => g.count > 0)
+    .map(g => ({ label: g.label, avg: g.sum / g.count }))
+    .sort((a, b) => b.avg - a.avg);
+
+  if (avgs.length === 0) return;
+  const maxAvg = avgs[0].avg;
+
+  container.innerHTML = avgs.map(g => {
+    const pct = (g.avg / maxAvg) * 100;
+    return `
+      <div class="chart-row">
+        <div class="chart-label">${g.label}</div>
+        <div class="chart-bar-container">
+          <div class="chart-bar" style="width: ${pct}%; background-color: var(--success)"></div>
+          <div class="chart-value">${fmtPct(g.avg)}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderChart() {
+  const container = document.getElementById('chart-bars');
+  if (accounts.length === 0) return;
+  const top15 = [...accounts].sort((a, b) => b.apyPct - a.apyPct).slice(0, 15);
+  const maxChartApy = top15[0].apyPct;
+
+  container.innerHTML = top15.map(acc => {
+    const pct = (acc.apyPct / maxChartApy) * 100;
+    return `
+      <div class="chart-row">
+        <div class="chart-label" title="${acc.bankName}">${acc.bankName}</div>
+        <div class="chart-bar-container">
+          <div class="chart-bar" style="width: ${pct}%"></div>
+          <div class="chart-value">${fmtPct(acc.apyPct)}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function generateFindings() {
+  const list = document.getElementById('findings-list');
+  if (accounts.length === 0) return;
+  const apys = accounts.map(a => a.apyPct).filter(a => a > 0);
+  const avgApy = apys.reduce((sum, a) => sum + a, 0) / apys.length;
+  const onlineAvg = accounts.filter(a => a.bankType === 'online' || a.bankType === 'neobank').map(a => a.apyPct).reduce((sum, a, i, arr) => sum + a / arr.length, 0);
+  const tradAvg = accounts.filter(a => a.bankType === 'traditional').map(a => a.apyPct).reduce((sum, a, i, arr) => sum + a / arr.length, 0) || 0.01;
+  const zeroMin = accounts.filter(a => a.minDeposit === 0).length;
+  const zeroFee = accounts.filter(a => a.monthlyFee === 0).length;
+
+  let findings = [
+    `The average high-yield rate across all surveyed institutions is <strong>${fmtPct(avgApy)}</strong>.`,
+    `<strong>${Math.round((zeroFee / accounts.length) * 100)}%</strong> of the surveyed top-yielding accounts charge no monthly maintenance fees.`,
+    `<strong>${Math.round((zeroMin / accounts.length) * 100)}%</strong> of accounts require a $0 minimum deposit to open.`,
+  ];
+
+  if (tradAvg > 0 && onlineAvg > 0) {
+    const diff = (onlineAvg / tradAvg).toFixed(0);
+    findings.push(`Online banks and neobanks offer rates approximately <strong>${diff}x higher</strong> than traditional brick-and-mortar banks.`);
+  }
+
+  list.innerHTML = findings.map(f => `<li>${f}</li>`).join('');
+}
+
+function renderTable() {
+  const tbody = document.getElementById('table-body');
+
+  // Filters
+  const fType = document.getElementById('filter-type').value;
+  const fFee = document.getElementById('filter-fee').value;
+  const fApy = document.getElementById('filter-apy').value;
+  const fMin = document.getElementById('filter-min').value;
+
+  let filtered = accounts.filter(a => {
+    if (fType !== 'all' && a.bankType !== fType) return false;
+    if (fFee === 'no-fee' && a.monthlyFee > 0) return false;
+    if (fApy === 'high' && a.apyPct < 5.0) return false;
+    if (fApy === 'med' && (a.apyPct < 4.0 || a.apyPct >= 5.0)) return false;
+    if (fApy === 'low' && a.apyPct >= 4.0) return false;
+    if (fMin === 'zero' && a.minDeposit > 0) return false;
+    if (fMin === 'under500' && a.minDeposit >= 500) return false;
+    return true;
+  });
+
+  // Sort
+  filtered.sort((a, b) => {
+    let valA = a[currentSort.col];
+    let valB = b[currentSort.col];
+
+    if (typeof valA === 'string') valA = valA.toLowerCase();
+    if (typeof valB === 'string') valB = valB.toLowerCase();
+
+    if (valA < valB) return currentSort.asc ? -1 : 1;
+    if (valA > valB) return currentSort.asc ? 1 : -1;
+    return 0;
+  });
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-muted)">No accounts match your filters.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(acc => `
+    <tr>
+      <td>
+        <strong>${acc.bankName}</strong>
+      </td>
+      <td class="col-apy">${fmtPct(acc.apyPct)}</td>
+      <td class="col-money">${fmtMoney(acc.minDeposit)}</td>
+      <td class="col-money">${acc.monthlyFee === 0 ? '$0' : fmtMoney(acc.monthlyFee)}</td>
+      <td><span class="badge ${getTypeBadgeClass(acc.bankType)}">${fmtType(acc.bankType)}</span></td>
+    </tr>
+  `).join('');
+}
+
+init();
+
+</script>
+</body>
+</html>
