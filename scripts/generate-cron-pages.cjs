@@ -1,0 +1,168 @@
+#!/usr/bin/env node
+const fs = require('fs');
+const path = require('path');
+
+const data = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'cron-expressions.json'), 'utf8'));
+const outDir = path.join(__dirname, '..', 'public', 'cron');
+
+if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
+
+const fieldNames = ['Minute', 'Hour', 'Day of Month', 'Month', 'Day of Week'];
+const fieldRanges = ['0-59', '0-23', '1-31', '1-12', '0-7 (0 & 7 = Sun)'];
+
+function generatePage(entry) {
+  const parts = entry.expression.split(' ');
+  const related = data.filter(d => (entry.related || []).includes(d.slug)).slice(0, 4);
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${entry.human} — Cron Expression: ${entry.expression}</title>
+<meta name="description" content="Cron expression '${entry.expression}' runs ${entry.human.toLowerCase()}. Visual breakdown of each field, real examples, common pitfalls, and copy-paste commands.">
+<link rel="canonical" href="https://siliconbased.dev/cron/${entry.slug}">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What does the cron expression ${entry.expression} mean?","acceptedAnswer":{"@type":"Answer","text":"${entry.expression} means: ${entry.human}. ${entry.useCase}"}},
+{"@type":"Question","name":"How often does '${entry.expression}' run?","acceptedAnswer":{"@type":"Answer","text":"${entry.fields.join(', ')}."}}
+]}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Inter',sans-serif;background:#0a0b10;color:#e0e0e0;line-height:1.7}
+code,.mono{font-family:'JetBrains Mono',monospace}
+.hero{text-align:center;padding:48px 24px 32px;background:linear-gradient(180deg,#0f1729 0%,#0a0b10 100%)}
+.hero h1{font-size:1.8rem;font-weight:900;color:#fff;margin-bottom:8px}
+.hero .expr{font-family:'JetBrains Mono',monospace;font-size:2.5rem;font-weight:700;color:#818cf8;letter-spacing:4px;margin-bottom:8px}
+.hero .subtitle{color:#888;font-size:0.95rem}
+.main{max-width:800px;margin:0 auto;padding:32px 20px 60px}
+.card{background:#111318;border:1px solid #1e2030;border-radius:14px;padding:28px 24px;margin-bottom:20px}
+.card h2{font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:12px}
+.card p{font-size:0.9rem;color:#999;line-height:1.8;margin-bottom:10px}
+.card p:last-child{margin-bottom:0}
+.card strong{color:#ccc}
+
+/* Cron field breakdown */
+.cron-fields{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin:20px 0;border-radius:12px;overflow:hidden;border:1px solid #1e2030}
+.cf{text-align:center;border-right:1px solid #1e2030;padding:16px 8px}
+.cf:last-child{border-right:none}
+.cf-value{font-family:'JetBrains Mono',monospace;font-size:1.6rem;font-weight:700;color:#818cf8;margin-bottom:4px}
+.cf-name{font-size:0.68rem;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
+.cf-meaning{font-size:0.78rem;color:#999;line-height:1.4}
+.cf-range{font-size:0.62rem;color:#444;margin-top:4px;font-family:'JetBrains Mono',monospace}
+
+.cmd-box{background:#0a0b10;border:1px solid #1e2030;border-radius:10px;padding:16px 20px;margin:16px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.cmd-text{font-family:'JetBrains Mono',monospace;font-size:0.95rem;color:#e0e0e0;word-break:break-all}
+.cmd-text .hl{color:#818cf8;font-weight:600}
+.copy-btn{background:#1e2030;border:1px solid #2a2d40;color:#888;padding:6px 16px;border-radius:8px;font-size:0.75rem;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.15s;flex-shrink:0}
+.copy-btn:hover{background:#2a2d40;color:#ccc}
+.copy-btn.copied{background:#1a3a1a;color:#4ade80;border-color:#2d5a2d}
+
+.warn-box{background:#1a1500;border:1px solid #2e2a0a;border-radius:10px;padding:16px 20px;margin:12px 0}
+.warn-box .label{font-size:0.75rem;font-weight:700;color:#fbbf24;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
+.warn-box p{font-size:0.85rem;color:#999;line-height:1.7;margin:0}
+
+.tip-box{background:#0a1520;border:1px solid #1a2a3a;border-radius:10px;padding:16px 20px;margin:12px 0}
+.tip-box .label{font-size:0.75rem;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
+.tip-box p{font-size:0.85rem;color:#999;line-height:1.7;margin:0}
+
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-top:12px}
+.related-card{background:#0a0b10;border:1px solid #1e2030;border-radius:10px;padding:14px;text-decoration:none;color:#e0e0e0;transition:border-color 0.2s}
+.related-card:hover{border-color:#818cf8}
+.related-card .rc-expr{font-family:'JetBrains Mono',monospace;font-size:0.95rem;font-weight:700;color:#818cf8}
+.related-card .rc-human{font-size:0.75rem;color:#666;margin-top:4px}
+
+.back-link{display:inline-block;margin-top:24px;color:#818cf8;text-decoration:none;font-weight:600;font-size:0.9rem}
+.back-link:hover{text-decoration:underline}
+.footer{text-align:center;padding:40px 24px;font-size:0.78rem;color:#555;border-top:1px solid #151520;margin-top:40px}
+.footer a{color:#818cf8;text-decoration:none}
+
+@media(max-width:600px){
+  .hero h1{font-size:1.3rem}.hero .expr{font-size:1.6rem}
+  .cron-fields{grid-template-columns:repeat(5,1fr)}.cf{padding:10px 4px}.cf-value{font-size:1.1rem}.cf-name{font-size:0.58rem}.cf-meaning{font-size:0.68rem}
+  .main{padding:20px 14px 40px}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>${entry.human}</h1>
+  <div class="expr">${entry.expression}</div>
+  <p class="subtitle">Cron expression breakdown and usage guide</p>
+</div>
+
+<div class="main">
+
+  <div class="card">
+    <h2>Field Breakdown</h2>
+    <div class="cron-fields">
+      ${parts.map((p, i) => `<div class="cf"><div class="cf-value">${p}</div><div class="cf-name">${fieldNames[i]}</div><div class="cf-meaning">${entry.fields[i]}</div><div class="cf-range">${fieldRanges[i]}</div></div>`).join('')}
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>When to Use This</h2>
+    <p>${entry.useCase}</p>
+  </div>
+
+  <div class="card">
+    <h2>Crontab Entry</h2>
+    <div class="cmd-box">
+      <div class="cmd-text"><span class="hl">${entry.expression}</span> ${entry.example}</div>
+      <button class="copy-btn" onclick="copyText('${entry.expression} ${entry.example.replace(/'/g, "\\'")}', this)">Copy</button>
+    </div>
+    <div class="cmd-box">
+      <div class="cmd-text"><span class="hl">${entry.expression}</span> /path/to/your/script.sh</div>
+      <button class="copy-btn" onclick="copyText('${entry.expression} /path/to/your/script.sh', this)">Copy</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Things to Know</h2>
+    <div class="warn-box">
+      <div class="label">⚠️ Watch out</div>
+      <p>${entry.warning}</p>
+    </div>
+    <div class="tip-box">
+      <div class="label">💡 Pro tip</div>
+      <p>${entry.tips}</p>
+    </div>
+  </div>
+
+  ${related.length > 0 ? `<div class="card">
+    <h2>Related Schedules</h2>
+    <div class="related-grid">
+      ${related.map(r => `<a class="related-card" href="/cron/${r.slug}"><div class="rc-expr">${r.expression}</div><div class="rc-human">${r.human}</div></a>`).join('')}
+    </div>
+  </div>` : ''}
+
+  <a class="back-link" href="/cron-generator">← Full Cron Generator</a>
+</div>
+
+<div class="footer">© 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property</div>
+
+<script>
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text);
+  btn.textContent = '✓ Copied';
+  btn.classList.add('copied');
+  setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+}
+</script>
+</body>
+</html>`;
+}
+
+// Clean and generate
+const existing = fs.readdirSync(outDir).filter(f => f.endsWith('.html'));
+existing.forEach(f => fs.unlinkSync(path.join(outDir, f)));
+
+let count = 0;
+for (const entry of data) {
+  fs.writeFileSync(path.join(outDir, `${entry.slug}.html`), generatePage(entry));
+  count++;
+}
+console.log(`Generated ${count} cron pages in public/cron/`);

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Once a Year (January 1st at Midnight) — Cron Expression: 0 0 1 1 *</title>
+<meta name="description" content="Cron expression '0 0 1 1 *' runs once a year (january 1st at midnight). Visual breakdown of each field, real examples, common pitfalls, and copy-paste commands.">
+<link rel="canonical" href="https://siliconbased.dev/cron/annually">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What does the cron expression 0 0 1 1 * mean?","acceptedAnswer":{"@type":"Answer","text":"0 0 1 1 * means: Once a Year (January 1st at Midnight). Annual reports, yearly data archival, license renewal reminders, New Year cleanup scripts."}},
+{"@type":"Question","name":"How often does '0 0 1 1 *' run?","acceptedAnswer":{"@type":"Answer","text":"at minute 0, at hour 0, on day 1, in January, every weekday."}}
+]}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Inter',sans-serif;background:#0a0b10;color:#e0e0e0;line-height:1.7}
+code,.mono{font-family:'JetBrains Mono',monospace}
+.hero{text-align:center;padding:48px 24px 32px;background:linear-gradient(180deg,#0f1729 0%,#0a0b10 100%)}
+.hero h1{font-size:1.8rem;font-weight:900;color:#fff;margin-bottom:8px}
+.hero .expr{font-family:'JetBrains Mono',monospace;font-size:2.5rem;font-weight:700;color:#818cf8;letter-spacing:4px;margin-bottom:8px}
+.hero .subtitle{color:#888;font-size:0.95rem}
+.main{max-width:800px;margin:0 auto;padding:32px 20px 60px}
+.card{background:#111318;border:1px solid #1e2030;border-radius:14px;padding:28px 24px;margin-bottom:20px}
+.card h2{font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:12px}
+.card p{font-size:0.9rem;color:#999;line-height:1.8;margin-bottom:10px}
+.card p:last-child{margin-bottom:0}
+.card strong{color:#ccc}
+
+/* Cron field breakdown */
+.cron-fields{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin:20px 0;border-radius:12px;overflow:hidden;border:1px solid #1e2030}
+.cf{text-align:center;border-right:1px solid #1e2030;padding:16px 8px}
+.cf:last-child{border-right:none}
+.cf-value{font-family:'JetBrains Mono',monospace;font-size:1.6rem;font-weight:700;color:#818cf8;margin-bottom:4px}
+.cf-name{font-size:0.68rem;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
+.cf-meaning{font-size:0.78rem;color:#999;line-height:1.4}
+.cf-range{font-size:0.62rem;color:#444;margin-top:4px;font-family:'JetBrains Mono',monospace}
+
+.cmd-box{background:#0a0b10;border:1px solid #1e2030;border-radius:10px;padding:16px 20px;margin:16px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.cmd-text{font-family:'JetBrains Mono',monospace;font-size:0.95rem;color:#e0e0e0;word-break:break-all}
+.cmd-text .hl{color:#818cf8;font-weight:600}
+.copy-btn{background:#1e2030;border:1px solid #2a2d40;color:#888;padding:6px 16px;border-radius:8px;font-size:0.75rem;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.15s;flex-shrink:0}
+.copy-btn:hover{background:#2a2d40;color:#ccc}
+.copy-btn.copied{background:#1a3a1a;color:#4ade80;border-color:#2d5a2d}
+
+.warn-box{background:#1a1500;border:1px solid #2e2a0a;border-radius:10px;padding:16px 20px;margin:12px 0}
+.warn-box .label{font-size:0.75rem;font-weight:700;color:#fbbf24;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
+.warn-box p{font-size:0.85rem;color:#999;line-height:1.7;margin:0}
+
+.tip-box{background:#0a1520;border:1px solid #1a2a3a;border-radius:10px;padding:16px 20px;margin:12px 0}
+.tip-box .label{font-size:0.75rem;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
+.tip-box p{font-size:0.85rem;color:#999;line-height:1.7;margin:0}
+
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-top:12px}
+.related-card{background:#0a0b10;border:1px solid #1e2030;border-radius:10px;padding:14px;text-decoration:none;color:#e0e0e0;transition:border-color 0.2s}
+.related-card:hover{border-color:#818cf8}
+.related-card .rc-expr{font-family:'JetBrains Mono',monospace;font-size:0.95rem;font-weight:700;color:#818cf8}
+.related-card .rc-human{font-size:0.75rem;color:#666;margin-top:4px}
+
+.back-link{display:inline-block;margin-top:24px;color:#818cf8;text-decoration:none;font-weight:600;font-size:0.9rem}
+.back-link:hover{text-decoration:underline}
+.footer{text-align:center;padding:40px 24px;font-size:0.78rem;color:#555;border-top:1px solid #151520;margin-top:40px}
+.footer a{color:#818cf8;text-decoration:none}
+
+@media(max-width:600px){
+  .hero h1{font-size:1.3rem}.hero .expr{font-size:1.6rem}
+  .cron-fields{grid-template-columns:repeat(5,1fr)}.cf{padding:10px 4px}.cf-value{font-size:1.1rem}.cf-name{font-size:0.58rem}.cf-meaning{font-size:0.68rem}
+  .main{padding:20px 14px 40px}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Once a Year (January 1st at Midnight)</h1>
+  <div class="expr">0 0 1 1 *</div>
+  <p class="subtitle">Cron expression breakdown and usage guide</p>
+</div>
+
+<div class="main">
+
+  <div class="card">
+    <h2>Field Breakdown</h2>
+    <div class="cron-fields">
+      <div class="cf"><div class="cf-value">0</div><div class="cf-name">Minute</div><div class="cf-meaning">at minute 0</div><div class="cf-range">0-59</div></div><div class="cf"><div class="cf-value">0</div><div class="cf-name">Hour</div><div class="cf-meaning">at hour 0</div><div class="cf-range">0-23</div></div><div class="cf"><div class="cf-value">1</div><div class="cf-name">Day of Month</div><div class="cf-meaning">on day 1</div><div class="cf-range">1-31</div></div><div class="cf"><div class="cf-value">1</div><div class="cf-name">Month</div><div class="cf-meaning">in January</div><div class="cf-range">1-12</div></div><div class="cf"><div class="cf-value">*</div><div class="cf-name">Day of Week</div><div class="cf-meaning">every weekday</div><div class="cf-range">0-7 (0 & 7 = Sun)</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>When to Use This</h2>
+    <p>Annual reports, yearly data archival, license renewal reminders, New Year cleanup scripts.</p>
+  </div>
+
+  <div class="card">
+    <h2>Crontab Entry</h2>
+    <div class="cmd-box">
+      <div class="cmd-text"><span class="hl">0 0 1 1 *</span> 0 0 1 1 * /opt/scripts/annual-archive.sh && echo 'Annual archive completed' | mail -s 'Annual Job OK' admin@company.com</div>
+      <button class="copy-btn" onclick="copyText('0 0 1 1 * 0 0 1 1 * /opt/scripts/annual-archive.sh && echo \'Annual archive completed\' | mail -s \'Annual Job OK\' admin@company.com', this)">Copy</button>
+    </div>
+    <div class="cmd-box">
+      <div class="cmd-text"><span class="hl">0 0 1 1 *</span> /path/to/your/script.sh</div>
+      <button class="copy-btn" onclick="copyText('0 0 1 1 * /path/to/your/script.sh', this)">Copy</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Things to Know</h2>
+    <div class="warn-box">
+      <div class="label">⚠️ Watch out</div>
+      <p>If this fails, you wait a full year for the next run. Always have monitoring and alerting on annual jobs. Test it manually before relying on the schedule.</p>
+    </div>
+    <div class="tip-box">
+      <div class="label">💡 Pro tip</div>
+      <p>For important annual jobs, add a monthly check that verifies the last annual run completed successfully. Don't trust a once-a-year job to just work.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Related Schedules</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/cron/every-sunday"><div class="rc-expr">0 0 * * 0</div><div class="rc-human">Every Sunday at Midnight</div></a><a class="related-card" href="/cron/every-first-of-month"><div class="rc-expr">0 0 1 * *</div><div class="rc-human">First Day of Every Month at Midnight</div></a><a class="related-card" href="/cron/quarterly"><div class="rc-expr">0 0 1 1,4,7,10 *</div><div class="rc-human">Quarterly (Jan 1, Apr 1, Jul 1, Oct 1)</div></a>
+    </div>
+  </div>
+
+  <a class="back-link" href="/cron-generator">← Full Cron Generator</a>
+</div>
+
+<div class="footer">© 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property</div>
+
+<script>
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text);
+  btn.textContent = '✓ Copied';
+  btn.classList.add('copied');
+  setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+}
+</script>
+</body>
+</html>
