@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Selectors Reference Guide | Free Cheat Sheet</title>
+<meta name="description" content="Comprehensive cheat sheet for CSS selectors including basic, combinators, attributes, pseudo-classes, and pseudo-elements. Free, fast, and works offline.">
+<meta property="og:title" content="CSS Selectors Reference Guide">
+<meta property="og:description" content="Comprehensive cheat sheet for CSS selectors including basic, combinators, attributes, pseudo-classes, and pseudo-elements. Free, fast, and works offline.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "CSS Selectors Reference Guide",
+  "url": "https://siliconbased.dev/guide-css-selectors",
+  "description": "Comprehensive cheat sheet for CSS selectors including basic, combinators, attributes, pseudo-classes, and pseudo-elements.",
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 1000px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Search Bar */
+.search-container { position: sticky; top: 16px; z-index: 10; margin-bottom: 32px; }
+.search-input { width: 100%; background: #111318; border: 1px solid #1e2030; border-radius: 12px; padding: 14px 20px 14px 48px; color: #e0e0e0; font-family: 'Inter', sans-serif; font-size: 1rem; outline: none; transition: border-color 0.2s, box-shadow 0.2s; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); }
+.search-input:focus { border-color: #818cf8; box-shadow: 0 4px 16px rgba(129, 140, 248, 0.2); }
+.search-input::placeholder { color: #666; }
+.search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #666; pointer-events: none; }
+
+/* Category Headers */
+.category-title { font-size: 1.4rem; font-weight: 700; color: #fff; margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 1px solid #1e2030; display: flex; align-items: center; gap: 8px; }
+.category-title:first-of-type { margin-top: 10px; }
+
+/* Cards Grid */
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+
+/* Card */
+.selector-card { background: #111318; border: 1px solid #1e2030; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, border-color 0.2s; }
+.selector-card:hover { border-color: #2a2d40; transform: translateY(-2px); }
+.card-header { padding: 16px; background: #13151d; border-bottom: 1px solid #1e2030; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.card-title { font-size: 1rem; font-weight: 600; color: #e0e0e0; }
+.card-syntax { margin-top: 4px; display: inline-block; background: #0a0b10; border: 1px solid #2a2d40; padding: 4px 8px; border-radius: 6px; color: #818cf8; font-size: 0.85rem; font-weight: 500; font-family: 'JetBrains Mono', monospace; }
+
+.copy-btn { background: transparent; border: none; color: #666; cursor: pointer; padding: 4px; border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+.copy-btn:hover { background: #1e2030; color: #e0e0e0; }
+.copy-btn.copied { color: #4ade80; }
+
+.card-body { padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+.card-desc { font-size: 0.9rem; color: #aaa; line-height: 1.5; }
+
+/* Example Box */
+.example-box { background: #0a0b10; border: 1px dashed #2a2d40; border-radius: 8px; padding: 12px; font-size: 0.85rem; color: #888; margin-top: auto; }
+.example-box code { color: #c084fc; font-size: 0.8em; }
+
+/* Empty State */
+.empty-state { text-align: center; padding: 40px 20px; color: #666; display: none; }
+.empty-state.visible { display: block; }
+
+/* SEO Content */
+.seo-content { margin-top: 60px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .cards-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>CSS Selectors <span>Reference</span></h1>
+  <p>A comprehensive cheat sheet for CSS selectors, combinators, and pseudo-classes.</p>
+</div>
+
+<div class="main">
+  <div class="search-container">
+    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    <input type="text" id="searchInput" class="search-input" placeholder="Search selectors, e.g. 'hover', 'nth-child', 'attribute'...">
+  </div>
+
+  <div id="contentArea">
+    <div id="emptyState" class="empty-state">
+      No matching selectors found. Try a different search term.
+    </div>
+
+    <div class="category-section" data-category="Basic Selectors">
+      <h2 class="category-title">Basic Selectors</h2>
+      <div class="cards-grid">
+        <div class="selector-card" data-search="universal selector * all elements">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Universal Selector</div>
+              <div class="card-syntax">*</div>
+            </div>
+            <button class="copy-btn" data-copy="*" title="Copy syntax">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-desc">Selects all elements in the document.</div>
+            <div class="example-box">
+              Matches: <code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;span&gt;</code>...
+            </div>
+          </div>
+        </div>
+
+        <div class="selector-card" data-search="type selector element tag">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Type Selector</div>
+              <div class="card-syntax">element</div>
+            </div>
+            <button class="copy-btn" data-copy="div" title="Copy syntax">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-desc">Selects elements by their HTML tag name.</div>
+            <div class="example-box">
+              Example: <code>p</code> matches all <code>&lt;p&gt;</code> elements.
+            </div>
+          </div>
+        </div>
+
+        <div class="selector-card" data-search="class selector .class">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Class Selector</div>
+              <div class="card-syntax">.class</div>
+            </div>
+            <button class="copy-btn" data-copy=".btn" title="Copy syntax">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-desc">Selects elements with a specific class attribute.</div>
+            <div class="example-box">
+              Example: <code>.btn</code> matches <code>&lt;button class="btn"&gt;</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="selector-card" data-search="id selector #id">
+          <div class="card-header">
+            <div>
+              <div class="card-title">ID Selector</div>
+              <div class="card-syntax">#id</div>
+            </div>
+            <button class="copy-btn" data-copy="#header" title="Copy syntax">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-desc">Selects a single element with a specific ID attribute.</div>
+            <div class="example-box">
+              Example: <code>#header</code> matches <code>&lt;div id="header"&gt;</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-section" data-category="Combinators">
+      <h2 class="category-title">Combinators</h2>
+      <div class="cards-grid">
+        <div class="selector-card" data-search="descendant combinator space child">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Descendant</div>
+              <div class="card-syntax">A B</div>
+            </div>
+            <button class="copy-btn" data-copy="div p" title="Copy syntax">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-desc">Selects elements that are descendants (children, grandchildren) of the first element.</div>
+            <div class="example-box">
+              Example: <code>div p</code> matches <code>&lt;p&gt;</code> inside a <code>&lt;div&gt;</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="selector-card" data-search="child combinator > direct child">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Direct Child</div>
+              <div class="card-syntax">A > B</div>
+            </div>
+            <button class="copy-btn" data-copy="ul > li" title="Copy syntax">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-desc">Selects elements that are direct children of the first element.</div>
+            <div class="example-box">
+              Example: <code>ul &gt; li</code> matches <code>&lt;li&gt;</code> directly inside <code>&lt;ul&gt;</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="selector-card" data-search="general sibling combinator ~">
+          <div class="card-header">
+            <div>
+              <div class="card-title">General Sibling</div>
+              <div class="card-syntax">A ~ B</div>
+            </div>
+            <button class="copy-btn" data-copy="p ~ span" title="Copy syntax">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-desc">Selects all elements B that follow element A and share the same parent.</div>
+            <div class="example-box">
+              Example: <code>h1 ~ p</code> matches all <code>&lt;p&gt;</code> after an <code>&lt;h1&gt;</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="selector-card" data-search="adjacent sibling combinator +">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Adjacent Sibling</div>
+              <div class="card-syntax">A + B</div>
+            </div>
+            <button class="copy-btn" data-copy="h2 + p" title="Copy syntax">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-desc">Selects an element B that immediately follows element A.</div>
+            <div class="example-box">
+              Example: <code>h2 + p</code> matches the first <code>&lt;p&gt;</code> right after <code>&lt;h2&gt;</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-section" data-category="Attribute Selectors">
+      <h2 class="category-title">Attribute Selectors</h2>
+      <div class="cards-grid">
+        <div class="selector-card" data-search="attribute has present []">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Has Attribute</div>
+              <div class="card-syntax">[attr]</div>
+            </div>
+            <button class="copy-btn" data-copy="[required]" title="Copy syntax">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-desc">Selects elements with the specified attribute, regardless of its value.</div>
+            <div class="example-box">
+              Example: <code>[disabled]</code> matches <code>&lt;input disabled&gt;</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="selector-card" data-search="attribute exact match =">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Exact Value</div>
+              <div class="card-syntax">[attr="value"]</div>
+            </div>
+            <button class="copy-btn" data-copy='[type="text"]' title="Copy syntax">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-desc">Selects elements where the attribute exactly matches the given value.</div>
+            <div class="example-box">
+              Example: <code>[type="submit"]</code> matches <code>&lt;button type="submit"&gt;</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="selector-card" data-search="attribute starts with ^=">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Starts With</div>
+              <div class="card-syntax">[attr^="val"]</div>
+            </div>
+            <button class="copy-btn" data-copy='[href^="https"]' title="Copy syntax">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-desc">Selects elements whose attribute value begins with the specified string.</div>
+            <div class="example-box">
+              Example: <code>[href^="https://"]</code> matches secure links
+            </div>
+          </div>
+        </div>
+
+        <div class="selector-card" data-search="attribute ends with $=">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Ends With</div>
+              <div class="card-syntax">[attr$="val"]</div>
+            </div>
+            <button class="copy-btn" data-copy='[href$=".pdf"]' title="Copy syntax">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-desc">Selects elements whose attribute value ends with the specified string.</div>
+            <div class="example-box">
+              Example: <code>[src$=".png"]</code> matches PNG images
+            </div>
+          </div>
+        </div>
+
+        <div class="selector-card" data-search="attribute contains substring *=">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Contains</div>
+              <div class="card-syntax">[attr*="val"]</div>
+            </div>
+            <button class="copy-btn" data-copy='[class*="icon-"]' title="Copy syntax">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-desc">Selects elements whose attribute value contains the specified substring anywhere.</div>
+            <div class="example-box">
+              Example: <code>[class*="grid-"]</code> matches "grid-row" or "my-grid-col"
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-section" data-category="Pseudo-classes">
+      <h2 class="category-title">Pseudo-classes</h2>
+      <div class="cards-grid">
+        <div class="selector-card" data-search="pseudo-class :hover mouse over state">
+          <div class="card-header">
+            <div>
+              <div class="card-title">:hover</div>
+              <div class="card-syntax">:hover</div>
+            </div>
+            <button class="copy-btn" data-copy=":hover" title="Copy syntax">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-desc">Matches when a user hovers over an element with a pointer device.</div>
+            <div class="example-box">
+              Example: <code>a:hover</code> styles links on hover
+            </div>
+          </div>
+        </div>
+
+        <div class="selector-card" data-search="pseudo-class :focus input active">
+          <div class="card-header">
+            <div>
+              <div class="card-title">:focus</div>
+              <div class="card-syntax">:focus</div>
+            </div>
+            <button class="copy-btn" data-copy=":focus" title="Copy syntax">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-desc">Matches when an element receives focus (e.g., input field clicked).</div>
+            <div class="example-box">
+              Example: <code>input:focus</code> styles active inputs
+            </div>
+          </div>
+        </div>
+
+        <div class="selector-card" data-search="pseudo-class :nth-child even odd formula index">
+          <div class="card-header">
+            <div>
+              <div class="card-title">:nth-child()</div>
+              <div class="card-syntax">:nth-child(an+b)</div>
+            </div>
+            <button class="copy-btn" data-copy=":nth-child(2n)" title="Copy syntax">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-desc">Matches elements based on their position among a group of siblings.</div>
+            <div class="example-box">
+              Example: <code>li:nth-child(odd)</code> matches 1st, 3rd, 5th items
+            </div>
+          </div>
+        </div>
+
+        <div class="selector-card" data-search="pseudo-class :first-child start">
+          <div class="card-header">
+            <div>
+              <div class="card-title">:first-child</div>
+              <div class="card-syntax">:first-child</div>
+            </div>
+            <button class="copy-btn" data-copy=":first-child" title="Copy syntax">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-desc">Matches an element that is the first child of its parent.</div>
+            <div class="example-box">
+              Example: <code>p:first-child</code> targets the first paragraph
+            </div>
+          </div>
+        </div>
+
+        <div class="selector-card" data-search="pseudo-class :not negation exception">
+          <div class="card-header">
+            <div>
+              <div class="card-title">:not()</div>
+              <div class="card-syntax">:not(selector)</div>
+            </div>
+            <button class="copy-btn" data-copy=":not(.hidden)" title="Copy syntax">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-desc">Matches elements that do not match a list of selectors.</div>
+            <div class="example-box">
+              Example: <code>div:not(.active)</code> matches divs without active class
+            </div>
+          </div>
+        </div>
+
+        <div class="selector-card" data-search="pseudo-class :has parent selector relative">
+          <div class="card-header">
+            <div>
+              <div class="card-title">:has()</div>
+              <div class="card-syntax">:has(selector)</div>
+            </div>
+            <button class="copy-btn" data-copy=":has(> img)" title="Copy syntax">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-desc">The relational pseudo-class. Matches elements if the condition passed as argument is true. Often called the "parent selector".</div>
+            <div class="example-box">
+              Example: <code>a:has(> img)</code> matches anchor tags containing images
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-section" data-category="Pseudo-elements">
+      <h2 class="category-title">Pseudo-elements</h2>
+      <div class="cards-grid">
+        <div class="selector-card" data-search="pseudo-element ::before prefix insert content">
+          <div class="card-header">
+            <div>
+              <div class="card-title">::before</div>
+              <div class="card-syntax">::before</div>
+            </div>
+            <button class="copy-btn" data-copy="::before" title="Copy syntax">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-desc">Creates a pseudo-element that is the first child of the selected element. Requires the <code>content</code> property.</div>
+            <div class="example-box">
+              Example: <code>h1::before { content: "★ " }</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="selector-card" data-search="pseudo-element ::after suffix insert content">
+          <div class="card-header">
+            <div>
+              <div class="card-title">::after</div>
+              <div class="card-syntax">::after</div>
+            </div>
+            <button class="copy-btn" data-copy="::after" title="Copy syntax">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-desc">Creates a pseudo-element that is the last child of the selected element. Requires the <code>content</code> property.</div>
+            <div class="example-box">
+              Example: <code>a::after { content: " ↗" }</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="selector-card" data-search="pseudo-element ::selection highlight text text-selection">
+          <div class="card-header">
+            <div>
+              <div class="card-title">::selection</div>
+              <div class="card-syntax">::selection</div>
+            </div>
+            <button class="copy-btn" data-copy="::selection" title="Copy syntax">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-desc">Styles the portion of a document that has been highlighted by the user (such as clicking and dragging).</div>
+            <div class="example-box">
+              Example: <code>::selection { background: #818cf8; }</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>Understanding CSS Selectors</h2>
+    <p>CSS selectors are the patterns used to select and target HTML elements for styling. They form the foundation of CSS (Cascading Style Sheets). Whether you are looking to style a single unique element on a page or thousands of elements at once, knowing the right selector is essential.</p>
+
+    <h3>Why Combinators Matter</h3>
+    <p>Combinators allow you to define relationships between selectors. Instead of adding a class to every single element, you can use a descendant (<code>space</code>) or child (<code>&gt;</code>) combinator to target elements based on their position in the DOM. This keeps your HTML clean and your CSS efficient.</p>
+
+    <h3>Pseudo-classes vs. Pseudo-elements</h3>
+    <p>It's easy to confuse the two:</p>
+    <ul>
+      <li><strong>Pseudo-classes</strong> (starting with a single colon <code>:</code>) select an element based on its <em>state</em>. For example, <code>:hover</code> applies styles when the mouse pointer is over the element, and <code>:first-child</code> targets an element only if it's the very first element inside its parent.</li>
+      <li><strong>Pseudo-elements</strong> (starting with a double colon <code>::</code>) target specific <em>parts</em> of an element. For instance, <code>::before</code> allows you to insert and style content before the element's actual DOM content.</li>
+    </ul>
+
+    <h2>Optimizing Selector Performance</h2>
+    <p>While modern browsers are incredibly fast, overly complex selectors can still cause rendering bottlenecks on large applications. The browser evaluates selectors from right to left (from the key selector to the ancestors). Therefore, prioritizing classes (like <code>.card</code>) over deeply nested descendant selectors (like <code>div ul li a span</code>) can yield better performance.</p>
+  </div>
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const searchInput = document.getElementById('searchInput');
+  const selectorCards = document.querySelectorAll('.selector-card');
+  const categorySections = document.querySelectorAll('.category-section');
+  const emptyState = document.getElementById('emptyState');
+  const copyBtns = document.querySelectorAll('.copy-btn');
+
+  // Search functionality
+  searchInput.addEventListener('input', (e) => {
+    const term = e.target.value.toLowerCase().trim();
+    let hasVisibleCards = false;
+
+    // Filter cards
+    selectorCards.forEach(card => {
+      const searchData = card.getAttribute('data-search') || '';
+      const title = card.querySelector('.card-title').textContent.toLowerCase();
+      const syntax = card.querySelector('.card-syntax').textContent.toLowerCase();
+      const desc = card.querySelector('.card-desc').textContent.toLowerCase();
+
+      const isMatch = searchData.includes(term) || title.includes(term) || syntax.includes(term) || desc.includes(term);
+
+      if (isMatch) {
+        card.style.display = 'flex';
+        hasVisibleCards = true;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    // Hide empty category sections
+    categorySections.forEach(section => {
+      const visibleCards = Array.from(section.querySelectorAll('.selector-card')).filter(card => card.style.display !== 'none');
+      section.style.display = visibleCards.length > 0 ? 'block' : 'none';
+    });
+
+    // Show empty state if needed
+    if (hasVisibleCards) {
+      emptyState.classList.remove('visible');
+    } else {
+      emptyState.classList.add('visible');
+    }
+  });
+
+  // Copy functionality
+  copyBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const textToCopy = btn.getAttribute('data-copy');
+      if (!textToCopy) return;
+
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const originalHtml = btn.innerHTML;
+
+        // Show success tick icon
+        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+        btn.classList.add('copied');
+
+        setTimeout(() => {
+          btn.innerHTML = originalHtml;
+          btn.classList.remove('copied');
+        }, 1500);
+      }).catch(err => {
+        console.error('Failed to copy text: ', err);
+      });
+    });
+  });
+});
+</script>
+</body>
+</html>
