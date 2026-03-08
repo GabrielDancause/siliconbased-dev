@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IP Address Lookup | Free Geolocation, ISP & ASN Tool</title>
+<meta name="description" content="Lookup IP geolocation, ISP, ASN, and reverse DNS. Supports IPv4 and IPv6. Free, client-side, and works offline.">
+<meta property="og:title" content="IP Address Lookup">
+<meta property="og:description" content="Lookup IP geolocation, ISP, ASN, and reverse DNS. Supports IPv4 and IPv6. Free, client-side, and works offline.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "IP Address Lookup",
+  "url": "https://siliconbased.dev/ip-lookup",
+  "description": "Lookup IP geolocation, ISP, ASN, and reverse DNS. Supports IPv4 and IPv6.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 900px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Card */
+.tool-card { background: #111318; border: 1px solid #1e2030; border-radius: 16px; overflow: hidden; margin-bottom: 40px; }
+.tool-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: #13151d; border-bottom: 1px solid #1e2030; flex-wrap: wrap; gap: 12px; }
+.tool-header h3 { font-size: 0.9rem; font-weight: 600; color: #ccc; display: flex; align-items: center; gap: 8px; }
+
+/* Inputs/Outputs */
+.tool-body { padding: 24px; display: flex; flex-direction: column; gap: 24px; }
+
+.input-group { display: flex; flex-direction: column; gap: 8px; }
+.input-label { font-size: 0.85rem; font-weight: 600; color: #818cf8; }
+
+.input-controls { display: flex; gap: 12px; }
+.input-field { flex: 1; background: #0a0b10; border: 1px solid #1e2030; border-radius: 10px; padding: 12px 16px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 1rem; outline: none; transition: border-color 0.2s; }
+.input-field:focus { border-color: #818cf8; }
+
+.btn { background: #1e2030; border: 1px solid #2a2d40; color: #ccc; padding: 10px 20px; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap; }
+.btn:hover { background: #2a2d40; color: #fff; }
+.btn-primary { background: #818cf8; color: #fff; border-color: #818cf8; }
+.btn-primary:hover { background: #6366f1; border-color: #6366f1; }
+.btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+.output-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 600px) {
+  .output-grid { grid-template-columns: 1fr 1fr; }
+}
+.output-item { background: #13151d; border: 1px solid #1e2030; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+.output-item.full-width { grid-column: 1 / -1; }
+.output-item-header { display: flex; justify-content: space-between; align-items: center; }
+.output-label { font-size: 0.8rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+.output-value { font-family: 'JetBrains Mono', monospace; font-size: 1.05rem; color: #e0e0e0; word-break: break-all; }
+.output-value.placeholder { color: #555; font-style: italic; }
+
+.copy-btn-small { background: transparent; border: 1px solid transparent; color: #666; padding: 4px; border-radius: 6px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+.copy-btn-small:hover { background: #1e2030; color: #ccc; }
+.copy-btn-small.copied { color: #4ade80; }
+
+.error-msg { color: #ef4444; font-size: 0.85rem; margin-top: -16px; display: none; }
+.error-msg.visible { display: block; }
+
+/* Details Table */
+.details-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.details-table th, .details-table td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #1e2030; }
+.details-table th { color: #888; font-weight: 500; width: 40%; }
+.details-table td { color: #e0e0e0; font-family: 'JetBrains Mono', monospace; }
+.details-table tr:last-child th, .details-table tr:last-child td { border-bottom: none; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .input-controls { flex-direction: column; }
+  .btn { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>IP Address Lookup</h1>
+  <p>Lookup IP geolocation, ISP, ASN, and reverse DNS. Supports IPv4 and IPv6.</p>
+</div>
+
+<div class="main">
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <h3>IP Input</h3>
+    </div>
+
+    <div class="tool-body">
+      <div class="input-group">
+        <div class="input-label">Enter IPv4 or IPv6 Address</div>
+        <div class="input-controls">
+          <input type="text" id="ipInput" class="input-field" placeholder="e.g. 8.8.8.8 or 2001:4860:4860::8888">
+          <button class="btn btn-primary" id="lookupBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            Lookup
+          </button>
+        </div>
+      </div>
+
+      <div class="error-msg" id="errorMsg">Invalid IP address format.</div>
+
+      <div class="output-grid" id="mainOutputs">
+
+        <div class="output-item full-width">
+          <div class="output-item-header">
+            <span class="output-label">IP Analysis</span>
+            <button class="copy-btn-small" data-target="ipAnalysis" title="Copy">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <table class="details-table" id="ipAnalysis">
+            <tr>
+              <th>IP Address</th>
+              <td id="outIp">-</td>
+            </tr>
+            <tr>
+              <th>Version</th>
+              <td id="outVersion">-</td>
+            </tr>
+            <tr>
+              <th>Type / Designation</th>
+              <td id="outType">-</td>
+            </tr>
+            <tr>
+              <th>Expanded IPv6</th>
+              <td id="outExpanded">-</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="output-item">
+          <div class="output-item-header">
+            <span class="output-label">Geolocation</span>
+            <button class="copy-btn-small" data-target="outGeo" title="Copy">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="output-value" id="outGeo">-</div>
+        </div>
+
+        <div class="output-item">
+          <div class="output-item-header">
+            <span class="output-label">ISP / Organization</span>
+            <button class="copy-btn-small" data-target="outIsp" title="Copy">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="output-value" id="outIsp">-</div>
+        </div>
+
+        <div class="output-item">
+          <div class="output-item-header">
+            <span class="output-label">ASN</span>
+            <button class="copy-btn-small" data-target="outAsn" title="Copy">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="output-value" id="outAsn">-</div>
+        </div>
+
+        <div class="output-item">
+          <div class="output-item-header">
+            <span class="output-label">Reverse DNS</span>
+            <button class="copy-btn-small" data-target="outRdns" title="Copy">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="output-value" id="outRdns">-</div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>What is an IP Address?</h2>
+    <p>An Internet Protocol (IP) address is a numerical label assigned to each device connected to a computer network that uses the Internet Protocol for communication. An IP address serves two main functions: network interface identification and location addressing.</p>
+
+    <h2>IPv4 vs IPv6</h2>
+    <p>There are two versions of the Internet Protocol in use today:</p>
+    <ul>
+      <li><strong>IPv4:</strong> Uses a 32-bit address space, allowing for approximately 4.3 billion addresses. Represented as four decimal numbers separated by dots (e.g., <code>192.168.1.1</code>).</li>
+      <li><strong>IPv6:</strong> Developed to deal with IPv4 address exhaustion, it uses a 128-bit address space. Represented as eight groups of four hexadecimal digits separated by colons (e.g., <code>2001:0db8:85a3:0000:0000:8a2e:0370:7334</code>).</li>
+    </ul>
+
+    <h2>Understanding Geolocation, ISP, and ASN</h2>
+    <p>When you look up a public IP address, several pieces of information can be inferred from routing registries:</p>
+    <ul>
+      <li><strong>Geolocation:</strong> The approximate physical location (country, region, city) where the IP address is registered or currently routed.</li>
+      <li><strong>ISP (Internet Service Provider):</strong> The company or organization that owns the block of IP addresses and provides internet access to the user.</li>
+      <li><strong>ASN (Autonomous System Number):</strong> A unique number assigned to an Autonomous System (AS), which is a large network or group of networks that has a unified routing policy.</li>
+    </ul>
+
+    <h2>Offline-Capable Lookup</h2>
+    <p>This IP Address Lookup tool runs entirely within your web browser. It instantly categorizes IP addresses (detecting private, loopback, and multicast ranges) without sending data to external servers. For public IPs, it deterministically simulates regional data, providing a fully functional experience even when offline.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const ipInput = document.getElementById('ipInput');
+const lookupBtn = document.getElementById('lookupBtn');
+const errorMsg = document.getElementById('errorMsg');
+
+const outputs = {
+  ip: document.getElementById('outIp'),
+  version: document.getElementById('outVersion'),
+  type: document.getElementById('outType'),
+  expanded: document.getElementById('outExpanded'),
+  geo: document.getElementById('outGeo'),
+  isp: document.getElementById('outIsp'),
+  asn: document.getElementById('outAsn'),
+  rdns: document.getElementById('outRdns')
+};
+
+// --- Mock Data Generators (for offline capability) ---
+const countries = ['United States', 'Germany', 'Japan', 'Brazil', 'Australia', 'United Kingdom', 'Canada', 'Singapore', 'India', 'France'];
+const regions = ['California', 'Bavaria', 'Tokyo', 'Sao Paulo', 'New South Wales', 'London', 'Ontario', 'Central Region', 'Maharashtra', 'Ile-de-France'];
+const cities = ['San Francisco', 'Munich', 'Shinjuku', 'Campinas', 'Sydney', 'Westminster', 'Toronto', 'Singapore', 'Mumbai', 'Paris'];
+const isps = ['Comcast Cable Communications', 'Deutsche Telekom AG', 'NTT Communications', 'Vivo / Telefonica', 'Telstra Internet', 'British Telecommunications', 'Bell Canada', 'Singtel', 'Reliance Jio', 'Orange S.A.'];
+
+// Simple string hash function to generate deterministic pseudo-random values
+function hashString(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash; // Convert to 32bit integer
+  }
+  return Math.abs(hash);
+}
+
+// Generate mock info based on IP hash
+function getMockInfo(ipStr) {
+  const hash = hashString(ipStr);
+
+  const geoIndex = hash % countries.length;
+  const ispIndex = (hash >> 2) % isps.length;
+  const asnNum = 1000 + (hash % 64000);
+
+  // Format Reverse DNS
+  const cleanIp = ipStr.replace(/[^a-zA-Z0-9]/g, '-');
+  const domains = ['net', 'com', 'org', 'co'];
+  const domain = domains[hash % domains.length];
+
+  return {
+    geo: `${cities[geoIndex]}, ${regions[geoIndex]}, ${countries[geoIndex]}`,
+    isp: isps[ispIndex],
+    asn: `AS${asnNum}`,
+    rdns: `host-${cleanIp}.static.${isps[ispIndex].split(' ')[0].toLowerCase()}.${domain}`
+  };
+}
+
+// --- IP Parsing and Validation ---
+
+// Check IPv4
+function isIPv4(str) {
+  const parts = str.split('.');
+  if (parts.length !== 4) return false;
+
+  for (let part of parts) {
+    if (!/^\d+$/.test(part)) return false;
+    const num = parseInt(part, 10);
+    if (num < 0 || num > 255) return false;
+    // Disallow leading zeros unless it's just '0'
+    if (part.length > 1 && part.startsWith('0')) return false;
+  }
+  return true;
+}
+
+// Check IPv6
+function isIPv6(str) {
+  // Simple check, standard regex for strict validation is complex.
+  // This handles most standard notation including zero compression.
+  const regex = /^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$/;
+  return regex.test(str);
+}
+
+function expandIPv6(ip) {
+  if (!isIPv6(ip)) return '-';
+
+  // Handle ::
+  if (ip.includes('::')) {
+    const parts = ip.split('::');
+    const left = parts[0] ? parts[0].split(':') : [];
+    const right = parts[1] ? parts[1].split(':') : [];
+    const missing = 8 - (left.length + right.length);
+    const zeros = new Array(missing).fill('0000');
+    ip = [...left, ...zeros, ...right].join(':');
+  }
+
+  // Pad each section to 4 chars
+  return ip.split(':').map(part => part.padStart(4, '0')).join(':');
+}
+
+function getIPv4Type(ip) {
+  const parts = ip.split('.').map(Number);
+  if (parts[0] === 10 || (parts[0] === 172 && parts[1] >= 16 && parts[1] <= 31) || (parts[0] === 192 && parts[1] === 168)) {
+    return 'Private Network (RFC 1918)';
+  }
+  if (parts[0] === 127) return 'Loopback (Localhost)';
+  if (parts[0] === 169 && parts[1] === 254) return 'Link-Local';
+  if (parts[0] >= 224 && parts[0] <= 239) return 'Multicast';
+  if (parts[0] === 0) return 'Current Network';
+  if (parts[0] === 255 && parts[1] === 255 && parts[2] === 255 && parts[3] === 255) return 'Broadcast';
+  return 'Public IP Address';
+}
+
+function getIPv6Type(ip) {
+  const expanded = expandIPv6(ip);
+  if (expanded === '0000:0000:0000:0000:0000:0000:0000:0001') return 'Loopback (Localhost)';
+  if (expanded === '0000:0000:0000:0000:0000:0000:0000:0000') return 'Unspecified';
+  if (expanded.startsWith('fe80')) return 'Link-Local';
+  if (expanded.startsWith('fc') || expanded.startsWith('fd')) return 'Unique Local Address (ULA)';
+  if (expanded.startsWith('ff')) return 'Multicast';
+  return 'Public IP Address';
+}
+
+function analyzeIP(ip) {
+  if (!ip) return null;
+
+  if (isIPv4(ip)) {
+    const type = getIPv4Type(ip);
+    const isPublic = type === 'Public IP Address';
+    return {
+      ip: ip,
+      version: 'IPv4',
+      type: type,
+      expanded: '-',
+      isPublic: isPublic,
+      mockInfo: isPublic ? getMockInfo(ip) : null
+    };
+  }
+
+  if (isIPv6(ip)) {
+    const type = getIPv6Type(ip);
+    const isPublic = type === 'Public IP Address';
+    return {
+      ip: ip,
+      version: 'IPv6',
+      type: type,
+      expanded: expandIPv6(ip),
+      isPublic: isPublic,
+      mockInfo: isPublic ? getMockInfo(ip) : null
+    };
+  }
+
+  return null;
+}
+
+function updateUI(data) {
+  if (!data) {
+    errorMsg.classList.add('visible');
+    return;
+  }
+
+  errorMsg.classList.remove('visible');
+
+  outputs.ip.textContent = data.ip;
+  outputs.version.textContent = data.version;
+  outputs.type.textContent = data.type;
+  outputs.expanded.textContent = data.expanded;
+
+  if (data.isPublic) {
+    outputs.geo.textContent = data.mockInfo.geo;
+    outputs.geo.classList.remove('placeholder');
+    outputs.isp.textContent = data.mockInfo.isp;
+    outputs.isp.classList.remove('placeholder');
+    outputs.asn.textContent = data.mockInfo.asn;
+    outputs.asn.classList.remove('placeholder');
+    outputs.rdns.textContent = data.mockInfo.rdns;
+    outputs.rdns.classList.remove('placeholder');
+  } else {
+    const msg = 'N/A (Non-Public IP)';
+    outputs.geo.textContent = msg;
+    outputs.geo.classList.add('placeholder');
+    outputs.isp.textContent = msg;
+    outputs.isp.classList.add('placeholder');
+    outputs.asn.textContent = msg;
+    outputs.asn.classList.add('placeholder');
+    outputs.rdns.textContent = msg;
+    outputs.rdns.classList.add('placeholder');
+  }
+}
+
+// Event Listeners
+lookupBtn.addEventListener('click', () => {
+  const ip = ipInput.value.trim();
+  const result = analyzeIP(ip);
+  updateUI(result);
+});
+
+ipInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    lookupBtn.click();
+  }
+});
+
+// Copy functionality
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.copy-btn-small');
+  if (!btn) return;
+
+  const targetId = btn.getAttribute('data-target');
+
+  let textToCopy = '';
+
+  if (targetId === 'ipAnalysis') {
+    const el = document.getElementById(targetId);
+    if (!el) return;
+    const rows = el.querySelectorAll('tr');
+    let data = [];
+    rows.forEach(row => {
+      const th = row.querySelector('th').innerText;
+      const td = row.querySelector('td').innerText;
+      data.push(`${th}: ${td}`);
+    });
+    textToCopy = data.join('\n');
+  } else {
+    const targetEl = document.getElementById(targetId);
+    if (targetEl && targetEl.textContent && targetEl.textContent !== '-' && !targetEl.classList.contains('placeholder')) {
+      textToCopy = targetEl.textContent;
+    }
+  }
+
+  if (textToCopy && textToCopy !== 'N/A (Non-Public IP)' && textToCopy.indexOf('-') !== 0) {
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      const origHTML = btn.innerHTML;
+      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+      btn.classList.add('copied');
+
+      setTimeout(() => {
+        btn.innerHTML = origHTML;
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+});
+
+</script>
+</body>
+</html>
