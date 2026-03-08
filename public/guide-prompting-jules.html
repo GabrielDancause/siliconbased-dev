@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Prompt Google Jules for Research — Lessons from 20+ Sessions | siliconbased.dev</title>
+<meta name="description" content="We ran 350+ Google Jules sessions and learned what works. Here's how to get Jules to scrape websites, produce original research, and build interactive study pages — with real examples and exact prompts.">
+<meta property="og:title" content="How to Prompt Google Jules for Research — Real Lessons from 350+ Sessions">
+<meta property="og:description" content="Jules can scrape the web, analyze data, and build interactive studies. Here's exactly how to prompt it, based on our experience running 350+ sessions.">
+<link rel="canonical" href="https://siliconbased.dev/guide-prompting-jules">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"How to Prompt Google Jules for Research","description":"Lessons from running 350+ Google Jules sessions for web scraping, data analysis, and interactive study pages","author":{"@type":"Organization","name":"siliconbased.dev"},"publisher":{"@type":"Organization","name":"GAB Ventures","url":"https://gab.ae"},"datePublished":"2026-03-08","dateModified":"2026-03-08"}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Inter',sans-serif;background:#0a0b10;color:#e0e0e0;line-height:1.8}
+code{font-family:'JetBrains Mono',monospace;font-size:0.82rem;background:#13151d;padding:2px 6px;border-radius:4px;color:#818cf8}
+pre{font-family:'JetBrains Mono',monospace;font-size:0.8rem;background:#0d0e16;border:1px solid #1e2030;border-radius:10px;padding:20px;overflow-x:auto;margin:16px 0;color:#ccc;line-height:1.6}
+
+.hero{text-align:center;padding:56px 24px 40px;background:linear-gradient(180deg,#0f1729 0%,#0a0b10 100%)}
+.hero-tag{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#818cf8;margin-bottom:12px}
+.hero h1{font-size:2rem;font-weight:900;color:#fff;margin-bottom:12px;letter-spacing:-0.5px;max-width:700px;margin-left:auto;margin-right:auto}
+.hero .subtitle{color:#666;font-size:0.95rem;max-width:560px;margin:0 auto 16px}
+.hero .date{font-size:0.78rem;color:#444}
+
+.main{max-width:780px;margin:0 auto;padding:32px 20px 60px}
+.card{background:#111318;border:1px solid #1e2030;border-radius:14px;padding:28px 24px;margin-bottom:20px}
+.card h2{font-size:1.25rem;font-weight:800;color:#fff;margin-bottom:14px}
+.card h3{font-size:1.05rem;font-weight:700;color:#ccc;margin:20px 0 10px}
+.card p{font-size:0.9rem;color:#999;line-height:1.8;margin-bottom:12px}
+.card ul,.card ol{font-size:0.9rem;color:#999;padding-left:24px;margin-bottom:12px}
+.card li{margin-bottom:6px;line-height:1.7}
+.card strong{color:#ccc}
+
+.lesson{background:#0f1120;border:1px solid #1a2040;border-radius:10px;padding:20px;margin:16px 0}
+.lesson .lesson-num{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#818cf8;margin-bottom:6px}
+.lesson .lesson-title{font-size:1rem;font-weight:700;color:#fff;margin-bottom:8px}
+.lesson p{font-size:0.85rem;color:#999;margin-bottom:8px}
+
+.before-after{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.ba-col{border-radius:10px;padding:16px;font-size:0.82rem}
+.ba-bad{background:#1a0a0a;border:1px solid #2e1515;color:#f87171}
+.ba-good{background:#0a1a10;border:1px solid #152e15;color:#34d399}
+.ba-label{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;opacity:0.7}
+
+.stat-row{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0}
+.stat-box{background:#0a0b10;border:1px solid #1e2030;border-radius:10px;padding:14px 20px;text-align:center;flex:1;min-width:100px}
+.stat-box .n{font-size:1.5rem;font-weight:900;color:#818cf8}.stat-box .l{font-size:0.68rem;color:#666;text-transform:uppercase;margin-top:2px}
+
+.toc{background:#0a0b10;border:1px solid #1e2030;border-radius:10px;padding:20px;margin:16px 0}
+.toc a{color:#818cf8;text-decoration:none;font-size:0.88rem;display:block;padding:4px 0}
+.toc a:hover{text-decoration:underline}
+
+.footer{text-align:center;padding:40px 24px;font-size:0.78rem;color:#555;border-top:1px solid #151520;margin-top:40px}
+.footer a{color:#818cf8;text-decoration:none}
+
+@media(max-width:600px){
+  .hero h1{font-size:1.5rem}
+  .main{padding:20px 14px}
+  .before-after{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-tag">Lessons Learned</div>
+  <h1>How to Prompt Google Jules for Original Research</h1>
+  <p class="subtitle">We ran 350+ Jules sessions and learned what works. Here's our playbook for getting Jules to scrape websites, analyze data, and build interactive studies.</p>
+  <div class="date">Updated March 8, 2026 · Based on real production experience</div>
+</div>
+
+<div class="main">
+
+  <div class="stat-row">
+    <div class="stat-box"><div class="n">350+</div><div class="l">Sessions Run</div></div>
+    <div class="stat-box"><div class="n">6</div><div class="l">Research Studies</div></div>
+    <div class="stat-box"><div class="n">3</div><div class="l">Close → Reprompts</div></div>
+    <div class="stat-box"><div class="n">300</div><div class="l">Daily Limit</div></div>
+  </div>
+
+  <div class="card">
+    <h2>Table of Contents</h2>
+    <div class="toc">
+      <a href="#discovery">1. The Big Discovery: Jules Can Scrape the Web</a>
+      <a href="#lesson1">2. Tell Jules What It CAN Do</a>
+      <a href="#lesson2">3. Define the Exact Methodology</a>
+      <a href="#lesson3">4. Give It the Data Schema</a>
+      <a href="#lesson4">5. Anti-Hallucination Instructions</a>
+      <a href="#lesson5">6. The Close → Reprompt Reflex</a>
+      <a href="#lesson6">7. Domain-Specific Knowledge Must Be Explicit</a>
+      <a href="#lesson7">8. Data Validation Ranges</a>
+      <a href="#lesson8">9. Visual Style Matching</a>
+      <a href="#lesson9">10. Listing Pages > Individual Pages</a>
+      <a href="#workflow">11. The Full Research Workflow</a>
+      <a href="#limits">12. What Jules Can't Do</a>
+      <a href="#template">13. The Prompt Template</a>
+    </div>
+  </div>
+
+  <!-- Discovery -->
+  <div class="card" id="discovery">
+    <h2>The Big Discovery: Jules Can Scrape the Web</h2>
+    <p>We assumed Jules couldn't make outbound HTTP requests from its sandbox. <strong>We were wrong.</strong> Jules runs in a GitHub Codespace environment that has full internet access. It can:</p>
+    <ul>
+      <li>Make HTTPS GET/HEAD requests to any public URL</li>
+      <li>Parse HTML responses and extract data</li>
+      <li>Read JSON-LD structured data from web pages</li>
+      <li>Follow redirects and handle timeouts</li>
+      <li>Process responses and save results to JSON files</li>
+    </ul>
+    <p>This changed everything. Instead of Jules only building static tool pages, we could use it to <strong>produce original research</strong> — crawl real websites, analyze real data, and build interactive study pages.</p>
+  </div>
+
+  <!-- Lesson 1 -->
+  <div class="card" id="lesson1">
+    <h2>Lesson 1: Tell Jules What It CAN Do</h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">Jules defaults to the conservative path unless told otherwise</div>
+      <p>If you don't explicitly say "you can make HTTP requests," Jules will assume it can't and will hardcode fake data instead. Always start your prompt with capabilities.</p>
+    </div>
+    <div class="before-after">
+      <div class="ba-col ba-bad">
+        <div class="ba-label">❌ Before</div>
+        "Create a study analyzing 100 websites' page weight"<br><br>
+        <em>Result: Jules hardcoded fake data or said it couldn't make requests</em>
+      </div>
+      <div class="ba-col ba-good">
+        <div class="ba-label">✅ After</div>
+        "You CAN make outbound HTTP requests. This task requires you to actually crawl real websites."<br><br>
+        <em>Result: Jules made real HTTP requests and collected real data</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lesson 2 -->
+  <div class="card" id="lesson2">
+    <h2>Lesson 2: Define the Exact Methodology</h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">Don't let Jules figure out HOW to measure — tell it</div>
+      <p>Our first page weight study measured only the HTML response body (50-200KB per site). That's not "page weight" — real page weight includes CSS, JS, images, and fonts (typically 2-5MB). Jules did exactly what we asked; we just asked wrong.</p>
+    </div>
+    <div class="before-after">
+      <div class="ba-col ba-bad">
+        <div class="ba-label">❌ Vague</div>
+        "Measure the page weight of each site"<br><br>
+        <em>Result: Measured HTML response only (17KB for google.com)</em>
+      </div>
+      <div class="ba-col ba-good">
+        <div class="ba-label">✅ Specific</div>
+        "Page weight = HTML + all CSS + all JS + images. Parse HTML for resource URLs, make HEAD requests for Content-Length on each, sum everything."<br><br>
+        <em>Result: Full resource measurement (1.2MB for google.com)</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lesson 3 -->
+  <div class="card" id="lesson3">
+    <h2>Lesson 3: Give It the Data Schema</h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">Provide the exact JSON structure you want back</div>
+      <p>When we didn't specify field names, Jules used different names than expected (<code>name</code> instead of <code>recipeName</code>, <code>source</code> instead of <code>sourceDomain</code>). The page template then couldn't read the data.</p>
+    </div>
+    <pre>{
+  "crawlDate": "ISO date",
+  "methodology": "description of what was measured",
+  "totalSites": 100,
+  "results": [
+    {
+      "domain": "google.com",      // exact field name
+      "htmlBytes": 17000,           // exact field name
+      "cssBytes": 45000,            // exact field name
+      "jsBytes": 320000,            // exact field name
+      "totalBytes": 532000,         // exact field name
+      "error": null                 // null, not undefined
+    }
+  ]
+}</pre>
+    <p>Include a complete example object with comments. Jules follows the schema precisely when given one.</p>
+  </div>
+
+  <!-- Lesson 4 -->
+  <div class="card" id="lesson4">
+    <h2>Lesson 4: Anti-Hallucination Instructions</h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">"If you only get 50, say 50. Don't fake 500."</div>
+      <p>AI coding agents will try to meet your target. If you ask for 500 recipes and they can only scrape 50, they might pad the data. Explicitly tell them that honest counts are better than fabricated data.</p>
+    </div>
+    <p>Include these exact phrases in your prompt:</p>
+    <ul>
+      <li><strong>"Be honest about the count — the title must match actual data"</strong></li>
+      <li><strong>"null over fake data, always"</strong></li>
+      <li><strong>"If you can't determine a value, set it to null — do NOT guess"</strong></li>
+      <li><strong>"Better to have 50 real data points than 500 fake ones"</strong></li>
+    </ul>
+  </div>
+
+  <!-- Lesson 5 -->
+  <div class="card" id="lesson5">
+    <h2>Lesson 5: The Close → Reprompt Reflex</h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">First attempt rarely perfect. Close the PR, tell Jules what went wrong, send again.</div>
+      <p>This became our default workflow. Every study improved on the second attempt because we could tell Jules exactly what went wrong:</p>
+    </div>
+    <ol>
+      <li><strong>Dispatch study</strong> → Jules builds it in ~30 minutes</li>
+      <li><strong>Review the PR</strong> → Check data quality, not just if it builds</li>
+      <li><strong>Close with feedback</strong> → "Closing: hydration calculation is wrong, only 25 recipes, need 100+"</li>
+      <li><strong>Reprompt with fixes</strong> → "Your previous attempt had these problems: [specifics]. Fix them."</li>
+      <li><strong>Review v2</strong> → Usually good enough to merge</li>
+    </ol>
+    <p>Our sourdough study went from 25 recipes with wrong hydration (v1) to 85 recipes with correct hydration (v2). The page weight study went from HTML-only (v1) to full resource measurement (v2).</p>
+  </div>
+
+  <!-- Lesson 6 -->
+  <div class="card" id="lesson6">
+    <h2>Lesson 6: Domain-Specific Knowledge Must Be Explicit</h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">Jules doesn't know that 100% hydration sourdough is ciabatta, not standard bread</div>
+      <p>When Jules calculated sourdough hydration and got 100%, it didn't flag it as unusual — because it doesn't know baking. You must encode domain knowledge into the prompt.</p>
+    </div>
+    <div class="before-after">
+      <div class="ba-col ba-bad">
+        <div class="ba-label">❌ No domain context</div>
+        "Calculate hydration from ingredients"<br><br>
+        <em>Result: 100% hydration for standard loaves (wrong calculation)</em>
+      </div>
+      <div class="ba-col ba-good">
+        <div class="ba-label">✅ With domain knowledge</div>
+        "Hydration = water weight ÷ flour weight × 100. Normal range: 60-90%. If result &gt; 90%, flag as high hydration. If &gt; 100%, likely a calculation error — set to null."<br><br>
+        <em>Result: Average hydration of 77.8% (correct)</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lesson 7 -->
+  <div class="card" id="lesson7">
+    <h2>Lesson 7: Data Validation Ranges</h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">Give explicit valid ranges for every numeric field</div>
+      <p>Without validation rules, Jules will include outliers that are clearly errors (oven temp of 0°F, page weight of -1 bytes). Define the acceptable range for every field.</p>
+    </div>
+    <pre>Data validation:
+- hydration: 55-100 (flag &gt;90 as "high hydration"), else null
+- ovenTempF: 300-550, else null
+- bakeTimeMin: 15-120, else null
+- apyPct: 0.01-6.00, else null
+- costUSD: 0-5000, else null</pre>
+  </div>
+
+  <!-- Lesson 8 -->
+  <div class="card" id="lesson8">
+    <h2>Lesson 8: Visual Style Matching</h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">Reference an existing file and give exact CSS values</div>
+      <p>Saying "match the site style" isn't enough. Give exact hex codes, font names, border-radius values, and reference a specific existing file Jules can read from the repo.</p>
+    </div>
+    <pre>Style (match existing security-headers-study.html):
+- Background: #0a0b10
+- Cards: #111318 with border #1e2030, border-radius 14px
+- Accent: #818cf8
+- Fonts: Inter (body) + JetBrains Mono (code) from Google Fonts
+- Text: #e0e0e0 body, #999 secondary, #666 tertiary</pre>
+  </div>
+
+  <!-- Lesson 9 -->
+  <div class="card" id="lesson9">
+    <h2>Lesson 9: Listing Pages > Individual Pages</h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">Point Jules at index/search pages, not individual recipe URLs</div>
+      <p>Our first sourdough attempt got 25 recipes because Jules only scraped individual pages. The v2 prompt pointed it at listing pages (recipe indexes, search results) that link to dozens of recipes each.</p>
+    </div>
+    <pre>Don't: "Scrape sourdough recipes from kingarthurbaking.com"
+Do:   "Fetch https://www.kingarthurbaking.com/recipes/sourdough
+       — this is a listing page with 50+ recipe links.
+       Extract all recipe URLs, then fetch each one."</pre>
+  </div>
+
+  <!-- Full workflow -->
+  <div class="card" id="workflow">
+    <h2>The Full Research Workflow</h2>
+    <h3>Step 1: Choose a Study</h3>
+    <p>Pick something where the data exists publicly but nobody has packaged it into a single comparison. The value is in the aggregation.</p>
+    
+    <h3>Step 2: Write the Prompt</h3>
+    <p>Use the template below. Include: capabilities declaration, source URLs, methodology, data schema, validation rules, output file specs, visual style, anti-hallucination rules.</p>
+    
+    <h3>Step 3: Dispatch via API</h3>
+    <pre>POST https://jules.googleapis.com/v1alpha/sessions
+{
+  "prompt": "...",
+  "sourceContext": {
+    "source": "sources/github/OWNER/REPO",
+    "githubRepoContext": {"startingBranch": "main"}
+  },
+  "automationMode": "AUTO_CREATE_PR",
+  "title": "Research: Study Name"
+}</pre>
+    
+    <h3>Step 4: Review (~30 min later)</h3>
+    <p>Check the PR. Verify: Is the data real? Are the calculations correct? Are there enough data points? Is the methodology honest?</p>
+    
+    <h3>Step 5: Close → Reprompt or Merge</h3>
+    <p>If the data is wrong or insufficient, close the PR with specific feedback and dispatch again. If it's good enough, merge. You can always improve in a future session.</p>
+  </div>
+
+  <!-- Limits -->
+  <div class="card" id="limits">
+    <h2>What Jules Can't Do</h2>
+    <ul>
+      <li><strong>No headless browser</strong> — can't render JavaScript-heavy SPAs or measure real paint times</li>
+      <li><strong>No login/auth</strong> — can only access public pages</li>
+      <li><strong>Anti-scraping</strong> — some CDNs block requests from Codespace IPs; expect 10-20% failure rate</li>
+      <li><strong>No physical measurement</strong> — can't taste food, test hardware, or run lab experiments</li>
+      <li><strong>Rate limits</strong> — 300 sessions/day per Google account, 15 concurrent max</li>
+      <li><strong>Clarification UI-only</strong> — if Jules asks a question, you can only answer in the web UI, not via API</li>
+      <li><strong>One repo per session</strong> — but you can target any repo your account has access to</li>
+    </ul>
+    <p><strong>What Jules IS good at:</strong> Compiling, scraping, and packaging public data that exists across many sources into a single structured, searchable resource. The value is in the aggregation, not the data itself.</p>
+  </div>
+
+  <!-- Template -->
+  <div class="card" id="template">
+    <h2>The Prompt Template</h2>
+    <p>Copy this structure for any new research study:</p>
+    <pre>RESEARCH STUDY: "[Title]" for [domain]
+
+You CAN make outbound HTTP requests. Use them.
+
+## What this study is
+[One paragraph explaining the study and why it matters]
+
+## How to collect the data
+
+### Sources to scrape
+1. [URL] — [description]
+2. [URL] — [description]
+[List 5-10 source URLs]
+
+### Data to extract per [item]
+- **fieldName**: description (type)
+[List every field with types]
+
+### Data validation
+- fieldName: [min]-[max], else null
+[Validation for every numeric field]
+
+## Output files
+
+### 1. scripts/crawl-[topic].cjs
+Node.js CommonJS. [Scraping instructions]. 500ms delays.
+
+### 2. data/[topic]-study.json
+[Exact JSON schema with example object]
+
+### 3. public/[topic]-study.html
+Self-contained. ALL inline CSS+JS. NO frameworks.
+Style: bg #0a0b10, cards #111318, borders #1e2030,
+accent [hex], Inter + JetBrains Mono.
+[Page structure: hero, stats, charts, findings, table,
+methodology, citation, footer, JSON-LD]
+
+### 4. package.json + deploy.yml
+[Script name and workflow step]
+
+## CRITICAL
+- Get at least [N] items. Aim for [M]+.
+- null over fake data, always
+- Be honest about count — title must match
+- [Domain-specific validation rules]</pre>
+  </div>
+
+  <div class="card">
+    <h2>Our Studies So Far</h2>
+    <ul>
+      <li><a href="/security-headers-study" style="color:#818cf8">State of Security Headers 2026</a> — 85 sites analyzed (built manually)</li>
+      <li><a href="/page-weight-study" style="color:#818cf8">Average Web Page Weight 2026</a> — 100 sites analyzed (Jules v2)</li>
+      <li><a href="https://28grams.vip/sourdough-study" style="color:#818cf8">Sourdough Recipe Analysis</a> — 85 recipes analyzed (Jules v2)</li>
+    </ul>
+    <p style="color:#555;font-size:0.82rem">More studies in progress: Digital Nomad Visa Index, GPU Performance Index, Savings Rate Comparison</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2026 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+</body>
+</html>
