@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Find & Replace Text Tool | Free Online Utility</title>
+<meta name="description" content="Find and replace text online with support for regular expressions, case sensitivity, whole words, and multiline. Free and works offline.">
+<meta property="og:title" content="Find & Replace Text Tool">
+<meta property="og:description" content="Find and replace text online with support for regular expressions, case sensitivity, whole words, and multiline. Free and works offline.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Find & Replace Text Tool",
+    "url": "https://siliconbased.dev/chmod-recursive",
+    "description": "Find and replace text online with support for regular expressions, case sensitivity, whole words, and multiline.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Find & Replace Text Tool",
+    "description": "Find and replace text online with support for regular expressions, case sensitivity, whole words, and multiline.",
+    "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+  }
+]
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 900px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Card */
+.tool-card { background: #111318; border: 1px solid #1e2030; border-radius: 16px; overflow: hidden; margin-bottom: 40px; }
+.tool-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: #13151d; border-bottom: 1px solid #1e2030; flex-wrap: wrap; gap: 12px; }
+.tool-header h3 { font-size: 0.9rem; font-weight: 600; color: #ccc; display: flex; align-items: center; gap: 8px; }
+
+/* Inputs/Outputs */
+.tool-body { padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+.textarea-wrapper { position: relative; display: flex; flex-direction: column; gap: 8px; }
+.textarea-label { font-size: 0.85rem; font-weight: 600; color: #818cf8; display: flex; justify-content: space-between; align-items: center; }
+
+.input-area { width: 100%; min-height: 180px; background: #0a0b10; border: 1px solid #1e2030; border-radius: 12px; padding: 16px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; resize: vertical; outline: none; transition: border-color 0.2s; line-height: 1.5; }
+.input-area:focus { border-color: #818cf8; }
+.input-area::placeholder { color: #444; font-family: 'Inter', sans-serif; }
+
+.controls-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.input-field { width: 100%; background: #0a0b10; border: 1px solid #1e2030; border-radius: 8px; padding: 10px 12px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
+.input-field:focus { border-color: #818cf8; }
+
+/* Options toggles */
+.options-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; background: #0a0b10; padding: 12px 16px; border-radius: 8px; border: 1px solid #1e2030; }
+.checkbox-label { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #ccc; cursor: pointer; user-select: none; }
+.checkbox-label input[type="checkbox"] { appearance: none; width: 16px; height: 16px; border: 1px solid #444; border-radius: 4px; background: #111318; cursor: pointer; position: relative; outline: none; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+.checkbox-label input[type="checkbox"]:checked { background: #818cf8; border-color: #818cf8; }
+.checkbox-label input[type="checkbox"]:checked::after { content: ''; width: 4px; height: 8px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); display: block; margin-bottom: 2px; }
+.checkbox-label input[type="checkbox"]:focus-visible { box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.4); }
+.checkbox-label:hover input[type="checkbox"] { border-color: #818cf8; }
+
+/* Error Message */
+.error-message { color: #f87171; font-size: 0.8rem; display: none; margin-top: 4px; }
+.error-message.visible { display: block; }
+
+/* Actions */
+.actions-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.btn { background: #1e2030; border: 1px solid #2a2d40; color: #ccc; padding: 10px 20px; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+.btn:hover { background: #2a2d40; color: #fff; }
+.btn-primary { background: #818cf8; color: #fff; border-color: #818cf8; }
+.btn-primary:hover { background: #6366f1; border-color: #6366f1; }
+.btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .controls-grid { grid-template-columns: 1fr; }
+  .actions-row { flex-direction: column; align-items: stretch; }
+  .btn { justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Find & Replace <span>Text</span></h1>
+  <p>Search and replace text with Regex, case sensitivity, and multiline support.</p>
+</div>
+
+<div class="main">
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <h3>Interactive Editor</h3>
+    </div>
+
+    <div class="tool-body">
+      <div class="textarea-wrapper">
+        <div class="textarea-label">
+          <span>Input Text</span>
+        </div>
+        <textarea class="input-area" id="inputText" placeholder="Paste your text here..."></textarea>
+      </div>
+
+      <div class="controls-grid">
+        <div class="textarea-wrapper">
+          <label class="textarea-label" for="findText">Find what</label>
+          <input type="text" class="input-field" id="findText" placeholder="Search string or Regex...">
+          <div id="regexError" class="error-message">Invalid regular expression</div>
+        </div>
+        <div class="textarea-wrapper">
+          <label class="textarea-label" for="replaceText">Replace with</label>
+          <input type="text" class="input-field" id="replaceText" placeholder="Replacement string...">
+        </div>
+      </div>
+
+      <div class="options-row">
+        <label class="checkbox-label">
+          <input type="checkbox" id="useRegex"> Regular Expression
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="matchCase"> Case Sensitive
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="wholeWord"> Whole Word
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="multiline" checked> Multiline
+        </label>
+      </div>
+
+      <div class="textarea-wrapper">
+        <div class="textarea-label">
+          <span>Result</span>
+          <span style="font-size: 0.75rem; font-weight: 400; color: #888;" id="matchCount">0 replacements</span>
+        </div>
+        <textarea class="input-area" id="outputText" readonly placeholder="Result will appear here..."></textarea>
+      </div>
+
+      <div class="actions-row">
+        <button class="btn" id="clearBtn">Clear All</button>
+        <button class="btn btn-primary" id="copyBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          Copy Result
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>Advanced Find and Replace Tool</h2>
+    <p>Finding and replacing text across large documents, code files, or data exports can be tedious. Our online Find & Replace utility is designed to handle complex string replacements with speed and precision directly in your browser.</p>
+
+    <h2>Powerful Search Options</h2>
+    <ul>
+      <li><strong>Regular Expressions (Regex):</strong> Unlock advanced pattern matching. Use powerful capture groups and standard regex syntax (like <code>\d+</code> for numbers or <code>\s+</code> for whitespace) to identify dynamic patterns.</li>
+      <li><strong>Case Sensitivity:</strong> Toggle exact casing matches. When unchecked, a search for <code>apple</code> will match <code>Apple</code> and <code>APPLE</code>. When checked, it will only match <code>apple</code> exactly.</li>
+      <li><strong>Whole Word Matching:</strong> Ensure you only replace complete words. A search for <code>cat</code> won't accidentally replace the letters inside <code>concatenate</code> or <code>catalog</code>.</li>
+      <li><strong>Multiline Support:</strong> Useful when using Regex anchors like <code>^</code> (start of line) and <code>$</code> (end of line) to match patterns across line breaks rather than treating the entire input as a single line.</li>
+    </ul>
+
+    <h2>Client-Side Privacy & Offline Capability</h2>
+    <p>Security and speed are paramount. This Find & Replace tool runs 100% locally within your web browser using client-side JavaScript. The text you input—whether it's sensitive customer data, proprietary source code, or private keys—is <strong>never uploaded to a server</strong> or transmitted over the internet.</p>
+    <p>Because all computation happens on your machine, the tool is incredibly fast even on massive blocks of text. Furthermore, once the web page is fully loaded, you can disconnect from the internet and continue using the tool completely offline without any loss in functionality.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+  const elements = {
+    inputText: document.getElementById('inputText'),
+    findText: document.getElementById('findText'),
+    replaceText: document.getElementById('replaceText'),
+    useRegex: document.getElementById('useRegex'),
+    matchCase: document.getElementById('matchCase'),
+    wholeWord: document.getElementById('wholeWord'),
+    multiline: document.getElementById('multiline'),
+    outputText: document.getElementById('outputText'),
+    matchCount: document.getElementById('matchCount'),
+    clearBtn: document.getElementById('clearBtn'),
+    copyBtn: document.getElementById('copyBtn'),
+    regexError: document.getElementById('regexError'),
+    findInputGroup: document.getElementById('findText').parentElement
+  };
+
+  function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+  }
+
+  function handleReplace() {
+    const input = elements.inputText.value;
+    const findStr = elements.findText.value;
+    const replaceStr = elements.replaceText.value;
+
+    // Clear error state
+    elements.regexError.classList.remove('visible');
+    elements.findInputGroup.style.borderColor = '';
+
+    if (!input || !findStr) {
+      elements.outputText.value = input;
+      elements.matchCount.textContent = '0 replacements';
+      return;
+    }
+
+    let searchPattern = findStr;
+    let flags = 'g'; // Global replace by default
+
+    if (!elements.matchCase.checked) flags += 'i';
+    if (elements.multiline.checked) flags += 'm';
+
+    try {
+      if (!elements.useRegex.checked) {
+        // Not using regex directly, so we need to escape special characters
+        searchPattern = escapeRegExp(searchPattern);
+      }
+
+      // Add whole word boundaries if selected
+      if (elements.wholeWord.checked) {
+        // Only add boundary if the start/end of the string is a word character
+        // Otherwise \b will break the matching of special characters like '.' or '$'
+        const startBoundary = /^\w/.test(findStr) && !elements.useRegex.checked ? '\\b' :
+                              elements.useRegex.checked && !searchPattern.startsWith('^') && !searchPattern.startsWith('\\b') ? '\\b' : '';
+        const endBoundary = /\w$/.test(findStr) && !elements.useRegex.checked ? '\\b' :
+                            elements.useRegex.checked && !searchPattern.endsWith('$') && !searchPattern.endsWith('\\b') ? '\\b' : '';
+
+        searchPattern = `${startBoundary}${searchPattern}${endBoundary}`;
+      }
+
+      // Safeguard against empty regex matching causing infinite loops
+      const regex = new RegExp(searchPattern, flags);
+      if (regex.test('')) {
+         throw new Error('Regex matches empty string');
+      }
+
+      // Count matches and replace
+      const matches = input.match(regex);
+      const count = matches ? matches.length : 0;
+
+      // Perform replacement
+      // If we're not using regex, we need to treat the replace string literally
+      // String.prototype.replace treats $ as special even with regex.
+      let finalReplaceStr = replaceStr;
+      if (!elements.useRegex.checked) {
+          // Escape $ to prevent special replacement patterns ($1, $&, etc)
+          finalReplaceStr = finalReplaceStr.replace(/\$/g, '$$$$');
+      }
+
+      const result = input.replace(regex, finalReplaceStr);
+
+      elements.outputText.value = result;
+      elements.matchCount.textContent = `${count} replacement${count !== 1 ? 's' : ''}`;
+
+    } catch (error) {
+      // Handle invalid regex
+      elements.regexError.textContent = error.message;
+      elements.regexError.classList.add('visible');
+      elements.outputText.value = input;
+      elements.matchCount.textContent = 'Error in expression';
+    }
+  }
+
+  // Event Listeners for Live Updates
+  const updateTriggers = [
+    elements.inputText,
+    elements.findText,
+    elements.replaceText
+  ];
+
+  updateTriggers.forEach(el => {
+    el.addEventListener('input', handleReplace);
+  });
+
+  const toggleTriggers = [
+    elements.useRegex,
+    elements.matchCase,
+    elements.wholeWord,
+    elements.multiline
+  ];
+
+  toggleTriggers.forEach(el => {
+    el.addEventListener('change', handleReplace);
+  });
+
+  // Clear Button
+  elements.clearBtn.addEventListener('click', () => {
+    elements.inputText.value = '';
+    elements.findText.value = '';
+    elements.replaceText.value = '';
+    elements.outputText.value = '';
+    elements.matchCount.textContent = '0 replacements';
+
+    // Reset options to default
+    elements.useRegex.checked = false;
+    elements.matchCase.checked = false;
+    elements.wholeWord.checked = false;
+    elements.multiline.checked = true;
+
+    elements.regexError.classList.remove('visible');
+  });
+
+  // Copy Button
+  elements.copyBtn.addEventListener('click', () => {
+    const textToCopy = elements.outputText.value;
+    if (!textToCopy) return;
+
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      const originalHtml = elements.copyBtn.innerHTML;
+      elements.copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+      elements.copyBtn.classList.add('copied');
+
+      setTimeout(() => {
+        elements.copyBtn.innerHTML = originalHtml;
+        elements.copyBtn.classList.remove('copied');
+      }, 2000);
+    });
+  });
+
+  // Initial Run (in case of cached values on reload)
+  handleReplace();
+</script>
+
+</body>
+</html>
