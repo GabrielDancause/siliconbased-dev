@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service Generator | Free Online Tool</title>
+<meta name="description" content="Generate customizable Terms of Service for websites, SaaS, e-commerce, and apps. Free, zero dependencies, offline-capable, runs completely in your browser.">
+<meta property="og:title" content="Terms of Service Generator">
+<meta property="og:description" content="Generate customizable Terms of Service for websites, SaaS, e-commerce, and apps. Free, zero dependencies, offline-capable, runs completely in your browser.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Terms of Service Generator",
+  "url": "https://siliconbased.dev/terms-generator",
+  "description": "Interactive tool to generate customized Terms of Service for SaaS, e-commerce, and content websites.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+.hero { text-align: center; padding: 48px 24px 24px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.4rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Input/Output Grid */
+.tool-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 40px; align-items: stretch; }
+@media (min-width: 800px) {
+  .tool-grid { grid-template-columns: 350px 1fr; }
+}
+
+.pane { display: flex; flex-direction: column; background: #111318; border: 2px solid #1e2030; border-radius: 12px; padding: 20px; }
+
+/* Form Elements */
+.input-header, .output-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.header-title { font-size: 0.9rem; font-weight: 600; color: #ccc; text-transform: uppercase; letter-spacing: 0.5px; }
+.header-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-size: 0.85rem; font-weight: 500; color: #888; margin-bottom: 6px; }
+.form-control { width: 100%; background: #0a0b10; border: 1px solid #1e2030; border-radius: 8px; padding: 10px 12px; color: #e0e0e0; font-family: 'Inter', sans-serif; font-size: 0.9rem; transition: border-color 0.2s; outline: none; }
+.form-control:focus { border-color: #818cf8; }
+.form-select { appearance: none; background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23888888%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); background-repeat: no-repeat; background-position: right 12px top 50%; background-size: 10px auto; padding-right: 32px; }
+
+.action-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.action-btn:hover { background: #2a2d40; color: #ccc; }
+.action-btn.active { background: #818cf8; color: #fff; border-color: #818cf8; }
+
+.copy-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 8px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.copy-btn:hover { background: #2a2d40; color: #ccc; }
+.copy-btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+textarea.data-area { flex: 1; min-height: 500px; background: #0a0b10; border: 1px solid #1e2030; border-radius: 8px; padding: 16px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; resize: vertical; outline: none; transition: border-color 0.2s; line-height: 1.6; white-space: pre-wrap; }
+textarea.data-area:focus { border-color: #818cf8; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Terms of Service Generator ⚖️</h1>
+  <p>Create a customized Terms of Service agreement for your SaaS, e-commerce, or content site instantly.</p>
+</div>
+
+<div class="main">
+
+  <div class="tool-grid">
+    <!-- Input Pane -->
+    <div class="pane">
+      <div class="input-header">
+        <div class="header-title">Company Details</div>
+      </div>
+
+      <div class="form-group">
+        <label for="companyName">Company / App Name</label>
+        <input type="text" id="companyName" class="form-control" placeholder="e.g. Acme Corp" value="Acme Corp">
+      </div>
+
+      <div class="form-group">
+        <label for="websiteUrl">Website URL</label>
+        <input type="text" id="websiteUrl" class="form-control" placeholder="e.g. https://example.com" value="https://example.com">
+      </div>
+
+      <div class="form-group">
+        <label for="contactEmail">Contact Email</label>
+        <input type="email" id="contactEmail" class="form-control" placeholder="e.g. legal@example.com" value="legal@example.com">
+      </div>
+
+      <div class="form-group">
+        <label for="effectiveDate">Effective Date</label>
+        <input type="date" id="effectiveDate" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="governingLaw">Governing Law (State/Country)</label>
+        <input type="text" id="governingLaw" class="form-control" placeholder="e.g. California, USA" value="California, USA">
+      </div>
+
+      <div class="form-group">
+        <label for="siteType">Type of Site</label>
+        <select id="siteType" class="form-control form-select">
+          <option value="content">Content / General Website</option>
+          <option value="saas">SaaS (Software as a Service)</option>
+          <option value="ecommerce">E-commerce Store</option>
+        </select>
+      </div>
+
+      <div class="form-group" style="margin-top: auto; padding-top: 16px;">
+        <button class="action-btn active" id="generateBtn" style="width: 100%; padding: 10px; font-size: 0.9rem;">Generate Terms</button>
+      </div>
+    </div>
+
+    <!-- Output Pane -->
+    <div class="pane">
+      <div class="output-header">
+        <div class="header-title">Generated Terms of Service</div>
+        <div class="header-actions">
+          <button class="copy-btn" id="copyOutputBtn">Copy to Clipboard</button>
+        </div>
+      </div>
+      <textarea id="dataOutput" class="data-area" placeholder="Your generated Terms of Service will appear here..." spellcheck="false" readonly></textarea>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>Why You Need a Terms of Service Agreement</h2>
+    <p>A Terms of Service (ToS) agreement, also known as Terms of Use or Terms and Conditions, acts as a legally binding contract between you (the website/app owner) and your users. It sets the rules and guidelines that users must agree to in order to use your service.</p>
+    <ul>
+      <li><strong>Prevent Abuse:</strong> Clearly state what constitutes acceptable use and what actions can lead to account termination.</li>
+      <li><strong>Protect Intellectual Property:</strong> Assert your ownership over your website's content, logo, and design.</li>
+      <li><strong>Limit Liability:</strong> Protect your business from being held liable for errors in your content or damages caused by using your service.</li>
+      <li><strong>Establish Governing Law:</strong> Determine which legal jurisdiction's laws apply if a dispute arises.</li>
+    </ul>
+
+    <h2>Tailoring Terms to Your Business Model</h2>
+    <p>Different types of websites require specific clauses in their Terms of Service:</p>
+    <h3>SaaS (Software as a Service)</h3>
+    <p>SaaS platforms typically need robust clauses addressing subscription terms, payment policies, service availability (SLAs), and data usage rights. It is crucial to define acceptable use policies clearly to prevent abuse of computing resources.</p>
+
+    <h3>E-commerce Stores</h3>
+    <p>Online stores must outline their policies regarding product descriptions, pricing errors, shipping, returns, and refunds. Additionally, clauses related to user-generated content (like product reviews) are essential.</p>
+
+    <h3>Content & General Websites</h3>
+    <p>For blogs, portfolios, and informational sites, the focus is primarily on intellectual property protection, limiting liability for information accuracy, and rules regarding user comments or forum posts.</p>
+
+    <h2>Disclaimer</h2>
+    <p>The documents generated by this tool are for informational purposes only and do not constitute legal advice. We recommend consulting with a qualified attorney to ensure your legal documents fully comply with the laws in your jurisdiction and appropriately cover your specific business needs.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+  const companyNameInput = document.getElementById('companyName');
+  const websiteUrlInput = document.getElementById('websiteUrl');
+  const contactEmailInput = document.getElementById('contactEmail');
+  const effectiveDateInput = document.getElementById('effectiveDate');
+  const governingLawInput = document.getElementById('governingLaw');
+  const siteTypeInput = document.getElementById('siteType');
+  const generateBtn = document.getElementById('generateBtn');
+  const dataOutput = document.getElementById('dataOutput');
+  const copyOutputBtn = document.getElementById('copyOutputBtn');
+
+  // Set today's date as default
+  const today = new Date().toISOString().split('T')[0];
+  effectiveDateInput.value = today;
+
+  function generateTerms() {
+    const company = companyNameInput.value.trim() || '[Company Name]';
+    const url = websiteUrlInput.value.trim() || '[Website URL]';
+    const email = contactEmailInput.value.trim() || '[Contact Email]';
+    const date = effectiveDateInput.value ? new Date(effectiveDateInput.value).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '[Date]';
+    const law = governingLawInput.value.trim() || '[Governing Law]';
+    const type = siteTypeInput.value;
+
+    let terms = `Terms of Service\n\n`;
+    terms += `Last Updated: ${date}\n\n`;
+    terms += `Welcome to ${company}. These Terms of Service ("Terms") govern your access to and use of our website located at ${url} and any related services (collectively, the "Service").\n\n`;
+    terms += `Please read these Terms carefully before using our Service.\n\n`;
+
+    terms += `1. Acceptance of Terms\n`;
+    terms += `By accessing or using the Service, you agree to be bound by these Terms. If you disagree with any part of the terms, then you may not access the Service.\n\n`;
+
+    if (type === 'saas') {
+      terms += `2. Subscriptions and Payments\n`;
+      terms += `Some parts of the Service are billed on a subscription basis ("Subscription(s)"). You will be billed in advance on a recurring and periodic basis ("Billing Cycle"). At the end of each Billing Cycle, your Subscription will automatically renew under the exact same conditions unless you cancel it or ${company} cancels it.\n\n`;
+
+      terms += `3. Accounts and Security\n`;
+      terms += `When you create an account with us, you must provide information that is accurate, complete, and current at all times. Failure to do so constitutes a breach of the Terms, which may result in immediate termination of your account. You are responsible for safeguarding the password that you use to access the Service.\n\n`;
+    } else if (type === 'ecommerce') {
+      terms += `2. Products and Pricing\n`;
+      terms += `We reserve the right to refuse any order you place with us. We may, in our sole discretion, limit or cancel quantities purchased per person, per household or per order. Prices for our products are subject to change without notice.\n\n`;
+
+      terms += `3. Returns and Refunds\n`;
+      terms += `Certain products or services may be available exclusively online through the website. These products or services may have limited quantities and are subject to return or exchange only according to our Return Policy.\n\n`;
+    } else {
+      terms += `2. Use of the Service\n`;
+      terms += `You agree to use the Service only for lawful purposes and in accordance with these Terms. You agree not to use the Service in any way that violates any applicable national or international law or regulation.\n\n`;
+
+      terms += `3. User Content\n`;
+      terms += `Our Service allows you to post, link, store, share and otherwise make available certain information, text, graphics, videos, or other material ("Content"). You are responsible for the Content that you post on or through the Service, including its legality, reliability, and appropriateness.\n\n`;
+    }
+
+    terms += `4. Intellectual Property\n`;
+    terms += `The Service and its original content (excluding Content provided by users), features, and functionality are and will remain the exclusive property of ${company} and its licensors. The Service is protected by copyright, trademark, and other laws.\n\n`;
+
+    terms += `5. Links to Other Web Sites\n`;
+    terms += `Our Service may contain links to third-party web sites or services that are not owned or controlled by ${company}. ${company} has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party web sites or services.\n\n`;
+
+    terms += `6. Termination\n`;
+    terms += `We may terminate or suspend your access immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms. Upon termination, your right to use the Service will immediately cease.\n\n`;
+
+    terms += `7. Limitation of Liability\n`;
+    terms += `In no event shall ${company}, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your access to or use of or inability to access or use the Service.\n\n`;
+
+    terms += `8. Governing Law\n`;
+    terms += `These Terms shall be governed and construed in accordance with the laws of ${law}, without regard to its conflict of law provisions.\n\n`;
+
+    terms += `9. Changes to Terms\n`;
+    terms += `We reserve the right, at our sole discretion, to modify or replace these Terms at any time. By continuing to access or use our Service after those revisions become effective, you agree to be bound by the revised terms.\n\n`;
+
+    terms += `10. Contact Us\n`;
+    terms += `If you have any questions about these Terms, please contact us at: ${email}\n`;
+
+    dataOutput.value = terms;
+  }
+
+  function copyToClipboard() {
+    const text = dataOutput.value;
+    if (!text) return;
+    navigator.clipboard.writeText(text).then(() => {
+      const originalText = copyOutputBtn.textContent;
+      copyOutputBtn.textContent = '✓ Copied';
+      copyOutputBtn.classList.add('copied');
+      setTimeout(() => {
+        copyOutputBtn.textContent = originalText;
+        copyOutputBtn.classList.remove('copied');
+      }, 1500);
+    });
+  }
+
+  // Event Listeners
+  generateBtn.addEventListener('click', generateTerms);
+  copyOutputBtn.addEventListener('click', copyToClipboard);
+
+  // Auto-generate on input changes
+  const inputs = [companyNameInput, websiteUrlInput, contactEmailInput, effectiveDateInput, governingLawInput, siteTypeInput];
+  inputs.forEach(input => {
+    input.addEventListener('input', generateTerms);
+    input.addEventListener('change', generateTerms); // for select and date
+  });
+
+  // Initial generation
+  generateTerms();
+}
+</script>
+</body>
+</html>
