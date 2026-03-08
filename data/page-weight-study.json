@@ -1,0 +1,817 @@
+{
+  "crawlDate": "2026-03-08T10:56:39.171Z",
+  "totalSites": 100,
+  "validSites": 90,
+  "avgSizeBytes": 72064,
+  "industryAverages": {
+    "tech": 48912,
+    "media": 97247,
+    "ecommerce": 76673,
+    "finance": 70846,
+    "social": 58175,
+    "travel": 95144,
+    "gaming": 71597
+  },
+  "results": [
+    {
+      "domain": "google.com",
+      "industry": "tech",
+      "sizeBytes": 17238,
+      "server": "gws",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "apple.com",
+      "industry": "tech",
+      "sizeBytes": 42803,
+      "server": "Apple",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "microsoft.com",
+      "industry": "tech",
+      "sizeBytes": 33731,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "github.com",
+      "industry": "tech",
+      "sizeBytes": 125747,
+      "server": "github.com",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "stackoverflow.com",
+      "industry": "tech",
+      "sizeBytes": 63996,
+      "server": "cloudflare",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "aws.amazon.com",
+      "industry": "tech",
+      "sizeBytes": 54459,
+      "server": "Server",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "cloudflare.com",
+      "industry": "tech",
+      "sizeBytes": 63091,
+      "server": "cloudflare",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "oracle.com",
+      "industry": "tech",
+      "sizeBytes": 1450,
+      "server": "AkamaiGHost",
+      "status": 403,
+      "error": null
+    },
+    {
+      "domain": "ibm.com",
+      "industry": "tech",
+      "sizeBytes": 39990,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "intel.com",
+      "industry": "tech",
+      "sizeBytes": 21195,
+      "server": "Apache",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "cisco.com",
+      "industry": "tech",
+      "sizeBytes": 31809,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "adobe.com",
+      "industry": "tech",
+      "sizeBytes": 2571,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "salesforce.com",
+      "industry": "tech",
+      "sizeBytes": 55495,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "zoom.us",
+      "industry": "tech",
+      "sizeBytes": 44289,
+      "server": "cloudflare",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "atlassian.com",
+      "industry": "tech",
+      "sizeBytes": 135814,
+      "server": "AtlassianEdge",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "nytimes.com",
+      "industry": "media",
+      "sizeBytes": 191450,
+      "server": "envoy",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "cnn.com",
+      "industry": "media",
+      "sizeBytes": 0,
+      "server": "Unknown",
+      "status": 403,
+      "error": null
+    },
+    {
+      "domain": "bbc.co.uk",
+      "industry": "media",
+      "sizeBytes": null,
+      "server": "Unknown",
+      "status": 0,
+      "error": "Timeout"
+    },
+    {
+      "domain": "washingtonpost.com",
+      "industry": "media",
+      "sizeBytes": null,
+      "server": "Unknown",
+      "status": 0,
+      "error": "Timeout"
+    },
+    {
+      "domain": "theguardian.com",
+      "industry": "media",
+      "sizeBytes": 143882,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "wsj.com",
+      "industry": "media",
+      "sizeBytes": 767,
+      "server": "CloudFront",
+      "status": 401,
+      "error": null
+    },
+    {
+      "domain": "bloomberg.com",
+      "industry": "media",
+      "sizeBytes": 13854,
+      "server": "Varnish",
+      "status": 403,
+      "error": null
+    },
+    {
+      "domain": "forbes.com",
+      "industry": "media",
+      "sizeBytes": 123407,
+      "server": "istio-envoy",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "reuters.com",
+      "industry": "media",
+      "sizeBytes": 771,
+      "server": "CloudFront",
+      "status": 401,
+      "error": null
+    },
+    {
+      "domain": "npr.org",
+      "industry": "media",
+      "sizeBytes": null,
+      "server": "Unknown",
+      "status": 0,
+      "error": "Timeout"
+    },
+    {
+      "domain": "foxnews.com",
+      "industry": "media",
+      "sizeBytes": 72098,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "usatoday.com",
+      "industry": "media",
+      "sizeBytes": 70509,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "buzzfeed.com",
+      "industry": "media",
+      "sizeBytes": 288061,
+      "server": "nginx",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "vice.com",
+      "industry": "media",
+      "sizeBytes": 67671,
+      "server": "nginx",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "amazon.com",
+      "industry": "ecommerce",
+      "sizeBytes": 2007,
+      "server": "CloudFront",
+      "status": 202,
+      "error": null
+    },
+    {
+      "domain": "ebay.com",
+      "industry": "ecommerce",
+      "sizeBytes": 103794,
+      "server": "ebay-proxy-server",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "walmart.com",
+      "industry": "ecommerce",
+      "sizeBytes": 58247,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "etsy.com",
+      "industry": "ecommerce",
+      "sizeBytes": 776,
+      "server": "DataDome",
+      "status": 403,
+      "error": null
+    },
+    {
+      "domain": "target.com",
+      "industry": "ecommerce",
+      "sizeBytes": 61755,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "homedepot.com",
+      "industry": "ecommerce",
+      "sizeBytes": 163782,
+      "server": "nginx",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "bestbuy.com",
+      "industry": "ecommerce",
+      "sizeBytes": 58983,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "costco.com",
+      "industry": "ecommerce",
+      "sizeBytes": null,
+      "server": "Unknown",
+      "status": 0,
+      "error": "Timeout"
+    },
+    {
+      "domain": "macys.com",
+      "industry": "ecommerce",
+      "sizeBytes": 216,
+      "server": "AkamaiNetStorage",
+      "status": 403,
+      "error": null
+    },
+    {
+      "domain": "wayfair.com",
+      "industry": "ecommerce",
+      "sizeBytes": 5825,
+      "server": "cloudflare",
+      "status": 429,
+      "error": null
+    },
+    {
+      "domain": "ikea.com",
+      "industry": "ecommerce",
+      "sizeBytes": 197298,
+      "server": "cloudflare",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "aliexpress.com",
+      "industry": "ecommerce",
+      "sizeBytes": 832,
+      "server": "Tengine/Aserver",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "shein.com",
+      "industry": "ecommerce",
+      "sizeBytes": 196039,
+      "server": "cloudflare",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "nike.com",
+      "industry": "ecommerce",
+      "sizeBytes": 147194,
+      "server": "unified-edge-router",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "chase.com",
+      "industry": "finance",
+      "sizeBytes": 56458,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "bankofamerica.com",
+      "industry": "finance",
+      "sizeBytes": 81856,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "wellsfargo.com",
+      "industry": "finance",
+      "sizeBytes": 17927,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "citi.com",
+      "industry": "finance",
+      "sizeBytes": 62615,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "americanexpress.com",
+      "industry": "finance",
+      "sizeBytes": 57610,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "capitalone.com",
+      "industry": "finance",
+      "sizeBytes": 123820,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "paypal.com",
+      "industry": "finance",
+      "sizeBytes": 75997,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "stripe.com",
+      "industry": "finance",
+      "sizeBytes": 163619,
+      "server": "nginx",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "fidelity.com",
+      "industry": "finance",
+      "sizeBytes": 310783,
+      "server": "Apache",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "vanguard.com",
+      "industry": "finance",
+      "sizeBytes": 7228,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "schwab.com",
+      "industry": "finance",
+      "sizeBytes": 503,
+      "server": "AkamaiNetStorage",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "coinbase.com",
+      "industry": "finance",
+      "sizeBytes": 6137,
+      "server": "cloudflare",
+      "status": 403,
+      "error": null
+    },
+    {
+      "domain": "discover.com",
+      "industry": "finance",
+      "sizeBytes": 22758,
+      "server": "Apache",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "usbank.com",
+      "industry": "finance",
+      "sizeBytes": 30323,
+      "server": "Apache",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "robinhood.com",
+      "industry": "finance",
+      "sizeBytes": 45053,
+      "server": "envoy",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "facebook.com",
+      "industry": "social",
+      "sizeBytes": 88776,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "twitter.com",
+      "industry": "social",
+      "sizeBytes": 25741,
+      "server": "cloudflare envoy",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "instagram.com",
+      "industry": "social",
+      "sizeBytes": 121813,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "linkedin.com",
+      "industry": "social",
+      "sizeBytes": 16379,
+      "server": "cloudflare",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "pinterest.com",
+      "industry": "social",
+      "sizeBytes": 92488,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "reddit.com",
+      "industry": "social",
+      "sizeBytes": 190240,
+      "server": "snooserv",
+      "status": 403,
+      "error": null
+    },
+    {
+      "domain": "tiktok.com",
+      "industry": "social",
+      "sizeBytes": 74028,
+      "server": "nginx",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "snapchat.com",
+      "industry": "social",
+      "sizeBytes": 26783,
+      "server": "API Gateway",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "tumblr.com",
+      "industry": "social",
+      "sizeBytes": 21712,
+      "server": "nginx",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "discord.com",
+      "industry": "social",
+      "sizeBytes": 22565,
+      "server": "cloudflare",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "twitch.tv",
+      "industry": "social",
+      "sizeBytes": 64926,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "quora.com",
+      "industry": "social",
+      "sizeBytes": 5873,
+      "server": "cloudflare",
+      "status": 403,
+      "error": null
+    },
+    {
+      "domain": "whatsapp.com",
+      "industry": "social",
+      "sizeBytes": 57115,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "telegram.org",
+      "industry": "social",
+      "sizeBytes": 6004,
+      "server": "nginx/1.18.0",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "booking.com",
+      "industry": "travel",
+      "sizeBytes": 3962,
+      "server": "nginx",
+      "status": 202,
+      "error": null
+    },
+    {
+      "domain": "expedia.com",
+      "industry": "travel",
+      "sizeBytes": 132257,
+      "server": "istio-envoy",
+      "status": 429,
+      "error": null
+    },
+    {
+      "domain": "airbnb.com",
+      "industry": "travel",
+      "sizeBytes": 94855,
+      "server": "nginx",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "tripadvisor.com",
+      "industry": "travel",
+      "sizeBytes": 775,
+      "server": "DataDome",
+      "status": 403,
+      "error": null
+    },
+    {
+      "domain": "kayak.com",
+      "industry": "travel",
+      "sizeBytes": 415159,
+      "server": "KAYAK/1.0",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "skyscanner.net",
+      "industry": "travel",
+      "sizeBytes": 708,
+      "server": "AmazonS3",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "hotels.com",
+      "industry": "travel",
+      "sizeBytes": null,
+      "server": "Unknown",
+      "status": 0,
+      "error": "Timeout"
+    },
+    {
+      "domain": "marriott.com",
+      "industry": "travel",
+      "sizeBytes": 116241,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "hilton.com",
+      "industry": "travel",
+      "sizeBytes": 52111,
+      "server": "AkamaiNetStorage",
+      "status": 403,
+      "error": null
+    },
+    {
+      "domain": "uber.com",
+      "industry": "travel",
+      "sizeBytes": 128322,
+      "server": "cloudflare",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "lyft.com",
+      "industry": "travel",
+      "sizeBytes": 101837,
+      "server": "envoy-iad",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "delta.com",
+      "industry": "travel",
+      "sizeBytes": null,
+      "server": "Unknown",
+      "status": 0,
+      "error": "connect ECONNREFUSED 204.74.99.103:443"
+    },
+    {
+      "domain": "aa.com",
+      "industry": "travel",
+      "sizeBytes": 356,
+      "server": "Unknown",
+      "status": 403,
+      "error": null
+    },
+    {
+      "domain": "united.com",
+      "industry": "travel",
+      "sizeBytes": null,
+      "server": "Unknown",
+      "status": 0,
+      "error": "Timeout"
+    },
+    {
+      "domain": "ign.com",
+      "industry": "gaming",
+      "sizeBytes": 92599,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "gamespot.com",
+      "industry": "gaming",
+      "sizeBytes": 5934,
+      "server": "cloudflare",
+      "status": 403,
+      "error": null
+    },
+    {
+      "domain": "steampowered.com",
+      "industry": "gaming",
+      "sizeBytes": 125183,
+      "server": "nginx",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "roblox.com",
+      "industry": "gaming",
+      "sizeBytes": 11421,
+      "server": "website",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "epicgames.com",
+      "industry": "gaming",
+      "sizeBytes": 12374,
+      "server": "cloudflare",
+      "status": 403,
+      "error": null
+    },
+    {
+      "domain": "ea.com",
+      "industry": "gaming",
+      "sizeBytes": 18222,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "nintendo.com",
+      "industry": "gaming",
+      "sizeBytes": 93595,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "playstation.com",
+      "industry": "gaming",
+      "sizeBytes": 69693,
+      "server": "Apache",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "xbox.com",
+      "industry": "gaming",
+      "sizeBytes": 63033,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "pcgamer.com",
+      "industry": "gaming",
+      "sizeBytes": 273174,
+      "server": "Unknown",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "polygon.com",
+      "industry": "gaming",
+      "sizeBytes": 82641,
+      "server": "nginx",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "kotaku.com",
+      "industry": "gaming",
+      "sizeBytes": null,
+      "server": "Unknown",
+      "status": 0,
+      "error": "Timeout"
+    },
+    {
+      "domain": "blizzard.com",
+      "industry": "gaming",
+      "sizeBytes": 11296,
+      "server": "nginx",
+      "status": 200,
+      "error": null
+    },
+    {
+      "domain": "minecraft.net",
+      "industry": "gaming",
+      "sizeBytes": null,
+      "server": "Unknown",
+      "status": 0,
+      "error": "Timeout"
+    }
+  ]
+}
