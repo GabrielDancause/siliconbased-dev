@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UTM Link Builder — Campaign URL Generator | Free Online Tool</title>
+<meta name="description" content="Free interactive UTM link builder. Add campaign parameters to URLs for Google Analytics and track your marketing campaigns instantly. Saves recent links offline.">
+<meta property="og:title" content="UTM Link Builder — Campaign URL Generator">
+<meta property="og:description" content="Free interactive UTM link builder. Add campaign parameters to URLs for Google Analytics and track your marketing campaigns instantly. Saves recent links offline.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "UTM Link Builder",
+  "url": "https://siliconbased.dev/utm-builder",
+  "description": "Interactive UTM link builder. Build UTM-tagged campaign URLs instantly. Enter source, medium, campaign, term, content and get the full URL.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+
+.main { max-width: 800px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+.builder-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; }
+@media (min-width: 768px) {
+  .builder-grid { grid-template-columns: 1fr 1fr; }
+  .full-width { grid-column: 1 / -1; }
+}
+
+.input-group { display: flex; flex-direction: column; gap: 8px; }
+.input-group label { font-size: 0.85rem; font-weight: 600; color: #ccc; display: flex; align-items: center; justify-content: space-between; }
+.input-group label span.required { color: #818cf8; font-size: 0.75rem; font-weight: 500; }
+.input-group input { background: #111318; border: 1px solid #1e2030; border-radius: 10px; padding: 12px 16px; font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #fff; outline: none; transition: all 0.2s; }
+.input-group input:focus { border-color: #818cf8; box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.2); }
+.input-group input::placeholder { color: #555; }
+.input-hint { font-size: 0.75rem; color: #666; }
+
+.result-card { background: #111318; border: 1px solid #1e2030; border-radius: 14px; overflow: hidden; margin-bottom: 32px; }
+.result-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; background: #13151d; border-bottom: 1px solid #1e2030; }
+.result-header h3 { font-size: 0.85rem; font-weight: 600; color: #ccc; }
+.btn-primary { background: #818cf8; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+.btn-primary:hover { background: #6366f1; }
+.btn-primary.copied { background: #4ade80; color: #1a3a1a; }
+.result-body { padding: 20px; }
+.url-output { background: #0a0b10; border: 1px solid #1e2030; border-radius: 10px; padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; color: #e0e0e0; word-break: break-all; min-height: 80px; }
+.url-output .base { color: #888; }
+.url-output .param { color: #c084fc; font-weight: 500; }
+.url-output .value { color: #818cf8; font-weight: 600; }
+.url-output .empty { color: #444; font-style: italic; }
+
+.recent-section { background: #111318; border: 1px solid #1e2030; border-radius: 14px; overflow: hidden; margin-bottom: 40px; }
+.recent-header { padding: 14px 18px; background: #13151d; border-bottom: 1px solid #1e2030; display: flex; justify-content: space-between; align-items: center; }
+.recent-header h3 { font-size: 0.85rem; font-weight: 600; color: #ccc; }
+.clear-btn { background: transparent; border: 1px solid #2a2d40; color: #888; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; transition: all 0.15s; }
+.clear-btn:hover { background: #2a2d40; color: #e0e0e0; }
+.recent-list { list-style: none; max-height: 300px; overflow-y: auto; }
+.recent-item { padding: 12px 18px; border-bottom: 1px solid #1e2030; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; transition: background 0.15s; }
+.recent-item:last-child { border-bottom: none; }
+.recent-item:hover { background: #161925; }
+.recent-link { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #b0b8d0; word-break: break-all; flex: 1; margin-top: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.recent-meta { font-size: 0.75rem; color: #888; margin-bottom: 4px; font-weight: 500; }
+.copy-icon-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.15s; flex-shrink: 0; }
+.copy-icon-btn:hover { background: #2a2d40; color: #ccc; }
+.copy-icon-btn.copied { background: #1a3a1a; border-color: #2d5a2d; color: #4ade80; }
+.empty-state { padding: 32px; text-align: center; color: #666; font-size: 0.85rem; font-style: italic; }
+
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-family: 'JetBrains Mono', monospace; font-size: 0.85em; }
+
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #0a0b10; }
+::-webkit-scrollbar-thumb { background: #1e2030; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #2a2d40; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>UTM Link <span>Builder</span></h1>
+  <p>Add campaign parameters to your URLs for Google Analytics.</p>
+</div>
+
+<div class="main">
+
+  <div class="builder-grid">
+    <div class="input-group full-width">
+      <label for="urlInput">Website URL <span class="required">Required</span></label>
+      <input type="url" id="urlInput" placeholder="https://example.com" autocomplete="off">
+      <div class="input-hint">The full website URL (e.g. https://siliconbased.dev/products)</div>
+    </div>
+
+    <div class="input-group">
+      <label for="sourceInput">Campaign Source (utm_source) <span class="required">Required</span></label>
+      <input type="text" id="sourceInput" placeholder="e.g. google, newsletter, twitter" autocomplete="off">
+      <div class="input-hint">The referrer (e.g. google, newsletter)</div>
+    </div>
+
+    <div class="input-group">
+      <label for="mediumInput">Campaign Medium (utm_medium)</label>
+      <input type="text" id="mediumInput" placeholder="e.g. cpc, email, social" autocomplete="off">
+      <div class="input-hint">Marketing medium (e.g. cpc, banner, email)</div>
+    </div>
+
+    <div class="input-group">
+      <label for="campaignInput">Campaign Name (utm_campaign)</label>
+      <input type="text" id="campaignInput" placeholder="e.g. spring_sale, launch_2025" autocomplete="off">
+      <div class="input-hint">Product, promo code, or slogan</div>
+    </div>
+
+    <div class="input-group">
+      <label for="termInput">Campaign Term (utm_term)</label>
+      <input type="text" id="termInput" placeholder="e.g. running+shoes" autocomplete="off">
+      <div class="input-hint">Identify the paid keywords</div>
+    </div>
+
+    <div class="input-group">
+      <label for="contentInput">Campaign Content (utm_content)</label>
+      <input type="text" id="contentInput" placeholder="e.g. logolink, textlink" autocomplete="off">
+      <div class="input-hint">Use to differentiate ads</div>
+    </div>
+  </div>
+
+  <div class="result-card">
+    <div class="result-header">
+      <h3>Generated URL</h3>
+      <button class="btn-primary" id="copyUrlBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        Copy URL
+      </button>
+    </div>
+    <div class="result-body">
+      <div class="url-output" id="urlOutput"><span class="empty">Enter a website URL to generate your campaign link...</span></div>
+    </div>
+  </div>
+
+  <div class="recent-section">
+    <div class="recent-header">
+      <h3>Recent Links</h3>
+      <button class="clear-btn" id="clearRecentBtn">Clear</button>
+    </div>
+    <ul class="recent-list" id="recentList">
+      <!-- Populated via JS -->
+    </ul>
+  </div>
+
+  <div class="seo-content">
+    <h2>What are UTM Parameters?</h2>
+    <p>UTM (Urchin Tracking Module) parameters are short text codes added to URLs to help track the performance of marketing campaigns. When a user clicks on a URL with UTM parameters, those parameters are sent to Google Analytics (and other analytics tools), allowing you to see exactly where your traffic is coming from.</p>
+
+    <h2>How to Use UTM Parameters</h2>
+    <p>To use UTM parameters effectively, you need to understand the five main tags available to you:</p>
+    <ul>
+      <li><strong>utm_source</strong> (Required): Identifies the advertiser, site, or publication that is sending traffic to your property, such as <code>google</code>, <code>newsletter</code>, or <code>twitter</code>.</li>
+      <li><strong>utm_medium</strong>: Identifies the advertising or marketing medium, such as <code>cpc</code> (cost per click), <code>banner</code>, or <code>email newsletter</code>.</li>
+      <li><strong>utm_campaign</strong>: Identifies a specific product promotion or strategic campaign, like <code>spring_sale</code> or <code>product_launch</code>.</li>
+      <li><strong>utm_term</strong>: Primarily used for tracking paid search keywords. If you're manually tagging paid search campaigns, you'd use this to specify the keyword.</li>
+      <li><strong>utm_content</strong>: Used to differentiate similar content or links within the same ad or email. For instance, if you have two call-to-action links in the same email message, you can use <code>utm_content</code> and set different values for each to see which version is more effective.</li>
+    </ul>
+
+    <h2>Best Practices for UTM Tagging</h2>
+    <ul>
+      <li><strong>Be consistent with casing:</strong> UTM parameters are case-sensitive. <code>utm_source=Facebook</code> and <code>utm_source=facebook</code> will show up as two different sources in Google Analytics. Use lowercase for everything to avoid confusion.</li>
+      <li><strong>Use underscores or hyphens instead of spaces:</strong> Spaces in URLs are converted to <code>%20</code>, making them hard to read. Stick to underscores (<code>_</code>) or hyphens (<code>-</code>).</li>
+      <li><strong>Keep it simple:</strong> Don't overcomplicate your naming conventions. Ensure your team understands what each term means.</li>
+      <li><strong>Only tag inbound links:</strong> Never use UTM parameters on internal links on your own website, as this will overwrite the original referrer data and mess up your analytics.</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const inputs = {
+  url: document.getElementById('urlInput'),
+  source: document.getElementById('sourceInput'),
+  medium: document.getElementById('mediumInput'),
+  campaign: document.getElementById('campaignInput'),
+  term: document.getElementById('termInput'),
+  content: document.getElementById('contentInput')
+};
+const urlOutput = document.getElementById('urlOutput');
+const copyUrlBtn = document.getElementById('copyUrlBtn');
+const recentList = document.getElementById('recentList');
+const clearRecentBtn = document.getElementById('clearRecentBtn');
+
+let currentUrl = '';
+
+function buildUrl() {
+  let base = inputs.url.value.trim();
+
+  if (!base) {
+    urlOutput.innerHTML = '<span class="empty">Enter a website URL to generate your campaign link...</span>';
+    currentUrl = '';
+    return;
+  }
+
+  // Basic protocol injection if missing
+  if (!/^https?:\/\//i.test(base)) {
+    // We do not enforce https here immediately so we allow inputting domain without protocol
+    // Let URL object throw if invalid.
+    if (!base.startsWith('http')) {
+       base = 'https://' + base;
+    }
+  }
+
+  try {
+    const urlObj = new URL(base);
+
+    // Build parameters
+    const params = new URLSearchParams(urlObj.search);
+
+    const utmParams = {
+      utm_source: inputs.source.value.trim(),
+      utm_medium: inputs.medium.value.trim(),
+      utm_campaign: inputs.campaign.value.trim(),
+      utm_term: inputs.term.value.trim(),
+      utm_content: inputs.content.value.trim()
+    };
+
+    for (const [key, value] of Object.entries(utmParams)) {
+      if (value) {
+        params.set(key, value);
+      } else {
+        params.delete(key);
+      }
+    }
+
+    urlObj.search = params.toString();
+    currentUrl = urlObj.toString();
+
+    // Highlight output
+    const baseUrlPart = urlObj.origin + urlObj.pathname;
+    const searchPart = urlObj.search;
+    const hashPart = urlObj.hash;
+
+    if (searchPart) {
+      let html = `<span class="base">${baseUrlPart}?</span>`;
+      const parts = searchPart.substring(1).split('&');
+
+      const styledParts = parts.map(part => {
+        const [k, v] = part.split('=');
+        if (utmParams.hasOwnProperty(k)) {
+          return `<span class="param">${k}</span>=<span class="value">${v}</span>`;
+        }
+        return part;
+      });
+
+      html += styledParts.join('&amp;');
+      if (hashPart) html += `<span class="base">${hashPart}</span>`;
+
+      urlOutput.innerHTML = html;
+    } else {
+      urlOutput.innerHTML = `<span class="base">${currentUrl}</span>`;
+    }
+
+  } catch (e) {
+    urlOutput.innerHTML = '<span class="empty">Invalid URL format...</span>';
+    currentUrl = '';
+  }
+}
+
+// Event Listeners for Inputs
+Object.values(inputs).forEach(input => {
+  input.addEventListener('input', buildUrl);
+});
+
+// Copy functionality
+copyUrlBtn.addEventListener('click', () => {
+  if (!currentUrl) return;
+
+  navigator.clipboard.writeText(currentUrl).then(() => {
+    // Save to recents on copy
+    saveToRecents(currentUrl, inputs.campaign.value || inputs.source.value || 'Untitled Campaign');
+
+    const originalText = copyUrlBtn.innerHTML;
+    copyUrlBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+    copyUrlBtn.classList.add('copied');
+
+    setTimeout(() => {
+      copyUrlBtn.innerHTML = originalText;
+      copyUrlBtn.classList.remove('copied');
+    }, 2000);
+  });
+});
+
+// LocalStorage Recents
+const STORAGE_KEY = 'utm_builder_recents';
+
+function getRecents() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveToRecents(url, name) {
+  let recents = getRecents();
+
+  // Avoid immediate duplicates
+  if (recents.length > 0 && recents[0].url === url) return;
+
+  recents.unshift({
+    url,
+    name,
+    timestamp: new Date().toISOString()
+  });
+
+  // Keep last 10
+  recents = recents.slice(0, 10);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(recents));
+  renderRecents();
+}
+
+function renderRecents() {
+  const recents = getRecents();
+
+  if (recents.length === 0) {
+    recentList.innerHTML = '<li class="empty-state">No recent links saved. Copied links will appear here.</li>';
+    return;
+  }
+
+  recentList.innerHTML = '';
+  recents.forEach((item, index) => {
+    const li = document.createElement('li');
+    li.className = 'recent-item';
+
+    const date = new Date(item.timestamp).toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+    // Safely encode user input to prevent Self-XSS
+    const escapeHTML = (str) => {
+      const p = document.createElement("p");
+      p.appendChild(document.createTextNode(str));
+      return p.innerHTML;
+    };
+
+    li.innerHTML = `
+      <div>
+        <div class="recent-meta">${escapeHTML(item.name)} • ${date}</div>
+        <div class="recent-link">${escapeHTML(item.url)}</div>
+      </div>
+      <button class="copy-icon-btn" data-url="${escapeHTML(item.url)}" aria-label="Copy link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+      </button>
+    `;
+
+    const btn = li.querySelector('.copy-icon-btn');
+    btn.addEventListener('click', () => {
+      navigator.clipboard.writeText(item.url).then(() => {
+        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+          btn.classList.remove('copied');
+        }, 1500);
+      });
+    });
+
+    recentList.appendChild(li);
+  });
+}
+
+clearRecentBtn.addEventListener('click', () => {
+  localStorage.removeItem(STORAGE_KEY);
+  renderRecents();
+});
+
+// Initialize
+renderRecents();
+</script>
+</body>
+</html>
