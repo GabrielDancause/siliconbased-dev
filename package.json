@@ -6,10 +6,12 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "generate:cron": "node scripts/generate-cron-pages.js"
   },
   "dependencies": {
     "astro": "^5.17.1",
+    "cron-parser": "^5.5.0",
     "jsdom": "^28.1.0",
     "smol-toml": "^1.6.0"
   },

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Every 90 minutes (Approximate) Cron Expression | 0,30 */1 * * *</title>
+    <meta name="description" content="Learn about the cron expression 0,30 */1 * * * (Every 90 minutes (Approximate)). See common use cases, field breakdown, and next run times.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #0a0b10;
+            --card-bg: #111318;
+            --border-color: #1e2030;
+            --accent: #818cf8;
+            --accent-hover: #6366f1;
+            --text-primary: #e0e0e0;
+            --text-secondary: #888888;
+            --font-ui: 'Inter', -apple-system, sans-serif;
+            --font-code: 'JetBrains Mono', monospace;
+            --color-minute: #4ade80;
+            --color-hour: #60a5fa;
+            --color-dom: #f472b6;
+            --color-month: #fbbf24;
+            --color-dow: #a78bfa;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-ui);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .expression-box {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .cron-code {
+            font-family: var(--font-code);
+            font-size: 3rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .cron-part {
+            position: relative;
+            cursor: help;
+        }
+
+        .part-minute { color: var(--color-minute); }
+        .part-hour { color: var(--color-hour); }
+        .part-dom { color: var(--color-dom); }
+        .part-month { color: var(--color-month); }
+        .part-dow { color: var(--color-dow); }
+
+        .copy-btn {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: var(--font-ui);
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .copy-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .fields-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+        }
+
+        .field-item {
+            background-color: var(--bg-color);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .field-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .field-value {
+            font-family: var(--font-code);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .use-case {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .next-runs-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .next-runs-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-family: var(--font-code);
+            color: var(--text-secondary);
+        }
+
+        .next-runs-list li:last-child {
+            border-bottom: none;
+        }
+
+        .related-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .tag:hover {
+            background-color: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        .nav-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 60px;
+        }
+
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 600px) {
+            .cron-code {
+                font-size: 2rem;
+                gap: 10px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Every 90 minutes (Approximate) - Cron Expression",
+      "description": "Details, use cases, and next run times for the cron expression 0,30 */1 * * *.",
+      "url": "https://siliconbased.dev/cron/every-90-minutes"
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Every 90 minutes (Approximate)</h1>
+            <p style="color: var(--text-secondary);">Cron Expression Explanation & Examples</p>
+        </header>
+
+        <div class="expression-box">
+            <div class="cron-code" id="cronCode">
+                <span class="cron-part part-minute" title="Minute">0,30</span>
+                <span class="cron-part part-hour" title="Hour">*/1</span>
+                <span class="cron-part part-dom" title="Day of Month">*</span>
+                <span class="cron-part part-month" title="Month">*</span>
+                <span class="cron-part part-dow" title="Day of Week">*</span>
+            </div>
+            <button class="copy-btn" onclick="copyExpression()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                Copy Expression
+            </button>
+        </div>
+
+        <div class="section-card">
+            <h2>Field Breakdown</h2>
+            <div class="fields-grid">
+                <div class="field-item">
+                    <div class="field-label">Minute</div>
+                    <div class="field-value part-minute">0,30</div>
+                </div>
+                <div class="field-item">
+                    <div class="field-label">Hour</div>
+                    <div class="field-value part-hour">*/1</div>
+                </div>
+                <div class="field-item">
+                    <div class="field-label">Day of Month</div>
+                    <div class="field-value part-dom">*</div>
+                </div>
+                <div class="field-item">
+                    <div class="field-label">Month</div>
+                    <div class="field-value part-month">*</div>
+                </div>
+                <div class="field-item">
+                    <div class="field-label">Day of Week</div>
+                    <div class="field-value part-dow">*</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-card">
+            <h2>Common Use Case</h2>
+            <p class="use-case">Continuous integration polling</p>
+        </div>
+
+        <div class="section-card">
+            <h2>Next Scheduled Runs</h2>
+            <ul class="next-runs-list">
+                <li>Wed Jan 01 2025 00:30:00 GMT+0000 (Coordinated Universal Time)</li>
+                <li>Wed Jan 01 2025 01:00:00 GMT+0000 (Coordinated Universal Time)</li>
+                <li>Wed Jan 01 2025 01:30:00 GMT+0000 (Coordinated Universal Time)</li>
+                <li>Wed Jan 01 2025 02:00:00 GMT+0000 (Coordinated Universal Time)</li>
+                <li>Wed Jan 01 2025 02:30:00 GMT+0000 (Coordinated Universal Time)</li>
+            </ul>
+        </div>
+
+        <div class="section-card">
+            <h2>Related Expressions</h2>
+            <div class="related-tags">
+                <a href="/cron/every-45-minutes" class="tag">Every 45 minutes (Approximate)</a>
+                <a href="/cron/sat-and-sun-at-8am" class="tag">Saturday and Sunday at 8:00 AM</a>
+                <a href="/cron/new-years-day" class="tag">New Year's Day</a>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="/cron-generator" class="nav-link">Full Cron Generator →</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 siliconbased.dev · A <a href="https://gab.ae" target="_blank" rel="noopener">GAB Ventures</a> property</p>
+    </footer>
+
+    <script>
+        function copyExpression() {
+            const expression = "0,30 */1 * * *";
+            navigator.clipboard.writeText(expression).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
