@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>chmod Calculator — Visual Linux File Permission Editor | Free Online Tool</title>
+<meta name="description" content="Interactive chmod calculator for Linux and Unix. Toggle read, write, and execute permissions visually and get the octal notation, symbolic notation, and ready-to-use chmod commands instantly. Free, no signup.">
+<meta property="og:title" content="chmod Calculator — Visual Linux File Permission Editor">
+<meta property="og:description" content="Interactive chmod calculator for Linux and Unix. Toggle read, write, and execute permissions visually and get the octal notation, symbolic notation, and ready-to-use chmod commands instantly. Free, no signup.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "chmod Calculator",
+  "url": "https://siliconbased.dev/chmod-calculator",
+  "description": "Interactive chmod calculator for Linux and Unix. Toggle read, write, and execute permissions visually and get the octal notation, symbolic notation, and ready-to-use chmod commands instantly.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 800px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Input Section */
+.input-section { display: flex; flex-direction: column; align-items: center; margin-bottom: 32px; }
+.octal-input-wrapper { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; flex-wrap: wrap; justify-content: center; }
+.octal-input { background: #111318; border: 2px solid #1e2030; border-radius: 12px; font-size: 3rem; font-weight: 700; color: #818cf8; font-family: 'JetBrains Mono', monospace; text-align: center; width: 140px; padding: 8px 0; outline: none; transition: border-color 0.2s; letter-spacing: 4px; }
+.octal-input:focus { border-color: #818cf8; }
+.symbolic-preview { font-size: 1.5rem; color: #b0b8d0; font-family: 'JetBrains Mono', monospace; background: #111318; padding: 12px 20px; border-radius: 12px; border: 1px solid #1e2030; }
+
+/* Grid */
+.permission-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+.grid-col { background: #111318; border: 1px solid #1e2030; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.col-header { text-align: center; font-weight: 600; color: #ccc; margin-bottom: 4px; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.5px; }
+.toggle-btn { background: #1e2030; border: 1px solid #2a2d40; color: #666; border-radius: 10px; padding: 14px; font-size: 0.9rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: flex; justify-content: space-between; align-items: center; }
+.toggle-btn:hover { background: #2a2d40; color: #aaa; }
+.toggle-btn.active { background: #818cf8; color: #fff; border-color: #818cf8; box-shadow: 0 4px 12px rgba(129, 140, 248, 0.2); }
+.toggle-btn .perm-letter { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; opacity: 0.7; }
+.toggle-btn.active .perm-letter { opacity: 1; }
+
+/* Presets */
+.presets-section { margin-bottom: 32px; }
+.presets-label { font-size: 0.8rem; font-weight: 600; color: #666; text-transform: uppercase; margin-bottom: 12px; text-align: center; letter-spacing: 0.5px; }
+.presets-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+.preset-btn { background: #111318; border: 1px solid #1e2030; border-radius: 10px; padding: 12px 16px; text-align: left; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 12px; }
+.preset-btn:hover { background: #1a1d2e; border-color: #2a2d4e; }
+.preset-val { color: #818cf8; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1.1rem; }
+.preset-desc { color: #888; font-size: 0.75rem; line-height: 1.3; }
+
+/* Cards from DevBox */
+.result-card { background: #111318; border: 1px solid #1e2030; border-radius: 14px; overflow: hidden; margin-bottom: 40px; }
+.result-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; background: #13151d; border-bottom: 1px solid #1e2030; }
+.result-header h3 { font-size: 0.85rem; font-weight: 600; color: #ccc; display: flex; align-items: center; gap: 8px; }
+.copy-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 6px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.copy-btn:hover { background: #2a2d40; color: #ccc; }
+.copy-btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+.result-body { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+
+/* Command outputs */
+.cmd-box { display: flex; align-items: center; gap: 12px; background: #0a0b10; border: 1px solid #1e2030; border-radius: 10px; padding: 12px 16px; font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; flex-wrap: wrap; }
+.cmd-box span { color: #c8d0e8; }
+.cmd-box .hl { color: #818cf8; font-weight: 600; }
+.filename-input { background: transparent; border: none; color: #fbbf24; font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; outline: none; border-bottom: 1px dashed #444; width: 140px; padding-bottom: 2px; }
+.filename-input:focus { border-bottom-color: #fbbf24; }
+.sym-cmd { font-size: 0.9rem; color: #666; font-family: 'JetBrains Mono', monospace; margin-top: 4px; padding-left: 4px; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; }
+.seo-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 0.9rem; }
+.seo-table th { text-align: left; padding: 10px 14px; border-bottom: 2px solid #2a2d4e; color: #ccc; font-weight: 600; background: #111318; }
+.seo-table td { padding: 10px 14px; border-bottom: 1px solid #1e2030; color: #aaa; }
+.seo-table tr:hover td { background: #111318; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .permission-grid { grid-template-columns: 1fr; gap: 24px; }
+  .grid-col { gap: 8px; }
+  .octal-input-wrapper { flex-direction: column; }
+  .symbolic-preview { font-size: 1.2rem; }
+  .cmd-box { font-size: 0.9rem; }
+  .filename-input { font-size: 0.9rem; width: 100px; }
+  .presets-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>chmod Calculator ⚙️</h1>
+  <p>Visual Linux file permission editor. Toggle permissions, get the command.</p>
+</div>
+
+<div class="main">
+
+  <div class="input-section">
+    <div class="octal-input-wrapper">
+      <input type="text" id="octalInput" class="octal-input" value="755" maxlength="3" autocomplete="off">
+      <div id="symPreview" class="symbolic-preview">-rwxr-xr-x</div>
+    </div>
+  </div>
+
+  <div class="permission-grid">
+    <!-- Owner -->
+    <div class="grid-col">
+      <div class="col-header">Owner</div>
+      <button class="toggle-btn" data-group="owner" data-perm="4" data-letter="r">
+        <span>Read</span> <span class="perm-letter">r</span>
+      </button>
+      <button class="toggle-btn" data-group="owner" data-perm="2" data-letter="w">
+        <span>Write</span> <span class="perm-letter">w</span>
+      </button>
+      <button class="toggle-btn" data-group="owner" data-perm="1" data-letter="x">
+        <span>Execute</span> <span class="perm-letter">x</span>
+      </button>
+    </div>
+    <!-- Group -->
+    <div class="grid-col">
+      <div class="col-header">Group</div>
+      <button class="toggle-btn" data-group="group" data-perm="4" data-letter="r">
+        <span>Read</span> <span class="perm-letter">r</span>
+      </button>
+      <button class="toggle-btn" data-group="group" data-perm="2" data-letter="w">
+        <span>Write</span> <span class="perm-letter">w</span>
+      </button>
+      <button class="toggle-btn" data-group="group" data-perm="1" data-letter="x">
+        <span>Execute</span> <span class="perm-letter">x</span>
+      </button>
+    </div>
+    <!-- Others -->
+    <div class="grid-col">
+      <div class="col-header">Others</div>
+      <button class="toggle-btn" data-group="others" data-perm="4" data-letter="r">
+        <span>Read</span> <span class="perm-letter">r</span>
+      </button>
+      <button class="toggle-btn" data-group="others" data-perm="2" data-letter="w">
+        <span>Write</span> <span class="perm-letter">w</span>
+      </button>
+      <button class="toggle-btn" data-group="others" data-perm="1" data-letter="x">
+        <span>Execute</span> <span class="perm-letter">x</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="presets-section">
+    <div class="presets-label">Quick Presets</div>
+    <div class="presets-grid">
+      <button class="preset-btn" data-val="777">
+        <span class="preset-val">777</span>
+        <span class="preset-desc">Full access (everyone)</span>
+      </button>
+      <button class="preset-btn" data-val="755">
+        <span class="preset-val">755</span>
+        <span class="preset-desc">Owner full, others read+execute</span>
+      </button>
+      <button class="preset-btn" data-val="644">
+        <span class="preset-val">644</span>
+        <span class="preset-desc">Owner read+write, others read-only</span>
+      </button>
+      <button class="preset-btn" data-val="600">
+        <span class="preset-val">600</span>
+        <span class="preset-desc">Owner read+write only</span>
+      </button>
+      <button class="preset-btn" data-val="400">
+        <span class="preset-val">400</span>
+        <span class="preset-desc">Owner read-only</span>
+      </button>
+      <button class="preset-btn" data-val="000">
+        <span class="preset-val">000</span>
+        <span class="preset-desc">No permissions</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="result-card">
+    <div class="result-header">
+      <h3>Command Output</h3>
+      <button class="copy-btn" id="copyBtn">Copy Command</button>
+    </div>
+    <div class="result-body">
+      <div class="cmd-box">
+        <span>chmod</span>
+        <span class="hl" id="cmdOctal">755</span>
+        <input type="text" id="filenameInput" class="filename-input" value="filename" spellcheck="false">
+      </div>
+      <div class="sym-cmd" id="cmdSym">chmod u=rwx,g=rx,o=rx filename</div>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>How chmod Works</h2>
+    <p>In Linux and Unix-like operating systems, the <code>chmod</code> (change mode) command is used to set or modify the access permissions of files and directories. File permissions dictate who can read, write, or execute a specific file.</p>
+    <p>Permissions are divided into three user classes:</p>
+    <ul>
+      <li><strong>Owner (u):</strong> The user who created or owns the file.</li>
+      <li><strong>Group (g):</strong> Other users who are members of the file's group.</li>
+      <li><strong>Others (o):</strong> Everyone else on the system.</li>
+    </ul>
+
+    <h2>Understanding Permission Numbers</h2>
+    <p>Numeric (octal) notation is the most common way to use chmod. Each digit represents a user class (Owner, Group, Others) and is calculated by adding the values of the permissions granted:</p>
+    <table class="seo-table">
+      <thead>
+        <tr>
+          <th>Number</th>
+          <th>Permission</th>
+          <th>Symbol</th>
+          <th>Breakdown</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>0</td><td>None</td><td><code>---</code></td><td>0</td></tr>
+        <tr><td>1</td><td>Execute only</td><td><code>--x</code></td><td>1</td></tr>
+        <tr><td>2</td><td>Write only</td><td><code>-w-</code></td><td>2</td></tr>
+        <tr><td>3</td><td>Write & Execute</td><td><code>-wx</code></td><td>2 + 1</td></tr>
+        <tr><td>4</td><td>Read only</td><td><code>r--</code></td><td>4</td></tr>
+        <tr><td>5</td><td>Read & Execute</td><td><code>r-x</code></td><td>4 + 1</td></tr>
+        <tr><td>6</td><td>Read & Write</td><td><code>rw-</code></td><td>4 + 2</td></tr>
+        <tr><td>7</td><td>Read, Write & Execute</td><td><code>rwx</code></td><td>4 + 2 + 1</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Common chmod Examples</h2>
+    <ul>
+      <li><code>chmod 777 file</code>: Dangerous. Gives read, write, and execute permissions to everyone.</li>
+      <li><code>chmod 755 script.sh</code>: Common for shell scripts and web directories. The owner can edit and run it; others can only read and run it.</li>
+      <li><code>chmod 644 config.txt</code>: Common for standard files. The owner can edit it; others can only read it.</li>
+      <li><code>chmod 600 private.key</code>: Secure. Only the owner can read and write to the file. Used for SSH keys.</li>
+    </ul>
+
+    <h2>Special Permissions</h2>
+    <p>Beyond standard read/write/execute, Linux supports special permissions that prepend a fourth digit (e.g., <code>4755</code>):</p>
+    <ul>
+      <li><strong>setuid (4):</strong> Executable runs with the permissions of the file owner, rather than the user running it.</li>
+      <li><strong>setgid (2):</strong> Executable runs with group permissions, or new files in a directory inherit the directory's group.</li>
+      <li><strong>Sticky bit (1):</strong> Used on directories (like <code>/tmp</code>) to prevent users from deleting files owned by others.</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const octalInput = document.getElementById('octalInput');
+const symPreview = document.getElementById('symPreview');
+const toggles = document.querySelectorAll('.toggle-btn');
+const presetBtns = document.querySelectorAll('.preset-btn');
+const cmdOctal = document.getElementById('cmdOctal');
+const cmdSym = document.getElementById('cmdSym');
+const filenameInput = document.getElementById('filenameInput');
+const copyBtn = document.getElementById('copyBtn');
+
+// State
+let perms = {
+  owner: 0,
+  group: 0,
+  others: 0
+};
+
+function init() {
+  updateFromOctal('755');
+
+  octalInput.addEventListener('input', (e) => {
+    let val = e.target.value.replace(/[^0-7]/g, '');
+    e.target.value = val;
+    if (val.length === 3) updateFromOctal(val);
+  });
+
+  toggles.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const group = btn.dataset.group;
+      const perm = parseInt(btn.dataset.perm, 10);
+
+      // Toggle logic
+      if (perms[group] & perm) {
+        perms[group] &= ~perm; // Remove
+      } else {
+        perms[group] |= perm;  // Add
+      }
+
+      updateUI();
+    });
+  });
+
+  presetBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      updateFromOctal(btn.dataset.val);
+    });
+  });
+
+  filenameInput.addEventListener('input', updateOutputs);
+
+  copyBtn.addEventListener('click', () => {
+    const cmd = `chmod ${getOctalString()} ${filenameInput.value || 'filename'}`;
+    navigator.clipboard.writeText(cmd).then(() => {
+      copyBtn.textContent = '✓ Copied';
+      copyBtn.classList.add('copied');
+      setTimeout(() => {
+        copyBtn.textContent = 'Copy Command';
+        copyBtn.classList.remove('copied');
+      }, 1500);
+    });
+  });
+}
+
+function updateFromOctal(octalStr) {
+  if (octalStr.length !== 3) return;
+  octalInput.value = octalStr;
+  perms.owner = parseInt(octalStr[0], 10);
+  perms.group = parseInt(octalStr[1], 10);
+  perms.others = parseInt(octalStr[2], 10);
+  updateUI();
+}
+
+function updateUI() {
+  // Update toggles
+  toggles.forEach(btn => {
+    const group = btn.dataset.group;
+    const perm = parseInt(btn.dataset.perm, 10);
+    if (perms[group] & perm) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+
+  // Update octal input
+  const octalStr = getOctalString();
+  if (octalInput.value !== octalStr && document.activeElement !== octalInput) {
+    octalInput.value = octalStr;
+  }
+
+  updateOutputs();
+}
+
+function getOctalString() {
+  return `${perms.owner}${perms.group}${perms.others}`;
+}
+
+function getSymbolicBlock(val) {
+  let r = (val & 4) ? 'r' : '-';
+  let w = (val & 2) ? 'w' : '-';
+  let x = (val & 1) ? 'x' : '-';
+  return r + w + x;
+}
+
+function getSymbolicCmdBlock(val) {
+  let p = '';
+  if (val & 4) p += 'r';
+  if (val & 2) p += 'w';
+  if (val & 1) p += 'x';
+  return p;
+}
+
+function updateOutputs() {
+  const octalStr = getOctalString();
+
+  // Preview block
+  const symStr = `-${getSymbolicBlock(perms.owner)}${getSymbolicBlock(perms.group)}${getSymbolicBlock(perms.others)}`;
+  symPreview.textContent = symStr;
+
+  // Command outputs
+  cmdOctal.textContent = octalStr;
+
+  const fn = filenameInput.value || 'filename';
+
+  const u = getSymbolicCmdBlock(perms.owner);
+  const g = getSymbolicCmdBlock(perms.group);
+  const o = getSymbolicCmdBlock(perms.others);
+
+  let symCmdParts = [];
+  if (u) symCmdParts.push(`u=${u}`);
+  if (g) symCmdParts.push(`g=${g}`);
+  if (o) symCmdParts.push(`o=${o}`);
+
+  // Handle empty permissions appropriately for symbolic form
+  let uSym = `u=${u}`;
+  let gSym = `g=${g}`;
+  let oSym = `o=${o}`;
+
+  cmdSym.textContent = `chmod ${uSym},${gSym},${oSym} ${fn}`;
+}
+
+init();
+</script>
+</body>
+</html>
