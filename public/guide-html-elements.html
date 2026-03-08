@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML Elements Reference Guide | Cheat Sheet</title>
+<meta name="description" content="A comprehensive guide and cheat sheet for HTML5 elements. Features semantic, form, media, and formatting tags with descriptions, attributes, and copyable examples.">
+<meta property="og:title" content="HTML Elements Reference Guide">
+<meta property="og:description" content="A comprehensive guide and cheat sheet for HTML5 elements. Features semantic, form, media, and formatting tags with descriptions, attributes, and copyable examples.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "HTML Elements Reference Guide | Cheat Sheet",
+  "description": "A comprehensive guide and cheat sheet for HTML5 elements. Features semantic, form, media, and formatting tags with descriptions, attributes, and copyable examples.",
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" },
+  "publisher": { "@type": "Organization", "name": "siliconbased.dev", "url": "https://siliconbased.dev" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+.hero { text-align: center; padding: 48px 24px 24px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.4rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+
+.main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Search Bar */
+.search-container { margin-bottom: 32px; display: flex; justify-content: center; }
+.search-input-wrapper { position: relative; width: 100%; max-width: 600px; }
+.search-input { width: 100%; background: #111318; border: 1px solid #1e2030; border-radius: 12px; padding: 14px 20px 14px 44px; color: #e0e0e0; font-family: 'Inter', sans-serif; font-size: 1rem; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+.search-input:focus { border-color: #818cf8; box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.2); }
+.search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #888; width: 18px; height: 18px; pointer-events: none; }
+
+/* Grid & Cards */
+.category-section { margin-bottom: 48px; }
+.category-title { font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #1e2030; }
+.elements-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 24px; }
+
+.element-card { background: #111318; border: 1px solid #1e2030; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, border-color 0.2s; }
+.element-card:hover { transform: translateY(-2px); border-color: #2a2d40; }
+
+.card-header { padding: 16px 20px; border-bottom: 1px solid #1e2030; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.element-tag { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 600; color: #818cf8; }
+.element-tag::before { content: "<"; color: #555; }
+.element-tag::after { content: ">"; color: #555; }
+.element-type { background: #1e2030; color: #888; padding: 4px 8px; border-radius: 6px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; white-space: nowrap; }
+
+.card-body { padding: 20px; display: flex; flex-direction: column; gap: 16px; flex: 1; }
+.element-desc { color: #ccc; font-size: 0.9rem; line-height: 1.5; }
+
+.card-attributes { display: flex; flex-direction: column; gap: 8px; }
+.attr-title { font-size: 0.75rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+.attr-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.attr-tag { background: #1a1b26; border: 1px solid #2a2d40; color: #a9b1d6; padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; }
+
+.card-code { background: #0a0b10; border: 1px solid #1e2030; border-radius: 8px; position: relative; margin-top: auto; }
+.code-header { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border-bottom: 1px solid #1e2030; background: #111318; border-radius: 8px 8px 0 0; }
+.code-title { font-size: 0.75rem; font-weight: 600; color: #888; text-transform: uppercase; }
+.copy-btn { background: transparent; border: 1px solid transparent; color: #888; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; display: flex; align-items: center; gap: 4px; }
+.copy-btn:hover { background: #1e2030; color: #ccc; }
+.copy-btn.copied { color: #4ade80; }
+.copy-btn svg { width: 14px; height: 14px; }
+
+.code-content { padding: 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #e0e0e0; overflow-x: auto; white-space: pre; line-height: 1.5; tab-size: 2; }
+.code-content .tag { color: #f7768e; }
+.code-content .attr { color: #bb9af7; }
+.code-content .val { color: #9ece6a; }
+
+.no-results { text-align: center; padding: 48px 20px; color: #888; font-size: 1.1rem; display: none; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .elements-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>HTML Elements Reference <span>Guide</span></h1>
+  <p>A comprehensive cheat sheet for modern HTML5 elements, attributes, and usage examples.</p>
+</div>
+
+<div class="main">
+  <div class="search-container">
+    <div class="search-input-wrapper">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" id="searchInput" class="search-input" placeholder="Search for tags (e.g., div, table, form)..." autocomplete="off">
+    </div>
+  </div>
+
+  <div id="elementsContainer">
+    <!-- JS Will populate elements here -->
+  </div>
+
+  <div id="noResults" class="no-results">
+    No HTML elements found matching your search.
+  </div>
+
+  <div class="seo-content">
+    <h2>Why Use Semantic HTML Elements?</h2>
+    <p>Semantic HTML introduces meaning to the web page rather than just presentation. Using tags like <code>&lt;article&gt;</code>, <code>&lt;nav&gt;</code>, and <code>&lt;section&gt;</code> clearly describes their meaning to both the browser and the developer, providing a better structure than purely generic tags like <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code>.</p>
+
+    <ul>
+      <li><strong>Accessibility:</strong> Screen readers and assistive technologies rely on semantic tags to interpret and navigate web content accurately.</li>
+      <li><strong>SEO (Search Engine Optimization):</strong> Search engines use semantic markup to understand the context and hierarchy of your content, which can improve your rankings.</li>
+      <li><strong>Maintainability:</strong> Semantic code is easier to read, update, and maintain for developers working on the project.</li>
+    </ul>
+
+    <h2>Essential HTML5 Form Elements</h2>
+    <p>HTML5 introduced several new form elements and input types that enhance user experience and provide built-in validation without relying heavily on JavaScript. Tags like <code>&lt;datalist&gt;</code> provide autocomplete capabilities, while <code>&lt;progress&gt;</code> and <code>&lt;meter&gt;</code> offer native ways to display values and completion status.</p>
+
+    <h2>Embedding Media in HTML</h2>
+    <p>The web is highly visual and interactive. HTML provides dedicated elements for embedding media directly into the browser. The <code>&lt;audio&gt;</code> and <code>&lt;video&gt;</code> tags allow native media playback without third-party plugins. Similarly, the <code>&lt;picture&gt;</code> element provides robust responsive image capabilities, allowing developers to specify different image sources for different screen sizes or resolutions.</p>
+  </div>
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const elementsData = [
+  // Document Structure
+  {
+    tag: "html",
+    category: "Document Structure",
+    desc: "The root element of an HTML document. All other elements must be descendants of this element.",
+    attrs: ["lang", "xmlns"],
+    code: "<html lang=\"en\">\n  <head>...</head>\n  <body>...</body>\n</html>"
+  },
+  {
+    tag: "head",
+    category: "Document Structure",
+    desc: "Contains machine-readable information (metadata) about the document, like its title, scripts, and style sheets.",
+    attrs: ["profile"],
+    code: "<head>\n  <meta charset=\"UTF-8\">\n  <title>Page Title</title>\n</head>"
+  },
+  {
+    tag: "body",
+    category: "Document Structure",
+    desc: "Represents the content of an HTML document. There can be only one <body> element in a document.",
+    attrs: ["Global Attributes"],
+    code: "<body>\n  <h1>Welcome to my page</h1>\n  <p>This is the main content.</p>\n</body>"
+  },
+
+  // Semantic Elements
+  {
+    tag: "article",
+    category: "Semantic & Sectioning",
+    desc: "Represents a self-contained composition in a document, page, application, or site, which is intended to be independently distributable.",
+    attrs: ["Global Attributes"],
+    code: "<article>\n  <h2>Weather Report</h2>\n  <p>It is sunny today.</p>\n</article>"
+  },
+  {
+    tag: "section",
+    category: "Semantic & Sectioning",
+    desc: "Represents a generic standalone section of a document, which doesn't have a more specific semantic element to represent it.",
+    attrs: ["Global Attributes"],
+    code: "<section>\n  <h2>Introduction</h2>\n  <p>Welcome to our platform...</p>\n</section>"
+  },
+  {
+    tag: "nav",
+    category: "Semantic & Sectioning",
+    desc: "Represents a section of a page whose purpose is to provide navigation links.",
+    attrs: ["Global Attributes"],
+    code: "<nav>\n  <ul>\n    <li><a href=\"/\">Home</a></li>\n    <li><a href=\"/about\">About</a></li>\n  </ul>\n</nav>"
+  },
+  {
+    tag: "header",
+    category: "Semantic & Sectioning",
+    desc: "Represents introductory content, typically a group of introductory or navigational aids.",
+    attrs: ["Global Attributes"],
+    code: "<header>\n  <h1>Website Logo</h1>\n  <nav>...</nav>\n</header>"
+  },
+  {
+    tag: "footer",
+    category: "Semantic & Sectioning",
+    desc: "Represents a footer for its nearest ancestor sectioning content or sectioning root element.",
+    attrs: ["Global Attributes"],
+    code: "<footer>\n  <p>© 2025 Company Name</p>\n  <a href=\"/contact\">Contact Us</a>\n</footer>"
+  },
+  {
+    tag: "main",
+    category: "Semantic & Sectioning",
+    desc: "Represents the dominant content of the body of a document.",
+    attrs: ["Global Attributes"],
+    code: "<main>\n  <h1>Main Content Area</h1>\n  <p>Here is the primary information...</p>\n</main>"
+  },
+  {
+    tag: "aside",
+    category: "Semantic & Sectioning",
+    desc: "Represents a portion of a document whose content is only indirectly related to the document's main content (e.g., sidebars).",
+    attrs: ["Global Attributes"],
+    code: "<aside>\n  <h3>Related Links</h3>\n  <ul>...</ul>\n</aside>"
+  },
+
+  // Text Content & Formatting
+  {
+    tag: "div",
+    category: "Text & Formatting",
+    desc: "The generic container for flow content. It has no effect on the content or layout until styled in some way using CSS.",
+    attrs: ["Global Attributes"],
+    code: "<div class=\"container\">\n  <p>Inside a generic container.</p>\n</div>"
+  },
+  {
+    tag: "span",
+    category: "Text & Formatting",
+    desc: "A generic inline container for phrasing content, which does not inherently represent anything.",
+    attrs: ["Global Attributes"],
+    code: "<p>Highlight this <span class=\"text-red\">word</span>.</p>"
+  },
+  {
+    tag: "p",
+    category: "Text & Formatting",
+    desc: "Represents a paragraph. Paragraphs are usually represented in visual media as blocks of text.",
+    attrs: ["Global Attributes"],
+    code: "<p>This is a standard paragraph of text.</p>"
+  },
+  {
+    tag: "a",
+    category: "Text & Formatting",
+    desc: "The Anchor element creates a hyperlink to web pages, files, email addresses, locations in the same page, or anything else a URL can address.",
+    attrs: ["href", "target", "rel", "download"],
+    code: "<a href=\"https://example.com\" target=\"_blank\">\n  Visit Example\n</a>"
+  },
+  {
+    tag: "strong",
+    category: "Text & Formatting",
+    desc: "Indicates that its contents have strong importance, seriousness, or urgency.",
+    attrs: ["Global Attributes"],
+    code: "<p><strong>Warning:</strong> Do not click this button.</p>"
+  },
+  {
+    tag: "em",
+    category: "Text & Formatting",
+    desc: "Marks text that has stress emphasis. Typically displayed in italic type.",
+    attrs: ["Global Attributes"],
+    code: "<p>We <em>must</em> do this now.</p>"
+  },
+
+  // Forms & Input
+  {
+    tag: "form",
+    category: "Forms & Inputs",
+    desc: "Represents a document section containing interactive controls for submitting information.",
+    attrs: ["action", "method", "enctype", "novalidate"],
+    code: "<form action=\"/submit\" method=\"POST\">\n  <!-- form controls -->\n</form>"
+  },
+  {
+    tag: "input",
+    category: "Forms & Inputs",
+    desc: "Used to create interactive controls for web-based forms in order to accept data from the user.",
+    attrs: ["type", "name", "value", "placeholder", "required"],
+    code: "<input type=\"email\" name=\"user_email\" placeholder=\"Enter email\" required>"
+  },
+  {
+    tag: "label",
+    category: "Forms & Inputs",
+    desc: "Represents a caption for an item in a user interface. Clicking it focuses the associated input.",
+    attrs: ["for"],
+    code: "<label for=\"username\">Username:</label>\n<input type=\"text\" id=\"username\" name=\"username\">"
+  },
+  {
+    tag: "button",
+    category: "Forms & Inputs",
+    desc: "An interactive element activated by a user with a mouse, keyboard, finger, voice command, or other assistive technology.",
+    attrs: ["type", "disabled", "name", "value"],
+    code: "<button type=\"submit\">\n  Submit Form\n</button>"
+  },
+  {
+    tag: "select",
+    category: "Forms & Inputs",
+    desc: "Represents a control that provides a menu of options.",
+    attrs: ["name", "multiple", "required"],
+    code: "<select name=\"cars\">\n  <option value=\"volvo\">Volvo</option>\n  <option value=\"saab\">Saab</option>\n</select>"
+  },
+  {
+    tag: "textarea",
+    category: "Forms & Inputs",
+    desc: "Represents a multi-line plain-text editing control.",
+    attrs: ["name", "rows", "cols", "placeholder"],
+    code: "<textarea name=\"message\" rows=\"4\" cols=\"50\">\nDefault text here...\n</textarea>"
+  },
+
+  // Tables
+  {
+    tag: "table",
+    category: "Tables",
+    desc: "Represents tabular data — that is, information presented in a two-dimensional table comprised of rows and columns.",
+    attrs: ["Global Attributes"],
+    code: "<table>\n  <thead>...</thead>\n  <tbody>...</tbody>\n</table>"
+  },
+  {
+    tag: "tr",
+    category: "Tables",
+    desc: "Defines a row of cells in a table.",
+    attrs: ["Global Attributes"],
+    code: "<tr>\n  <td>Row 1, Cell 1</td>\n  <td>Row 1, Cell 2</td>\n</tr>"
+  },
+  {
+    tag: "td",
+    category: "Tables",
+    desc: "Defines a cell of a table that contains data.",
+    attrs: ["colspan", "rowspan", "headers"],
+    code: "<td>Data cell content</td>"
+  },
+  {
+    tag: "th",
+    category: "Tables",
+    desc: "Defines a cell as header of a group of table cells.",
+    attrs: ["colspan", "rowspan", "scope"],
+    code: "<th scope=\"col\">Name</th>\n<th scope=\"col\">Age</th>"
+  },
+
+  // Media
+  {
+    tag: "img",
+    category: "Media",
+    desc: "Embeds an image into the document.",
+    attrs: ["src", "alt", "width", "height", "loading"],
+    code: "<img src=\"logo.png\" alt=\"Company Logo\" width=\"200\" height=\"100\">"
+  },
+  {
+    tag: "video",
+    category: "Media",
+    desc: "Embeds a media player which supports video playback into the document.",
+    attrs: ["src", "controls", "autoplay", "loop", "muted"],
+    code: "<video src=\"movie.mp4\" controls width=\"400\">\n  Your browser does not support the video tag.\n</video>"
+  },
+  {
+    tag: "audio",
+    category: "Media",
+    desc: "Used to embed sound content in documents. It may contain one or more audio sources.",
+    attrs: ["src", "controls", "autoplay", "loop"],
+    code: "<audio controls>\n  <source src=\"sound.mp3\" type=\"audio/mpeg\">\n</audio>"
+  },
+  {
+    tag: "svg",
+    category: "Media",
+    desc: "Container for Scalable Vector Graphics, allowing you to draw paths, shapes, and text via XML markup.",
+    attrs: ["viewBox", "width", "height", "xmlns"],
+    code: "<svg viewBox=\"0 0 100 100\">\n  <circle cx=\"50\" cy=\"50\" r=\"40\" fill=\"red\" />\n</svg>"
+  },
+
+  // Interactive
+  {
+    tag: "details",
+    category: "Interactive",
+    desc: "Creates a disclosure widget in which information is visible only when the widget is toggled into an 'open' state.",
+    attrs: ["open"],
+    code: "<details>\n  <summary>More Info</summary>\n  <p>Here is the hidden content!</p>\n</details>"
+  },
+  {
+    tag: "dialog",
+    category: "Interactive",
+    desc: "Represents a dialog box or other interactive component, such as a dismissable alert, inspector, or subwindow.",
+    attrs: ["open"],
+    code: "<dialog open>\n  <p>This is a modal window!</p>\n  <form method=\"dialog\">\n    <button>Close</button>\n  </form>\n</dialog>"
+  }
+];
+
+function escapeHtml(unsafe) {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function highlightSyntax(code) {
+  let escaped = escapeHtml(code);
+  // Simple syntax highlighting via regex
+  // Highlighting tags
+  escaped = escaped.replace(/(&lt;\/?)([a-zA-Z0-9\-]+)(.*?&gt;)/g, function(match, p1, p2, p3) {
+    // Process attributes inside the tag
+    let attrs = p3.replace(/([a-zA-Z0-9\-]+)=(&quot;.*?&quot;)/g, '<span class="attr">$1</span>=<span class="val">$2</span>');
+    return p1 + '<span class="tag">' + p2 + '</span>' + attrs;
+  });
+  return escaped;
+}
+
+function renderElements(data) {
+  const container = document.getElementById('elementsContainer');
+  container.innerHTML = '';
+
+  if (data.length === 0) {
+    document.getElementById('noResults').style.display = 'block';
+    return;
+  }
+  document.getElementById('noResults').style.display = 'none';
+
+  // Group by category
+  const categories = {};
+  data.forEach(item => {
+    if (!categories[item.category]) categories[item.category] = [];
+    categories[item.category].push(item);
+  });
+
+  for (const [category, items] of Object.entries(categories)) {
+    const section = document.createElement('div');
+    section.className = 'category-section';
+    section.dataset.category = category;
+
+    const title = document.createElement('h2');
+    title.className = 'category-title';
+    title.textContent = category;
+    section.appendChild(title);
+
+    const grid = document.createElement('div');
+    grid.className = 'elements-grid';
+
+    items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'element-card';
+
+      const attrsHtml = item.attrs.map(attr => `<span class="attr-tag">${attr}</span>`).join('');
+      const codeId = `code-${item.tag}`;
+      const escapedRawCode = escapeHtml(item.code);
+      const highlightedCode = highlightSyntax(item.code);
+
+      card.innerHTML = `
+        <div class="card-header">
+          <div class="element-tag">${item.tag}</div>
+          <div class="element-type">${item.category.split(' ')[0]}</div>
+        </div>
+        <div class="card-body">
+          <p class="element-desc">${item.desc}</p>
+          ${item.attrs.length > 0 ? `
+            <div class="card-attributes">
+              <span class="attr-title">Common Attributes</span>
+              <div class="attr-list">${attrsHtml}</div>
+            </div>
+          ` : ''}
+
+          <div class="card-code">
+            <div class="code-header">
+              <span class="code-title">Example</span>
+              <button class="copy-btn" onclick="copyCode(this, \`${escapedRawCode.replace(/\\/g, '\\\\').replace(/`/g, '\\`')}\`)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                Copy
+              </button>
+            </div>
+            <div class="code-content">${highlightedCode}</div>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    section.appendChild(grid);
+    container.appendChild(section);
+  }
+}
+
+// Interaction logic
+
+function copyCode(btn, encodedCode) {
+  // Decode the HTML entities back to raw code
+  const textarea = document.createElement('textarea');
+  textarea.innerHTML = encodedCode;
+  const rawCode = textarea.value;
+
+  navigator.clipboard.writeText(rawCode).then(() => {
+    const originalHtml = btn.innerHTML;
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.innerHTML = originalHtml;
+      btn.classList.remove('copied');
+    }, 1500);
+  });
+}
+
+// Search Logic
+const searchInput = document.getElementById('searchInput');
+
+searchInput.addEventListener('input', (e) => {
+  const query = e.target.value.toLowerCase().trim();
+
+  if (!query) {
+    renderElements(elementsData);
+    return;
+  }
+
+  const filteredData = elementsData.filter(item => {
+    return item.tag.toLowerCase().includes(query) ||
+           item.desc.toLowerCase().includes(query) ||
+           item.category.toLowerCase().includes(query) ||
+           item.attrs.some(attr => attr.toLowerCase().includes(query));
+  });
+
+  renderElements(filteredData);
+});
+
+// Initial render
+renderElements(elementsData);
+
+</script>
+</body>
+</html>
