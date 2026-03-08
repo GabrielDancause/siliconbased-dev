@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Font Size Converter | px, rem, em, pt, vw</title>
+<meta name="description" content="Convert font sizes between px, rem, em, pt, and vw instantly. Interactive tool with custom base size and visual scale preview. Free and works offline.">
+<meta property="og:title" content="Font Size Converter">
+<meta property="og:description" content="Convert font sizes between px, rem, em, pt, and vw instantly. Interactive tool with custom base size and visual scale preview. Free and works offline.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Font Size Converter",
+  "url": "https://siliconbased.dev/font-size-converter",
+  "description": "Convert font sizes between px, rem, em, pt, and vw instantly. Interactive tool with custom base size and visual scale preview.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+/* Hero */
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+
+.main { max-width: 900px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Cards */
+.tool-card { background: #111318; border: 1px solid #1e2030; border-radius: 16px; overflow: hidden; margin-bottom: 24px; }
+.tool-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: #13151d; border-bottom: 1px solid #1e2030; flex-wrap: wrap; gap: 12px; }
+.tool-header h3 { font-size: 1rem; font-weight: 600; color: #ccc; display: flex; align-items: center; gap: 8px; }
+.tool-body { padding: 24px; display: flex; flex-direction: column; gap: 24px; }
+
+/* Config Area */
+.config-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.input-group { display: flex; flex-direction: column; gap: 8px; }
+.input-label { font-size: 0.85rem; font-weight: 600; color: #818cf8; }
+
+.config-input { width: 100%; background: #0a0b10; border: 1px solid #1e2030; border-radius: 8px; padding: 12px 16px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 1rem; outline: none; transition: border-color 0.2s; }
+.config-input:focus { border-color: #818cf8; }
+
+/* Converter Grid */
+.converter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.converter-box { background: #0a0b10; border: 1px solid #1e2030; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 12px; transition: border-color 0.2s; }
+.converter-box:focus-within { border-color: #818cf8; }
+.converter-header { display: flex; justify-content: space-between; align-items: center; }
+.unit-badge { background: #1e2030; color: #818cf8; font-size: 0.8rem; font-weight: 700; padding: 4px 8px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; }
+.unit-desc { font-size: 0.75rem; color: #666; }
+
+.input-with-copy { display: flex; gap: 8px; align-items: center; }
+.value-input { flex: 1; background: transparent; border: none; color: #fff; font-size: 1.5rem; font-weight: 600; font-family: 'JetBrains Mono', monospace; outline: none; width: 100%; }
+.value-input::placeholder { color: #444; }
+
+.copy-btn { background: #1e2030; border: 1px solid #2a2d40; color: #ccc; padding: 8px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+.copy-btn:hover { background: #2a2d40; color: #fff; }
+.copy-btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+.copy-btn svg { width: 16px; height: 16px; }
+
+/* Visual Preview */
+.preview-container { background: #0a0b10; border: 1px dashed #2a2d40; border-radius: 12px; padding: 32px 24px; text-align: center; overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 150px; }
+.preview-text { color: #fff; font-weight: 400; line-height: 1.2; word-wrap: break-word; max-width: 100%; transition: font-size 0.1s; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .converter-grid { grid-template-columns: 1fr; }
+  .config-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Font Size Converter</h1>
+  <p>Convert pixels to rem, em, pt, and vw with live visual preview.</p>
+</div>
+
+<div class="main">
+  <div class="tool-card">
+    <div class="tool-header">
+      <h3>Global Settings</h3>
+    </div>
+    <div class="tool-body">
+      <div class="config-grid">
+        <div class="input-group">
+          <label class="input-label" for="baseSize">Base Font Size (px)</label>
+          <input type="number" id="baseSize" class="config-input" value="16" min="1" step="1">
+        </div>
+        <div class="input-group">
+          <label class="input-label" for="viewportWidth">Viewport Width (px)</label>
+          <input type="number" id="viewportWidth" class="config-input" value="1920" min="1" step="1">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <h3>Conversions</h3>
+    </div>
+    <div class="tool-body">
+      <div class="converter-grid">
+        <!-- PX -->
+        <div class="converter-box">
+          <div class="converter-header">
+            <span class="unit-badge">Pixels (px)</span>
+            <span class="unit-desc">Absolute</span>
+          </div>
+          <div class="input-with-copy">
+            <input type="number" id="val-px" class="value-input" value="16" step="0.1">
+            <button class="copy-btn" data-target="val-px" title="Copy px value">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+        </div>
+        <!-- REM -->
+        <div class="converter-box">
+          <div class="converter-header">
+            <span class="unit-badge">Root EM (rem)</span>
+            <span class="unit-desc">Relative to root</span>
+          </div>
+          <div class="input-with-copy">
+            <input type="number" id="val-rem" class="value-input" step="0.001">
+            <button class="copy-btn" data-target="val-rem" title="Copy rem value">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+        </div>
+        <!-- EM -->
+        <div class="converter-box">
+          <div class="converter-header">
+            <span class="unit-badge">Element (em)</span>
+            <span class="unit-desc">Relative to parent</span>
+          </div>
+          <div class="input-with-copy">
+            <input type="number" id="val-em" class="value-input" step="0.001">
+            <button class="copy-btn" data-target="val-em" title="Copy em value">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+        </div>
+        <!-- PT -->
+        <div class="converter-box">
+          <div class="converter-header">
+            <span class="unit-badge">Points (pt)</span>
+            <span class="unit-desc">Print scale (1/72")</span>
+          </div>
+          <div class="input-with-copy">
+            <input type="number" id="val-pt" class="value-input" step="0.1">
+            <button class="copy-btn" data-target="val-pt" title="Copy pt value">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+        </div>
+        <!-- VW -->
+        <div class="converter-box">
+          <div class="converter-header">
+            <span class="unit-badge">Viewport Width (vw)</span>
+            <span class="unit-desc">Relative to window</span>
+          </div>
+          <div class="input-with-copy">
+            <input type="number" id="val-vw" class="value-input" step="0.01">
+            <button class="copy-btn" data-target="val-vw" title="Copy vw value">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <h3>Visual Preview</h3>
+    </div>
+    <div class="tool-body">
+      <div class="preview-container">
+        <div class="preview-text" id="previewText">The quick brown fox jumps over the lazy dog.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>Understanding CSS Font Size Units</h2>
+    <p>When designing for the web, choosing the right unit for typography is crucial for accessibility, responsiveness, and maintaining a scalable design system. While pixels (px) are easy to understand, relative units like rem and em are often preferred in modern development.</p>
+    <ul>
+      <li><strong>px (Pixels):</strong> An absolute unit representing a single dot on a screen. While straightforward, using px for font sizes can hinder accessibility, as it prevents users from scaling text via their browser settings.</li>
+      <li><strong>rem (Root EM):</strong> A relative unit based on the font size of the root element (<code>&lt;html&gt;</code>). The default browser font size is typically 16px, meaning <code>1rem = 16px</code>. Using rem ensures consistent scaling across your entire application.</li>
+      <li><strong>em:</strong> A relative unit based on the font size of its immediate parent element. If a parent is 16px, <code>2em</code> on a child element equals 32px. It's powerful for scaling isolated components but can lead to compounding size issues if nested deeply.</li>
+      <li><strong>vw (Viewport Width):</strong> A relative unit based on 1% of the width of the viewport. Useful for fluid typography that scales dynamically as the browser window resizes.</li>
+      <li><strong>pt (Points):</strong> A physical unit historically used in print media, where <code>1pt = 1/72 of an inch</code>. Generally avoided for screen design, but standard for print stylesheets.</li>
+    </ul>
+
+    <h2>Why Convert px to rem?</h2>
+    <p>Converting absolute pixel values to relative rem values is a best practice for web accessibility. By using rem, your website's typography respects the default font size set by the user in their browser preferences.</p>
+    <p>For example, if a visually impaired user increases their default browser font size from 16px to 24px, all text sized in rem will scale proportionately, remaining legible. Text hardcoded in px will remain fixed, potentially breaking the layout or forcing the user to zoom in manually. This font size converter allows you to instantly generate the precise rem values needed for your CSS based on a custom base size.</p>
+
+    <h2>Client-Side Processing</h2>
+    <p>This Font Size Converter operates entirely in your browser using JavaScript. When you input a value, the conversion math runs instantly on your device without communicating with an external server. This guarantees absolute privacy and allows the tool to function completely offline.</p>
+  </div>
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const baseSizeInput = document.getElementById('baseSize');
+const viewportWidthInput = document.getElementById('viewportWidth');
+
+const pxInput = document.getElementById('val-px');
+const remInput = document.getElementById('val-rem');
+const emInput = document.getElementById('val-em');
+const ptInput = document.getElementById('val-pt');
+const vwInput = document.getElementById('val-vw');
+
+const previewText = document.getElementById('previewText');
+const copyBtns = document.querySelectorAll('.copy-btn');
+
+function getBaseSize() {
+  return parseFloat(baseSizeInput.value) || 16;
+}
+
+function getViewportWidth() {
+  return parseFloat(viewportWidthInput.value) || 1920;
+}
+
+function roundVal(val, decimals = 3) {
+  return Number(Math.round(val + 'e' + decimals) + 'e-' + decimals);
+}
+
+function updateFromPx(px) {
+  const baseSize = getBaseSize();
+  const vwWidth = getViewportWidth();
+
+  if (isNaN(px)) {
+    if (document.activeElement !== pxInput) pxInput.value = '';
+    if (document.activeElement !== remInput) remInput.value = '';
+    if (document.activeElement !== emInput) emInput.value = '';
+    if (document.activeElement !== ptInput) ptInput.value = '';
+    if (document.activeElement !== vwInput) vwInput.value = '';
+    previewText.style.fontSize = `${baseSize}px`;
+    return;
+  }
+
+  // Conversions
+  const rem = px / baseSize;
+  const em = px / baseSize; // Assuming context is root base size for simplicity in this tool
+  const pt = px * (72 / 96); // Standard CSS pt (1pt = 1/72 of 1in, 1in = 96px)
+  const vw = (px / vwWidth) * 100;
+
+  if (document.activeElement !== pxInput) pxInput.value = roundVal(px);
+  if (document.activeElement !== remInput) remInput.value = roundVal(rem);
+  if (document.activeElement !== emInput) emInput.value = roundVal(em);
+  if (document.activeElement !== ptInput) ptInput.value = roundVal(pt);
+  if (document.activeElement !== vwInput) vwInput.value = roundVal(vw);
+
+  // Update preview
+  previewText.style.fontSize = `${px}px`;
+}
+
+// Input Event Listeners
+pxInput.addEventListener('input', (e) => {
+  updateFromPx(parseFloat(e.target.value));
+});
+
+remInput.addEventListener('input', (e) => {
+  const rem = parseFloat(e.target.value);
+  updateFromPx(!isNaN(rem) ? rem * getBaseSize() : NaN);
+});
+
+emInput.addEventListener('input', (e) => {
+  const em = parseFloat(e.target.value);
+  updateFromPx(!isNaN(em) ? em * getBaseSize() : NaN);
+});
+
+ptInput.addEventListener('input', (e) => {
+  const pt = parseFloat(e.target.value);
+  updateFromPx(!isNaN(pt) ? pt * (96 / 72) : NaN);
+});
+
+vwInput.addEventListener('input', (e) => {
+  const vw = parseFloat(e.target.value);
+  updateFromPx(!isNaN(vw) ? (vw / 100) * getViewportWidth() : NaN);
+});
+
+// Config Event Listeners
+baseSizeInput.addEventListener('input', () => {
+  updateFromPx(parseFloat(pxInput.value));
+});
+
+viewportWidthInput.addEventListener('input', () => {
+  updateFromPx(parseFloat(pxInput.value));
+});
+
+// Copy Buttons
+copyBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const targetId = btn.getAttribute('data-target');
+    const input = document.getElementById(targetId);
+    let val = input.value;
+
+    // Add unit suffix for copying
+    let unit = '';
+    if (targetId === 'val-px') unit = 'px';
+    if (targetId === 'val-rem') unit = 'rem';
+    if (targetId === 'val-em') unit = 'em';
+    if (targetId === 'val-pt') unit = 'pt';
+    if (targetId === 'val-vw') unit = 'vw';
+
+    if (val) {
+      navigator.clipboard.writeText(`${val}${unit}`).then(() => {
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.innerHTML = originalHtml;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  });
+});
+
+// Init
+updateFromPx(parseFloat(pxInput.value));
+</script>
+</body>
+</html>

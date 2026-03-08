@@ -1,0 +1,15 @@
+
+> siliconbased-dev@0.0.1 dev
+> astro dev
+
+04:05:59 [types] Generated 1ms
+04:06:00 [content] Syncing content
+04:06:00 [content] Synced content
+
+ astro  v5.18.0 ready in 997 ms
+
+┃ Local    http://localhost:4321/
+┃ Network  use --host to expose
+
+04:06:00 watching for file changes...
+04:09:07 [watch] public/font-size-converter.html
