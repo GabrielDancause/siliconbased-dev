@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Docker Compose Generator | Free Interactive Tool</title>
+<meta name="description" content="Generate docker-compose.yml files visually. Add services, ports, volumes, and networks. Use common templates like WordPress and Node.js. Free, works offline.">
+<meta property="og:title" content="Docker Compose Generator">
+<meta property="og:description" content="Generate docker-compose.yml files visually. Add services, ports, volumes, and networks. Use common templates like WordPress and Node.js. Free, works offline.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Docker Compose Generator",
+  "url": "https://siliconbased.dev/docker-compose",
+  "description": "Visual builder for Docker Compose files. Configure services, environments, volumes, and networks instantly in your browser.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+.hero { text-align: center; padding: 48px 24px 24px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.4rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+
+.main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+
+/* Templates */
+.templates-bar { grid-column: 1 / -1; display: flex; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; justify-content: center; }
+.template-btn { background: #111318; border: 1px solid #1e2030; color: #a5b4fc; padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif; }
+.template-btn:hover { background: #1e2030; border-color: #818cf8; color: #fff; }
+
+/* Builder Pane (Left) */
+.builder-pane { display: flex; flex-direction: column; gap: 20px; }
+.card { background: #111318; border: 1px solid #1e2030; border-radius: 12px; overflow: hidden; }
+.card-header { background: #151722; padding: 14px 20px; border-bottom: 1px solid #1e2030; display: flex; justify-content: space-between; align-items: center; }
+.card-title { font-size: 1rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 8px; }
+.card-body { padding: 20px; }
+
+/* Form Controls */
+.form-group { margin-bottom: 16px; }
+.form-group:last-child { margin-bottom: 0; }
+.form-label { display: block; font-size: 0.85rem; color: #888; margin-bottom: 6px; font-weight: 500; }
+.form-input { width: 100%; background: #0a0b10; border: 1px solid #1e2030; border-radius: 8px; padding: 10px 14px; color: #e0e0e0; font-family: 'Inter', sans-serif; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
+.form-input:focus { border-color: #818cf8; }
+.form-input.mono-input { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+
+/* Service Block */
+.service-block { border: 1px solid #1e2030; border-radius: 8px; background: #0d0e14; margin-bottom: 16px; }
+.service-header { padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+.service-header:hover { background: #111318; }
+.service-header.expanded { border-bottom-color: #1e2030; }
+.service-name-display { font-weight: 600; color: #a5b4fc; font-size: 0.95rem; }
+.service-actions { display: flex; gap: 8px; }
+.service-body { padding: 16px; display: none; }
+.service-body.expanded { display: block; }
+
+.remove-btn { background: transparent; border: none; color: #f87171; cursor: pointer; padding: 4px; border-radius: 4px; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+.remove-btn:hover { background: rgba(248, 113, 113, 0.1); }
+.remove-btn svg { width: 16px; height: 16px; }
+
+/* Key-Value Lists (Ports, Env, Volumes) */
+.kv-list { margin-top: 12px; }
+.kv-item { display: grid; grid-template-columns: 1fr 1fr auto; gap: 8px; margin-bottom: 8px; }
+.kv-item-single { display: grid; grid-template-columns: 1fr auto; gap: 8px; margin-bottom: 8px; }
+.add-btn { background: #1e2030; border: 1px solid #2a2d40; color: #ccc; padding: 8px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
+.add-btn:hover { background: #2a2d40; color: #fff; }
+.add-btn svg { width: 14px; height: 14px; }
+
+.add-service-btn { width: 100%; background: #818cf8; color: #fff; border: none; padding: 12px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: background 0.2s; display: flex; justify-content: center; align-items: center; gap: 8px; }
+.add-service-btn:hover { background: #6366f1; }
+
+/* Output Pane (Right) */
+.output-pane { display: flex; flex-direction: column; position: sticky; top: 24px; height: calc(100vh - 48px); }
+.output-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.header-title { font-size: 0.85rem; font-weight: 600; color: #ccc; text-transform: uppercase; letter-spacing: 0.5px; }
+.copy-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 6px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.copy-btn:hover { background: #2a2d40; color: #ccc; }
+.copy-btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+.output-card { flex: 1; background: #111318; border: 2px solid #1e2030; border-radius: 12px; position: relative; display: flex; flex-direction: column; overflow: hidden; }
+.result-body { flex: 1; padding: 0; display: flex; overflow: auto; background: #111318; position: relative; }
+.line-numbers { padding: 16px 10px; background: #0d0e14; color: #444; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.6; text-align: right; border-right: 1px solid #1e2030; user-select: none; position: sticky; left: 0; z-index: 5; }
+.output-pre { margin: 0; padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.6; color: #b0b8d0; white-space: pre; overflow: visible; flex: 1; tab-size: 2; }
+
+/* Syntax Highlighting for YAML */
+.hl-key { color: #818cf8; font-weight: 500; }
+.hl-val { color: #4ade80; }
+.hl-val-num { color: #fbbf24; }
+.hl-comment { color: #6b7280; font-style: italic; }
+
+/* Global Settings */
+.global-settings { margin-bottom: 24px; }
+.networks-volumes-card { margin-top: 24px; }
+
+/* SEO Content */
+.seo-section { grid-column: 1 / -1; margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; max-width: 800px; margin-left: auto; margin-right: auto; }
+.seo-section h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-section h2:first-child { margin-top: 0; }
+.seo-section h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-section p { margin-bottom: 16px; }
+.seo-section ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-section li { margin-bottom: 8px; }
+.seo-section code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .main { grid-template-columns: 1fr; }
+  .output-pane { position: static; height: 500px; margin-top: 24px; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Docker Compose <span>Generator</span></h1>
+  <p>Visually configure services, ports, and volumes to build your docker-compose.yml instantly.</p>
+</div>
+
+<div class="main">
+
+  <div class="templates-bar">
+    <button class="template-btn" data-template="blank">Blank</button>
+    <button class="template-btn" data-template="nginx">Nginx</button>
+    <button class="template-btn" data-template="node-mongo">Node.js + MongoDB</button>
+    <button class="template-btn" data-template="wordpress">WordPress + MySQL</button>
+    <button class="template-btn" data-template="postgres-redis">Postgres + Redis</button>
+  </div>
+
+  <div class="builder-pane">
+    <div class="card global-settings">
+      <div class="card-header">
+        <div class="card-title">Compose Info</div>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <label class="form-label">Version</label>
+          <input type="text" id="composeVersion" class="form-input mono-input" value="3.8" placeholder="e.g. 3.8">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Services</div>
+      </div>
+      <div class="card-body" id="servicesList">
+        <!-- Services injected here -->
+      </div>
+      <div class="card-body" style="padding-top: 0; border-top: 1px solid #1e2030; margin-top: -10px;">
+        <button class="add-service-btn" id="addServiceBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          Add Service
+        </button>
+      </div>
+    </div>
+
+    <div class="card networks-volumes-card">
+      <div class="card-header">
+        <div class="card-title">Global Networks & Volumes</div>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <label class="form-label">Named Volumes</label>
+          <div id="globalVolumesList" class="kv-list"></div>
+          <button class="add-btn" id="addGlobalVolumeBtn" style="margin-top: 8px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> Add Volume
+          </button>
+        </div>
+
+        <div class="form-group" style="margin-top: 20px;">
+          <label class="form-label">Networks</label>
+          <div id="globalNetworksList" class="kv-list"></div>
+          <button class="add-btn" id="addGlobalNetworkBtn" style="margin-top: 8px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> Add Network
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="output-pane">
+    <div class="output-header">
+      <div class="header-title">docker-compose.yml</div>
+      <button class="copy-btn" id="copyBtn">Copy YAML</button>
+    </div>
+
+    <div class="output-card">
+      <div class="result-body">
+        <div class="line-numbers" id="lineNumbers">1</div>
+        <pre class="output-pre" id="yamlOutput"></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-section">
+    <h2>What is Docker Compose?</h2>
+    <p>Docker Compose is a tool for defining and running multi-container Docker applications. Using a single YAML file (<code>docker-compose.yml</code>), you can configure your application's services, networks, and volumes. This allows you to start your entire application stack with a single command: <code>docker-compose up</code>.</p>
+
+    <h2>Why use a Visual Generator?</h2>
+    <p>Writing YAML by hand can be prone to indentation errors and syntax typos. A visual generator ensures that your configuration is correctly structured, properly indented, and valid. It also makes it easier for beginners to discover available options like port mapping syntax and volume mounting.</p>
+
+    <h2>Key Components</h2>
+    <ul>
+      <li><strong>Services:</strong> The core of your application. Each service represents a container (e.g., a web server, a database, a cache) built from an image or a Dockerfile.</li>
+      <li><strong>Ports:</strong> Maps host ports to container ports (e.g., <code>8080:80</code> maps port 8080 on your host machine to port 80 inside the container).</li>
+      <li><strong>Volumes:</strong> Persistent storage mechanisms. Volumes ensure that data (like database records) is not lost when a container is stopped or recreated.</li>
+      <li><strong>Environment Variables:</strong> Used to pass configuration settings, passwords, or API keys into your containers without hardcoding them into the image.</li>
+      <li><strong>Networks:</strong> Allow services to communicate with each other securely, isolated from external traffic unless explicitly exposed.</li>
+    </ul>
+
+    <h2>Privacy & Offline Capability</h2>
+    <p>This generator runs entirely client-side in your web browser. No data, service configurations, or environment variables are ever sent to a server. You can safely generate configs containing sensitive internal paths or placeholder passwords. Once loaded, the tool works fully offline.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+// State Management
+let state = {
+  version: "3.8",
+  services: [],
+  volumes: [], // global volumes
+  networks: [] // global networks
+};
+
+const templates = {
+  blank: {
+    version: "3.8",
+    services: [
+      { id: generateId(), name: "web", image: "nginx:latest", ports: [{ host: "8080", container: "80" }], env: [], volumes: [], command: "", restart: "unless-stopped" }
+    ],
+    volumes: [], networks: []
+  },
+  nginx: {
+    version: "3.8",
+    services: [
+      { id: generateId(), name: "proxy", image: "nginx:alpine", ports: [{ host: "80", container: "80" }, { host: "443", container: "443" }], env: [], volumes: [{ host: "./nginx.conf", container: "/etc/nginx/nginx.conf" }, { host: "./html", container: "/usr/share/nginx/html" }], command: "", restart: "always" }
+    ],
+    volumes: [], networks: []
+  },
+  "node-mongo": {
+    version: "3.8",
+    services: [
+      { id: generateId(), name: "api", image: "node:18-alpine", ports: [{ host: "3000", container: "3000" }], env: [{ key: "MONGO_URI", val: "mongodb://db:27017/myapp" }, { key: "PORT", val: "3000" }], volumes: [{ host: "./src", container: "/usr/src/app/src" }], command: "npm start", restart: "unless-stopped", depends_on: ["db"] },
+      { id: generateId(), name: "db", image: "mongo:6", ports: [{ host: "27017", container: "27017" }], env: [], volumes: [{ host: "mongo_data", container: "/data/db" }], command: "", restart: "unless-stopped" }
+    ],
+    volumes: [{ name: "mongo_data" }], networks: []
+  },
+  "wordpress": {
+    version: "3.8",
+    services: [
+      { id: generateId(), name: "wordpress", image: "wordpress:latest", ports: [{ host: "8000", container: "80" }], env: [{ key: "WORDPRESS_DB_HOST", val: "db:3306" }, { key: "WORDPRESS_DB_USER", val: "wpuser" }, { key: "WORDPRESS_DB_PASSWORD", val: "secret" }, { key: "WORDPRESS_DB_NAME", val: "wordpress" }], volumes: [{ host: "wp_data", container: "/var/www/html" }], command: "", restart: "always", depends_on: ["db"] },
+      { id: generateId(), name: "db", image: "mysql:8.0", ports: [], env: [{ key: "MYSQL_DATABASE", val: "wordpress" }, { key: "MYSQL_USER", val: "wpuser" }, { key: "MYSQL_PASSWORD", val: "secret" }, { key: "MYSQL_RANDOM_ROOT_PASSWORD", val: "1" }], volumes: [{ host: "db_data", container: "/var/lib/mysql" }], command: "", restart: "always" }
+    ],
+    volumes: [{ name: "wp_data" }, { name: "db_data" }], networks: []
+  },
+  "postgres-redis": {
+    version: "3.8",
+    services: [
+      { id: generateId(), name: "db", image: "postgres:15-alpine", ports: [{ host: "5432", container: "5432" }], env: [{ key: "POSTGRES_USER", val: "user" }, { key: "POSTGRES_PASSWORD", val: "password" }, { key: "POSTGRES_DB", val: "appdb" }], volumes: [{ host: "pgdata", container: "/var/lib/postgresql/data" }], command: "", restart: "unless-stopped" },
+      { id: generateId(), name: "cache", image: "redis:7-alpine", ports: [{ host: "6379", container: "6379" }], env: [], volumes: [{ host: "redisdata", container: "/data" }], command: "redis-server --save 60 1 --loglevel warning", restart: "unless-stopped" }
+    ],
+    volumes: [{ name: "pgdata" }, { name: "redisdata" }], networks: []
+  }
+};
+
+// DOM Elements
+const versionInput = document.getElementById('composeVersion');
+const servicesList = document.getElementById('servicesList');
+const addServiceBtn = document.getElementById('addServiceBtn');
+const yamlOutput = document.getElementById('yamlOutput');
+const lineNumbers = document.getElementById('lineNumbers');
+const copyBtn = document.getElementById('copyBtn');
+const templateBtns = document.querySelectorAll('.template-btn');
+
+const globalVolumesList = document.getElementById('globalVolumesList');
+const addGlobalVolumeBtn = document.getElementById('addGlobalVolumeBtn');
+const globalNetworksList = document.getElementById('globalNetworksList');
+const addGlobalNetworkBtn = document.getElementById('addGlobalNetworkBtn');
+
+// Utilities
+function generateId() { return Math.random().toString(36).substr(2, 9); }
+function escapeHtml(unsafe) {
+  return (unsafe||"").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+}
+
+// Initial Load
+function init() {
+  loadTemplate('blank');
+
+  versionInput.addEventListener('input', (e) => {
+    state.version = e.target.value;
+    updateYaml();
+  });
+
+  addServiceBtn.addEventListener('click', () => {
+    state.services.push({
+      id: generateId(), name: `service_${state.services.length + 1}`, image: "ubuntu:latest",
+      ports: [], env: [], volumes: [], command: "", restart: "no"
+    });
+    renderServices();
+    updateYaml();
+  });
+
+  addGlobalVolumeBtn.addEventListener('click', () => {
+    state.volumes.push({ name: `volume_${state.volumes.length + 1}` });
+    renderGlobals();
+    updateYaml();
+  });
+
+  addGlobalNetworkBtn.addEventListener('click', () => {
+    state.networks.push({ name: `network_${state.networks.length + 1}` });
+    renderGlobals();
+    updateYaml();
+  });
+
+  templateBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const tmpl = e.target.getAttribute('data-template');
+      loadTemplate(tmpl);
+    });
+  });
+
+  copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(generateYamlString()).then(() => {
+      copyBtn.textContent = '✓ Copied';
+      copyBtn.classList.add('copied');
+      setTimeout(() => { copyBtn.textContent = 'Copy YAML'; copyBtn.classList.remove('copied'); }, 1500);
+    });
+  });
+}
+
+function loadTemplate(name) {
+  // Deep copy template
+  state = JSON.parse(JSON.stringify(templates[name]));
+  // Regenerate IDs
+  state.services.forEach(s => s.id = generateId());
+
+  versionInput.value = state.version;
+  renderServices();
+  renderGlobals();
+  updateYaml();
+}
+
+// Render UI
+function renderGlobals() {
+  globalVolumesList.innerHTML = '';
+  state.volumes.forEach((vol, idx) => {
+    const row = document.createElement('div');
+    row.className = 'kv-item-single';
+    row.innerHTML = `
+      <input type="text" class="form-input mono-input" value="${escapeHtml(vol.name)}" placeholder="Volume name" data-idx="${idx}">
+      <button class="remove-btn" title="Remove" data-idx="${idx}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+    `;
+
+    row.querySelector('input').addEventListener('input', (e) => {
+      state.volumes[idx].name = e.target.value;
+      updateYaml();
+    });
+
+    row.querySelector('.remove-btn').addEventListener('click', () => {
+      state.volumes.splice(idx, 1);
+      renderGlobals();
+      updateYaml();
+    });
+    globalVolumesList.appendChild(row);
+  });
+
+  globalNetworksList.innerHTML = '';
+  state.networks.forEach((net, idx) => {
+    const row = document.createElement('div');
+    row.className = 'kv-item-single';
+    row.innerHTML = `
+      <input type="text" class="form-input mono-input" value="${escapeHtml(net.name)}" placeholder="Network name" data-idx="${idx}">
+      <button class="remove-btn" title="Remove" data-idx="${idx}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+    `;
+
+    row.querySelector('input').addEventListener('input', (e) => {
+      state.networks[idx].name = e.target.value;
+      updateYaml();
+    });
+
+    row.querySelector('.remove-btn').addEventListener('click', () => {
+      state.networks.splice(idx, 1);
+      renderGlobals();
+      updateYaml();
+    });
+    globalNetworksList.appendChild(row);
+  });
+}
+
+function renderServices() {
+  servicesList.innerHTML = '';
+
+  if (state.services.length === 0) {
+    servicesList.innerHTML = '<p style="color: #666; font-size: 0.9rem; text-align: center; padding: 10px;">No services added.</p>';
+    return;
+  }
+
+  state.services.forEach((service, sIdx) => {
+    const block = document.createElement('div');
+    block.className = 'service-block';
+
+    // Header
+    const header = document.createElement('div');
+    header.className = `service-header ${sIdx === state.services.length - 1 ? 'expanded' : ''}`;
+    header.innerHTML = `
+      <span class="service-name-display">${escapeHtml(service.name)}</span>
+      <div class="service-actions">
+        <button class="remove-btn" title="Remove Service"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+      </div>
+    `;
+
+    // Body
+    const body = document.createElement('div');
+    body.className = `service-body ${sIdx === state.services.length - 1 ? 'expanded' : ''}`;
+
+    body.innerHTML = `
+      <div class="form-group" style="display: grid; grid-template-columns: 1fr 2fr; gap: 12px;">
+        <div>
+          <label class="form-label">Service Name</label>
+          <input type="text" class="form-input mono-input svc-name" value="${escapeHtml(service.name)}">
+        </div>
+        <div>
+          <label class="form-label">Image</label>
+          <input type="text" class="form-input mono-input svc-image" value="${escapeHtml(service.image)}" placeholder="e.g. nginx:latest">
+        </div>
+      </div>
+
+      <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div>
+          <label class="form-label">Restart Policy</label>
+          <select class="form-input svc-restart" style="padding: 9px 14px;">
+            <option value="no" ${service.restart === 'no' ? 'selected' : ''}>no</option>
+            <option value="always" ${service.restart === 'always' ? 'selected' : ''}>always</option>
+            <option value="unless-stopped" ${service.restart === 'unless-stopped' ? 'selected' : ''}>unless-stopped</option>
+            <option value="on-failure" ${service.restart === 'on-failure' ? 'selected' : ''}>on-failure</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label">Command (optional)</label>
+          <input type="text" class="form-input mono-input svc-cmd" value="${escapeHtml(service.command || '')}" placeholder="e.g. npm start">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Ports (Host : Container)</label>
+        <div class="kv-list ports-list"></div>
+        <button class="add-btn add-port-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> Add Port</button>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Environment Variables (Key : Value)</label>
+        <div class="kv-list env-list"></div>
+        <button class="add-btn add-env-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> Add Env Var</button>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Volumes (Host/Named : Container)</label>
+        <div class="kv-list vol-list"></div>
+        <button class="add-btn add-vol-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> Add Volume</button>
+      </div>
+    `;
+
+    // Toggle expand
+    header.addEventListener('click', (e) => {
+      if (e.target.closest('.remove-btn')) return;
+      header.classList.toggle('expanded');
+      body.classList.toggle('expanded');
+    });
+
+    // Remove Service
+    header.querySelector('.remove-btn').addEventListener('click', () => {
+      state.services.splice(sIdx, 1);
+      renderServices();
+      updateYaml();
+    });
+
+    // Basic Inputs
+    const nameInput = body.querySelector('.svc-name');
+    nameInput.addEventListener('input', (e) => {
+      service.name = e.target.value.replace(/[^a-zA-Z0-9_-]/g, ''); // sanitize
+      header.querySelector('.service-name-display').textContent = service.name || 'unnamed';
+      updateYaml();
+    });
+
+    body.querySelector('.svc-image').addEventListener('input', (e) => { service.image = e.target.value; updateYaml(); });
+    body.querySelector('.svc-restart').addEventListener('change', (e) => { service.restart = e.target.value; updateYaml(); });
+    body.querySelector('.svc-cmd').addEventListener('input', (e) => { service.command = e.target.value; updateYaml(); });
+
+    // Arrays: Ports, Env, Vols
+    renderArray(body.querySelector('.ports-list'), service.ports, ['host', 'container'], ['Host Port', 'Container Port'], sIdx, 'ports');
+    renderArray(body.querySelector('.env-list'), service.env, ['key', 'val'], ['KEY', 'VALUE'], sIdx, 'env');
+    renderArray(body.querySelector('.vol-list'), service.volumes, ['host', 'container'], ['Host Path/Vol', 'Container Path'], sIdx, 'volumes');
+
+    body.querySelector('.add-port-btn').addEventListener('click', () => { service.ports.push({ host: "", container: "" }); renderServices(); updateYaml(); });
+    body.querySelector('.add-env-btn').addEventListener('click', () => { service.env.push({ key: "", val: "" }); renderServices(); updateYaml(); });
+    body.querySelector('.add-vol-btn').addEventListener('click', () => { service.volumes.push({ host: "", container: "" }); renderServices(); updateYaml(); });
+
+    block.appendChild(header);
+    block.appendChild(body);
+    servicesList.appendChild(block);
+  });
+}
+
+function renderArray(container, arr, keys, placeholders, sIdx, type) {
+  container.innerHTML = '';
+  arr.forEach((item, idx) => {
+    const row = document.createElement('div');
+    row.className = 'kv-item';
+    row.innerHTML = `
+      <input type="text" class="form-input mono-input input-1" value="${escapeHtml(item[keys[0]])}" placeholder="${placeholders[0]}">
+      <input type="text" class="form-input mono-input input-2" value="${escapeHtml(item[keys[1]])}" placeholder="${placeholders[1]}">
+      <button class="remove-btn" title="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+    `;
+
+    // Only update state & YAML, don't re-render full UI to keep focus
+    row.querySelector('.input-1').addEventListener('input', (e) => { state.services[sIdx][type][idx][keys[0]] = e.target.value; updateYaml(); });
+    row.querySelector('.input-2').addEventListener('input', (e) => { state.services[sIdx][type][idx][keys[1]] = e.target.value; updateYaml(); });
+
+    row.querySelector('.remove-btn').addEventListener('click', () => {
+      state.services[sIdx][type].splice(idx, 1);
+      renderServices(); // Have to re-render to remove row cleanly
+      updateYaml();
+    });
+
+    container.appendChild(row);
+  });
+}
+
+// YAML Generation
+function updateYaml() {
+  const yamlString = generateYamlString();
+
+  // Update Lines
+  const linesCount = yamlString.split('\n').length || 1;
+  let linesHtml = '';
+  for (let i = 1; i <= linesCount; i++) { linesHtml += i + '<br>'; }
+  lineNumbers.innerHTML = linesHtml;
+
+  // Syntax Highlighting
+  yamlOutput.innerHTML = highlightYaml(escapeHtml(yamlString));
+}
+
+function generateYamlString() {
+  let lines = [];
+
+  if (state.version) {
+    lines.push(`version: '${state.version}'`);
+    lines.push(``);
+  }
+
+  lines.push(`services:`);
+
+  if (state.services.length === 0) {
+    lines.push(`  # No services defined`);
+  }
+
+  state.services.forEach(svc => {
+    const name = svc.name || 'unnamed';
+    lines.push(`  ${name}:`);
+    if (svc.image) lines.push(`    image: ${svc.image}`);
+    if (svc.restart && svc.restart !== 'no') lines.push(`    restart: ${svc.restart}`);
+    if (svc.depends_on && svc.depends_on.length > 0) {
+      lines.push(`    depends_on:`);
+      svc.depends_on.forEach(dep => lines.push(`      - ${dep}`));
+    }
+    if (svc.command) lines.push(`    command: ${svc.command}`);
+
+    // Ports
+    const validPorts = svc.ports.filter(p => p.container);
+    if (validPorts.length > 0) {
+      lines.push(`    ports:`);
+      validPorts.forEach(p => {
+        if (p.host) lines.push(`      - "${p.host}:${p.container}"`);
+        else lines.push(`      - "${p.container}"`);
+      });
+    }
+
+    // Env
+    const validEnv = svc.env.filter(e => e.key);
+    if (validEnv.length > 0) {
+      lines.push(`    environment:`);
+      validEnv.forEach(e => {
+        // basic quoting for simple strings with spaces or specials
+        let val = e.val;
+        if (val.includes(' ') || val.includes(':') || val === '') val = `"${val}"`;
+        lines.push(`      - ${e.key}=${val}`);
+      });
+    }
+
+    // Volumes
+    const validVols = svc.volumes.filter(v => v.container);
+    if (validVols.length > 0) {
+      lines.push(`    volumes:`);
+      validVols.forEach(v => {
+        if (v.host) lines.push(`      - ${v.host}:${v.container}`);
+        else lines.push(`      - ${v.container}`);
+      });
+    }
+  });
+
+  // Global Volumes
+  const validGlobalVols = state.volumes.filter(v => v.name);
+  if (validGlobalVols.length > 0) {
+    lines.push(``);
+    lines.push(`volumes:`);
+    validGlobalVols.forEach(v => {
+      lines.push(`  ${v.name}:`);
+    });
+  }
+
+  // Global Networks
+  const validGlobalNets = state.networks.filter(n => n.name);
+  if (validGlobalNets.length > 0) {
+    lines.push(``);
+    lines.push(`networks:`);
+    validGlobalNets.forEach(n => {
+      lines.push(`  ${n.name}:`);
+    });
+  }
+
+  return lines.join('\n');
+}
+
+function highlightYaml(str) {
+  // Simple regex-based syntax highlighter for YAML
+  return str.split('\n').map(line => {
+    // Comments
+    if (line.trim().startsWith('#')) return `<span class="hl-comment">${line}</span>`;
+
+    // Array items
+    if (line.trim().startsWith('- ')) {
+      let rest = line.substring(line.indexOf('- ') + 2);
+      // check if it's env var A=B
+      if (rest.includes('=')) {
+         let parts = rest.split('=');
+         return `${line.substring(0, line.indexOf('- ') + 2)}<span class="hl-key">${parts[0]}</span>=<span class="hl-val">${parts.slice(1).join('=')}</span>`;
+      }
+      return `${line.substring(0, line.indexOf('- ') + 2)}<span class="hl-val">${rest}</span>`;
+    }
+
+    // Key: Value
+    if (line.includes(':')) {
+      let colonIdx = line.indexOf(':');
+      let isTrailing = colonIdx === line.length - 1 || line.substring(colonIdx + 1).trim() === '';
+
+      let keyPart = line.substring(0, colonIdx + 1);
+      let valPart = line.substring(colonIdx + 1);
+
+      let res = `<span class="hl-key">${keyPart}</span>`;
+      if (!isTrailing) {
+         let trimVal = valPart.trim();
+         if (!isNaN(trimVal)) res += `<span class="hl-val-num">${valPart}</span>`;
+         else res += `<span class="hl-val">${valPart}</span>`;
+      }
+      return res;
+    }
+
+    return line;
+  }).join('\n');
+}
+
+init();
+</script>
+
+</body>
+</html>
