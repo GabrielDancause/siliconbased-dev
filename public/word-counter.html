@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word & Character Counter | Free Online Tool</title>
+<meta name="description" content="Count words, characters, sentences, and paragraphs instantly. Get reading time estimates. Free, fast, and works offline.">
+<meta property="og:title" content="Word & Character Counter">
+<meta property="og:description" content="Count words, characters, sentences, and paragraphs instantly. Get reading time estimates. Free, fast, and works offline.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Word & Character Counter",
+  "url": "https://siliconbased.dev/word-counter",
+  "description": "Count words, characters, sentences, and paragraphs instantly. Get reading time estimates.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 1000px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Card */
+.tool-card { background: #111318; border: 1px solid #1e2030; border-radius: 16px; overflow: hidden; margin-bottom: 40px; }
+.tool-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: #13151d; border-bottom: 1px solid #1e2030; flex-wrap: wrap; gap: 12px; }
+.tool-header h3 { font-size: 0.9rem; font-weight: 600; color: #ccc; display: flex; align-items: center; gap: 8px; }
+
+/* Stats Grid */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; padding: 24px; background: #0f1219; border-bottom: 1px solid #1e2030; }
+.stat-box { background: #161822; padding: 16px; border-radius: 12px; border: 1px solid #2a2d40; text-align: center; display: flex; flex-direction: column; gap: 8px; }
+.stat-value { font-family: 'JetBrains Mono', monospace; font-size: 1.8rem; font-weight: 600; color: #818cf8; }
+.stat-label { font-size: 0.8rem; color: #888; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
+
+/* Inputs/Outputs */
+.tool-body { padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+.textarea-wrapper { position: relative; display: flex; flex-direction: column; gap: 8px; }
+.textarea-label { font-size: 0.85rem; font-weight: 600; color: #818cf8; display: flex; justify-content: space-between; }
+
+.input-area { width: 100%; min-height: 240px; background: #0a0b10; border: 1px solid #1e2030; border-radius: 12px; padding: 16px; color: #e0e0e0; font-family: 'Inter', sans-serif; font-size: 1rem; resize: vertical; outline: none; transition: border-color 0.2s; line-height: 1.6; }
+.input-area:focus { border-color: #818cf8; }
+.input-area::placeholder { color: #444; }
+
+/* Actions */
+.actions-row { display: flex; justify-content: flex-end; align-items: center; gap: 16px; flex-wrap: wrap; }
+.btn { background: #1e2030; border: 1px solid #2a2d40; color: #ccc; padding: 10px 20px; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+.btn:hover { background: #2a2d40; color: #fff; }
+.btn-danger { background: rgba(239, 68, 68, 0.1); color: #ef4444; border-color: rgba(239, 68, 68, 0.2); }
+.btn-danger:hover { background: rgba(239, 68, 68, 0.2); border-color: rgba(239, 68, 68, 0.3); }
+.btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .actions-row { flex-direction: column; align-items: stretch; }
+  .btn { justify-content: center; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .stats-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Word & Character Counter</h1>
+  <p>Count words, characters, sentences, and paragraphs instantly.</p>
+</div>
+
+<div class="main">
+  <div class="tool-card">
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-value" id="wordCount">0</div>
+        <div class="stat-label">Words</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value" id="charCount">0</div>
+        <div class="stat-label">Characters</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value" id="charNoSpaceCount">0</div>
+        <div class="stat-label">Chars (no spaces)</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value" id="sentenceCount">0</div>
+        <div class="stat-label">Sentences</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value" id="paragraphCount">0</div>
+        <div class="stat-label">Paragraphs</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value" id="readingTime">0m</div>
+        <div class="stat-label">Reading Time</div>
+      </div>
+    </div>
+
+    <div class="tool-body">
+      <div class="textarea-wrapper">
+        <div class="textarea-label">
+          <span>Input Text</span>
+        </div>
+        <textarea class="input-area" id="inputText" placeholder="Type or paste your text here..." spellcheck="false"></textarea>
+      </div>
+
+      <div class="actions-row">
+        <button class="btn btn-danger" id="clearBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+          Clear
+        </button>
+        <button class="btn" id="copyBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          Copy Text
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>Why Use a Word Counter?</h2>
+    <p>A word counter is an essential tool for writers, students, professionals, and anyone who needs to meet specific text length requirements. Whether you're writing an essay with a strict word limit, crafting a tweet that must fit within a character count, or optimizing an article for SEO, knowing your exact metrics helps ensure your content is perfect.</p>
+
+    <h2>What Metrics Are Tracked?</h2>
+    <ul>
+      <li><strong>Words:</strong> The total number of words in your text. This is calculated by finding groups of characters separated by whitespace.</li>
+      <li><strong>Characters:</strong> The total number of letters, numbers, punctuation marks, and spaces.</li>
+      <li><strong>Characters (no spaces):</strong> The total number of characters excluding spaces and line breaks. Useful for some academic assignments or specific text fields.</li>
+      <li><strong>Sentences:</strong> The number of sentences, identified by periods, exclamation marks, and question marks.</li>
+      <li><strong>Paragraphs:</strong> The number of distinct text blocks separated by line breaks.</li>
+      <li><strong>Reading Time:</strong> An estimate of how long it takes an average adult to read the text silently, based on an average reading speed of 225 words per minute.</li>
+    </ul>
+
+    <h2>Client-Side Processing & Privacy</h2>
+    <p>This Word & Character Counter tool runs entirely in your web browser. When you type or paste text into the input area, the counting and calculations happen locally on your device using JavaScript. Your text is <strong>never</strong> sent to a server, ensuring complete privacy, zero latency, and allowing the tool to work fully offline after the initial page load.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const inputText = document.getElementById('inputText');
+const wordCountEl = document.getElementById('wordCount');
+const charCountEl = document.getElementById('charCount');
+const charNoSpaceCountEl = document.getElementById('charNoSpaceCount');
+const sentenceCountEl = document.getElementById('sentenceCount');
+const paragraphCountEl = document.getElementById('paragraphCount');
+const readingTimeEl = document.getElementById('readingTime');
+const copyBtn = document.getElementById('copyBtn');
+const clearBtn = document.getElementById('clearBtn');
+
+function analyzeText() {
+  const text = inputText.value;
+
+  // Characters
+  const charCount = text.length;
+  charCountEl.textContent = charCount;
+
+  // Characters without spaces
+  const charNoSpaceCount = text.replace(/\s+/g, '').length;
+  charNoSpaceCountEl.textContent = charNoSpaceCount;
+
+  if (charCount === 0) {
+    wordCountEl.textContent = '0';
+    sentenceCountEl.textContent = '0';
+    paragraphCountEl.textContent = '0';
+    readingTimeEl.textContent = '0m';
+    return;
+  }
+
+  // Words
+  // Match groups of word characters, allowing for internal apostrophes or hyphens (like "don't" or "high-speed")
+  const words = text.match(/\b\w+(?:[''-]\w+)*\b/g);
+  const wordCount = words ? words.length : 0;
+  wordCountEl.textContent = wordCount;
+
+  // Sentences
+  // Split by ., !, or ? followed by whitespace or end of string
+  const sentences = text.split(/[.!?]+(?=\s|$)/).filter(s => s.trim().length > 0);
+  sentenceCountEl.textContent = sentences.length;
+
+  // Paragraphs
+  // Split by one or more newlines
+  const paragraphs = text.split(/\n+/).filter(p => p.trim().length > 0);
+  paragraphCountEl.textContent = paragraphs.length;
+
+  // Reading Time (assumes ~225 words per minute)
+  const wordsPerMinute = 225;
+  const minutes = Math.ceil(wordCount / wordsPerMinute);
+  // If it's less than 1 minute but there are words, show "< 1m" or "1m". Let's show "1m" minimum if there are words.
+  if (wordCount > 0 && minutes === 0) {
+      readingTimeEl.textContent = '1m';
+  } else {
+      readingTimeEl.textContent = minutes + 'm';
+  }
+}
+
+inputText.addEventListener('input', analyzeText);
+
+clearBtn.addEventListener('click', () => {
+  inputText.value = '';
+  analyzeText();
+  inputText.focus();
+});
+
+copyBtn.addEventListener('click', () => {
+  const text = inputText.value;
+  if (!text) return;
+  navigator.clipboard.writeText(text).then(() => {
+    const originalHtml = copyBtn.innerHTML;
+    copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+    copyBtn.classList.add('copied');
+    setTimeout(() => {
+      copyBtn.innerHTML = originalHtml;
+      copyBtn.classList.remove('copied');
+    }, 2000);
+  });
+});
+
+// Initial analysis
+analyzeText();
+</script>
+</body>
+</html>
