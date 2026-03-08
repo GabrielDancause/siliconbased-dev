@@ -118,6 +118,9 @@ code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
         <label class="option-label" id="batchLabel">
           <input type="checkbox" id="batchOpt"> Batch Mode (Process line-by-line)
         </label>
+        <label class="option-label" id="doubleLabel">
+          <input type="checkbox" id="doubleOpt"> Double Encode/Decode
+        </label>
       </div>
     </div>
 
@@ -196,6 +199,7 @@ const copyBtn = document.getElementById('copyBtn');
 const encodeTypeOpt = document.getElementById('encodeTypeOpt');
 const encodeTypeLabel = document.getElementById('encodeTypeLabel');
 const batchOpt = document.getElementById('batchOpt');
+const doubleOpt = document.getElementById('doubleOpt');
 const errorMsg = document.getElementById('errorMsg');
 
 let currentMode = 'encode'; // 'encode' or 'decode'
@@ -216,19 +220,25 @@ function showError(show, message = "Invalid input string.") {
   }
 }
 
-function processLine(line, isEncode, useFullUrlEncode) {
+function processLine(line, isEncode, useFullUrlEncode, useDouble) {
     if (!line) return '';
     try {
-        if (isEncode) {
-            return useFullUrlEncode ? encodeURI(line) : encodeURIComponent(line);
-        } else {
-            // decodeURIComponent handles both, but if it fails, try decodeURI
-            try {
-                return decodeURIComponent(line.replace(/\+/g, '%20')); // Handle + as space
-            } catch (e) {
-                 return decodeURI(line.replace(/\+/g, '%20'));
+        let result = line;
+        const iterations = useDouble ? 2 : 1;
+
+        for (let i = 0; i < iterations; i++) {
+            if (isEncode) {
+                result = useFullUrlEncode ? encodeURI(result) : encodeURIComponent(result);
+            } else {
+                // decodeURIComponent handles both, but if it fails, try decodeURI
+                try {
+                    result = decodeURIComponent(result.replace(/\+/g, '%20')); // Handle + as space
+                } catch (e) {
+                     result = decodeURI(result.replace(/\+/g, '%20'));
+                }
             }
         }
+        return result;
     } catch (e) {
         throw new Error(`Failed to process: ${line}`);
     }
@@ -246,15 +256,16 @@ function process() {
 
   const isBatch = batchOpt.checked;
   const useFullUrlEncode = encodeTypeOpt.checked;
+  const useDouble = doubleOpt.checked;
   const isEncode = currentMode === 'encode';
 
   try {
       if (isBatch) {
           const lines = text.split('\n');
-          const results = lines.map(line => processLine(line, isEncode, useFullUrlEncode));
+          const results = lines.map(line => processLine(line, isEncode, useFullUrlEncode, useDouble));
           outputText.value = results.join('\n');
       } else {
-          outputText.value = processLine(text, isEncode, useFullUrlEncode);
+          outputText.value = processLine(text, isEncode, useFullUrlEncode, useDouble);
       }
   } catch (e) {
       console.error(e);
@@ -311,6 +322,7 @@ inputText.addEventListener('input', () => {
 
 encodeTypeOpt.addEventListener('change', process);
 batchOpt.addEventListener('change', process);
+doubleOpt.addEventListener('change', process);
 processBtn.addEventListener('click', process);
 
 // Copy
