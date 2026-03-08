@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aspect Ratio Calculator</title>
+<meta name="description" content="Free online Aspect Ratio Calculator. Calculate dimensions, resize images and video, and find common aspect ratios like 16:9, 4:3, and 1:1.">
+<meta property="og:title" content="Aspect Ratio Calculator">
+<meta property="og:description" content="Free online Aspect Ratio Calculator. Calculate dimensions, resize images and video, and find common aspect ratios like 16:9, 4:3, and 1:1.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Aspect Ratio Calculator",
+  "url": "https://siliconbased.dev/aspect-ratio-calc",
+  "description": "Calculate aspect ratios, resize dimensions for video, photo, and screens.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 900px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Mode Tabs */
+.tabs { display: flex; justify-content: center; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
+.tab-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 10px 24px; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; }
+.tab-btn:hover { background: #2a2d40; color: #ccc; }
+.tab-btn.active { background: #818cf8; color: #fff; border-color: #818cf8; box-shadow: 0 4px 12px rgba(129, 140, 248, 0.2); }
+
+/* Card */
+.tool-card { background: #111318; border: 1px solid #1e2030; border-radius: 16px; overflow: hidden; margin-bottom: 40px; }
+.tool-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: #13151d; border-bottom: 1px solid #1e2030; flex-wrap: wrap; gap: 12px; }
+.tool-header h3 { font-size: 0.9rem; font-weight: 600; color: #ccc; display: flex; align-items: center; gap: 8px; }
+
+/* Custom Form Controls */
+.form-group { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 150px; }
+.form-label { font-size: 0.85rem; font-weight: 600; color: #818cf8; }
+.form-control { background: #0a0b10; border: 1px solid #1e2030; color: #e0e0e0; font-family: 'Inter', sans-serif; font-size: 0.95rem; padding: 10px 14px; border-radius: 8px; outline: none; transition: border-color 0.2s; width: 100%; }
+.form-control:focus { border-color: #818cf8; }
+.form-control.mono { font-family: 'JetBrains Mono', monospace; }
+.controls-row { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+
+/* Specific UI Elements */
+.tool-body { padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+.divider { display: flex; align-items: center; text-align: center; color: #888; font-size: 0.85rem; margin: 10px 0; }
+.divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid #1e2030; }
+.divider:not(:empty)::before { margin-right: 16px; }
+.divider:not(:empty)::after { margin-left: 16px; }
+
+.preset-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; }
+.preset-btn { background: #13151d; border: 1px solid #1e2030; color: #ccc; padding: 12px; border-radius: 8px; font-size: 0.9rem; font-family: 'Inter', sans-serif; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.preset-btn:hover { background: #1e2030; border-color: #818cf8; color: #fff; }
+.preset-btn .ratio { font-weight: 700; color: #e0e0e0; }
+.preset-btn .desc { font-size: 0.75rem; color: #888; }
+
+.checkbox-group { display: flex; align-items: center; gap: 8px; }
+.checkbox-group input[type="checkbox"] { appearance: none; width: 18px; height: 18px; background: #0a0b10; border: 1px solid #1e2030; border-radius: 4px; cursor: pointer; display: grid; place-content: center; transition: all 0.2s; }
+.checkbox-group input[type="checkbox"]::before { content: ""; width: 10px; height: 10px; box-shadow: inset 1em 1em #fff; background-color: #fff; transform-origin: bottom left; clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%); transform: scale(0); transition: 120ms transform ease-in-out; }
+.checkbox-group input[type="checkbox"]:checked { background: #818cf8; border-color: #818cf8; }
+.checkbox-group input[type="checkbox"]:checked::before { transform: scale(1); }
+.checkbox-group label { font-size: 0.85rem; color: #ccc; cursor: pointer; user-select: none; }
+
+.output-area { background: #13151d; border: 1px solid #1e2030; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+.output-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e2030; padding-bottom: 12px; }
+.output-row:last-child { border-bottom: none; padding-bottom: 0; }
+.output-label { font-size: 0.9rem; color: #888; }
+.output-value { font-size: 1.1rem; font-weight: 700; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; }
+
+/* Actions */
+.actions-row { display: flex; justify-content: flex-end; align-items: center; gap: 16px; flex-wrap: wrap; }
+.btn { background: #1e2030; border: 1px solid #2a2d40; color: #ccc; padding: 10px 20px; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+.btn:hover { background: #2a2d40; color: #fff; }
+.btn-primary { background: #818cf8; color: #fff; border-color: #818cf8; }
+.btn-primary:hover { background: #6366f1; border-color: #6366f1; }
+.btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .actions-row { flex-direction: column; align-items: stretch; }
+  .btn { justify-content: center; }
+  .tool-header { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Aspect Ratio <span>Calculator</span></h1>
+  <p>Calculate aspect ratios, resize dimensions. Video, photo, screen presets.</p>
+</div>
+
+<div class="main">
+  <div class="tabs">
+    <button class="tab-btn active" id="tabCalculate">Calculate Dimensions</button>
+    <button class="tab-btn" id="tabPresets">Common Presets</button>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <h3 id="modeTitle">Calculate Aspect Ratio</h3>
+    </div>
+
+    <!-- Calculate Mode -->
+    <div class="tool-body" id="viewCalculate">
+      <div class="controls-row">
+        <div class="form-group">
+          <label class="form-label" for="origW">Original Width (W1)</label>
+          <input type="number" class="form-control mono" id="origW" value="1920" min="1" placeholder="Width">
+        </div>
+        <div class="form-group" style="flex: 0 0 auto; display: flex; align-items: center; justify-content: center; padding-top: 24px;">
+          <span style="color: #888; font-weight: bold; font-size: 1.2rem;">:</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="origH">Original Height (H1)</label>
+          <input type="number" class="form-control mono" id="origH" value="1080" min="1" placeholder="Height">
+        </div>
+      </div>
+
+      <div class="divider">Resize / Scale</div>
+
+      <div class="controls-row" style="margin-bottom: 0;">
+        <div class="form-group">
+          <label class="form-label" for="newW">New Width (W2)</label>
+          <input type="number" class="form-control mono" id="newW" value="1280" min="1" placeholder="Width">
+        </div>
+        <div class="form-group" style="flex: 0 0 auto; display: flex; align-items: center; justify-content: center; padding-top: 24px;">
+          <div class="checkbox-group">
+            <input type="checkbox" id="lockRatio" checked>
+            <label for="lockRatio" title="Lock aspect ratio">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: -4px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="newH">New Height (H2)</label>
+          <input type="number" class="form-control mono" id="newH" value="720" min="1" placeholder="Height">
+        </div>
+      </div>
+
+      <div class="output-area" style="margin-top: 20px;">
+        <div class="output-row">
+          <span class="output-label">Aspect Ratio</span>
+          <span class="output-value" id="outRatio">16:9</span>
+        </div>
+        <div class="output-row">
+          <span class="output-label">Decimal Value</span>
+          <span class="output-value" id="outDecimal">1.7778</span>
+        </div>
+        <div class="output-row">
+          <span class="output-label">New Resolution</span>
+          <span class="output-value" id="outResolution">1280 x 720</span>
+        </div>
+      </div>
+
+      <div class="actions-row">
+        <button class="btn" id="copyBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          Copy Dimensions
+        </button>
+      </div>
+    </div>
+
+    <!-- Presets Mode -->
+    <div class="tool-body" id="viewPresets" style="display: none;">
+      <h4 style="color: #e0e0e0; font-size: 0.95rem; margin-bottom: 4px;">Standard Video & Screen</h4>
+      <div class="preset-grid" id="gridVideo">
+        <!-- JS populates -->
+      </div>
+
+      <h4 style="color: #e0e0e0; font-size: 0.95rem; margin-top: 16px; margin-bottom: 4px;">Photography & Print</h4>
+      <div class="preset-grid" id="gridPhoto">
+         <!-- JS populates -->
+      </div>
+
+      <h4 style="color: #e0e0e0; font-size: 0.95rem; margin-top: 16px; margin-bottom: 4px;">Social Media</h4>
+      <div class="preset-grid" id="gridSocial">
+         <!-- JS populates -->
+      </div>
+    </div>
+
+  </div>
+
+  <div class="seo-content">
+    <h2>What is an Aspect Ratio?</h2>
+    <p>An aspect ratio is the proportional relationship between the width and the height of an image, screen, or video. It is typically written as two numbers separated by a colon (e.g., <code>16:9</code>). The first number always represents the width, and the second number represents the height. Understanding aspect ratios is crucial for ensuring that your visuals are displayed correctly without being stretched, squished, or cropped unexpectedly across different devices and platforms.</p>
+
+    <h2>Common Aspect Ratios</h2>
+    <ul>
+      <li><strong>16:9 (Standard Widescreen):</strong> The default aspect ratio for modern HDTVs, YouTube videos, and most computer monitors.</li>
+      <li><strong>4:3 (Classic TV / Photography):</strong> Common in older CRT televisions, some tablets (like the iPad), and standard photography formats.</li>
+      <li><strong>1:1 (Square):</strong> Popularized by Instagram, it is perfect for profile pictures and social media grid posts.</li>
+      <li><strong>9:16 (Vertical Video):</strong> The standard for mobile-first content, including TikTok, Instagram Reels, and YouTube Shorts.</li>
+      <li><strong>21:9 (Ultrawide / Cinematic):</strong> Used primarily for cinematic film formats and ultra-wide gaming monitors.</li>
+    </ul>
+
+    <h2>How to Use This Calculator</h2>
+    <p>This tool allows you to easily calculate new dimensions while maintaining the original proportions. Simply enter your original width and height (or select a common preset from the tabs). Then, toggle the "Lock aspect ratio" checkbox. When you change the New Width, the New Height will automatically update to keep the original proportions intact. This is entirely client-side, ensuring your data remains private and the tool works perfectly offline.</p>
+  </div>
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+<script>
+// Elements
+const tabCalculate = document.getElementById('tabCalculate');
+const tabPresets = document.getElementById('tabPresets');
+const modeTitle = document.getElementById('modeTitle');
+const viewCalculate = document.getElementById('viewCalculate');
+const viewPresets = document.getElementById('viewPresets');
+
+const origW = document.getElementById('origW');
+const origH = document.getElementById('origH');
+const newW = document.getElementById('newW');
+const newH = document.getElementById('newH');
+const lockRatio = document.getElementById('lockRatio');
+
+const outRatio = document.getElementById('outRatio');
+const outDecimal = document.getElementById('outDecimal');
+const outResolution = document.getElementById('outResolution');
+const copyBtn = document.getElementById('copyBtn');
+
+// Presets Data
+const presets = {
+  video: [
+    { r: '16:9', d: 'Standard Widescreen', w: 1920, h: 1080 },
+    { r: '21:9', d: 'Cinematic Widescreen', w: 2560, h: 1080 },
+    { r: '4:3', d: 'Classic TV / iPad', w: 1024, h: 768 },
+    { r: '3:2', d: 'Laptops / Tablets', w: 2160, h: 1440 }
+  ],
+  photo: [
+    { r: '3:2', d: '35mm Film / DSLR', w: 1800, h: 1200 },
+    { r: '4:3', d: 'Compact Cameras', w: 1600, h: 1200 },
+    { r: '1:1', d: 'Square / Polaroids', w: 1080, h: 1080 },
+    { r: '5:4', d: 'Large Format', w: 1500, h: 1200 }
+  ],
+  social: [
+    { r: '9:16', d: 'Stories / Reels', w: 1080, h: 1920 },
+    { r: '4:5', d: 'Instagram Portrait', w: 1080, h: 1350 },
+    { r: '1:1', d: 'Instagram Square', w: 1080, h: 1080 },
+    { r: '1.91:1', d: 'Facebook Link', w: 1200, h: 630 }
+  ]
+};
+
+// Math utilities
+function gcd(a, b) {
+  return b === 0 ? a : gcd(b, a % b);
+}
+
+function calculateOutputs() {
+  const w1 = parseFloat(origW.value) || 0;
+  const h1 = parseFloat(origH.value) || 0;
+  const w2 = parseFloat(newW.value) || 0;
+  const h2 = parseFloat(newH.value) || 0;
+
+  if (w1 > 0 && h1 > 0) {
+    const dec = w1 / h1;
+    outDecimal.textContent = dec.toFixed(4);
+
+    // Calc simple ratio
+    const divisor = gcd(w1, h1);
+    let rw = w1 / divisor;
+    let rh = h1 / divisor;
+
+    // Hardcode specific decimal ratios like 1.91:1
+    if (Math.abs(dec - (1.91/1)) < 0.01) { rw = 1.91; rh = 1; }
+
+    // Prevent absurdly large ratio numbers
+    if (rw > 100 || rh > 100) {
+      outRatio.textContent = 'Custom';
+    } else {
+      outRatio.textContent = `${rw}:${rh}`;
+    }
+  } else {
+    outRatio.textContent = '-';
+    outDecimal.textContent = '-';
+  }
+
+  outResolution.textContent = `${w2} x ${h2}`;
+}
+
+// Logic flags
+let isUpdating = false;
+
+function onOrigChange() {
+  if (isUpdating) return;
+  isUpdating = true;
+  const w1 = parseFloat(origW.value);
+  const h1 = parseFloat(origH.value);
+
+  if (w1 > 0 && h1 > 0 && lockRatio.checked) {
+    const ratio = w1 / h1;
+    const cw = parseFloat(newW.value);
+    if (cw > 0) {
+      newH.value = Math.round(cw / ratio);
+    }
+  }
+  calculateOutputs();
+  isUpdating = false;
+}
+
+function onNewWChange() {
+  if (isUpdating) return;
+  isUpdating = true;
+  const cw = parseFloat(newW.value);
+  const w1 = parseFloat(origW.value);
+  const h1 = parseFloat(origH.value);
+
+  if (cw > 0 && w1 > 0 && h1 > 0 && lockRatio.checked) {
+    const ratio = w1 / h1;
+    newH.value = Math.round(cw / ratio);
+  }
+  calculateOutputs();
+  isUpdating = false;
+}
+
+function onNewHChange() {
+  if (isUpdating) return;
+  isUpdating = true;
+  const ch = parseFloat(newH.value);
+  const w1 = parseFloat(origW.value);
+  const h1 = parseFloat(origH.value);
+
+  if (ch > 0 && w1 > 0 && h1 > 0 && lockRatio.checked) {
+    const ratio = w1 / h1;
+    newW.value = Math.round(ch * ratio);
+  }
+  calculateOutputs();
+  isUpdating = false;
+}
+
+// Populate Presets
+function populatePresets(containerId, data) {
+  const container = document.getElementById(containerId);
+  data.forEach(item => {
+    const btn = document.createElement('button');
+    btn.className = 'preset-btn';
+    btn.innerHTML = `<span class="ratio">${item.r}</span><span class="desc">${item.d}</span>`;
+    btn.addEventListener('click', () => {
+      // Switch to Calculate tab and apply
+      tabCalculate.click();
+      origW.value = item.w;
+      origH.value = item.h;
+      if (lockRatio.checked) {
+        onOrigChange(); // trigger update
+      } else {
+        newW.value = item.w;
+        newH.value = item.h;
+        calculateOutputs();
+      }
+    });
+    container.appendChild(btn);
+  });
+}
+
+// Event Listeners
+origW.addEventListener('input', onOrigChange);
+origH.addEventListener('input', onOrigChange);
+newW.addEventListener('input', onNewWChange);
+newH.addEventListener('input', onNewHChange);
+
+tabCalculate.addEventListener('click', () => {
+  tabCalculate.classList.add('active');
+  tabPresets.classList.remove('active');
+  viewCalculate.style.display = 'block';
+  viewPresets.style.display = 'none';
+  modeTitle.textContent = 'Calculate Aspect Ratio';
+});
+
+tabPresets.addEventListener('click', () => {
+  tabPresets.classList.add('active');
+  tabCalculate.classList.remove('active');
+  viewPresets.style.display = 'block';
+  viewCalculate.style.display = 'none';
+  modeTitle.textContent = 'Common Aspect Ratios';
+});
+
+copyBtn.addEventListener('click', () => {
+  const txt = `${newW.value} x ${newH.value}`;
+  navigator.clipboard.writeText(txt).then(() => {
+    const originalHTML = copyBtn.innerHTML;
+    copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+    copyBtn.classList.add('copied');
+    setTimeout(() => {
+      copyBtn.innerHTML = originalHTML;
+      copyBtn.classList.remove('copied');
+    }, 2000);
+  });
+});
+
+// Init
+populatePresets('gridVideo', presets.video);
+populatePresets('gridPhoto', presets.photo);
+populatePresets('gridSocial', presets.social);
+calculateOutputs();
+</script>
+</body>
+</html>
