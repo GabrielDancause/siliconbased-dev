@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Border Radius Generator — Visual Editor & Code Export</title>
+<meta name="description" content="Design beautiful CSS border radii visually. Control individual corners for complex shapes. Generates standard CSS code instantly.">
+<meta property="og:title" content="CSS Border Radius Generator">
+<meta property="og:description" content="Design beautiful CSS border radii visually. Control individual corners for complex shapes. Generates standard CSS code instantly.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "CSS Border Radius Generator",
+  "url": "https://siliconbased.dev/border-radius",
+  "description": "Interactive visual tool to generate CSS border-radius rules with individual corner controls.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+.hero { text-align: center; padding: 48px 24px 24px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.4rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+
+.main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+.tool-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 40px; align-items: start; }
+@media (min-width: 900px) {
+  .tool-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.pane { display: flex; flex-direction: column; background: #111318; border: 1px solid #1e2030; border-radius: 12px; padding: 20px; }
+.pane-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #1e2030; }
+.header-title { font-size: 0.95rem; font-weight: 600; color: #ccc; }
+
+/* Preview */
+.preview-container { display: flex; align-items: center; justify-content: center; background: #0a0b10; border: 1px solid #1e2030; border-radius: 8px; min-height: 300px; margin-bottom: 24px; overflow: hidden; position: relative; }
+.preview-box { width: 160px; height: 160px; background: #818cf8; border-radius: 0px; transition: border-radius 0.1s; }
+
+/* Controls */
+.control-group { margin-bottom: 16px; }
+.control-header { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.85rem; color: #ccc; align-items: center; }
+.control-header label { font-weight: 500; }
+.value-input-wrap { display: flex; align-items: center; gap: 4px; }
+.value-input { background: #0a0b10; border: 1px solid #1e2030; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; padding: 4px 8px; border-radius: 6px; font-size: 0.85rem; width: 60px; text-align: right; outline: none; }
+.value-input:focus { border-color: #818cf8; }
+.unit-select { background: #0a0b10; border: 1px solid #1e2030; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; padding: 4px; border-radius: 6px; font-size: 0.85rem; outline: none; cursor: pointer; }
+.unit-select:focus { border-color: #818cf8; }
+
+input[type="range"] { width: 100%; accent-color: #818cf8; cursor: pointer; margin-top: 4px; }
+
+/* Quick Actions */
+.quick-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 24px; }
+.btn { background: #1e2030; border: 1px solid #2a2d40; color: #e0e0e0; padding: 8px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.btn:hover { background: #2a2d40; }
+.btn-primary { background: #818cf8; color: #fff; border-color: #818cf8; }
+.btn-primary:hover { background: #6366f1; }
+
+.copy-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 6px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.copy-btn:hover { background: #2a2d40; color: #ccc; }
+.copy-btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+/* CSS Output */
+.code-area { width: 100%; min-height: 80px; background: #0a0b10; border: 1px solid #1e2030; border-radius: 8px; padding: 12px; color: #818cf8; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; resize: vertical; outline: none; line-height: 1.5; }
+.code-area:focus { border-color: #818cf8; }
+
+/* Misc inputs */
+.toggle-wrap { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #ccc; cursor: pointer; user-select: none; margin-bottom: 24px; }
+.toggle-wrap input[type="checkbox"] { accent-color: #818cf8; width: 16px; height: 16px; cursor: pointer; }
+
+/* Global overrides for tool settings */
+.global-settings { margin-top: 24px; padding-top: 16px; border-top: 1px solid #1e2030; }
+.settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.setting-item { display: flex; flex-direction: column; gap: 8px; }
+.setting-item label { font-size: 0.8rem; color: #888; }
+.setting-item input[type="color"] { -webkit-appearance: none; border: none; width: 100%; height: 32px; border-radius: 4px; cursor: pointer; padding: 0; background: none; }
+.setting-item input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+.setting-item input[type="color"]::-webkit-color-swatch { border: 1px solid #444; border-radius: 4px; }
+
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Control grids inside left pane */
+.corners-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>CSS Border Radius Generator <span>🔲</span></h1>
+  <p>Design multi-corner border radii visually and copy the CSS instantly.</p>
+</div>
+
+<div class="main">
+
+  <div class="tool-grid">
+    <!-- Left Pane: Controls -->
+    <div class="pane">
+      <div class="pane-header">
+        <div class="header-title">Radius Controls</div>
+      </div>
+
+      <label class="toggle-wrap">
+        <input type="checkbox" id="syncCorners" checked>
+        Sync All Corners
+      </label>
+
+      <div class="quick-actions">
+        <button class="btn" id="btnPill">Pill Shape</button>
+        <button class="btn" id="btnCircle">Circle</button>
+        <button class="btn" id="btnReset">Reset</button>
+      </div>
+
+      <div class="corners-grid">
+        <!-- Top Left -->
+        <div class="control-group">
+          <div class="control-header">
+            <label>Top Left</label>
+            <div class="value-input-wrap">
+              <input type="number" class="value-input" id="tlVal" value="0">
+              <select class="unit-select" id="tlUnit">
+                <option value="px" selected>px</option>
+                <option value="%">%</option>
+                <option value="rem">rem</option>
+                <option value="em">em</option>
+              </select>
+            </div>
+          </div>
+          <input type="range" id="tlRange" min="0" max="150" value="0">
+        </div>
+
+        <!-- Top Right -->
+        <div class="control-group">
+          <div class="control-header">
+            <label>Top Right</label>
+            <div class="value-input-wrap">
+              <input type="number" class="value-input" id="trVal" value="0">
+              <select class="unit-select" id="trUnit">
+                <option value="px" selected>px</option>
+                <option value="%">%</option>
+                <option value="rem">rem</option>
+                <option value="em">em</option>
+              </select>
+            </div>
+          </div>
+          <input type="range" id="trRange" min="0" max="150" value="0">
+        </div>
+
+        <!-- Bottom Right -->
+        <div class="control-group">
+          <div class="control-header">
+            <label>Bottom Right</label>
+            <div class="value-input-wrap">
+              <input type="number" class="value-input" id="brVal" value="0">
+              <select class="unit-select" id="brUnit">
+                <option value="px" selected>px</option>
+                <option value="%">%</option>
+                <option value="rem">rem</option>
+                <option value="em">em</option>
+              </select>
+            </div>
+          </div>
+          <input type="range" id="brRange" min="0" max="150" value="0">
+        </div>
+
+        <!-- Bottom Left -->
+        <div class="control-group">
+          <div class="control-header">
+            <label>Bottom Left</label>
+            <div class="value-input-wrap">
+              <input type="number" class="value-input" id="blVal" value="0">
+              <select class="unit-select" id="blUnit">
+                <option value="px" selected>px</option>
+                <option value="%">%</option>
+                <option value="rem">rem</option>
+                <option value="em">em</option>
+              </select>
+            </div>
+          </div>
+          <input type="range" id="blRange" min="0" max="150" value="0">
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Pane: Preview & Output -->
+    <div class="pane">
+      <div class="pane-header">
+        <div class="header-title">Preview</div>
+      </div>
+
+      <div class="preview-container" id="previewContainer">
+        <div class="preview-box" id="previewBox"></div>
+      </div>
+
+      <div class="global-settings">
+        <div class="settings-grid">
+          <div class="setting-item">
+            <label>Box Color</label>
+            <input type="color" id="boxColorPicker" value="#818cf8">
+          </div>
+          <div class="setting-item">
+            <label>Background Color</label>
+            <input type="color" id="bgColorPicker" value="#0a0b10">
+          </div>
+        </div>
+      </div>
+
+      <div class="pane-header" style="margin-top: 24px;">
+        <div class="header-title">CSS Output</div>
+        <button class="copy-btn" id="copyBtn">Copy</button>
+      </div>
+      <textarea id="cssOutput" class="code-area" readonly spellcheck="false"></textarea>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>What is CSS Border Radius?</h2>
+    <p>The <code>border-radius</code> CSS property rounds the corners of an element's outer border edge. You can set a single radius to make circular corners, or two radii to make elliptical corners. It works seamlessly even when the element has no border defined, directly rounding the element's background and clipped content.</p>
+
+    <h2>How to Use Individual Corner Radii</h2>
+    <p>Using multiple values for <code>border-radius</code> allows you to create highly stylized elements such as message bubbles, custom buttons, and complex geometric shapes. You can define the radius of each corner independently:</p>
+    <ul>
+      <li><strong>1 value:</strong> <code>border-radius: 10px;</code> applies to all four corners.</li>
+      <li><strong>2 values:</strong> <code>border-radius: 10px 50px;</code> applies to top-left & bottom-right (first value), and top-right & bottom-left (second value).</li>
+      <li><strong>3 values:</strong> <code>border-radius: 10px 50px 20px;</code> applies to top-left, top-right & bottom-left, and bottom-right.</li>
+      <li><strong>4 values:</strong> <code>border-radius: 10px 50px 20px 5px;</code> applies in clockwise order starting from top-left: top-left, top-right, bottom-right, bottom-left.</li>
+    </ul>
+
+    <h2>Browser Compatibility</h2>
+    <p>The <code>border-radius</code> property is universally supported in all modern browsers, including Chrome, Firefox, Safari, and Edge. Generating standard CSS with this tool ensures cross-browser compatibility without needing vendor prefixes like <code>-webkit-</code> or <code>-moz-</code>.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+// State
+const corners = {
+  tl: { val: 0, unit: 'px' },
+  tr: { val: 0, unit: 'px' },
+  br: { val: 0, unit: 'px' },
+  bl: { val: 0, unit: 'px' }
+};
+
+// Elements
+const syncToggle = document.getElementById('syncCorners');
+const previewBox = document.getElementById('previewBox');
+const cssOutput = document.getElementById('cssOutput');
+const copyBtn = document.getElementById('copyBtn');
+
+const boxColorPicker = document.getElementById('boxColorPicker');
+const bgColorPicker = document.getElementById('bgColorPicker');
+const previewContainer = document.getElementById('previewContainer');
+
+const btnPill = document.getElementById('btnPill');
+const btnCircle = document.getElementById('btnCircle');
+const btnReset = document.getElementById('btnReset');
+
+// Elements maps
+const els = {
+  tl: { range: document.getElementById('tlRange'), input: document.getElementById('tlVal'), select: document.getElementById('tlUnit') },
+  tr: { range: document.getElementById('trRange'), input: document.getElementById('trVal'), select: document.getElementById('trUnit') },
+  br: { range: document.getElementById('brRange'), input: document.getElementById('brVal'), select: document.getElementById('brUnit') },
+  bl: { range: document.getElementById('blRange'), input: document.getElementById('blVal'), select: document.getElementById('blUnit') }
+};
+
+// Ranges mappings for units
+const unitMax = {
+  'px': 150,
+  '%': 50,
+  'rem': 10,
+  'em': 10
+};
+
+// Update CSS String
+function updateCSS() {
+  let cssStr = '';
+
+  // Format individual corner values
+  const formatVal = (c) => {
+    if (corners[c].val === 0) return '0';
+    return `${corners[c].val}${corners[c].unit}`;
+  };
+
+  const tlv = formatVal('tl');
+  const trv = formatVal('tr');
+  const brv = formatVal('br');
+  const blv = formatVal('bl');
+
+  if (syncToggle.checked) {
+    if (tlv === '0') {
+      cssStr = 'border-radius: 0;';
+    } else {
+      cssStr = `border-radius: ${tlv};`;
+    }
+  } else {
+    // Determine the most concise shorthand
+    if (tlv === trv && trv === brv && brv === blv) {
+        cssStr = `border-radius: ${tlv};`;
+    } else if (tlv === brv && trv === blv) {
+        cssStr = `border-radius: ${tlv} ${trv};`;
+    } else if (trv === blv) {
+        cssStr = `border-radius: ${tlv} ${trv} ${brv};`;
+    } else {
+        cssStr = `border-radius: ${tlv} ${trv} ${brv} ${blv};`;
+    }
+  }
+
+  cssOutput.value = cssStr;
+  previewBox.style.borderRadius = cssStr.replace('border-radius: ', '').replace(';', '');
+}
+
+// Update specific corner UI
+function updateCornerUI(c) {
+  if (document.activeElement !== els[c].input) els[c].input.value = corners[c].val;
+  els[c].range.value = corners[c].val;
+  els[c].select.value = corners[c].unit;
+
+  // Adjust range max based on unit
+  els[c].range.max = unitMax[corners[c].unit];
+}
+
+// Handle value change
+function handleValueChange(c, val, unitStr, source) {
+  let v = parseFloat(val) || 0;
+
+  // Enforce bounds based on unit if from range
+  if (source === 'range') {
+    v = Math.min(Math.max(v, 0), unitMax[unitStr]);
+  } else if (source === 'input') {
+     v = Math.max(v, 0); // No max limit on manual input
+  }
+
+  corners[c].val = v;
+  corners[c].unit = unitStr;
+
+  if (syncToggle.checked && c === 'tl') {
+    // Automatically apply TL unit to others if syncing
+    ['tr', 'br', 'bl'].forEach(corner => {
+      corners[corner].val = v;
+      corners[corner].unit = unitStr;
+      updateCornerUI(corner);
+    });
+  }
+
+  updateCornerUI(c);
+  updateCSS();
+}
+
+// Handle sync logic specifically when other inputs are touched
+function checkSyncState(c) {
+    if (syncToggle.checked && c !== 'tl') {
+        // Uncheck sync if user changes a non-TL value
+        syncToggle.checked = false;
+    }
+}
+
+// Bind event listeners
+Object.keys(els).forEach(c => {
+  els[c].range.oninput = (e) => {
+      checkSyncState(c);
+      handleValueChange(c, e.target.value, corners[c].unit, 'range');
+  };
+  els[c].input.oninput = (e) => {
+      checkSyncState(c);
+      handleValueChange(c, e.target.value, corners[c].unit, 'input');
+  };
+  els[c].select.onchange = (e) => {
+    checkSyncState(c);
+    corners[c].unit = e.target.value;
+    els[c].range.max = unitMax[corners[c].unit];
+    handleValueChange(c, corners[c].val, corners[c].unit, 'select');
+  };
+});
+
+// Sync toggle logic
+syncToggle.onchange = (e) => {
+  if (e.target.checked) {
+    // Sync to Top Left values
+    ['tr', 'br', 'bl'].forEach(corner => {
+      corners[corner].val = corners.tl.val;
+      corners[corner].unit = corners.tl.unit;
+      updateCornerUI(corner);
+    });
+    updateCSS();
+  }
+};
+
+// Global Settings
+boxColorPicker.oninput = (e) => {
+  previewBox.style.background = e.target.value;
+};
+
+bgColorPicker.oninput = (e) => {
+  previewContainer.style.background = e.target.value;
+};
+
+// Quick Actions
+btnPill.onclick = () => {
+    syncToggle.checked = true;
+    corners.tl = { val: 50, unit: 'px' };
+    ['tr', 'br', 'bl'].forEach(corner => {
+      corners[corner] = { val: 50, unit: 'px' };
+    });
+    Object.keys(els).forEach(c => updateCornerUI(c));
+    updateCSS();
+};
+btnCircle.onclick = () => {
+    syncToggle.checked = true;
+    corners.tl = { val: 50, unit: '%' };
+    ['tr', 'br', 'bl'].forEach(corner => {
+      corners[corner] = { val: 50, unit: '%' };
+    });
+    Object.keys(els).forEach(c => updateCornerUI(c));
+    updateCSS();
+};
+btnReset.onclick = () => {
+    syncToggle.checked = true;
+    corners.tl = { val: 0, unit: 'px' };
+    ['tr', 'br', 'bl'].forEach(corner => {
+      corners[corner] = { val: 0, unit: 'px' };
+    });
+    Object.keys(els).forEach(c => updateCornerUI(c));
+    updateCSS();
+};
+
+// Copy Button
+copyBtn.addEventListener('click', () => {
+  if (!cssOutput.value) return;
+  navigator.clipboard.writeText(cssOutput.value).then(() => {
+    const originalText = copyBtn.innerHTML;
+    copyBtn.innerHTML = '✓ Copied';
+    copyBtn.classList.add('copied');
+    setTimeout(() => {
+      copyBtn.innerHTML = originalText;
+      copyBtn.classList.remove('copied');
+    }, 1500);
+  });
+});
+
+// Init
+Object.keys(els).forEach(c => updateCornerUI(c));
+updateCSS();
+
+</script>
+</body>
+</html>
