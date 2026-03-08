@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timestamp Converter | Free Online Tool</title>
+<meta name="description" content="Convert Unix timestamps, ISO 8601, and RFC 2822 dates across multiple timezones instantly. Free, client-side, and works offline.">
+<meta property="og:title" content="Timestamp Converter">
+<meta property="og:description" content="Convert Unix timestamps, ISO 8601, and RFC 2822 dates across multiple timezones instantly. Free, client-side, and works offline.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Timestamp Converter",
+  "url": "https://siliconbased.dev/timestamp-converter",
+  "description": "Convert Unix timestamps, ISO 8601, and RFC 2822 dates across multiple timezones instantly.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 900px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Card */
+.tool-card { background: #111318; border: 1px solid #1e2030; border-radius: 16px; overflow: hidden; margin-bottom: 40px; }
+.tool-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: #13151d; border-bottom: 1px solid #1e2030; flex-wrap: wrap; gap: 12px; }
+.tool-header h3 { font-size: 0.9rem; font-weight: 600; color: #ccc; display: flex; align-items: center; gap: 8px; }
+
+/* Inputs/Outputs */
+.tool-body { padding: 24px; display: flex; flex-direction: column; gap: 24px; }
+
+.input-group { display: flex; flex-direction: column; gap: 8px; }
+.input-label { font-size: 0.85rem; font-weight: 600; color: #818cf8; }
+
+.input-controls { display: flex; gap: 12px; }
+.input-field { flex: 1; background: #0a0b10; border: 1px solid #1e2030; border-radius: 10px; padding: 12px 16px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 1rem; outline: none; transition: border-color 0.2s; }
+.input-field:focus { border-color: #818cf8; }
+
+.btn { background: #1e2030; border: 1px solid #2a2d40; color: #ccc; padding: 10px 20px; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap; }
+.btn:hover { background: #2a2d40; color: #fff; }
+.btn-primary { background: #818cf8; color: #fff; border-color: #818cf8; }
+.btn-primary:hover { background: #6366f1; border-color: #6366f1; }
+.btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+.output-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+.output-item { background: #13151d; border: 1px solid #1e2030; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+.output-item-header { display: flex; justify-content: space-between; align-items: center; }
+.output-label { font-size: 0.8rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+.output-value { font-family: 'JetBrains Mono', monospace; font-size: 1.05rem; color: #e0e0e0; word-break: break-all; }
+
+.copy-btn-small { background: transparent; border: 1px solid transparent; color: #666; padding: 4px; border-radius: 6px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+.copy-btn-small:hover { background: #1e2030; color: #ccc; }
+.copy-btn-small.copied { color: #4ade80; }
+
+/* Timezones Section */
+.timezone-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 16px; }
+.tz-item { background: #13151d; border: 1px solid #1e2030; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+.tz-name { font-size: 0.85rem; font-weight: 600; color: #818cf8; }
+.tz-time { font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; color: #e0e0e0; }
+
+.error-msg { color: #ef4444; font-size: 0.85rem; margin-top: -16px; display: none; }
+.error-msg.visible { display: block; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .input-controls { flex-direction: column; }
+  .btn { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Timestamp Converter</h1>
+  <p>Convert Unix timestamps, ISO 8601, and RFC 2822 dates across multiple timezones instantly.</p>
+</div>
+
+<div class="main">
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <h3>Time Input</h3>
+    </div>
+
+    <div class="tool-body">
+      <div class="input-group">
+        <div class="input-label">Enter Unix Timestamp or Date String</div>
+        <div class="input-controls">
+          <input type="text" id="timeInput" class="input-field" placeholder="e.g. 1678233600 or 2023-03-08T00:00:00Z">
+          <button class="btn btn-primary" id="nowBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            Now
+          </button>
+        </div>
+      </div>
+
+      <div class="error-msg" id="errorMsg">Invalid date format or timestamp.</div>
+
+      <div class="output-grid" id="mainOutputs">
+        <div class="output-item">
+          <div class="output-item-header">
+            <span class="output-label">Unix Timestamp (Seconds)</span>
+            <button class="copy-btn-small" data-target="unixSec" title="Copy">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="output-value" id="unixSec">-</div>
+        </div>
+
+        <div class="output-item">
+          <div class="output-item-header">
+            <span class="output-label">Unix Timestamp (Milliseconds)</span>
+            <button class="copy-btn-small" data-target="unixMs" title="Copy">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="output-value" id="unixMs">-</div>
+        </div>
+
+        <div class="output-item">
+          <div class="output-item-header">
+            <span class="output-label">ISO 8601 (UTC)</span>
+            <button class="copy-btn-small" data-target="iso8601" title="Copy">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="output-value" id="iso8601">-</div>
+        </div>
+
+        <div class="output-item">
+          <div class="output-item-header">
+            <span class="output-label">RFC 2822</span>
+            <button class="copy-btn-small" data-target="rfc2822" title="Copy">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="output-value" id="rfc2822">-</div>
+        </div>
+
+        <div class="output-item">
+          <div class="output-item-header">
+            <span class="output-label">Local Time</span>
+            <button class="copy-btn-small" data-target="localTime" title="Copy">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="output-value" id="localTime">-</div>
+        </div>
+      </div>
+
+      <h3 style="color: #ccc; font-size: 0.9rem; font-weight: 600; margin-top: 16px; border-bottom: 1px solid #1e2030; padding-bottom: 8px;">Common Timezones</h3>
+      <div class="timezone-grid" id="tzGrid">
+        <!-- Timezones injected here -->
+      </div>
+
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>What is a Unix Timestamp?</h2>
+    <p>A Unix timestamp (or Epoch time) is a system for describing a point in time. It is the number of seconds that have elapsed since the Unix epoch, minus leap seconds. The Unix epoch is 00:00:00 UTC on 1 January 1970.</p>
+    <p>Because it is a single number, it is very easy to store, transfer, and compare timestamps in computing environments. In many systems (like JavaScript), timestamps are tracked in milliseconds instead of seconds, which is why our tool provides both.</p>
+
+    <h2>ISO 8601 and RFC 2822 Formats</h2>
+    <p>While timestamps are great for computers, human-readable strings are needed for logging and displays. Standardized formats ensure global compatibility:</p>
+    <ul>
+      <li><strong>ISO 8601:</strong> An international standard covering the exchange of date- and time-related data. It looks like <code>YYYY-MM-DDTHH:mm:ss.sssZ</code>. It resolves ambiguity by putting the largest temporal term (the year) first, down to the smallest (seconds).</li>
+      <li><strong>RFC 2822:</strong> The standard format for dates in email and HTTP headers. It looks like <code>Wed, 08 Mar 2023 00:00:00 +0000</code>.</li>
+    </ul>
+
+    <h2>Client-Side Processing</h2>
+    <p>This Timestamp Converter runs entirely within your web browser. When you input a date or click "Now", all calculations and conversions are performed locally using standard JavaScript Date APIs. No data is sent to external servers, making it fast, private, and fully functional offline.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const timeInput = document.getElementById('timeInput');
+const nowBtn = document.getElementById('nowBtn');
+const errorMsg = document.getElementById('errorMsg');
+
+// Output elements
+const outputs = {
+  unixSec: document.getElementById('unixSec'),
+  unixMs: document.getElementById('unixMs'),
+  iso8601: document.getElementById('iso8601'),
+  rfc2822: document.getElementById('rfc2822'),
+  localTime: document.getElementById('localTime')
+};
+
+const tzGrid = document.getElementById('tzGrid');
+
+const commonTimezones = [
+  { id: 'America/New_York', name: 'New York (EST/EDT)' },
+  { id: 'America/Los_Angeles', name: 'Los Angeles (PST/PDT)' },
+  { id: 'Europe/London', name: 'London (GMT/BST)' },
+  { id: 'Europe/Paris', name: 'Paris (CET/CEST)' },
+  { id: 'Asia/Dubai', name: 'Dubai (GST)' },
+  { id: 'Asia/Tokyo', name: 'Tokyo (JST)' },
+  { id: 'Australia/Sydney', name: 'Sydney (AEST/AEDT)' },
+  { id: 'UTC', name: 'UTC' }
+];
+
+function initTimezones() {
+  tzGrid.innerHTML = '';
+  commonTimezones.forEach(tz => {
+    const div = document.createElement('div');
+    div.className = 'tz-item';
+    div.innerHTML = `
+      <div class="output-item-header">
+        <span class="tz-name">${tz.name}</span>
+        <button class="copy-btn-small" data-target="tz-${tz.id.replace(/\//g, '-')}" title="Copy">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        </button>
+      </div>
+      <div class="tz-time" id="tz-${tz.id.replace(/\//g, '-')}">-</div>
+    `;
+    tzGrid.appendChild(div);
+  });
+}
+
+function parseInput(val) {
+  val = val.trim();
+  if (!val) return null;
+
+  // Try as numeric timestamp
+  if (/^-?\d+$/.test(val)) {
+    let num = parseInt(val, 10);
+    // Determine if seconds or milliseconds
+    // Assume if it's less than 10000000000 (year 2286 in secs), it's probably seconds
+    // Valid until 2286 for seconds, and ~1970+4 months for ms. Usually 10-11 digits is sec, 13+ is ms.
+    if (val.length <= 11) {
+      num *= 1000;
+    }
+    return new Date(num);
+  }
+
+  // Try as date string
+  const date = new Date(val);
+  if (!isNaN(date.getTime())) {
+    return date;
+  }
+
+  return null;
+}
+
+function updateOutputs(date) {
+  if (!date || isNaN(date.getTime())) {
+    errorMsg.classList.add('visible');
+    Object.values(outputs).forEach(el => el.textContent = '-');
+    commonTimezones.forEach(tz => {
+      document.getElementById(`tz-${tz.id.replace(/\//g, '-')}`).textContent = '-';
+    });
+    return;
+  }
+
+  errorMsg.classList.remove('visible');
+
+  outputs.unixMs.textContent = date.getTime();
+  outputs.unixSec.textContent = Math.floor(date.getTime() / 1000);
+  outputs.iso8601.textContent = date.toISOString();
+  outputs.rfc2822.textContent = date.toUTCString();
+  outputs.localTime.textContent = date.toString();
+
+  // Update timezones
+  commonTimezones.forEach(tz => {
+    try {
+      const tzString = new Intl.DateTimeFormat('en-US', {
+        timeZone: tz.id,
+        year: 'numeric', month: 'short', day: '2-digit',
+        hour: '2-digit', minute: '2-digit', second: '2-digit',
+        timeZoneName: 'short'
+      }).format(date);
+      document.getElementById(`tz-${tz.id.replace(/\//g, '-')}`).textContent = tzString;
+    } catch (e) {
+      document.getElementById(`tz-${tz.id.replace(/\//g, '-')}`).textContent = 'Error';
+    }
+  });
+}
+
+function handleInput() {
+  const val = timeInput.value;
+  if (!val) {
+    updateOutputs(null);
+    errorMsg.classList.remove('visible'); // Don't show error for empty
+    return;
+  }
+  const date = parseInput(val);
+  updateOutputs(date);
+}
+
+nowBtn.addEventListener('click', () => {
+  const now = new Date();
+  timeInput.value = now.getTime();
+  handleInput();
+});
+
+timeInput.addEventListener('input', handleInput);
+
+// Copy functionality
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.copy-btn-small');
+  if (!btn) return;
+
+  const targetId = btn.getAttribute('data-target');
+  const targetEl = document.getElementById(targetId);
+
+  if (targetEl && targetEl.textContent && targetEl.textContent !== '-') {
+    navigator.clipboard.writeText(targetEl.textContent).then(() => {
+      const origHTML = btn.innerHTML;
+      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+      btn.classList.add('copied');
+
+      setTimeout(() => {
+        btn.innerHTML = origHTML;
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+});
+
+// Init
+initTimezones();
+</script>
+</body>
+</html>
