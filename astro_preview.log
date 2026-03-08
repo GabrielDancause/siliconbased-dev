@@ -1,10 +1,20 @@
 
-> siliconbased-dev@0.0.1 preview
-> astro preview
+> siliconbased-dev@0.0.1 dev
+> astro dev
 
-Port 4321 is in use, trying another one...
+04:11:05 [types] Generated 1ms
+04:11:06 [content] Syncing content
+04:11:06 [content] Synced content
+04:11:06 [vite] Re-optimizing dependencies because vite config has changed
 
- astro  v5.18.0 ready in 36 ms
+ astro  v5.18.0 ready in 754 ms
 
-┃ Local    http://localhost:4322/
+┃ Local    http://localhost:4321/
 ┃ Network  use --host to expose
+
+04:11:06 watching for file changes...
+04:11:35 [WARN] [router] getStaticPaths() returned an invalid path param: "slug". `undefined` expected for an optional param, but got empty string.
+04:11:35 [WARN] [router] A `getStaticPaths()` route pattern was matched, but no matching static path was found for requested path `/image-to-base64`.
+
+Possible dynamic routes being matched: src/pages/[...slug].astro.
+04:11:35 [404] /image-to-base64 11ms

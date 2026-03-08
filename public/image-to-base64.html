@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image to Base64 Converter | Free Online Tool</title>
+<meta name="description" content="Convert images (PNG, JPEG, GIF, SVG, WebP) to Base64 Data URIs instantly. Free, fast, and works completely offline.">
+<meta property="og:title" content="Image to Base64 Converter">
+<meta property="og:description" content="Convert images (PNG, JPEG, GIF, SVG, WebP) to Base64 Data URIs instantly. Free, fast, and works completely offline.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Image to Base64 Converter",
+  "url": "https://siliconbased.dev/image-to-base64",
+  "description": "Convert images (PNG, JPEG, GIF, SVG, WebP) to Base64 Data URIs instantly. Free, fast, and works completely offline.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 900px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Card */
+.tool-card { background: #111318; border: 1px solid #1e2030; border-radius: 16px; overflow: hidden; margin-bottom: 40px; }
+.tool-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: #13151d; border-bottom: 1px solid #1e2030; flex-wrap: wrap; gap: 12px; }
+.tool-header h3 { font-size: 0.9rem; font-weight: 600; color: #ccc; display: flex; align-items: center; gap: 8px; }
+
+/* Tool Body */
+.tool-body { padding: 24px; display: flex; flex-direction: column; gap: 24px; }
+
+/* File Upload Zone */
+.upload-zone { border: 2px dashed #2a2d40; border-radius: 12px; padding: 48px 24px; text-align: center; cursor: pointer; transition: all 0.2s; background: #0a0b10; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
+.upload-zone:hover, .upload-zone.drag-over { border-color: #818cf8; background: #131520; }
+.upload-zone input[type="file"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.upload-icon { color: #818cf8; margin-bottom: 8px; }
+.upload-text { font-size: 1.1rem; font-weight: 600; color: #fff; }
+.upload-subtext { font-size: 0.85rem; color: #888; }
+
+/* Image Preview */
+.preview-container { display: none; background: #0a0b10; border: 1px solid #1e2030; border-radius: 12px; padding: 16px; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
+.preview-container.visible { display: flex; }
+.preview-image-wrapper { width: 120px; height: 120px; border-radius: 8px; overflow: hidden; background: #111318 url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PHJlY3Qgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjMTgxYTI1Ii8+PHJlY3QgeD0iMTAiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIgZmlsbD0iIzExMTMxOCIvPjxyZWN0IHk9IjEwIiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIGZpbGw9IiMxMTEzMTgiLz48cmVjdCB4PSIxMCIgeT0iMTAiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIgZmlsbD0iIzE4MWEyNSIvPjwvc3ZnPg==') repeat; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid #1e2030; }
+.preview-image { max-width: 100%; max-height: 100%; object-fit: contain; }
+.preview-info { flex: 1; display: flex; flex-direction: column; gap: 8px; min-width: 200px; }
+.info-row { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; }
+.info-label { color: #888; width: 80px; font-weight: 500; }
+.info-value { color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; word-break: break-all; }
+.clear-btn { background: #1e2030; border: 1px solid #2a2d40; color: #ef4444; padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s; align-self: flex-start; margin-top: auto; }
+.clear-btn:hover { background: #2a2d40; border-color: #ef4444; }
+
+/* Textarea Output */
+.textarea-wrapper { position: relative; display: flex; flex-direction: column; gap: 8px; }
+.textarea-label { font-size: 0.85rem; font-weight: 600; color: #818cf8; display: flex; justify-content: space-between; }
+.char-count { color: #666; font-weight: 400; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; }
+
+.input-area { width: 100%; min-height: 200px; background: #0a0b10; border: 1px solid #1e2030; border-radius: 12px; padding: 16px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; resize: vertical; outline: none; transition: border-color 0.2s; line-height: 1.5; word-break: break-all; }
+.input-area:focus { border-color: #818cf8; }
+.input-area::placeholder { color: #444; }
+
+/* Actions */
+.actions-row { display: flex; justify-content: flex-end; align-items: center; gap: 16px; flex-wrap: wrap; }
+.btn { background: #1e2030; border: 1px solid #2a2d40; color: #ccc; padding: 10px 20px; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+.btn:hover { background: #2a2d40; color: #fff; }
+.btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .actions-row { flex-direction: column; align-items: stretch; }
+  .btn { justify-content: center; }
+  .preview-container { flex-direction: column; align-items: center; text-align: center; }
+  .info-row { flex-direction: column; gap: 4px; }
+  .info-label { width: auto; }
+  .clear-btn { align-self: center; margin-top: 16px; }
+}
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Image to Base64</h1>
+  <p>Convert PNG, JPEG, GIF, SVG, and WebP images to Base64 Data URIs.</p>
+</div>
+
+<div class="main">
+  <div class="tool-card">
+    <div class="tool-header">
+      <h3>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+        Image to Base64
+      </h3>
+    </div>
+
+    <div class="tool-body">
+
+      <!-- Upload Zone -->
+      <div class="upload-zone" id="dropZone">
+        <input type="file" id="fileInput" accept="image/png, image/jpeg, image/gif, image/svg+xml, image/webp">
+        <svg class="upload-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+        <div class="upload-text">Click or drag & drop an image here</div>
+        <div class="upload-subtext">Supports PNG, JPEG, GIF, SVG, and WebP (Max ~5MB recommended)</div>
+      </div>
+
+      <!-- Preview Container -->
+      <div class="preview-container" id="previewContainer">
+        <div class="preview-image-wrapper">
+          <img id="imagePreview" class="preview-image" src="" alt="Preview">
+        </div>
+        <div class="preview-info">
+          <div class="info-row">
+            <span class="info-label">File:</span>
+            <span class="info-value" id="fileName">-</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Size:</span>
+            <span class="info-value" id="fileSize">-</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Type:</span>
+            <span class="info-value" id="fileType">-</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Base64 Size:</span>
+            <span class="info-value" id="base64Size">-</span>
+          </div>
+        </div>
+        <button class="clear-btn" id="clearBtn">
+          Remove Image
+        </button>
+      </div>
+
+      <!-- Output Textarea -->
+      <div class="textarea-wrapper">
+        <div class="textarea-label">
+          <span>Base64 Data URI Output</span>
+          <span class="char-count" id="outputCount">0 chars</span>
+        </div>
+        <textarea class="input-area" id="outputText" readonly placeholder="Resulting Base64 string will appear here..."></textarea>
+      </div>
+
+      <div class="actions-row">
+        <button class="btn" id="copyBtn" disabled>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          Copy Base64
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>What is a Base64 Image?</h2>
+    <p>A Base64 image is a standard image (like a PNG, JPEG, SVG, or GIF) that has been encoded into a continuous string of text using the Base64 encoding scheme. When formatted as a <strong>Data URI</strong>, it can be embedded directly into HTML or CSS files, eliminating the need to load the image from a separate external file or URL.</p>
+    <p>A typical Data URI format looks like this: <code>data:image/png;base64,iVBORw0KGgoAAAANSUh...</code></p>
+
+    <h2>When to Use Base64 Images</h2>
+    <p>Embedding images as Base64 strings can be highly beneficial in certain scenarios:</p>
+    <ul>
+      <li><strong>Reducing HTTP Requests:</strong> By embedding small icons or logos directly in your HTML or CSS, you can decrease the number of requests the browser must make to the server, potentially speeding up initial page load times.</li>
+      <li><strong>Self-Contained Files:</strong> Perfect for creating single-file HTML documents or tools (like this one!) that need to function perfectly without relying on external assets or an internet connection.</li>
+      <li><strong>HTML Email Templates:</strong> Some email clients support inline Base64 images, allowing you to send self-contained rich emails without external image hosting.</li>
+    </ul>
+    <p><strong>Note:</strong> Base64 encoding typically increases the file size of the image by about 33%. For large, high-resolution photographs, it is still recommended to use standard external image files and content delivery networks (CDNs) to avoid bloating your document.</p>
+
+    <h2>Privacy and Offline Usage</h2>
+    <p>This Image to Base64 tool is designed with your privacy in mind. It processes images entirely <strong>client-side</strong> within your web browser. When you drag and drop or select an image, it is never uploaded to any server. This means you can even use this tool offline after the initial page load, and your sensitive or private images remain completely secure on your own device.</p>
+  </div>
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+const previewContainer = document.getElementById('previewContainer');
+const imagePreview = document.getElementById('imagePreview');
+const fileName = document.getElementById('fileName');
+const fileSize = document.getElementById('fileSize');
+const fileType = document.getElementById('fileType');
+const base64Size = document.getElementById('base64Size');
+const clearBtn = document.getElementById('clearBtn');
+const outputText = document.getElementById('outputText');
+const outputCount = document.getElementById('outputCount');
+const copyBtn = document.getElementById('copyBtn');
+
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB limit (soft warning)
+const formatBytes = (bytes, decimals = 2) => {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+};
+
+function handleFile(file) {
+  if (!file) return;
+
+  // Basic validation
+  if (!file.type.startsWith('image/')) {
+    alert('Please select a valid image file (PNG, JPEG, GIF, SVG, WebP).');
+    return;
+  }
+  if (file.size > MAX_FILE_SIZE) {
+    if(!confirm(`This file is quite large (${formatBytes(file.size)}). Base64 encoding will increase the size further and may freeze your browser. Do you want to proceed?`)) {
+      return;
+    }
+  }
+
+  // UI Updates
+  fileName.textContent = file.name;
+  fileSize.textContent = formatBytes(file.size);
+  fileType.textContent = file.type || 'Unknown';
+
+  dropZone.style.display = 'none';
+  previewContainer.classList.add('visible');
+  copyBtn.disabled = false;
+
+  const reader = new FileReader();
+
+  reader.onload = (e) => {
+    const dataUri = e.target.result;
+    imagePreview.src = dataUri;
+    outputText.value = dataUri;
+
+    const chars = dataUri.length;
+    outputCount.textContent = `${chars.toLocaleString()} chars`;
+
+    // Estimate bytes size from base64 string
+    const base64Bytes = Math.ceil((chars * 3) / 4);
+    base64Size.textContent = formatBytes(base64Bytes);
+  };
+
+  reader.readAsDataURL(file);
+}
+
+function clearImage() {
+  fileInput.value = '';
+  imagePreview.src = '';
+  outputText.value = '';
+  outputCount.textContent = '0 chars';
+  copyBtn.disabled = true;
+
+  previewContainer.classList.remove('visible');
+  dropZone.style.display = 'flex';
+}
+
+// Event Listeners for file selection
+fileInput.addEventListener('change', (e) => {
+  if (e.target.files.length) {
+    handleFile(e.target.files[0]);
+  }
+});
+
+// Drag and drop support
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+  dropZone.addEventListener(eventName, preventDefaults, false);
+  document.body.addEventListener(eventName, preventDefaults, false);
+});
+
+function preventDefaults(e) {
+  e.preventDefault();
+  e.stopPropagation();
+}
+
+['dragenter', 'dragover'].forEach(eventName => {
+  dropZone.addEventListener(eventName, () => dropZone.classList.add('drag-over'), false);
+});
+
+['dragleave', 'drop'].forEach(eventName => {
+  dropZone.addEventListener(eventName, () => dropZone.classList.remove('drag-over'), false);
+});
+
+dropZone.addEventListener('drop', (e) => {
+  const dt = e.dataTransfer;
+  const files = dt.files;
+  if (files.length) {
+    handleFile(files[0]);
+  }
+}, false);
+
+// Paste support
+document.addEventListener('paste', (e) => {
+  const items = e.clipboardData.items;
+  for (let i = 0; i < items.length; i++) {
+    if (items[i].type.indexOf('image') !== -1) {
+      const file = items[i].getAsFile();
+      handleFile(file);
+      break;
+    }
+  }
+});
+
+clearBtn.addEventListener('click', clearImage);
+
+// Copy to clipboard
+copyBtn.addEventListener('click', () => {
+  if (!outputText.value) return;
+
+  navigator.clipboard.writeText(outputText.value).then(() => {
+    const originalText = copyBtn.innerHTML;
+    copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+    copyBtn.classList.add('copied');
+
+    setTimeout(() => {
+      copyBtn.innerHTML = originalText;
+      copyBtn.classList.remove('copied');
+    }, 2000);
+  }).catch(err => {
+    console.error('Failed to copy text: ', err);
+    alert('Failed to copy to clipboard.');
+  });
+});
+</script>
+</body>
+</html>
