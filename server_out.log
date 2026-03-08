@@ -1,0 +1,20 @@
+
+> siliconbased-dev@0.0.1 dev
+> astro dev
+
+14:48:55 [types] Generated 1ms
+14:48:56 [content] Syncing content
+14:48:56 [content] Synced content
+14:48:56 [vite] Re-optimizing dependencies because vite config has changed
+
+ astro  v5.18.0 ready in 770 ms
+
+┃ Local    http://localhost:4321/
+┃ Network  use --host to expose
+
+14:48:56 watching for file changes...
+15:13:44 [watch] public/cost-of-living-index.html
+15:16:47 [watch] public/cost-of-living-index.html
+15:16:47 [watch] public/cost-of-living-index.html
+15:32:55 [watch] public/cost-of-living-index.html
+15:33:12 [watch] public/cost-of-living-index.html
