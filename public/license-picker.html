@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open Source License Picker | Free Online Tool</title>
+<meta name="description" content="Compare open source licenses side by side. Explore permissions, conditions, and limitations, and instantly generate a LICENSE file for your project.">
+<meta property="og:title" content="Open Source License Picker">
+<meta property="og:description" content="Compare open source licenses side by side. Explore permissions, conditions, and limitations, and instantly generate a LICENSE file for your project.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Open Source License Picker",
+  "url": "https://siliconbased.dev/license-picker",
+  "description": "Compare open source licenses side by side. Explore permissions, conditions, and limitations, and instantly generate a LICENSE file for your project.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+
+.main { max-width: 1000px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; display: flex; flex-direction: column; gap: 24px; }
+
+.layout-grid { display: grid; grid-template-columns: 300px 1fr; gap: 24px; align-items: start; }
+
+/* Cards */
+.tool-card { background: #111318; border: 1px solid #1e2030; border-radius: 16px; overflow: hidden; }
+.tool-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: #13151d; border-bottom: 1px solid #1e2030; }
+.tool-header h3 { font-size: 0.95rem; font-weight: 600; color: #ccc; display: flex; align-items: center; gap: 8px; }
+.tool-body { padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+
+/* License List */
+.license-list { display: flex; flex-direction: column; gap: 8px; }
+.license-btn { background: #1e2030; border: 1px solid #2a2d40; color: #ccc; padding: 12px 16px; border-radius: 10px; font-size: 0.95rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; text-align: left; transition: all 0.2s; display: flex; justify-content: space-between; align-items: center; }
+.license-btn:hover { background: #2a2d40; color: #fff; }
+.license-btn.active { background: #818cf8; color: #fff; border-color: #818cf8; box-shadow: 0 4px 12px rgba(129, 140, 248, 0.2); }
+
+/* Attributes */
+.attributes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 16px; }
+.attr-col h4 { font-size: 0.85rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #1e2030; }
+.attr-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.attr-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #c8d0e8; }
+.attr-item svg { flex-shrink: 0; }
+.icon-permissions { color: #10b981; }
+.icon-conditions { color: #3b82f6; }
+.icon-limitations { color: #ef4444; }
+
+/* Form Controls */
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label { font-size: 0.85rem; font-weight: 500; color: #888; }
+.form-input { background: #0a0b10; border: 1px solid #1e2030; color: #e0e0e0; padding: 10px 12px; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.95rem; outline: none; transition: border-color 0.2s; width: 100%; }
+.form-input:focus { border-color: #818cf8; }
+
+.generator-controls { display: grid; grid-template-columns: 100px 1fr; gap: 12px; }
+
+/* Output Area */
+.textarea-wrapper { position: relative; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.output-area { width: 100%; height: 350px; background: #0a0b10; border: 1px solid #1e2030; border-radius: 12px; padding: 16px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; resize: vertical; outline: none; line-height: 1.5; }
+.output-area:focus { border-color: #818cf8; }
+
+/* Buttons */
+.actions-row { display: flex; justify-content: flex-end; align-items: center; gap: 12px; margin-top: 12px; }
+.btn { background: #1e2030; border: 1px solid #2a2d40; color: #ccc; padding: 10px 20px; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+.btn:hover { background: #2a2d40; color: #fff; }
+.btn-primary { background: #818cf8; color: #fff; border-color: #818cf8; }
+.btn-primary:hover { background: #6366f1; border-color: #6366f1; }
+.btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+.badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; background: #1e2030; color: #888; }
+.active .badge { background: #6366f1; color: #fff; }
+
+.license-desc { color: #888; font-size: 0.9rem; line-height: 1.5; margin-bottom: 8px; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content a { color: #818cf8; text-decoration: none; }
+.seo-content a:hover { text-decoration: underline; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .layout-grid { grid-template-columns: 1fr; }
+  .attributes-grid { grid-template-columns: 1fr; gap: 24px; }
+}
+@media (max-width: 600px) {
+  .generator-controls { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Open Source License Picker</h1>
+  <p>Compare open source licenses, explore permissions, and generate a LICENSE file instantly.</p>
+</div>
+
+<div class="main">
+
+  <div class="layout-grid">
+    <!-- License Selection -->
+    <div class="tool-card">
+      <div class="tool-header">
+        <h3>Select a License</h3>
+      </div>
+      <div class="tool-body">
+        <div class="license-list" id="licenseList">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- License Details & Generator -->
+    <div class="tool-card">
+      <div class="tool-header">
+        <h3 id="licenseTitle">License Details</h3>
+      </div>
+      <div class="tool-body">
+        <p class="license-desc" id="licenseDesc"></p>
+
+        <div class="attributes-grid">
+          <div class="attr-col">
+            <h4>Permissions</h4>
+            <ul class="attr-list" id="listPermissions"></ul>
+          </div>
+          <div class="attr-col">
+            <h4>Conditions</h4>
+            <ul class="attr-list" id="listConditions"></ul>
+          </div>
+          <div class="attr-col">
+            <h4>Limitations</h4>
+            <ul class="attr-list" id="listLimitations"></ul>
+          </div>
+        </div>
+
+        <hr style="border:0; border-top:1px solid #1e2030; margin: 8px 0;">
+
+        <div class="generator-controls">
+          <div class="form-group">
+            <label for="inputYear">Year</label>
+            <input type="text" id="inputYear" class="form-input" placeholder="e.g. 2024">
+          </div>
+          <div class="form-group">
+            <label for="inputName">Copyright Holder Name</label>
+            <input type="text" id="inputName" class="form-input" placeholder="e.g. Jane Doe">
+          </div>
+        </div>
+
+        <div class="textarea-wrapper">
+          <textarea class="output-area" id="outputText" readonly spellcheck="false"></textarea>
+          <div class="actions-row">
+            <button class="btn btn-primary" id="copyBtn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              Copy License Text
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>Why do I need an open source license?</h2>
+    <p>By default, when you create software, it falls under exclusive copyright. This means nobody else has the right to use, modify, or distribute your code. If you publish code on GitHub or elsewhere without a license, it is <strong>not</strong> open source. Adding an open source license grants explicit permissions to others so they can use your work legally, while still protecting you from liability.</p>
+
+    <h2>Choosing the right license</h2>
+    <p>Open source licenses generally fall into two categories: <strong>Permissive</strong> and <strong>Copyleft</strong>.</p>
+    <ul>
+      <li><strong>Permissive Licenses (e.g., MIT, Apache 2.0, BSD):</strong> These licenses place minimal restrictions on how the software can be used. They allow others to use, modify, and distribute your code, even in closed-source, commercial products. The <strong>MIT License</strong> is the most popular permissive license due to its simplicity.</li>
+      <li><strong>Copyleft Licenses (e.g., GPLv3):</strong> These licenses require that any derivative works or modifications must also be distributed under the same open source license. If someone builds a product using your GPL-licensed code and distributes it, they must also open source their product under the GPL.</li>
+    </ul>
+
+    <h2>How to apply a license to your project</h2>
+    <p>Once you've selected a license and filled in your name and the current year, use the tool above to generate the license text. To apply it to your project:</p>
+    <ol>
+      <li>Copy the generated text.</li>
+      <li>Create a new file in the root directory of your project named <code>LICENSE</code> or <code>LICENSE.txt</code>.</li>
+      <li>Paste the copied text into the file and save it.</li>
+      <li>Commit the file to your version control system (e.g., Git).</li>
+    </ol>
+    <p>Many package managers (like npm, Composer, or Maven) also include a field in their configuration files (like <code>package.json</code>) where you should specify the license identifier (e.g., <code>"license": "MIT"</code>).</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const licenses = [
+  {
+    id: "mit",
+    name: "MIT License",
+    short: "MIT",
+    desc: "A short and simple permissive license with conditions only requiring preservation of copyright and license notices. Licensed works, modifications, and larger works may be distributed under different terms and without source code.",
+    permissions: ["Commercial use", "Modification", "Distribution", "Private use"],
+    conditions: ["License and copyright notice"],
+    limitations: ["Liability", "Warranty"],
+    template: `MIT License
+
+Copyright (c) [year] [fullname]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.`
+  },
+  {
+    id: "apache-2.0",
+    name: "Apache License 2.0",
+    short: "Apache 2.0",
+    desc: "A permissive license whose main conditions require preservation of copyright and license notices. Contributors provide an express grant of patent rights. Licensed works, modifications, and larger works may be distributed under different terms and without source code.",
+    permissions: ["Commercial use", "Modification", "Distribution", "Patent use", "Private use"],
+    conditions: ["License and copyright notice", "State changes"],
+    limitations: ["Trademark use", "Liability", "Warranty"],
+    template: `Apache License
+Version 2.0, January 2004
+http://www.apache.org/licenses/
+
+TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+1. Definitions.
+   "License" shall mean the terms and conditions for use, reproduction,
+   and distribution as defined by Sections 1 through 9 of this document.
+
+   "Licensor" shall mean the copyright owner or entity authorized by
+   the copyright owner that is granting the License.
+
+   ... (Detailed terms abbreviated for this generated block but typically includes full terms. Due to length, Apache 2.0 typically recommends applying via a boilerplate block).
+
+Copyright [year] [fullname]
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.`
+  },
+  {
+    id: "gpl-3.0",
+    name: "GNU General Public License v3.0",
+    short: "GPLv3",
+    desc: "Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license.",
+    permissions: ["Commercial use", "Modification", "Distribution", "Patent use", "Private use"],
+    conditions: ["License and copyright notice", "State changes", "Disclose source", "Same license"],
+    limitations: ["Liability", "Warranty"],
+    template: `GNU GENERAL PUBLIC LICENSE
+Version 3, 29 June 2007
+
+Copyright (C) [year] [fullname]
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.`
+  },
+  {
+    id: "bsd-3-clause",
+    name: 'BSD 3-Clause "New" or "Revised" License',
+    short: "BSD 3-Clause",
+    desc: "A permissive license similar to the BSD 2-Clause License, but with a 3rd clause that prohibits others from using the name of the copyright holder or its contributors to promote derived products without written consent.",
+    permissions: ["Commercial use", "Modification", "Distribution", "Private use"],
+    conditions: ["License and copyright notice"],
+    limitations: ["Liability", "Warranty"],
+    template: `Copyright (c) [year], [fullname]
+All rights reserved.
+
+Redistribution and use in binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.`
+  },
+  {
+    id: "unlicense",
+    name: "The Unlicense",
+    short: "Unlicense",
+    desc: "A license with no conditions whatsoever which dedicates works to the public domain. Unlicensed works, modifications, and larger works may be distributed under different terms and without source code.",
+    permissions: ["Commercial use", "Modification", "Distribution", "Private use"],
+    conditions: [],
+    limitations: ["Liability", "Warranty"],
+    template: `This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <http://unlicense.org/>`
+  }
+];
+
+let currentLicenseId = "mit";
+
+const licenseListEl = document.getElementById('licenseList');
+const licenseTitleEl = document.getElementById('licenseTitle');
+const licenseDescEl = document.getElementById('licenseDesc');
+const listPermissionsEl = document.getElementById('listPermissions');
+const listConditionsEl = document.getElementById('listConditions');
+const listLimitationsEl = document.getElementById('listLimitations');
+const inputYear = document.getElementById('inputYear');
+const inputName = document.getElementById('inputName');
+const outputText = document.getElementById('outputText');
+const copyBtn = document.getElementById('copyBtn');
+
+// Icons
+const iconCheck = `<svg class="icon-permissions" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>`;
+const iconInfo = `<svg class="icon-conditions" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>`;
+const iconX = `<svg class="icon-limitations" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+
+function init() {
+  inputYear.value = new Date().getFullYear();
+  inputName.value = ""; // Default empty, user needs to type
+
+  renderLicenseList();
+  selectLicense(currentLicenseId);
+
+  inputYear.addEventListener('input', generateLicenseText);
+  inputName.addEventListener('input', generateLicenseText);
+
+  copyBtn.addEventListener('click', () => {
+    if (!outputText.value) return;
+    navigator.clipboard.writeText(outputText.value).then(() => {
+      const originalText = copyBtn.innerHTML;
+      copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+      copyBtn.classList.add('copied');
+      setTimeout(() => {
+        copyBtn.innerHTML = originalText;
+        copyBtn.classList.remove('copied');
+      }, 2000);
+    });
+  });
+}
+
+function renderLicenseList() {
+  licenseListEl.innerHTML = '';
+  licenses.forEach(lic => {
+    const btn = document.createElement('button');
+    btn.className = 'license-btn';
+    if (lic.id === currentLicenseId) btn.classList.add('active');
+
+    btn.innerHTML = `
+      <span>${lic.name}</span>
+      <span class="badge">${lic.short}</span>
+    `;
+
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.license-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectLicense(lic.id);
+    });
+
+    licenseListEl.appendChild(btn);
+  });
+}
+
+function selectLicense(id) {
+  currentLicenseId = id;
+  const lic = licenses.find(l => l.id === id);
+  if (!lic) return;
+
+  licenseTitleEl.textContent = lic.name;
+  licenseDescEl.textContent = lic.desc;
+
+  // Render lists
+  const renderList = (el, items, icon) => {
+    el.innerHTML = items.length ? items.map(i => `<li class="attr-item">${icon} ${i}</li>`).join('') : '<li class="attr-item" style="color:#555">None</li>';
+  };
+
+  renderList(listPermissionsEl, lic.permissions, iconCheck);
+  renderList(listConditionsEl, lic.conditions, iconInfo);
+  renderList(listLimitationsEl, lic.limitations, iconX);
+
+  generateLicenseText();
+}
+
+function generateLicenseText() {
+  const lic = licenses.find(l => l.id === currentLicenseId);
+  if (!lic) return;
+
+  let text = lic.template;
+  const year = inputYear.value.trim() || '[year]';
+  const name = inputName.value.trim() || '[fullname]';
+
+  text = text.replaceAll('[year]', year).replaceAll('[fullname]', name);
+  outputText.value = text;
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
