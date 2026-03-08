@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Card Preview — Test Open Graph & Social Media Cards | Free Online Tool</title>
+<meta name="description" content="Free interactive Social Card preview tool. Preview how your URL will look when shared on Facebook, Twitter, LinkedIn, Discord, and Slack. Edit meta tags and see changes live.">
+<meta property="og:title" content="Social Card Preview — Test Open Graph & Social Media Cards">
+<meta property="og:description" content="Free interactive Social Card preview tool. Preview how your URL will look when shared on Facebook, Twitter, LinkedIn, Discord, and Slack. Edit meta tags and see changes live.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Social Card Preview",
+    "url": "https://siliconbased.dev/og-image-preview",
+    "description": "Interactive Social Card preview tool. Preview how your URL will look when shared on Facebook, Twitter, LinkedIn, Discord, and Slack. Generate meta tags instantly.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Social Card Preview — Test Open Graph & Social Media Cards",
+    "description": "Free interactive Social Card preview tool. Preview how your URL will look when shared on Facebook, Twitter, LinkedIn, Discord, and Slack.",
+    "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+  }
+]
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+
+.main { max-width: 1000px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+.layout-grid { display: grid; grid-template-columns: 1fr; gap: 32px; margin-bottom: 32px; }
+@media (min-width: 900px) {
+  .layout-grid { grid-template-columns: 350px 1fr; }
+}
+
+.builder-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+.input-group { display: flex; flex-direction: column; gap: 8px; }
+.input-group label { font-size: 0.85rem; font-weight: 600; color: #ccc; display: flex; align-items: center; justify-content: space-between; }
+.input-group input, .input-group select, .input-group textarea { background: #111318; border: 1px solid #1e2030; border-radius: 10px; padding: 12px 16px; font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #fff; outline: none; transition: all 0.2s; width: 100%; }
+.input-group textarea { resize: vertical; min-height: 80px; }
+.input-group input:focus, .input-group select:focus, .input-group textarea:focus { border-color: #818cf8; box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.2); }
+.input-group input::placeholder, .input-group textarea::placeholder { color: #555; }
+.input-hint { font-size: 0.75rem; color: #666; }
+
+.code-card { background: #111318; border: 1px solid #1e2030; border-radius: 14px; overflow: hidden; margin-bottom: 32px; }
+.card-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; background: #13151d; border-bottom: 1px solid #1e2030; }
+.card-header h3 { font-size: 0.85rem; font-weight: 600; color: #ccc; display: flex; align-items: center; gap: 8px; }
+.btn-primary { background: #818cf8; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+.btn-primary:hover { background: #6366f1; }
+.btn-primary.copied { background: #4ade80; color: #1a3a1a; }
+.code-output { background: #0a0b10; border-radius: 0 0 14px 14px; padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #e0e0e0; overflow-x: auto; white-space: pre-wrap; line-height: 1.5; margin: 0; }
+.code-output .tag { color: #818cf8; }
+.code-output .attr { color: #c084fc; }
+.code-output .val { color: #4ade80; }
+
+.previews-container { display: flex; flex-direction: column; gap: 24px; }
+.preview-card { background: #111318; border: 1px solid #1e2030; border-radius: 14px; overflow: hidden; }
+.preview-body { padding: 24px; background: #0a0b10; display: flex; justify-content: center; }
+
+.social-preview { max-width: 500px; width: 100%; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #fff; color: #000; overflow: hidden; }
+.social-img-container { width: 100%; background: #e0e0e0; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+.social-img-container::before { content: "No Image"; color: #888; font-size: 14px; font-family: 'Inter', sans-serif; position: absolute; }
+.social-img { width: 100%; height: 100%; object-fit: cover; z-index: 1; position: relative; background: #fff; display: block; }
+.social-img[src=""], .social-img:not([src]) { opacity: 0; }
+
+.twitter-preview { border: 1px solid #cfd9de; border-radius: 16px; cursor: pointer; }
+.twitter-preview.summary { display: flex; align-items: center; }
+.twitter-preview.summary .social-img-container { width: 130px; height: 130px; border-right: 1px solid #cfd9de; flex-shrink: 0; }
+.twitter-preview.summary .social-content { padding: 12px; flex: 1; min-width: 0; }
+.twitter-preview.large .social-img-container { height: 260px; border-bottom: 1px solid #cfd9de; }
+.twitter-preview.large .social-content { padding: 12px; }
+.twitter-domain { font-size: 15px; color: #536471; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.twitter-title { font-size: 15px; color: #0f1419; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.twitter-desc { font-size: 15px; color: #536471; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+.facebook-preview { border: 1px solid #dadde1; cursor: pointer; }
+.facebook-preview .social-img-container { height: 260px; border-bottom: 1px solid #dadde1; }
+.facebook-preview .social-content { padding: 10px 12px; background: #f2f3f5; }
+.facebook-domain { font-size: 12px; color: #606770; text-transform: uppercase; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.facebook-title { font-size: 16px; font-weight: 600; color: #1d2129; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.2; }
+.facebook-desc { font-size: 14px; color: #606770; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+
+.linkedin-preview { border: 1px solid #e0dfdc; border-radius: 2px; cursor: pointer; background: #f3f2ef; }
+.linkedin-preview .social-img-container { height: 260px; }
+.linkedin-preview .social-content { padding: 8px 16px 12px; }
+.linkedin-title { font-size: 14px; font-weight: 600; color: rgba(0,0,0,0.9); margin-bottom: 2px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.linkedin-domain { font-size: 12px; color: rgba(0,0,0,0.6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.discord-preview { background: #2f3136; color: #dcddde; border-radius: 4px; padding: 16px; border-left: 4px solid #202225; max-width: 432px; font-family: "gg sans", "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.discord-content-wrapper { display: flex; flex-direction: column; gap: 8px; }
+.discord-domain { font-size: 12px; color: #00aff4; }
+.discord-title { font-size: 16px; font-weight: 600; color: #00aff4; text-decoration: none; cursor: pointer; }
+.discord-title:hover { text-decoration: underline; }
+.discord-desc { font-size: 14px; line-height: 18px; color: #dcddde; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; margin-bottom: 8px; }
+.discord-preview .social-img-container { border-radius: 4px; max-width: 400px; height: 225px; align-self: flex-start; }
+.discord-preview .social-img-container::before { color: #72767d; }
+.discord-preview .social-img { background: transparent; }
+
+.slack-preview { display: flex; gap: 12px; font-family: "Slack-Lato", appleLogo, sans-serif; background: #fff; border-left: 4px solid #ddd; padding: 8px 12px; max-width: 500px; color: #1d1c1d; }
+.slack-content { display: flex; flex-direction: column; gap: 4px; }
+.slack-domain { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; color: #1d1c1d; }
+.slack-domain img { width: 16px; height: 16px; }
+.slack-title { font-size: 15px; font-weight: 700; color: #1264a3; text-decoration: none; }
+.slack-title:hover { text-decoration: underline; }
+.slack-desc { font-size: 15px; color: #1d1c1d; line-height: 1.4; }
+.slack-preview .social-img-container { width: 100%; max-width: 360px; height: auto; aspect-ratio: 1.91 / 1; border-radius: 8px; margin-top: 8px; border: 1px solid rgba(0,0,0,0.1); }
+.slack-preview .social-img-container::before { color: #1d1c1d; }
+
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-family: 'JetBrains Mono', monospace; font-size: 0.85em; }
+
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #0a0b10; }
+::-webkit-scrollbar-thumb { background: #1e2030; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #2a2d40; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Social Card <span>Preview</span></h1>
+  <p>Preview how your URL looks when shared on social media.</p>
+</div>
+
+<div class="main">
+
+  <div class="layout-grid">
+    <div class="editor-side">
+      <div class="builder-grid" style="margin-bottom: 24px;">
+        <div class="input-group">
+          <label for="urlInput">Target URL</label>
+          <input type="url" id="urlInput" placeholder="https://example.com/page" autocomplete="off" value="https://example.com/article">
+        </div>
+
+        <div class="input-group">
+          <label for="titleInput">Title</label>
+          <input type="text" id="titleInput" placeholder="Page Title" autocomplete="off" value="Amazing Article Title">
+        </div>
+
+        <div class="input-group">
+          <label for="descInput">Description</label>
+          <textarea id="descInput" placeholder="A brief description of the page content." autocomplete="off">This is an example description of the article. It shows how the text will appear when shared on various platforms.</textarea>
+        </div>
+
+        <div class="input-group">
+          <label for="imageInput">Image URL</label>
+          <input type="url" id="imageInput" placeholder="https://example.com/image.jpg" autocomplete="off" value="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&h=630&fit=crop">
+          <div class="input-hint">Recommended size: 1200x630 pixels</div>
+        </div>
+
+        <div class="input-group">
+          <label for="twitterCardInput">Twitter Card Type</label>
+          <select id="twitterCardInput">
+            <option value="summary_large_image">Summary Large Image</option>
+            <option value="summary">Summary</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="code-card">
+        <div class="card-header">
+          <h3>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            Generated Meta Tags
+          </h3>
+          <button class="btn-primary" id="copyCodeBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Copy
+          </button>
+        </div>
+        <pre class="code-output" id="codeOutput"></pre>
+      </div>
+    </div>
+
+    <div class="previews-container">
+
+      <div class="preview-card">
+        <div class="card-header">
+          <h3>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+            Twitter / X
+          </h3>
+        </div>
+        <div class="preview-body">
+          <div class="social-preview twitter-preview large" id="twitterPreview">
+            <div class="social-img-container">
+              <img src="" alt="" class="social-img" id="twImage">
+            </div>
+            <div class="social-content">
+              <div class="twitter-domain" id="twDomain">example.com</div>
+              <div class="twitter-title" id="twTitle">Title</div>
+              <div class="twitter-desc" id="twDesc">Description</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="preview-card">
+        <div class="card-header">
+          <h3>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+            Facebook
+          </h3>
+        </div>
+        <div class="preview-body">
+          <div class="social-preview facebook-preview">
+            <div class="social-img-container">
+              <img src="" alt="" class="social-img" id="fbImage">
+            </div>
+            <div class="social-content">
+              <div class="facebook-domain" id="fbDomain">EXAMPLE.COM</div>
+              <div class="facebook-title" id="fbTitle">Title</div>
+              <div class="facebook-desc" id="fbDesc">Description</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="preview-card">
+        <div class="card-header">
+          <h3>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            LinkedIn
+          </h3>
+        </div>
+        <div class="preview-body">
+          <div class="social-preview linkedin-preview">
+            <div class="social-img-container">
+              <img src="" alt="" class="social-img" id="liImage">
+            </div>
+            <div class="social-content">
+              <div class="linkedin-title" id="liTitle">Title</div>
+              <div class="linkedin-domain" id="liDomain">example.com</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="preview-card">
+        <div class="card-header">
+          <h3>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            Discord
+          </h3>
+        </div>
+        <div class="preview-body">
+          <div class="social-preview discord-preview">
+            <div class="discord-content-wrapper">
+              <div class="discord-domain" id="dcDomain">example.com</div>
+              <div class="discord-title" id="dcTitle">Title</div>
+              <div class="discord-desc" id="dcDesc">Description</div>
+              <div class="social-img-container">
+                <img src="" alt="" class="social-img" id="dcImage">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="preview-card">
+        <div class="card-header">
+          <h3>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            Slack
+          </h3>
+        </div>
+        <div class="preview-body">
+          <div class="social-preview slack-preview">
+            <div class="slack-content">
+              <div class="slack-domain" id="slDomain">example.com</div>
+              <div class="slack-title" id="slTitle">Title</div>
+              <div class="slack-desc" id="slDesc">Description</div>
+              <div class="social-img-container">
+                <img src="" alt="" class="social-img" id="slImage">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>What is Open Graph?</h2>
+    <p>The Open Graph protocol enables any web page to become a rich object in a social graph. Originally created by Facebook, it allows you to control how your URLs are displayed when shared on social media platforms like Facebook, Twitter, LinkedIn, Discord, and Slack.</p>
+
+    <h2>Why do Meta Tags Matter?</h2>
+    <p>When someone shares your website link, social platforms scrape your HTML for specific meta tags to generate a preview card. If you don't provide these tags, the platform will try to guess what your page is about by pulling random text and images, which often results in an unappealing preview.</p>
+    <ul>
+      <li><strong>Higher Click-Through Rates (CTR):</strong> A compelling title, description, and high-quality image significantly increase the likelihood that people will click on your shared links.</li>
+      <li><strong>Brand Consistency:</strong> Ensures that your content is represented exactly how you want it across all social channels.</li>
+      <li><strong>Professionalism:</strong> Rich preview cards make your links look more trustworthy and professional.</li>
+    </ul>
+
+    <h2>Best Practices for Social Cards</h2>
+    <ul>
+      <li><strong>Image Size:</strong> Use an image that is 1200 x 630 pixels. This aspect ratio (1.91:1) works best across almost all platforms.</li>
+      <li><strong>Title Length:</strong> Keep your title between 40 and 60 characters so it doesn't get truncated.</li>
+      <li><strong>Description Length:</strong> Aim for a description between 50 and 150 characters. Make it engaging and relevant to the page content.</li>
+      <li><strong>Use Twitter Cards:</strong> Include <code>twitter:card</code> tags alongside your Open Graph tags to ensure full compatibility with X (formerly Twitter). The <code>summary_large_image</code> type is recommended for maximum visibility.</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const inputs = {
+  url: document.getElementById('urlInput'),
+  title: document.getElementById('titleInput'),
+  desc: document.getElementById('descInput'),
+  image: document.getElementById('imageInput'),
+  twCard: document.getElementById('twitterCardInput')
+};
+
+const codeOutput = document.getElementById('codeOutput');
+const copyCodeBtn = document.getElementById('copyCodeBtn');
+
+const twDomain = document.getElementById('twDomain');
+const twTitle = document.getElementById('twTitle');
+const twDesc = document.getElementById('twDesc');
+const twImage = document.getElementById('twImage');
+const twitterPreview = document.getElementById('twitterPreview');
+
+const fbDomain = document.getElementById('fbDomain');
+const fbTitle = document.getElementById('fbTitle');
+const fbDesc = document.getElementById('fbDesc');
+const fbImage = document.getElementById('fbImage');
+
+const liDomain = document.getElementById('liDomain');
+const liTitle = document.getElementById('liTitle');
+const liImage = document.getElementById('liImage');
+
+const dcDomain = document.getElementById('dcDomain');
+const dcTitle = document.getElementById('dcTitle');
+const dcDesc = document.getElementById('dcDesc');
+const dcImage = document.getElementById('dcImage');
+
+const slDomain = document.getElementById('slDomain');
+const slTitle = document.getElementById('slTitle');
+const slDesc = document.getElementById('slDesc');
+const slImage = document.getElementById('slImage');
+
+function getDomain(urlStr) {
+  if (!urlStr) return '';
+  try {
+    let u = urlStr;
+    if (!u.startsWith('http')) u = 'https://' + u;
+    const url = new URL(u);
+    return url.hostname.replace('www.', '');
+  } catch(e) {
+    return urlStr;
+  }
+}
+
+function getFavicon(domain) {
+  // We use a simple external service for favicons to make the preview more realistic,
+  // but it's optional and fails gracefully. If strictly offline, we could just hide the favicon.
+  // For the sake of accuracy without our own API, Google's public favicon service is standard.
+  return `https://www.google.com/s2/favicons?domain=${domain}&sz=32`;
+}
+
+function escapeHtml(unsafe) {
+    return (unsafe || '').toString()
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;");
+}
+
+function updatePreviews() {
+  const url = inputs.url.value.trim();
+  const title = inputs.title.value.trim() || 'Page Title';
+  const desc = inputs.desc.value.trim() || 'Page Description';
+  const image = inputs.image.value.trim();
+  const twCard = inputs.twCard.value;
+  const domain = getDomain(url) || 'example.com';
+
+  twDomain.textContent = domain;
+  twTitle.textContent = title;
+  twDesc.textContent = desc;
+  twImage.src = image;
+  twitterPreview.className = `social-preview twitter-preview ${twCard === 'summary_large_image' ? 'large' : 'summary'}`;
+
+  fbDomain.textContent = domain.toUpperCase();
+  fbTitle.textContent = title;
+  fbDesc.textContent = desc;
+  fbImage.src = image;
+
+  liDomain.textContent = domain;
+  liTitle.textContent = title;
+  liImage.src = image;
+
+  dcTitle.textContent = title;
+  dcDesc.textContent = desc;
+  dcImage.src = image;
+  if(url) {
+    dcDomain.style.display = 'block';
+    dcDomain.textContent = domain;
+  } else {
+    dcDomain.style.display = 'none';
+  }
+
+  slDomain.innerHTML = `<img src="${escapeHtml(getFavicon(domain))}" alt="favicon" onerror="this.style.display='none'"> <span>${escapeHtml(domain)}</span>`;
+  slTitle.textContent = title;
+  slDesc.textContent = desc;
+  slImage.src = image;
+
+  generateCode(url, title, desc, image, twCard);
+}
+
+function generateCode(url, title, desc, image, twCard) {
+  let tags = [];
+
+  if(title) tags.push(`<title>${escapeHtml(title)}</title>`);
+  if(desc) tags.push(`<meta name="description" content="${escapeHtml(desc)}">`);
+
+  tags.push('');
+
+  tags.push(`<!-- Open Graph / Facebook -->`);
+  tags.push(`<meta property="og:type" content="website">`);
+  if(url) tags.push(`<meta property="og:url" content="${escapeHtml(url)}">`);
+  if(title) tags.push(`<meta property="og:title" content="${escapeHtml(title)}">`);
+  if(desc) tags.push(`<meta property="og:description" content="${escapeHtml(desc)}">`);
+  if(image) tags.push(`<meta property="og:image" content="${escapeHtml(image)}">`);
+
+  tags.push('');
+
+  tags.push(`<!-- Twitter -->`);
+  tags.push(`<meta property="twitter:card" content="${escapeHtml(twCard)}">`);
+  if(url) tags.push(`<meta property="twitter:url" content="${escapeHtml(url)}">`);
+  if(title) tags.push(`<meta property="twitter:title" content="${escapeHtml(title)}">`);
+  if(desc) tags.push(`<meta property="twitter:description" content="${escapeHtml(desc)}">`);
+  if(image) tags.push(`<meta property="twitter:image" content="${escapeHtml(image)}">`);
+
+  const rawCode = tags.join('\n');
+  const displayCode = tags.join('\n');
+
+  const highlighted = displayCode
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/(&lt;!--.*?--&gt;)/g, '<span style="color: #666;">$1</span>')
+    .replace(/(&lt;\/?)([a-zA-Z0-9]+)/g, '$1<span class="tag">$2</span>')
+    .replace(/ ([a-zA-Z0-9_-]+)=/g, ' <span class="attr">$1</span>=')
+    .replace(/"([^"]*)"/g, '"<span class="val">$1</span>"');
+
+  codeOutput.innerHTML = highlighted;
+  codeOutput.dataset.raw = rawCode;
+}
+
+Object.values(inputs).forEach(input => {
+  input.addEventListener('input', updatePreviews);
+});
+
+copyCodeBtn.addEventListener('click', () => {
+  const code = codeOutput.dataset.raw;
+  if (!code) return;
+
+  navigator.clipboard.writeText(code).then(() => {
+    const originalText = copyCodeBtn.innerHTML;
+    copyCodeBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+    copyCodeBtn.classList.add('copied');
+
+    setTimeout(() => {
+      copyCodeBtn.innerHTML = originalText;
+      copyCodeBtn.classList.remove('copied');
+    }, 2000);
+  });
+});
+
+updatePreviews();
+</script>
+
+</body>
+</html>
