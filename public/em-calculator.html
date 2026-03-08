@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Em/Rem Calculator & Visual Converter | Free Online Tool</title>
+<meta name="description" content="Calculate em and rem values based on parent and root font sizes. Visual hierarchy showing how values cascade. Responsive typography helper.">
+<meta property="og:title" content="Em/Rem Calculator & Visual Converter">
+<meta property="og:description" content="Calculate em and rem values based on parent and root font sizes. Visual hierarchy showing how values cascade. Responsive typography helper.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Em/Rem Calculator & Visual Converter",
+    "url": "https://siliconbased.dev/em-calculator",
+    "description": "Calculate em and rem values based on parent and root font sizes. Visual hierarchy showing how values cascade.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Understanding EM vs REM CSS Units",
+    "description": "Learn the difference between EM and REM CSS units and how they cascade to create responsive typography.",
+    "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+  }
+]
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 900px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Input Elements */
+.input-section { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
+.input-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.input-group { background: #111318; border: 1px solid #1e2030; border-radius: 12px; padding: 16px; flex: 1; min-width: 250px; display: flex; flex-direction: column; gap: 8px; }
+.input-group.target { border-color: #2a2d40; background: #13151d; }
+.input-label { font-size: 0.85rem; font-weight: 600; color: #a0a8c0; text-transform: uppercase; letter-spacing: 0.5px; }
+.input-wrapper { display: flex; align-items: center; background: #0a0b10; border: 1px solid #2a2d40; border-radius: 8px; overflow: hidden; transition: border-color 0.2s; }
+.input-wrapper:focus-within { border-color: #818cf8; }
+.num-input { flex: 1; background: transparent; border: none; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; font-weight: 600; padding: 12px 16px; outline: none; width: 100%; }
+.input-unit { padding: 0 16px; color: #666; font-size: 0.9rem; font-weight: 600; border-left: 1px solid #1e2030; background: #111318; display: flex; align-items: center; }
+
+/* Conversions Grid */
+.conversion-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 32px; }
+.conversion-card { background: #111318; border: 1px solid #1e2030; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 16px; text-align: center; }
+.conversion-card.accent { border-color: rgba(129, 140, 248, 0.3); }
+.card-label { font-size: 0.9rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+.value-display { font-family: 'JetBrains Mono', monospace; font-size: 2.5rem; font-weight: 700; color: #fff; word-break: break-all; display: flex; justify-content: center; align-items: baseline; gap: 8px; }
+.value-display span.unit { font-size: 1.2rem; color: #818cf8; font-weight: 600; }
+.copy-btn { background: #1e2030; border: 1px solid #2a2d40; color: #ccc; padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; margin: 0 auto; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.copy-btn:hover { background: #2a2d40; color: #fff; }
+.copy-btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+/* Visual Demo */
+.demo-section { background: #111318; border: 1px solid #1e2030; border-radius: 14px; overflow: hidden; margin-bottom: 40px; }
+.demo-header { padding: 16px 20px; background: #13151d; border-bottom: 1px solid #1e2030; display: flex; justify-content: space-between; align-items: center; }
+.demo-title { font-size: 0.95rem; font-weight: 600; color: #e0e0e0; }
+.demo-area { padding: 32px; background: #0a0b10; overflow-x: auto; }
+
+.demo-root { border: 2px dashed #2a2d40; border-radius: 8px; padding: 24px; background: rgba(255, 255, 255, 0.02); }
+.demo-root-label { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #666; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
+
+.demo-parent { border: 2px solid #1e2030; border-radius: 8px; padding: 24px; background: #111318; margin-bottom: 24px; }
+.demo-parent-label { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #888; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
+
+.demo-text-box { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; border-bottom: 1px solid #1e2030; padding-bottom: 16px; }
+.demo-text-box:last-child { margin-bottom: 0; border-bottom: none; padding-bottom: 0; }
+.demo-text { font-weight: 600; color: #fff; line-height: 1.2; word-break: break-word; }
+.demo-text.accent { color: #818cf8; }
+.demo-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #888; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+@media (max-width: 600px) {
+  .input-row { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Em/Rem <span>Calculator</span></h1>
+  <p>Convert PX to EM and REM instantly based on your typographic hierarchy.</p>
+</div>
+
+<div class="main">
+
+  <!-- Inputs -->
+  <div class="input-section">
+    <div class="input-row">
+      <div class="input-group">
+        <label class="input-label" for="rootSize">Root Element Size</label>
+        <div class="input-wrapper">
+          <input type="number" id="rootSize" class="num-input" value="16" min="1" step="1">
+          <span class="input-unit">px</span>
+        </div>
+      </div>
+      <div class="input-group">
+        <label class="input-label" for="parentSize">Parent Element Size</label>
+        <div class="input-wrapper">
+          <input type="number" id="parentSize" class="num-input" value="16" min="1" step="1">
+          <span class="input-unit">px</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-row">
+      <div class="input-group target">
+        <label class="input-label" for="targetSize" style="color: #818cf8;">Target Size to Convert</label>
+        <div class="input-wrapper" style="border-color: #3f4360;">
+          <input type="number" id="targetSize" class="num-input" value="24" min="1" step="0.5" style="color: #818cf8; font-size: 1.5rem;">
+          <span class="input-unit">px</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Conversions -->
+  <div class="conversion-grid">
+    <div class="conversion-card accent">
+      <div class="card-label">REM Equivalent</div>
+      <div class="value-display"><span id="valRem">1.5</span> <span class="unit">rem</span></div>
+      <button class="copy-btn" data-target="valRem">Copy REM Value</button>
+    </div>
+    <div class="conversion-card">
+      <div class="card-label">EM Equivalent</div>
+      <div class="value-display"><span id="valEm">1.5</span> <span class="unit">em</span></div>
+      <button class="copy-btn" data-target="valEm">Copy EM Value</button>
+    </div>
+  </div>
+
+  <!-- Visual Demo -->
+  <div class="demo-section">
+    <div class="demo-header">
+      <span class="demo-title">Visual Cascade Demo</span>
+    </div>
+    <div class="demo-area">
+      <div class="demo-root">
+        <div class="demo-root-label">Root (html) - <span id="lblRootSize">16px</span></div>
+
+        <div class="demo-parent">
+          <div class="demo-parent-label">Parent Container - <span id="lblParentSize">16px</span></div>
+
+          <div class="demo-text-box">
+            <div class="demo-text accent" id="demoTargetRem" style="font-size: 1.5rem;">The quick brown fox jumps over the lazy dog.</div>
+            <div class="demo-meta">Using REM (<span id="demoRemMeta">1.5rem * 16px Root = 24px</span>)</div>
+          </div>
+
+          <div class="demo-text-box">
+            <div class="demo-text" id="demoTargetEm" style="font-size: 1.5em;">The quick brown fox jumps over the lazy dog.</div>
+            <div class="demo-meta">Using EM (<span id="demoEmMeta">1.5em * 16px Parent = 24px</span>)</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEO Content -->
+  <div class="seo-content">
+    <h2>PX vs EM vs REM</h2>
+    <p>Understanding CSS units is crucial for building accessible and responsive web typography. Here is how the three main units differ:</p>
+    <ul>
+      <li><strong>PX (Pixels):</strong> Absolute units. <code>16px</code> is always exactly 16 pixels regardless of user settings or where the element is nested. They do not scale automatically if a user changes their browser's default font size, making them poor for accessibility.</li>
+      <li><strong>EM:</strong> Relative to the font size of its <em>direct parent</em>. If a parent container has a font size of <code>20px</code>, applying <code>1.5em</code> to a child element makes it <code>30px</code> (20 * 1.5). EM values compound when nested, which can lead to unexpected scaling if you aren't careful.</li>
+      <li><strong>REM (Root EM):</strong> Relative to the font size of the <em>root element</em> (the <code>&lt;html&gt;</code> tag). If your root font size is <code>16px</code>, <code>2rem</code> will always be <code>32px</code>, no matter how deeply nested the element is. This makes REM predictable while still remaining accessible to user browser preferences.</li>
+    </ul>
+
+    <h2>When to use EM vs REM</h2>
+    <p>A common modern practice is to use <strong>REM for global sizing</strong> (typography, overall layout dimensions) and <strong>EM for local, component-level sizing</strong>.</p>
+    <p>For example, if you build a button component, you might set its padding and border-radius using EM units (like <code>padding: 0.5em 1em;</code>). This way, if you change the button's font-size, the padding scales proportionally automatically without having to write extra CSS rules.</p>
+
+    <h2>Why is the default root size 16px?</h2>
+    <p>By default, almost all desktop and mobile browsers have their root font size set to <code>16px</code>. This is considered the optimal baseline reading size. When building web applications, it is a best practice to never set the root <code>&lt;html&gt;</code> font-size in explicit pixels (e.g. <code>html { font-size: 16px; }</code>) as this overrides the user's browser settings. Instead, rely on the default 100% and use REM units to scale from there.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+  const rootSizeInput = document.getElementById('rootSize');
+  const parentSizeInput = document.getElementById('parentSize');
+  const targetSizeInput = document.getElementById('targetSize');
+
+  const valRem = document.getElementById('valRem');
+  const valEm = document.getElementById('valEm');
+
+  const lblRootSize = document.getElementById('lblRootSize');
+  const lblParentSize = document.getElementById('lblParentSize');
+  const demoTargetRem = document.getElementById('demoTargetRem');
+  const demoTargetEm = document.getElementById('demoTargetEm');
+  const demoRemMeta = document.getElementById('demoRemMeta');
+  const demoEmMeta = document.getElementById('demoEmMeta');
+
+  const copyBtns = document.querySelectorAll('.copy-btn');
+
+  function calculate() {
+    const rootSize = parseFloat(rootSizeInput.value) || 16;
+    const parentSize = parseFloat(parentSizeInput.value) || 16;
+    const targetSize = parseFloat(targetSizeInput.value) || 0;
+
+    // Calculate Values
+    const remValue = targetSize / rootSize;
+    const emValue = targetSize / parentSize;
+
+    // Format numbers to avoid excessively long decimals
+    const formatNum = (num) => Number(num.toFixed(4)).toString();
+    const formattedRem = formatNum(remValue);
+    const formattedEm = formatNum(emValue);
+
+    // Update Value Displays
+    valRem.textContent = formattedRem;
+    valEm.textContent = formattedEm;
+
+    // Update Visual Demo Labels
+    lblRootSize.textContent = `${rootSize}px`;
+    lblParentSize.textContent = `${parentSize}px`;
+
+    // Update Visual Demo Text CSS inline styles
+    // Since this is a demo to show exactly how big it gets, we apply the pixel size
+    // explicitly so it matches their calculation visually
+    demoTargetRem.style.fontSize = `${targetSize}px`;
+    demoTargetEm.style.fontSize = `${targetSize}px`;
+
+    // Update Demo Meta Text
+    demoRemMeta.textContent = `${formattedRem}rem * ${rootSize}px Root = ${targetSize}px`;
+    demoEmMeta.textContent = `${formattedEm}em * ${parentSize}px Parent = ${targetSize}px`;
+  }
+
+  // Event Listeners for Calculation
+  [rootSizeInput, parentSizeInput, targetSizeInput].forEach(input => {
+    input.addEventListener('input', calculate);
+  });
+
+  // Event Listeners for Copy Buttons
+  copyBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-target');
+      const textToCopy = document.getElementById(targetId).textContent;
+
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const originalText = btn.textContent;
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.classList.remove('copied');
+        }, 1500);
+      });
+    });
+  });
+
+  // Initial Calculation
+  calculate();
+</script>
+</body>
+</html>
