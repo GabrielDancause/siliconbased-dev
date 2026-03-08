@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Best Free API Testing Tools | 2025 Comparison</title>
+<meta name="description" content="Compare the best free API testing tools: Postman, Insomnia, Hoppscotch, Thunder Client, and curl. Find the right tool for your REST and GraphQL testing needs.">
+<meta property="og:title" content="Best Free API Testing Tools | 2025 Comparison">
+<meta property="og:description" content="Compare the best free API testing tools: Postman, Insomnia, Hoppscotch, Thunder Client, and curl. Find the right tool for your REST and GraphQL testing needs.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "API Testing Tools Comparison",
+    "url": "https://siliconbased.dev/list-api-testing",
+    "description": "Curated list and comparison of the best free API testing tools.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Best Free API Testing Tools",
+    "description": "A comprehensive comparison of top free API testing tools including Postman, Insomnia, and more.",
+    "author": {
+      "@type": "Organization",
+      "name": "GAB Ventures",
+      "url": "https://gab.ae"
+    }
+  }
+]
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; max-width: 600px; margin: 0 auto; line-height: 1.5; }
+
+.main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Grid Layout */
+.grid-container { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 48px; }
+@media (min-width: 768px) {
+  .grid-container { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .grid-container { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Tool Card */
+.tool-card { background: #111318; border: 1px solid #1e2030; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); transition: transform 0.2s, border-color 0.2s; }
+.tool-card:hover { transform: translateY(-4px); border-color: #374151; }
+
+.card-header { padding: 20px; background: #13151d; border-bottom: 1px solid #1e2030; display: flex; justify-content: space-between; align-items: flex-start; }
+.card-title { font-size: 1.25rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 12px; }
+.card-title svg { width: 24px; height: 24px; color: #818cf8; }
+
+.rating { display: flex; gap: 2px; color: #fbbf24; margin-top: 8px; }
+.rating svg { width: 16px; height: 16px; fill: currentColor; }
+.rating svg.empty { fill: transparent; stroke: currentColor; stroke-width: 2; }
+
+.card-body { padding: 20px; display: flex; flex-direction: column; gap: 20px; flex: 1; }
+.card-desc { font-size: 0.95rem; color: #a1a1aa; line-height: 1.5; }
+
+.feature-list { list-style: none; }
+.feature-list li { display: flex; align-items: flex-start; gap: 8px; font-size: 0.9rem; margin-bottom: 8px; color: #d4d4d8; }
+.feature-list li svg { width: 16px; height: 16px; color: #4ade80; flex-shrink: 0; margin-top: 2px; }
+
+.pros-cons { display: grid; grid-template-columns: 1fr; gap: 16px; background: #0f111a; border-radius: 8px; padding: 16px; border: 1px solid #1e2030; }
+.pc-col h4 { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+.pros h4 { color: #4ade80; }
+.cons h4 { color: #f87171; }
+.pc-list { list-style: none; }
+.pc-list li { font-size: 0.85rem; color: #a1a1aa; margin-bottom: 6px; padding-left: 14px; position: relative; }
+.pc-list li::before { content: "•"; position: absolute; left: 0; color: #6b7280; }
+
+.card-footer { padding: 16px 20px; border-top: 1px solid #1e2030; display: flex; justify-content: space-between; align-items: center; background: #0f111a; font-size: 0.85rem; }
+.tag { padding: 4px 8px; background: rgba(129, 140, 248, 0.1); color: #818cf8; border-radius: 4px; font-weight: 500; font-family: 'JetBrains Mono', monospace; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content p { margin-bottom: 16px; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>API Testing <span>Tools</span></h1>
+  <p>Compare the best free API testing tools for developers. Find the perfect fit for your workflow without spending a dime.</p>
+</div>
+
+<div class="main">
+  <div class="grid-container" id="toolsGrid">
+    <!-- Tools injected here -->
+  </div>
+
+  <div class="seo-content" id="seoSection">
+    <!-- SEO content injected here -->
+  </div>
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const tools = [
+  {
+    name: "Postman",
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12A10 10 0 0 0 12 2v10l8.66 5A10 10 0 0 0 22 12z"></path><path d="M12 2v10L3.34 17A10 10 0 0 1 12 2z"></path><path d="M12 22a10 10 0 0 0 8.66-5L12 12v10z"></path></svg>',
+    rating: 4.5,
+    tag: "Enterprise Standard",
+    desc: "The industry standard for API development. Offers a comprehensive suite of tools for designing, mocking, testing, and documenting APIs.",
+    features: ["Extensive Collaboration", "Automated Testing", "API Mocking", "Rich Ecosystem"],
+    pros: ["Feature-rich", "Huge community", "Excellent documentation"],
+    cons: ["Resource heavy", "Cloud sync required for teams", "Complex UI"]
+  },
+  {
+    name: "Insomnia",
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>',
+    rating: 4.8,
+    tag: "Developer Favorite",
+    desc: "A lightweight, open-source desktop application for API design and testing with native support for GraphQL, REST, and gRPC.",
+    features: ["GraphQL Support", "Environment Variables", "Code Snippet Generation", "Plugin System"],
+    pros: ["Clean, intuitive UI", "Fast performance", "Local-first option"],
+    cons: ["Fewer enterprise features", "Smaller community vs Postman"]
+  },
+  {
+    name: "Hoppscotch",
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>',
+    rating: 4.6,
+    tag: "Web-Based",
+    desc: "A fast, open-source API development ecosystem accessible directly from your browser. No installation required.",
+    features: ["Real-time Collaboration", "WebSockets/GraphQL/MQTT", "PWA Support", "Customizable UI"],
+    pros: ["Zero installation", "Blazing fast", "Open source"],
+    cons: ["Browser extension needed for CORS", "Limited offline capabilities"]
+  },
+  {
+    name: "Thunder Client",
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>',
+    rating: 4.7,
+    tag: "VS Code Extension",
+    desc: "A lightweight REST API Client Extension for Visual Studio Code. Test APIs without leaving your editor.",
+    features: ["VS Code Integration", "Scriptless Testing", "Environment Variables", "Git Syncing"],
+    pros: ["No context switching", "Very lightweight", "Saves to workspace"],
+    cons: ["Tied to VS Code", "Fewer advanced scripting features"]
+  },
+  {
+    name: "cURL",
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>',
+    rating: 4.9,
+    tag: "CLI Tool",
+    desc: "The ubiquitous command-line tool for transferring data with URLs. Essential for quick tests and scripting.",
+    features: ["Universal Availability", "Countless Protocols", "Scriptable", "Extremely Fast"],
+    pros: ["Installed everywhere", "Zero overhead", "Perfect for CI/CD"],
+    cons: ["Steep learning curve", "No GUI", "Hard to manage complex requests"]
+  }
+];
+
+const seoData = [
+  {
+    title: "Why Use Dedicated API Testing Tools?",
+    content: "API testing tools are essential for modern software development. They allow developers to construct complex HTTP requests, manage authentication tokens, and validate responses without writing disposable scripts or building throwaway frontends. A good tool saves countless hours by letting you save parameterized requests into collections, share them with your team, and run automated assertion tests against your endpoints."
+  },
+  {
+    title: "Key Features to Look For",
+    content: "When evaluating a free API client, prioritize features that match your workflow. If you work heavily with complex architectures, ensure the tool supports GraphQL or gRPC alongside standard REST. Environment variable management is crucial for switching between local, staging, and production servers seamlessly. Additionally, look for built-in code snippet generators (to convert a request into curl or JS fetch) and robust scripting capabilities for writing post-request tests."
+  },
+  {
+    title: "Desktop App vs. Web Client vs. Editor Extension",
+    content: "The landscape of API testing has evolved. Traditional heavy desktop apps like Postman provide massive ecosystems but can be resource-intensive. Web-based alternatives like Hoppscotch offer instant access and zero installation but often require browser extensions to bypass CORS restrictions. Editor extensions like Thunder Client are increasingly popular because they eliminate context switching—you can test your API right next to your source code."
+  }
+];
+
+function generateStars(rating) {
+  const fullStars = Math.floor(rating);
+  const hasHalfStar = rating % 1 !== 0;
+  let starsHtml = '';
+
+  for (let i = 0; i < 5; i++) {
+    if (i < fullStars) {
+      starsHtml += '<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>';
+    } else if (i === fullStars && hasHalfStar) {
+      // Simple half star representation using clipping or viewbox trick (fallback to full for simplicity here, but visual styling applies)
+      starsHtml += '<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>';
+    } else {
+      starsHtml += '<svg class="empty" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>';
+    }
+  }
+  return starsHtml;
+}
+
+function renderTools() {
+  const grid = document.getElementById('toolsGrid');
+  grid.innerHTML = tools.map(tool => `
+    <div class="tool-card">
+      <div class="card-header">
+        <div>
+          <h3 class="card-title">${tool.icon} ${tool.name}</h3>
+          <div class="rating" title="${tool.rating} out of 5 stars">
+            ${generateStars(tool.rating)}
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">${tool.desc}</p>
+
+        <div>
+          <ul class="feature-list">
+            ${tool.features.map(f => `
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                ${f}
+              </li>
+            `).join('')}
+          </ul>
+        </div>
+
+        <div class="pros-cons">
+          <div class="pc-col pros">
+            <h4><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg> Pros</h4>
+            <ul class="pc-list">
+              ${tool.pros.map(p => `<li>${p}</li>`).join('')}
+            </ul>
+          </div>
+          <div class="pc-col cons">
+            <h4><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="12" x2="16" y2="12"></line></svg> Cons</h4>
+            <ul class="pc-list">
+              ${tool.cons.map(c => `<li>${c}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="tag">${tool.tag}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderSEO() {
+  const section = document.getElementById('seoSection');
+  section.innerHTML = seoData.map(item => `
+    <h2>${item.title}</h2>
+    <p>${item.content}</p>
+  `).join('');
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+  renderTools();
+  renderSEO();
+});
+</script>
+
+</body>
+</html>
