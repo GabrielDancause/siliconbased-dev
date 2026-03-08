@@ -1,0 +1,1982 @@
+[
+  {
+    "slug": "email",
+    "title": "Email",
+    "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+    "flags": "",
+    "description": "A regular expression to match a Email.",
+    "testStrings": [
+      {
+        "string": "user@example.com",
+        "match": true
+      },
+      {
+        "string": "user@.com",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of string"
+      },
+      {
+        "part": "[a-zA-Z0-9._%+-]+",
+        "desc": "Username part"
+      },
+      {
+        "part": "@",
+        "desc": "At symbol"
+      },
+      {
+        "part": "[a-zA-Z0-9.-]+",
+        "desc": "Domain name"
+      },
+      {
+        "part": "\\.[a-zA-Z]{2,}",
+        "desc": "Top level domain"
+      },
+      {
+        "part": "$",
+        "desc": "End of string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Email",
+        "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$?"
+      }
+    ],
+    "relatedPatterns": [
+      "file-extension",
+      "domain-name",
+      "markdown-image"
+    ]
+  },
+  {
+    "slug": "phone-number",
+    "title": "Phone Number",
+    "pattern": "^\\+?[1-9]\\d{1,14}$",
+    "flags": "g",
+    "description": "A regular expression to match a Phone Number.",
+    "testStrings": [
+      {
+        "string": "+1234567890",
+        "match": true
+      },
+      {
+        "string": "123-abc",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^\\+?",
+        "desc": "Optional plus sign"
+      },
+      {
+        "part": "[1-9]\\d{1,14}",
+        "desc": "1 to 15 digits (E.164)"
+      },
+      {
+        "part": "$",
+        "desc": "End of string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^\\+?[1-9]\\d{1,14}$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^\\+?[1-9]\\d{1,14}$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^\\+?[1-9]\\d{1,14}$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^\\+?[1-9]\\d{1,14}$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Phone Number",
+        "pattern": "^\\+?[1-9]\\d{1,14}$?"
+      }
+    ],
+    "relatedPatterns": [
+      "slug",
+      "url",
+      "credit-card"
+    ]
+  },
+  {
+    "slug": "url",
+    "title": "Url",
+    "pattern": "^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$",
+    "flags": "g",
+    "description": "A regular expression to match a Url.",
+    "testStrings": [
+      {
+        "string": "https://example.com/path",
+        "match": true
+      },
+      {
+        "string": "htt://wrong",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Url",
+        "pattern": "^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$?"
+      }
+    ],
+    "relatedPatterns": [
+      "time-24h",
+      "markdown-link",
+      "domain-name"
+    ]
+  },
+  {
+    "slug": "ip-address",
+    "title": "Ip Address",
+    "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
+    "flags": "g",
+    "description": "A regular expression to match a Ip Address.",
+    "testStrings": [
+      {
+        "string": "192.168.1.1",
+        "match": true
+      },
+      {
+        "string": "256.0.0.1",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Ip Address",
+        "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$?"
+      }
+    ],
+    "relatedPatterns": [
+      "css-class",
+      "image-file",
+      "ssn"
+    ]
+  },
+  {
+    "slug": "ipv6",
+    "title": "Ipv6",
+    "pattern": "^(?:[A-F0-9]{1,4}:){7}[A-F0-9]{1,4}$",
+    "flags": "i",
+    "description": "A regular expression to match a Ipv6.",
+    "testStrings": [
+      {
+        "string": "2001:0db8:85a3:0000:0000:8a2e:0370:7334",
+        "match": true
+      },
+      {
+        "string": "1200::AB00:1234::2552:7777:1313",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^(?:[A-F0-9]{1,4}:){7}[A-F0-9]{1,4}$/i;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^(?:[A-F0-9]{1,4}:){7}[A-F0-9]{1,4}$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^(?:[A-F0-9]{1,4}:){7}[A-F0-9]{1,4}$/i\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^(?:[A-F0-9]{1,4}:){7}[A-F0-9]{1,4}$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Ipv6",
+        "pattern": "^(?:[A-F0-9]{1,4}:){7}[A-F0-9]{1,4}$?"
+      }
+    ],
+    "relatedPatterns": [
+      "date-mm-dd-yyyy",
+      "credit-card",
+      "date-yyyy-mm-dd"
+    ]
+  },
+  {
+    "slug": "date-yyyy-mm-dd",
+    "title": "Date Yyyy Mm Dd",
+    "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
+    "flags": "g",
+    "description": "A regular expression to match a Date Yyyy Mm Dd.",
+    "testStrings": [
+      {
+        "string": "2023-12-31",
+        "match": true
+      },
+      {
+        "string": "2023-13-40",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Date Yyyy Mm Dd",
+        "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$?"
+      }
+    ],
+    "relatedPatterns": [
+      "html-comment",
+      "username",
+      "password-strength"
+    ]
+  },
+  {
+    "slug": "date-mm-dd-yyyy",
+    "title": "Date Mm Dd Yyyy",
+    "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])-\\d{4}$",
+    "flags": "g",
+    "description": "A regular expression to match a Date Mm Dd Yyyy.",
+    "testStrings": [
+      {
+        "string": "12-31-2023",
+        "match": true
+      },
+      {
+        "string": "13-31-2023",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])-\\d{4}$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])-\\d{4}$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])-\\d{4}$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])-\\d{4}$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Date Mm Dd Yyyy",
+        "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])-\\d{4}$?"
+      }
+    ],
+    "relatedPatterns": [
+      "css-class",
+      "html-tag",
+      "uuid"
+    ]
+  },
+  {
+    "slug": "time-24h",
+    "title": "Time 24h",
+    "pattern": "^([01]?[0-9]|2[0-3]):[0-5][0-9]$",
+    "flags": "g",
+    "description": "A regular expression to match a Time 24h.",
+    "testStrings": [
+      {
+        "string": "23:59",
+        "match": true
+      },
+      {
+        "string": "24:00",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^([01]?[0-9]|2[0-3]):[0-5][0-9]$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^([01]?[0-9]|2[0-3]):[0-5][0-9]$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Time 24h",
+        "pattern": "^([01]?[0-9]|2[0-3]):[0-5][0-9]$?"
+      }
+    ],
+    "relatedPatterns": [
+      "http-https-url",
+      "date-mm-dd-yyyy",
+      "ip-address"
+    ]
+  },
+  {
+    "slug": "time-12h",
+    "title": "Time 12h",
+    "pattern": "^(1[0-2]|0?[1-9]):[0-5][0-9] (AM|PM|am|pm)$",
+    "flags": "g",
+    "description": "A regular expression to match a Time 12h.",
+    "testStrings": [
+      {
+        "string": "12:59 AM",
+        "match": true
+      },
+      {
+        "string": "13:00 PM",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^(1[0-2]|0?[1-9]):[0-5][0-9] (AM|PM|am|pm)$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^(1[0-2]|0?[1-9]):[0-5][0-9] (AM|PM|am|pm)$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^(1[0-2]|0?[1-9]):[0-5][0-9] (AM|PM|am|pm)$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^(1[0-2]|0?[1-9]):[0-5][0-9] (AM|PM|am|pm)$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Time 12h",
+        "pattern": "^(1[0-2]|0?[1-9]):[0-5][0-9] (AM|PM|am|pm)$?"
+      }
+    ],
+    "relatedPatterns": [
+      "mac-address",
+      "ip-address",
+      "email"
+    ]
+  },
+  {
+    "slug": "hex-color",
+    "title": "Hex Color",
+    "pattern": "^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$",
+    "flags": "g",
+    "description": "A regular expression to match a Hex Color.",
+    "testStrings": [
+      {
+        "string": "#ff0000",
+        "match": true
+      },
+      {
+        "string": "red",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Hex Color",
+        "pattern": "^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$?"
+      }
+    ],
+    "relatedPatterns": [
+      "date-yyyy-mm-dd",
+      "python-import",
+      "image-file"
+    ]
+  },
+  {
+    "slug": "credit-card",
+    "title": "Credit Card",
+    "pattern": "^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})$",
+    "flags": "g",
+    "description": "A regular expression to match a Credit Card.",
+    "testStrings": [
+      {
+        "string": "4000123456789010",
+        "match": true
+      },
+      {
+        "string": "1234",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Credit Card",
+        "pattern": "^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})$?"
+      }
+    ],
+    "relatedPatterns": [
+      "date-mm-dd-yyyy",
+      "csv-line",
+      "ssn"
+    ]
+  },
+  {
+    "slug": "ssn",
+    "title": "Ssn",
+    "pattern": "^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$",
+    "flags": "g",
+    "description": "A regular expression to match a Ssn.",
+    "testStrings": [
+      {
+        "string": "123-45-6789",
+        "match": true
+      },
+      {
+        "string": "000-00-0000",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Ssn",
+        "pattern": "^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$?"
+      }
+    ],
+    "relatedPatterns": [
+      "markdown-link",
+      "email",
+      "ip-address"
+    ]
+  },
+  {
+    "slug": "zip-code",
+    "title": "Zip Code",
+    "pattern": "^\\d{5}(?:[-\\s]\\d{4})?$",
+    "flags": "g",
+    "description": "A regular expression to match a Zip Code.",
+    "testStrings": [
+      {
+        "string": "12345",
+        "match": true
+      },
+      {
+        "string": "1234",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^\\d{5}(?:[-\\s]\\d{4})?$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^\\d{5}(?:[-\\s]\\d{4})?$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^\\d{5}(?:[-\\s]\\d{4})?$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^\\d{5}(?:[-\\s]\\d{4})?$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Zip Code",
+        "pattern": "^\\d{5}(?:[-\\s]\\d{4})?$?"
+      }
+    ],
+    "relatedPatterns": [
+      "html-comment",
+      "time-24h",
+      "email"
+    ]
+  },
+  {
+    "slug": "password-strength",
+    "title": "Password Strength",
+    "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
+    "flags": "g",
+    "description": "A regular expression to match a Password Strength.",
+    "testStrings": [
+      {
+        "string": "StrongPass1!",
+        "match": true
+      },
+      {
+        "string": "weak",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Password Strength",
+        "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$?"
+      }
+    ],
+    "relatedPatterns": [
+      "html-comment",
+      "uuid",
+      "mac-address"
+    ]
+  },
+  {
+    "slug": "username",
+    "title": "Username",
+    "pattern": "^[a-zA-Z0-9_-]{3,16}$",
+    "flags": "g",
+    "description": "A regular expression to match a Username.",
+    "testStrings": [
+      {
+        "string": "user_name123",
+        "match": true
+      },
+      {
+        "string": "u",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^[a-zA-Z0-9_-]{3,16}$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^[a-zA-Z0-9_-]{3,16}$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^[a-zA-Z0-9_-]{3,16}$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^[a-zA-Z0-9_-]{3,16}$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Username",
+        "pattern": "^[a-zA-Z0-9_-]{3,16}$?"
+      }
+    ],
+    "relatedPatterns": [
+      "zip-code",
+      "date-yyyy-mm-dd",
+      "whitespace"
+    ]
+  },
+  {
+    "slug": "slug",
+    "title": "Slug",
+    "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+    "flags": "g",
+    "description": "A regular expression to match a Slug.",
+    "testStrings": [
+      {
+        "string": "my-valid-slug",
+        "match": true
+      },
+      {
+        "string": "Invalid_Slug",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^[a-z0-9]+(?:-[a-z0-9]+)*$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^[a-z0-9]+(?:-[a-z0-9]+)*$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^[a-z0-9]+(?:-[a-z0-9]+)*$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Slug",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$?"
+      }
+    ],
+    "relatedPatterns": [
+      "base64",
+      "email",
+      "alphanumeric"
+    ]
+  },
+  {
+    "slug": "html-tag",
+    "title": "Html Tag",
+    "pattern": "^<([a-z]+)([^<]+)*(?:>(.*)<\\/\\1>|\\s+\\/>)$",
+    "flags": "g",
+    "description": "A regular expression to match a Html Tag.",
+    "testStrings": [
+      {
+        "string": "<div class=\"test\"></div>",
+        "match": true
+      },
+      {
+        "string": "<div>",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^<([a-z]+)([^<]+)*(?:>(.*)<\\/\\1>|\\s+\\/>)$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^<([a-z]+)([^<]+)*(?:>(.*)<\\/\\1>|\\s+\\/>)$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^<([a-z]+)([^<]+)*(?:>(.*)<\\/\\1>|\\s+\\/>)$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^<([a-z]+)([^<]+)*(?:>(.*)<\\/\\1>|\\s+\\/>)$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Html Tag",
+        "pattern": "^<([a-z]+)([^<]+)*(?:>(.*)<\\/\\1>|\\s+\\/>)$?"
+      }
+    ],
+    "relatedPatterns": [
+      "ipv6",
+      "password-strength",
+      "ip-address"
+    ]
+  },
+  {
+    "slug": "number-only",
+    "title": "Number Only",
+    "pattern": "^\\d+$",
+    "flags": "g",
+    "description": "A regular expression to match a Number Only.",
+    "testStrings": [
+      {
+        "string": "12345",
+        "match": true
+      },
+      {
+        "string": "123a",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^\\d+$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^\\d+$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^\\d+$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^\\d+$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Number Only",
+        "pattern": "^\\d+$?"
+      }
+    ],
+    "relatedPatterns": [
+      "slug",
+      "date-mm-dd-yyyy",
+      "newline"
+    ]
+  },
+  {
+    "slug": "letters-only",
+    "title": "Letters Only",
+    "pattern": "^[a-zA-Z]+$",
+    "flags": "g",
+    "description": "A regular expression to match a Letters Only.",
+    "testStrings": [
+      {
+        "string": "abcDEF",
+        "match": true
+      },
+      {
+        "string": "abc1",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^[a-zA-Z]+$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^[a-zA-Z]+$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^[a-zA-Z]+$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^[a-zA-Z]+$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Letters Only",
+        "pattern": "^[a-zA-Z]+$?"
+      }
+    ],
+    "relatedPatterns": [
+      "email",
+      "ipv6",
+      "html-comment"
+    ]
+  },
+  {
+    "slug": "alphanumeric",
+    "title": "Alphanumeric",
+    "pattern": "^[a-zA-Z0-9]+$",
+    "flags": "g",
+    "description": "A regular expression to match a Alphanumeric.",
+    "testStrings": [
+      {
+        "string": "abcDEF123",
+        "match": true
+      },
+      {
+        "string": "abc-123",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^[a-zA-Z0-9]+$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^[a-zA-Z0-9]+$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^[a-zA-Z0-9]+$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^[a-zA-Z0-9]+$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Alphanumeric",
+        "pattern": "^[a-zA-Z0-9]+$?"
+      }
+    ],
+    "relatedPatterns": [
+      "date-mm-dd-yyyy",
+      "ssn",
+      "file-extension"
+    ]
+  },
+  {
+    "slug": "whitespace",
+    "title": "Whitespace",
+    "pattern": "^\\s+$",
+    "flags": "g",
+    "description": "A regular expression to match a Whitespace.",
+    "testStrings": [
+      {
+        "string": "   ",
+        "match": true
+      },
+      {
+        "string": " a ",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^\\s+$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^\\s+$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^\\s+$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^\\s+$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Whitespace",
+        "pattern": "^\\s+$?"
+      }
+    ],
+    "relatedPatterns": [
+      "email",
+      "image-file",
+      "slug"
+    ]
+  },
+  {
+    "slug": "newline",
+    "title": "Newline",
+    "pattern": "\\r?\\n",
+    "flags": "g",
+    "description": "A regular expression to match a Newline.",
+    "testStrings": [
+      {
+        "string": "\\n",
+        "match": true
+      },
+      {
+        "string": "a",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /\\r?\\n/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"\\r?\\n\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/\\r?\\n/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`\\r?\\n`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Newline",
+        "pattern": "\\r?\\n?"
+      }
+    ],
+    "relatedPatterns": [
+      "password-strength",
+      "image-file",
+      "csv-line"
+    ]
+  },
+  {
+    "slug": "file-extension",
+    "title": "File Extension",
+    "pattern": "^[\\w\\-. ]+\\.[a-zA-Z0-9]+$",
+    "flags": "g",
+    "description": "A regular expression to match a File Extension.",
+    "testStrings": [
+      {
+        "string": "file.txt",
+        "match": true
+      },
+      {
+        "string": "file",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^[\\w\\-. ]+\\.[a-zA-Z0-9]+$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^[\\w\\-. ]+\\.[a-zA-Z0-9]+$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^[\\w\\-. ]+\\.[a-zA-Z0-9]+$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^[\\w\\-. ]+\\.[a-zA-Z0-9]+$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative File Extension",
+        "pattern": "^[\\w\\-. ]+\\.[a-zA-Z0-9]+$?"
+      }
+    ],
+    "relatedPatterns": [
+      "image-file",
+      "ipv6",
+      "username"
+    ]
+  },
+  {
+    "slug": "image-file",
+    "title": "Image File",
+    "pattern": "([^\\s]+(\\.(?i)(jpe?g|png|gif|bmp|webp))$)",
+    "flags": "g",
+    "description": "A regular expression to match a Image File.",
+    "testStrings": [
+      {
+        "string": "image.png",
+        "match": true
+      },
+      {
+        "string": "doc.txt",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /([^\\s]+(\\.(?i)(jpe?g|png|gif|bmp|webp))$)/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"([^\\s]+(\\.(?i)(jpe?g|png|gif|bmp|webp))$)\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/([^\\s]+(\\.(?i)(jpe?g|png|gif|bmp|webp))$)/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`([^\\s]+(\\.(?i)(jpe?g|png|gif|bmp|webp))$)`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Image File",
+        "pattern": "([^\\s]+(\\.(?i)(jpe?g|png|gif|bmp|webp))$)?"
+      }
+    ],
+    "relatedPatterns": [
+      "domain-name",
+      "time-24h",
+      "slug"
+    ]
+  },
+  {
+    "slug": "csv-line",
+    "title": "Csv Line",
+    "pattern": "^(?:(?:\\\"[^\\\"]*\\\")|(?:[^,]*))(?:,(?:(?:\\\"[^\\\"]*\\\")|(?:[^,]*)))*$",
+    "flags": "g",
+    "description": "A regular expression to match a Csv Line.",
+    "testStrings": [
+      {
+        "string": "1,\"test, data\",3",
+        "match": true
+      },
+      {
+        "string": "invalid\"csv",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^(?:(?:\\\"[^\\\"]*\\\")|(?:[^,]*))(?:,(?:(?:\\\"[^\\\"]*\\\")|(?:[^,]*)))*$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^(?:(?:\\\"[^\\\"]*\\\")|(?:[^,]*))(?:,(?:(?:\\\"[^\\\"]*\\\")|(?:[^,]*)))*$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^(?:(?:\\\"[^\\\"]*\\\")|(?:[^,]*))(?:,(?:(?:\\\"[^\\\"]*\\\")|(?:[^,]*)))*$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^(?:(?:\\\"[^\\\"]*\\\")|(?:[^,]*))(?:,(?:(?:\\\"[^\\\"]*\\\")|(?:[^,]*)))*$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Csv Line",
+        "pattern": "^(?:(?:\\\"[^\\\"]*\\\")|(?:[^,]*))(?:,(?:(?:\\\"[^\\\"]*\\\")|(?:[^,]*)))*$?"
+      }
+    ],
+    "relatedPatterns": [
+      "whitespace",
+      "username",
+      "slug"
+    ]
+  },
+  {
+    "slug": "json-string",
+    "title": "Json String",
+    "pattern": "^\\s*\\{.*\\}\\s*$|^\\s*\\[.*\\]\\s*$",
+    "flags": "g",
+    "description": "A regular expression to match a Json String.",
+    "testStrings": [
+      {
+        "string": "{\"key\": \"value\"}",
+        "match": true
+      },
+      {
+        "string": "not json",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^\\s*\\{.*\\}\\s*$|^\\s*\\[.*\\]\\s*$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^\\s*\\{.*\\}\\s*$|^\\s*\\[.*\\]\\s*$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^\\s*\\{.*\\}\\s*$|^\\s*\\[.*\\]\\s*$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^\\s*\\{.*\\}\\s*$|^\\s*\\[.*\\]\\s*$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Json String",
+        "pattern": "^\\s*\\{.*\\}\\s*$|^\\s*\\[.*\\]\\s*$?"
+      }
+    ],
+    "relatedPatterns": [
+      "email",
+      "password-strength",
+      "css-class"
+    ]
+  },
+  {
+    "slug": "uuid",
+    "title": "Uuid",
+    "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+    "flags": "g",
+    "description": "A regular expression to match a Uuid.",
+    "testStrings": [
+      {
+        "string": "123e4567-e89b-12d3-a456-426614174000",
+        "match": true
+      },
+      {
+        "string": "123e4567-e89b-12d3-a456",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Uuid",
+        "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$?"
+      }
+    ],
+    "relatedPatterns": [
+      "url",
+      "phone-number",
+      "json-string"
+    ]
+  },
+  {
+    "slug": "mac-address",
+    "title": "Mac Address",
+    "pattern": "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$",
+    "flags": "g",
+    "description": "A regular expression to match a Mac Address.",
+    "testStrings": [
+      {
+        "string": "00:1A:2B:3C:4D:5E",
+        "match": true
+      },
+      {
+        "string": "00:1A:2B:3C:4D",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Mac Address",
+        "pattern": "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$?"
+      }
+    ],
+    "relatedPatterns": [
+      "ip-address",
+      "ipv6",
+      "password-strength"
+    ]
+  },
+  {
+    "slug": "domain-name",
+    "title": "Domain Name",
+    "pattern": "^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,}$",
+    "flags": "g",
+    "description": "A regular expression to match a Domain Name.",
+    "testStrings": [
+      {
+        "string": "example.com",
+        "match": true
+      },
+      {
+        "string": "example",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,}$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,}$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,}$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,}$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Domain Name",
+        "pattern": "^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,}$?"
+      }
+    ],
+    "relatedPatterns": [
+      "base64",
+      "letters-only",
+      "email"
+    ]
+  },
+  {
+    "slug": "http-https-url",
+    "title": "Http Https Url",
+    "pattern": "^https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$",
+    "flags": "g",
+    "description": "A regular expression to match a Http Https Url.",
+    "testStrings": [
+      {
+        "string": "https://example.com",
+        "match": true
+      },
+      {
+        "string": "ftp://example.com",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Http Https Url",
+        "pattern": "^https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$?"
+      }
+    ],
+    "relatedPatterns": [
+      "zip-code",
+      "time-12h",
+      "letters-only"
+    ]
+  },
+  {
+    "slug": "markdown-link",
+    "title": "Markdown Link",
+    "pattern": "\\[[^\\]]+\\]\\([^)]+\\)",
+    "flags": "g",
+    "description": "A regular expression to match a Markdown Link.",
+    "testStrings": [
+      {
+        "string": "[Google](https://google.com)",
+        "match": true
+      },
+      {
+        "string": "[Google]",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /\\[[^\\]]+\\]\\([^)]+\\)/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"\\[[^\\]]+\\]\\([^)]+\\)\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/\\[[^\\]]+\\]\\([^)]+\\)/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`\\[[^\\]]+\\]\\([^)]+\\)`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Markdown Link",
+        "pattern": "\\[[^\\]]+\\]\\([^)]+\\)?"
+      }
+    ],
+    "relatedPatterns": [
+      "file-extension",
+      "mac-address",
+      "zip-code"
+    ]
+  },
+  {
+    "slug": "markdown-image",
+    "title": "Markdown Image",
+    "pattern": "!\\[[^\\]]*\\]\\([^)]+\\)",
+    "flags": "g",
+    "description": "A regular expression to match a Markdown Image.",
+    "testStrings": [
+      {
+        "string": "![Alt text](image.png)",
+        "match": true
+      },
+      {
+        "string": "[Alt text](image.png)",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /!\\[[^\\]]*\\]\\([^)]+\\)/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"!\\[[^\\]]*\\]\\([^)]+\\)\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/!\\[[^\\]]*\\]\\([^)]+\\)/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`!\\[[^\\]]*\\]\\([^)]+\\)`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Markdown Image",
+        "pattern": "!\\[[^\\]]*\\]\\([^)]+\\)?"
+      }
+    ],
+    "relatedPatterns": [
+      "url",
+      "credit-card",
+      "time-12h"
+    ]
+  },
+  {
+    "slug": "html-comment",
+    "title": "Html Comment",
+    "pattern": "<!--[\\s\\S]*?-->",
+    "flags": "g",
+    "description": "A regular expression to match a Html Comment.",
+    "testStrings": [
+      {
+        "string": "<!-- comment -->",
+        "match": true
+      },
+      {
+        "string": "<! comment >",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /<!--[\\s\\S]*?-->/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"<!--[\\s\\S]*?-->\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/<!--[\\s\\S]*?-->/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`<!--[\\s\\S]*?-->`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Html Comment",
+        "pattern": "<!--[\\s\\S]*?-->?"
+      }
+    ],
+    "relatedPatterns": [
+      "domain-name",
+      "json-string",
+      "letters-only"
+    ]
+  },
+  {
+    "slug": "css-class",
+    "title": "Css Class",
+    "pattern": "^\\.-?[_a-zA-Z]+[_a-zA-Z0-9-]*$",
+    "flags": "g",
+    "description": "A regular expression to match a Css Class.",
+    "testStrings": [
+      {
+        "string": ".my-class",
+        "match": true
+      },
+      {
+        "string": "my-class",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^\\.-?[_a-zA-Z]+[_a-zA-Z0-9-]*$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^\\.-?[_a-zA-Z]+[_a-zA-Z0-9-]*$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^\\.-?[_a-zA-Z]+[_a-zA-Z0-9-]*$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^\\.-?[_a-zA-Z]+[_a-zA-Z0-9-]*$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Css Class",
+        "pattern": "^\\.-?[_a-zA-Z]+[_a-zA-Z0-9-]*$?"
+      }
+    ],
+    "relatedPatterns": [
+      "base64",
+      "username",
+      "time-12h"
+    ]
+  },
+  {
+    "slug": "javascript-variable",
+    "title": "Javascript Variable",
+    "pattern": "^[a-zA-Z_$][a-zA-Z0-9_$]*$",
+    "flags": "g",
+    "description": "A regular expression to match a Javascript Variable.",
+    "testStrings": [
+      {
+        "string": "myVar",
+        "match": true
+      },
+      {
+        "string": "1var",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^[a-zA-Z_$][a-zA-Z0-9_$]*$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^[a-zA-Z_$][a-zA-Z0-9_$]*$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^[a-zA-Z_$][a-zA-Z0-9_$]*$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Javascript Variable",
+        "pattern": "^[a-zA-Z_$][a-zA-Z0-9_$]*$?"
+      }
+    ],
+    "relatedPatterns": [
+      "time-12h",
+      "zip-code",
+      "date-mm-dd-yyyy"
+    ]
+  },
+  {
+    "slug": "python-import",
+    "title": "Python Import",
+    "pattern": "^(?:from\\s+([\\w\\.]+)\\s+)?import\\s+([\\w\\.\\,\\s]+)(?:\\s+as\\s+\\w+)?$",
+    "flags": "g",
+    "description": "A regular expression to match a Python Import.",
+    "testStrings": [
+      {
+        "string": "import os",
+        "match": true
+      },
+      {
+        "string": "include os",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^(?:from\\s+([\\w\\.]+)\\s+)?import\\s+([\\w\\.\\,\\s]+)(?:\\s+as\\s+\\w+)?$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^(?:from\\s+([\\w\\.]+)\\s+)?import\\s+([\\w\\.\\,\\s]+)(?:\\s+as\\s+\\w+)?$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^(?:from\\s+([\\w\\.]+)\\s+)?import\\s+([\\w\\.\\,\\s]+)(?:\\s+as\\s+\\w+)?$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^(?:from\\s+([\\w\\.]+)\\s+)?import\\s+([\\w\\.\\,\\s]+)(?:\\s+as\\s+\\w+)?$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Python Import",
+        "pattern": "^(?:from\\s+([\\w\\.]+)\\s+)?import\\s+([\\w\\.\\,\\s]+)(?:\\s+as\\s+\\w+)?$?"
+      }
+    ],
+    "relatedPatterns": [
+      "slug",
+      "sql-injection",
+      "http-https-url"
+    ]
+  },
+  {
+    "slug": "sql-injection",
+    "title": "Sql Injection",
+    "pattern": "(?i)(\\b(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\\b.*\\b(FROM|INTO|SET|TABLE)\\b|('.*\\bor\\b.*=.*'))",
+    "flags": "g",
+    "description": "A regular expression to match a Sql Injection.",
+    "testStrings": [
+      {
+        "string": "SELECT * FROM users",
+        "match": true
+      },
+      {
+        "string": "just a text",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /(?i)(\\b(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\\b.*\\b(FROM|INTO|SET|TABLE)\\b|('.*\\bor\\b.*=.*'))/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"(?i)(\\b(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\\b.*\\b(FROM|INTO|SET|TABLE)\\b|('.*\\bor\\b.*=.*'))\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/(?i)(\\b(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\\b.*\\b(FROM|INTO|SET|TABLE)\\b|('.*\\bor\\b.*=.*'))/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`(?i)(\\b(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\\b.*\\b(FROM|INTO|SET|TABLE)\\b|('.*\\bor\\b.*=.*'))`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Sql Injection",
+        "pattern": "(?i)(\\b(SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\\b.*\\b(FROM|INTO|SET|TABLE)\\b|('.*\\bor\\b.*=.*'))?"
+      }
+    ],
+    "relatedPatterns": [
+      "json-string",
+      "number-only",
+      "slug"
+    ]
+  },
+  {
+    "slug": "xss-pattern",
+    "title": "Xss Pattern",
+    "pattern": "(?i)<script[^>]*>[\\s\\S]*?<\\/script>",
+    "flags": "g",
+    "description": "A regular expression to match a Xss Pattern.",
+    "testStrings": [
+      {
+        "string": "<script>alert(1)</script>",
+        "match": true
+      },
+      {
+        "string": "<div>alert(1)</div>",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /(?i)<script[^>]*>[\\s\\S]*?<\\/script>/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"(?i)<script[^>]*>[\\s\\S]*?<\\/script>\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/(?i)<script[^>]*>[\\s\\S]*?<\\/script>/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`(?i)<script[^>]*>[\\s\\S]*?<\\/script>`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Xss Pattern",
+        "pattern": "(?i)<script[^>]*>[\\s\\S]*?<\\/script>?"
+      }
+    ],
+    "relatedPatterns": [
+      "username",
+      "email",
+      "ip-address"
+    ]
+  },
+  {
+    "slug": "base64",
+    "title": "Base64",
+    "pattern": "^(?:[A-Za-z0-9+\\/]{4})*(?:[A-Za-z0-9+\\/]{2}==|[A-Za-z0-9+\\/]{3}=)?$",
+    "flags": "g",
+    "description": "A regular expression to match a Base64.",
+    "testStrings": [
+      {
+        "string": "SGVsbG8gV29ybGQ=",
+        "match": true
+      },
+      {
+        "string": "Invalid!@#",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^(?:[A-Za-z0-9+\\/]{4})*(?:[A-Za-z0-9+\\/]{2}==|[A-Za-z0-9+\\/]{3}=)?$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^(?:[A-Za-z0-9+\\/]{4})*(?:[A-Za-z0-9+\\/]{2}==|[A-Za-z0-9+\\/]{3}=)?$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^(?:[A-Za-z0-9+\\/]{4})*(?:[A-Za-z0-9+\\/]{2}==|[A-Za-z0-9+\\/]{3}=)?$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^(?:[A-Za-z0-9+\\/]{4})*(?:[A-Za-z0-9+\\/]{2}==|[A-Za-z0-9+\\/]{3}=)?$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Base64",
+        "pattern": "^(?:[A-Za-z0-9+\\/]{4})*(?:[A-Za-z0-9+\\/]{2}==|[A-Za-z0-9+\\/]{3}=)?$?"
+      }
+    ],
+    "relatedPatterns": [
+      "zip-code",
+      "email",
+      "ssn"
+    ]
+  },
+  {
+    "slug": "jwt-token",
+    "title": "Jwt Token",
+    "pattern": "^[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+$",
+    "flags": "g",
+    "description": "A regular expression to match a Jwt Token.",
+    "testStrings": [
+      {
+        "string": "eyJhbG.eyJzdWI.SflKxw",
+        "match": true
+      },
+      {
+        "string": "not.a.token!",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Jwt Token",
+        "pattern": "^[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+$?"
+      }
+    ],
+    "relatedPatterns": [
+      "number-only",
+      "csv-line",
+      "domain-name"
+    ]
+  },
+  {
+    "slug": "semver",
+    "title": "Semver",
+    "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-zA-Z0-9-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-zA-Z0-9-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$",
+    "flags": "g",
+    "description": "A regular expression to match a Semver.",
+    "testStrings": [
+      {
+        "string": "1.0.0-beta.1",
+        "match": true
+      },
+      {
+        "string": "1.0",
+        "match": false
+      }
+    ],
+    "explanation": [
+      {
+        "part": "^",
+        "desc": "Start of the string"
+      },
+      {
+        "part": ".*",
+        "desc": "Matches any character"
+      },
+      {
+        "part": "$",
+        "desc": "End of the string"
+      }
+    ],
+    "languageExamples": {
+      "javascript": "const regex = /^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-zA-Z0-9-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-zA-Z0-9-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$/g;\nconst isMatch = regex.test(\"test_string\");",
+      "python": "import re\nregex = re.compile(r\"^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-zA-Z0-9-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-zA-Z0-9-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$\")\nis_match = bool(regex.search(\"test_string\"))",
+      "php": "$pattern = \"/^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-zA-Z0-9-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-zA-Z0-9-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$/g\";\n$isMatch = preg_match($pattern, \"test_string\");",
+      "go": "package main\nimport \"regexp\"\nfunc main() {\n    matched, _ := regexp.MatchString(`^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-zA-Z0-9-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-zA-Z0-9-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$`, \"test_string\")\n}"
+    },
+    "commonVariations": [
+      {
+        "name": "Alternative Semver",
+        "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-zA-Z0-9-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-zA-Z0-9-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$?"
+      }
+    ],
+    "relatedPatterns": [
+      "http-https-url",
+      "mac-address",
+      "json-string"
+    ]
+  }
+]

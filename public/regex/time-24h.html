@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regex for Time 24h | siliconbased.dev</title>
+    <meta name="description" content="A regular expression to match a Time 24h.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0a0b10;
+            --card-bg: #111318;
+            --border: #1e2030;
+            --accent: #818cf8;
+            --text-primary: #e0e0e0;
+            --text-secondary: #888888;
+            --match-bg: rgba(129, 140, 248, 0.2);
+            --match-text: #a5b4fc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            flex: 1;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .description {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .code-lang {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .copy-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        pre {
+            background-color: #000;
+            border: 1px solid var(--border);
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+        }
+
+        .pattern-display {
+            font-size: 1.25rem;
+            color: var(--accent);
+        }
+
+        .flags-display {
+            color: var(--text-secondary);
+        }
+
+        .breakdown-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .breakdown-table th,
+        .breakdown-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+        }
+
+        .breakdown-table th {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .breakdown-table .part {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent);
+            white-space: nowrap;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            background-color: #000;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1rem;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 1rem;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .tester-results {
+            background-color: #000;
+            border: 1px solid var(--border);
+            padding: 1rem;
+            border-radius: 6px;
+            min-height: 100px;
+            white-space: pre-wrap;
+            word-break: break-all;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .tester-results .match {
+            background-color: var(--match-bg);
+            color: var(--match-text);
+            border-radius: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #000;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .tag:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .examples-list {
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+
+        .examples-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+        }
+
+        .status-icon {
+            margin-right: 0.75rem;
+            font-weight: bold;
+        }
+
+        .status-match {
+            color: #4ade80;
+        }
+
+        .status-nomatch {
+            color: #f87171;
+        }
+
+        .example-text {
+            font-family: 'JetBrains Mono', monospace;
+            background: #000;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+    </style>
+
+    <script type="application/ld+json">
+    [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Regex for Time 24h",
+    "description": "A regular expression to match a Time 24h.",
+    "url": "https://siliconbased.dev/regex/time-24h.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "All"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Regex for Time 24h",
+    "description": "A regular expression to match a Time 24h.",
+    "author": {
+      "@type": "Organization",
+      "name": "siliconbased.dev",
+      "url": "https://siliconbased.dev"
+    }
+  }
+]
+    </script>
+</head>
+<body>
+    <div class="container">
+        <a href="/" style="color: var(--text-secondary); text-decoration: none; display: inline-block; margin-bottom: 1.5rem;">&larr; Back to tools</a>
+
+        <h1>Regex for Time 24h</h1>
+        <p class="description">A regular expression to match a Time 24h.</p>
+
+        <div class="card">
+            <div class="code-header">
+                <span class="code-lang">Regular Expression</span>
+                <button class="copy-btn" data-clipboard="^([01]?[0-9]|2[0-3]):[0-5][0-9]$" onclick="copyToClipboard(this.dataset.clipboard, this)">Copy Regex</button>
+            </div>
+            <pre class="pattern-display" id="main-pattern" data-pattern="^([01]?[0-9]|2[0-3]):[0-5][0-9]$" data-flags="g">^([01]?[0-9]|2[0-3]):[0-5][0-9]$<span class="flags-display">g</span></pre>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h2>Explanation</h2>
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Part</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+    <tr>
+      <td class="part">^</td>
+      <td>Start of the string</td>
+    </tr>
+
+    <tr>
+      <td class="part">.*</td>
+      <td>Matches any character</td>
+    </tr>
+
+    <tr>
+      <td class="part">$</td>
+      <td>End of the string</td>
+    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <h2>Examples</h2>
+                <ul class="examples-list">
+
+    <li>
+      <span class="status-icon status-match">
+        ✓
+      </span>
+      <span class="example-text">23:59</span>
+    </li>
+
+    <li>
+      <span class="status-icon status-nomatch">
+        ✗
+      </span>
+      <span class="example-text">24:00</span>
+    </li>
+
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Live Tester</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">Type text below to see real-time matches.</p>
+            <textarea id="regex-input" placeholder="Enter text to test the regular expression...">23:59</textarea>
+            <div class="code-header" style="margin-top: 1rem;">
+                <span class="code-lang">Matches</span>
+            </div>
+            <div id="regex-output" class="tester-results"></div>
+        </div>
+
+        <div class="card">
+            <h2>Code Snippets</h2>
+            <div class="grid">
+
+    <div style="margin-bottom: 1.5rem;">
+      <div class="code-header">
+        <span class="code-lang">javascript</span>
+        <button class="copy-btn" data-clipboard="const regex = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/g;
+const isMatch = regex.test(&quot;test_string&quot;);" onclick="copyToClipboard(this.dataset.clipboard, this)">Copy</button>
+      </div>
+      <pre>const regex = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/g;
+const isMatch = regex.test(&quot;test_string&quot;);</pre>
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+      <div class="code-header">
+        <span class="code-lang">python</span>
+        <button class="copy-btn" data-clipboard="import re
+regex = re.compile(r&quot;^([01]?[0-9]|2[0-3]):[0-5][0-9]$&quot;)
+is_match = bool(regex.search(&quot;test_string&quot;))" onclick="copyToClipboard(this.dataset.clipboard, this)">Copy</button>
+      </div>
+      <pre>import re
+regex = re.compile(r&quot;^([01]?[0-9]|2[0-3]):[0-5][0-9]$&quot;)
+is_match = bool(regex.search(&quot;test_string&quot;))</pre>
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+      <div class="code-header">
+        <span class="code-lang">php</span>
+        <button class="copy-btn" data-clipboard="$pattern = &quot;/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/g&quot;;
+$isMatch = preg_match($pattern, &quot;test_string&quot;);" onclick="copyToClipboard(this.dataset.clipboard, this)">Copy</button>
+      </div>
+      <pre>$pattern = &quot;/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/g&quot;;
+$isMatch = preg_match($pattern, &quot;test_string&quot;);</pre>
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+      <div class="code-header">
+        <span class="code-lang">go</span>
+        <button class="copy-btn" data-clipboard="package main
+import &quot;regexp&quot;
+func main() {
+    matched, _ := regexp.MatchString(`^([01]?[0-9]|2[0-3]):[0-5][0-9]$`, &quot;test_string&quot;)
+}" onclick="copyToClipboard(this.dataset.clipboard, this)">Copy</button>
+      </div>
+      <pre>package main
+import &quot;regexp&quot;
+func main() {
+    matched, _ := regexp.MatchString(`^([01]?[0-9]|2[0-3]):[0-5][0-9]$`, &quot;test_string&quot;)
+}</pre>
+    </div>
+
+            </div>
+        </div>
+
+
+      <div class="card">
+        <h2>Common Variations</h2>
+        <div style="margin-top: 1rem;">
+
+      <div style="margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--text-primary); font-weight: 500;">Alternative Time 24h</h3>
+        <div class="code-header">
+          <span class="code-lang">Variation</span>
+          <button class="copy-btn" data-clipboard="^([01]?[0-9]|2[0-3]):[0-5][0-9]$?" onclick="copyToClipboard(this.dataset.clipboard, this)">Copy Regex</button>
+        </div>
+        <pre class="pattern-display" style="font-size: 1.1rem;">^([01]?[0-9]|2[0-3]):[0-5][0-9]$?</pre>
+      </div>
+
+        </div>
+      </div>
+
+
+        <div class="card">
+            <h2>Related Patterns</h2>
+            <div style="margin-top: 1rem;">
+                <a href="/regex/http-https-url.html" class="tag">Http Https Url</a><a href="/regex/date-mm-dd-yyyy.html" class="tag">Date Mm Dd Yyyy</a><a href="/regex/ip-address.html" class="tag">Ip Address</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 siliconbased.dev &middot; A <a href="https://gab.ae" target="_blank" rel="noopener noreferrer">GAB Ventures</a> property
+    </footer>
+
+    <script>
+        // Regex tester functionality
+        const input = document.getElementById('regex-input');
+        const output = document.getElementById('regex-output');
+        const patternEl = document.getElementById('main-pattern');
+
+        // Use exact pattern and flags from JSON, reading safely from data attributes
+        let rawPattern = patternEl.dataset.pattern;
+        let testFlags = patternEl.dataset.flags;
+
+        // Handle inline flags that JS doesn't support (e.g., (?i))
+        if (rawPattern.startsWith('(?i)')) {
+            rawPattern = rawPattern.substring(4);
+            if (!testFlags.includes('i')) testFlags += 'i';
+        }
+        if (rawPattern.startsWith('(?m)')) {
+            rawPattern = rawPattern.substring(4);
+            if (!testFlags.includes('m')) testFlags += 'm';
+        }
+
+        // Ensure global flag is present for highlighting multiple matches
+        if (!testFlags.includes('g')) {
+            testFlags += 'g';
+        }
+
+        let regex;
+        try {
+            regex = new RegExp(rawPattern, testFlags);
+        } catch (e) {
+            console.error("Invalid regex pattern:", e);
+        }
+
+        function updateHighlights() {
+            if (!regex) return;
+
+            const text = input.value;
+            if (!text) {
+                output.innerHTML = '';
+                return;
+            }
+
+            // Reset regex lastIndex
+            regex.lastIndex = 0;
+
+            let result = '';
+            let lastIndex = 0;
+            let match;
+
+            // Protection against infinite loops with zero-length matches
+            let safeLoop = 0;
+
+            while ((match = regex.exec(text)) !== null) {
+                if (safeLoop++ > 1000) break;
+
+                // Escape HTML before adding to output
+                const beforeMatch = text.substring(lastIndex, match.index);
+                result += escapeHTML(beforeMatch);
+
+                const matchText = match[0];
+                result += `<span class="match">${escapeHTML(matchText)}</span>`;
+
+                lastIndex = regex.lastIndex;
+
+                // Advance if zero-length match
+                if (match.index === regex.lastIndex) {
+                    regex.lastIndex++;
+                }
+            }
+
+            result += escapeHTML(text.substring(lastIndex));
+            output.innerHTML = result || 'No matches found.';
+        }
+
+        function escapeHTML(str) {
+            return str
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        input.addEventListener('input', updateHighlights);
+        // Initial run
+        updateHighlights();
+
+        // Copy functionality
+        function copyToClipboard(text, btn) {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = btn.innerText;
+                btn.innerText = 'Copied!';
+                btn.style.color = 'var(--accent)';
+                btn.style.borderColor = 'var(--accent)';
+
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.color = '';
+                    btn.style.borderColor = '';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
