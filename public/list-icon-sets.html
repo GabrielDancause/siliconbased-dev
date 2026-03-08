@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Best Free Icon Sets | Curated Developer List & Comparison</title>
+<meta name="description" content="Compare the best free icon libraries for modern web development: Lucide, Heroicons, Phosphor, Tabler, and Feather. View pros/cons, metrics, and CDN links.">
+<meta property="og:title" content="Best Free Icon Sets | Curated Developer List & Comparison">
+<meta property="og:description" content="Compare the best free icon libraries for modern web development: Lucide, Heroicons, Phosphor, Tabler, and Feather. View pros/cons, metrics, and CDN links.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Best Free Icon Sets Comparison",
+  "url": "https://siliconbased.dev/list-icon-sets",
+  "description": "Curated list and comparison of top free icon libraries like Lucide, Heroicons, Phosphor, Tabler, and Feather.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Best Free Icon Sets | Curated Developer List & Comparison",
+  "description": "Compare the best free icon libraries for modern web development: Lucide, Heroicons, Phosphor, Tabler, and Feather.",
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+.hero { text-align: center; padding: 48px 24px 32px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); border-bottom: 1px solid #1e2030; }
+.hero h1 { font-size: 2.5rem; font-weight: 900; color: #fff; margin-bottom: 12px; }
+.hero h1 span { color: #818cf8; }
+.hero p { color: #888; font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.5; }
+
+.main { max-width: 1200px; margin: 0 auto; padding: 32px 20px 80px; flex: 1; width: 100%; display: flex; flex-direction: column; gap: 32px; }
+
+/* Grid & Cards */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 24px; }
+
+.card { background: #111318; border: 1px solid #1e2030; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; }
+.card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); border-color: #2a2d40; }
+
+.card-header { padding: 16px 20px; background: #151722; border-bottom: 1px solid #1e2030; display: flex; justify-content: space-between; align-items: center; }
+.card-title { font-weight: 700; font-size: 1.25rem; color: #818cf8; display: flex; align-items: center; gap: 8px; }
+.card-badge { font-size: 0.75rem; padding: 2px 8px; border-radius: 12px; background: #1e2030; color: #888; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
+
+.card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; gap: 16px; }
+.card-desc { color: #aaa; font-size: 0.95rem; line-height: 1.5; }
+
+.metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 8px; }
+.metric { background: #0f111a; border: 1px solid #1e2030; padding: 10px 12px; border-radius: 8px; display: flex; flex-direction: column; gap: 4px; }
+.metric-label { font-size: 0.75rem; color: #666; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
+.metric-value { font-size: 1rem; color: #e0e0e0; font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+
+.pros-cons { display: grid; gap: 12px; }
+.pc-section h4 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+.pros h4 { color: #4ade80; }
+.cons h4 { color: #f87171; }
+.pc-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.pc-list li { font-size: 0.9rem; color: #b0b8d0; display: flex; gap: 8px; align-items: flex-start; }
+.pc-list li::before { content: "•"; color: #555; }
+
+.card-footer { margin-top: auto; padding-top: 16px; border-top: 1px solid #1e2030; display: flex; flex-wrap: wrap; gap: 8px; }
+.tag { font-size: 0.75rem; background: #1a1d2e; color: #a5b4fc; padding: 4px 10px; border-radius: 6px; font-weight: 500; border: 1px solid #2a2d4e; }
+.link-tag { text-decoration: none; color: inherit; transition: all 0.2s; }
+.link-tag:hover { background: #2a2d4e; color: #fff; }
+
+.score { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.star { color: #fbbf24; font-size: 1.1rem; }
+.star.dim { color: #333; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.85rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero { padding: 32px 16px 24px; }
+  .hero h1 { font-size: 2rem; }
+  .grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Best Free <span>Icon Sets</span></h1>
+  <p>A curated comparison of the top open-source icon libraries for modern web development. Find the perfect fit for your next project.</p>
+</div>
+
+<div class="main">
+
+  <div class="grid">
+    <!-- Lucide -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Lucide</span>
+        <div class="score">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">A beautiful and consistent icon toolkit made by the community. A fork of Feather Icons with a rapidly growing library.</p>
+        <div class="metrics-grid">
+          <div class="metric">
+            <span class="metric-label">Icon Count</span>
+            <span class="metric-value">1,450+</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">License</span>
+            <span class="metric-value">ISC</span>
+          </div>
+        </div>
+        <div class="pros-cons">
+          <div class="pc-section pros">
+            <h4>Pros</h4>
+            <ul class="pc-list">
+              <li>Excellent community support</li>
+              <li>Highly customizable (stroke, size, color)</li>
+              <li>First-class React, Vue, & Svelte support</li>
+            </ul>
+          </div>
+          <div class="pc-section cons">
+            <h4>Cons</h4>
+            <ul class="pc-list">
+              <li>Only outline styles (no solid variants)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="tag">React</span>
+          <span class="tag">Vue</span>
+          <span class="tag">Svelte</span>
+          <span class="tag">Figma</span>
+          <a href="https://lucide.dev" class="tag link-tag" target="_blank" rel="noopener">Website ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Heroicons -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Heroicons</span>
+        <div class="score">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">Beautiful hand-crafted SVG icons, by the makers of Tailwind CSS. Designed to work seamlessly with Tailwind projects.</p>
+        <div class="metrics-grid">
+          <div class="metric">
+            <span class="metric-label">Icon Count</span>
+            <span class="metric-value">290+ per style</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">License</span>
+            <span class="metric-value">MIT</span>
+          </div>
+        </div>
+        <div class="pros-cons">
+          <div class="pc-section pros">
+            <h4>Pros</h4>
+            <ul class="pc-list">
+              <li>3 styles (Outline, Solid, Mini)</li>
+              <li>Perfect Tailwind CSS integration</li>
+              <li>Official React & Vue libraries</li>
+            </ul>
+          </div>
+          <div class="pc-section cons">
+            <h4>Cons</h4>
+            <ul class="pc-list">
+              <li>Smaller total icon count</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="tag">React</span>
+          <span class="tag">Vue</span>
+          <span class="tag">Tailwind</span>
+          <a href="https://heroicons.com" class="tag link-tag" target="_blank" rel="noopener">Website ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phosphor -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Phosphor</span>
+        <div class="score">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">A flexible icon family for interfaces, diagrams, presentations — whatever, really. Outstanding style consistency.</p>
+        <div class="metrics-grid">
+          <div class="metric">
+            <span class="metric-label">Icon Count</span>
+            <span class="metric-value">1,248 x 6 styles</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">License</span>
+            <span class="metric-value">MIT</span>
+          </div>
+        </div>
+        <div class="pros-cons">
+          <div class="pc-section pros">
+            <h4>Pros</h4>
+            <ul class="pc-list">
+              <li>Massive library with 6 distinct weights</li>
+              <li>Very cohesive visual language</li>
+              <li>Broad framework support</li>
+            </ul>
+          </div>
+          <div class="pc-section cons">
+            <h4>Cons</h4>
+            <ul class="pc-list">
+              <li>Bundle size can grow if not tree-shaken carefully</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="tag">React</span>
+          <span class="tag">Vue</span>
+          <span class="tag">Web Components</span>
+          <a href="https://phosphoricons.com" class="tag link-tag" target="_blank" rel="noopener">Website ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabler -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Tabler Icons</span>
+        <div class="score">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star dim">★</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">Over 5200 pixel-perfect icons for web design. One of the largest open-source icon sets available.</p>
+        <div class="metrics-grid">
+          <div class="metric">
+            <span class="metric-label">Icon Count</span>
+            <span class="metric-value">5,200+</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">License</span>
+            <span class="metric-value">MIT</span>
+          </div>
+        </div>
+        <div class="pros-cons">
+          <div class="pc-section pros">
+            <h4>Pros</h4>
+            <ul class="pc-list">
+              <li>Unmatched sheer volume of icons</li>
+              <li>Highly customizable stroke/size</li>
+              <li>Includes brand and niche icons</li>
+            </ul>
+          </div>
+          <div class="pc-section cons">
+            <h4>Cons</h4>
+            <ul class="pc-list">
+              <li>Some inconsistency across such a large set</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="tag">React</span>
+          <span class="tag">Vue</span>
+          <span class="tag">Solid</span>
+          <span class="tag">Svelte</span>
+          <a href="https://tabler.io/icons" class="tag link-tag" target="_blank" rel="noopener">Website ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feather -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Feather</span>
+        <div class="score">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star dim">★</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">Simply beautiful open source icons. The original minimal icon set that inspired many others (including Lucide).</p>
+        <div class="metrics-grid">
+          <div class="metric">
+            <span class="metric-label">Icon Count</span>
+            <span class="metric-value">280+</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">License</span>
+            <span class="metric-value">MIT</span>
+          </div>
+        </div>
+        <div class="pros-cons">
+          <div class="pc-section pros">
+            <h4>Pros</h4>
+            <ul class="pc-list">
+              <li>Extremely clean, minimalist aesthetic</li>
+              <li>Lightweight and fast</li>
+              <li>Highly recognizable</li>
+            </ul>
+          </div>
+          <div class="pc-section cons">
+            <h4>Cons</h4>
+            <ul class="pc-list">
+              <li>Development has largely stalled</li>
+              <li>Very small icon count compared to modern alternatives</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="tag">SVG</span>
+          <span class="tag">CDN</span>
+          <span class="tag">React</span>
+          <a href="https://feathericons.com" class="tag link-tag" target="_blank" rel="noopener">Website ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>Choosing the Best Icon Set for Your Project</h2>
+    <p>Selecting the right icon set is a critical design decision that impacts both the visual cohesion of your application and its performance. When evaluating icon libraries like Lucide, Heroicons, or Phosphor, consider your project's technical stack, the need for various visual weights (solid vs. outline), and the total size of the library.</p>
+
+    <h3>SVG vs Web Fonts</h3>
+    <p>Modern web development has largely shifted away from icon fonts (like the older versions of FontAwesome) toward inline SVGs or SVG sprite sheets. SVGs offer several distinct advantages:</p>
+    <ul>
+      <li><strong>Crisper rendering:</strong> SVGs are true vector graphics and don't suffer from font anti-aliasing artifacts.</li>
+      <li><strong>Better accessibility:</strong> Inline SVGs can easily include <code>aria-hidden</code> attributes, title tags, and descriptions.</li>
+      <li><strong>Tree-shaking:</strong> When using modern JS frameworks (React, Vue, Svelte), importing individual SVG components ensures only the icons you use are bundled, significantly reducing bundle size.</li>
+      <li><strong>Easier animation:</strong> SVG paths can be easily manipulated with CSS or JavaScript for micro-interactions.</li>
+    </ul>
+
+    <h3>Implementation Strategies</h3>
+    <p>There are multiple ways to implement these icon sets:</p>
+    <ul>
+      <li><strong>Framework Components:</strong> Use official packages like <code>lucide-react</code> or <code>@heroicons/vue/24/outline</code>. This is the recommended approach for modern SPAs.</li>
+      <li><strong>SVG Sprite Sheets:</strong> Ideal for traditional server-rendered applications (PHP, Ruby on Rails). You load one file and reference icons via <code>&lt;use href="#icon-name" /&gt;</code>.</li>
+      <li><strong>CDN / Script Tags:</strong> Libraries like Phosphor and Feather provide script tags that automatically replace elements like <code>&lt;i data-feather="circle"&gt;&lt;/i&gt;</code> with the appropriate SVG. Great for quick prototyping, but less ideal for production performance.</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+</body>
+</html>
