@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Box Shadow Generator — Visual Editor & Code Export</title>
+<meta name="description" content="Design beautiful CSS box shadows visually. Support for multiple layers, custom colors, blur, spread, and offsets. Generates cross-browser CSS code instantly.">
+<meta property="og:title" content="CSS Box Shadow Generator">
+<meta property="og:description" content="Design beautiful CSS box shadows visually. Support for multiple layers, custom colors, blur, spread, and offsets. Generates cross-browser CSS code instantly.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "CSS Box Shadow Generator",
+  "url": "https://siliconbased.dev/box-shadow",
+  "description": "Interactive visual tool to generate complex CSS box shadow rules with multiple layers.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+.hero { text-align: center; padding: 48px 24px 24px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.4rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+
+.main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+.tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; align-items: start; }
+@media (max-width: 900px) {
+  .tool-grid { grid-template-columns: 1fr; }
+}
+
+.pane { display: flex; flex-direction: column; background: #111318; border: 1px solid #1e2030; border-radius: 12px; padding: 20px; }
+.pane-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #1e2030; }
+.header-title { font-size: 0.95rem; font-weight: 600; color: #ccc; }
+
+/* Preview */
+.preview-container { display: flex; align-items: center; justify-content: center; background: #0a0b10; border: 1px solid #1e2030; border-radius: 8px; min-height: 300px; margin-bottom: 24px; overflow: hidden; position: relative; }
+.preview-box { width: 160px; height: 160px; background: #818cf8; border-radius: 12px; transition: box-shadow 0.1s; }
+
+/* Controls */
+.control-group { margin-bottom: 16px; }
+.control-header { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.85rem; color: #ccc; }
+.control-header span { font-variant-numeric: tabular-nums; }
+input[type="range"] { width: 100%; accent-color: #818cf8; cursor: pointer; }
+
+/* Layers */
+.layers-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; max-height: 250px; overflow-y: auto; }
+.layer-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: #1e2030; border-radius: 8px; cursor: pointer; border: 1px solid transparent; transition: all 0.2s; }
+.layer-item:hover { background: #2a2d40; }
+.layer-item.active { border-color: #818cf8; background: #1a1b26; }
+.layer-info { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; }
+.layer-color-preview { width: 16px; height: 16px; border-radius: 4px; border: 1px solid #444; }
+.layer-actions { display: flex; gap: 4px; }
+
+/* Buttons */
+.btn { background: #1e2030; border: 1px solid #2a2d40; color: #e0e0e0; padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; display: inline-flex; align-items: center; gap: 6px; }
+.btn:hover { background: #2a2d40; }
+.btn-primary { background: #818cf8; color: #fff; border-color: #818cf8; }
+.btn-primary:hover { background: #6366f1; }
+.btn-danger { color: #f87171; }
+.btn-danger:hover { background: rgba(248, 113, 113, 0.1); border-color: #f87171; }
+
+.copy-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 6px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.copy-btn:hover { background: #2a2d40; color: #ccc; }
+.copy-btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+/* CSS Output */
+.code-area { width: 100%; min-height: 120px; background: #0a0b10; border: 1px solid #1e2030; border-radius: 8px; padding: 12px; color: #818cf8; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; resize: vertical; outline: none; line-height: 1.5; }
+.code-area:focus { border-color: #818cf8; }
+
+/* Misc inputs */
+.color-picker-wrap { display: flex; align-items: center; gap: 12px; }
+input[type="color"] { -webkit-appearance: none; border: none; width: 32px; height: 32px; border-radius: 4px; cursor: pointer; padding: 0; background: none; }
+input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+input[type="color"]::-webkit-color-swatch { border: 1px solid #444; border-radius: 4px; }
+.color-text { background: #0a0b10; border: 1px solid #1e2030; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; padding: 6px 8px; border-radius: 6px; font-size: 0.85rem; width: 150px; outline: none; }
+.color-text:focus { border-color: #818cf8; }
+
+.toggle-wrap { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #ccc; cursor: pointer; user-select: none; }
+.toggle-wrap input[type="checkbox"] { accent-color: #818cf8; width: 16px; height: 16px; cursor: pointer; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Global overrides for tool settings */
+.global-settings { margin-top: 24px; padding-top: 16px; border-top: 1px solid #1e2030; }
+.settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.setting-item { display: flex; flex-direction: column; gap: 8px; }
+.setting-item label { font-size: 0.8rem; color: #888; }
+.setting-item input[type="color"] { width: 100%; height: 32px; }
+
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>CSS Box Shadow Generator <span>🪄</span></h1>
+  <p>Design multi-layered shadows visually and copy the CSS instantly.</p>
+</div>
+
+<div class="main">
+
+  <div class="tool-grid">
+    <!-- Left Pane: Controls -->
+    <div class="pane">
+      <div class="pane-header">
+        <div class="header-title">Layers</div>
+        <button class="btn btn-primary" id="addLayerBtn">+ Add Layer</button>
+      </div>
+
+      <div class="layers-list" id="layersList">
+        <!-- Layers generated via JS -->
+      </div>
+
+      <div id="layerEditor" style="display: none;">
+        <div class="pane-header" style="margin-top: 16px;">
+          <div class="header-title">Edit Layer</div>
+          <label class="toggle-wrap">
+            <input type="checkbox" id="insetToggle">
+            Inset
+          </label>
+        </div>
+
+        <div class="control-group">
+          <div class="control-header">
+            <label>Horizontal Offset</label>
+            <span id="xVal">0px</span>
+          </div>
+          <input type="range" id="xRange" min="-100" max="100" value="0">
+        </div>
+
+        <div class="control-group">
+          <div class="control-header">
+            <label>Vertical Offset</label>
+            <span id="yVal">10px</span>
+          </div>
+          <input type="range" id="yRange" min="-100" max="100" value="10">
+        </div>
+
+        <div class="control-group">
+          <div class="control-header">
+            <label>Blur Radius</label>
+            <span id="blurVal">15px</span>
+          </div>
+          <input type="range" id="blurRange" min="0" max="150" value="15">
+        </div>
+
+        <div class="control-group">
+          <div class="control-header">
+            <label>Spread Radius</label>
+            <span id="spreadVal">-3px</span>
+          </div>
+          <input type="range" id="spreadRange" min="-50" max="50" value="-3">
+        </div>
+
+        <div class="control-group">
+          <div class="control-header">
+            <label>Shadow Color</label>
+          </div>
+          <div class="color-picker-wrap">
+            <input type="color" id="colorPicker" value="#000000">
+            <input type="text" id="colorText" class="color-text" value="rgba(0,0,0,0.5)">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Pane: Preview & Output -->
+    <div class="pane">
+      <div class="pane-header">
+        <div class="header-title">Preview</div>
+      </div>
+
+      <div class="preview-container" id="previewContainer">
+        <div class="preview-box" id="previewBox"></div>
+      </div>
+
+      <div class="global-settings">
+        <div class="settings-grid">
+          <div class="setting-item">
+            <label>Box Color</label>
+            <input type="color" id="boxColorPicker" value="#818cf8">
+          </div>
+          <div class="setting-item">
+            <label>Background Color</label>
+            <input type="color" id="bgColorPicker" value="#0a0b10">
+          </div>
+        </div>
+      </div>
+
+      <div class="pane-header" style="margin-top: 24px;">
+        <div class="header-title">CSS Output</div>
+        <button class="copy-btn" id="copyBtn">Copy</button>
+      </div>
+      <textarea id="cssOutput" class="code-area" readonly spellcheck="false"></textarea>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>What is a CSS Box Shadow?</h2>
+    <p>The <code>box-shadow</code> CSS property adds shadow effects around an element's frame. You can set multiple effects separated by commas. A box shadow is described by X and Y offsets relative to the element, blur and spread radii, and color.</p>
+
+    <h2>How to Use Multiple Shadows</h2>
+    <p>Using multiple shadow layers can create highly realistic, smooth shadows or complex styling effects. By stacking shadows—often combining a sharp, dark shadow for depth with a broad, faint shadow for ambient occlusion—you can achieve a sophisticated "layered" look. Just separate each shadow declaration with a comma in your CSS:</p>
+    <code>box-shadow: 0 1px 2px rgba(0,0,0,0.1), 0 4px 8px rgba(0,0,0,0.1);</code>
+
+    <h2>Anatomy of the Box Shadow Property</h2>
+    <ul>
+      <li><strong>Horizontal Offset (X):</strong> Positive values push the shadow to the right, negative to the left.</li>
+      <li><strong>Vertical Offset (Y):</strong> Positive values push the shadow down, negative up.</li>
+      <li><strong>Blur Radius:</strong> Higher values make the shadow larger and lighter. A value of 0 means the shadow is completely sharp.</li>
+      <li><strong>Spread Radius:</strong> Positive values cause the shadow to expand and grow bigger, negative values cause it to shrink.</li>
+      <li><strong>Color:</strong> Sets the color of the shadow. Using rgba (which includes an alpha channel for opacity) is generally recommended to allow the background to blend naturally with the shadow.</li>
+      <li><strong>Inset:</strong> Changes the shadow from an outer shadow (outset) to an inner shadow.</li>
+    </ul>
+
+    <h2>Browser Compatibility</h2>
+    <p>The <code>box-shadow</code> property is fully supported in all modern browsers, including Chrome, Firefox, Safari, and Edge. Our tool generates standard CSS that works universally without vendor prefixes.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+// State
+let layers = [
+  { id: 1, x: 0, y: 10, blur: 15, spread: -3, color: 'rgba(0, 0, 0, 0.5)', inset: false },
+  { id: 2, x: 0, y: 4, blur: 6, spread: -2, color: 'rgba(0, 0, 0, 0.3)', inset: false }
+];
+let activeLayerId = 1;
+let nextId = 3;
+
+// Elements
+const layersList = document.getElementById('layersList');
+const layerEditor = document.getElementById('layerEditor');
+const addLayerBtn = document.getElementById('addLayerBtn');
+
+const xRange = document.getElementById('xRange');
+const yRange = document.getElementById('yRange');
+const blurRange = document.getElementById('blurRange');
+const spreadRange = document.getElementById('spreadRange');
+const xVal = document.getElementById('xVal');
+const yVal = document.getElementById('yVal');
+const blurVal = document.getElementById('blurVal');
+const spreadVal = document.getElementById('spreadVal');
+const colorPicker = document.getElementById('colorPicker');
+const colorText = document.getElementById('colorText');
+const insetToggle = document.getElementById('insetToggle');
+
+const previewBox = document.getElementById('previewBox');
+const previewContainer = document.getElementById('previewContainer');
+const cssOutput = document.getElementById('cssOutput');
+const copyBtn = document.getElementById('copyBtn');
+
+const boxColorPicker = document.getElementById('boxColorPicker');
+const bgColorPicker = document.getElementById('bgColorPicker');
+
+// Helper: rgba to hex + alpha (for color picker)
+function rgbaToHexAndAlpha(rgba) {
+  const match = rgba.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
+  if (!match) return { hex: '#000000', a: 1 };
+  const r = parseInt(match[1]).toString(16).padStart(2, '0');
+  const g = parseInt(match[2]).toString(16).padStart(2, '0');
+  const b = parseInt(match[3]).toString(16).padStart(2, '0');
+  const a = match[4] !== undefined ? parseFloat(match[4]) : 1;
+  return { hex: `#${r}${g}${b}`, a: a };
+}
+
+// Generate CSS String
+function generateCSS() {
+  if (layers.length === 0) return 'box-shadow: none;';
+
+  const shadowStrings = layers.map(layer => {
+    const insetStr = layer.inset ? 'inset ' : '';
+    return `${insetStr}${layer.x}px ${layer.y}px ${layer.blur}px ${layer.spread}px ${layer.color}`;
+  });
+
+  return `box-shadow: ${shadowStrings.join(',\n            ')};`;
+}
+
+// Update Preview and Output
+function updatePreview() {
+  const css = generateCSS();
+  previewBox.style.boxShadow = layers.length > 0 ? css.replace('box-shadow: ', '').replace(';', '') : 'none';
+  cssOutput.value = css;
+}
+
+// Render Layers List
+function renderLayers() {
+  layersList.innerHTML = '';
+  layers.forEach((layer, index) => {
+    const item = document.createElement('div');
+    item.className = `layer-item ${layer.id === activeLayerId ? 'active' : ''}`;
+    // Force active state styles for the active item
+    if (layer.id === activeLayerId) {
+      item.style.borderColor = '#818cf8';
+      item.style.background = '#1a1b26';
+    }
+    item.onclick = () => selectLayer(layer.id);
+
+    const info = document.createElement('div');
+    info.className = 'layer-info';
+
+    const colorPreview = document.createElement('div');
+    colorPreview.className = 'layer-color-preview';
+    colorPreview.style.background = layer.color;
+
+    const title = document.createElement('span');
+    title.textContent = `Layer ${layers.length - index}`;
+
+    info.appendChild(colorPreview);
+    info.appendChild(title);
+
+    const actions = document.createElement('div');
+    actions.className = 'layer-actions';
+
+    const delBtn = document.createElement('button');
+    delBtn.className = 'btn btn-danger';
+    delBtn.innerHTML = '×';
+    delBtn.onclick = (e) => {
+      e.stopPropagation();
+      deleteLayer(layer.id);
+    };
+
+    actions.appendChild(delBtn);
+
+    item.appendChild(info);
+    item.appendChild(actions);
+
+    layersList.appendChild(item);
+  });
+
+  if (layers.length > 0) {
+    layerEditor.style.display = 'block';
+    if (!layers.find(l => l.id === activeLayerId)) {
+      activeLayerId = layers[0].id;
+      updateEditorValues();
+    } else {
+      updateEditorValues();
+    }
+  } else {
+    layerEditor.style.display = 'none';
+  }
+
+  updatePreview();
+}
+
+// Select Layer
+function selectLayer(id) {
+  activeLayerId = id;
+  renderLayers(); // re-render to update active class
+}
+
+// Delete Layer
+function deleteLayer(id) {
+  layers = layers.filter(l => l.id !== id);
+  renderLayers();
+}
+
+// Add Layer
+addLayerBtn.onclick = () => {
+  const newLayer = {
+    id: nextId++,
+    x: 0,
+    y: 10,
+    blur: 15,
+    spread: -3,
+    color: 'rgba(0, 0, 0, 0.5)',
+    inset: false
+  };
+  layers.unshift(newLayer); // Add to top
+  selectLayer(newLayer.id);
+};
+
+// Update Editor Values from Active Layer
+function updateEditorValues() {
+  const activeLayer = layers.find(l => l.id === activeLayerId);
+  if (!activeLayer) return;
+
+  xRange.value = activeLayer.x;
+  yRange.value = activeLayer.y;
+  blurRange.value = activeLayer.blur;
+  spreadRange.value = activeLayer.spread;
+
+  xVal.textContent = activeLayer.x + 'px';
+  yVal.textContent = activeLayer.y + 'px';
+  blurVal.textContent = activeLayer.blur + 'px';
+  spreadVal.textContent = activeLayer.spread + 'px';
+
+  insetToggle.checked = activeLayer.inset;
+
+  colorText.value = activeLayer.color;
+  const { hex } = rgbaToHexAndAlpha(activeLayer.color);
+  colorPicker.value = hex;
+}
+
+// Event Listeners for Editor
+function updateActiveLayer(key, value) {
+  const activeLayer = layers.find(l => l.id === activeLayerId);
+  if (activeLayer) {
+    activeLayer[key] = value;
+    updatePreview();
+    // Update color preview in list
+    if (key === 'color') {
+      const activeItem = layersList.querySelector('.active .layer-color-preview');
+      if (activeItem) activeItem.style.background = value;
+    }
+  }
+}
+
+xRange.oninput = (e) => {
+  xVal.textContent = e.target.value + 'px';
+  updateActiveLayer('x', parseInt(e.target.value));
+};
+
+yRange.oninput = (e) => {
+  yVal.textContent = e.target.value + 'px';
+  updateActiveLayer('y', parseInt(e.target.value));
+};
+
+blurRange.oninput = (e) => {
+  blurVal.textContent = e.target.value + 'px';
+  updateActiveLayer('blur', parseInt(e.target.value));
+};
+
+spreadRange.oninput = (e) => {
+  spreadVal.textContent = e.target.value + 'px';
+  updateActiveLayer('spread', parseInt(e.target.value));
+};
+
+insetToggle.onchange = (e) => {
+  updateActiveLayer('inset', e.target.checked);
+};
+
+// Color input handling
+colorText.oninput = (e) => {
+  const val = e.target.value;
+  updateActiveLayer('color', val);
+  const { hex } = rgbaToHexAndAlpha(val);
+  colorPicker.value = hex;
+};
+
+colorPicker.oninput = (e) => {
+  const hex = e.target.value;
+  // Convert hex to rgb
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+
+  // Keep existing alpha if present in colorText
+  const { a } = rgbaToHexAndAlpha(colorText.value);
+  const newColor = `rgba(${r}, ${g}, ${b}, ${a})`;
+
+  colorText.value = newColor;
+  updateActiveLayer('color', newColor);
+};
+
+// Global Settings
+boxColorPicker.oninput = (e) => {
+  previewBox.style.background = e.target.value;
+};
+
+bgColorPicker.oninput = (e) => {
+  previewContainer.style.background = e.target.value;
+};
+
+// Copy Button
+copyBtn.addEventListener('click', () => {
+  if (!cssOutput.value) return;
+  navigator.clipboard.writeText(cssOutput.value).then(() => {
+    const originalText = copyBtn.innerHTML;
+    copyBtn.innerHTML = '✓ Copied';
+    copyBtn.classList.add('copied');
+    setTimeout(() => {
+      copyBtn.innerHTML = originalText;
+      copyBtn.classList.remove('copied');
+    }, 1500);
+  });
+});
+
+// Init
+renderLayers();
+
+</script>
+</body>
+</html>
