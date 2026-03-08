@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Minifier & Beautifier — Compress or Format CSS | Free Online Tool</title>
+<meta name="description" content="Minify CSS to reduce file size or beautify compressed CSS for readability. Shows size savings percentage. Preserves media queries and keyframes. Free, no signup, runs entirely in your browser.">
+<meta property="og:title" content="CSS Minifier & Beautifier">
+<meta property="og:description" content="Minify CSS to reduce file size or beautify compressed CSS for readability. Shows size savings percentage. Preserves media queries and keyframes. Free, no signup, runs entirely in your browser.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "CSS Minifier & Beautifier",
+  "url": "https://siliconbased.dev/css-minifier",
+  "description": "Interactive tool to minify or beautify CSS code. Shows size savings and preserves special CSS rules like media queries and keyframes.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+.hero { text-align: center; padding: 48px 24px 24px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.4rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 1000px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Input/Output Grid */
+.tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; align-items: stretch; }
+.pane { display: flex; flex-direction: column; }
+
+/* Textarea / Input */
+.input-header, .output-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.header-title { font-size: 0.85rem; font-weight: 600; color: #ccc; text-transform: uppercase; letter-spacing: 0.5px; }
+.header-actions { display: flex; gap: 8px; }
+
+.action-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.action-btn:hover { background: #2a2d40; color: #ccc; }
+.action-btn.active { background: #818cf8; color: #fff; border-color: #818cf8; }
+
+textarea.code-input, textarea.code-output { flex: 1; min-height: 400px; background: #111318; border: 2px solid #1e2030; border-radius: 12px; padding: 16px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; resize: vertical; outline: none; transition: border-color 0.2s; line-height: 1.6; white-space: pre; }
+textarea.code-input:focus, textarea.code-output:focus { border-color: #818cf8; }
+
+/* Output Specific */
+.copy-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 6px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.copy-btn:hover { background: #2a2d40; color: #ccc; }
+.copy-btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+/* Stats Bar */
+.stats-bar { display: flex; justify-content: space-between; align-items: center; background: #111318; border: 1px solid #1e2030; padding: 12px 16px; border-radius: 8px; margin-bottom: 40px; font-size: 0.85rem; color: #b0b8d0; }
+.stats-group { display: flex; gap: 24px; }
+.stat-item { display: flex; align-items: center; gap: 8px; }
+.stat-label { color: #888; text-transform: uppercase; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px; }
+.stat-value { font-family: 'JetBrains Mono', monospace; font-weight: 500; color: #e0e0e0; }
+.stat-savings { color: #4ade80; font-weight: 600; }
+.stat-savings.negative { color: #f87171; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 800px) {
+  .tool-grid { grid-template-columns: 1fr; }
+  textarea.code-input, textarea.code-output { min-height: 300px; }
+  .stats-bar { flex-direction: column; gap: 12px; align-items: flex-start; }
+  .stats-group { flex-direction: column; gap: 12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>CSS Minifier <span>&</span> Beautifier</h1>
+  <p>Compress CSS to reduce file size or format compressed CSS for readability.</p>
+</div>
+
+<div class="main">
+
+  <div class="tool-grid">
+    <!-- Input Pane -->
+    <div class="pane">
+      <div class="input-header">
+        <div class="header-title">Input</div>
+        <div class="header-actions">
+          <button class="action-btn" id="clearBtn">Clear</button>
+        </div>
+      </div>
+      <textarea id="cssInput" class="code-input" placeholder="Paste your CSS here..." spellcheck="false"></textarea>
+    </div>
+
+    <!-- Output Pane -->
+    <div class="pane">
+      <div class="output-header">
+        <div class="header-title" id="outputStatus">Output</div>
+        <div class="header-actions">
+          <button class="action-btn active" id="btnMinify">Minify</button>
+          <button class="action-btn" id="btnBeautify">Beautify</button>
+          <button class="copy-btn" id="copyBtn">Copy</button>
+        </div>
+      </div>
+      <textarea id="cssOutput" class="code-output" placeholder="Result will appear here..." spellcheck="false" readonly></textarea>
+    </div>
+  </div>
+
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <div class="stats-group">
+      <div class="stat-item">
+        <span class="stat-label">Input Size:</span>
+        <span class="stat-value" id="statInputSize">0 B</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Output Size:</span>
+        <span class="stat-value" id="statOutputSize">0 B</span>
+      </div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Savings:</span>
+      <span class="stat-value stat-savings" id="statSavings">0.00%</span>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>Why Minify CSS?</h2>
+    <p>CSS minification is the process of removing unnecessary characters from your cascading style sheets without changing how they function in the browser. Minifying CSS removes whitespace, line breaks, comments, and shortens variable names or hex color codes where possible.</p>
+    <ul>
+      <li><strong>Faster Page Loads:</strong> Smaller file sizes mean less data to transfer, leading to faster loading times for your website visitors.</li>
+      <li><strong>Reduced Bandwidth:</strong> For high-traffic websites, reducing the size of your CSS files can save significant bandwidth costs.</li>
+      <li><strong>Better SEO:</strong> Search engines like Google factor page load speed into their ranking algorithms. Faster sites tend to rank better.</li>
+    </ul>
+
+    <h2>How to Format or Beautify CSS</h2>
+    <p>While minified CSS is great for production environments, it is notoriously difficult for humans to read or debug because all the rules are squashed onto a single line. A CSS beautifier takes minified CSS and reconstructs it by adding consistent indentation, newlines, and spaces around selectors and properties.</p>
+    <p>This is especially useful if you need to edit a CSS file but no longer have access to the original, uncompressed source code. Our tool gracefully handles complex rules like <code>@media</code> queries and <code>@keyframes</code> animations.</p>
+
+    <h2>Safe Minification</h2>
+    <p>Not all whitespace can be safely removed. Our tool employs a smart minification approach that preserves necessary spaces to ensure your layout won't break. For example:</p>
+    <ul>
+      <li>Preserves spaces inside <code>calc()</code> functions.</li>
+      <li>Protects strings inside quotes (like <code>content: " "</code> or <code>font-family: "Inter", sans-serif</code>).</li>
+      <li>Keeps URLs intact (like Base64 encoded images in <code>background-image: url(...)</code>).</li>
+      <li>Ensures <code>!important</code> declarations are properly formatted.</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const cssInput = document.getElementById('cssInput');
+const cssOutput = document.getElementById('cssOutput');
+
+const btnMinify = document.getElementById('btnMinify');
+const btnBeautify = document.getElementById('btnBeautify');
+const copyBtn = document.getElementById('copyBtn');
+const clearBtn = document.getElementById('clearBtn');
+
+const statInputSize = document.getElementById('statInputSize');
+const statOutputSize = document.getElementById('statOutputSize');
+const statSavings = document.getElementById('statSavings');
+
+let currentMode = 'minify'; // minify, beautify
+let debounceTimer;
+
+function init() {
+  cssInput.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(processCSS, 300);
+  });
+
+  btnMinify.addEventListener('click', () => setMode('minify'));
+  btnBeautify.addEventListener('click', () => setMode('beautify'));
+
+  clearBtn.addEventListener('click', () => {
+    cssInput.value = '';
+    processCSS();
+    cssInput.focus();
+  });
+
+  copyBtn.addEventListener('click', () => {
+    if (!cssOutput.value) return;
+    navigator.clipboard.writeText(cssOutput.value).then(() => {
+      copyBtn.textContent = '✓ Copied';
+      copyBtn.classList.add('copied');
+      setTimeout(() => {
+        copyBtn.textContent = 'Copy';
+        copyBtn.classList.remove('copied');
+      }, 1500);
+    });
+  });
+
+  // Initial demo data
+  cssInput.value = '/* Base Styles */\nbody {\n  background-color: #0a0b10;\n  color: #e0e0e0;\n  font-family: "Inter", sans-serif;\n  background-image: url(data:image/png;base64,iVBORw0KGgo=);\n}\n\n/* Responsive */\n@media screen and (max-width: 800px) {\n  .tool-grid > .pane, .sidebar + .content {\n    margin-top: 10px !important;\n  }\n}\n\n/* Animations */\n@keyframes pulse {\n  0% { transform: scale(1); }\n  50% { transform: scale(1.05); }\n  100% { transform: scale(1); }\n}';
+  processCSS();
+}
+
+function setMode(mode) {
+  currentMode = mode;
+  btnMinify.classList.toggle('active', mode === 'minify');
+  btnBeautify.classList.toggle('active', mode === 'beautify');
+  processCSS();
+}
+
+function protectStrings(css) {
+  const strings = [];
+
+  // Protect single/double quotes
+  let protectedCss = css.replace(/(["'])(?:(?=(\\?))\2[\s\S])*?\1/g, match => {
+    strings.push(match);
+    return '___STR' + (strings.length - 1) + '___';
+  });
+
+  // Protect url(...)
+  protectedCss = protectedCss.replace(/url\(([^)]+)\)/g, (match, inner) => {
+    if (inner.trim().startsWith('___STR')) return match;
+    strings.push(match);
+    return '___STR' + (strings.length - 1) + '___';
+  });
+
+  // Protect comments
+  protectedCss = protectedCss.replace(/\/\*[\s\S]*?\*\//g, match => {
+    strings.push(match);
+    return '___STR' + (strings.length - 1) + '___';
+  });
+
+  return { protectedCss, strings };
+}
+
+function restoreStrings(css, strings) {
+  let restored = css;
+  for (let i = 0; i < strings.length; i++) {
+    restored = restored.replace(new RegExp('___STR' + i + '___', 'g'), strings[i]);
+  }
+  return restored;
+}
+
+function minifyCSSCore(css) {
+  let { protectedCss, strings } = protectStrings(css);
+
+  // Filter out comments from strings array to remove them during minification
+  for(let i=0; i<strings.length; i++){
+    if(strings[i].startsWith('/*') && !strings[i].startsWith('/*!')) {
+       strings[i] = ''; // remove non-special comments
+    }
+  }
+
+  // Remove unnecessary whitespace
+  protectedCss = protectedCss.replace(/\s+/g, ' ');
+  // Remove spaces around safe characters { } ; , > ~
+  protectedCss = protectedCss.replace(/\s*([{};,>~])\s*/g, '$1');
+
+  // Remove space after : (but not before, to protect pseudo-classes like div :hover)
+  protectedCss = protectedCss.replace(/:\s+/g, ':');
+
+  // Preserve space before !important
+  protectedCss = protectedCss.replace(/!important/gi, ' !important');
+
+  // Remove last semicolon before }
+  protectedCss = protectedCss.replace(/;}/g, '}');
+
+  return restoreStrings(protectedCss, strings).trim();
+}
+
+function beautifyCSSCore(css) {
+  let minified = minifyCSSCore(css);
+  let { protectedCss, strings } = protectStrings(minified);
+
+  let out = '';
+  let indent = 0;
+
+  let i = 0;
+  let buffer = '';
+  while (i < protectedCss.length) {
+    let char = protectedCss[i];
+    if (char === '{') {
+      let sel = buffer.trim();
+      sel = sel.replace(/,\s*/g, ', ');
+      sel = sel.replace(/\s*([>+~])\s*/g, ' $1 ');
+      out += '  '.repeat(indent) + sel + ' {\n';
+      indent++;
+      buffer = '';
+    } else if (char === '}') {
+      if (buffer.trim()) {
+        let prop = buffer.trim();
+        let colonIdx = prop.indexOf(':');
+        if (colonIdx !== -1) {
+          prop = prop.substring(0, colonIdx) + ': ' + prop.substring(colonIdx + 1);
+        }
+        prop = prop.replace(/,\s*/g, ', ');
+        out += '  '.repeat(indent) + prop + ';\n';
+      }
+      indent = Math.max(0, indent - 1);
+      out += '  '.repeat(indent) + '}\n\n';
+      buffer = '';
+    } else if (char === ';') {
+      if (buffer.trim()) {
+        let prop = buffer.trim();
+        let colonIdx = prop.indexOf(':');
+        if (colonIdx !== -1) {
+          prop = prop.substring(0, colonIdx) + ': ' + prop.substring(colonIdx + 1);
+        }
+        prop = prop.replace(/,\s*/g, ', ');
+        out += '  '.repeat(indent) + prop + ';\n';
+      }
+      buffer = '';
+    } else {
+      buffer += char;
+    }
+    i++;
+  }
+
+  if (buffer.trim()) {
+    out += buffer.trim();
+  }
+
+  out = out.replace(/\n\s*\n\s*\n/g, '\n\n');
+  out = out.replace(/{\n\n/g, '{\n');
+  out = out.replace(/\n\s*\n\s*}/g, '\n}');
+
+  out = out.replace(/\{\s*\}/g, '{}');
+
+  return restoreStrings(out, strings).trim();
+}
+
+function processCSS() {
+  const raw = cssInput.value;
+  if (!raw.trim()) {
+    cssOutput.value = '';
+    updateStats(0, 0);
+    return;
+  }
+
+  let result = '';
+  try {
+    if (currentMode === 'minify') {
+      result = minifyCSSCore(raw);
+    } else {
+      result = beautifyCSSCore(raw);
+    }
+    cssOutput.value = result;
+    updateStats(raw.length, result.length);
+  } catch (err) {
+    cssOutput.value = 'Error processing CSS:\n' + err.message;
+    updateStats(raw.length, 0);
+  }
+}
+
+function updateStats(inSize, outSize) {
+  statInputSize.textContent = formatBytes(inSize);
+  statOutputSize.textContent = formatBytes(outSize);
+
+  if (inSize === 0 || outSize === 0) {
+    statSavings.textContent = '0.00%';
+    statSavings.className = 'stat-value stat-savings';
+    return;
+  }
+
+  const savings = ((inSize - outSize) / inSize) * 100;
+  statSavings.textContent = savings.toFixed(2) + '%';
+
+  if (savings < 0) {
+    statSavings.className = 'stat-value stat-savings negative';
+    statSavings.textContent = Math.abs(savings).toFixed(2) + '% Increase';
+  } else {
+    statSavings.className = 'stat-value stat-savings';
+  }
+}
+
+function formatBytes(bytes) {
+  if (bytes === 0) return '0 B';
+  const k = 1024;
+  const sizes = ['B', 'KB', 'MB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+init();
+</script>
+</body>
+</html>
