@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meta Tag Generator — SEO & Open Graph Tags | Free Online Tool</title>
+<meta name="description" content="Free interactive Meta Tag Generator. Generate HTML meta tags for SEO, Open Graph, Twitter Cards, and favicon links with a live preview of Google and social media results.">
+<meta property="og:title" content="Meta Tag Generator — SEO & Open Graph Tags">
+<meta property="og:description" content="Free interactive Meta Tag Generator. Generate HTML meta tags for SEO, Open Graph, Twitter Cards, and favicon links with a live preview of Google and social media results.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Meta Tag Generator",
+  "url": "https://siliconbased.dev/meta-tag-generator",
+  "description": "Interactive Meta Tag Generator. Generate HTML meta tags for SEO, Open Graph, Twitter Cards, and favicon links with a live preview.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+
+.main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+.layout-grid { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: start; }
+@media (min-width: 992px) {
+  .layout-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.builder-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; }
+@media (min-width: 768px) {
+  .builder-grid { grid-template-columns: 1fr 1fr; }
+  .full-width { grid-column: 1 / -1; }
+}
+
+.input-group { display: flex; flex-direction: column; gap: 8px; }
+.input-group label { font-size: 0.85rem; font-weight: 600; color: #ccc; display: flex; align-items: center; justify-content: space-between; }
+.input-group label span.required { color: #818cf8; font-size: 0.75rem; font-weight: 500; }
+.input-group label span.counter { color: #888; font-size: 0.75rem; font-weight: 400; }
+.input-group label span.counter.warn { color: #f59e0b; }
+.input-group label span.counter.error { color: #ef4444; }
+
+.input-group input, .input-group textarea { background: #111318; border: 1px solid #1e2030; border-radius: 10px; padding: 12px 16px; font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #fff; outline: none; transition: all 0.2s; width: 100%; }
+.input-group textarea { resize: vertical; min-height: 80px; }
+.input-group input:focus, .input-group textarea:focus { border-color: #818cf8; box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.2); }
+.input-group input::placeholder, .input-group textarea::placeholder { color: #555; }
+.input-hint { font-size: 0.75rem; color: #666; }
+
+.card { background: #111318; border: 1px solid #1e2030; border-radius: 14px; overflow: hidden; margin-bottom: 32px; }
+.card-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; background: #13151d; border-bottom: 1px solid #1e2030; }
+.card-header h3 { font-size: 0.85rem; font-weight: 600; color: #ccc; }
+.card-body { padding: 20px; }
+
+.btn-primary { background: #818cf8; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+.btn-primary:hover { background: #6366f1; }
+.btn-primary.copied { background: #4ade80; color: #1a3a1a; }
+
+/* Preview Tabs */
+.preview-tabs { display: flex; gap: 8px; margin-bottom: 16px; border-bottom: 1px solid #1e2030; padding-bottom: 12px; }
+.tab-btn { background: transparent; border: none; color: #888; font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; padding: 6px 12px; border-radius: 6px; transition: all 0.2s; }
+.tab-btn:hover { color: #ccc; background: rgba(255,255,255,0.05); }
+.tab-btn.active { background: rgba(129, 140, 248, 0.1); color: #818cf8; }
+
+.preview-pane { display: none; }
+.preview-pane.active { display: block; }
+
+/* Google Preview */
+.google-result { background: #fff; padding: 16px; border-radius: 8px; color: #3c4043; font-family: arial, sans-serif; font-size: 14px; line-height: 1.58; }
+.g-url { color: #202124; font-size: 14px; display: flex; align-items: center; gap: 6px; }
+.g-title { color: #1a0dab; font-size: 20px; line-height: 1.3; cursor: pointer; text-decoration: none; padding-top: 4px; padding-bottom: 2px; }
+.g-title:hover { text-decoration: underline; }
+.g-desc { color: #4d5156; word-wrap: break-word; }
+
+/* Social Cards */
+.social-card { border: 1px solid #38444d; border-radius: 12px; overflow: hidden; background: #15202b; color: #fff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+.sc-img-container { width: 100%; aspect-ratio: 1.91 / 1; background: #1e2030; overflow: hidden; }
+.sc-img-container img { width: 100%; height: 100%; object-fit: cover; }
+.sc-content { padding: 12px 16px; border-top: 1px solid #38444d; }
+.sc-domain { color: #8899a6; font-size: 15px; margin-bottom: 2px; }
+.sc-title { font-weight: bold; font-size: 15px; line-height: 1.3em; margin-bottom: 4px; color: #fff; }
+.sc-desc { color: #8899a6; font-size: 15px; line-height: 1.3em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+.facebook-style { background: #f0f2f5; color: #050505; border-top: none; }
+.facebook-style .sc-domain { color: #65676b; font-size: 12px; text-transform: uppercase; margin-bottom: 4px; }
+.facebook-style .sc-title { color: #050505; font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+.facebook-style .sc-desc { color: #65676b; font-size: 14px; -webkit-line-clamp: 1; }
+
+.code-output { background: #0a0b10; border: 1px solid #1e2030; border-radius: 10px; padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #e0e0e0; white-space: pre-wrap; word-break: break-all; min-height: 120px; }
+.code-output .tag { color: #569cd6; }
+.code-output .attr { color: #9cdcfe; }
+.code-output .val { color: #ce9178; }
+
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-family: 'JetBrains Mono', monospace; font-size: 0.85em; }
+
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #0a0b10; }
+::-webkit-scrollbar-thumb { background: #1e2030; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #2a2d40; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Meta Tag <span>Generator</span></h1>
+  <p>Generate HTML meta tags for SEO, Open Graph, and Twitter Cards with a live preview.</p>
+</div>
+
+<div class="main">
+  <div class="layout-grid">
+    <!-- Left Column: Inputs -->
+    <div class="input-section">
+      <div class="builder-grid">
+        <div class="input-group full-width">
+          <label for="titleInput">Site Title <span class="required">Required</span> <span class="counter" id="titleCounter">0/60</span></label>
+          <input type="text" id="titleInput" placeholder="e.g. My Awesome Website | Home" autocomplete="off" value="My Awesome Website">
+          <div class="input-hint">Keep under 60 characters for optimal search engine display.</div>
+        </div>
+
+        <div class="input-group full-width">
+          <label for="descInput">Meta Description <span class="counter" id="descCounter">0/160</span></label>
+          <textarea id="descInput" placeholder="A brief description of your page content..." autocomplete="off">This is an example description of the awesome website that provides high-quality content and services.</textarea>
+          <div class="input-hint">Optimal length is between 150-160 characters.</div>
+        </div>
+
+        <div class="input-group full-width">
+          <label for="urlInput">Canonical URL</label>
+          <input type="url" id="urlInput" placeholder="https://example.com/page" autocomplete="off" value="https://example.com">
+          <div class="input-hint">The primary URL for this page.</div>
+        </div>
+
+        <div class="input-group full-width">
+          <label for="imageInput">Image URL (Open Graph / Twitter)</label>
+          <input type="url" id="imageInput" placeholder="https://example.com/image.jpg" autocomplete="off" value="https://via.placeholder.com/1200x630/1e2030/818cf8?text=Example+Image">
+          <div class="input-hint">Recommended size: 1200x630 pixels.</div>
+        </div>
+
+        <div class="input-group">
+          <label for="authorInput">Author</label>
+          <input type="text" id="authorInput" placeholder="e.g. Jane Doe" autocomplete="off">
+        </div>
+
+        <div class="input-group">
+          <label for="twitterInput">Twitter Handle</label>
+          <input type="text" id="twitterInput" placeholder="e.g. @username" autocomplete="off">
+        </div>
+
+        <div class="input-group">
+          <label for="themeInput">Theme Color</label>
+          <input type="color" id="themeInput" value="#818cf8" style="height: 44px; padding: 4px;">
+          <div class="input-hint">Browser theme color for mobile.</div>
+        </div>
+
+        <div class="input-group full-width">
+          <label for="faviconInput">Favicon URL</label>
+          <input type="url" id="faviconInput" placeholder="https://example.com/favicon.ico" autocomplete="off" value="https://example.com/favicon.ico">
+          <div class="input-hint">Path to your site's favicon or icon image.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Previews and Code -->
+    <div class="preview-section">
+      <!-- Live Preview Card -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Live Preview</h3>
+        </div>
+        <div class="card-body">
+          <div class="preview-tabs">
+            <button class="tab-btn active" data-tab="google">Google</button>
+            <button class="tab-btn" data-tab="twitter">Twitter</button>
+            <button class="tab-btn" data-tab="facebook">Facebook/OG</button>
+          </div>
+
+          <div class="preview-content">
+            <!-- Google Preview -->
+            <div id="preview-google" class="preview-pane active">
+              <div class="google-result">
+                <div class="g-url" id="gUrl">https://example.com</div>
+                <div class="g-title" id="gTitle">My Awesome Website</div>
+                <div class="g-desc" id="gDesc">This is an example description of the awesome website that provides high-quality content and services.</div>
+              </div>
+            </div>
+
+            <!-- Twitter Preview -->
+            <div id="preview-twitter" class="preview-pane">
+              <div class="social-card">
+                <div class="sc-img-container">
+                  <img id="twImg" src="https://via.placeholder.com/1200x630/1e2030/818cf8?text=Example+Image" alt="Twitter Image Preview">
+                </div>
+                <div class="sc-content">
+                  <div class="sc-domain" id="twDomain">example.com</div>
+                  <div class="sc-title" id="twTitle">My Awesome Website</div>
+                  <div class="sc-desc" id="twDesc">This is an example description of the awesome website that provides high-quality content and services.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Facebook Preview -->
+            <div id="preview-facebook" class="preview-pane">
+              <div class="social-card">
+                <div class="sc-img-container">
+                  <img id="fbImg" src="https://via.placeholder.com/1200x630/1e2030/818cf8?text=Example+Image" alt="Facebook Image Preview">
+                </div>
+                <div class="sc-content facebook-style">
+                  <div class="sc-domain text-uppercase" id="fbDomain">EXAMPLE.COM</div>
+                  <div class="sc-title" id="fbTitle">My Awesome Website</div>
+                  <div class="sc-desc" id="fbDesc">This is an example description of the awesome website that provides high-quality content and services.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Generated Code Card -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Generated Code</h3>
+          <button class="btn-primary" id="copyCodeBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Copy HTML
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="code-output" id="codeOutput"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>What are Meta Tags?</h2>
+    <p>Meta tags are snippets of text that describe a page's content; the meta tags don't appear on the page itself, but only in the page's source code. Meta tags are essentially little content descriptors that help tell search engines what a web page is about.</p>
+
+    <h2>Open Graph & Twitter Cards</h2>
+    <p>The Open Graph protocol enables any web page to become a rich object in a social graph. It is used by Facebook, LinkedIn, Discord, and many others to display a preview card when your link is shared.</p>
+    <ul>
+      <li><strong>og:title</strong>: The title of your object as it should appear within the graph.</li>
+      <li><strong>og:image</strong>: An image URL which should represent your object within the graph (recommended 1200x630 pixels).</li>
+      <li><strong>og:description</strong>: A one to two sentence description of your object.</li>
+    </ul>
+    <p>Twitter Cards work similarly but use `twitter:` prefixed properties. However, Twitter will fall back to Open Graph tags if specific Twitter tags are missing.</p>
+
+    <h2>Best Practices for SEO</h2>
+    <ul>
+      <li><strong>Title Tag:</strong> Keep it under 60 characters so it isn't truncated in search results. Make it descriptive and keyword-rich.</li>
+      <li><strong>Meta Description:</strong> Keep it between 150-160 characters. Write compelling copy that encourages users to click through from search results.</li>
+      <li><strong>Canonical URLs:</strong> Always include a canonical URL to prevent duplicate content issues if your page can be accessed via multiple URLs.</li>
+      <li><strong>Images:</strong> Ensure your Open Graph image is high quality and properly sized so it looks great when shared on social media platforms.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const inputs = {
+  title: document.getElementById('titleInput'),
+  desc: document.getElementById('descInput'),
+  url: document.getElementById('urlInput'),
+  image: document.getElementById('imageInput'),
+  author: document.getElementById('authorInput'),
+  twitter: document.getElementById('twitterInput'),
+  theme: document.getElementById('themeInput'),
+  favicon: document.getElementById('faviconInput')
+};
+
+const counters = {
+  title: document.getElementById('titleCounter'),
+  desc: document.getElementById('descCounter')
+};
+
+// Preview Elements
+const preview = {
+  gUrl: document.getElementById('gUrl'),
+  gTitle: document.getElementById('gTitle'),
+  gDesc: document.getElementById('gDesc'),
+  twImg: document.getElementById('twImg'),
+  twDomain: document.getElementById('twDomain'),
+  twTitle: document.getElementById('twTitle'),
+  twDesc: document.getElementById('twDesc'),
+  fbImg: document.getElementById('fbImg'),
+  fbDomain: document.getElementById('fbDomain'),
+  fbTitle: document.getElementById('fbTitle'),
+  fbDesc: document.getElementById('fbDesc')
+};
+
+const codeOutput = document.getElementById('codeOutput');
+const copyCodeBtn = document.getElementById('copyCodeBtn');
+
+let generatedCode = '';
+
+// Tab switching
+const tabs = document.querySelectorAll('.tab-btn');
+const panes = document.querySelectorAll('.preview-pane');
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    panes.forEach(p => p.classList.remove('active'));
+
+    tab.classList.add('active');
+    document.getElementById(`preview-${tab.dataset.tab}`).classList.add('active');
+  });
+});
+
+function escapeHTML(str) {
+  const p = document.createElement("p");
+  p.appendChild(document.createTextNode(str));
+  return p.innerHTML;
+}
+
+function updateCounters() {
+  const titleLen = inputs.title.value.length;
+  counters.title.textContent = `${titleLen}/60`;
+  counters.title.className = `counter ${titleLen > 60 ? 'error' : (titleLen > 50 ? 'warn' : '')}`;
+
+  const descLen = inputs.desc.value.length;
+  counters.desc.textContent = `${descLen}/160`;
+  counters.desc.className = `counter ${descLen > 160 ? 'error' : (descLen > 150 ? 'warn' : '')}`;
+}
+
+function updatePreviews() {
+  const title = inputs.title.value.trim() || 'Website Title';
+  const desc = inputs.desc.value.trim() || 'Description of the website content.';
+  let url = inputs.url.value.trim() || 'https://example.com';
+  const image = inputs.image.value.trim() || 'https://via.placeholder.com/1200x630/1e2030/818cf8?text=Example+Image';
+
+  // Domain parsing for social cards
+  let domain = 'example.com';
+  try {
+    domain = new URL(url).hostname;
+  } catch (e) {
+    if (url && !url.startsWith('http')) {
+      try { domain = new URL('https://' + url).hostname; } catch(err){}
+    }
+  }
+
+  // Google Preview
+  preview.gTitle.textContent = title;
+  preview.gDesc.textContent = desc;
+  preview.gUrl.textContent = url;
+
+  // Twitter Preview
+  preview.twTitle.textContent = title;
+  preview.twDesc.textContent = desc;
+  preview.twImg.src = image;
+  preview.twDomain.textContent = domain;
+
+  // Facebook Preview
+  preview.fbTitle.textContent = title;
+  preview.fbDesc.textContent = desc;
+  preview.fbImg.src = image;
+  preview.fbDomain.textContent = domain;
+}
+
+function escapeAttr(str) {
+  return str.replace(/&/g, '&amp;')
+            .replace(/"/g, '&quot;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+}
+
+function highlightCode(str) {
+  // First escape basic HTML characters
+  const escaped = str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+  // Highlight tags and attributes
+  return escaped.replace(/(&lt;!--.*?--&gt;)|(&lt;\/?[a-zA-Z0-9\-]+)(.*?)(&gt;)/g, function(match, comment, startTag, attrs, endTag) {
+    if (comment) {
+      return `<span style="color: #6a9955;">${comment}</span>`;
+    }
+    const highlightedTag = startTag.replace(/(&lt;\/?)([a-zA-Z0-9\-]+)/, '$1<span class="tag">$2</span>');
+    const highlightedAttrs = attrs.replace(/([a-zA-Z0-9\-]+)=(&quot;.*?&quot;|"[^"]*")/g, '<span class="attr">$1</span>=<span class="val">$2</span>');
+    return highlightedTag + highlightedAttrs + endTag;
+  });
+}
+
+function generateCode() {
+  const t = inputs.title.value.trim();
+  const d = inputs.desc.value.trim();
+  const u = inputs.url.value.trim();
+  const i = inputs.image.value.trim();
+  const a = inputs.author.value.trim();
+  const tw = inputs.twitter.value.trim();
+  const th = inputs.theme.value.trim();
+  const f = inputs.favicon.value.trim();
+
+  let lines = [];
+
+  lines.push(`<!-- Primary Meta Tags -->`);
+  if (t) lines.push(`<title>${escapeHTML(t)}</title>`);
+  if (t) lines.push(`<meta name="title" content="${escapeAttr(t)}">`);
+  if (d) lines.push(`<meta name="description" content="${escapeAttr(d)}">`);
+  if (a) lines.push(`<meta name="author" content="${escapeAttr(a)}">`);
+  if (th) lines.push(`<meta name="theme-color" content="${escapeAttr(th)}">`);
+  if (u) lines.push(`<link rel="canonical" href="${escapeAttr(u)}">`);
+  if (f) {
+    lines.push(`<link rel="icon" href="${escapeAttr(f)}">`);
+    lines.push(`<link rel="apple-touch-icon" href="${escapeAttr(f)}">`);
+  }
+
+  lines.push(`\n<!-- Open Graph / Facebook -->`);
+  lines.push(`<meta property="og:type" content="website">`);
+  if (u) lines.push(`<meta property="og:url" content="${escapeAttr(u)}">`);
+  if (t) lines.push(`<meta property="og:title" content="${escapeAttr(t)}">`);
+  if (d) lines.push(`<meta property="og:description" content="${escapeAttr(d)}">`);
+  if (i) lines.push(`<meta property="og:image" content="${escapeAttr(i)}">`);
+
+  lines.push(`\n<!-- Twitter -->`);
+  lines.push(`<meta property="twitter:card" content="summary_large_image">`);
+  if (u) lines.push(`<meta property="twitter:url" content="${escapeAttr(u)}">`);
+  if (t) lines.push(`<meta property="twitter:title" content="${escapeAttr(t)}">`);
+  if (d) lines.push(`<meta property="twitter:description" content="${escapeAttr(d)}">`);
+  if (i) lines.push(`<meta property="twitter:image" content="${escapeAttr(i)}">`);
+  if (tw) {
+    const handle = tw.startsWith('@') ? tw : '@' + tw;
+    lines.push(`<meta property="twitter:site" content="${escapeAttr(handle)}">`);
+    lines.push(`<meta property="twitter:creator" content="${escapeAttr(handle)}">`);
+  }
+
+  generatedCode = lines.join('\n');
+  codeOutput.innerHTML = highlightCode(generatedCode);
+}
+
+function updateAll() {
+  updateCounters();
+  updatePreviews();
+  generateCode();
+}
+
+// Add event listeners
+Object.values(inputs).forEach(input => {
+  input.addEventListener('input', updateAll);
+});
+
+// Copy functionality
+copyCodeBtn.addEventListener('click', () => {
+  if (!generatedCode) return;
+
+  navigator.clipboard.writeText(generatedCode).then(() => {
+    const originalText = copyCodeBtn.innerHTML;
+    copyCodeBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+    copyCodeBtn.classList.add('copied');
+
+    setTimeout(() => {
+      copyCodeBtn.innerHTML = originalText;
+      copyCodeBtn.classList.remove('copied');
+    }, 2000);
+  });
+});
+
+// Initial load
+updateAll();
+</script>
+</body>
+</html>
