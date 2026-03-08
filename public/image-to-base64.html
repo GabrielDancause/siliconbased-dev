@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image to Base64 Converter | Free Online Tool</title>
+<meta name="description" content="Convert images to Base64 data URI strings instantly. Supports PNG, JPEG, GIF, SVG, and WebP. Preview the image and copy the string. Free and works offline.">
+<meta property="og:title" content="Image to Base64 Converter">
+<meta property="og:description" content="Convert images to Base64 data URI strings instantly. Supports PNG, JPEG, GIF, SVG, and WebP. Preview the image and copy the string. Free and works offline.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Image to Base64 Converter",
+    "url": "https://siliconbased.dev/image-to-base64",
+    "description": "Convert images to Base64 data URI strings instantly. Supports PNG, JPEG, GIF, SVG, and WebP.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Image to Base64 Converter Guide",
+    "description": "Learn how to convert images to Base64 strings and use Data URIs in your web projects.",
+    "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+  }
+]
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 900px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Card */
+.tool-card { background: #111318; border: 1px solid #1e2030; border-radius: 16px; overflow: hidden; margin-bottom: 40px; }
+.tool-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: #13151d; border-bottom: 1px solid #1e2030; flex-wrap: wrap; gap: 12px; }
+.tool-header h3 { font-size: 0.9rem; font-weight: 600; color: #ccc; display: flex; align-items: center; gap: 8px; }
+
+/* Inputs/Outputs */
+.tool-body { padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+.textarea-wrapper { position: relative; display: flex; flex-direction: column; gap: 8px; }
+.textarea-label { font-size: 0.85rem; font-weight: 600; color: #818cf8; display: flex; justify-content: space-between; }
+.char-count { color: #666; font-weight: 400; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; }
+
+.input-area { width: 100%; min-height: 180px; background: #0a0b10; border: 1px solid #1e2030; border-radius: 12px; padding: 16px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; resize: vertical; outline: none; transition: border-color 0.2s; line-height: 1.5; word-break: break-all; }
+.input-area:focus { border-color: #818cf8; }
+.input-area::placeholder { color: #444; }
+
+/* Actions */
+.actions-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.btn { background: #1e2030; border: 1px solid #2a2d40; color: #ccc; padding: 10px 20px; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+.btn:hover { background: #2a2d40; color: #fff; }
+.btn-primary { background: #818cf8; color: #fff; border-color: #818cf8; }
+.btn-primary:hover { background: #6366f1; border-color: #6366f1; }
+.btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+/* Upload Area */
+.upload-area { border: 2px dashed #2a2d40; border-radius: 12px; padding: 40px 20px; text-align: center; cursor: pointer; transition: all 0.2s; background: #0a0b10; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; position: relative; }
+.upload-area:hover, .upload-area.dragover { border-color: #818cf8; background: #0f1729; }
+.upload-area input[type="file"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.upload-icon { color: #818cf8; }
+.upload-text { color: #ccc; font-weight: 500; }
+.upload-subtext { color: #666; font-size: 0.85rem; }
+
+/* Preview Area */
+.preview-wrapper { display: none; flex-direction: column; gap: 12px; background: #0a0b10; border: 1px solid #1e2030; border-radius: 12px; padding: 16px; align-items: center; }
+.preview-wrapper.visible { display: flex; }
+.image-preview { max-width: 100%; max-height: 300px; border-radius: 8px; object-fit: contain; background: #000; }
+.preview-info { display: flex; justify-content: space-between; width: 100%; color: #888; font-size: 0.85rem; font-family: 'JetBrains Mono', monospace; }
+.clear-btn { background: none; border: none; color: #ef4444; cursor: pointer; font-size: 0.85rem; text-decoration: underline; padding: 0; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .actions-row { flex-direction: column; align-items: stretch; }
+  .btn { justify-content: center; }
+  .tool-header { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Image to Base64 <span>Converter</span></h1>
+  <p>Convert images to Base64 Data URI strings instantly. Completely offline.</p>
+</div>
+
+<div class="main">
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <h3>Upload Image</h3>
+    </div>
+
+    <div class="tool-body">
+
+      <div class="upload-area" id="uploadArea">
+        <svg class="upload-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+        <div class="upload-text">Click to browse or drag & drop an image here</div>
+        <div class="upload-subtext">Supports PNG, JPEG, GIF, SVG, and WebP</div>
+        <input type="file" id="fileInput" accept="image/png, image/jpeg, image/gif, image/svg+xml, image/webp">
+      </div>
+
+      <div class="preview-wrapper" id="previewWrapper">
+        <div class="preview-info">
+          <span id="fileName">image.png</span>
+          <button class="clear-btn" id="clearBtn">Clear Image</button>
+        </div>
+        <img id="imagePreview" class="image-preview" src="" alt="Image Preview">
+      </div>
+
+      <div class="textarea-wrapper">
+        <div class="textarea-label">
+          <span>Base64 Output (Data URI)</span>
+        </div>
+        <textarea class="input-area" id="outputText" readonly placeholder="Base64 string will appear here..."></textarea>
+      </div>
+
+      <div class="actions-row">
+        <div></div> <!-- Spacer -->
+        <button class="btn btn-primary" id="copyBtn" disabled>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          Copy Result
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>What is an Image to Base64 Converter?</h2>
+    <p>An Image to Base64 converter is a developer tool that takes a standard image file (like a PNG, JPEG, or SVG) and translates its binary data into a long string of ASCII text using Base64 encoding. When formatted as a Data URI, this text string can be embedded directly into HTML or CSS code, effectively allowing you to display an image without needing to link to an external image file.</p>
+
+    <h2>How do Data URIs work?</h2>
+    <p>A Data URI (Uniform Resource Identifier) provides a way to include data in-line in web pages as if they were external resources. For images, a Data URI looks like this:</p>
+    <p><code>data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...</code></p>
+    <ul>
+      <li><strong>data:</strong> The scheme indicating it's a data URI.</li>
+      <li><strong>image/png:</strong> The MIME type specifying the format of the data.</li>
+      <li><strong>;base64:</strong> An indicator that the data is base64 encoded.</li>
+      <li><strong>,iVBOR...:</strong> The actual base64 encoded string representing the image file.</li>
+    </ul>
+
+    <h2>Benefits and Drawbacks of Base64 Images</h2>
+    <p>Embedding images as Base64 strings can reduce the number of HTTP requests your webpage makes, which was historically important for performance (though less critical with HTTP/2 and HTTP/3). It's incredibly useful for embedding tiny assets like icons, small logos, or placeholder graphics directly within CSS or HTML files, preventing "flash of unstyled content" or missing image icons.</p>
+    <p>However, Base64 encoding increases the file size of the image by approximately 33%. For large photographs or complex graphics, this bloat significantly outweighs the benefit of saving an HTTP request. Therefore, it's best practice to use Base64 encoding only for very small images (typically under 10KB).</p>
+
+    <h2>Privacy and Security</h2>
+    <p>This converter operates entirely client-side. When you drag and drop an image or select a file, all processing happens within your web browser using JavaScript's built-in <code>FileReader</code> API. Your image is never uploaded to an external server, ensuring your files remain completely private and secure. Once loaded, this tool can function fully offline.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const uploadArea = document.getElementById('uploadArea');
+const fileInput = document.getElementById('fileInput');
+const previewWrapper = document.getElementById('previewWrapper');
+const imagePreview = document.getElementById('imagePreview');
+const fileNameSpan = document.getElementById('fileName');
+const clearBtn = document.getElementById('clearBtn');
+const outputText = document.getElementById('outputText');
+const copyBtn = document.getElementById('copyBtn');
+
+const validTypes = ['image/png', 'image/jpeg', 'image/gif', 'image/svg+xml', 'image/webp'];
+
+function handleFile(file) {
+  if (!file) return;
+  if (!validTypes.includes(file.type)) {
+    alert('Please upload a valid image file (PNG, JPEG, GIF, SVG, or WebP).');
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const dataUri = e.target.result;
+
+    // UI Updates
+    uploadArea.style.display = 'none';
+    previewWrapper.classList.add('visible');
+
+    imagePreview.src = dataUri;
+    fileNameSpan.textContent = file.name;
+
+    outputText.value = dataUri;
+    copyBtn.disabled = false;
+  };
+  reader.readAsDataURL(file);
+}
+
+// Click to upload
+uploadArea.addEventListener('click', () => {
+  fileInput.click();
+});
+
+fileInput.addEventListener('change', (e) => {
+  if (e.target.files && e.target.files.length > 0) {
+    handleFile(e.target.files[0]);
+  }
+});
+
+// Drag and drop
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+  uploadArea.addEventListener(eventName, preventDefaults, false);
+});
+
+function preventDefaults(e) {
+  e.preventDefault();
+  e.stopPropagation();
+}
+
+['dragenter', 'dragover'].forEach(eventName => {
+  uploadArea.addEventListener(eventName, () => {
+    uploadArea.classList.add('dragover');
+  }, false);
+});
+
+['dragleave', 'drop'].forEach(eventName => {
+  uploadArea.addEventListener(eventName, () => {
+    uploadArea.classList.remove('dragover');
+  }, false);
+});
+
+uploadArea.addEventListener('drop', (e) => {
+  const dt = e.dataTransfer;
+  const files = dt.files;
+  if (files && files.length > 0) {
+    handleFile(files[0]);
+  }
+}, false);
+
+// Clear image
+clearBtn.addEventListener('click', () => {
+  fileInput.value = '';
+  imagePreview.src = '';
+  outputText.value = '';
+  copyBtn.disabled = true;
+
+  previewWrapper.classList.remove('visible');
+  uploadArea.style.display = 'flex';
+});
+
+// Copy button
+copyBtn.addEventListener('click', () => {
+  if (!outputText.value) return;
+  navigator.clipboard.writeText(outputText.value).then(() => {
+    const originalText = copyBtn.innerHTML;
+    copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+    copyBtn.classList.add('copied');
+    setTimeout(() => {
+      copyBtn.innerHTML = originalText;
+      copyBtn.classList.remove('copied');
+    }, 2000);
+  });
+});
+</script>
+</body>
+</html>
