@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terminal Commands Cheat Sheet | macOS & Linux</title>
+<meta name="description" content="Essential terminal and bash commands cheat sheet for macOS and Linux. Quick reference for files, directories, permissions, processes, and networking. Free and offline-capable.">
+<meta property="og:title" content="Terminal Commands Cheat Sheet">
+<meta property="og:description" content="Essential terminal and bash commands cheat sheet for macOS and Linux. Quick reference for files, directories, permissions, processes, and networking. Free and offline-capable.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Terminal Commands Cheat Sheet",
+  "name": "Terminal Commands Reference Guide",
+  "url": "https://siliconbased.dev/guide-terminal",
+  "description": "Comprehensive reference guide and cheat sheet for essential terminal commands on macOS and Linux. Includes search, examples, and syntax.",
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+/* Hero Section */
+.hero { text-align: center; padding: 48px 24px 24px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.4rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+
+/* Main Content */
+.main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* UI Controls */
+.controls { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; background: #111318; padding: 20px; border-radius: 12px; border: 1px solid #1e2030; }
+.search-bar { position: relative; width: 100%; }
+.search-bar input { width: 100%; padding: 14px 16px 14px 44px; background: #0a0b10; border: 1px solid #2a2d40; border-radius: 8px; color: #fff; font-family: 'Inter', sans-serif; font-size: 1rem; outline: none; transition: border-color 0.2s; }
+.search-bar input:focus { border-color: #818cf8; }
+.search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: #888; }
+
+.filters { display: flex; gap: 8px; flex-wrap: wrap; }
+.filter-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.filter-btn:hover { background: #2a2d40; color: #ccc; }
+.filter-btn.active { background: #818cf8; color: #fff; border-color: #818cf8; }
+
+/* Commands Grid */
+.commands-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+
+/* Command Card */
+.command-card { background: #111318; border: 1px solid #1e2030; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 12px; transition: border-color 0.2s, transform 0.2s; position: relative; }
+.command-card:hover { border-color: #2a2d40; transform: translateY(-2px); }
+
+.card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
+.command-title { font-size: 1.3rem; font-weight: 800; font-family: 'JetBrains Mono', monospace; color: #818cf8; line-height: 1; margin-bottom: 6px; }
+
+.os-badges { display: flex; gap: 6px; }
+.os-badge { padding: 2px 6px; border-radius: 4px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.os-badge.macos { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
+.os-badge.linux { background: rgba(74, 222, 128, 0.15); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.3); }
+.os-badge.all { background: rgba(96, 165, 250, 0.15); color: #60a5fa; border: 1px solid rgba(96, 165, 250, 0.3); }
+
+.command-desc { font-size: 0.9rem; color: #aaa; line-height: 1.5; }
+
+.code-snippet-wrapper { position: relative; background: #0a0b10; border: 1px solid #1e2030; border-radius: 8px; margin-top: auto; display: flex; align-items: stretch; overflow: hidden; }
+.code-snippet { padding: 12px 14px; font-size: 0.85rem; font-family: 'JetBrains Mono', monospace; color: #e0e0e0; overflow-x: auto; white-space: nowrap; flex: 1; scrollbar-width: none; }
+.code-snippet::-webkit-scrollbar { display: none; }
+
+.copy-btn { background: #151722; border: none; border-left: 1px solid #1e2030; color: #888; padding: 0 12px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; display: flex; align-items: center; justify-content: center; min-width: 44px; }
+.copy-btn:hover { background: #2a2d40; color: #ccc; }
+.copy-btn.copied { background: #1a3a1a; color: #4ade80; border-left-color: #2d5a2d; }
+.copy-btn svg { width: 14px; height: 14px; }
+
+.no-results { grid-column: 1 / -1; text-align: center; padding: 40px; color: #888; font-size: 1.1rem; background: #111318; border-radius: 12px; border: 1px dashed #2a2d40; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; border: 1px solid #1e2030; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .hero h1 { font-size: 2rem; }
+  .commands-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Terminal Commands <span>Cheat Sheet</span></h1>
+  <p>Essential terminal and bash commands for macOS and Linux.</p>
+</div>
+
+<div class="main">
+  <div class="controls">
+    <div class="search-bar">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" id="searchInput" placeholder="Search commands or descriptions (e.g., chmod, copy file)...">
+    </div>
+    <div class="filters" id="categoryFilters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="directories">Directories</button>
+      <button class="filter-btn" data-filter="files">Files</button>
+      <button class="filter-btn" data-filter="permissions">Permissions</button>
+      <button class="filter-btn" data-filter="processes">Processes</button>
+      <button class="filter-btn" data-filter="network">Network</button>
+      <button class="filter-btn" data-filter="system">System</button>
+    </div>
+  </div>
+
+  <div class="commands-grid" id="commandsGrid">
+    <!-- Command cards will be dynamically injected here -->
+  </div>
+
+  <div class="seo-content">
+    <h2>Understanding the Command Line</h2>
+    <p>The command line interface (CLI) is a powerful tool that allows you to interact directly with your computer's operating system using text commands. While graphical user interfaces (GUIs) are user-friendly, the terminal offers unparalleled speed, automation capabilities, and access to deep system functions.</p>
+    <p>Whether you're navigating file systems, managing server processes, or configuring network settings, mastering these essential terminal commands is a critical step for developers, system administrators, and power users.</p>
+
+    <h2>macOS vs. Linux Commands</h2>
+    <p>Both macOS and most Linux distributions share a common ancestry rooted in Unix. Because of this, the vast majority of terminal commands are identical across both platforms. The default shell on modern macOS is `zsh` (Z shell), while many Linux distributions default to `bash` (Bourne Again SHell). Both shells support the standard commands listed in this cheat sheet.</p>
+    <ul>
+      <li><strong>Package Managers:</strong> Linux users typically use <code>apt</code> (Debian/Ubuntu) or <code>yum/dnf</code> (RedHat), while macOS users rely on third-party managers like <a href="https://brew.sh/" target="_blank" rel="noopener noreferrer" style="color: #818cf8; text-decoration: none;">Homebrew</a> (<code>brew</code>).</li>
+      <li><strong>Clipboard Access:</strong> macOS has built-in <code>pbcopy</code> and <code>pbpaste</code> commands for clipboard integration. On Linux, you would typically install and use <code>xclip</code> or <code>xsel</code>.</li>
+      <li><strong>Networking Tools:</strong> Some legacy networking tools like <code>ifconfig</code> are still standard on macOS but have been deprecated in favor of the <code>ip</code> command suite on modern Linux systems.</li>
+    </ul>
+
+    <h2>Tips for Terminal Efficiency</h2>
+    <ul>
+      <li><strong>Use the Tab Key:</strong> Pressing <code>Tab</code> will auto-complete file names, directory paths, and even commands, saving you time and preventing typos.</li>
+      <li><strong>Command History:</strong> Use the <code>Up</code> and <code>Down</code> arrow keys to cycle through your previous commands. You can also use <code>Ctrl + R</code> to reverse search through your command history.</li>
+      <li><strong>Stopping Processes:</strong> If a command is running and you need to stop it immediately, press <code>Ctrl + C</code> to send an interrupt signal.</li>
+      <li><strong>Chaining Commands:</strong> You can run multiple commands sequentially by separating them with <code>&&</code> (e.g., <code>mkdir build && cd build</code>). The second command will only run if the first one succeeds.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const commandsData = [
+  // Directories
+  { command: "pwd", category: "directories", desc: "Print Working Directory. Shows your current location in the file system.", example: "pwd", os: "all" },
+  { command: "ls", category: "directories", desc: "List files and directories in the current path. Use -la for detailed list including hidden files.", example: "ls -la", os: "all" },
+  { command: "cd", category: "directories", desc: "Change Directory. Navigate to a specific path or go up one level using '..'.", example: "cd /path/to/dir\ncd ..", os: "all" },
+  { command: "mkdir", category: "directories", desc: "Make Directory. Create a new folder. Use -p to create nested directories.", example: "mkdir new_folder\nmkdir -p nested/folder/path", os: "all" },
+  { command: "rmdir", category: "directories", desc: "Remove Directory. Deletes an empty directory.", example: "rmdir empty_folder", os: "all" },
+
+  // Files
+  { command: "touch", category: "files", desc: "Create an empty file or update the access/modification timestamps of an existing file.", example: "touch newfile.txt", os: "all" },
+  { command: "cp", category: "files", desc: "Copy files or directories. Use -r for recursive copying of directories.", example: "cp source.txt dest.txt\ncp -r /src_dir /dest_dir", os: "all" },
+  { command: "mv", category: "files", desc: "Move or rename files and directories.", example: "mv oldname.txt newname.txt", os: "all" },
+  { command: "rm", category: "files", desc: "Remove files. Use -r to recursively delete directories and -f to force deletion.", example: "rm file.txt\nrm -rf /dir_to_delete", os: "all" },
+  { command: "cat", category: "files", desc: "Concatenate and print the contents of a file to the standard output.", example: "cat file.txt", os: "all" },
+  { command: "less", category: "files", desc: "View file contents one page at a time. Press 'q' to quit.", example: "less large_file.log", os: "all" },
+  { command: "head", category: "files", desc: "Output the first 10 lines of a file. Use -n to specify the number of lines.", example: "head -n 20 file.txt", os: "all" },
+  { command: "tail", category: "files", desc: "Output the last 10 lines of a file. Use -f to follow file changes in real-time.", example: "tail -f server.log", os: "all" },
+  { command: "grep", category: "files", desc: "Search text within files using regular expressions. Use -r for recursive search.", example: "grep \"search_term\" file.txt\ngrep -r \"term\" /dir", os: "all" },
+  { command: "find", category: "files", desc: "Search for files in a directory hierarchy based on name, size, or modification date.", example: "find . -name \"*.pdf\"", os: "all" },
+
+  // Permissions
+  { command: "chmod", category: "permissions", desc: "Change file mode bits (permissions). Modifies read, write, and execute permissions.", example: "chmod 755 script.sh", os: "all" },
+  { command: "chown", category: "permissions", desc: "Change file owner and group. Requires superuser privileges (sudo).", example: "sudo chown user:group file.txt", os: "all" },
+  { command: "sudo", category: "permissions", desc: "Execute a command as the superuser or another user.", example: "sudo apt install package", os: "all" },
+
+  // Processes
+  { command: "top", category: "processes", desc: "Display dynamic real-time view of running processes and system resource usage.", example: "top", os: "all" },
+  { command: "htop", category: "processes", desc: "Interactive process viewer (often needs to be installed first). Better UI than top.", example: "htop", os: "all" },
+  { command: "ps", category: "processes", desc: "Report a snapshot of current processes. Use aux to see all running processes.", example: "ps aux", os: "all" },
+  { command: "kill", category: "processes", desc: "Send a signal to a process, usually to terminate it, using its Process ID (PID).", example: "kill 1234\nkill -9 1234", os: "all" },
+  { command: "killall", category: "processes", desc: "Kill processes by name instead of PID.", example: "killall node", os: "all" },
+
+  // Network
+  { command: "ping", category: "network", desc: "Send ICMP ECHO_REQUEST to network hosts to check connectivity.", example: "ping google.com", os: "all" },
+  { command: "curl", category: "network", desc: "Transfer data from or to a server using various protocols (HTTP, HTTPS, FTP, etc.).", example: "curl -I https://example.com", os: "all" },
+  { command: "wget", category: "network", desc: "Network downloader. Downloads files served with HTTP, HTTPS, or FTP.", example: "wget https://example.com/file.zip", os: "linux" },
+  { command: "ifconfig", category: "network", desc: "Configure a network interface or display its current configuration (deprecated on modern Linux, replaced by ip).", example: "ifconfig", os: "all" },
+  { command: "ip", category: "network", desc: "Show / manipulate routing, network devices, interfaces and tunnels (Linux modern replacement for ifconfig).", example: "ip a", os: "linux" },
+  { command: "netstat", category: "network", desc: "Print network connections, routing tables, interface statistics, masquerade connections.", example: "netstat -tuln", os: "all" },
+  { command: "lsof", category: "network", desc: "List open files. Useful for finding which process is listening on a specific port.", example: "lsof -i :8080", os: "all" },
+
+  // System
+  { command: "df", category: "system", desc: "Report file system disk space usage. Use -h for human-readable format.", example: "df -h", os: "all" },
+  { command: "du", category: "system", desc: "Estimate file space usage. Use -sh to get a summary of a directory's size.", example: "du -sh /var/log", os: "all" },
+  { command: "free", category: "system", desc: "Display amount of free and used memory in the system.", example: "free -m", os: "linux" },
+  { command: "uname", category: "system", desc: "Print system information. Use -a to print all available information.", example: "uname -a", os: "all" },
+  { command: "history", category: "system", desc: "Display the command history list with line numbers.", example: "history", os: "all" },
+  { command: "pbcopy", category: "system", desc: "Copy standard input to the macOS clipboard.", example: "cat file.txt | pbcopy", os: "macos" },
+  { command: "pbpaste", category: "system", desc: "Paste data from the macOS clipboard to standard output.", example: "pbpaste > newfile.txt", os: "macos" }
+];
+
+const commandsGrid = document.getElementById('commandsGrid');
+
+function renderCards(data) {
+  commandsGrid.innerHTML = '';
+
+  if (data.length === 0) {
+    commandsGrid.innerHTML = '<div class="no-results">No commands found matching your search.</div>';
+    return;
+  }
+
+  data.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'command-card';
+
+    // Format OS badges
+    let badgesHtml = '';
+    if (item.os === 'all') {
+      badgesHtml = `<span class="os-badge all">macOS / Linux</span>`;
+    } else if (item.os === 'macos') {
+      badgesHtml = `<span class="os-badge macos">macOS only</span>`;
+    } else if (item.os === 'linux') {
+      badgesHtml = `<span class="os-badge linux">Linux</span>`;
+    }
+
+    // Handle multiline examples
+    const exampleHtml = item.example.split('\n').join('<br>');
+
+    card.innerHTML = `
+      <div class="card-header">
+        <div class="command-title">${item.command}</div>
+        <div class="os-badges">${badgesHtml}</div>
+      </div>
+      <div class="command-desc">${item.desc}</div>
+      <div class="code-snippet-wrapper">
+        <div class="code-snippet">${exampleHtml}</div>
+        <button class="copy-btn" data-copy="${item.example.replace(/"/g, '&quot;')}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        </button>
+      </div>
+    `;
+    commandsGrid.appendChild(card);
+  });
+}
+
+function attachCopyListeners() {
+  const copyBtns = document.querySelectorAll('.copy-btn');
+  copyBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const text = btn.getAttribute('data-copy');
+      navigator.clipboard.writeText(text).then(() => {
+        btn.classList.add('copied');
+        btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
+        }, 1500);
+      });
+    });
+  });
+}
+
+const searchInput = document.getElementById('searchInput');
+const filterBtns = document.querySelectorAll('.filter-btn');
+
+let currentSearch = '';
+let currentFilter = 'all';
+
+function filterAndRender() {
+  const filtered = commandsData.filter(item => {
+    const matchesSearch = item.command.toLowerCase().includes(currentSearch) ||
+                          item.desc.toLowerCase().includes(currentSearch) ||
+                          item.category.toLowerCase().includes(currentSearch);
+
+    const matchesFilter = currentFilter === 'all' || item.category === currentFilter;
+
+    return matchesSearch && matchesFilter;
+  });
+
+  renderCards(filtered);
+  attachCopyListeners();
+}
+
+searchInput.addEventListener('input', (e) => {
+  currentSearch = e.target.value.toLowerCase().trim();
+  filterAndRender();
+});
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.getAttribute('data-filter');
+    filterAndRender();
+  });
+});
+
+// Initial render
+filterAndRender();
+</script>
+
+</body>
+</html>
