@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Address Validator | Free Online Tool</title>
+<meta name="description" content="Validate email address format, syntax, and extract domain information. Bulk validate multiple emails instantly. Free, secure, and works offline.">
+<meta property="og:title" content="Email Address Validator">
+<meta property="og:description" content="Validate email address format, syntax, and extract domain information. Bulk validate multiple emails instantly. Free, secure, and works offline.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Email Address Validator",
+  "url": "https://siliconbased.dev/email-validator",
+  "description": "Validate email address format, syntax, and extract domain information. Bulk validate multiple emails instantly.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 900px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Mode Tabs */
+.tabs { display: flex; justify-content: center; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
+.tab-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 10px 24px; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; }
+.tab-btn:hover { background: #2a2d40; color: #ccc; }
+.tab-btn.active { background: #818cf8; color: #fff; border-color: #818cf8; box-shadow: 0 4px 12px rgba(129, 140, 248, 0.2); }
+
+/* Card */
+.tool-card { background: #111318; border: 1px solid #1e2030; border-radius: 16px; overflow: hidden; margin-bottom: 40px; }
+.tool-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: #13151d; border-bottom: 1px solid #1e2030; flex-wrap: wrap; gap: 12px; }
+.tool-header h3 { font-size: 0.9rem; font-weight: 600; color: #ccc; display: flex; align-items: center; gap: 8px; }
+
+/* Custom Form Controls */
+.form-group { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 200px; margin-bottom: 20px; }
+.form-label { font-size: 0.85rem; font-weight: 600; color: #818cf8; }
+.form-control { background: #0a0b10; border: 1px solid #1e2030; color: #e0e0e0; font-family: 'Inter', sans-serif; font-size: 0.95rem; padding: 10px 14px; border-radius: 8px; outline: none; transition: border-color 0.2s; width: 100%; }
+.form-control:focus { border-color: #818cf8; }
+.controls-row { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+
+/* Inputs/Outputs */
+.tool-body { padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+.textarea-wrapper { position: relative; display: flex; flex-direction: column; gap: 8px; }
+.textarea-label { font-size: 0.85rem; font-weight: 600; color: #818cf8; display: flex; justify-content: space-between; }
+.char-count { color: #666; font-weight: 400; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; }
+
+.input-area { width: 100%; min-height: 180px; background: #0a0b10; border: 1px solid #1e2030; border-radius: 12px; padding: 16px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; resize: vertical; outline: none; transition: border-color 0.2s; line-height: 1.5; white-space: pre-wrap; word-break: break-all; }
+.input-area:focus { border-color: #818cf8; }
+.input-area::placeholder { color: #444; }
+
+/* Actions */
+.actions-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.actions-end { display: flex; justify-content: flex-end; width: 100%; gap: 16px; }
+.btn { background: #1e2030; border: 1px solid #2a2d40; color: #ccc; padding: 10px 20px; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+.btn:hover { background: #2a2d40; color: #fff; }
+.btn-primary { background: #818cf8; color: #fff; border-color: #818cf8; }
+.btn-primary:hover { background: #6366f1; border-color: #6366f1; }
+.btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+/* Parse Results */
+.parse-results { background: #0a0b10; border: 1px solid #1e2030; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.result-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #151520; padding-bottom: 12px; }
+.result-item:last-child { border-bottom: none; padding-bottom: 0; }
+.result-label { font-size: 0.9rem; color: #888; }
+.result-value { font-size: 0.95rem; color: #e0e0e0; font-weight: 500; text-align: right; word-break: break-all; max-width: 65%; }
+.result-value.valid { color: #4ade80; }
+.result-value.invalid { color: #ef4444; }
+.result-value.warning { color: #eab308; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .actions-row, .actions-end { flex-direction: column; align-items: stretch; }
+  .btn { justify-content: center; }
+  .tool-header { flex-direction: column; align-items: flex-start; }
+  .result-item { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .result-value { text-align: left; max-width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Email <span>Validator</span></h1>
+  <p>Validate email address format, syntax, and extract domain information instantly.</p>
+</div>
+
+<div class="main">
+
+  <div class="tabs">
+    <button class="tab-btn active" id="tabSingle">Single Email</button>
+    <button class="tab-btn" id="tabBulk">Bulk Validation</button>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <h3 id="modeTitle">Validate Single Email</h3>
+    </div>
+
+    <!-- Single Email View -->
+    <div class="tool-body" id="viewSingle">
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="text" class="form-control mono" id="singleInput" placeholder="e.g. name@example.com" spellcheck="false" autocomplete="email">
+      </div>
+
+      <div class="parse-results" id="singleResults" style="display: none;">
+        <div class="result-item">
+          <div class="result-label">Syntax Status</div>
+          <div class="result-value" id="resStatus">-</div>
+        </div>
+        <div class="result-item" id="resLocalGroup">
+          <div class="result-label">Local Part</div>
+          <div class="result-value mono" id="resLocal">-</div>
+        </div>
+        <div class="result-item" id="resDomainGroup">
+          <div class="result-label">Domain Name</div>
+          <div class="result-value mono" id="resDomain">-</div>
+        </div>
+        <div class="result-item" id="resTldGroup">
+          <div class="result-label">Top-Level Domain (TLD)</div>
+          <div class="result-value mono" id="resTld">-</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bulk Email View -->
+    <div class="tool-body" id="viewBulk" style="display: none;">
+      <div class="textarea-wrapper">
+        <div class="textarea-label">
+          <span>Emails to Validate (one per line or comma-separated)</span>
+        </div>
+        <textarea class="input-area" id="bulkInput" placeholder="name@example.com&#10;test@test.org"></textarea>
+      </div>
+
+      <div class="actions-end">
+        <button class="btn btn-primary" id="validateBulkBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          Validate Emails
+        </button>
+      </div>
+
+      <div id="bulkResultsArea" style="display: none;">
+        <div class="tabs" style="margin-bottom: 16px;">
+          <button class="tab-btn active" id="tabValid" style="padding: 6px 16px; font-size: 0.85rem;">Valid (0)</button>
+          <button class="tab-btn" id="tabInvalid" style="padding: 6px 16px; font-size: 0.85rem;">Invalid (0)</button>
+        </div>
+
+        <div class="textarea-wrapper">
+          <div class="textarea-label">
+            <span id="bulkOutputLabel">Valid Emails</span>
+            <span class="char-count" id="bulkCount">0 emails</span>
+          </div>
+          <textarea class="input-area" id="bulkOutput" readonly></textarea>
+        </div>
+
+        <div class="actions-end" style="margin-top: 20px;">
+          <button class="btn" id="copyBulkBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Copy List
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>How Email Address Validation Works</h2>
+    <p>An email address consists of a local part and a domain part separated by an "at" sign (<code>@</code>). The local part can contain letters, numbers, and certain special characters, while the domain part must conform to strict rules defined by standard internet protocols (RFC 5322).</p>
+    <p>Our tool uses advanced regular expressions (regex) to check for these strict syntax rules. It ensures the total length is within limits, special characters aren't improperly placed, and the top-level domain (TLD) is properly formatted. This helps catch typos like missing <code>@</code> symbols, invalid characters, or malformed domains before you attempt to send a message.</p>
+
+    <h2>Bulk Email Validation Features</h2>
+    <p>When dealing with large lists of contacts, verifying each email manually is impossible. The Bulk Validation tool allows you to paste thousands of emails (comma-separated or one per line) and instantly process them.</p>
+    <ul>
+      <li><strong>Automatic Deduplication:</strong> Duplicate email addresses are automatically removed during the bulk validation process to keep your final list clean.</li>
+      <li><strong>Instant Sorting:</strong> Emails are rapidly sorted into "Valid" and "Invalid" tabs, making it simple to isolate only the good addresses.</li>
+      <li><strong>Easy Extraction:</strong> With one click, you can copy the entire clean list to your clipboard to paste into your CRM or marketing platform.</li>
+    </ul>
+
+    <h2>Client-Side Security & Privacy</h2>
+    <p>This Email Validator is built with privacy in mind. It runs entirely within your web browser using client-side JavaScript. This means your email addresses and contact lists <strong>never leave your device</strong>.</p>
+    <p>There are no API calls to external servers and no databases storing your sensitive data. Because everything happens locally in your browser, the tool operates with lightning speed and works perfectly offline after the initial page load.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+// Elements
+const tabSingle = document.getElementById('tabSingle');
+const tabBulk = document.getElementById('tabBulk');
+const modeTitle = document.getElementById('modeTitle');
+const viewSingle = document.getElementById('viewSingle');
+const viewBulk = document.getElementById('viewBulk');
+
+const bulkInput = document.getElementById('bulkInput');
+const validateBulkBtn = document.getElementById('validateBulkBtn');
+const bulkResultsArea = document.getElementById('bulkResultsArea');
+const tabValid = document.getElementById('tabValid');
+const tabInvalid = document.getElementById('tabInvalid');
+const bulkOutputLabel = document.getElementById('bulkOutputLabel');
+const bulkCount = document.getElementById('bulkCount');
+const bulkOutput = document.getElementById('bulkOutput');
+const copyBulkBtn = document.getElementById('copyBulkBtn');
+
+const singleInput = document.getElementById('singleInput');
+const singleResults = document.getElementById('singleResults');
+const resStatus = document.getElementById('resStatus');
+const resLocalGroup = document.getElementById('resLocalGroup');
+const resLocal = document.getElementById('resLocal');
+const resDomainGroup = document.getElementById('resDomainGroup');
+const resDomain = document.getElementById('resDomain');
+const resTldGroup = document.getElementById('resTldGroup');
+const resTld = document.getElementById('resTld');
+
+// Validation Logic
+function validateEmail(email) {
+  if (!email || email.trim() === '') return null;
+
+  const cleanEmail = email.trim();
+
+  // Advanced regex to match local part and domain based on RFC 5322 (approximated)
+  const regex = /^([a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+)$/;
+
+  const isValid = regex.test(cleanEmail);
+
+  let localPart = '-';
+  let domain = '-';
+  let tld = '-';
+
+  if (cleanEmail.includes('@')) {
+    const parts = cleanEmail.split('@');
+    if (parts.length === 2) {
+      localPart = parts[0];
+      domain = parts[1];
+      if (domain && domain.includes('.')) {
+        const domainParts = domain.split('.');
+        tld = domainParts[domainParts.length - 1];
+      }
+    }
+  }
+
+  return {
+    email: cleanEmail,
+    isValid,
+    localPart,
+    domain,
+    tld,
+    isLocalPartValid: localPart !== '-' && localPart.length > 0 && localPart.length <= 64,
+    isDomainValid: domain !== '-' && domain.length > 0 && domain.length <= 255 && domain.includes('.')
+  };
+}
+
+function processSingle() {
+  const email = singleInput.value;
+  if (!email) {
+    singleResults.style.display = 'none';
+    return;
+  }
+
+  singleResults.style.display = 'flex';
+  const result = validateEmail(email);
+
+  if (result.isValid) {
+    resStatus.textContent = 'Valid Syntax';
+    resStatus.className = 'result-value valid';
+  } else {
+    resStatus.textContent = 'Invalid Syntax';
+    resStatus.className = 'result-value invalid';
+  }
+
+  if (result.localPart !== '-') {
+    resLocalGroup.style.display = 'flex';
+    resLocal.textContent = result.localPart;
+    if (!result.isLocalPartValid) {
+      resLocal.className = 'result-value mono invalid';
+    } else {
+      resLocal.className = 'result-value mono';
+    }
+  } else {
+    resLocalGroup.style.display = 'none';
+  }
+
+  if (result.domain !== '-') {
+    resDomainGroup.style.display = 'flex';
+    resDomain.textContent = result.domain;
+    if (!result.isDomainValid) {
+      resDomain.className = 'result-value mono invalid';
+    } else {
+      resDomain.className = 'result-value mono';
+    }
+
+    if (result.tld !== '-') {
+      resTldGroup.style.display = 'flex';
+      resTld.textContent = '.' + result.tld;
+    } else {
+      resTldGroup.style.display = 'none';
+    }
+  } else {
+    resDomainGroup.style.display = 'none';
+    resTldGroup.style.display = 'none';
+  }
+}
+
+let validEmails = [];
+let invalidEmails = [];
+let currentBulkView = 'valid';
+
+function processBulk() {
+  const input = bulkInput.value;
+  if (!input.trim()) {
+    bulkResultsArea.style.display = 'none';
+    return;
+  }
+
+  // Split by newline or comma
+  const rawEmails = input.split(/[\n,]+/);
+
+  validEmails = [];
+  invalidEmails = [];
+
+  // Deduplicate and filter out empty strings
+  const uniqueEmails = [...new Set(rawEmails.map(e => e.trim()).filter(e => e))];
+
+  uniqueEmails.forEach(email => {
+    const result = validateEmail(email);
+    if (result && result.isValid) {
+      validEmails.push(result.email);
+    } else if (email) {
+      invalidEmails.push(email);
+    }
+  });
+
+  tabValid.textContent = `Valid (${validEmails.length})`;
+  tabInvalid.textContent = `Invalid (${invalidEmails.length})`;
+
+  bulkResultsArea.style.display = 'block';
+  updateBulkView();
+}
+
+function updateBulkView() {
+  const isViewingValid = currentBulkView === 'valid';
+
+  if (isViewingValid) {
+    tabValid.classList.add('active');
+    tabInvalid.classList.remove('active');
+    bulkOutputLabel.textContent = 'Valid Emails';
+    bulkOutput.value = validEmails.join('\n');
+    bulkCount.textContent = `${validEmails.length} emails`;
+  } else {
+    tabInvalid.classList.add('active');
+    tabValid.classList.remove('active');
+    bulkOutputLabel.textContent = 'Invalid Emails';
+    bulkOutput.value = invalidEmails.join('\n');
+    bulkCount.textContent = `${invalidEmails.length} emails`;
+  }
+}
+
+// Event Listeners for Tabs
+tabSingle.addEventListener('click', () => {
+  tabSingle.classList.add('active');
+  tabBulk.classList.remove('active');
+  viewSingle.style.display = 'flex';
+  viewBulk.style.display = 'none';
+  modeTitle.textContent = 'Validate Single Email';
+});
+
+tabBulk.addEventListener('click', () => {
+  tabBulk.classList.add('active');
+  tabSingle.classList.remove('active');
+  viewBulk.style.display = 'flex';
+  viewSingle.style.display = 'none';
+  modeTitle.textContent = 'Bulk Validate Emails';
+});
+
+validateBulkBtn.addEventListener('click', processBulk);
+
+tabValid.addEventListener('click', () => {
+  currentBulkView = 'valid';
+  updateBulkView();
+});
+
+tabInvalid.addEventListener('click', () => {
+  currentBulkView = 'invalid';
+  updateBulkView();
+});
+
+copyBulkBtn.addEventListener('click', () => {
+  if (!bulkOutput.value) return;
+  navigator.clipboard.writeText(bulkOutput.value).then(() => {
+    const originalText = copyBulkBtn.innerHTML;
+    copyBulkBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+    copyBulkBtn.classList.add('copied');
+    setTimeout(() => {
+      copyBulkBtn.innerHTML = originalText;
+      copyBulkBtn.classList.remove('copied');
+    }, 2000);
+  });
+});
+
+singleInput.addEventListener('input', processSingle);
+
+// Init
+processSingle();
+</script>
+
+</body>
+</html>
