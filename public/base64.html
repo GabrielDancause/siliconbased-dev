@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Base64 Encoder & Decoder | Free Online Tool</title>
+<meta name="description" content="Encode text or files to Base64, or decode Base64 to text instantly. Supports URL-safe mode, line wrapping, and image to Data URI conversion. Free and works offline.">
+<meta property="og:title" content="Base64 Encoder & Decoder">
+<meta property="og:description" content="Encode text or files to Base64, or decode Base64 to text instantly. Supports URL-safe mode, line wrapping, and image to Data URI conversion. Free and works offline.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Base64 Encoder & Decoder",
+  "url": "https://siliconbased.dev/base64",
+  "description": "Encode text or files to Base64, or decode Base64 to text instantly. Supports URL-safe mode, line wrapping, and image to Data URI conversion.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 900px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Mode Tabs */
+.tabs { display: flex; justify-content: center; gap: 12px; margin-bottom: 32px; }
+.tab-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 10px 24px; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; }
+.tab-btn:hover { background: #2a2d40; color: #ccc; }
+.tab-btn.active { background: #818cf8; color: #fff; border-color: #818cf8; box-shadow: 0 4px 12px rgba(129, 140, 248, 0.2); }
+
+/* Card */
+.tool-card { background: #111318; border: 1px solid #1e2030; border-radius: 16px; overflow: hidden; margin-bottom: 40px; }
+.tool-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: #13151d; border-bottom: 1px solid #1e2030; flex-wrap: wrap; gap: 12px; }
+.tool-header h3 { font-size: 0.9rem; font-weight: 600; color: #ccc; display: flex; align-items: center; gap: 8px; }
+
+/* Options */
+.options-group { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.option-label { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #888; cursor: pointer; user-select: none; }
+.option-label input[type="checkbox"] { accent-color: #818cf8; width: 16px; height: 16px; cursor: pointer; }
+
+/* Inputs/Outputs */
+.tool-body { padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+.textarea-wrapper { position: relative; display: flex; flex-direction: column; gap: 8px; }
+.textarea-label { font-size: 0.85rem; font-weight: 600; color: #818cf8; display: flex; justify-content: space-between; }
+.char-count { color: #666; font-weight: 400; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; }
+
+.input-area { width: 100%; min-height: 180px; background: #0a0b10; border: 1px solid #1e2030; border-radius: 12px; padding: 16px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; resize: vertical; outline: none; transition: border-color 0.2s; line-height: 1.5; }
+.input-area:focus { border-color: #818cf8; }
+.input-area::placeholder { color: #444; }
+
+/* Actions */
+.actions-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.btn { background: #1e2030; border: 1px solid #2a2d40; color: #ccc; padding: 10px 20px; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+.btn:hover { background: #2a2d40; color: #fff; }
+.btn-primary { background: #818cf8; color: #fff; border-color: #818cf8; }
+.btn-primary:hover { background: #6366f1; border-color: #6366f1; }
+.btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+/* File Upload */
+.file-upload-wrapper { position: relative; overflow: hidden; display: inline-block; }
+.file-upload-wrapper input[type="file"] { font-size: 100px; position: absolute; left: 0; top: 0; opacity: 0; cursor: pointer; height: 100%; }
+.file-info { font-size: 0.85rem; color: #888; font-family: 'JetBrains Mono', monospace; display: none; align-items: center; gap: 8px; }
+.file-info.visible { display: flex; }
+.file-info span { color: #c8d0e8; background: #1e2030; padding: 2px 8px; border-radius: 4px; }
+.clear-file { background: none; border: none; color: #ef4444; cursor: pointer; font-size: 0.8rem; text-decoration: underline; padding: 0; }
+
+.error-msg { color: #ef4444; font-size: 0.85rem; margin-top: -12px; display: none; }
+.error-msg.visible { display: block; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .actions-row { flex-direction: column; align-items: stretch; }
+  .btn { justify-content: center; }
+  .tool-header { flex-direction: column; align-items: flex-start; }
+  .options-group { width: 100%; justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Base64 Encoder / Decoder</h1>
+  <p>Convert text and files to Base64, or decode Base64 back to text instantly.</p>
+</div>
+
+<div class="main">
+
+  <div class="tabs">
+    <button class="tab-btn active" id="tabEncode">Encode</button>
+    <button class="tab-btn" id="tabDecode">Decode</button>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <h3 id="modeTitle">Text to Base64</h3>
+      <div class="options-group">
+        <label class="option-label" id="urlSafeLabel">
+          <input type="checkbox" id="urlSafeOpt"> URL-safe
+        </label>
+        <label class="option-label" id="wrapLabel">
+          <input type="checkbox" id="wrapOpt"> Line wrap (76 chars)
+        </label>
+      </div>
+    </div>
+
+    <div class="tool-body">
+      <div class="textarea-wrapper">
+        <div class="textarea-label">
+          <span id="inputLabel">Input Text</span>
+          <span class="char-count" id="inputCount">0 chars</span>
+        </div>
+        <textarea class="input-area" id="inputText" placeholder="Type or paste your text here..." spellcheck="false"></textarea>
+      </div>
+
+      <div class="actions-row">
+        <div class="file-upload-wrapper" id="fileUploadWrapper">
+          <button class="btn" type="button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            Upload File
+          </button>
+          <input type="file" id="fileInput">
+        </div>
+        <div class="file-info" id="fileInfo">
+          Selected: <span id="fileName">none</span>
+          <button class="clear-file" id="clearFileBtn">Clear</button>
+        </div>
+
+        <button class="btn btn-primary" id="processBtn">Encode</button>
+      </div>
+
+      <div class="error-msg" id="errorMsg">Invalid Base64 input string.</div>
+
+      <div class="textarea-wrapper">
+        <div class="textarea-label">
+          <span id="outputLabel">Base64 Output</span>
+          <span class="char-count" id="outputCount">0 chars</span>
+        </div>
+        <textarea class="input-area" id="outputText" readonly placeholder="Result will appear here..."></textarea>
+      </div>
+
+      <div class="actions-row">
+        <div></div> <!-- Spacer -->
+        <button class="btn" id="copyBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          Copy Result
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>What is Base64?</h2>
+    <p>Base64 is an encoding scheme used to convert binary data into a printable ASCII string format. It's commonly used when there is a need to encode binary data, especially when that data needs to be stored and transferred over media that are designed to deal with text. This encoding helps to ensure that the data remains intact without modification during transport.</p>
+    <p>Base64 works by dividing every three bytes of the input data into four 6-bit chunks, which are then mapped to an alphabet consisting of 64 characters: A-Z, a-z, 0-9, <code>+</code>, and <code>/</code>. An <code>=</code> character is used for padding at the end if the input length is not a multiple of 3 bytes.</p>
+
+    <h2>Why use URL-safe Base64?</h2>
+    <p>Standard Base64 contains the characters <code>+</code> and <code>/</code>, which have special meanings in URLs and file systems. If standard Base64 data is passed in a URL, these characters might be interpreted as spaces or directory separators, corrupting the data.</p>
+    <p><strong>URL-safe Base64</strong> (also known as "base64url") solves this by replacing <code>+</code> with <code>-</code> (minus) and <code>/</code> with <code>_</code> (underscore). Additionally, the padding character <code>=</code> is often omitted because it is a reserved character in URLs. Our tool supports toggling URL-safe mode on and off instantly.</p>
+
+    <h2>Data URIs for Images</h2>
+    <p>When you upload an image or file using the "Upload File" button in Encode mode, the tool reads the file and generates a <strong>Data URI</strong>. A Data URI embeds small files inline in HTML or CSS using the format:</p>
+    <p><code>data:[&lt;mediatype&gt;][;base64],&lt;data&gt;</code></p>
+    <p>For example, a small PNG image might look like: <code>data:image/png;base64,iVBORw0KGgoAAAANSUh...</code></p>
+    <p>Embedding assets directly reduces the number of HTTP requests a browser needs to make to load a webpage, which can improve performance for small icons or placeholder images. However, keep in mind that Base64 encoding increases file size by approximately 33%, so it's not recommended for large images.</p>
+
+    <h2>Client-Side Security</h2>
+    <p>This Base64 tool runs entirely in your web browser. When you paste text or upload a file, the data is processed locally using JavaScript (using standard <code>btoa()</code>, <code>atob()</code>, and <code>FileReader</code> APIs). Your data is <strong>never</strong> sent to a server, ensuring complete privacy and allowing the tool to work fully offline after the initial page load.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const tabEncode = document.getElementById('tabEncode');
+const tabDecode = document.getElementById('tabDecode');
+const modeTitle = document.getElementById('modeTitle');
+const inputLabel = document.getElementById('inputLabel');
+const outputLabel = document.getElementById('outputLabel');
+const processBtn = document.getElementById('processBtn');
+const inputText = document.getElementById('inputText');
+const outputText = document.getElementById('outputText');
+const inputCount = document.getElementById('inputCount');
+const outputCount = document.getElementById('outputCount');
+const copyBtn = document.getElementById('copyBtn');
+const urlSafeOpt = document.getElementById('urlSafeOpt');
+const wrapOpt = document.getElementById('wrapOpt');
+const wrapLabel = document.getElementById('wrapLabel');
+const fileInput = document.getElementById('fileInput');
+const fileUploadWrapper = document.getElementById('fileUploadWrapper');
+const fileInfo = document.getElementById('fileInfo');
+const fileNameSpan = document.getElementById('fileName');
+const clearFileBtn = document.getElementById('clearFileBtn');
+const errorMsg = document.getElementById('errorMsg');
+
+let currentMode = 'encode'; // 'encode' or 'decode'
+let currentFile = null;
+let currentFileDataUrl = null;
+
+// Unicode safe encoding/decoding functions using TextEncoder/TextDecoder
+function utf8_to_b64(str) {
+  const bytes = new TextEncoder().encode(str);
+  let binary = '';
+  for (let i = 0; i < bytes.byteLength; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return window.btoa(binary);
+}
+
+function b64_to_utf8(str) {
+  const binary = window.atob(str);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+  return new TextDecoder().decode(bytes);
+}
+
+function updateCounts() {
+  inputCount.textContent = `${inputText.value.length} chars`;
+  outputCount.textContent = `${outputText.value.length} chars`;
+}
+
+function showError(show) {
+  if (show) {
+    errorMsg.classList.add('visible');
+    outputText.value = '';
+    updateCounts();
+  } else {
+    errorMsg.classList.remove('visible');
+  }
+}
+
+function process() {
+  showError(false);
+
+  if (currentMode === 'encode') {
+    let result = '';
+    if (currentFile && currentFileDataUrl) {
+      result = currentFileDataUrl;
+      // Strip Data URI prefix if needed, but usually we want it for files.
+      // If user wants raw base64, we could split by ',' but let's keep it as Data URI
+      // unless we explicitly want just the base64 part. We'll leave it as Data URI.
+
+      // If URL safe is checked, apply to the base64 part?
+      // Usually URL safe is for raw strings. We'll just encode the raw base64 part.
+      if (urlSafeOpt.checked) {
+         let parts = result.split(',');
+         if (parts.length > 1) {
+            let b64 = parts[1];
+            b64 = b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+            result = parts[0] + ',' + b64;
+         }
+      }
+    } else {
+      let text = inputText.value;
+      if (!text) {
+        outputText.value = '';
+        updateCounts();
+        return;
+      }
+      try {
+        result = utf8_to_b64(text);
+        if (urlSafeOpt.checked) {
+          result = result.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+        }
+      } catch (e) {
+        console.error(e);
+        result = window.btoa(text); // Fallback
+      }
+    }
+
+    if (wrapOpt.checked) {
+      result = result.match(/.{1,76}/g)?.join('\n') || result;
+    }
+
+    outputText.value = result;
+
+  } else {
+    // Decode
+    let text = inputText.value;
+    if (!text) {
+      outputText.value = '';
+      updateCounts();
+      return;
+    }
+
+    // Remove whitespace/newlines that might have been added by wrapping
+    text = text.replace(/\s/g, '');
+
+    // Revert URL-safe replacements
+    text = text.replace(/-/g, '+').replace(/_/g, '/');
+
+    // Add padding back if necessary
+    while (text.length % 4) {
+      text += '=';
+    }
+
+    try {
+      outputText.value = b64_to_utf8(text);
+    } catch (e) {
+      try {
+         // Fallback for non-utf8
+         outputText.value = window.atob(text);
+      } catch(err) {
+         showError(true);
+      }
+    }
+  }
+  updateCounts();
+}
+
+// Event Listeners
+tabEncode.addEventListener('click', () => {
+  if (currentMode === 'encode') return;
+  currentMode = 'encode';
+  tabEncode.classList.add('active');
+  tabDecode.classList.remove('active');
+
+  modeTitle.textContent = 'Text to Base64';
+  inputLabel.textContent = 'Input Text';
+  outputLabel.textContent = 'Base64 Output';
+  processBtn.textContent = 'Encode';
+  wrapLabel.style.display = 'flex';
+
+  if (currentFile) {
+    fileInfo.classList.add('visible');
+    fileUploadWrapper.style.display = 'none';
+    inputText.disabled = true;
+  } else {
+    fileUploadWrapper.style.display = 'inline-block';
+    inputText.disabled = false;
+  }
+
+  // Swap contents
+  let temp = inputText.value;
+  inputText.value = outputText.value;
+  outputText.value = temp;
+
+  process();
+});
+
+tabDecode.addEventListener('click', () => {
+  if (currentMode === 'decode') return;
+  currentMode = 'decode';
+  tabDecode.classList.add('active');
+  tabEncode.classList.remove('active');
+
+  modeTitle.textContent = 'Base64 to Text';
+  inputLabel.textContent = 'Base64 Input';
+  outputLabel.textContent = 'Text Output';
+  processBtn.textContent = 'Decode';
+  wrapLabel.style.display = 'none';
+  fileUploadWrapper.style.display = 'none';
+  fileInfo.classList.remove('visible');
+  inputText.disabled = false; // Always allow typing in Decode mode
+
+  // Swap contents
+  let temp = inputText.value;
+  inputText.value = outputText.value;
+  outputText.value = temp;
+
+  process();
+});
+
+inputText.addEventListener('input', () => {
+  if (currentFile) {
+    // If user starts typing, clear the file
+    clearFile();
+  } else {
+    process();
+  }
+  updateCounts();
+});
+
+urlSafeOpt.addEventListener('change', process);
+wrapOpt.addEventListener('change', process);
+processBtn.addEventListener('click', process);
+
+// File handling
+fileInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  currentFile = file;
+  fileNameSpan.textContent = file.name;
+  fileInfo.classList.add('visible');
+  fileUploadWrapper.style.display = 'none';
+  inputText.disabled = true;
+  inputText.placeholder = `File loaded: ${file.name}\nSize: ${(file.size / 1024).toFixed(2)} KB`;
+  inputText.value = '';
+
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    currentFileDataUrl = event.target.result;
+    process();
+  };
+  reader.readAsDataURL(file);
+});
+
+function clearFile() {
+  currentFile = null;
+  currentFileDataUrl = null;
+  fileInput.value = '';
+  fileInfo.classList.remove('visible');
+  if (currentMode === 'encode') {
+    fileUploadWrapper.style.display = 'inline-block';
+  }
+  inputText.disabled = false;
+  inputText.placeholder = 'Type or paste your text here...';
+  // inputText.value = '';
+  process();
+}
+
+clearFileBtn.addEventListener('click', clearFile);
+
+// Copy
+copyBtn.addEventListener('click', () => {
+  if (!outputText.value) return;
+  navigator.clipboard.writeText(outputText.value).then(() => {
+    const originalText = copyBtn.innerHTML;
+    copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+    copyBtn.classList.add('copied');
+    setTimeout(() => {
+      copyBtn.innerHTML = originalText;
+      copyBtn.classList.remove('copied');
+    }, 2000);
+  });
+});
+
+// Init
+updateCounts();
+</script>
+</body>
+</html>
