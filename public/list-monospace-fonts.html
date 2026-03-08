@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Best Monospace Fonts for Coding — Curated List & Comparison</title>
+<meta name="description" content="Curated list of the best monospace fonts for programming. Compare visual examples, ligature support, and free vs paid options. Enhance your code editor experience.">
+<meta property="og:title" content="Best Monospace Fonts for Coding">
+<meta property="og:description" content="Curated list of the best monospace fonts for programming. Compare visual examples, ligature support, and free vs paid options. Enhance your code editor experience.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Monospace Font Comparison",
+      "url": "https://siliconbased.dev/list-monospace-fonts",
+      "description": "Interactive visual comparison of top programming fonts with ligature previews and feature filtering.",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+    },
+    {
+      "@type": "Article",
+      "headline": "Best Monospace Fonts for Coding",
+      "description": "A curated, interactive list comparing the best monospace fonts for developers.",
+      "author": { "@type": "Organization", "name": "GAB Ventures" },
+      "publisher": { "@type": "Organization", "name": "siliconbased.dev", "logo": { "@type": "ImageObject", "url": "https://siliconbased.dev/favicon.ico" } }
+    }
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+.hero { text-align: center; padding: 48px 24px 24px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.4rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+
+.main { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Filter Bar */
+.filter-bar { background: #111318; border: 1px solid #1e2030; border-radius: 12px; padding: 16px 24px; margin-bottom: 32px; display: flex; gap: 24px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.filter-group { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.filter-label { font-size: 0.85rem; font-weight: 600; color: #ccc; text-transform: uppercase; letter-spacing: 0.5px; }
+.filter-options { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.filter-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 6px 14px; border-radius: 8px; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.15s; font-family: 'Inter', sans-serif; }
+.filter-btn:hover { background: #2a2d40; color: #ccc; }
+.filter-btn.active { background: #818cf8; color: #fff; border-color: #818cf8; }
+
+.sort-select { background: #1e2030; border: 1px solid #2a2d40; color: #e0e0e0; padding: 6px 12px; border-radius: 8px; font-size: 0.85rem; font-family: 'Inter', sans-serif; outline: none; cursor: pointer; }
+.sort-select:focus { border-color: #818cf8; }
+
+/* Grid */
+.fonts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+
+/* Font Card */
+.font-card { background: #111318; border: 1px solid #1e2030; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, border-color 0.2s; }
+.font-card:hover { transform: translateY(-2px); border-color: #2a2d40; }
+
+.card-header { padding: 20px 20px 16px; border-bottom: 1px solid #1e2030; display: flex; justify-content: space-between; align-items: flex-start; }
+.font-name { font-size: 1.25rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.font-author { font-size: 0.8rem; color: #888; }
+.font-score { display: flex; align-items: center; gap: 4px; background: #1e2030; padding: 4px 8px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; color: #e0e0e0; }
+.font-score svg { width: 14px; height: 14px; color: #f59e0b; }
+
+.card-badges { display: flex; gap: 8px; padding: 16px 20px 0; }
+.badge { padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.badge.free { background: #1a3a1a; color: #4ade80; }
+.badge.paid { background: #3a1a1a; color: #f87171; }
+.badge.ligatures { background: #1e2030; color: #818cf8; }
+
+.card-preview { padding: 20px; background: #0a0b10; border-top: 1px solid #1e2030; border-bottom: 1px solid #1e2030; margin-top: 16px; min-height: 120px; display: flex; flex-direction: column; justify-content: center; overflow-x: auto;}
+.preview-text { font-size: 0.9rem; color: #e0e0e0; white-space: pre; line-height: 1.5; font-family: monospace; }
+.preview-text .keyword { color: #c678dd; }
+.preview-text .function { color: #61afef; }
+.preview-text .string { color: #98c379; }
+.preview-text .operator { color: #56b6c2; }
+.preview-text .comment { color: #5c6370; font-style: italic; }
+
+.card-body { padding: 20px; flex: 1; }
+.feature-list { list-style: none; margin-bottom: 16px; }
+.feature-list li { font-size: 0.85rem; color: #aaa; margin-bottom: 6px; display: flex; align-items: flex-start; gap: 8px; }
+.feature-list li::before { content: '•'; color: #818cf8; }
+
+.card-footer { padding: 16px 20px; border-top: 1px solid #1e2030; display: flex; justify-content: space-between; align-items: center; }
+.download-link { color: #818cf8; font-size: 0.85rem; font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 4px; transition: color 0.15s; }
+.download-link:hover { color: #a5b4fc; }
+.download-link svg { width: 14px; height: 14px; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Empty State */
+.empty-state { grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: #888; font-size: 1.1rem; background: #111318; border: 1px dashed #2a2d40; border-radius: 12px; }
+
+@media (max-width: 640px) {
+  .filter-bar { flex-direction: column; align-items: stretch; }
+  .filter-group { justify-content: space-between; }
+  .fonts-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Best Monospace Fonts for <span>Coding</span></h1>
+  <p>Curated list of top programming fonts with ligature support, readability comparisons, and direct download links.</p>
+</div>
+
+<div class="main">
+
+  <div class="filter-bar">
+    <div class="filter-group">
+      <span class="filter-label">Filter:</span>
+      <div class="filter-options">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="free">Free</button>
+        <button class="filter-btn" data-filter="paid">Paid</button>
+        <button class="filter-btn" data-filter="ligatures">Ligatures</button>
+      </div>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Sort:</span>
+      <select class="sort-select" id="sortSelect">
+        <option value="rating-desc">Rating (High to Low)</option>
+        <option value="name-asc">Name (A-Z)</option>
+        <option value="name-desc">Name (Z-A)</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="fonts-grid" id="fontsGrid">
+    <!-- Font cards injected via JS -->
+  </div>
+
+  <div class="seo-content">
+    <h2>Why Use a Monospace Font for Coding?</h2>
+    <p>A monospace font (also known as a fixed-pitch or non-proportional font) is a typeface where every character occupies the exact same amount of horizontal space. In programming, this alignment is critical. It allows developers to quickly scan code vertically, easily spot alignment issues, and structure tabular data perfectly. Distinct character designs in premium coding fonts also prevent confusion between easily mistaken characters, such as the uppercase "I", lowercase "l", and the number "1".</p>
+
+    <h2>What Are Programming Ligatures?</h2>
+    <p>Programming ligatures are special typographic features where two or more characters are combined into a single, cohesive glyph. For example, typing <code>=&gt;</code>, <code>!==</code>, or <code>&lt;=</code> will visually transform into unified mathematical or logical symbols. While some developers find ligatures aesthetically pleasing and easier to read at a glance, others prefer distinct characters for exact cursor placement. Choosing a font with or without ligatures ultimately comes down to personal preference.</p>
+
+    <h2>Choosing the Best Coding Font for Your Setup</h2>
+    <p>When selecting the ideal font for your text editor or IDE (like VS Code, IntelliJ, or Neovim), consider the following factors:</p>
+    <ul>
+      <li><strong>X-Height and Legibility:</strong> Fonts with a taller x-height are generally easier to read at smaller sizes, reducing eye strain during long coding sessions.</li>
+      <li><strong>Weight Availability:</strong> Having multiple weights (Light, Regular, Medium, Bold) allows you to customize your editor's semantic highlighting.</li>
+      <li><strong>Italics Style:</strong> Some modern fonts (like Operator Mono or Dank Mono) feature distinctive cursive italics for keywords and comments, making syntax highlighting pop.</li>
+      <li><strong>Line Height:</strong> Fonts like Iosevka are narrow and tall, allowing you to fit more code on your screen, whereas Hack is wider and more spread out.</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+  const fonts = [
+    {
+      name: 'JetBrains Mono',
+      author: 'JetBrains',
+      price: 'Free',
+      ligatures: true,
+      rating: 4.9,
+      downloads: '1M+',
+      website: 'https://www.jetbrains.com/lp/mono/',
+      features: [
+        'Optimized for reading code vertically',
+        'Distinct character differences (1 vs l vs I)',
+        'Extensive programming ligatures',
+        'Open source under OFL'
+      ],
+      cssFamily: "'JetBrains Mono', monospace",
+      previewCode: `<span class="keyword">function</span> <span class="function">isAwesome</span>() {
+  <span class="keyword">const</span> font <span class="operator">=</span> <span class="string">'JetBrains Mono'</span>;
+  <span class="keyword">return</span> font <span class="operator">!==</span> <span class="string">''</span> <span class="operator">&&</span> <span class="keyword">true</span>;
+} <span class="comment">// ➔ Ligatures: => === !== <= >=</span>`
+    },
+    {
+      name: 'Fira Code',
+      author: 'Nikita Prokopov',
+      price: 'Free',
+      ligatures: true,
+      rating: 4.8,
+      website: 'https://github.com/tonsky/FiraCode',
+      features: [
+        'The pioneer of coding ligatures',
+        'Excellent character spacing',
+        'Highly legible at small sizes',
+        'Huge community and ecosystem'
+      ],
+      cssFamily: "monospace",
+      previewCode: `<span class="keyword">function</span> <span class="function">isAwesome</span>() {
+  <span class="keyword">const</span> font <span class="operator">=</span> <span class="string">'Fira Code'</span>;
+  <span class="keyword">return</span> font <span class="operator">!==</span> <span class="string">''</span> <span class="operator">&&</span> <span class="keyword">true</span>;
+} <span class="comment">// ➔ Ligatures: => === !== <= >=</span>`
+    },
+    {
+      name: 'Cascadia Code',
+      author: 'Microsoft',
+      price: 'Free',
+      ligatures: true,
+      rating: 4.7,
+      website: 'https://github.com/microsoft/cascadia-code',
+      features: [
+        'Default font for Windows Terminal',
+        'Includes cursive italics variant',
+        'Powerline symbol support built-in',
+        'Modern, slightly rounded aesthetic'
+      ],
+      cssFamily: "monospace",
+      previewCode: `<span class="keyword">function</span> <span class="function">isAwesome</span>() {
+  <span class="keyword">const</span> font <span class="operator">=</span> <span class="string">'Cascadia Code'</span>;
+  <span class="keyword">return</span> font <span class="operator">!==</span> <span class="string">''</span> <span class="operator">&&</span> <span class="keyword">true</span>;
+} <span class="comment">// ➔ Ligatures: => === !== <= >=</span>`
+    },
+    {
+      name: 'Source Code Pro',
+      author: 'Adobe',
+      price: 'Free',
+      ligatures: false,
+      rating: 4.6,
+      website: 'https://fonts.google.com/specimen/Source+Code+Pro',
+      features: [
+        'Classic, highly readable design',
+        'Clean, unambiguous characters',
+        'Excellent weight distribution',
+        'Widely supported everywhere'
+      ],
+      cssFamily: "monospace",
+      previewCode: `<span class="keyword">function</span> <span class="function">isAwesome</span>() {
+  <span class="keyword">const</span> font <span class="operator">=</span> <span class="string">'Source Code Pro'</span>;
+  <span class="keyword">return</span> font <span class="operator">!==</span> <span class="string">''</span> <span class="operator">&&</span> <span class="keyword">true</span>;
+} <span class="comment">// => === !== <= >=</span>`
+    },
+    {
+      name: 'Hack',
+      author: 'Source Foundry',
+      price: 'Free',
+      ligatures: false,
+      rating: 4.5,
+      website: 'https://sourcefoundry.org/hack/',
+      features: [
+        'Deeply customizable',
+        'Optimized for screen legibility',
+        'Large x-height for readability',
+        'Built specifically for source code'
+      ],
+      cssFamily: "monospace",
+      previewCode: `<span class="keyword">function</span> <span class="function">isAwesome</span>() {
+  <span class="keyword">const</span> font <span class="operator">=</span> <span class="string">'Hack'</span>;
+  <span class="keyword">return</span> font <span class="operator">!==</span> <span class="string">''</span> <span class="operator">&&</span> <span class="keyword">true</span>;
+} <span class="comment">// => === !== <= >=</span>`
+    },
+    {
+      name: 'Iosevka',
+      author: 'Belleve Invis',
+      price: 'Free',
+      ligatures: true,
+      rating: 4.6,
+      website: 'https://typeof.net/Iosevka/',
+      features: [
+        'Incredibly dense and narrow',
+        'Fits more code on screen',
+        'Highly customizable build process',
+        'Excellent multi-language support'
+      ],
+      cssFamily: "monospace",
+      previewCode: `<span class="keyword">function</span> <span class="function">isAwesome</span>() {
+  <span class="keyword">const</span> font <span class="operator">=</span> <span class="string">'Iosevka'</span>;
+  <span class="keyword">return</span> font <span class="operator">!==</span> <span class="string">''</span> <span class="operator">&&</span> <span class="keyword">true</span>;
+} <span class="comment">// ➔ Ligatures: => === !== <= >=</span>`
+    },
+    {
+      name: 'Operator Mono',
+      author: 'Hoefler&Co',
+      price: '$199+',
+      ligatures: false,
+      rating: 4.8,
+      website: 'https://www.typography.com/fonts/operator/styles',
+      features: [
+        'Beautiful true cursive italics',
+        'Premium typographic quality',
+        'Distinctive typewriter aesthetic',
+        'The original premium coding font'
+      ],
+      cssFamily: "monospace",
+      previewCode: `<span class="keyword">function</span> <span class="function">isAwesome</span>() {
+  <span class="keyword">const</span> font <span class="operator">=</span> <span class="string">'Operator Mono'</span>;
+  <span class="keyword">return</span> font <span class="operator">!==</span> <span class="string">''</span> <span class="operator">&&</span> <span class="keyword">true</span>;
+} <span class="comment">// => === !== <= >=</span>`
+    },
+    {
+      name: 'Dank Mono',
+      author: 'Phil Pluckthun',
+      price: '£40',
+      ligatures: true,
+      rating: 4.7,
+      website: 'https://philpl.gumroad.com/l/dank-mono',
+      features: [
+        'Modern, playful aesthetic',
+        'Excellent cursive italics',
+        'Built-in programming ligatures',
+        'Great alternative to Operator Mono'
+      ],
+      cssFamily: "monospace",
+      previewCode: `<span class="keyword">function</span> <span class="function">isAwesome</span>() {
+  <span class="keyword">const</span> font <span class="operator">=</span> <span class="string">'Dank Mono'</span>;
+  <span class="keyword">return</span> font <span class="operator">!==</span> <span class="string">''</span> <span class="operator">&&</span> <span class="keyword">true</span>;
+} <span class="comment">// ➔ Ligatures: => === !== <= >=</span>`
+    }
+  ];
+
+  const grid = document.getElementById('fontsGrid');
+  const sortSelect = document.getElementById('sortSelect');
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  let currentFilter = 'all';
+  let currentSort = 'rating-desc';
+
+  function renderGrid() {
+    grid.innerHTML = '';
+
+    // Filter
+    let filtered = fonts.filter(f => {
+      if (currentFilter === 'free') return f.price.toLowerCase() === 'free';
+      if (currentFilter === 'paid') return f.price.toLowerCase() !== 'free';
+      if (currentFilter === 'ligatures') return f.ligatures === true;
+      return true;
+    });
+
+    // Sort
+    filtered.sort((a, b) => {
+      if (currentSort === 'rating-desc') return b.rating - a.rating;
+      if (currentSort === 'name-asc') return a.name.localeCompare(b.name);
+      if (currentSort === 'name-desc') return b.name.localeCompare(a.name);
+      return 0;
+    });
+
+    if (filtered.length === 0) {
+      grid.innerHTML = '<div class="empty-state">No fonts match your current filters.</div>';
+      return;
+    }
+
+    filtered.forEach(font => {
+      const isFree = font.price.toLowerCase() === 'free';
+      const ligBadge = font.ligatures ? '<span class="badge ligatures">Ligatures</span>' : '';
+
+      const card = document.createElement('div');
+      card.className = 'font-card';
+      card.innerHTML = `
+        <div class="card-header">
+          <div>
+            <div class="font-name">${font.name}</div>
+            <div class="font-author">by ${font.author}</div>
+          </div>
+          <div class="font-score">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            ${font.rating}
+          </div>
+        </div>
+        <div class="card-badges">
+          <span class="badge ${isFree ? 'free' : 'paid'}">${font.price}</span>
+          ${ligBadge}
+        </div>
+        <div class="card-preview">
+          <div class="preview-text" style="font-family: ${font.cssFamily};">${font.previewCode}</div>
+        </div>
+        <div class="card-body">
+          <ul class="feature-list">
+            ${font.features.map(f => `<li>${f}</li>`).join('')}
+          </ul>
+        </div>
+        <div class="card-footer">
+          <a href="${font.website}" target="_blank" rel="noopener noreferrer" class="download-link">
+            Get ${font.name}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          </a>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  // Event Listeners
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      currentFilter = e.target.dataset.filter;
+      renderGrid();
+    });
+  });
+
+  sortSelect.addEventListener('change', (e) => {
+    currentSort = e.target.value;
+    renderGrid();
+  });
+
+  // Initial Render
+  renderGrid();
+</script>
+</body>
+</html>
