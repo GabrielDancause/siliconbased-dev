@@ -1,16 +1,55 @@
-<!DOCTYPE html>
+#!/usr/bin/env node
+const fs = require('fs');
+const path = require('path');
+
+const data = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'chmod-combos.json'), 'utf8'));
+const outDir = path.join(__dirname, '..', 'public', 'chmod');
+
+if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
+
+function parseOctal(octal) {
+  const digits = octal.split('').map(Number);
+  const names = ['Owner', 'Group', 'Others'];
+  const perms = ['Read', 'Write', 'Execute'];
+  return digits.map((d, i) => ({
+    name: names[i],
+    read: !!(d & 4),
+    write: !!(d & 2),
+    execute: !!(d & 1),
+    digit: d,
+  }));
+}
+
+function securityColor(level) {
+  if (level === 'safe') return { bg: '#0a2e1a', color: '#34d399', label: '✓ Safe' };
+  if (level === 'moderate') return { bg: '#2e2a0a', color: '#fbbf24', label: '⚠ Moderate' };
+  return { bg: '#2e0a0a', color: '#f87171', label: '✗ Dangerous' };
+}
+
+function generatePage(entry) {
+  const p = parseOctal(entry.octal);
+  const sec = securityColor(entry.security);
+  const c = entry.content;
+  const relatedPages = data
+    .filter(d => d.octal !== entry.octal)
+    .filter(d => d.octal === c.comparison || d.searchVolume === 'high')
+    .slice(0, 5);
+
+  const faqSchema = entry.faqs.map(f => `{"@type":"Question","name":${JSON.stringify(f.q)},"acceptedAnswer":{"@type":"Answer","text":${JSON.stringify(f.a)}}}`).join(',');
+
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>chmod 755 (rwxr-xr-x) — Linux File Permissions Explained</title>
-<meta name="description" content="What does chmod 755 mean? Owner full, others read & execute. Interactive permission breakdown, copy-paste commands, security analysis, and common mistakes explained.">
-<meta property="og:title" content="chmod 755 (rwxr-xr-x) — Owner full, others read & execute">
-<meta property="og:description" content="chmod 755 gives the owner full control (read, write, execute) while allowing group members and others to only read and execute. This is the standard permission ">
+<title>chmod ${entry.octal} (${entry.symbolic}) — Linux File Permissions Explained</title>
+<meta name="description" content="What does chmod ${entry.octal} mean? ${entry.title}. Interactive permission breakdown, copy-paste commands, security analysis, and common mistakes explained.">
+<meta property="og:title" content="chmod ${entry.octal} (${entry.symbolic}) — ${entry.title}">
+<meta property="og:description" content="${c.what.substring(0, 160)}">
 <meta property="og:type" content="article">
-<link rel="canonical" href="https://siliconbased.dev/chmod/755">
+<link rel="canonical" href="https://siliconbased.dev/chmod/${entry.octal}">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"WebPage","name":"chmod 755 (rwxr-xr-x) — Linux File Permissions Explained","description":"Owner full, others read & execute","url":"https://siliconbased.dev/chmod/755"},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"When should I use chmod 755?","acceptedAnswer":{"@type":"Answer","text":"Use 755 for directories, executable scripts, and program files. It's the default for most system directories and the correct permission for web server document roots."}},{"@type":"Question","name":"What's the difference between 755 and 644?","acceptedAnswer":{"@type":"Answer","text":"755 includes execute permission, 644 doesn't. Use 755 for directories and scripts, 644 for regular files like documents, images, and config files."}},{"@type":"Question","name":"Should web files be 755 or 644?","acceptedAnswer":{"@type":"Answer","text":"Directories should be 755 (so the web server can enter them). Regular files (.html, .css, .js, images) should be 644. Only CGI scripts or server-side executables need 755."}}]}]
+[{"@context":"https://schema.org","@type":"WebPage","name":"chmod ${entry.octal} (${entry.symbolic}) — Linux File Permissions Explained","description":"${entry.title}","url":"https://siliconbased.dev/chmod/${entry.octal}"},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[${faqSchema}]}]
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -20,7 +59,7 @@ code,.mono{font-family:'JetBrains Mono',monospace}
 .hero{text-align:center;padding:48px 24px 32px;background:linear-gradient(180deg,#0f1729 0%,#0a0b10 100%)}
 .hero h1{font-size:2rem;font-weight:900;color:#fff;margin-bottom:6px}.hero h1 .code-font{color:#818cf8}
 .hero .subtitle{color:#888;font-size:0.95rem}
-.sec-badge{display:inline-block;padding:4px 14px;border-radius:20px;font-size:0.75rem;font-weight:700;margin-top:12px;background:#0a2e1a;color:#34d399}
+.sec-badge{display:inline-block;padding:4px 14px;border-radius:20px;font-size:0.75rem;font-weight:700;margin-top:12px;background:${sec.bg};color:${sec.color}}
 .main{max-width:800px;margin:0 auto;padding:32px 20px 60px}
 .card{background:#111318;border:1px solid #1e2030;border-radius:14px;padding:28px 24px;margin-bottom:20px}
 .card h2{font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:12px}
@@ -86,9 +125,9 @@ code,.mono{font-family:'JetBrains Mono',monospace}
 <body>
 
 <div class="hero">
-  <h1>chmod <span class="code-font">755</span> — rwxr-xr-x</h1>
-  <p class="subtitle">Owner full, others read & execute</p>
-  <span class="sec-badge">✓ Safe</span>
+  <h1>chmod <span class="code-font">${entry.octal}</span> — ${entry.symbolic}</h1>
+  <p class="subtitle">${entry.title}</p>
+  <span class="sec-badge">${sec.label}</span>
 </div>
 
 <div class="main">
@@ -96,25 +135,17 @@ code,.mono{font-family:'JetBrains Mono',monospace}
   <!-- Interactive Permission Grid -->
   <div class="card">
     <h2>Permission Breakdown</h2>
-    <p>chmod 755 gives the owner full control (read, write, execute) while allowing group members and others to only read and execute. This is the standard permission for directories and executable files on Linux systems.</p>
+    <p>${c.what}</p>
     <div class="perm-grid" id="permGrid">
       <div class="perm-cell perm-header"></div>
       <div class="perm-cell perm-header">Read (4)</div>
       <div class="perm-cell perm-header">Write (2)</div>
       <div class="perm-cell perm-header">Execute (1)</div>
-      
-      <div class="perm-cell perm-label">Owner (7)</div>
-      <div class="perm-cell perm-on" data-row="0" data-col="0" onclick="togglePerm(this)">✓ r</div>
-      <div class="perm-cell perm-on" data-row="0" data-col="1" onclick="togglePerm(this)">✓ w</div>
-      <div class="perm-cell perm-on" data-row="0" data-col="2" onclick="togglePerm(this)">✓ x</div>
-      <div class="perm-cell perm-label">Group (5)</div>
-      <div class="perm-cell perm-on" data-row="1" data-col="0" onclick="togglePerm(this)">✓ r</div>
-      <div class="perm-cell perm-off" data-row="1" data-col="1" onclick="togglePerm(this)">— w</div>
-      <div class="perm-cell perm-on" data-row="1" data-col="2" onclick="togglePerm(this)">✓ x</div>
-      <div class="perm-cell perm-label">Others (5)</div>
-      <div class="perm-cell perm-on" data-row="2" data-col="0" onclick="togglePerm(this)">✓ r</div>
-      <div class="perm-cell perm-off" data-row="2" data-col="1" onclick="togglePerm(this)">— w</div>
-      <div class="perm-cell perm-on" data-row="2" data-col="2" onclick="togglePerm(this)">✓ x</div>
+      ${p.map((u, i) => `
+      <div class="perm-cell perm-label">${u.name} (${u.digit})</div>
+      <div class="perm-cell ${u.read ? 'perm-on' : 'perm-off'}" data-row="${i}" data-col="0" onclick="togglePerm(this)">${u.read ? '✓ r' : '— r'}</div>
+      <div class="perm-cell ${u.write ? 'perm-on' : 'perm-off'}" data-row="${i}" data-col="1" onclick="togglePerm(this)">${u.write ? '✓ w' : '— w'}</div>
+      <div class="perm-cell ${u.execute ? 'perm-on' : 'perm-off'}" data-row="${i}" data-col="2" onclick="togglePerm(this)">${u.execute ? '✓ x' : '— x'}</div>`).join('')}
     </div>
     <p style="font-size:0.78rem;color:#555;text-align:center">Click any permission to toggle it and see the command update live</p>
   </div>
@@ -123,49 +154,49 @@ code,.mono{font-family:'JetBrains Mono',monospace}
   <div class="card">
     <h2>Command</h2>
     <div class="cmd-box">
-      <div class="cmd-text">chmod <span class="hl" id="liveOctal">755</span> <input class="filename-input" id="filename" value="filename" spellcheck="false"></div>
+      <div class="cmd-text">chmod <span class="hl" id="liveOctal">${entry.octal}</span> <input class="filename-input" id="filename" value="filename" spellcheck="false"></div>
       <button class="copy-btn" id="copyCmd" onclick="copyCommand()">Copy</button>
     </div>
     <div class="cmd-box">
-      <div class="cmd-text">chmod -R <span class="hl" id="liveOctalR">755</span> <input class="filename-input" id="dirname" value="directory/" spellcheck="false"></div>
+      <div class="cmd-text">chmod -R <span class="hl" id="liveOctalR">${entry.octal}</span> <input class="filename-input" id="dirname" value="directory/" spellcheck="false"></div>
       <button class="copy-btn" onclick="copyRecursive()">Copy</button>
     </div>
   </div>
 
   <!-- When to Use -->
   <div class="card">
-    <h2>When to use chmod 755</h2>
-    <p>Use 755 for: directories (so users can list and enter them), shell scripts and executables, web server directories (like /var/www), and any file or folder that needs to be publicly accessible but only editable by the owner.</p>
-    <p><strong>Security note:</strong> 755 is generally safe. The only consideration is that everyone can read the file contents and execute it. For sensitive scripts containing credentials, use 700 instead.</p>
-    <p><strong>Consider instead:</strong> If group members should also edit: use 775. If nobody else should access it: use 700. For non-executable files like HTML or images: use 644.</p>
+    <h2>When to use chmod ${entry.octal}</h2>
+    <p>${c.when}</p>
+    ${c.danger ? `<p><strong>Security note:</strong> ${c.danger}</p>` : ''}
+    ${c.instead ? `<p><strong>Consider instead:</strong> ${c.instead}</p>` : ''}
   </div>
 
   <!-- Common Mistake -->
   <div class="card">
     <h2>Common Mistake</h2>
-    <p>Setting regular files (like .html, .css, .jpg) to 755. These files don't need execute permission — use 644 instead. Execute permission on non-scripts is unnecessary and slightly less secure.</p>
+    <p>${c.commonMistake}</p>
   </div>
 
   <!-- Comparison -->
   <div class="card">
-    <h2>chmod 755 vs 750</h2>
+    <h2>chmod ${entry.octal} vs ${c.comparison}</h2>
     <div class="vs-box">
-      <div class="vs-title">755 vs 750</div>
-      <div class="vs-text">755 vs 750: The difference is that 750 blocks 'others' (users not in the file's group) from any access. Use 750 when you want the owner's group to access the file but not random other users on the system.</div>
+      <div class="vs-title">${entry.octal} vs ${c.comparison}</div>
+      <div class="vs-text">${c.comparisonText}</div>
     </div>
   </div>
 
   <!-- FAQ -->
   <div class="card">
     <h2>Frequently Asked Questions</h2>
-    <div class="faq"><div class="faq-q">When should I use chmod 755?</div><div class="faq-a">Use 755 for directories, executable scripts, and program files. It's the default for most system directories and the correct permission for web server document roots.</div></div><div class="faq"><div class="faq-q">What's the difference between 755 and 644?</div><div class="faq-a">755 includes execute permission, 644 doesn't. Use 755 for directories and scripts, 644 for regular files like documents, images, and config files.</div></div><div class="faq"><div class="faq-q">Should web files be 755 or 644?</div><div class="faq-a">Directories should be 755 (so the web server can enter them). Regular files (.html, .css, .js, images) should be 644. Only CGI scripts or server-side executables need 755.</div></div>
+    ${entry.faqs.map(f => `<div class="faq"><div class="faq-q">${f.q}</div><div class="faq-a">${f.a}</div></div>`).join('')}
   </div>
 
   <!-- Related -->
   <div class="card">
     <h2>Related Permissions</h2>
     <div class="related-grid">
-      <a class="related-card" href="/chmod/777"><div class="rc-octal">777</div><div class="rc-sym">rwxrwxrwx</div></a><a class="related-card" href="/chmod/644"><div class="rc-octal">644</div><div class="rc-sym">rw-r--r--</div></a><a class="related-card" href="/chmod/700"><div class="rc-octal">700</div><div class="rc-sym">rwx------</div></a><a class="related-card" href="/chmod/600"><div class="rc-octal">600</div><div class="rc-sym">rw-------</div></a><a class="related-card" href="/chmod/750"><div class="rc-octal">750</div><div class="rc-sym">rwxr-x---</div></a>
+      ${relatedPages.map(r => `<a class="related-card" href="/chmod/${r.octal}"><div class="rc-octal">${r.octal}</div><div class="rc-sym">${r.symbolic}</div></a>`).join('')}
     </div>
   </div>
 
@@ -177,7 +208,7 @@ code,.mono{font-family:'JetBrains Mono',monospace}
 </div>
 
 <script>
-var perms = [[true,true,true],[true,false,true],[true,false,true]];
+var perms = [${p.map(u => `[${u.read},${u.write},${u.execute}]`).join(',')}];
 
 function togglePerm(el) {
   var r = parseInt(el.dataset.row), c = parseInt(el.dataset.col);
@@ -217,4 +248,15 @@ function copyRecursive() {
 }
 </script>
 </body>
-</html>
+</html>`;
+}
+
+// Generate all pages
+let count = 0;
+for (const entry of data) {
+  const html = generatePage(entry);
+  fs.writeFileSync(path.join(outDir, `${entry.octal}.html`), html);
+  count++;
+}
+
+console.log(`Generated ${count} chmod pages in public/chmod/`);

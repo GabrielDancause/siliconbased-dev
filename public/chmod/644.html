@@ -1,474 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>chmod 644 (rw-r--r--) — Linux File Permissions Explained</title>
-  <meta name="description" content="What does chmod 644 do? Learn about the rw-r--r-- permission, when to use it, and see examples. Owner read and write, Group read, Others read">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-color: #0a0b10;
-      --card-bg: #111318;
-      --border-color: #1e2030;
-      --accent-color: #818cf8;
-      --text-primary: #e0e0e0;
-      --text-secondary: #888888;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>chmod 644 (rw-r--r--) — Linux File Permissions Explained</title>
+<meta name="description" content="What does chmod 644 mean? Owner read/write, others read-only. Interactive permission breakdown, copy-paste commands, security analysis, and common mistakes explained.">
+<meta property="og:title" content="chmod 644 (rw-r--r--) — Owner read/write, others read-only">
+<meta property="og:description" content="chmod 644 gives the owner read and write permissions while everyone else can only read. No execute permission for anyone. This is the standard permission for mo">
+<meta property="og:type" content="article">
+<link rel="canonical" href="https://siliconbased.dev/chmod/644">
+<script type="application/ld+json">
+[{"@context":"https://schema.org","@type":"WebPage","name":"chmod 644 (rw-r--r--) — Linux File Permissions Explained","description":"Owner read/write, others read-only","url":"https://siliconbased.dev/chmod/644"},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is 644 the default file permission?","acceptedAnswer":{"@type":"Answer","text":"It depends on the system's umask, but 644 is the most common default for new files created by regular users. The typical umask of 022 produces 644 for files."}},{"@type":"Question","name":"Should PHP files be 644?","acceptedAnswer":{"@type":"Answer","text":"Yes, PHP files should be 644 when served by Apache/Nginx with mod_php or PHP-FPM. The web server reads them — it doesn't execute them directly. Only CGI-based PHP setups need 755."}},{"@type":"Question","name":"What about .env files?","acceptedAnswer":{"@type":"Answer","text":".env files contain secrets and should be 600, not 644. With 644, any user on the server can read your database passwords, API keys, and other credentials."}}]}]
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Inter',sans-serif;background:#0a0b10;color:#e0e0e0;line-height:1.7}
+code,.mono{font-family:'JetBrains Mono',monospace}
+.hero{text-align:center;padding:48px 24px 32px;background:linear-gradient(180deg,#0f1729 0%,#0a0b10 100%)}
+.hero h1{font-size:2rem;font-weight:900;color:#fff;margin-bottom:6px}.hero h1 .code-font{color:#818cf8}
+.hero .subtitle{color:#888;font-size:0.95rem}
+.sec-badge{display:inline-block;padding:4px 14px;border-radius:20px;font-size:0.75rem;font-weight:700;margin-top:12px;background:#0a2e1a;color:#34d399}
+.main{max-width:800px;margin:0 auto;padding:32px 20px 60px}
+.card{background:#111318;border:1px solid #1e2030;border-radius:14px;padding:28px 24px;margin-bottom:20px}
+.card h2{font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:12px}
+.card p{font-size:0.9rem;color:#999;line-height:1.8;margin-bottom:10px}
+.card p:last-child{margin-bottom:0}
+.card strong{color:#ccc}
 
-      --safe-color: #22c55e;
-      --moderate-color: #eab308;
-      --dangerous-color: #ef4444;
+/* Interactive permission grid */
+.perm-grid{display:grid;grid-template-columns:100px repeat(3,1fr);gap:0;margin:20px 0;border-radius:12px;overflow:hidden;border:1px solid #1e2030}
+.perm-cell{padding:14px 12px;text-align:center;font-size:0.82rem;border-bottom:1px solid #1e2030;border-right:1px solid #1e2030}
+.perm-cell:last-child{border-right:none}
+.perm-header{background:#13151d;font-weight:700;color:#ccc;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px}
+.perm-label{background:#13151d;font-weight:600;color:#999;text-align:left;padding-left:16px}
+.perm-on{background:#0a2e1a;color:#34d399;font-weight:700;cursor:pointer;transition:all 0.15s;user-select:none}
+.perm-on:hover{background:#0d3a20}
+.perm-off{background:#1a0a0a;color:#555;cursor:pointer;transition:all 0.15s;user-select:none}
+.perm-off:hover{background:#2a1010}
 
-      --safe-bg: rgba(34, 197, 94, 0.1);
-      --moderate-bg: rgba(234, 179, 8, 0.1);
-      --dangerous-bg: rgba(239, 68, 68, 0.1);
-    }
+/* Live command */
+.cmd-box{background:#0a0b10;border:1px solid #1e2030;border-radius:10px;padding:16px 20px;margin:16px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.cmd-text{font-family:'JetBrains Mono',monospace;font-size:1rem;color:#e0e0e0}
+.cmd-text .hl{color:#818cf8;font-weight:700}
+.copy-btn{background:#1e2030;border:1px solid #2a2d40;color:#888;padding:6px 16px;border-radius:8px;font-size:0.75rem;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.15s}
+.copy-btn:hover{background:#2a2d40;color:#ccc}
+.copy-btn.copied{background:#1a3a1a;color:#4ade80;border-color:#2d5a2d}
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+.filename-input{background:transparent;border:none;border-bottom:1px dashed #444;color:#fbbf24;font-family:'JetBrains Mono',monospace;font-size:1rem;width:120px;outline:none;padding-bottom:1px}
+.filename-input:focus{border-bottom-color:#fbbf24}
 
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-primary);
-      line-height: 1.6;
-      padding: 1rem;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+/* Comparison */
+.vs-box{background:#0f1120;border:1px solid #1e2030;border-radius:10px;padding:20px;margin:16px 0}
+.vs-title{font-size:0.95rem;font-weight:700;color:#818cf8;margin-bottom:8px}
+.vs-text{font-size:0.88rem;color:#999;line-height:1.7}
 
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      width: 100%;
-      flex-grow: 1;
-      padding-bottom: 3rem;
-    }
+/* FAQ */
+.faq{border-top:1px solid #1e2030;padding-top:16px;margin-top:16px}
+.faq-q{font-size:0.92rem;font-weight:700;color:#fff;margin-bottom:6px}
+.faq-a{font-size:0.88rem;color:#999;line-height:1.7;margin-bottom:16px}
+.faq-a:last-child{margin-bottom:0}
 
-    header {
-      margin-top: 2rem;
-      margin-bottom: 2rem;
-      text-align: center;
-    }
+/* Related */
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:12px}
+.related-card{background:#0a0b10;border:1px solid #1e2030;border-radius:10px;padding:14px;text-align:center;text-decoration:none;color:#e0e0e0;transition:border-color 0.2s}
+.related-card:hover{border-color:#818cf8}
+.related-card .rc-octal{font-family:'JetBrains Mono',monospace;font-size:1.2rem;font-weight:700;color:#818cf8}
+.related-card .rc-sym{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:#666;margin-top:2px}
 
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 800;
-      margin-bottom: 0.5rem;
-      color: var(--text-primary);
-    }
+.back-link{display:inline-block;margin-top:24px;color:#818cf8;text-decoration:none;font-weight:600;font-size:0.9rem}
+.back-link:hover{text-decoration:underline}
 
-    h1 .code-font {
-      color: var(--accent-color);
-    }
+.footer{text-align:center;padding:40px 24px;font-size:0.78rem;color:#555;border-top:1px solid #151520;margin-top:40px}
+.footer a{color:#818cf8;text-decoration:none}
 
-    h2 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-top: 2.5rem;
-      margin-bottom: 1rem;
-      color: var(--text-primary);
-    }
-
-    .code-font {
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    @media (min-width: 640px) {
-      .hero-section {
-        flex-direction: row;
-        align-items: flex-start;
-      }
-    }
-
-    .octal-display {
-      font-size: 6rem;
-      font-weight: 900;
-      line-height: 1;
-      color: var(--accent-color);
-      text-align: center;
-    }
-
-    .symbolic-display {
-      font-size: 1.5rem;
-      color: var(--text-secondary);
-      text-align: center;
-      margin-top: 0.5rem;
-    }
-
-    .hero-details {
-      flex: 1;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      padding: 0.25rem 0.75rem;
-      border-radius: 9999px;
-      font-size: 0.875rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 1rem;
-    }
-
-    .badge-safe {
-      background-color: var(--safe-bg);
-      color: var(--safe-color);
-      border: 1px solid rgba(34, 197, 94, 0.2);
-    }
-
-    .badge-moderate {
-      background-color: var(--moderate-bg);
-      color: var(--moderate-color);
-      border: 1px solid rgba(234, 179, 8, 0.2);
-    }
-
-    .badge-dangerous {
-      background-color: var(--dangerous-bg);
-      color: var(--dangerous-color);
-      border: 1px solid rgba(239, 68, 68, 0.2);
-    }
-
-    .description {
-      font-size: 1.125rem;
-      color: var(--text-primary);
-    }
-
-    .permission-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-
-    @media (min-width: 640px) {
-      .permission-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    .grid-col {
-      background-color: rgba(0, 0, 0, 0.2);
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid var(--border-color);
-    }
-
-    .col-header {
-      background-color: rgba(255, 255, 255, 0.05);
-      padding: 0.75rem;
-      text-align: center;
-      font-weight: 600;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .perm-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.75rem 1rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .perm-row:last-child {
-      border-bottom: none;
-    }
-
-    .perm-name {
-      color: var(--text-secondary);
-    }
-
-    .perm-icon {
-      font-weight: bold;
-    }
-
-    .perm-yes {
-      color: var(--safe-color);
-    }
-
-    .perm-no {
-      color: var(--text-secondary);
-      opacity: 0.5;
-    }
-
-    .commands-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .command-box {
-      background-color: rgba(0, 0, 0, 0.3);
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      padding: 1rem;
-      position: relative;
-    }
-
-    .command-box code {
-      color: var(--text-primary);
-      font-size: 0.95rem;
-      word-break: break-all;
-    }
-
-    .related-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 1rem;
-    }
-
-    .related-link {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background-color: rgba(0, 0, 0, 0.2);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 1rem;
-      text-decoration: none;
-      color: var(--text-primary);
-      transition: all 0.2s ease;
-    }
-
-    .related-link:hover {
-      background-color: rgba(129, 140, 248, 0.1);
-      border-color: var(--accent-color);
-      transform: translateY(-2px);
-    }
-
-    .related-octal {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--accent-color);
-      margin-bottom: 0.25rem;
-    }
-
-    .related-symbolic {
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-    }
-
-    .nav-links {
-      margin-top: 3rem;
-      text-align: center;
-    }
-
-    .btn {
-      display: inline-block;
-      background-color: var(--accent-color);
-      color: #fff;
-      text-decoration: none;
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      font-weight: 600;
-      transition: background-color 0.2s;
-    }
-
-    .btn:hover {
-      background-color: #6366f1;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem 0;
-      margin-top: auto;
-      color: var(--text-secondary);
-      font-size: 0.875rem;
-      border-top: 1px solid var(--border-color);
-    }
-
-    footer a {
-      color: var(--accent-color);
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-  </style>
-
-  <script type="application/ld+json">
-    {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "chmod 644 (rw-r--r--) — Linux File Permissions Explained",
-  "description": "Standard for most files (like HTML, text, or config files). The owner can edit, and everyone else can only read.",
-  "url": "https://siliconbased.dev/chmod/644.html"
+@media(max-width:600px){
+  .hero h1{font-size:1.5rem}
+  .perm-grid{grid-template-columns:80px repeat(3,1fr)}
+  .perm-cell{padding:10px 8px;font-size:0.75rem}
+  .cmd-text{font-size:0.85rem}
+  .main{padding:20px 14px 40px}
 }
-  </script>
+</style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>chmod <span class="code-font">644</span> — rw-r--r--</h1>
-    </header>
 
-    <div class="card hero-section">
-      <div>
-        <div class="octal-display code-font">644</div>
-        <div class="symbolic-display code-font">rw-r--r--</div>
-      </div>
+<div class="hero">
+  <h1>chmod <span class="code-font">644</span> — rw-r--r--</h1>
+  <p class="subtitle">Owner read/write, others read-only</p>
+  <span class="sec-badge">✓ Safe</span>
+</div>
 
-      <div class="hero-details">
-        <span class="badge badge-moderate">Moderate Risk</span>
-        <p class="description"><strong>Owner read and write, Group read, Others read</strong></p>
-      </div>
+<div class="main">
+
+  <!-- Interactive Permission Grid -->
+  <div class="card">
+    <h2>Permission Breakdown</h2>
+    <p>chmod 644 gives the owner read and write permissions while everyone else can only read. No execute permission for anyone. This is the standard permission for most regular files on Linux — documents, images, config files, HTML, CSS, and source code.</p>
+    <div class="perm-grid" id="permGrid">
+      <div class="perm-cell perm-header"></div>
+      <div class="perm-cell perm-header">Read (4)</div>
+      <div class="perm-cell perm-header">Write (2)</div>
+      <div class="perm-cell perm-header">Execute (1)</div>
+      
+      <div class="perm-cell perm-label">Owner (6)</div>
+      <div class="perm-cell perm-on" data-row="0" data-col="0" onclick="togglePerm(this)">✓ r</div>
+      <div class="perm-cell perm-on" data-row="0" data-col="1" onclick="togglePerm(this)">✓ w</div>
+      <div class="perm-cell perm-off" data-row="0" data-col="2" onclick="togglePerm(this)">— x</div>
+      <div class="perm-cell perm-label">Group (4)</div>
+      <div class="perm-cell perm-on" data-row="1" data-col="0" onclick="togglePerm(this)">✓ r</div>
+      <div class="perm-cell perm-off" data-row="1" data-col="1" onclick="togglePerm(this)">— w</div>
+      <div class="perm-cell perm-off" data-row="1" data-col="2" onclick="togglePerm(this)">— x</div>
+      <div class="perm-cell perm-label">Others (4)</div>
+      <div class="perm-cell perm-on" data-row="2" data-col="0" onclick="togglePerm(this)">✓ r</div>
+      <div class="perm-cell perm-off" data-row="2" data-col="1" onclick="togglePerm(this)">— w</div>
+      <div class="perm-cell perm-off" data-row="2" data-col="2" onclick="togglePerm(this)">— x</div>
     </div>
+    <p style="font-size:0.78rem;color:#555;text-align:center">Click any permission to toggle it and see the command update live</p>
+  </div>
 
-    <h2>What does chmod 644 do?</h2>
-    <div class="card">
-      <p>The permission <code class="code-font">644</code> grants specific access rights to three different groups of users:</p>
-
-      <div class="permission-grid">
-
-      <div class="grid-col">
-        <div class="col-header">Owner (User)</div>
-
-    <div class="perm-row">
-      <span class="perm-name">Read (r)</span>
-      <span class="perm-icon perm-yes">✓</span>
+  <!-- Live Command -->
+  <div class="card">
+    <h2>Command</h2>
+    <div class="cmd-box">
+      <div class="cmd-text">chmod <span class="hl" id="liveOctal">644</span> <input class="filename-input" id="filename" value="filename" spellcheck="false"></div>
+      <button class="copy-btn" id="copyCmd" onclick="copyCommand()">Copy</button>
     </div>
-
-
-    <div class="perm-row">
-      <span class="perm-name">Write (w)</span>
-      <span class="perm-icon perm-yes">✓</span>
-    </div>
-
-
-    <div class="perm-row">
-      <span class="perm-name">Execute (x)</span>
-      <span class="perm-icon perm-no">✗</span>
-    </div>
-
-      </div>
-
-      <div class="grid-col">
-        <div class="col-header">Group</div>
-
-    <div class="perm-row">
-      <span class="perm-name">Read (r)</span>
-      <span class="perm-icon perm-yes">✓</span>
-    </div>
-
-
-    <div class="perm-row">
-      <span class="perm-name">Write (w)</span>
-      <span class="perm-icon perm-no">✗</span>
-    </div>
-
-
-    <div class="perm-row">
-      <span class="perm-name">Execute (x)</span>
-      <span class="perm-icon perm-no">✗</span>
-    </div>
-
-      </div>
-
-      <div class="grid-col">
-        <div class="col-header">Others (Public)</div>
-
-    <div class="perm-row">
-      <span class="perm-name">Read (r)</span>
-      <span class="perm-icon perm-yes">✓</span>
-    </div>
-
-
-    <div class="perm-row">
-      <span class="perm-name">Write (w)</span>
-      <span class="perm-icon perm-no">✗</span>
-    </div>
-
-
-    <div class="perm-row">
-      <span class="perm-name">Execute (x)</span>
-      <span class="perm-icon perm-no">✗</span>
-    </div>
-
-      </div>
-
-      </div>
-    </div>
-
-    <h2>When to use chmod 644</h2>
-    <div class="card">
-      <p>Standard for most files (like HTML, text, or config files). The owner can edit, and everyone else can only read.</p>
-    </div>
-
-    <h2>Ready-to-copy Commands</h2>
-    <div class="card">
-      <div class="commands-list">
-        <div class="command-box">
-          <code class="code-font">chmod 644 filename</code>
-        </div>
-        <div class="command-box">
-          <code class="code-font">chmod -R 644 directory/</code>
-        </div>
-        <div class="command-box">
-          <code class="code-font">find . -type f -exec chmod 644 {} +</code>
-        </div>
-      </div>
-    </div>
-
-    <h2>Related chmod values</h2>
-    <div class="related-grid">
-
-      <a href="/chmod/640.html" class="related-link">
-        <span class="related-octal code-font">640</span>
-        <span class="related-symbolic code-font">rw-r-----</span>
-      </a>
-
-      <a href="/chmod/642.html" class="related-link">
-        <span class="related-octal code-font">642</span>
-        <span class="related-symbolic code-font">rw-r---w-</span>
-      </a>
-
-      <a href="/chmod/664.html" class="related-link">
-        <span class="related-octal code-font">664</span>
-        <span class="related-symbolic code-font">rw-rw-r--</span>
-      </a>
-
-      <a href="/chmod/666.html" class="related-link">
-        <span class="related-octal code-font">666</span>
-        <span class="related-symbolic code-font">rw-rw-rw-</span>
-      </a>
-
-      <a href="/chmod/655.html" class="related-link">
-        <span class="related-octal code-font">655</span>
-        <span class="related-symbolic code-font">rw-r-xr-x</span>
-      </a>
-
-    </div>
-
-    <div class="nav-links">
-      <a href="/chmod-calculator" class="btn">Full chmod Calculator →</a>
+    <div class="cmd-box">
+      <div class="cmd-text">chmod -R <span class="hl" id="liveOctalR">644</span> <input class="filename-input" id="dirname" value="directory/" spellcheck="false"></div>
+      <button class="copy-btn" onclick="copyRecursive()">Copy</button>
     </div>
   </div>
 
-  <footer>
-    <p>&copy; 2025 siliconbased.dev &middot; A GAB Ventures property</p>
-    <p><a href="https://gab.ae" target="_blank" rel="noopener noreferrer">gab.ae</a></p>
-  </footer>
+  <!-- When to Use -->
+  <div class="card">
+    <h2>When to use chmod 644</h2>
+    <p>Use 644 for virtually all non-executable files: web pages (.html, .css, .js), config files (that don't contain secrets), documents, images, and any file that should be readable by services like a web server but only editable by the owner.</p>
+    <p><strong>Security note:</strong> 644 is safe for files that don't contain sensitive information. If a file has passwords, API keys, or private data, use 600 instead so only the owner can read it.</p>
+    <p><strong>Consider instead:</strong> For files with secrets: use 600. For executable scripts: use 755. For files the group should edit: use 664. For files nobody else should read: use 600.</p>
+  </div>
+
+  <!-- Common Mistake -->
+  <div class="card">
+    <h2>Common Mistake</h2>
+    <p>Using 644 for files containing database passwords or API keys. These files should be 600 so only the application's owner user can read them. Many security breaches start with config files readable by all users.</p>
+  </div>
+
+  <!-- Comparison -->
+  <div class="card">
+    <h2>chmod 644 vs 664</h2>
+    <div class="vs-box">
+      <div class="vs-title">644 vs 664</div>
+      <div class="vs-text">644 vs 664: The only difference is that 664 gives the group write permission too. Use 664 when a team shares files and multiple people need to edit them. Use 644 when only the owner should edit.</div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="card">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq"><div class="faq-q">Is 644 the default file permission?</div><div class="faq-a">It depends on the system's umask, but 644 is the most common default for new files created by regular users. The typical umask of 022 produces 644 for files.</div></div><div class="faq"><div class="faq-q">Should PHP files be 644?</div><div class="faq-a">Yes, PHP files should be 644 when served by Apache/Nginx with mod_php or PHP-FPM. The web server reads them — it doesn't execute them directly. Only CGI-based PHP setups need 755.</div></div><div class="faq"><div class="faq-q">What about .env files?</div><div class="faq-a">.env files contain secrets and should be 600, not 644. With 644, any user on the server can read your database passwords, API keys, and other credentials.</div></div>
+  </div>
+
+  <!-- Related -->
+  <div class="card">
+    <h2>Related Permissions</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/chmod/777"><div class="rc-octal">777</div><div class="rc-sym">rwxrwxrwx</div></a><a class="related-card" href="/chmod/755"><div class="rc-octal">755</div><div class="rc-sym">rwxr-xr-x</div></a><a class="related-card" href="/chmod/700"><div class="rc-octal">700</div><div class="rc-sym">rwx------</div></a><a class="related-card" href="/chmod/600"><div class="rc-octal">600</div><div class="rc-sym">rw-------</div></a><a class="related-card" href="/chmod/664"><div class="rc-octal">664</div><div class="rc-sym">rw-rw-r--</div></a>
+    </div>
+  </div>
+
+  <a class="back-link" href="/chmod-calculator">← Full chmod Calculator</a>
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+var perms = [[true,true,false],[true,false,false],[true,false,false]];
+
+function togglePerm(el) {
+  var r = parseInt(el.dataset.row), c = parseInt(el.dataset.col);
+  perms[r][c] = !perms[r][c];
+  el.className = 'perm-cell ' + (perms[r][c] ? 'perm-on' : 'perm-off');
+  var letters = ['r','w','x'];
+  el.textContent = (perms[r][c] ? '✓ ' : '— ') + letters[c];
+  updateCommand();
+}
+
+function updateCommand() {
+  var octal = '';
+  for (var i = 0; i < 3; i++) {
+    var d = (perms[i][0] ? 4 : 0) + (perms[i][1] ? 2 : 0) + (perms[i][2] ? 1 : 0);
+    octal += d;
+  }
+  document.getElementById('liveOctal').textContent = octal;
+  document.getElementById('liveOctalR').textContent = octal;
+}
+
+function copyCommand() {
+  var cmd = 'chmod ' + document.getElementById('liveOctal').textContent + ' ' + document.getElementById('filename').value;
+  navigator.clipboard.writeText(cmd);
+  var btn = document.getElementById('copyCmd');
+  btn.textContent = '✓ Copied';
+  btn.classList.add('copied');
+  setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+}
+
+function copyRecursive() {
+  var cmd = 'chmod -R ' + document.getElementById('liveOctalR').textContent + ' ' + document.getElementById('dirname').value;
+  navigator.clipboard.writeText(cmd);
+  var btn = event.target;
+  btn.textContent = '✓ Copied';
+  btn.classList.add('copied');
+  setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+}
+</script>
 </body>
 </html>

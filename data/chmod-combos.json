@@ -2,1351 +2,316 @@
   {
     "octal": "777",
     "symbolic": "rwxrwxrwx",
-    "owner": {
-      "read": true,
-      "write": true,
-      "execute": true
-    },
-    "group": {
-      "read": true,
-      "write": true,
-      "execute": true
-    },
-    "others": {
-      "read": true,
-      "write": true,
-      "execute": true
-    },
-    "title": "Owner full access, Group full access, Others full access",
-    "commonUse": "When you need to give absolutely everyone full access. Generally avoid this except in very temporary or strictly isolated environments.",
+    "title": "Full access for everyone",
     "security": "dangerous",
-    "relatedCommands": [
-      "chmod 777 filename",
-      "chmod -R 777 directory/",
-      "find . -type f -exec chmod 777 {} +"
-    ]
-  },
-  {
-    "octal": "775",
-    "symbolic": "rwxrwxr-x",
-    "owner": {
-      "read": true,
-      "write": true,
-      "execute": true
+    "searchVolume": "high",
+    "content": {
+      "what": "chmod 777 gives every user on the system — the owner, the group, and all others — complete read, write, and execute permissions. It's the nuclear option of file permissions.",
+      "when": "Almost never in production. The only legitimate use case is a temporary shared directory during development where multiple users need full access and security doesn't matter. Even then, 775 or 770 is better.",
+      "danger": "This is the most common security mistake in Linux. Files with 777 can be read, modified, or executed by any user on the system. If your web server has 777 permissions on its files, any compromised script can modify your entire site. Hosting providers will often suspend accounts with 777 permissions.",
+      "instead": "Use 755 for directories and executable files. Use 644 for regular files. If a group needs write access, use 775 or 664. If only the owner needs access, use 700 or 600.",
+      "commonMistake": "Beginners often chmod 777 everything when they get a 'Permission denied' error. This fixes the symptom but creates a massive security hole. Always figure out the minimum permissions needed instead.",
+      "comparison": "755",
+      "comparisonText": "755 vs 777: The difference is that 755 removes write permission for group and others. This means only the owner can modify the file, while everyone else can read and execute it. 755 is almost always what you actually want."
     },
-    "group": {
-      "read": true,
-      "write": true,
-      "execute": true
-    },
-    "others": {
-      "read": true,
-      "write": false,
-      "execute": true
-    },
-    "title": "Owner full access, Group full access, Others read and execute",
-    "commonUse": "For shared directories where both the owner and group members need full access, and others can read/execute.",
-    "security": "dangerous",
-    "relatedCommands": [
-      "chmod 775 filename",
-      "chmod -R 775 directory/",
-      "find . -type f -exec chmod 775 {} +"
+    "faqs": [
+      {"q": "Is chmod 777 safe?", "a": "No. chmod 777 allows any user on the system to read, write, and execute the file. It should never be used on production servers. Use the minimum permissions needed — typically 755 for directories and 644 for files."},
+      {"q": "Why do tutorials say to use chmod 777?", "a": "Bad tutorials use 777 as a quick fix for permission errors. It works but creates security vulnerabilities. Good practice is to identify which user/group needs access and grant only that."},
+      {"q": "How do I fix files set to 777?", "a": "For regular files: chmod 644 filename. For directories: chmod 755 dirname. For scripts: chmod 755 script.sh. For sensitive files (SSH keys, configs with passwords): chmod 600 filename."}
     ]
   },
   {
     "octal": "755",
     "symbolic": "rwxr-xr-x",
-    "owner": {
-      "read": true,
-      "write": true,
-      "execute": true
-    },
-    "group": {
-      "read": true,
-      "write": false,
-      "execute": true
-    },
-    "others": {
-      "read": true,
-      "write": false,
-      "execute": true
-    },
-    "title": "Owner full access, Group read and execute, Others read and execute",
-    "commonUse": "Standard for executable scripts and directories where the owner needs full control but others only need to read and execute/enter.",
-    "security": "moderate",
-    "relatedCommands": [
-      "chmod 755 filename",
-      "chmod -R 755 directory/",
-      "find . -type f -exec chmod 755 {} +"
-    ]
-  },
-  {
-    "octal": "750",
-    "symbolic": "rwxr-x---",
-    "owner": {
-      "read": true,
-      "write": true,
-      "execute": true
-    },
-    "group": {
-      "read": true,
-      "write": false,
-      "execute": true
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "title": "Owner full access, Group read and execute, Others no permissions",
-    "commonUse": "A specific configuration where Owner has full access, group and others have varying access (50).",
+    "title": "Owner full, others read & execute",
     "security": "safe",
-    "relatedCommands": [
-      "chmod 750 filename",
-      "chmod -R 750 directory/",
-      "find . -type f -exec chmod 750 {} +"
-    ]
-  },
-  {
-    "octal": "744",
-    "symbolic": "rwxr--r--",
-    "owner": {
-      "read": true,
-      "write": true,
-      "execute": true
+    "searchVolume": "high",
+    "content": {
+      "what": "chmod 755 gives the owner full control (read, write, execute) while allowing group members and others to only read and execute. This is the standard permission for directories and executable files on Linux systems.",
+      "when": "Use 755 for: directories (so users can list and enter them), shell scripts and executables, web server directories (like /var/www), and any file or folder that needs to be publicly accessible but only editable by the owner.",
+      "danger": "755 is generally safe. The only consideration is that everyone can read the file contents and execute it. For sensitive scripts containing credentials, use 700 instead.",
+      "instead": "If group members should also edit: use 775. If nobody else should access it: use 700. For non-executable files like HTML or images: use 644.",
+      "commonMistake": "Setting regular files (like .html, .css, .jpg) to 755. These files don't need execute permission — use 644 instead. Execute permission on non-scripts is unnecessary and slightly less secure.",
+      "comparison": "750",
+      "comparisonText": "755 vs 750: The difference is that 750 blocks 'others' (users not in the file's group) from any access. Use 750 when you want the owner's group to access the file but not random other users on the system."
     },
-    "group": {
-      "read": true,
-      "write": false,
-      "execute": false
-    },
-    "others": {
-      "read": true,
-      "write": false,
-      "execute": false
-    },
-    "title": "Owner full access, Group read, Others read",
-    "commonUse": "A specific configuration where Owner has full access, others can only read.",
-    "security": "moderate",
-    "relatedCommands": [
-      "chmod 744 filename",
-      "chmod -R 744 directory/",
-      "find . -type f -exec chmod 744 {} +"
-    ]
-  },
-  {
-    "octal": "711",
-    "symbolic": "rwx--x--x",
-    "owner": {
-      "read": true,
-      "write": true,
-      "execute": true
-    },
-    "group": {
-      "read": false,
-      "write": false,
-      "execute": true
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": true
-    },
-    "title": "Owner full access, Group execute, Others execute",
-    "commonUse": "A specific configuration where Owner has full access.",
-    "security": "safe",
-    "relatedCommands": [
-      "chmod 711 filename",
-      "chmod -R 711 directory/",
-      "find . -type f -exec chmod 711 {} +"
-    ]
-  },
-  {
-    "octal": "700",
-    "symbolic": "rwx------",
-    "owner": {
-      "read": true,
-      "write": true,
-      "execute": true
-    },
-    "group": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "title": "Owner full access, Group no permissions, Others no permissions",
-    "commonUse": "For private directories (like ~/.ssh) where only the owner should have any access at all.",
-    "security": "safe",
-    "relatedCommands": [
-      "chmod 700 filename",
-      "chmod -R 700 directory/",
-      "find . -type f -exec chmod 700 {} +"
-    ]
-  },
-  {
-    "octal": "666",
-    "symbolic": "rw-rw-rw-",
-    "owner": {
-      "read": true,
-      "write": true,
-      "execute": false
-    },
-    "group": {
-      "read": true,
-      "write": true,
-      "execute": false
-    },
-    "others": {
-      "read": true,
-      "write": true,
-      "execute": false
-    },
-    "title": "Owner read and write, Group read and write, Others read and write",
-    "commonUse": "When all users need to read and write to a file, but not execute it.",
-    "security": "dangerous",
-    "relatedCommands": [
-      "chmod 666 filename",
-      "chmod -R 666 directory/",
-      "find . -type f -exec chmod 666 {} +"
-    ]
-  },
-  {
-    "octal": "664",
-    "symbolic": "rw-rw-r--",
-    "owner": {
-      "read": true,
-      "write": true,
-      "execute": false
-    },
-    "group": {
-      "read": true,
-      "write": true,
-      "execute": false
-    },
-    "others": {
-      "read": true,
-      "write": false,
-      "execute": false
-    },
-    "title": "Owner read and write, Group read and write, Others read",
-    "commonUse": "For shared files where both the owner and group members can edit, and others can read.",
-    "security": "dangerous",
-    "relatedCommands": [
-      "chmod 664 filename",
-      "chmod -R 664 directory/",
-      "find . -type f -exec chmod 664 {} +"
-    ]
-  },
-  {
-    "octal": "655",
-    "symbolic": "rw-r-xr-x",
-    "owner": {
-      "read": true,
-      "write": true,
-      "execute": false
-    },
-    "group": {
-      "read": true,
-      "write": false,
-      "execute": true
-    },
-    "others": {
-      "read": true,
-      "write": false,
-      "execute": true
-    },
-    "title": "Owner read and write, Group read and execute, Others read and execute",
-    "commonUse": "A specific configuration where Owner can read and write, others can read and execute.",
-    "security": "moderate",
-    "relatedCommands": [
-      "chmod 655 filename",
-      "chmod -R 655 directory/",
-      "find . -type f -exec chmod 655 {} +"
+    "faqs": [
+      {"q": "When should I use chmod 755?", "a": "Use 755 for directories, executable scripts, and program files. It's the default for most system directories and the correct permission for web server document roots."},
+      {"q": "What's the difference between 755 and 644?", "a": "755 includes execute permission, 644 doesn't. Use 755 for directories and scripts, 644 for regular files like documents, images, and config files."},
+      {"q": "Should web files be 755 or 644?", "a": "Directories should be 755 (so the web server can enter them). Regular files (.html, .css, .js, images) should be 644. Only CGI scripts or server-side executables need 755."}
     ]
   },
   {
     "octal": "644",
     "symbolic": "rw-r--r--",
-    "owner": {
-      "read": true,
-      "write": true,
-      "execute": false
+    "title": "Owner read/write, others read-only",
+    "security": "safe",
+    "searchVolume": "high",
+    "content": {
+      "what": "chmod 644 gives the owner read and write permissions while everyone else can only read. No execute permission for anyone. This is the standard permission for most regular files on Linux — documents, images, config files, HTML, CSS, and source code.",
+      "when": "Use 644 for virtually all non-executable files: web pages (.html, .css, .js), config files (that don't contain secrets), documents, images, and any file that should be readable by services like a web server but only editable by the owner.",
+      "danger": "644 is safe for files that don't contain sensitive information. If a file has passwords, API keys, or private data, use 600 instead so only the owner can read it.",
+      "instead": "For files with secrets: use 600. For executable scripts: use 755. For files the group should edit: use 664. For files nobody else should read: use 600.",
+      "commonMistake": "Using 644 for files containing database passwords or API keys. These files should be 600 so only the application's owner user can read them. Many security breaches start with config files readable by all users.",
+      "comparison": "664",
+      "comparisonText": "644 vs 664: The only difference is that 664 gives the group write permission too. Use 664 when a team shares files and multiple people need to edit them. Use 644 when only the owner should edit."
     },
-    "group": {
-      "read": true,
-      "write": false,
-      "execute": false
-    },
-    "others": {
-      "read": true,
-      "write": false,
-      "execute": false
-    },
-    "title": "Owner read and write, Group read, Others read",
-    "commonUse": "Standard for most files (like HTML, text, or config files). The owner can edit, and everyone else can only read.",
-    "security": "moderate",
-    "relatedCommands": [
-      "chmod 644 filename",
-      "chmod -R 644 directory/",
-      "find . -type f -exec chmod 644 {} +"
+    "faqs": [
+      {"q": "Is 644 the default file permission?", "a": "It depends on the system's umask, but 644 is the most common default for new files created by regular users. The typical umask of 022 produces 644 for files."},
+      {"q": "Should PHP files be 644?", "a": "Yes, PHP files should be 644 when served by Apache/Nginx with mod_php or PHP-FPM. The web server reads them — it doesn't execute them directly. Only CGI-based PHP setups need 755."},
+      {"q": "What about .env files?", "a": ".env files contain secrets and should be 600, not 644. With 644, any user on the server can read your database passwords, API keys, and other credentials."}
     ]
   },
   {
-    "octal": "640",
-    "symbolic": "rw-r-----",
-    "owner": {
-      "read": true,
-      "write": true,
-      "execute": false
-    },
-    "group": {
-      "read": true,
-      "write": false,
-      "execute": false
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "title": "Owner read and write, Group read, Others no permissions",
-    "commonUse": "A specific configuration where Owner can read and write, group and others have varying access (40).",
+    "octal": "700",
+    "symbolic": "rwx------",
+    "title": "Owner only — full access, no one else",
     "security": "safe",
-    "relatedCommands": [
-      "chmod 640 filename",
-      "chmod -R 640 directory/",
-      "find . -type f -exec chmod 640 {} +"
+    "searchVolume": "high",
+    "content": {
+      "what": "chmod 700 gives the owner full control and completely locks out everyone else. Group members and others get zero access — they can't read, write, or execute the file or enter the directory.",
+      "when": "Use 700 for: your home directory, private scripts, directories containing sensitive data, SSH directories (~/.ssh), backup directories, and any executable that only you should run.",
+      "danger": "700 is very secure. The only risk is that it might be too restrictive — services running as other users (like a web server) won't be able to access the files at all.",
+      "instead": "If a service needs to read files: use 755 or 750. If you need group access: use 770. For non-executable private files: use 600.",
+      "commonMistake": "Setting web server directories to 700 when the web server runs as a different user (www-data, nginx). The server can't serve files it can't read. You need 755 for web-accessible directories.",
+      "comparison": "770",
+      "comparisonText": "700 vs 770: 770 gives group members the same full access as the owner while still blocking others. Use 770 for shared project directories where a team needs access but outsiders don't."
+    },
+    "faqs": [
+      {"q": "Should my home directory be 700 or 755?", "a": "700 is more secure and recommended. With 755, other users can list your files and enter your directories. Most modern Linux distributions default home directories to 700."},
+      {"q": "Should .ssh be 700?", "a": "Yes, ~/.ssh must be 700. SSH will refuse to use keys if the directory has more permissive access. This is a hard requirement, not just a best practice."},
+      {"q": "What about 600 vs 700?", "a": "The difference is execute permission. Use 700 for directories (you need execute to enter them) and executable scripts. Use 600 for regular files like keys and configs."}
     ]
   },
   {
     "octal": "600",
     "symbolic": "rw-------",
-    "owner": {
-      "read": true,
-      "write": true,
-      "execute": false
-    },
-    "group": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "title": "Owner read and write, Group no permissions, Others no permissions",
-    "commonUse": "For private files (like SSH keys or config files with passwords) where only the owner can read and write.",
+    "title": "Owner read/write only — private file",
     "security": "safe",
-    "relatedCommands": [
-      "chmod 600 filename",
-      "chmod -R 600 directory/",
-      "find . -type f -exec chmod 600 {} +"
+    "searchVolume": "high",
+    "content": {
+      "what": "chmod 600 gives the owner read and write access and blocks everyone else completely. No execute permission for anyone. This is the go-to permission for private, sensitive files.",
+      "when": "Use 600 for: SSH private keys, .env files, config files with passwords or API keys, database credential files, SSL private keys, personal documents, and any file containing secrets.",
+      "danger": "600 is one of the most secure file permissions. It ensures only the file owner can access the content. The only consideration is making sure the correct user owns the file.",
+      "instead": "If the file is a script that needs to run: use 700. If a group needs to read it: use 640. If it's a public file: use 644.",
+      "commonMistake": "Forgetting that SSH requires 600 on private keys. If your id_rsa file is 644, SSH will display a warning and refuse to use it. Always: chmod 600 ~/.ssh/id_rsa.",
+      "comparison": "644",
+      "comparisonText": "600 vs 644: The difference is that 644 allows everyone to read the file. For sensitive files (keys, passwords, configs), always use 600. For public files (web pages, images), use 644."
+    },
+    "faqs": [
+      {"q": "Why does SSH require 600 on private keys?", "a": "SSH enforces strict permissions to prevent other users from stealing your private key. If the key is readable by others (e.g., 644), SSH considers it compromised and refuses to use it."},
+      {"q": "Should .env files be 600?", "a": "Yes. .env files typically contain database passwords, API keys, and secrets. With any permission more open than 600, other users on the server could read your credentials."},
+      {"q": "What about 400 vs 600?", "a": "400 is read-only even for the owner. Use 400 for files you want to protect from accidental modification (like deployed SSL certificates). Use 600 when you need to edit the file."}
     ]
   },
   {
-    "octal": "555",
-    "symbolic": "r-xr-xr-x",
-    "owner": {
-      "read": true,
-      "write": false,
-      "execute": true
-    },
-    "group": {
-      "read": true,
-      "write": false,
-      "execute": true
-    },
-    "others": {
-      "read": true,
-      "write": false,
-      "execute": true
-    },
-    "title": "Owner read and execute, Group read and execute, Others read and execute",
-    "commonUse": "A specific configuration where Owner can read and execute, others can read and execute.",
+    "octal": "775",
+    "symbolic": "rwxrwxr-x",
+    "title": "Owner & group full, others read & execute",
     "security": "moderate",
-    "relatedCommands": [
-      "chmod 555 filename",
-      "chmod -R 555 directory/",
-      "find . -type f -exec chmod 555 {} +"
+    "searchVolume": "medium",
+    "content": {
+      "what": "chmod 775 gives the owner and group full access (read, write, execute) while others can only read and execute. It's the collaborative version of 755 — designed for shared directories where a team needs to create and modify files.",
+      "when": "Use 775 for shared project directories, team deployment folders, group-writable web directories (when developers are in the web server's group), and any directory where multiple users need to add or modify files.",
+      "danger": "775 is moderately safe. The group write permission means any user in the file's group can modify or delete it. Make sure group membership is tightly controlled.",
+      "instead": "If only the owner should write: use 755. If others shouldn't access at all: use 770. For individual files (not directories): consider 664.",
+      "commonMistake": "Using 775 without setting the SGID bit on directories. Without SGID (chmod g+s), new files created in the directory may not inherit the group, causing permission issues for other team members.",
+      "comparison": "755",
+      "comparisonText": "775 vs 755: The only difference is group write permission. 755 = only the owner can modify. 775 = the owner and group members can modify. Use 775 for team collaboration, 755 for single-owner files."
+    },
+    "faqs": [
+      {"q": "When is 775 better than 777?", "a": "Always. 775 gives your team full access while keeping random other users read-only. 777 gives everyone write access, which is almost never what you want."},
+      {"q": "Should I use 775 with SGID?", "a": "Yes, for shared directories. Run chmod g+s directory/ so new files inherit the group. Without SGID, new files get the creator's default group, not the directory's group."},
+      {"q": "Is 775 safe for web directories?", "a": "It can be, if the web server user is in the directory's group. But be careful — it means the web server process can write to the directory, which could be exploited if the server is compromised."}
     ]
   },
   {
-    "octal": "551",
-    "symbolic": "r-xr-x--x",
-    "owner": {
-      "read": true,
-      "write": false,
-      "execute": true
-    },
-    "group": {
-      "read": true,
-      "write": false,
-      "execute": true
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": true
-    },
-    "title": "Owner read and execute, Group read and execute, Others execute",
-    "commonUse": "A specific configuration where Owner can read and execute, group and others have varying access (51).",
+    "octal": "750",
+    "symbolic": "rwxr-x---",
+    "title": "Owner full, group read & execute, others nothing",
     "security": "safe",
-    "relatedCommands": [
-      "chmod 551 filename",
-      "chmod -R 551 directory/",
-      "find . -type f -exec chmod 551 {} +"
-    ]
-  },
-  {
-    "octal": "544",
-    "symbolic": "r-xr--r--",
-    "owner": {
-      "read": true,
-      "write": false,
-      "execute": true
+    "searchVolume": "medium",
+    "content": {
+      "what": "chmod 750 gives the owner full access, group members read and execute, and blocks everyone else. It's the 'team-visible but not public' permission — like 755 but with the door closed to outsiders.",
+      "when": "Use 750 for: application directories where a service group needs access but other users don't, project directories on multi-user systems, log directories readable by a monitoring group, and internal tools not meant for general use.",
+      "danger": "750 is very safe. It's more restrictive than 755 by blocking 'others' entirely. Good for multi-user servers where you want isolation between projects.",
+      "instead": "If others need read access too: use 755. If only the owner should access: use 700. If the group needs to write: use 770.",
+      "commonMistake": "Using 755 when 750 would be more appropriate. On shared hosting or multi-user servers, there's no reason to let unrelated users browse your application directories.",
+      "comparison": "755",
+      "comparisonText": "750 vs 755: 750 blocks 'others' from any access. On a single-user system, there's no practical difference. On a multi-user server, 750 is more secure because it prevents unrelated users from reading your files."
     },
-    "group": {
-      "read": true,
-      "write": false,
-      "execute": false
-    },
-    "others": {
-      "read": true,
-      "write": false,
-      "execute": false
-    },
-    "title": "Owner read and execute, Group read, Others read",
-    "commonUse": "A specific configuration where Owner can read and execute, others can only read.",
-    "security": "moderate",
-    "relatedCommands": [
-      "chmod 544 filename",
-      "chmod -R 544 directory/",
-      "find . -type f -exec chmod 544 {} +"
-    ]
-  },
-  {
-    "octal": "511",
-    "symbolic": "r-x--x--x",
-    "owner": {
-      "read": true,
-      "write": false,
-      "execute": true
-    },
-    "group": {
-      "read": false,
-      "write": false,
-      "execute": true
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": true
-    },
-    "title": "Owner read and execute, Group execute, Others execute",
-    "commonUse": "A specific configuration where Owner can read and execute.",
-    "security": "safe",
-    "relatedCommands": [
-      "chmod 511 filename",
-      "chmod -R 511 directory/",
-      "find . -type f -exec chmod 511 {} +"
-    ]
-  },
-  {
-    "octal": "500",
-    "symbolic": "r-x------",
-    "owner": {
-      "read": true,
-      "write": false,
-      "execute": true
-    },
-    "group": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "title": "Owner read and execute, Group no permissions, Others no permissions",
-    "commonUse": "A specific configuration where Owner can read and execute, no one else has access.",
-    "security": "safe",
-    "relatedCommands": [
-      "chmod 500 filename",
-      "chmod -R 500 directory/",
-      "find . -type f -exec chmod 500 {} +"
-    ]
-  },
-  {
-    "octal": "477",
-    "symbolic": "r--rwxrwx",
-    "owner": {
-      "read": true,
-      "write": false,
-      "execute": false
-    },
-    "group": {
-      "read": true,
-      "write": true,
-      "execute": true
-    },
-    "others": {
-      "read": true,
-      "write": true,
-      "execute": true
-    },
-    "title": "Owner read, Group full access, Others full access",
-    "commonUse": "A specific configuration where Owner can only read.",
-    "security": "dangerous",
-    "relatedCommands": [
-      "chmod 477 filename",
-      "chmod -R 477 directory/",
-      "find . -type f -exec chmod 477 {} +"
+    "faqs": [
+      {"q": "Is 750 better than 755?", "a": "On multi-user systems, yes. 750 prevents other users from accessing your files while still allowing your group. On a single-user system or personal server, 755 and 750 are functionally equivalent."},
+      {"q": "When should web directories use 750?", "a": "When the web server user is in the directory's group. For example, if you add 'www-data' to your project group, you can use 750 to keep other users out while the web server still serves the files."},
+      {"q": "What about 750 for home directories?", "a": "750 is a good choice if you want group members (like a backup service) to read your home directory while blocking everyone else. Otherwise, 700 is more restrictive and generally preferred."}
     ]
   },
   {
     "octal": "444",
     "symbolic": "r--r--r--",
-    "owner": {
-      "read": true,
-      "write": false,
-      "execute": false
+    "title": "Read-only for everyone",
+    "security": "safe",
+    "searchVolume": "medium",
+    "content": {
+      "what": "chmod 444 makes a file read-only for all users — including the owner. Nobody can modify or execute the file. It's a write-protection mechanism.",
+      "when": "Use 444 for: critical config files you don't want accidentally edited, published documents, templates that should never change, legal documents, and any file you want to protect from accidental modification.",
+      "danger": "444 is very safe — it's read-only. The owner can still change the permissions back with chmod (since they own the file), so it's protection against accidents, not malicious changes.",
+      "instead": "If only the owner should read: use 400. If the owner needs to edit: use 644. If execute is needed: use 555.",
+      "commonMistake": "Thinking 444 prevents the owner from changing the file. The owner can always chmod the file back to writable since they own it. For true immutability, use chattr +i on Linux.",
+      "comparison": "644",
+      "comparisonText": "444 vs 644: 644 lets the owner write, 444 doesn't. Use 444 when you want to prevent accidental edits (even by yourself). Use 644 for normal files you actively maintain."
     },
-    "group": {
-      "read": true,
-      "write": false,
-      "execute": false
-    },
-    "others": {
-      "read": true,
-      "write": false,
-      "execute": false
-    },
-    "title": "Owner read, Group read, Others read",
-    "commonUse": "For read-only files that should not be modified by anyone, including the owner.",
-    "security": "moderate",
-    "relatedCommands": [
-      "chmod 444 filename",
-      "chmod -R 444 directory/",
-      "find . -type f -exec chmod 444 {} +"
+    "faqs": [
+      {"q": "Can the owner still delete a 444 file?", "a": "It depends on the directory permissions, not the file permissions. If the owner has write permission on the parent directory, they can delete the file even though it's 444."},
+      {"q": "How do I edit a 444 file?", "a": "Change the permissions first: chmod 644 filename, edit it, then chmod 444 filename to re-protect it. Or use sudo/root to override."},
+      {"q": "Is there a stronger protection than 444?", "a": "Yes. On Linux, chattr +i filename makes a file truly immutable — even root can't modify or delete it without first running chattr -i. This is stronger than any chmod setting."}
     ]
   },
   {
     "octal": "400",
     "symbolic": "r--------",
-    "owner": {
-      "read": true,
-      "write": false,
-      "execute": false
-    },
-    "group": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "title": "Owner read, Group no permissions, Others no permissions",
-    "commonUse": "A specific configuration where Owner can only read, no one else has access.",
+    "title": "Owner read-only, no one else",
     "security": "safe",
-    "relatedCommands": [
-      "chmod 400 filename",
-      "chmod -R 400 directory/",
-      "find . -type f -exec chmod 400 {} +"
+    "searchVolume": "medium",
+    "content": {
+      "what": "chmod 400 gives the owner read-only access and completely locks out everyone else. The owner can't even write to the file without changing permissions first. Maximum lockdown for sensitive read-only files.",
+      "when": "Use 400 for: deployed SSL certificates, SSH authorized_keys files, backup encryption keys, published SSH public keys you don't want to accidentally overwrite, and any credential file that should never be modified in place.",
+      "danger": "400 is extremely safe. It's one of the most restrictive permissions. The trade-off is that you need to chmod it writable to make any changes.",
+      "instead": "If you need to edit the file: use 600. If others should read too: use 444. If it's an executable: use 500.",
+      "commonMistake": "Using 400 on files that are part of an automated process that needs to write to them (like log files or temp files). The process will fail with 'Permission denied' on write operations.",
+      "comparison": "600",
+      "comparisonText": "400 vs 600: 400 is read-only for the owner, 600 adds write permission. Use 400 for files you want to protect from accidental modification. Use 600 for files you actively edit (like SSH private keys you might regenerate)."
+    },
+    "faqs": [
+      {"q": "When is 400 better than 600?", "a": "When you want to prevent accidental writes. A deployed SSL private key should be 400 because there's no reason to modify it in place. If you need to replace it, you'd delete and recreate rather than edit."},
+      {"q": "Should authorized_keys be 400?", "a": "Either 400 or 600 works. 400 prevents you from accidentally adding keys without explicitly changing permissions first. 600 is more convenient if you frequently add/remove keys. SSH accepts both."},
+      {"q": "Can I still delete a 400 file?", "a": "Yes, if you have write permission on the parent directory. File deletion is controlled by directory permissions, not file permissions."}
     ]
   },
   {
-    "octal": "333",
-    "symbolic": "-wx-wx-wx",
-    "owner": {
-      "read": false,
-      "write": true,
-      "execute": true
+    "octal": "666",
+    "symbolic": "rw-rw-rw-",
+    "title": "Read/write for everyone, no execute",
+    "security": "dangerous",
+    "searchVolume": "medium",
+    "content": {
+      "what": "chmod 666 gives every user read and write access to a file but no execute permission. Any user on the system can view and modify the file contents.",
+      "when": "Rarely appropriate. Some legacy applications or specific development workflows use 666 for shared data files that multiple processes from different users need to write to. /dev/null is famously 666.",
+      "danger": "Any user can modify the file. On a web server, this means a compromised script could overwrite the file with malicious content. In multi-user environments, any user could corrupt shared data.",
+      "instead": "Use 664 for group-writable files. Use 644 for owner-writable files. If you need everyone to write, consider using a shared group with 664 + SGID instead.",
+      "commonMistake": "Using 666 for uploaded files on a web server. This allows any process to overwrite uploads. Use 644 for uploaded files, and make sure the upload directory is only writable by the web server user.",
+      "comparison": "644",
+      "comparisonText": "666 vs 644: 666 lets everyone write, 644 lets only the owner write. There's almost no good reason to use 666 instead of 644 in production. If others need to write, create a proper group and use 664."
     },
-    "group": {
-      "read": false,
-      "write": true,
-      "execute": true
-    },
-    "others": {
-      "read": false,
-      "write": true,
-      "execute": true
-    },
-    "title": "Owner write and execute, Group write and execute, Others write and execute",
-    "commonUse": "A specific configuration where Owner has specific access (3).",
-    "security": "moderate",
-    "relatedCommands": [
-      "chmod 333 filename",
-      "chmod -R 333 directory/",
-      "find . -type f -exec chmod 333 {} +"
-    ]
-  },
-  {
-    "octal": "311",
-    "symbolic": "-wx--x--x",
-    "owner": {
-      "read": false,
-      "write": true,
-      "execute": true
-    },
-    "group": {
-      "read": false,
-      "write": false,
-      "execute": true
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": true
-    },
-    "title": "Owner write and execute, Group execute, Others execute",
-    "commonUse": "A specific configuration where Owner has specific access (3).",
-    "security": "safe",
-    "relatedCommands": [
-      "chmod 311 filename",
-      "chmod -R 311 directory/",
-      "find . -type f -exec chmod 311 {} +"
-    ]
-  },
-  {
-    "octal": "300",
-    "symbolic": "-wx------",
-    "owner": {
-      "read": false,
-      "write": true,
-      "execute": true
-    },
-    "group": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "title": "Owner write and execute, Group no permissions, Others no permissions",
-    "commonUse": "A specific configuration where Owner has specific access (3), no one else has access.",
-    "security": "safe",
-    "relatedCommands": [
-      "chmod 300 filename",
-      "chmod -R 300 directory/",
-      "find . -type f -exec chmod 300 {} +"
-    ]
-  },
-  {
-    "octal": "222",
-    "symbolic": "-w--w--w-",
-    "owner": {
-      "read": false,
-      "write": true,
-      "execute": false
-    },
-    "group": {
-      "read": false,
-      "write": true,
-      "execute": false
-    },
-    "others": {
-      "read": false,
-      "write": true,
-      "execute": false
-    },
-    "title": "Owner write, Group write, Others write",
-    "commonUse": "A specific configuration where Owner has specific access (2).",
-    "security": "moderate",
-    "relatedCommands": [
-      "chmod 222 filename",
-      "chmod -R 222 directory/",
-      "find . -type f -exec chmod 222 {} +"
-    ]
-  },
-  {
-    "octal": "200",
-    "symbolic": "-w-------",
-    "owner": {
-      "read": false,
-      "write": true,
-      "execute": false
-    },
-    "group": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "title": "Owner write, Group no permissions, Others no permissions",
-    "commonUse": "A specific configuration where Owner has specific access (2), no one else has access.",
-    "security": "safe",
-    "relatedCommands": [
-      "chmod 200 filename",
-      "chmod -R 200 directory/",
-      "find . -type f -exec chmod 200 {} +"
-    ]
-  },
-  {
-    "octal": "111",
-    "symbolic": "--x--x--x",
-    "owner": {
-      "read": false,
-      "write": false,
-      "execute": true
-    },
-    "group": {
-      "read": false,
-      "write": false,
-      "execute": true
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": true
-    },
-    "title": "Owner execute, Group execute, Others execute",
-    "commonUse": "A specific configuration where Owner has specific access (1).",
-    "security": "safe",
-    "relatedCommands": [
-      "chmod 111 filename",
-      "chmod -R 111 directory/",
-      "find . -type f -exec chmod 111 {} +"
-    ]
-  },
-  {
-    "octal": "100",
-    "symbolic": "--x------",
-    "owner": {
-      "read": false,
-      "write": false,
-      "execute": true
-    },
-    "group": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "title": "Owner execute, Group no permissions, Others no permissions",
-    "commonUse": "A specific configuration where Owner has specific access (1), no one else has access.",
-    "security": "safe",
-    "relatedCommands": [
-      "chmod 100 filename",
-      "chmod -R 100 directory/",
-      "find . -type f -exec chmod 100 {} +"
-    ]
-  },
-  {
-    "octal": "000",
-    "symbolic": "---------",
-    "owner": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "group": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "title": "Owner no permissions, Group no permissions, Others no permissions",
-    "commonUse": "When you want to remove all permissions from a file, effectively locking everyone out.",
-    "security": "safe",
-    "relatedCommands": [
-      "chmod 000 filename",
-      "chmod -R 000 directory/",
-      "find . -type f -exec chmod 000 {} +"
+    "faqs": [
+      {"q": "Is chmod 666 dangerous?", "a": "Yes, for most files. It allows any user to modify the file. Unlike 777, it doesn't grant execute permission, so at least nobody can run it as a script — but the write access is still a security risk."},
+      {"q": "Why is /dev/null set to 666?", "a": "/dev/null is a special device that discards all data written to it. It's 666 because every process needs to be able to write to it (to discard output). Reading it always returns empty. This is one of the few legitimate uses of 666."},
+      {"q": "What's the difference between 666 and 777?", "a": "Execute permission. 777 allows execution (running as a script/program), 666 doesn't. Both are dangerous because they allow universal write access. Neither should be used for regular files."}
     ]
   },
   {
     "octal": "770",
     "symbolic": "rwxrwx---",
-    "owner": {
-      "read": true,
-      "write": true,
-      "execute": true
-    },
-    "group": {
-      "read": true,
-      "write": true,
-      "execute": true
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "title": "Owner full access, Group full access, Others no permissions",
-    "commonUse": "A specific configuration where Owner has full access, group and others have varying access (70).",
+    "title": "Owner & group full access, others nothing",
     "security": "moderate",
-    "relatedCommands": [
-      "chmod 770 filename",
-      "chmod -R 770 directory/",
-      "find . -type f -exec chmod 770 {} +"
+    "searchVolume": "medium",
+    "content": {
+      "what": "chmod 770 gives the owner and group full control while completely blocking everyone else. It's the 'team project' permission — full collaboration within the group, invisible to outsiders.",
+      "when": "Use 770 for: shared project directories, team build directories, deployment staging areas, and any workspace where a defined group needs full access but the rest of the system shouldn't see it.",
+      "danger": "770 is safe when group membership is controlled. Every user in the group gets full access, so make sure group membership is intentional.",
+      "instead": "If others need read access: use 775. If only the owner needs access: use 700. For files (not directories): use 660.",
+      "commonMistake": "Forgetting to add team members to the correct group. Users who aren't in the file's group are treated as 'others' and get zero access under 770.",
+      "comparison": "775",
+      "comparisonText": "770 vs 775: 770 blocks others entirely, 775 gives others read+execute. Use 770 for private team resources, 775 when the content should be publicly readable but only team-editable."
+    },
+    "faqs": [
+      {"q": "How do I add users to a group for 770?", "a": "Use: sudo usermod -aG groupname username. The user needs to log out and back in for the change to take effect. Verify with: groups username."},
+      {"q": "Should I use 770 or 700 for project directories?", "a": "Use 770 if multiple people work on the project. Use 700 if you're the only one. On a personal laptop, 700 is fine. On a shared server, 770 with a proper group is the way to go."},
+      {"q": "Does SGID matter with 770?", "a": "Yes. Set SGID with chmod g+s on 770 directories so new files inherit the group. Without it, files created by different users get different groups, breaking shared access."}
     ]
   },
   {
-    "octal": "660",
-    "symbolic": "rw-rw----",
-    "owner": {
-      "read": true,
-      "write": true,
-      "execute": false
-    },
-    "group": {
-      "read": true,
-      "write": true,
-      "execute": false
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "title": "Owner read and write, Group read and write, Others no permissions",
-    "commonUse": "A specific configuration where Owner can read and write, group and others have varying access (60).",
-    "security": "moderate",
-    "relatedCommands": [
-      "chmod 660 filename",
-      "chmod -R 660 directory/",
-      "find . -type f -exec chmod 660 {} +"
-    ]
-  },
-  {
-    "octal": "550",
-    "symbolic": "r-xr-x---",
-    "owner": {
-      "read": true,
-      "write": false,
-      "execute": true
-    },
-    "group": {
-      "read": true,
-      "write": false,
-      "execute": true
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "title": "Owner read and execute, Group read and execute, Others no permissions",
-    "commonUse": "A specific configuration where Owner can read and execute, group and others have varying access (50).",
+    "octal": "664",
+    "symbolic": "rw-rw-r--",
+    "title": "Owner & group read/write, others read",
     "security": "safe",
-    "relatedCommands": [
-      "chmod 550 filename",
-      "chmod -R 550 directory/",
-      "find . -type f -exec chmod 550 {} +"
+    "searchVolume": "medium",
+    "content": {
+      "what": "chmod 664 gives the owner and group read/write access while others can only read. It's the collaborative version of 644 — designed for files that a team needs to edit together.",
+      "when": "Use 664 for: shared config files, team documentation, collaborative source code files on a shared server, and any non-executable file that multiple team members need to edit.",
+      "danger": "664 is generally safe. The main risk is that any user in the group can modify the file. Ensure group membership is intentional.",
+      "instead": "If only the owner should edit: use 644. If others shouldn't read: use 660. If the file is executable: use 775.",
+      "commonMistake": "Using 664 on a web server where the web server user is in the same group. This could allow a compromised web application to modify config files. Separate the web server into its own group.",
+      "comparison": "644",
+      "comparisonText": "664 vs 644: The only difference is group write permission. 644 = only the owner writes. 664 = the owner and group write. Use 664 for shared team files, 644 for single-owner files."
+    },
+    "faqs": [
+      {"q": "What's the umask for 664?", "a": "A umask of 002 produces 664 for files and 775 for directories. This is common on systems set up for group collaboration. Check with: umask"},
+      {"q": "Is 664 good for git repositories?", "a": "Git manages its own permissions, but setting core.sharedRepository = group in git config will create files as 664 in bare repositories, enabling team push access."},
+      {"q": "Should source code files be 664?", "a": "Only on shared servers where multiple developers edit files directly. In modern workflows with git, each developer works on their own copy (644) and shares via commits, not file permissions."}
     ]
   },
   {
-    "octal": "440",
-    "symbolic": "r--r-----",
-    "owner": {
-      "read": true,
-      "write": false,
-      "execute": false
-    },
-    "group": {
-      "read": true,
-      "write": false,
-      "execute": false
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "title": "Owner read, Group read, Others no permissions",
-    "commonUse": "A specific configuration where Owner can only read, group and others have varying access (40).",
+    "octal": "640",
+    "symbolic": "rw-r-----",
+    "title": "Owner read/write, group read, others nothing",
     "security": "safe",
-    "relatedCommands": [
-      "chmod 440 filename",
-      "chmod -R 440 directory/",
-      "find . -type f -exec chmod 440 {} +"
+    "searchVolume": "medium",
+    "content": {
+      "what": "chmod 640 gives the owner read/write access, group members read-only access, and blocks everyone else. It's the 'need-to-know' permission — only the owner can modify, the group can view, outsiders see nothing.",
+      "when": "Use 640 for: config files that a service group needs to read (like web server configs), log files readable by a monitoring group, application config files where the app runs as owner but monitoring tools are in the group.",
+      "danger": "640 is very safe and follows the principle of least privilege well. Group gets minimum needed access (read), others get nothing.",
+      "instead": "If nobody else should read: use 600. If others need to read too: use 644. If the group needs write: use 660.",
+      "commonMistake": "Not using 640 enough. Many admins default to 644 when 640 would be more appropriate — keeping files private from unrelated system users while allowing the intended service group to read them.",
+      "comparison": "644",
+      "comparisonText": "640 vs 644: 640 blocks 'others' from reading, 644 allows it. Use 640 for semi-private files (config files, logs), use 644 for public-facing files (web pages, images)."
+    },
+    "faqs": [
+      {"q": "Should Apache/Nginx configs be 640?", "a": "Yes, 640 is ideal. The web server (running in its group) can read the config, but other system users can't see your server configuration, virtual hosts, or SSL paths."},
+      {"q": "What about log files?", "a": "640 with a monitoring group is excellent for log files. The application writes (as owner), monitoring tools read (as group), and random users can't snoop on logs that might contain sensitive data."},
+      {"q": "Is 640 the same as 'read-only for group'?", "a": "Yes. The group can only read. The owner can read and write. Everyone else is completely blocked. It's one of the most practical permissions for server administration."}
     ]
   },
   {
-    "octal": "330",
-    "symbolic": "-wx-wx---",
-    "owner": {
-      "read": false,
-      "write": true,
-      "execute": true
-    },
-    "group": {
-      "read": false,
-      "write": true,
-      "execute": true
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "title": "Owner write and execute, Group write and execute, Others no permissions",
-    "commonUse": "A specific configuration where Owner has specific access (3), group and others have varying access (30).",
+    "octal": "555",
+    "symbolic": "r-xr-xr-x",
+    "title": "Read & execute for everyone, no writing",
     "security": "safe",
-    "relatedCommands": [
-      "chmod 330 filename",
-      "chmod -R 330 directory/",
-      "find . -type f -exec chmod 330 {} +"
+    "searchVolume": "low",
+    "content": {
+      "what": "chmod 555 makes a file or directory readable and executable by everyone but writable by nobody — not even the owner. It's a full write-protection with public access.",
+      "when": "Use 555 for: shared executable utilities that should never be modified, system directories that all users need to traverse, and read-only shared resources in kiosk or restricted environments.",
+      "danger": "555 is very safe from a write perspective. Like 444, the owner can still chmod it back to writable since they own the file.",
+      "instead": "If the owner needs to write: use 755. If others shouldn't access: use 500. If it's not executable: use 444.",
+      "commonMistake": "Using 555 when you mean 755. There's usually no reason to prevent the owner from writing to their own files. 755 is the standard 'public executable' permission.",
+      "comparison": "755",
+      "comparisonText": "555 vs 755: 555 removes owner write permission. Use 755 in almost all cases. 555 is only for situations where you want to protect against the owner accidentally modifying a file."
+    },
+    "faqs": [
+      {"q": "Why would I want 555 instead of 755?", "a": "To prevent accidental modification. In automated environments, you might set deployed binaries to 555 so a misconfigured script can't overwrite them. The owner can still chmod to fix it if needed."},
+      {"q": "Is 555 common?", "a": "Not very. Most admins use 755. You'll see 555 on some hardened systems or in security-conscious deployments where write protection is a priority."},
+      {"q": "Can I still update a 555 file?", "a": "You need to change permissions first (chmod 755 file), make your changes, then set it back (chmod 555 file). Or use sudo."}
     ]
   },
   {
-    "octal": "220",
-    "symbolic": "-w--w----",
-    "owner": {
-      "read": false,
-      "write": true,
-      "execute": false
-    },
-    "group": {
-      "read": false,
-      "write": true,
-      "execute": false
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "title": "Owner write, Group write, Others no permissions",
-    "commonUse": "A specific configuration where Owner has specific access (2), group and others have varying access (20).",
+    "octal": "500",
+    "symbolic": "r-x------",
+    "title": "Owner read & execute only, no one else",
     "security": "safe",
-    "relatedCommands": [
-      "chmod 220 filename",
-      "chmod -R 220 directory/",
-      "find . -type f -exec chmod 220 {} +"
-    ]
-  },
-  {
-    "octal": "110",
-    "symbolic": "--x--x---",
-    "owner": {
-      "read": false,
-      "write": false,
-      "execute": true
+    "searchVolume": "low",
+    "content": {
+      "what": "chmod 500 gives the owner read and execute access with no write permission, and blocks everyone else completely. It's for executables and directories the owner needs to use but not modify.",
+      "when": "Use 500 for: deployed scripts you don't want accidentally edited, sensitive executable utilities, and directories containing critical system files in hardened environments.",
+      "danger": "500 is very secure. The lack of write permission protects against accidental modification.",
+      "instead": "If you need to edit the file: use 700. If others need to execute: use 555 or 755. If it's not executable: use 400.",
+      "commonMistake": "Using 500 for active development scripts. You'll constantly need to chmod back to 700 to edit. Only use 500 for 'frozen' executables you don't plan to change.",
+      "comparison": "700",
+      "comparisonText": "500 vs 700: 500 removes owner write permission. Use 700 for scripts you actively maintain, 500 for deployed executables you want write-protected."
     },
-    "group": {
-      "read": false,
-      "write": false,
-      "execute": true
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "title": "Owner execute, Group execute, Others no permissions",
-    "commonUse": "A specific configuration where Owner has specific access (1), group and others have varying access (10).",
-    "security": "safe",
-    "relatedCommands": [
-      "chmod 110 filename",
-      "chmod -R 110 directory/",
-      "find . -type f -exec chmod 110 {} +"
-    ]
-  },
-  {
-    "octal": "754",
-    "symbolic": "rwxr-xr--",
-    "owner": {
-      "read": true,
-      "write": true,
-      "execute": true
-    },
-    "group": {
-      "read": true,
-      "write": false,
-      "execute": true
-    },
-    "others": {
-      "read": true,
-      "write": false,
-      "execute": false
-    },
-    "title": "Owner full access, Group read and execute, Others read",
-    "commonUse": "A specific configuration where Owner has full access, group and others have varying access (54).",
-    "security": "moderate",
-    "relatedCommands": [
-      "chmod 754 filename",
-      "chmod -R 754 directory/",
-      "find . -type f -exec chmod 754 {} +"
-    ]
-  },
-  {
-    "octal": "740",
-    "symbolic": "rwxr-----",
-    "owner": {
-      "read": true,
-      "write": true,
-      "execute": true
-    },
-    "group": {
-      "read": true,
-      "write": false,
-      "execute": false
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "title": "Owner full access, Group read, Others no permissions",
-    "commonUse": "A specific configuration where Owner has full access, group and others have varying access (40).",
-    "security": "safe",
-    "relatedCommands": [
-      "chmod 740 filename",
-      "chmod -R 740 directory/",
-      "find . -type f -exec chmod 740 {} +"
-    ]
-  },
-  {
-    "octal": "731",
-    "symbolic": "rwx-wx--x",
-    "owner": {
-      "read": true,
-      "write": true,
-      "execute": true
-    },
-    "group": {
-      "read": false,
-      "write": true,
-      "execute": true
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": true
-    },
-    "title": "Owner full access, Group write and execute, Others execute",
-    "commonUse": "A specific configuration where Owner has full access, group and others have varying access (31).",
-    "security": "safe",
-    "relatedCommands": [
-      "chmod 731 filename",
-      "chmod -R 731 directory/",
-      "find . -type f -exec chmod 731 {} +"
-    ]
-  },
-  {
-    "octal": "721",
-    "symbolic": "rwx-w---x",
-    "owner": {
-      "read": true,
-      "write": true,
-      "execute": true
-    },
-    "group": {
-      "read": false,
-      "write": true,
-      "execute": false
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": true
-    },
-    "title": "Owner full access, Group write, Others execute",
-    "commonUse": "A specific configuration where Owner has full access, group and others have varying access (21).",
-    "security": "safe",
-    "relatedCommands": [
-      "chmod 721 filename",
-      "chmod -R 721 directory/",
-      "find . -type f -exec chmod 721 {} +"
-    ]
-  },
-  {
-    "octal": "710",
-    "symbolic": "rwx--x---",
-    "owner": {
-      "read": true,
-      "write": true,
-      "execute": true
-    },
-    "group": {
-      "read": false,
-      "write": false,
-      "execute": true
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "title": "Owner full access, Group execute, Others no permissions",
-    "commonUse": "A specific configuration where Owner has full access, group and others have varying access (10).",
-    "security": "safe",
-    "relatedCommands": [
-      "chmod 710 filename",
-      "chmod -R 710 directory/",
-      "find . -type f -exec chmod 710 {} +"
-    ]
-  },
-  {
-    "octal": "653",
-    "symbolic": "rw-r-x-wx",
-    "owner": {
-      "read": true,
-      "write": true,
-      "execute": false
-    },
-    "group": {
-      "read": true,
-      "write": false,
-      "execute": true
-    },
-    "others": {
-      "read": false,
-      "write": true,
-      "execute": true
-    },
-    "title": "Owner read and write, Group read and execute, Others write and execute",
-    "commonUse": "A specific configuration where Owner can read and write, group and others have varying access (53).",
-    "security": "moderate",
-    "relatedCommands": [
-      "chmod 653 filename",
-      "chmod -R 653 directory/",
-      "find . -type f -exec chmod 653 {} +"
-    ]
-  },
-  {
-    "octal": "651",
-    "symbolic": "rw-r-x--x",
-    "owner": {
-      "read": true,
-      "write": true,
-      "execute": false
-    },
-    "group": {
-      "read": true,
-      "write": false,
-      "execute": true
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": true
-    },
-    "title": "Owner read and write, Group read and execute, Others execute",
-    "commonUse": "A specific configuration where Owner can read and write, group and others have varying access (51).",
-    "security": "safe",
-    "relatedCommands": [
-      "chmod 651 filename",
-      "chmod -R 651 directory/",
-      "find . -type f -exec chmod 651 {} +"
-    ]
-  },
-  {
-    "octal": "642",
-    "symbolic": "rw-r---w-",
-    "owner": {
-      "read": true,
-      "write": true,
-      "execute": false
-    },
-    "group": {
-      "read": true,
-      "write": false,
-      "execute": false
-    },
-    "others": {
-      "read": false,
-      "write": true,
-      "execute": false
-    },
-    "title": "Owner read and write, Group read, Others write",
-    "commonUse": "A specific configuration where Owner can read and write, group and others have varying access (42).",
-    "security": "moderate",
-    "relatedCommands": [
-      "chmod 642 filename",
-      "chmod -R 642 directory/",
-      "find . -type f -exec chmod 642 {} +"
-    ]
-  },
-  {
-    "octal": "631",
-    "symbolic": "rw--wx--x",
-    "owner": {
-      "read": true,
-      "write": true,
-      "execute": false
-    },
-    "group": {
-      "read": false,
-      "write": true,
-      "execute": true
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": true
-    },
-    "title": "Owner read and write, Group write and execute, Others execute",
-    "commonUse": "A specific configuration where Owner can read and write, group and others have varying access (31).",
-    "security": "safe",
-    "relatedCommands": [
-      "chmod 631 filename",
-      "chmod -R 631 directory/",
-      "find . -type f -exec chmod 631 {} +"
-    ]
-  },
-  {
-    "octal": "621",
-    "symbolic": "rw--w---x",
-    "owner": {
-      "read": true,
-      "write": true,
-      "execute": false
-    },
-    "group": {
-      "read": false,
-      "write": true,
-      "execute": false
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": true
-    },
-    "title": "Owner read and write, Group write, Others execute",
-    "commonUse": "A specific configuration where Owner can read and write, group and others have varying access (21).",
-    "security": "safe",
-    "relatedCommands": [
-      "chmod 621 filename",
-      "chmod -R 621 directory/",
-      "find . -type f -exec chmod 621 {} +"
-    ]
-  },
-  {
-    "octal": "610",
-    "symbolic": "rw---x---",
-    "owner": {
-      "read": true,
-      "write": true,
-      "execute": false
-    },
-    "group": {
-      "read": false,
-      "write": false,
-      "execute": true
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": false
-    },
-    "title": "Owner read and write, Group execute, Others no permissions",
-    "commonUse": "A specific configuration where Owner can read and write, group and others have varying access (10).",
-    "security": "safe",
-    "relatedCommands": [
-      "chmod 610 filename",
-      "chmod -R 610 directory/",
-      "find . -type f -exec chmod 610 {} +"
-    ]
-  },
-  {
-    "octal": "543",
-    "symbolic": "r-xr---wx",
-    "owner": {
-      "read": true,
-      "write": false,
-      "execute": true
-    },
-    "group": {
-      "read": true,
-      "write": false,
-      "execute": false
-    },
-    "others": {
-      "read": false,
-      "write": true,
-      "execute": true
-    },
-    "title": "Owner read and execute, Group read, Others write and execute",
-    "commonUse": "A specific configuration where Owner can read and execute, group and others have varying access (43).",
-    "security": "moderate",
-    "relatedCommands": [
-      "chmod 543 filename",
-      "chmod -R 543 directory/",
-      "find . -type f -exec chmod 543 {} +"
-    ]
-  },
-  {
-    "octal": "531",
-    "symbolic": "r-x-wx--x",
-    "owner": {
-      "read": true,
-      "write": false,
-      "execute": true
-    },
-    "group": {
-      "read": false,
-      "write": true,
-      "execute": true
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": true
-    },
-    "title": "Owner read and execute, Group write and execute, Others execute",
-    "commonUse": "A specific configuration where Owner can read and execute, group and others have varying access (31).",
-    "security": "safe",
-    "relatedCommands": [
-      "chmod 531 filename",
-      "chmod -R 531 directory/",
-      "find . -type f -exec chmod 531 {} +"
-    ]
-  },
-  {
-    "octal": "521",
-    "symbolic": "r-x-w---x",
-    "owner": {
-      "read": true,
-      "write": false,
-      "execute": true
-    },
-    "group": {
-      "read": false,
-      "write": true,
-      "execute": false
-    },
-    "others": {
-      "read": false,
-      "write": false,
-      "execute": true
-    },
-    "title": "Owner read and execute, Group write, Others execute",
-    "commonUse": "A specific configuration where Owner can read and execute, group and others have varying access (21).",
-    "security": "safe",
-    "relatedCommands": [
-      "chmod 521 filename",
-      "chmod -R 521 directory/",
-      "find . -type f -exec chmod 521 {} +"
+    "faqs": [
+      {"q": "When is 500 useful?", "a": "For deployed/production scripts that shouldn't be modified in place. The write protection prevents accidental edits or corruption by misconfigured automation."},
+      {"q": "Can I still run a 500 script?", "a": "Yes, the owner can read and execute it. You just can't modify it without changing permissions first."},
+      {"q": "Should cron scripts be 500?", "a": "It's good practice for production cron scripts. Set them to 500 so they can run but can't be accidentally modified. You'd chmod 700 only when you intentionally need to edit them."}
     ]
   }
 ]
