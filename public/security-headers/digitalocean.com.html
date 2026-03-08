@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security Headers Report: digitalocean.com — Grade D | siliconbased.dev</title>
+<meta name="description" content="digitalocean.com scores 2/10 security headers (Grade D). Full breakdown of which HTTP security headers are present and missing, with fix recommendations.">
+<meta property="og:title" content="digitalocean.com Security Headers: Grade D">
+<meta property="og:description" content="digitalocean.com has 2 of 10 recommended security headers. See what's missing and how to fix it.">
+<link rel="canonical" href="https://siliconbased.dev/security-headers/digitalocean.com">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Security Headers Report: digitalocean.com","description":"digitalocean.com security header analysis — 2/10 headers present","author":{"@type":"Organization","name":"siliconbased.dev"},"publisher":{"@type":"Organization","name":"GAB Ventures","url":"https://gab.ae"},"datePublished":"2026-03-08"}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#0a0b10;color:#e0e0e0;line-height:1.7}
+code{font-family:'JetBrains Mono',monospace;font-size:0.82rem;background:#0a0b10;padding:2px 6px;border-radius:4px;color:#818cf8;word-break:break-all}
+
+.hero{text-align:center;padding:56px 24px 40px;background:linear-gradient(180deg,#0f1729 0%,#0a0b10 100%)}
+.hero-tag{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#818cf8;margin-bottom:12px}
+.hero h1{font-size:2rem;font-weight:900;color:#fff;margin-bottom:8px;letter-spacing:-0.5px}
+.hero .domain-text{font-family:'JetBrains Mono',monospace;font-size:1.1rem;color:#888}
+.grade-big{display:inline-flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:16px;font-size:2.2rem;font-weight:900;background:#2e1a0a;color:#fb923c;margin:20px 0 8px}
+.grade-label{font-size:0.85rem;color:#888}
+
+.stats{display:flex;gap:16px;justify-content:center;padding:24px;flex-wrap:wrap}
+.stat{background:#111318;border:1px solid #1e2030;border-radius:12px;padding:18px 24px;text-align:center;min-width:120px}
+.stat .n{font-size:1.8rem;font-weight:900}.stat .l{font-size:0.7rem;color:#666;text-transform:uppercase;letter-spacing:0.5px;margin-top:2px}
+.n-green{color:#34d399}.n-red{color:#f87171}.n-blue{color:#818cf8}.n-yellow{color:#fbbf24}
+
+.main{max-width:800px;margin:0 auto;padding:24px 20px 60px}
+.card{background:#111318;border:1px solid #1e2030;border-radius:14px;padding:24px;margin-bottom:20px}
+.card h2{font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:16px}
+.card p{font-size:0.88rem;color:#999;line-height:1.7;margin-bottom:8px}
+
+.header-card{border:1px solid #1e2030;border-radius:10px;padding:16px;margin-bottom:10px;transition:border-color 0.2s}
+.header-card.present{border-left:3px solid #34d399}.header-card.missing{border-left:3px solid #f87171;background:#0d0a10}
+.header-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.header-status-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.85rem;flex-shrink:0}
+.header-status-icon.present{background:#0a2e1a;color:#34d399}.header-status-icon.missing{background:#2e0a0a;color:#f87171}
+.header-info{flex:1}.header-name{font-weight:700;color:#ccc;font-size:0.9rem}.header-adoption{font-size:0.7rem;color:#555}
+.header-badge{font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:12px;text-transform:uppercase;letter-spacing:0.5px}
+.header-badge.present{background:#0a2e1a;color:#34d399}.header-badge.missing{background:#2e0a0a;color:#f87171}
+.header-desc{font-size:0.82rem;color:#777;line-height:1.6;margin-bottom:8px}
+.header-value{margin-top:6px}.header-value code{font-size:0.75rem;color:#34d399;background:#0a1a10;padding:4px 8px;display:inline-block;max-width:100%}
+.header-fix{margin-top:6px;font-size:0.78rem;color:#888}.header-fix code{color:#fbbf24;background:#1a1500}
+
+.score-bar{height:10px;background:#1a1b25;border-radius:5px;overflow:hidden;margin:12px 0}
+.score-fill{height:100%;border-radius:5px;background:#fb923c}
+
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-top:12px}
+.related-card{background:#0a0b10;border:1px solid #1e2030;border-radius:8px;padding:10px;text-align:center;text-decoration:none;color:#ccc;font-size:0.82rem;transition:border-color 0.2s}
+.related-card:hover{border-color:#818cf8}
+
+.back-link{display:inline-block;margin-top:20px;color:#818cf8;text-decoration:none;font-weight:600;font-size:0.88rem}
+.back-link:hover{text-decoration:underline}
+.footer{text-align:center;padding:40px 24px;font-size:0.78rem;color:#555;border-top:1px solid #151520;margin-top:40px}
+.footer a{color:#818cf8;text-decoration:none}
+
+@media(max-width:600px){
+  .hero h1{font-size:1.4rem}.stats{gap:8px}.stat{padding:12px 16px;min-width:80px}.stat .n{font-size:1.3rem}
+  .main{padding:16px 14px 40px}.header-top{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-tag">Security Headers Report</div>
+  <h1>digitalocean.com</h1>
+  <div class="domain-text">https://digitalocean.com</div>
+  <div class="grade-big">D</div>
+  <div class="grade-label">2 of 10 security headers present</div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="n" style="color:#fb923c">2/10</div><div class="l">Headers Found</div></div>
+  <div class="stat"><div class="n n-green">2</div><div class="l">Present</div></div>
+  <div class="stat"><div class="n n-red">8</div><div class="l">Missing</div></div>
+  <div class="stat"><div class="n n-blue">#65</div><div class="l">of 85 Sites</div></div>
+</div>
+
+<div class="main">
+
+  <div class="card">
+    <h2>Score</h2>
+    <div class="score-bar"><div class="score-fill" style="width:20%"></div></div>
+    <p>digitalocean.com implements <strong>2 out of 10</strong> recommended security headers, earning a <strong style="color:#fb923c">Grade D</strong>. There is significant room for improvement. Several critical headers are missing.</p>
+    <p style="font-size:0.8rem;color:#555">The average score across 85 top websites is 4.0/10.</p>
+  </div>
+
+  <div class="card">
+    <h2>Header Analysis</h2>
+    
+    <div class="header-card missing">
+      <div class="header-top">
+        <div class="header-status-icon missing">✗</div>
+        <div class="header-info">
+          <div class="header-name">Strict-Transport-Security</div>
+          <div class="header-adoption">82% of top sites use this</div>
+        </div>
+        <div class="header-badge missing">Missing</div>
+      </div>
+      <div class="header-desc">Forces browsers to only connect via HTTPS. Prevents SSL stripping and downgrade attacks. One of the most fundamental security headers.</div>
+      <div class="header-fix"><strong>Recommended:</strong> <code>strict-transport-security: max-age=31536000; includeSubDomains; preload</code></div>
+    </div>
+    <div class="header-card missing">
+      <div class="header-top">
+        <div class="header-status-icon missing">✗</div>
+        <div class="header-info">
+          <div class="header-name">Content-Security-Policy</div>
+          <div class="header-adoption">52% of top sites use this</div>
+        </div>
+        <div class="header-badge missing">Missing</div>
+      </div>
+      <div class="header-desc">Defines which sources of content are allowed to load. The most powerful defense against XSS (cross-site scripting) attacks. Can prevent inline script execution, restrict image/font/style sources, and block mixed content.</div>
+      <div class="header-fix"><strong>Recommended:</strong> <code>content-security-policy: default-src 'self'; script-src 'self' 'unsafe-inline'</code></div>
+    </div>
+    <div class="header-card present">
+      <div class="header-top">
+        <div class="header-status-icon present">✓</div>
+        <div class="header-info">
+          <div class="header-name">X-Frame-Options</div>
+          <div class="header-adoption">69% of top sites use this</div>
+        </div>
+        <div class="header-badge present">Present</div>
+      </div>
+      <div class="header-desc">Prevents your pages from being embedded in iframes on other sites. Defends against clickjacking attacks where an attacker overlays invisible frames to trick users into clicking.</div>
+      <div class="header-value"><code>DENY</code></div>
+    </div>
+    <div class="header-card missing">
+      <div class="header-top">
+        <div class="header-status-icon missing">✗</div>
+        <div class="header-info">
+          <div class="header-name">X-Content-Type-Options</div>
+          <div class="header-adoption">66% of top sites use this</div>
+        </div>
+        <div class="header-badge missing">Missing</div>
+      </div>
+      <div class="header-desc">Prevents browsers from MIME-sniffing the content type. Without this, a browser might interpret a text file as JavaScript, enabling attacks.</div>
+      <div class="header-fix"><strong>Recommended:</strong> <code>x-content-type-options: nosniff</code></div>
+    </div>
+    <div class="header-card present">
+      <div class="header-top">
+        <div class="header-status-icon present">✓</div>
+        <div class="header-info">
+          <div class="header-name">X-XSS-Protection</div>
+          <div class="header-adoption">52% of top sites use this</div>
+        </div>
+        <div class="header-badge present">Present</div>
+      </div>
+      <div class="header-desc">Legacy header that activated the browser's built-in XSS filter. Deprecated in modern browsers (Chrome removed it in 2019) but still commonly deployed. CSP is the modern replacement.</div>
+      <div class="header-value"><code>1; mode=block</code></div>
+    </div>
+    <div class="header-card missing">
+      <div class="header-top">
+        <div class="header-status-icon missing">✗</div>
+        <div class="header-info">
+          <div class="header-name">Referrer-Policy</div>
+          <div class="header-adoption">31% of top sites use this</div>
+        </div>
+        <div class="header-badge missing">Missing</div>
+      </div>
+      <div class="header-desc">Controls how much URL information is sent in the Referer header when navigating away. Prevents leaking sensitive URL parameters (tokens, user IDs) to third-party sites.</div>
+      <div class="header-fix"><strong>Recommended:</strong> <code>referrer-policy: strict-origin-when-cross-origin</code></div>
+    </div>
+    <div class="header-card missing">
+      <div class="header-top">
+        <div class="header-status-icon missing">✗</div>
+        <div class="header-info">
+          <div class="header-name">Permissions-Policy</div>
+          <div class="header-adoption">19% of top sites use this</div>
+        </div>
+        <div class="header-badge missing">Missing</div>
+      </div>
+      <div class="header-desc">Controls which browser features (camera, microphone, geolocation, payment) can be used. Limits what third-party scripts embedded on your site can access.</div>
+      <div class="header-fix"><strong>Recommended:</strong> <code>permissions-policy: camera=(), microphone=(), geolocation=()</code></div>
+    </div>
+    <div class="header-card missing">
+      <div class="header-top">
+        <div class="header-status-icon missing">✗</div>
+        <div class="header-info">
+          <div class="header-name">Cross-Origin-Opener-Policy</div>
+          <div class="header-adoption">14% of top sites use this</div>
+        </div>
+        <div class="header-badge missing">Missing</div>
+      </div>
+      <div class="header-desc">Isolates your browsing context from cross-origin windows. Prevents other sites from getting a reference to your window object. Required for cross-origin isolation.</div>
+      <div class="header-fix"><strong>Recommended:</strong> <code>cross-origin-opener-policy: same-origin</code></div>
+    </div>
+    <div class="header-card missing">
+      <div class="header-top">
+        <div class="header-status-icon missing">✗</div>
+        <div class="header-info">
+          <div class="header-name">Cross-Origin-Resource-Policy</div>
+          <div class="header-adoption">7% of top sites use this</div>
+        </div>
+        <div class="header-badge missing">Missing</div>
+      </div>
+      <div class="header-desc">Controls which origins can load your resources. Prevents your assets from being used by unauthorized sites.</div>
+      <div class="header-fix"><strong>Recommended:</strong> <code>cross-origin-resource-policy: same-origin</code></div>
+    </div>
+    <div class="header-card missing">
+      <div class="header-top">
+        <div class="header-status-icon missing">✗</div>
+        <div class="header-info">
+          <div class="header-name">Cross-Origin-Embedder-Policy</div>
+          <div class="header-adoption">2% of top sites use this</div>
+        </div>
+        <div class="header-badge missing">Missing</div>
+      </div>
+      <div class="header-desc">Ensures all resources loaded by the page explicitly grant permission via CORS or CORP. Required for SharedArrayBuffer and high-resolution timers.</div>
+      <div class="header-fix"><strong>Recommended:</strong> <code>cross-origin-embedder-policy: require-corp</code></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Sites with Same Grade</h2>
+    <p>Other top sites also scoring Grade D:</p>
+    <div class="related-grid">
+      <a class="related-card" href="/security-headers/booking.com">booking.com</a><a class="related-card" href="/security-headers/costco.com">costco.com</a><a class="related-card" href="/security-headers/disneyplus.com">disneyplus.com</a><a class="related-card" href="/security-headers/google.com">google.com</a><a class="related-card" href="/security-headers/grubhub.com">grubhub.com</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Better-Scoring Alternatives</h2>
+    <p>These sites in our study have more security headers:</p>
+    <div class="related-grid">
+      <a class="related-card" href="/security-headers/cloud.google.com">cloud.google.com (8/10)</a><a class="related-card" href="/security-headers/dribbble.com">dribbble.com (8/10)</a><a class="related-card" href="/security-headers/facebook.com">facebook.com (8/10)</a>
+    </div>
+  </div>
+
+  <a class="back-link" href="/security-headers-study">← Full Study: State of Security Headers 2025</a>
+</div>
+
+<div class="footer">
+  Data from <a href="/security-headers-study">State of Security Headers 2025</a> · © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+</body>
+</html>
