@@ -2,19 +2,14 @@
 > siliconbased-dev@0.0.1 dev
 > astro dev
 
-▶ Astro collects anonymous usage data.
-  This information helps us improve Astro.
-  Run "astro telemetry disable" to opt-out.
-  https://astro.build/telemetry
+04:18:54 [types] Generated 1ms
+04:18:55 [content] Syncing content
+04:18:55 [content] Synced content
+04:18:55 [vite] Re-optimizing dependencies because vite config has changed
 
-04:05:01 [types] Generated 1ms
-04:05:02 [content] Syncing content
-04:05:02 [content] Synced content
-
- astro  v5.18.0 ready in 865 ms
+ astro  v5.18.0 ready in 869 ms
 
 ┃ Local    http://localhost:4321/
 ┃ Network  use --host to expose
 
-04:05:02 watching for file changes...
-04:05:52 [watch] public/schema-generator.html
+04:18:55 watching for file changes...
