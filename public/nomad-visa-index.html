@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Nomad Visa Index 2025 — Every Remote Work Visa Compared</title>
+  <meta name="description" content="A comprehensive index and comparison of digital nomad visas worldwide in 2025. Sort by cost, income requirements, duration, and tax status.">
+  <link rel="canonical" href="https://migratingmammals.com/nomad-visa-index">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0b10;
+      --card-bg: #111318;
+      --border: #1e2030;
+      --accent: #C4956A;
+      --text-main: #e0e0e0;
+      --text-muted: #888888;
+      --success: #10b981;
+      --warning: #f59e0b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 0 1rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 0;
+    }
+
+    .tag {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+      background: rgba(196, 149, 106, 0.1);
+      border: 1px solid var(--accent);
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 2rem;
+      letter-spacing: -0.02em;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      border-radius: 8px;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent);
+    }
+
+    .key-findings {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      padding: 2rem;
+      border-radius: 8px;
+      margin-bottom: 3rem;
+    }
+
+    .key-findings h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .key-findings ul {
+      list-style-position: inside;
+      color: var(--text-muted);
+    }
+
+    .key-findings li {
+      margin-bottom: 0.5rem;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .filter-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    select {
+      background: var(--bg);
+      color: var(--text-main);
+      border: 1px solid var(--border);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      min-width: 150px;
+    }
+
+    select:focus {
+      border-color: var(--accent);
+    }
+
+    .table-container {
+      overflow-x: auto;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 3rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th {
+      background: rgba(0,0,0,0.2);
+      padding: 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th:hover {
+      color: var(--text-main);
+      background: rgba(0,0,0,0.4);
+    }
+
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover {
+      background: rgba(255,255,255,0.02);
+    }
+
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-tax-free { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+    .badge-taxed { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+    .badge-unknown { background: rgba(136, 136, 136, 0.1); color: var(--text-muted); }
+
+    .methodology {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .methodology a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .methodology a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: 4rem;
+      text-align: center;
+      padding: 2rem 0;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--border);
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Digital Nomad Visa Index 2025",
+      "author": {
+        "@type": "Organization",
+        "name": "migratingmammals"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "migratingmammals",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://migratingmammals.com/logo.png"
+        }
+      },
+      "datePublished": "2025-01-01T00:00:00Z"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Digital Nomad Visa Index",
+      "applicationCategory": "Reference",
+      "operatingSystem": "All"
+    }
+  ]
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="tag">ORIGINAL RESEARCH</div>
+    <h1>Digital Nomad Visa Index 2025<br><span style="color: var(--text-muted); font-size: 0.6em;">Every Remote Work Visa Compared</span></h1>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total Countries</div>
+        <div class="stat-value" id="stat-total">-</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Cheapest Visa</div>
+        <div class="stat-value" id="stat-cheapest">-</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Avg Income Req</div>
+        <div class="stat-value" id="stat-income">-</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Tax-Free Programs</div>
+        <div class="stat-value" id="stat-taxfree">-</div>
+      </div>
+    </div>
+
+    <div class="key-findings">
+      <h2>Key Findings</h2>
+      <ul id="findings-list">
+        <li>Loading data...</li>
+      </ul>
+    </div>
+
+    <div class="filters">
+      <div class="filter-group">
+        <label for="filter-continent">Continent</label>
+        <select id="filter-continent">
+          <option value="all">All Continents</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-income">Max Monthly Income</label>
+        <select id="filter-income">
+          <option value="all">Any Income</option>
+          <option value="1500">< $1,500 / mo</option>
+          <option value="3000">< $3,000 / mo</option>
+          <option value="5000">< $5,000 / mo</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-tax">Tax Status</label>
+        <select id="filter-tax">
+          <option value="all">Any Status</option>
+          <option value="tax-free">Tax-Free</option>
+          <option value="taxed">Taxed</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th data-sort="country">Country ↕</th>
+            <th data-sort="costUSD">Cost (USD) ↕</th>
+            <th data-sort="durationMonths">Duration ↕</th>
+            <th data-sort="minIncomeUSD">Min. Income ↕</th>
+            <th data-sort="taxStatus">Tax Status ↕</th>
+            <th>Continent</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <!-- Rows injected via JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <div class="methodology">
+      <h3>Methodology & Citation</h3>
+      <p id="methodology-text">Data is gathered and cross-referenced from multiple government and aggregate sources. Information is subject to change.</p>
+      <p style="margin-top: 1rem;"><strong>Citation:</strong> Please link to <code>https://migratingmammals.com/nomad-visa-index</code> if referencing this data.</p>
+    </div>
+
+    <footer>
+      © 2025 migratingmammals.com · A GAB Ventures property (<a href="https://gab.ae" target="_blank" rel="noopener">gab.ae</a>)
+    </footer>
+  </div>
+
+  <script>
+    const INDEX_DATA = {"crawlDate":"2026-03-08T12:18:22.152Z","methodology":"Scraped 2 source pages, cross-referenced data for 60 countries","totalCountries":60,"sources":["nomadgirl.co","visaguide.world"],"countries":[{"country":"Abu Dhabi","visaName":"Digital Nomad Visa","continent":"Europe","costUSD":null,"durationMonths":12,"renewableMonths":null,"minIncomeUSD":3500,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Albania","visaName":"Digital Nomad Visa","continent":"Europe","costUSD":null,"durationMonths":12,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Andorra","visaName":"Digital Nomad Visa","continent":"Europe","costUSD":null,"durationMonths":null,"renewableMonths":null,"minIncomeUSD":4128,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Anguilla","visaName":"Digital Nomad Visa","continent":"Caribbean","costUSD":null,"durationMonths":12,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Antigua & Barbuda","visaName":"Digital Nomad Visa","continent":"Caribbean","costUSD":null,"durationMonths":24,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Antigua and Barbuda","visaName":"Digital Nomad Visa","continent":"Caribbean","costUSD":null,"durationMonths":null,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Remote worker with sufficient income.","officialUrl":null},{"country":"Argentina","visaName":"Digital Nomad Visa","continent":"Americas","costUSD":null,"durationMonths":null,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Armenia","visaName":"Digital Nomad Visa","continent":"Europe","costUSD":null,"durationMonths":12,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Aruba","visaName":"Digital Nomad Visa","continent":"Europe","costUSD":null,"durationMonths":null,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Remote worker with sufficient income.","officialUrl":null},{"country":"Barbados","visaName":"Digital Nomad Visa","continent":"Caribbean","costUSD":null,"durationMonths":12,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Belize","visaName":"Digital Nomad Visa","continent":"Americas","costUSD":null,"durationMonths":null,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Bermuda","visaName":"Digital Nomad Visa","continent":"Caribbean","costUSD":null,"durationMonths":12,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Brazil","visaName":"Digital Nomad Visa","continent":"Americas","costUSD":null,"durationMonths":12,"renewableMonths":null,"minIncomeUSD":1500,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Cape Verde","visaName":"Digital Nomad Visa","continent":"Africa","costUSD":null,"durationMonths":6,"renewableMonths":null,"minIncomeUSD":1500,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Colombia","visaName":"Digital Nomad Visa","continent":"Americas","costUSD":null,"durationMonths":24,"renewableMonths":null,"minIncomeUSD":684,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Costa Rica","visaName":"Digital Nomad Visa","continent":"Americas","costUSD":null,"durationMonths":12,"renewableMonths":null,"minIncomeUSD":2500,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Croatia","visaName":"Digital Nomad Visa","continent":"Europe","costUSD":null,"durationMonths":12,"renewableMonths":null,"minIncomeUSD":2232,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Curaçao","visaName":"Digital Nomad Visa","continent":"Caribbean","costUSD":null,"durationMonths":6,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Cyprus","visaName":"Digital Nomad Visa","continent":"Europe","costUSD":null,"durationMonths":12,"renewableMonths":null,"minIncomeUSD":3500,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Czechia","visaName":"Digital Nomad Visa","continent":"Europe","costUSD":null,"durationMonths":12,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Dominica","visaName":"Digital Nomad Visa","continent":"Caribbean","costUSD":null,"durationMonths":null,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Dubai","visaName":"Digital Nomad Visa","continent":"Asia","costUSD":280,"durationMonths":12,"renewableMonths":null,"minIncomeUSD":5000,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Ecuador","visaName":"Digital Nomad Visa","continent":"Americas","costUSD":50,"durationMonths":24,"renewableMonths":null,"minIncomeUSD":1275,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"El Salvador","visaName":"Digital Nomad Visa","continent":"Americas","costUSD":null,"durationMonths":24,"renewableMonths":null,"minIncomeUSD":1460,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Estonia","visaName":"Digital Nomad Visa","continent":"Europe","costUSD":null,"durationMonths":12,"renewableMonths":null,"minIncomeUSD":4500,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Georgia","visaName":"Digital Nomad Visa","continent":"Europe","costUSD":null,"durationMonths":12,"renewableMonths":null,"minIncomeUSD":2000,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Germany","visaName":"Digital Nomad Visa","continent":"Europe","costUSD":null,"durationMonths":6,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Goa","visaName":"Digital Nomad Visa","continent":"Europe","costUSD":null,"durationMonths":null,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Greece","visaName":"Digital Nomad Visa","continent":"Europe","costUSD":150,"durationMonths":null,"renewableMonths":null,"minIncomeUSD":3500,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Grenada","visaName":"Digital Nomad Visa","continent":"Caribbean","costUSD":null,"durationMonths":12,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Hungary","visaName":"Digital Nomad Visa","continent":"Europe","costUSD":null,"durationMonths":null,"renewableMonths":null,"minIncomeUSD":2000,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Iceland","visaName":"Digital Nomad Visa","continent":"Europe","costUSD":null,"durationMonths":6,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Indonesia – Bali","visaName":"Digital Nomad Visa","continent":"Asia","costUSD":null,"durationMonths":24,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Italy","visaName":"Digital Nomad Visa","continent":"Europe","costUSD":null,"durationMonths":null,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Japan","visaName":"Digital Nomad Visa","continent":"Asia","costUSD":null,"durationMonths":null,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Latvia","visaName":"Digital Nomad Visa","continent":"Europe","costUSD":null,"durationMonths":12,"renewableMonths":null,"minIncomeUSD":2,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Malaysia","visaName":"Digital Nomad Visa","continent":"Asia","costUSD":null,"durationMonths":12,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Malta","visaName":"Digital Nomad Visa","continent":"Europe","costUSD":300,"durationMonths":12,"renewableMonths":null,"minIncomeUSD":2700,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Mauritius","visaName":"Digital Nomad Visa","continent":"Africa","costUSD":null,"durationMonths":12,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Mexico","visaName":"Digital Nomad Visa","continent":"Americas","costUSD":null,"durationMonths":36,"renewableMonths":null,"minIncomeUSD":1620,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Montenegro","visaName":"Digital Nomad Visa","continent":"Europe","costUSD":null,"durationMonths":null,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Montserrat","visaName":"Digital Nomad Visa","continent":"Caribbean","costUSD":null,"durationMonths":12,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Namibia","visaName":"Digital Nomad Visa","continent":"Africa","costUSD":null,"durationMonths":6,"renewableMonths":null,"minIncomeUSD":2000,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"North Macedonia","visaName":"Digital Nomad Visa","continent":"Europe","costUSD":null,"durationMonths":null,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Norway","visaName":"Digital Nomad Visa","continent":"Europe","costUSD":null,"durationMonths":6,"renewableMonths":null,"minIncomeUSD":2977,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Panama","visaName":"Digital Nomad Visa","continent":"Americas","costUSD":null,"durationMonths":9,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Philippines","visaName":"Digital Nomad Visa","continent":"Asia","costUSD":null,"durationMonths":null,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Portugal","visaName":"Digital Nomad Visa","continent":"Europe","costUSD":null,"durationMonths":12,"renewableMonths":null,"minIncomeUSD":600,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Romania","visaName":"Digital Nomad Visa","continent":"Europe","costUSD":null,"durationMonths":12,"renewableMonths":null,"minIncomeUSD":1100,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Saint Lucia","visaName":"Digital Nomad Visa","continent":"Caribbean","costUSD":null,"durationMonths":12,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Serbia","visaName":"Digital Nomad Visa","continent":"Europe","costUSD":null,"durationMonths":null,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Seychelles","visaName":"Digital Nomad Visa","continent":"Africa","costUSD":null,"durationMonths":12,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"South Africa","visaName":"Digital Nomad Visa","continent":"Africa","costUSD":null,"durationMonths":null,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"South Korea","visaName":"Digital Nomad Visa","continent":"Asia","costUSD":null,"durationMonths":null,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Spain","visaName":"Digital Nomad Visa","continent":"Europe","costUSD":null,"durationMonths":12,"renewableMonths":null,"minIncomeUSD":2151,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Sri Lanka","visaName":"Digital Nomad Visa","continent":"Asia","costUSD":null,"durationMonths":null,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Taiwan","visaName":"Digital Nomad Visa","continent":"Asia","costUSD":null,"durationMonths":null,"renewableMonths":null,"minIncomeUSD":5700,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Thailand","visaName":"Digital Nomad Visa","continent":"Asia","costUSD":null,"durationMonths":36,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"The Bahamas","visaName":"Digital Nomad Visa","continent":"Caribbean","costUSD":null,"durationMonths":12,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"tax-free","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null},{"country":"Uruguay","visaName":"Digital Nomad Visa","continent":"Americas","costUSD":null,"durationMonths":null,"renewableMonths":null,"minIncomeUSD":null,"taxStatus":"unknown","processingDays":null,"yearLaunched":null,"internetSpeedMbps":null,"costOfLivingIndex":null,"requirements":"Must prove sufficient remote income.","officialUrl":null}]};
+
+    let currentData = [];
+    let sortCol = 'country';
+    let sortAsc = true;
+
+    function init() {
+      if (!INDEX_DATA || !INDEX_DATA.countries) return;
+
+      currentData = [...INDEX_DATA.countries];
+
+      // Setup UI
+      document.getElementById('stat-total').innerText = INDEX_DATA.totalCountries;
+
+      let costs = INDEX_DATA.countries.map(c => c.costUSD).filter(c => c !== null);
+      let minCost = costs.length > 0 ? Math.min(...costs) : 0;
+      document.getElementById('stat-cheapest').innerText = minCost === 0 ? 'Free' : `$${minCost}`;
+
+      let incomes = INDEX_DATA.countries.map(c => c.minIncomeUSD).filter(c => c !== null);
+      let avgIncome = incomes.length > 0 ? Math.round(incomes.reduce((a,b)=>a+b,0)/incomes.length) : 0;
+      document.getElementById('stat-income').innerText = `$${avgIncome.toLocaleString()}`;
+
+      let taxFree = INDEX_DATA.countries.filter(c => c.taxStatus === 'tax-free').length;
+      document.getElementById('stat-taxfree').innerText = taxFree;
+
+      document.getElementById('methodology-text').innerText = INDEX_DATA.methodology || "Data gathered from multiple sources.";
+
+      // Populate Continent Filter
+      let continents = [...new Set(INDEX_DATA.countries.map(c => c.continent))].filter(Boolean).sort();
+      let contSelect = document.getElementById('filter-continent');
+      continents.forEach(c => {
+        let opt = document.createElement('option');
+        opt.value = c;
+        opt.innerText = c;
+        contSelect.appendChild(opt);
+      });
+
+      // Key Findings
+      let findings = document.getElementById('findings-list');
+      findings.innerHTML = '';
+      let topIncome = [...INDEX_DATA.countries].filter(c=>c.minIncomeUSD!==null).sort((a,b)=>b.minIncomeUSD - a.minIncomeUSD)[0];
+      let lowIncome = [...INDEX_DATA.countries].filter(c=>c.minIncomeUSD!==null).sort((a,b)=>a.minIncomeUSD - b.minIncomeUSD)[0];
+
+      const f1 = document.createElement('li');
+      f1.innerHTML = `<strong>${INDEX_DATA.totalCountries} countries</strong> now offer distinct programs or explicit allowances for remote workers and digital nomads.`;
+      findings.appendChild(f1);
+
+      if(lowIncome) {
+        const f2 = document.createElement('li');
+        f2.innerHTML = `<strong>${lowIncome.country}</strong> has one of the lowest income requirements at $${lowIncome.minIncomeUSD}/month.`;
+        findings.appendChild(f2);
+      }
+
+      const f3 = document.createElement('li');
+      f3.innerHTML = `<strong>${taxFree} countries</strong> explicitly offer a tax-free period for digital nomads.`;
+      findings.appendChild(f3);
+
+      // Bind events
+      document.getElementById('filter-continent').addEventListener('change', renderTable);
+      document.getElementById('filter-income').addEventListener('change', renderTable);
+      document.getElementById('filter-tax').addEventListener('change', renderTable);
+
+      document.querySelectorAll('th[data-sort]').forEach(th => {
+        th.addEventListener('click', () => {
+          let col = th.getAttribute('data-sort');
+          if (sortCol === col) {
+            sortAsc = !sortAsc;
+          } else {
+            sortCol = col;
+            sortAsc = true;
+          }
+          renderTable();
+        });
+      });
+
+      renderTable();
+    }
+
+    function renderTable() {
+      let filtered = INDEX_DATA.countries;
+
+      // Filters
+      let fCont = document.getElementById('filter-continent').value;
+      if (fCont !== 'all') filtered = filtered.filter(c => c.continent === fCont);
+
+      let fInc = document.getElementById('filter-income').value;
+      if (fInc !== 'all') {
+        let max = parseInt(fInc);
+        filtered = filtered.filter(c => c.minIncomeUSD !== null && c.minIncomeUSD <= max);
+      }
+
+      let fTax = document.getElementById('filter-tax').value;
+      if (fTax !== 'all') filtered = filtered.filter(c => c.taxStatus === fTax);
+
+      // Sort
+      filtered.sort((a, b) => {
+        let valA = a[sortCol];
+        let valB = b[sortCol];
+
+        if (valA === null) valA = sortAsc ? Infinity : -Infinity;
+        if (valB === null) valB = sortAsc ? Infinity : -Infinity;
+
+        if (typeof valA === 'string') {
+          return sortAsc ? valA.localeCompare(valB) : valB.localeCompare(valA);
+        }
+        return sortAsc ? valA - valB : valB - valA;
+      });
+
+      // Render
+      let tbody = document.getElementById('table-body');
+      tbody.innerHTML = '';
+
+      filtered.forEach(c => {
+        let tr = document.createElement('tr');
+
+        // Country
+        let tdCountry = document.createElement('td');
+        tdCountry.style.fontWeight = '600';
+        tdCountry.innerText = c.country;
+
+        // Cost
+        let tdCost = document.createElement('td');
+        tdCost.className = 'font-mono';
+        tdCost.innerText = c.costUSD === null ? 'N/A' : `$${c.costUSD}`;
+
+        // Duration
+        let tdDuration = document.createElement('td');
+        tdDuration.innerText = c.durationMonths === null ? 'N/A' : `${c.durationMonths} mo`;
+
+        // Income
+        let tdIncome = document.createElement('td');
+        tdIncome.className = 'font-mono';
+        tdIncome.innerText = c.minIncomeUSD === null ? 'N/A' : `$${c.minIncomeUSD.toLocaleString()}/mo`;
+
+        // Tax
+        let tdTax = document.createElement('td');
+        let span = document.createElement('span');
+        span.className = `badge badge-${c.taxStatus}`;
+        span.innerText = c.taxStatus;
+        tdTax.appendChild(span);
+
+        // Continent
+        let tdCont = document.createElement('td');
+        tdCont.style.color = 'var(--text-muted)';
+        tdCont.innerText = c.continent || 'N/A';
+
+        tr.appendChild(tdCountry);
+        tr.appendChild(tdCost);
+        tr.appendChild(tdDuration);
+        tr.appendChild(tdIncome);
+        tr.appendChild(tdTax);
+        tr.appendChild(tdCont);
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Auto-run if object was injected directly (not string template placeholder)
+    if (typeof INDEX_DATA === 'object') {
+      init();
+    }
+  </script>
+</body>
+</html>
