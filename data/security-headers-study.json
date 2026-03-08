@@ -1,0 +1,1332 @@
+{
+  "crawlDate": "2026-03-08",
+  "siteCount": 105,
+  "results": [
+    {
+      "domain": "adobe.com",
+      "headers": {},
+      "status": null,
+      "error": "The read operation timed out",
+      "https_redirect": false
+    },
+    {
+      "domain": "airbnb.com",
+      "headers": {
+        "strict-transport-security": "max-age=10886400; includeSubdomains",
+        "content-security-policy": "child-src blob:; connect-src 'self' https: wss://ws.airbnb.com wss://ws.airbnb.com https://netverify.com https://*.netverify.com wss: *.amap.com https://*.mapbox.com; default-src 'self' https: blob:; font-src 'self' data: https://*.muscache.com fonts.gstatic.com https://use.typekit.net https:; frame-src * https://*.cardinalcommerce.com; img-src 'self' https: data: https://*.mapbox.com blob:; media-src 'self' https: blob:; script-src 'self' 'unsafe-eval' https://a0.muscache.com https://cdn.siftscience.com https://ss.musthird.com https://t1.musthird.com https://bat.bing.com https://connect.facebook.net https://www.google-analytics.com https://www.googleadservices.com https://tpc.googlesyndication.com https://www.googletagmanager.com https://maps.googleapis.com https://ajax.googleapis.com https://*.g.doubleclick.net https://www.google.com https://www.gstatic.com https://smartlock.google.com https://accounts.google.com https://app.link https://cdn.branch.io https://api.branch.io https://bam.nr-data.net https://js-agent.newrelic.com https://ethn.io https://s.yimg.jp https://api.geetest.com https://monitor.geetest.com https://api.geevisit.com https://cdn.ampproject.org https://storage.googleapis.com/workbox-cdn/ https://tagmanager.google.com https://pay.google.com https://songbird.cardinalcommerce.com/ https://www.recaptcha.net https://www.gstatic.cn https://airbnb-api.arkoselabs.com https://h.online-metrix.net 'sha256-rAm9O8JPZLtQmd84zMDzhsG5q35JscESxxcaFL7+DDc=' 'sha256-vPvbF7mM9h+nViyD8PeacaGLf/01gc9mAlxGpxiPENs=' 'sha256-CZnW0hvLQpXhjRl/rvattFn8GcIhxi8fcsCstVugtsI=' 'sha256-9jboJcALeftUTV/MuGjkJB5HDvqsPbm7/gTjfpkHiYc=' 'sha256-r98Buo6FoBRWWqqTV3XUgtcozHN4uxdwUycMqlCrWgk=' 'sha256-dEQLydru3z2yuRGS/8VzaalU2wY48xuXdoO1zDPmT/A=' 'sha256-jhpHTyypc46kfr10/bvvFfjxyJNZcDvM0XsDAD5PJ2k=' 'sha256-sM4TCqADHMBZKYgE9fgtWACAry8C6tqaPljxMeTJ+w4=' https: 'sha256-5Tl1cMvpowm216MNWitZcm6dh1Ufik1QFyA6KadNiAY=' 'sha256-rvARxjbuUxilxb9RkOEv8RtqGIsmGYKyxv2IIH4MsrA=' 'sha256-hlaumtWL6YXbATpvURLyKaWUWs/apEDvcs19lYsGwsU=' 'sha256-I3KSOxEd7FNCSiwgo9cLSb5NZ6prRmGwGuPQ9oUimoM=' 'sha256-QrtzfXzemhvC/0Mz4p5MTgyHZ11cOMx/iKBQ2QfQoYU=' 'sha256-hVPsqt8jazJS/0O76JubiA90S0KG9ImECF/df+CNljI=' 'sha256-RAgBnM0wf+EU6GLC4DAwrlPlxaWbSFOv9fEZHb22Zqc=' 'sha256-q7LfTX8CemAjvalJEQZ5S+i7nuNEVbFaU6xkHvEAOeQ=' 'sha256-Hn02be8UsaO1J728ZDxGZlZGXBd85lEw3JklFYpfGPQ=' 'sha256-69KvOim8N1PE+6rP6TRe0P6GgFBZdTuNV9Lrr9y8KMc=' 'sha256-AcTLk9SPBTCpOP4TyHDG+Id7/GS/5o3fNLVi6oMU5NM=' https://netverify.com https://*.netverify.com https://icm.aexp-static.com https://qicm.americanexpress.com https://qwww435.americanexpress.com https://checkout.americanexpress.com https://www.paypalobjects.com https://c.paypal.com https://www.paypal.com https://*.klarnacdn.net blob: https://vdata.amap.com https://webapi.amap.com https://restapi.amap.com https://*.mapbox.com https://cardinaltrusted.com https://songbird.cardinalcommerce.com https://songbirdstag.cardinalcommerce.com https://includes.ccdc02.com https://includestest.ccdc02.com https://client-api.arkoselabs.com https://cdn.plaid.com/link/v2/stable/link-initialize.js https://js.stripe.com https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js https://pagead2.googlesyndication.com; style-src 'self' https: 'unsafe-inline' https://*.mapbox.com; worker-src 'self' https: blob:; report-uri /tracking/csp?controller=core-guest-loop&action=%2F&req_uuid=c2a2421f-32d2-4cd2-9eeb-56ef763a13c5&version=sha%3D223b0c204688&report_only=false; report-to /tracking/csp?controller=core-guest-loop&action=%2F&req_uuid=c2a2421f-32d2-4cd2-9eeb-56ef763a13c5&version=sha%3D223b0c204688&report_only=false",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1; mode=block"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "nginx",
+      "header_count": 5
+    },
+    {
+      "domain": "amazon.com",
+      "headers": {},
+      "status": 202,
+      "error": null,
+      "https_redirect": true,
+      "server": "CloudFront",
+      "header_count": 0
+    },
+    {
+      "domain": "apple.com",
+      "headers": {},
+      "status": null,
+      "error": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+      "https_redirect": false
+    },
+    {
+      "domain": "arstechnica.com",
+      "headers": {
+        "content-security-policy": "default-src https: data: 'unsafe-inline' 'unsafe-eval'; child-src https: data: blob:; connect-src https: data: blob:; font-src https: data:; img-src https: data: blob:; media-src blob: data: https:; object-src https:; script-src https: data: blob: 'unsafe-inline' 'unsafe-eval'; style-src https: 'unsafe-inline'; block-all-mixed-content; upgrade-insecure-requests",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1; mode=block",
+        "permissions-policy": "local-network-access=()"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "",
+      "header_count": 5
+    },
+    {
+      "domain": "aws.amazon.com",
+      "headers": {
+        "strict-transport-security": "max-age=47304000; includeSubDomains",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1; mode=block"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "Server",
+      "header_count": 4
+    },
+    {
+      "domain": "azure.microsoft.com",
+      "headers": {},
+      "status": null,
+      "error": "The read operation timed out",
+      "https_redirect": false
+    },
+    {
+      "domain": "bandcamp.com",
+      "headers": {
+        "strict-transport-security": "max-age=63072000",
+        "content-security-policy": "base-uri 'none'; object-src 'none'; report-uri https://bandcamp.com/api/cspreport/1/violation; script-src http: https: 'nonce-/qkptMV/5uJQQAClj+S2BA==' 'report-sample' 'strict-dynamic'",
+        "referrer-policy": "no-referrer-when-downgrade"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "nginx",
+      "header_count": 3
+    },
+    {
+      "domain": "bbc.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; preload",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "referrer-policy": "no-referrer-when-downgrade"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "BBC-GTM",
+      "header_count": 4
+    },
+    {
+      "domain": "behance.net",
+      "headers": {
+        "strict-transport-security": "max-age=31536000",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1; mode=block",
+        "cross-origin-opener-policy": "same-origin-allow-popups"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "adobe",
+      "header_count": 5
+    },
+    {
+      "domain": "bestbuy.com",
+      "headers": {},
+      "status": null,
+      "error": "The read operation timed out",
+      "https_redirect": false
+    },
+    {
+      "domain": "bloomberg.com",
+      "headers": {},
+      "status": null,
+      "error": "HTTP Error 403: Forbidden",
+      "https_redirect": false
+    },
+    {
+      "domain": "booking.com",
+      "headers": {
+        "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
+        "x-xss-protection": "1; mode=block"
+      },
+      "status": 202,
+      "error": null,
+      "https_redirect": true,
+      "server": "nginx",
+      "header_count": 2
+    },
+    {
+      "domain": "canva.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+        "content-security-policy": "frame-ancestors https://canvateam.zendesk.com https://phoenix.canva.com https://www.canva-iris.com https://enterprise.canva.com https://www.affinity.studio;",
+        "x-frame-options": "deny",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1; mode=block",
+        "referrer-policy": "strict-origin-when-cross-origin"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "cloudflare",
+      "header_count": 6
+    },
+    {
+      "domain": "cloud.google.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000",
+        "content-security-policy": "script-src 'report-sample' 'nonce-DPhLhNIgOk8VcxILw-WeZQ' 'unsafe-inline';object-src 'none';base-uri 'self';report-uri /_/GoogleCloudUxWebAppCgcUi/cspreport;worker-src 'self' blob:, require-trusted-types-for 'script';report-uri /_/GoogleCloudUxWebAppCgcUi/cspreport",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "0",
+        "permissions-policy": "ch-ua-arch=*, ch-ua-bitness=*, ch-ua-full-version=*, ch-ua-full-version-list=*, ch-ua-model=*, ch-ua-wow64=*, ch-ua-form-factors=*, ch-ua-platform=*, ch-ua-platform-version=*",
+        "cross-origin-opener-policy": "same-origin",
+        "cross-origin-resource-policy": "same-site"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "ESF",
+      "header_count": 8
+    },
+    {
+      "domain": "cloudflare.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; includeSubDomains",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1; mode=block",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "permissions-policy": "geolocation=(), camera=(), microphone=()"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "cloudflare",
+      "header_count": 6
+    },
+    {
+      "domain": "cnn.com",
+      "headers": {
+        "content-security-policy": "default-src 'self' blob: https://*.cnn.com:* http://*.cnn.com:* *.cnn.io:* *.cnn.net:* *.turner.com:* *.turner.io:* *.ugdturner.com:* courageousstudio.com *.vgtf.net:*; script-src 'unsafe-eval' 'unsafe-inline' 'self' *; style-src 'unsafe-inline' 'self' blob: *; child-src 'self' blob: *; frame-src 'self' *; object-src 'self' *; img-src 'self' data: blob: *; media-src 'self' data: blob: *; font-src 'self' data: *; connect-src 'self' data: *; frame-ancestors 'self' https://*.cnn.com:* http://*.cnn.com https://*.cnn.io:* http://*.cnn.io:* *.turner.com:* courageousstudio.com;",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1; mode=block"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "",
+      "header_count": 3
+    },
+    {
+      "domain": "costco.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000;includeSubDomains",
+        "content-security-policy": "default-src 'self' https://*.queue-it.net/ https://*.costco.ca/ https://*.costco.com/ https://*.costcobusinessdelivery.com/ https://*.costcobusinesscentre.ca/ https://*.costcobusinesscenter.ca/ https://*.costco-static.com/ https://display.ugc.bazaarvoice.com/ https://api.bazaarvoice.com/; script-src 'self' https://h.costco.com/ https://h.online-metrix.net/ https://*.cybersource.com/ https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://www.cdn-path.com/ https://h.costco.com/ https://dev.virtualearth.net/ https://sdk.virtualearth.net/ https://*.queue-it.net/ https://*.costcobusinessdelivery.com https://*.costcobusinesscenter.ca/ https://cdn.intake-lr.com/ https://cdn.cookielaw.org/ https://*.criteo.com/ http://*.criteo.com/ https://assets.adobedtm.com/ https://s.go-mpulse.net/ https://transcend-cdn.com/ https://apps.bazaarvoice.com/ https://display.ugc.bazaarvoice.com/ https://mobilecontent.costco.com/ https://mobilecontent-qa.costco.com/ https://*.pxlecdn.com https://*.pixlee.com https://*.pixlee.co 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://dev.virtualearth.net/ https://sdk.virtualearth.net/ https://cdn.fonts.net/ 'unsafe-inline' https://transcend-cdn.com/ https://consent.costco.com/ https://consent.costco.ca/ https://consent.costco.com https://display.ugc.bazaarvoice.com/; img-src 'self' https://*.costcobusinessdelivery.com https://*.tiles.virtualearth.net/ https://dev.virtualearth.net/ https://sdk.virtualearth.net/ https://*.costco.ca/ https://*.costco.com/ https://*.costcotravel.com/ https://*.costcotravel.ca/ https://cdn.bfldr.com/ https://*.contentstack.com/ https://*.costco-static.com/ https://cdn.cookielaw.org/ https://cm.everesttech.net/ https://dpm.demdex.net/ https://display.ugc.bazaarvoice.com https://retailmedia-static.azureedge.net https://retailmedia-static.azureedge.net/ https://network-a.bazaarvoice.com https://network-stg-a.bazaarvoice.com https://retailmedia-static.criteo.com/ blob: data:; media-src 'self' https://*.costcobusinessdelivery.com https://*.costco.ca/ https://*.costco.com/ https://cdn.bfldr.com/ https://*.contentstack.com/ https://*.costco-static.com/ https://*.criteo.net/ https://retailmedia-static.criteo.com/ https://*.criteo.net; font-src 'self' https://cdn.bfldr.com/ https://*.costco-static.com/ https://fonts.gstatic.com data:; object-src 'none'; base-uri 'self' about:; form-action 'self' https://*.cardinalcommerce.com https://www.cdn-path.com/ https://*.costcobusinessdelivery.com https://*.costco.ca/ https://*.costco.com/ https://r.intake-lr.com/ https://*.akstat.io https://*.opinionlab.com; frame-src https://*.cardinalcommerce.com https://www.cdn-path.com/ https://h.costco.com/ https://h.online-metrix.net/ https://*.cybersource.com/ https://*.costcobusinessdelivery.com https://*.costcobusinesscentre.ca/ https://*.ct-costco.com https://costco.demdex.net/ https://costco.centah.com/ https://consent-sync.costco.com/ https://consent-sync.costco.ca/ https://*.criteo.com/ http://*.criteo.com https://*.pixlee.com https://*.pixlee.co https://*.costco.com/ https://*.costco.ca/ https://*.dynatrace.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; connect-src 'self' https://h.costco.com/ https://cdn.bfldr.com/ https://*.dynatrace.com https://www.google.com/recaptcha/ https://gdx-api.costco.com https://gdx-npd.np.api.cc-costco.com https://api-tst.np.gdx.cc-costco.com https://dev.virtualearth.net/ https://sdk.virtualearth.net/ https://spatial.virtualearth.net/ https://*.queue-it.net/ https://*.costcobusinessdelivery.com/ https://*.costcobusinesscenter.ca/ https://*.costcobusinesscentre.ca/ https://*.costco.ca/ https://*.costco.com/ https://*.costco-static.com/ https://*.ct-costco.com https://cdn.cookielaw.org/ https://geolocation.onetrust.com/ https://costco.demdex.net/ https://dpm.demdex.net/ https://costco.tt.omtrdc.net/ https://*.criteo.com/ http://*.criteo.com/ https://*.criteo.net/ https://cm.everesttech.net/ https://r.intake-lr.com/ https://*.contentstack.com/ https://assets.adobedtm.com/ https://dcs.adobedc.net/ https://*.akstat.io https://*.go-mpulse.net/ https://*.akamaihd.net https://adobedc.demdex.net/ https://sync-transcend-cdn.com https://transcend-cdn.com/ https://telemetry.transcend.io/ https://telemetry.us.transcend.io/ https://privacyportal.onetrust.com/ https://consent.us.transcend.io/ https://api.bazaarvoice.com/ https://stg.api.bazaarvoice.com/; child-src 'self' blob: data:; upgrade-insecure-requests;"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "istio-envoy",
+      "header_count": 2
+    },
+    {
+      "domain": "dailymotion.com",
+      "headers": {
+        "strict-transport-security": "max-age=31708800; includeSubDomains; preload",
+        "content-security-policy": "frame-ancestors 'none';",
+        "x-frame-options": "DENY"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "DMS/1.0.42",
+      "header_count": 3
+    },
+    {
+      "domain": "deezer.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; includeSubDomains",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "Apache",
+      "header_count": 3
+    },
+    {
+      "domain": "digitalocean.com",
+      "headers": {
+        "x-frame-options": "DENY",
+        "x-xss-protection": "1; mode=block"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "cloudflare",
+      "header_count": 2
+    },
+    {
+      "domain": "discord.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+        "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'nonce-NjksMzQsMjI4LDQzLDIxNSwyMzgsMTEwLDIzMA==' https://discord.com https://www.googletagmanager.com https://connect.facebook.net https://www.google-analytics.com https://ssl.google-analytics.com https://www.gstatic.com/recaptcha/ https://www.google.com/recaptcha/ https://recaptcha.net/recaptcha/ https://hcaptcha.com https://*.hcaptcha.com https://s.ytimg.com/yts/jsbin/ https://www.youtube.com/iframe_api https://www.youtube.com/s/player/ https://geolocation.onetrust.com/cookieconsentpub/v1/geo/location https://script.crazyegg.com https://*.website-files.com https://uploads-ssl.webflow.com https://global.localizecdn.com https://cdn.localizeapi.com https://d3e54v103j8qbb.cloudfront.net https://gist.github.com https://unpkg.com/@splinetool/runtime/build/runtime.js https://*.twitter.com https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js https://boards-api.greenhouse.io https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js https://cdn.finsweet.com/files/fscalendar/calendar-invite-v1.0.min.js https://www.redditstatic.com https://ads.reddit.com https://cdn.jsdelivr.net/npm/@finsweet/attributes-selectcustom@1.7.2/selectcustom.js https://embed.bsky.app/static/embed.js https://hubspotonwebflow.com/assets/js/form-124.js 'sha256-mjdgHR9aXy-6OwAGlNS_XgNcYG1Uhd2U4pl8vi7-XCY=' 'sha256-gqG2LEZaHDwOL3S_CXJTuk_f3LimTEyruhOc_U0_QUY=' 'sha256-y0oGiuXZdmX7xRABTnY5cbHkfghDqbfX6JoerXLgVJc=' 'sha256-gBzDBwsujjXjXk6GLgdSlLIrvt5h0s3F_qF7Qt8TYwY=' 'sha256-TrY3AqlyKfZdsI3LYsy6u8GAhckLEXeyLcFK2gOe18U=' 'sha256-lVOL-gH47X0Li5QriWNZ69Hcr-71DsXFvGmQxN9TpBw=' 'sha256-j11ZNhk91nmUjPCBAIRcvJeEgnkbdJ9qNqoEMekilec=' 'sha256-1sQ9sTbc6Lumd2Frwf7IBwGG02gPTreTI8QBBW5kibM=' 'sha256-uh1p-Vy3_Cn66Ugk4Hak-gGr2Udg7yiI_5u5E_BdCRM=' 'sha256-7JHgDILwD7i_kvnHwJFF5WsHHmIc98tkBqDqbv47iFE=' 'sha256-KvstP_RIj6GGaE25Mqo-kIO0_WVEls1n5tnNhm8zmPA=' 'sha256-6xIDOlx5P0LKHv8fkot5ULOnB8ySdhjJi5r_ZP5EDPY=' 'sha256-jY_7jWrddtNUb-Y4CFKWaH-R2lrqgm_LAX72E8SLqKw=' 'sha256-MdICB9cW7ILT3ZeSxhN2YlpFxEsn5WHr03Ix-WVpHsw=' 'sha256-fUfByJGhChEFu7PE5HJfFwiYKySnP1H0iXvAxkauLNU=' 'sha256-xjkCDxBOM2TlIn5DpGQM4aJldb4AiHMKlRjfW46l-x0=' 'sha256-VOPfGBY-XgTDMwhG41S5eZyMKlu3gN60suwCPDWZ8MY=' 'sha256-tVeTMYknRG_IAdCHRGlDd9S2bX2_rX0e4HpaP9lgKWY=' 'sha256-kprfDg8ElCpUCFQAX5shnAPf3i59vVTSy02AjZXV3k0=' 'sha256-9zwpTkjhuy41nnRU74rj1TlYykoqAUntsoPtJ20cQAk=' 'sha256-llLws8TR-U3nNRCIvJNVc-SGscqwyeO1IPgpbnWuZdc=' 'sha256-h9lm4cvrD7egZu1GTAE1h2IDy1K4fXgD-q_O7aEosuw=' 'sha256-_cdQbTQzcfSt2_aCceUvkUmLh1WMdvlKbi1BBG7u8Jg=' 'sha256-U0jHWhsvIpjnwYKeJS_-2pe9ROsYnck5ZB2aXNyKWq8=' 'sha256-rB4G_-e_bAPU7rKI_9HC1lBZ0XEa_nHDH6hXFz4GIh4=' 'sha256-N02bP-slnHB-OYEN6imRqCHcHLN5DvBouRmyO2qcQYU=' 'sha256-QHiY6i8ql9SJTaFXzUhm08ZWuNz0QarKruf0Omd9-OQ=' 'sha256-s4OBHcHJnkGxjEyNJhU5BQt4qlt6MH07rG/j/hFOUnE=' 'sha256-s4OBHcHJnkGxjEyNJhU5BQt4qlt6MH07rG_j_hFOUnE=' 'sha256-mjdgHR9aXy+6OwAGlNS/XgNcYG1Uhd2U4pl8vi7+XCY=' 'sha256-jY/7jWrddtNUb+Y4CFKWaH+R2lrqgm/LAX72E8SLqKw=' 'sha256-lVOL+gH47X0Li5QriWNZ69Hcr+71DsXFvGmQxN9TpBw=' 'sha256-/cdQbTQzcfSt2/aCceUvkUmLh1WMdvlKbi1BBG7u8Jg=' 'sha256-N02bP+slnHB+OYEN6imRqCHcHLN5DvBouRmyO2qcQYU=' 'sha256-gqG2LEZaHDwOL3S/CXJTuk/f3LimTEyruhOc/U0/QUY=' 'sha256-llLws8TR+U3nNRCIvJNVc+SGscqwyeO1IPgpbnWuZdc=' 'sha256-gBzDBwsujjXjXk6GLgdSlLIrvt5h0s3F/qF7Qt8TYwY=' 'sha256-6xIDOlx5P0LKHv8fkot5ULOnB8ySdhjJi5r/ZP5EDPY=' 'sha256-7JHgDILwD7i/kvnHwJFF5WsHHmIc98tkBqDqbv47iFE=' 'sha256-VOPfGBY+XgTDMwhG41S5eZyMKlu3gN60suwCPDWZ8MY='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.hcaptcha.com https://hcaptcha.com https://*.website-files.com https://uploads-ssl.webflow.com https://*.githubassets.com https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css; img-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://www.facebook.com https://cdn.discordapp.com https://safety.discord.com https://discordmoderatoracademy.zendesk.com https://assets-global.website-files.com data: https://*.website-files.com https://uploads-ssl.webflow.com https://global.localizecdn.com https://cdn.localizeapi.com https://*.ytimg.com https://uploads-ssl.webflow.com https://alb.reddit.com; font-src 'self' https://fonts.gstatic.com https://fonts.gstatic.com https://*.website-files.com https://uploads-ssl.webflow.com https://www.redditstatic.com; connect-src 'self' https://discordapp.com https://discord.com https://connect.facebook.net https://api.greenhouse.io https://api.github.com https://*.sentry.io https://www.google-analytics.com https://*.hcaptcha.com https://hcaptcha.com https://geolocation.onetrust.com/cookieconsentpub/v1/geo/location ws://127.0.0.1:* http://127.0.0.1:* https://global.localizecdn.com https://cdn.localizeapi.com https://*.website-files.com https://uploads-ssl.webflow.com https://webflow.com/api/ https://script.crazyegg.com https://assets-tracking.crazyegg.com https://pagestates-tracking.crazyegg.com https://tracking.crazyegg.com https://www.redditstatic.com https://pixel-config.reddit.com https://conversions-config.reddit.com https://redditstatic.com https://ads.reddit.com https://hubspotonwebflow.com/api/forms/blockList https://hubspotonwebflow.com/assets/js/blockedDomains.json https://hubspotonwebflow.com/api/forms/cf7f8234-dcdf-4b6e-b0e4-371878d5286e https://hubspotonwebflow.com/api/forms/28f33b0d-28c9-4d17-91ae-999b4388dd2d; media-src 'self' https://cdn.discordapp.com/assets/ https://cdn.discordapp.com/promotions/premium-marketing/ https://*.website-files.com https://uploads-ssl.webflow.com; frame-src https://discordapp.com/domain-migration https://www.google.com/recaptcha/ https://recaptcha.net/recaptcha/ https://*.hcaptcha.com https://hcaptcha.com https://www.youtube.com/embed/ https://10851314.fls.doubleclick.net/ https://*.twitter.com https://*.vimeo.com https://embed.bsky.app;",
+        "x-frame-options": "DENY",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1; mode=block",
+        "permissions-policy": "interest-cohort=()"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "cloudflare",
+      "header_count": 6
+    },
+    {
+      "domain": "disneyplus.com",
+      "headers": {
+        "x-frame-options": "SAMEORIGIN"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "envoy",
+      "header_count": 1
+    },
+    {
+      "domain": "doordash.com",
+      "headers": {},
+      "status": null,
+      "error": "HTTP Error 403: Forbidden",
+      "https_redirect": false
+    },
+    {
+      "domain": "dribbble.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1; mode=block",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "cross-origin-opener-policy": "unsafe-none",
+        "cross-origin-embedder-policy": "unsafe-none",
+        "x-permitted-cross-domain-policies": "none"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "nginx",
+      "header_count": 8
+    },
+    {
+      "domain": "dropbox.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; includeSubDomains",
+        "content-security-policy": "base-uri 'self'; child-src https://www.dropbox.com/static/serviceworker/ blob:; connect-src https://* ws://127.0.0.1:*/ws blob: wss://dsimports.dropbox.com/; default-src 'none'; font-src 'self' data: https://*; form-action 'self' https://www.dropbox.com/ https://dl-web.dropbox.com/ https://photos.dropbox.com/ https://paper.dropbox.com/ https://showcase.dropbox.com/ https://www.hellofax.com/ https://app.hellofax.com/ https://www.hellosign.com/ https://app.hellosign.com/ https://docsend.com/ https://www.docsend.com/ https://help.dropbox.com/ https://navi.dropbox.jp/ https://a.sprig.com/ https://selfguidedlearning.dropboxbusiness.com/ https://instructorledlearning.dropboxbusiness.com/ https://sales.dropboxbusiness.com/ https://accounts.google.com/ https://api.login.yahoo.com/ https://login.yahoo.com/ https://experience.dropbox.com/ https://pal-test.adyen.com https://2e83413d8036243b-Dropbox-pal-live.adyenpayments.com/ https://onedrive.live.com/picker; frame-ancestors 'self'; frame-src https://* dbapi-6: dbapi-7: dbapi-8: dropbox-client: itms-apps: itms-appss: blob:; img-src https://* data: blob:; media-src https://* blob:; object-src 'self' https://cfl.dropboxstatic.com/static/ https://www.dropboxstatic.com/static/ https://edge-live.dropboxstatic.com/static/; report-to csp-metaserver-whitelist; report-uri https://www.dropbox.com/csp_log?policy_name=metaserver-whitelist; script-src 'unsafe-eval' 'inline-speculation-rules' https://www.dropbox.com/static/api/ https://www.dropbox.com/pithos/ https://cfl.dropboxstatic.com/static/ https://www.dropboxstatic.com/static/ https://edge-live.dropboxstatic.com/static/ https://accounts.google.com/gsi/client https://www.paypal.com/sdk/js https://applepay.cdn-apple.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ 'unsafe-inline'; style-src https://* 'unsafe-inline' 'unsafe-eval'; worker-src https://www.dropbox.com/static/serviceworker/ https://www.dropbox.com/encrypted_folder_download/service_worker.js https://www.dropbox.com/service_worker.js blob:",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1; mode=block",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-permitted-cross-domain-policies": "none"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "envoy",
+      "header_count": 7
+    },
+    {
+      "domain": "ebay.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1; mode=block"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "ebay-proxy-server",
+      "header_count": 4
+    },
+    {
+      "domain": "etsy.com",
+      "headers": {},
+      "status": null,
+      "error": "HTTP Error 403: Forbidden",
+      "https_redirect": false
+    },
+    {
+      "domain": "expedia.com",
+      "headers": {},
+      "status": null,
+      "error": "HTTP Error 429: Too Many Requests",
+      "https_redirect": false
+    },
+    {
+      "domain": "facebook.com",
+      "headers": {
+        "strict-transport-security": "max-age=15552000; preload",
+        "content-security-policy": "default-src blob: 'self' https://*.fbsbx.com *.facebook.com *.fbcdn.net;script-src *.facebook.com *.fbcdn.net *.facebook.net 127.0.0.1:* 'nonce-pcbaNF8V' blob: 'self' connect.facebook.net 'unsafe-eval' https://*.google-analytics.com *.google.com;style-src *.fbcdn.net data: *.facebook.com 'unsafe-inline' https://fonts.googleapis.com;connect-src *.facebook.com facebook.com *.fbcdn.net *.facebook.net wss://*.facebook.com:* wss://*.whatsapp.com:* wss://*.fbcdn.net attachment.fbsbx.com ws://localhost:* blob: *.cdninstagram.com 'self' http://localhost:3103 wss://gateway.facebook.com wss://edge-chat.facebook.com wss://snaptu-d.facebook.com wss://kaios-d.facebook.com/ v.whatsapp.net *.fbsbx.com *.fb.com *.instagram.com https://*.google-analytics.com;font-src data: *.facebook.com *.fbcdn.net *.fbsbx.com https://fonts.gstatic.com;img-src *.fbcdn.net *.facebook.com data: https://*.fbsbx.com facebook.com *.cdninstagram.com fbsbx.com fbcdn.net connect.facebook.net blob: android-webview-video-poster: *.whatsapp.net *.fb.com *.oculuscdn.com *.tenor.co *.tenor.com *.giphy.com https://trustly.one/ https://*.trustly.one/ https://paywithmybank.com/ https://*.paywithmybank.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://*.google-analytics.com;media-src *.cdninstagram.com blob: *.fbcdn.net *.fbsbx.com www.facebook.com *.facebook.com data: *.tenor.co *.tenor.com https://*.giphy.com;child-src data: blob: 'self' https://*.fbsbx.com *.facebook.com *.fbcdn.net;frame-src *.facebook.com *.fbsbx.com fbsbx.com data: www.instagram.com *.fbcdn.net accounts.meta.com *.accounts.meta.com https://trustly.one/ https://*.trustly.one/ https://paywithmybank.com/ https://*.paywithmybank.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com https://td.doubleclick.net *.google.com *.doubleclick.net;manifest-src data: blob: 'self' https://*.fbsbx.com *.facebook.com *.fbcdn.net;object-src data: blob: 'self' https://*.fbsbx.com *.facebook.com *.fbcdn.net;worker-src blob: *.facebook.com data:;block-all-mixed-content;upgrade-insecure-requests;",
+        "x-frame-options": "DENY",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "0",
+        "permissions-policy": "accelerometer=(), attribution-reporting=(self), autoplay=(), bluetooth=(), browsing-topics=(self), camera=(self \"https://www.fbsbx.com\"), ch-device-memory=(), ch-downlink=(), ch-dpr=(), ch-ect=(), ch-rtt=(), ch-save-data=(), ch-ua-arch=(), ch-ua-bitness=(), ch-viewport-height=(), ch-viewport-width=(), ch-width=(), clipboard-read=(self), clipboard-write=(self), compute-pressure=(), display-capture=(self), encrypted-media=(self), fullscreen=(self), gamepad=*, geolocation=(self), gyroscope=(), hid=(), idle-detection=(), interest-cohort=(self), keyboard-map=(), local-fonts=(), magnetometer=(), microphone=(self), midi=(), otp-credentials=(), payment=(), picture-in-picture=(self), private-state-token-issuance=(), publickey-credentials-get=(self), screen-wake-lock=(), serial=(), shared-storage=(), shared-storage-select-url=(), private-state-token-redemption=(), usb=(), unload=(self), window-management=(), xr-spatial-tracking=(self);report-to=\"permissions_policy\"",
+        "cross-origin-opener-policy": "unsafe-none",
+        "cross-origin-resource-policy": "same-origin"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "",
+      "header_count": 8
+    },
+    {
+      "domain": "figma.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+        "content-security-policy": "default-src 'self' https://accounts.google.com/gsi/ ; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://platform.twitter.com/js/ https://platform.twitter.com/widgets.js https://player.vimeo.com/api/player.js https://www.youtube.com/iframe_api https://www.youtube.com/s/player/ https://accounts.google.com/gsi/client https://adora-cdn.com/adora-start.js ; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://accounts.google.com/gsi/style ; object-src 'none' ; base-uri 'self' ; font-src 'self' https://fonts.gstatic.com ; connect-src 'self' https://static.figma.com https://forms.figma.com https://boards-api.greenhouse.io/v1/boards/figma/jobs https://vimeo.com https://accounts.google.com/gsi/ https://figma.com/api/figment-proxy/monitor https://staging.figma.com/api/figment-proxy/monitor https://figma.com/api/figment-proxy/identify https://staging.figma.com/api/figment-proxy/identify https://figma.com/api/figment-proxy/page https://staging.figma.com/api/figment-proxy/page https://cdn.sanity.io https://events.statsigapi.net/v1/rgstr https://statsigapi.net/v1/sdk_exception https://prodregistryv2.org/v1/rgstr https://featuregates.org/v1/initialize https://featureassets.org/v1/initialize https://o22594.ingest.sentry.io *.adora-cdn.com https://figma-marketing-tools.vercel.app/api/white-background ; frame-src 'self' *.figma.site https://www.figma.com https://marketing.figma.com https://marketing.staging.figma.com https://platform.twitter.com https://player.vimeo.com https://www.youtube.com https://accounts.google.com/gsi/ https://figma.com/api/figment-proxy/monitor https://staging.figma.com/api/figment-proxy/monitor https://figma.com/api/figment-proxy/identify https://staging.figma.com/api/figment-proxy/identify https://figma.com/api/figment-proxy/page https://staging.figma.com/api/figment-proxy/page ; img-src 'self' data: blob: https://cdn.sanity.io https://i.vimeocdn.com https://*.figma.com https://i.ytimg.com https://www.gravatar.com https://i0.wp.com/s3-alpha.figma.com/ https://i1.wp.com/s3-alpha.figma.com/ https://i2.wp.com/s3-alpha.figma.com/ https://i3.wp.com/s3-alpha.figma.com/ ; media-src 'self' https://cdn.sanity.io https://static.figma.com ; worker-src 'self' ; upgrade-insecure-requests",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff, nosniff"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "",
+      "header_count": 4
+    },
+    {
+      "domain": "flickr.com",
+      "headers": {
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1; mode=block",
+        "referrer-policy": "same-origin",
+        "cross-origin-opener-policy": "same-origin-allow-popups"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "",
+      "header_count": 5
+    },
+    {
+      "domain": "forbes.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+        "content-security-policy": "upgrade-insecure-requests",
+        "x-frame-options": "SAMEORIGIN",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "permissions-policy": "unload=()"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "istio-envoy",
+      "header_count": 5
+    },
+    {
+      "domain": "ghost.org",
+      "headers": {
+        "strict-transport-security": "max-age=31536000",
+        "content-security-policy": "default-src 'self' customer-cubrih08bflu3z2b.cloudflarestream.com pages.churnbuster.io ghbtns.com *.algolia.net help.ghost.io resources.ghost.io tutorials.ghost.io changelog.ghost.io t.firstpromoter.com; script-src 'self' 'unsafe-eval' 'unsafe-inline' blob: cdn.jsdelivr.net https://cdn.firstpromoter.com proxy-assets.churnbuster.io https://static.ads-twitter.com embed.ghoststatus.org https://www.dubcdn.com/analytics/script.js ingest.promptwatch.com https://esm.sh https://vjs.zencdn.net https://analytics.ahrefs.com; style-src 'self' 'unsafe-inline' proxy-assets.churnbuster.io https://vjs.zencdn.net; font-src 'self' data: rsms.me/inter/font-files/; img-src 'self' 'unsafe-inline' data: supapjpiqdfzuaordcdx.supabase.co/storage/ analytics.twitter.com https://t.co https://dubassets.com https://*.cloudflarestream.com https://*.laravel.cloud; media-src 'self' blob: https://*.cloudflarestream.com; connect-src 'self' https://*.algolia.net https://*.algolianet.com analytics.twitter.com https://ads-api.twitter.com/ t.firstpromoter.com https://api.dub.co/track/click ingest.promptwatch.com https://ingesteer.services-prod.nsvcs.net https://*.cloudflarestream.com https://analytics.ahrefs.com; worker-src 'self' blob:; frame-src 'self' https://app.netlify.com https://ghbtns.com https://pages.churnbuster.io;",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1; mode=block",
+        "referrer-policy": "no-referrer-when-downgrade",
+        "permissions-policy": "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "Netlify",
+      "header_count": 7
+    },
+    {
+      "domain": "github.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; includeSubdomains; preload",
+        "content-security-policy": "default-src 'none'; base-uri 'self'; child-src github.githubassets.com github.com/assets-cdn/worker/ github.com/assets/ gist.github.com/assets-cdn/worker/; connect-src 'self' uploads.github.com www.githubstatus.com collector.github.com raw.githubusercontent.com api.github.com github-cloud.s3.amazonaws.com github-production-repository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-user-asset-6210df.s3.amazonaws.com *.rel.tunnels.api.visualstudio.com wss://*.rel.tunnels.api.visualstudio.com github.githubassets.com objects-origin.githubusercontent.com copilot-proxy.githubusercontent.com proxy.individual.githubcopilot.com proxy.business.githubcopilot.com proxy.enterprise.githubcopilot.com *.actions.githubusercontent.com wss://*.actions.githubusercontent.com productionresultssa0.blob.core.windows.net productionresultssa1.blob.core.windows.net productionresultssa2.blob.core.windows.net productionresultssa3.blob.core.windows.net productionresultssa4.blob.core.windows.net productionresultssa5.blob.core.windows.net productionresultssa6.blob.core.windows.net productionresultssa7.blob.core.windows.net productionresultssa8.blob.core.windows.net productionresultssa9.blob.core.windows.net productionresultssa10.blob.core.windows.net productionresultssa11.blob.core.windows.net productionresultssa12.blob.core.windows.net productionresultssa13.blob.core.windows.net productionresultssa14.blob.core.windows.net productionresultssa15.blob.core.windows.net productionresultssa16.blob.core.windows.net productionresultssa17.blob.core.windows.net productionresultssa18.blob.core.windows.net productionresultssa19.blob.core.windows.net github-production-repository-image-32fea6.s3.amazonaws.com github-production-release-asset-2e65be.s3.amazonaws.com insights.github.com wss://alive.github.com wss://alive-staging.github.com api.githubcopilot.com api.individual.githubcopilot.com api.business.githubcopilot.com api.enterprise.githubcopilot.com edge.fullstory.com rs.fullstory.com; font-src github.githubassets.com; form-action 'self' github.com gist.github.com copilot-workspace.githubnext.com objects-origin.githubusercontent.com; frame-ancestors 'none'; frame-src viewscreen.githubusercontent.com notebooks.githubusercontent.com www.youtube-nocookie.com; img-src 'self' data: blob: github.githubassets.com media.githubusercontent.com camo.githubusercontent.com identicons.github.com avatars.githubusercontent.com private-avatars.githubusercontent.com github-cloud.s3.amazonaws.com objects.githubusercontent.com release-assets.githubusercontent.com secured-user-images.githubusercontent.com user-images.githubusercontent.com private-user-images.githubusercontent.com opengraph.githubassets.com marketplace-screenshots.githubusercontent.com copilotprodattachments.blob.core.windows.net/github-production-copilot-attachments/ github-production-user-asset-6210df.s3.amazonaws.com customer-stories-feed.github.com spotlights-feed.github.com objects-origin.githubusercontent.com *.githubusercontent.com images.ctfassets.net/8aevphvgewt8/; manifest-src 'self'; media-src github.com user-images.githubusercontent.com secured-user-images.githubusercontent.com private-user-images.githubusercontent.com github-production-user-asset-6210df.s3.amazonaws.com gist.github.com github.githubassets.com assets.ctfassets.net/8aevphvgewt8/ videos.ctfassets.net/8aevphvgewt8/; script-src github.githubassets.com; style-src 'unsafe-inline' github.githubassets.com; upgrade-insecure-requests; worker-src github.githubassets.com github.com/assets-cdn/worker/ github.com/assets/ gist.github.com/assets-cdn/worker/",
+        "x-frame-options": "deny",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "0",
+        "referrer-policy": "origin-when-cross-origin, strict-origin-when-cross-origin"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "github.com",
+      "header_count": 6
+    },
+    {
+      "domain": "godaddy.com",
+      "headers": {},
+      "status": null,
+      "error": "HTTP Error 403: Forbidden",
+      "https_redirect": false
+    },
+    {
+      "domain": "google.com",
+      "headers": {
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "0"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "gws",
+      "header_count": 2
+    },
+    {
+      "domain": "grubhub.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "Varnish",
+      "header_count": 1
+    },
+    {
+      "domain": "hackernews.com",
+      "headers": {},
+      "status": null,
+      "error": "<urlopen error _ssl.c:1063: The handshake operation timed out>",
+      "https_redirect": false
+    },
+    {
+      "domain": "hbomax.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000 ; includeSubDomains ; preload",
+        "content-security-policy": "script-src 'self' blob: data: https: 'unsafe-inline' 'unsafe-eval';    connect-src 'self' ws: https:;    style-src 'self' 'unsafe-inline' https:;    font-src 'self' https: data:;    object-src 'none';    worker-src blob:;    img-src 'self' blob: data: https:;    frame-src 'self' blob: data: https:;    base-uri 'self';    form-action 'self';    frame-ancestors 'none';    upgrade-insecure-requests;",
+        "x-content-type-options": "nosniff"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "",
+      "header_count": 3
+    },
+    {
+      "domain": "heroku.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000",
+        "content-security-policy": "default-src https: data: wss://*.hotjar.com wss://*.crazyegg.com *.crazyegg.com wss://*.zohopublic.com; script-src https: blob: data: 'unsafe-inline' 'unsafe-eval'; style-src https: data: 'unsafe-inline'; img-src data: https: 'unsafe-inline'; font-src data: https: 'unsafe-inline'; frame-ancestors 'self'; object-src 'self' blob; upgrade-insecure-requests; media-src 'self' blob: data: https:;",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1; mode=block",
+        "referrer-policy": "no-referrer-when-downgrade",
+        "permissions-policy": "autoplay=(), camera=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), publickey-credentials-get=(), usb=(), browsing-topics=()"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "nginx",
+      "header_count": 7
+    },
+    {
+      "domain": "homedepot.com",
+      "headers": {},
+      "status": null,
+      "error": "HTTP Error 403: Forbidden",
+      "https_redirect": false
+    },
+    {
+      "domain": "hubspot.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+        "content-security-policy": "script-src 'unsafe-inline' 'unsafe-eval' 'self' 1003891.track.convertexperiments.com app.hubspot.com cdn-3.convertexperiments.com cdn-4.convertexperiments.com *.metrics.convertexperiments.com *.signals.convertexperiments.com logs.convertexperiments.com *.convertexperiments.com cdn.pdst.fm connect.facebook.net js.hs-analytics.net js.hs-banner.com js.hsforms.net js.hsleadflows.net js.hubspotfeedback.com js.usemessages.com organizer.bizzabo.com play.vidyard.com script.hotjar.com snap.licdn.com static.hotjar.com static.hsappstatic.net www.google-analytics.com www.googletagmanager.com www.recaptcha.net code.highcharts.com www.youtube.com js.hubspot.com www.dropbox.com widget.altrulabs.com www.google.com maps.googleapis.com wt-assets.hubteam.com cdn2.hubspot.net www.redditstatic.com cdn.veritonic.com gosniply.com d.impactradius-event.com js.hubspot.com 50339659.hs-sites.com analytics.tiktok.com 'strict-dynamic' 'nonce-ZDcpEykerdSXFuEO+Uv+gQ=='; report-uri https://send.hsbrowserreports.com/csp/report; upgrade-insecure-requests",
+        "x-frame-options": "DENY",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1",
+        "referrer-policy": "no-referrer-when-downgrade"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "cloudflare",
+      "header_count": 6
+    },
+    {
+      "domain": "hulu.com",
+      "headers": {
+        "x-frame-options": "SAMEORIGIN"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "envoy",
+      "header_count": 1
+    },
+    {
+      "domain": "instagram.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; preload; includeSubDomains",
+        "content-security-policy": "default-src *.facebook.com *.fbcdn.net *.instagram.com blob:;script-src *.instagram.com static.cdninstagram.com *.facebook.com *.fbcdn.net *.facebook.net 127.0.0.1:* 'nonce-sCzyS14m' blob: 'self' 'unsafe-eval' https://*.google-analytics.com https://translate.google.com https://apis.google.com https://accounts.google.com;style-src *.instagram.com static.cdninstagram.com data: blob: 'unsafe-inline' *.fbcdn.net *.facebook.com;connect-src *.instagram.com wss://edge-chat.instagram.com connect.facebook.net *.facebook.com facebook.com *.fbcdn.net *.facebook.net wss://*.facebook.com:* ws://localhost:* blob: *.cdninstagram.com wss://*.instagram.com:* 'self' https://meta.privacy-gateway.cloudflare.com/relay;font-src *.instagram.com static.cdninstagram.com data: *.fbcdn.net *.intern.facebook.com *.facebook.com https://fonts.gstatic.com;img-src *.instagram.com *.facebook.com *.fbcdn.net data: *.cdninstagram.com *.whatsapp.net blob: *.fbsbx.com android-webview-video-poster: *.oculuscdn.com *.giphy.com *.tenor.co *.tenor.com www.googleadservices.com *.doubleclick.net *.google.com *.google.co.uk https://www.gstatic.com https://*.google-analytics.com;media-src *.facebook.com *.fbcdn.net *.instagram.com *.cdninstagram.com *.fbsbx.com data: blob: https://*.giphy.com *.tenor.co *.tenor.com;child-src *.facebook.com *.fbcdn.net *.instagram.com data: blob:;frame-src *.instagram.com *.facebook.com *.fbsbx.com fbsbx.com data: www.googleadservices.com *.doubleclick.net *.google.com *.google.co.uk;manifest-src *.facebook.com *.fbcdn.net *.instagram.com data: blob:;object-src *.facebook.com *.fbcdn.net *.instagram.com data: blob:;block-all-mixed-content;upgrade-insecure-requests;",
+        "x-frame-options": "DENY",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "0",
+        "permissions-policy": "accelerometer=(self), attribution-reporting=(), autoplay=(), bluetooth=(), camera=(self), ch-device-memory=(), ch-downlink=(), ch-dpr=(), ch-ect=(), ch-rtt=(), ch-save-data=(), ch-ua-arch=(), ch-ua-bitness=(), ch-viewport-height=(), ch-viewport-width=(), ch-width=(), clipboard-read=(), clipboard-write=(self), compute-pressure=(), display-capture=(self), encrypted-media=(), fullscreen=(self), gamepad=(), geolocation=(self), gyroscope=(self), hid=(), idle-detection=(), interest-cohort=(), keyboard-map=(), local-fonts=(), magnetometer=(), microphone=(self), midi=(), otp-credentials=(self), payment=(), picture-in-picture=(self), private-state-token-issuance=(), publickey-credentials-get=(self \"https://*.facebook.com\" \"https://facebook.com\"), screen-wake-lock=(), serial=(), shared-storage=(), shared-storage-select-url=(), private-state-token-redemption=(), usb=(), unload=(self), window-management=(), xr-spatial-tracking=();report-to=\"permissions_policy\"",
+        "cross-origin-opener-policy": "unsafe-none",
+        "cross-origin-resource-policy": "same-origin"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "",
+      "header_count": 8
+    },
+    {
+      "domain": "kayak.com",
+      "headers": {
+        "content-security-policy": "upgrade-insecure-requests; frame-ancestors 'self'",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1; mode=block",
+        "referrer-policy": "origin-when-cross-origin"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "KAYAK/1.0",
+      "header_count": 4
+    },
+    {
+      "domain": "linkedin.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000",
+        "content-security-policy": "default-src 'none'; connect-src 'self' *.licdn.com *.linkedin.com cdn.linkedin.oribi.io dpm.demdex.net/id lnkd.demdex.net blob: accounts.google.com/gsi/ linkedin.sc.omtrdc.net/b/ss/ v.clarity.ms/collect *.microsoft.com *.adnxs.com *.tealiumiq.com login.microsoftonline.com bat.bing.com lnkd.tt.omtrdc.net/rest/v1/delivery www.google.com google.com adservice.google.com pagead2.googlesyndication.com td.doubleclick.net www.googletagmanager.com www.googleadservices.com ad.doubleclick.net googleads.g.doubleclick.net; script-src 'report-sample' 'sha256-th47JTnh6tX15SUn/I+GGmsOSXpa7dh5Skner77gxlY=' 'sha256-SSoodjUD3LGm2FfFCVHGqEb8D4UM3OOigidT2UKDcYg=' 'sha256-cKTgdnmO6+hXd85a9wKg1effVfVzenUAtUCyOKY9bQE=' 'sha256-DwtT8+ZZKpxH9pqZNAmJ3GdbLAh5SsYaXR3omTXPCns=' 'sha256-sV9jZa797T0QWBzcU/CNd4tpBhTnh+TFdLnfjlitl28=' 'sha256-aa/Q8CRBDSqTQbCIyioPhZaz+G+dbPyu7BzsjInEmiU=' 'sha256-THuVhwbXPeTR0HszASqMOnIyxqEgvGyBwSPBKBF/iMc=' 'sha256-zTIusdVJJeXz9+iox2a+pdDglzbpRpFVRzEwvW4AONk=' 'sha256-iC8MPqNLw0FDnsBf4DlSkFLNTwhkI85aouiAEB819ic=' 'sha256-2EqrEvcPzl8c6/TSGVvaVMEe7lg700MAz/te4/3kTYY=' 'sha256-y5uW69VItKj51mcc7UD9qfptDVUqicZL+bItEpvVNDw=' 'sha256-DatsFGoJ8gFkzzxo47Ou76WZ+3QBPOQHtBu9p9b3DhA=' 'sha256-k95cyM8gFgPziZe5VQ2IvJvBUVyd5zFt2CokIUwqdHE=' 'sha256-PyCXNcEkzRWqbiNr087fizmiBBrq9O6GGD8eV3P09Ik=' 'sha256-RFqsjmAF1N5LnfpaHFvPqFlVkeIS/DtTAFor+JjJJVc=' 'sha256-2SQ55Erm3CPCb+k03EpNxU9bdV3XL9TnVTriDs7INZ4=' 'sha256-S/KSPe186K/1B0JEjbIXcCdpB97krdzX05S+dHnQjUs=' 'sha256-9pXOIwF4N0gPltLd3AI69lkCjSC2H/Eb3sc5zdmUyYU=' 'sha256-jou6v/Nleyzoc+LXktAv1Fp8M807dVVxy7E/yzVljHc=' 'sha256-6E4e/3dSvj/8JZT2S2yR91mspqM6MyOpKl5lrhHsZa8=' 'sha256-JfJ82reKxtqugVbfRGw/O/1x1Lm1I09rHueXSwvbRws=' 'sha256-BbV1i75oYRtLtfDWs7tnA8QLF5EOO1dVHKL0prVd/fQ=' 'sha256-3woF8BZ54TeXM+czaH3aXoaJsVpiamuAKFsXDykAR/Q=' 'sha256-vIfNcKb8ixJg1cfJIoNNYjWcm0lezj1/XpUNFiZyVsU=' 'sha256-cLsHUHFgT/VGX04cZrJ9xgm4HbzTR7ptutkxK+7BlMk=' 'sha256-BwU8jMnQYUhjOpsDVABpfddV/DlP1ZYrFcTumYw7x54=' 'sha256-wz6ika9i3WU3bpUPdhYDZeO/NrDQniDyiscN0LWnyaY=' 'sha256-3RIGhhApBii1KY+aW1xk7kFyoQY8vSVE5DfT7E9SJUc=' static.licdn.com static-exp1.licdn.com static-exp2.licdn.com static-exp3.licdn.com platform.linkedin.com platform-akam.linkedin.com platform-ecst.linkedin.com platform-azur.linkedin.com snap.licdn.com www.google.com/recaptcha/enterprise.js www.gstatic.com/recaptcha/releases/ www.googletagmanager.com/gtag/js www.googleadservices.com/pagead/ www.google.com/pagead/ googleads.g.doubleclick.net/pagead/ adservice.google.com/pagead/ pagead2.googlesyndication.com/pagead/ www.googletagmanager.com/gtag/destination merchantpool1.linkedin.com/mdt.js; img-src data: blob: * android-webview-video-poster:; font-src data: *; style-src 'self' 'unsafe-inline' static.licdn.com static-exp1.licdn.com static-exp2.licdn.com static-exp3.licdn.com; media-src 'self' *.licdn.com *.lynda.com; worker-src 'self' blob: static.licdn.com static-exp1.licdn.com static-exp2.licdn.com static-exp3.licdn.com; frame-src 'self' www.youtube.com/embed/ www.youtube-nocookie.com/embed/ lnkd.demdex.net smartlock.google.com accounts.google.com player.vimeo.com *.linkedin.com www.slideshare.net *.megaphone.fm *.omny.fm *.sounder.fm msit.powerbi.com app.powerbi.com linkedin.github.io *.licdn.com *.adnxs.com acdn.adnxs-simple.com radar.cedexis.com edge-auth.microsoft.com flo.uri.sh play.vidyard.com www.google.com/recaptcha/ aat-acr-web-prod.azurewebsites.net *.fls.doubleclick.net www.googletagmanager.com td.doubleclick.net li.protechts.net *.xlgmedia.com *.px-cloud.net merchantpool1.linkedin.com; frame-ancestors 'self' *.www.linkedin.com:*; manifest-src 'self'; report-uri https://www.linkedin.com/security/csp?f=gg",
+        "x-frame-options": "sameorigin",
+        "x-content-type-options": "nosniff"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "cloudflare",
+      "header_count": 4
+    },
+    {
+      "domain": "linode.com",
+      "headers": {},
+      "status": null,
+      "error": "HTTP Error 403: Forbidden",
+      "https_redirect": false
+    },
+    {
+      "domain": "lyft.com",
+      "headers": {
+        "strict-transport-security": "max-age=15552000",
+        "x-frame-options": "DENY",
+        "x-content-type-options": "nosniff",
+        "referrer-policy": "origin-when-cross-origin"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "envoy-iad",
+      "header_count": 4
+    },
+    {
+      "domain": "mailchimp.com",
+      "headers": {
+        "x-frame-options": "SAMEORIGIN"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "istio-envoy",
+      "header_count": 1
+    },
+    {
+      "domain": "medium.com",
+      "headers": {},
+      "status": null,
+      "error": "<urlopen error [Errno 54] Connection reset by peer>",
+      "https_redirect": false
+    },
+    {
+      "domain": "messenger.com",
+      "headers": {
+        "strict-transport-security": "max-age=15552000; preload; includeSubDomains",
+        "content-security-policy": "frame-ancestors 'self';, default-src blob: https://*.fbcdn.net https://*.facebook.com *.fbsbx.com *.messenger.com;script-src *.facebook.com *.fbcdn.net *.facebook.net 127.0.0.1:* 'nonce-nRGu8Huf' blob: 'self' connect.facebook.net *.messenger.com 'unsafe-eval' https://*.google-analytics.com *.google.com;style-src data: blob: 'unsafe-inline' *.facebook.com *.fbcdn.net *.messenger.com;connect-src http://localhost:3103 *.facebook.com facebook.com *.fbcdn.net *.facebook.net wss://*.facebook.com:* wss://*.whatsapp.com:* attachment.fbsbx.com ws://localhost:* blob: *.cdninstagram.com 'self' *.messenger.com wss://*.messenger.com www.messenger.com wss://*.messenger.com:* https://*.google-analytics.com;font-src *.messenger.com *.facebook.com https://*.fbcdn.net data: https://fonts.gstatic.com;img-src *.fbcdn.net https://*.facebook.com cdninstagram.com *.cdninstagram.com data: *.fbsbx.com *.messenger.com messenger.com blob: android-webview-video-poster: *.xx.fbcdn.net https://messenger.com *.oculuscdn.com *.tenor.co *.tenor.com *.giphy.com https://*.google-analytics.com;media-src *.messenger.com *.facebook.com https://*.fbcdn.net data: *.fbsbx.com *.fbcdn.net *.cdninstagram.com blob: *.tenor.co *.tenor.com https://*.giphy.com;child-src data: blob: https://*.fbcdn.net https://*.facebook.com *.fbsbx.com *.messenger.com;frame-src *.messenger.com *.facebook.com https://*.fbcdn.net data: *.fbsbx.com *.fbcdn.net *.cdninstagram.com blob: *.doubleclick.net;manifest-src data: blob: https://*.fbcdn.net https://*.facebook.com *.fbsbx.com *.messenger.com;object-src data: blob: https://*.fbcdn.net https://*.facebook.com *.fbsbx.com *.messenger.com;",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "0",
+        "permissions-policy": "accelerometer=(), attribution-reporting=(), autoplay=(), bluetooth=(), camera=(self), ch-device-memory=(), ch-downlink=(), ch-dpr=(), ch-ect=(), ch-rtt=(), ch-save-data=(), ch-ua-arch=(), ch-ua-bitness=(), ch-viewport-height=(), ch-viewport-width=(), ch-width=(), clipboard-read=(), clipboard-write=(self), compute-pressure=(), display-capture=(self), encrypted-media=(), fullscreen=(self), gamepad=(), geolocation=(self), gyroscope=(), hid=(), idle-detection=(), interest-cohort=(), keyboard-map=(), local-fonts=(), magnetometer=(), microphone=(self), midi=(), otp-credentials=(), payment=(), picture-in-picture=(), private-state-token-issuance=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), shared-storage=(), shared-storage-select-url=(), private-state-token-redemption=(), usb=(), unload=(self), window-management=(), xr-spatial-tracking=();report-to=\"permissions_policy\"",
+        "cross-origin-opener-policy": "same-origin-allow-popups",
+        "cross-origin-resource-policy": "same-origin"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "",
+      "header_count": 7
+    },
+    {
+      "domain": "microsoft.com",
+      "headers": {},
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "AkamaiNetStorage",
+      "header_count": 0
+    },
+    {
+      "domain": "namecheap.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; includeSubDomains",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "cloudflare",
+      "header_count": 3
+    },
+    {
+      "domain": "netflix.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; includeSubDomains",
+        "x-frame-options": "DENY",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1; mode=block; report=https://www.netflix.com/ichnaea/log/freeform/xssreport"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "envoy",
+      "header_count": 4
+    },
+    {
+      "domain": "netlify.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+        "permissions-policy": "browsing-topics=()"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "Netlify",
+      "header_count": 2
+    },
+    {
+      "domain": "notion.so",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+        "content-security-policy": "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://gist.github.com https://apis.google.com https://cdn.amplitude.com https://api.amplitude.com https://dev-embed.notion.co https://embed.notion.co https://static.zdassets.com https://api.smooch.io\t https://solve-widget.forethought.ai https://decagon.ai https://http-inputs-notion.splunkcloud.com https://*.sentry.io https://checkout.stripe.com https://js.stripe.com https://embed.typeform.com https://admin.typeform.com https://ucv.bynder.com https://js.sentry-cdn.com https://js.chilipiper.com https://platform.twitter.com https://cdn.syndication.twimg.com https://accounts.google.com https://vimeo.com https://player.vimeo.com https://youtube.com https://www.youtube.com https://app.cal.com https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://cdn.metadata.io https://platformapi.metadata.io https://api-gw.metadata.io https://cdn.cr-relay.com https://d2hrivdxn8ekm8.cloudfront.net https://d1lu3pmaz2ilpx.cloudfront.net https://dvqigh9b7wa32.cloudfront.net https://d330aiyvva2oww.cloudfront.net https://d34r8q7sht0t9k.cloudfront.net https://transcend-cdn.com https://wcs.naver.com https://wcs.naver.net https://cdn01.boxcdn.net https://api.tailorhq.ai https://app.tailorhq.ai https://cdn.tailorhq.ai https://cached-api.tailorhq.ai https://cdn.sprig.com https://assets.customer.io https://track.customer.io https://code.gist.build https://www.google.com https://www.gstatic.com https://challenges.cloudflare.com https://hcaptcha.com https://*.hcaptcha.com https://maps.googleapis.com https://unpkg.com/react@18.2.0/umd/react.development.js https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js https://unpkg.com/@babel/standalone@7.26.9/babel.min.js https://unpkg.com/dayjs-with-plugins@1.0.4/dist/dayjs-with-plugins.min.js https://unpkg.com/@tailwindcss/browser@4 https://unpkg.com/d3@7.9.0/dist/d3.min.js https://unpkg.com/three@0.150.0/build/three.min.js https://dev-custom-views-modules-usw2.s3.us-west-2.amazonaws.com/components.js https://pagead2.googlesyndication.com https://x.clearbitjs.com https://connect.facebook.net https://snap.licdn.com/ https://px.ads.linkedin.com/ https://munchkin.marketo.net https://info.notion.com https://bat.bing.com https://s.yimg.jp https://www.youtube-nocookie.com https://www.youtube.com/iframe_api https://js.partnerstack.com https://partnerlinks.io https://analytics.tiktok.com/ https://vitals.vercel-insights.com https://va.vercel-scripts.com https://vercel.live https://www.redditstatic.com https://static.ads-twitter.com https://insights.metadata.io https://acdn.adnxs.com/dmp/up/pixie.js https://a.usbrowserspeed.com https://static.hotjar.com https://script.hotjar.com https://cloud.memsource.com https://editor.memsource.com https://adora-cdn.com https://c.adora-cdn.com;connect-src 'self' data: blob: https://img.notionusercontent.com https://notion.so/eap https://cdn.amplitude.com https://api.amplitude.com https://www.notion.so https://app.notion.com notion://app.notion.com https://api.embed.ly https://dev-embed.notion.co https://embed.notion.co https://ekr.zdassets.com https://ekr.zendesk.com\t https://makenotion.zendesk.com\t https://api.smooch.io\t wss://api.smooch.io\t https://api.forethought.ai https://http-inputs-notion.splunkcloud.com https://*.sentry.io https://checkout.stripe.com https://js.stripe.com https://library.notion.com https://d8ejoa1fys2rk.cloudfront.net https://cdn.contentful.com https://preview.contentful.com https://images.ctfassets.net https://tracking.chilipiper.com https://api.chilipiper.com https://api.unsplash.com https://api.giphy.com/ https://giphy-analytics.giphy.com/ https://media0.giphy.com/ https://media1.giphy.com/ https://media2.giphy.com/ https://media3.giphy.com/ https://media4.giphy.com/ https://media5.giphy.com/ https://media6.giphy.com/ https://media7.giphy.com/ https://media8.giphy.com/ https://media9.giphy.com/ https://media10.giphy.com/ https://boards-api.greenhouse.io https://accounts.google.com https://oauth2.googleapis.com https://vimeo.com https://player.vimeo.com https://youtube.com https://www.youtube.com https://www.googletagmanager.com https://analytics.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://region1.google-analytics.com https://region1.analytics.google.com https://www.google-analytics.com https://cdn.metadata.io https://platformapi.metadata.io https://api-gw.metadata.io https://api.cr-relay.com https://d2hrivdxn8ekm8.cloudfront.net https://d1lu3pmaz2ilpx.cloudfront.net https://dvqigh9b7wa32.cloudfront.net https://d330aiyvva2oww.cloudfront.net https://verifi.podscribe.com https://verifi.pdscrb.com https://pixel.tapad.com https://ipv4.podscribe.com https://ipv4.pdscrb.com https://transcend-cdn.com https://telemetry.transcend.io https://pgncd.notion.so https://api.statsig.com https://statsigapi.net https://exp.notion.so https://api.box.com https://api.tailorhq.ai https://app.tailorhq.ai https://cdn.tailorhq.ai https://cached-api.tailorhq.ai https://*.mux.com https://api.sprig.com https://storage.googleapis.com https://cdn.sprig.com https://cdn.userleap.com https://assets.customer.io https://track.customer.io https://*.api.gist.build https://*.cloud.gist.build https://www.google.com https://hcaptcha.com https://*.hcaptcha.com https://tiles.versatiles.org https://maps.googleapis.com https://places.googleapis.com https://pagead2.googlesyndication.com https://google.com https://x.clearbitjs.com https://app.clearbitjs.com https://connect.facebook.net https://snap.licdn.com/ https://px.ads.linkedin.com/ https://munchkin.marketo.net https://*.mktoresp.com https://info.notion.com https://bat.bing.com https://s.yimg.jp https://www.youtube-nocookie.com https://www.youtube.com/iframe_api https://js.partnerstack.com https://grsm.io https://partnerlinks.io https://analytics.tiktok.com/ https://vitals.vercel-insights.com https://va.vercel-scripts.com https://vercel.live https://www.redditstatic.com https://static.ads-twitter.com https://insights.metadata.io https://acdn.adnxs.com/dmp/up/pixie.js https://a.usbrowserspeed.com https://api.mail.dev.notion.so/graphql https://api.mail.notion.so/graphql https://*.hotjar.com https://*.hotjar.io wss://*.hotjar.com https://cloud.memsource.com https://editor.memsource.com https://adora-cdn.com https://c.adora-cdn.com;font-src 'self' data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://d8ejoa1fys2rk.cloudfront.net https://cdn01.boxcdn.net https://fonts.gstatic.com;img-src 'self' data: blob: https: https://img.notionusercontent.com https://mail-resource-proxy.mail.notion.so https://app.notion.com notion://app.notion.com https://images.ctfassets.net https://platform.twitter.com https://syndication.twitter.com https://pbs.twimg.com https://ton.twimg.com https://region1.google-analytics.com https://region1.analytics.google.com https://*.mux.com https://track.customer.io;style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://github.githubassets.com https://d8ejoa1fys2rk.cloudfront.net https://js.chilipiper.com https://platform.twitter.com https://ton.twimg.com https://accounts.google.com https://transcend-cdn.com https://cdn01.boxcdn.net https://code.gist.build https://hcaptcha.com https://*.hcaptcha.com https://fonts.googleapis.com;frame-src 'self' https: http: https://app.notion.com notion://app.notion.com https://accounts.google.com https://renderer.gist.build https://code.gist.build https://challenges.cloudflare.com https://hcaptcha.com https://*.hcaptcha.com https://notion.notion.site https://notion-templates.notion.site;frame-ancestors 'self' https://www.notion.so https://app.notion.com notion://app.notion.com notion://www.notion.so;worker-src 'self' blob:;child-src 'self' blob:;media-src blob: https: http: https://*.mux.com",
+        "referrer-policy": "strict-origin-when-cross-origin"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "cloudflare",
+      "header_count": 3
+    },
+    {
+      "domain": "nytimes.com",
+      "headers": {
+        "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
+        "content-security-policy": "upgrade-insecure-requests; default-src data: 'unsafe-inline' 'unsafe-eval' https: nytresource:; script-src data: 'unsafe-inline' 'unsafe-eval' https: blob: nytresource:; style-src data: 'unsafe-inline' https: nytresource:; img-src data: https: blob: android-webview-video-poster: nytresource:; font-src data: https: nytresource:; connect-src data: https: wss: blob: nytresource:; media-src data: https: blob: nytresource:; object-src https:; child-src https: data: blob: nytresource:; form-action https: nytimes: nytcooking: nytxwd:; report-uri https://csp.nytimes.com/report;",
+        "x-frame-options": "DENY",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1; mode=block",
+        "permissions-policy": "browsing-topics=()"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "envoy",
+      "header_count": 6
+    },
+    {
+      "domain": "ovh.com",
+      "headers": {
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1; mode=block"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "",
+      "header_count": 3
+    },
+    {
+      "domain": "paramount.com",
+      "headers": {},
+      "status": null,
+      "error": "HTTP Error 403: Forbidden",
+      "https_redirect": false
+    },
+    {
+      "domain": "paypal.com",
+      "headers": {
+        "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
+        "content-security-policy": "default-src 'self' https://*.paypal.com https://*.paypalobjects.com; frame-src 'self' https://*.paypal.com https://*.paypalobjects.com https://www.youtube-nocookie.com https://www.xoom.com https://*.paypal-mktg.com https://*.company-target.com https://*.qualtrics.com; script-src 'nonce-MTkxNjA4MTQtZjlmMS00MTI1LTkyMGMtNTE3ODlkNjM5OWJh' 'self' https://*.paypal.com https://*.paypalobjects.com https://assets-cdn.s-xoom.com https://pypd.paypal-mktg.com 'unsafe-inline'; connect-src 'self' https://nominatim.openstreetmap.org https://*.paypal.com https://*.paypalobjects.com https://www.google-analytics.com https://www.analytics.google.com https://region1.google-analytics.com https://region1.analytics.google.com https://*.salesforce.com https://*.force.com https://nexus.ensighten.com https://api.paypal-retaillocator.com https://paypal.us-4.evergage.com https://browser-intake-us5-datadoghq.com https://*.company-target.com https://*.demandbase.com https://*.adsrvr.org https://prod.uidapi.com https://*.qualtrics.com; style-src 'self' https://*.paypal.com https://*.paypalobjects.com https://assets-cdn.s-xoom.com 'unsafe-inline'; font-src 'self' https://*.paypal.com https://*.paypalobjects.com https://assets-cdn.s-xoom.com data:; img-src 'self' https: data: https://www.google-analytics.com https://www.analytics.google.com https://region1.google-analytics.com https://region1.analytics.google.com; form-action 'self' https://*.paypal.com https://*.salesforce.com https://secure.opinionlab.com https://*.paypal-mktg.com https://*.paypal-corp.com https://signup.partnerize.com; base-uri 'self' https://*.paypal.com; object-src 'none'; frame-ancestors 'self' https://*.paypal.com; upgrade-insecure-requests;; report-uri https://www.paypal.com/csplog/api/log/csp",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1; mode=block",
+        "permissions-policy": "ch-ua-platform-version=(self \"https://c.paypal.com\"),ch-ua-arch=(self \"https://c.paypal.com\"),ch-ua-wow64=(self \"https://c.paypal.com\"),ch-ua-model=(self \"https://c.paypal.com\"),ch-ua-bitness=(self \"https://c.paypal.com\"),ch-ua-full-version=(self \"https://c.paypal.com\"),ch-ua-full-version-list=(self \"https://c.paypal.com\")"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "",
+      "header_count": 5
+    },
+    {
+      "domain": "peacocktv.com",
+      "headers": {
+        "strict-transport-security": "max-age=15768000 ; includeSubDomains",
+        "content-security-policy": "default-src https://*.peacocktv.com; form-action https://*.force.com https://*.my.salesforce.com https://*.salesforce-sites.com https://tr.snapchat.com https://*.qualtrics.com https://*.paypal.com; font-src 'self' data: https://*.peacocktv.com https://braze-images.com https://*.optimizely.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://*.peacocktv.com https://core.spreedly.com https://browser.sentry-cdn.com https://*.salesforceliveagent.com https://*.force.com https://*.my.salesforce.com https://*.salesforce-sites.com https://*.optimizely.com https://nbcstreaming.sc.omtrdc.net https://connect.facebook.net https://static.ads-twitter.com https://analytics.twitter.com https://assets.adobedtm.com https://js.createsend1.com https://www.googletagmanager.com https://nbcuss.demdex.net https://jssdkcdns.mparticle.com https://www.google.com https://googleads.g.doubleclick.net https://platform.twitter.com https://www.googleadservices.com https://www.google-analytics.com https://t.contentsquare.net https://s.pinimg.com https://sc-static.net https://www.redditstatic.com https://analytics.tiktok.com https://pixelb.randi.adswizz.com https://imp.i305175.net https://www.ojrq.net https://logs-01.loggly.com https://peacock.sjv.io https://s0.ipstatp.com https://d.impactradius-event.com https://bid.g.doubleclick.net https://wsdk.rokt.com https://apps.rokt.com https://js.adsrvr.org https://insight.adsrvr.org https://cdn.cookielaw.org https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://bat.bing.com https://*.onetrust.com https://s.yimg.com https://sp.analytics.yahoo.com https://*.amazon-adsystem.com https://apps.rokt.com https://p.teads.tv https://a.teads.tv https://s8t.teads.tv https://tr.snapchat.com https://www.paypal.com https://www.clarity.ms https://ct.pinterest.com https://*.qualtrics.com https://www.youtube.com https://content.zenimpact.io https://hub2.zenimpact.io https://insight-api-kgw.zenimpact.io https://cys26963.jscrambler.com https://d-code.liadm.com https://idx.liadm.com https://edge.fullstory.com https://rs.fullstory.com https://optimizely.s3.amazonaws.com https://cdn-assets-prod.s3.amazonaws.com; connect-src 'self' localhost:* ws://localhost:* https://*.campaign.adobe.com https://*.peacocktv.com https://core.spreedly.com https://*.force.com https://*.salesforce.com https://*.my.salesforce.com https://*.salesforce-sites.com https://graph.facebook.com https://nbcuss.demdex.net https://*.mparticle.com https://createsend.com https://www.createsend.com https://www.facebook.com https://*.ott.sky.com https://sas-apm-prod.telemetry.nbcuott.com https://0d15692193ba43a8a9384fed500b3a1d.apm.us-east-1.aws.cloud.es.io https://sdk.iad-03.appboy.com https://sdk.iad-03.braze.com https://rest.iad-03.braze.com https://*.contentsquare.net https://*.optimizely.com https://ct.pinterest.com https://nbcstreaming.sc.omtrdc.net https://analytics.tiktok.com https://cdn.cookielaw.org https://*.onetrust.com https://bat.bing.com https://checkoutshopper-live.adyen.com https://checkoutshopper-live-us.adyen.com https://tr.snapchat.com https://www.google-analytics.com https://imp.i305175.net https://analytics.twitter.com https://dpm.demdex.net https://ad.doubleclick.net https://s.yimg.com https://sp.analytics.yahoo.com https://*.amazon-adsystem.com https://t.teads.tv https://cm.teads.tv https://*.paypal.com https://api.ipify.org https://www.redditstatic.com https://analytics.pangle-ads.com https://*.analytics.google.com https://stats.g.doubleclick.net https://tr6.snapchat.com https://*.clarity.ms https://*.qualtrics.com https://subscriber-incentives.pickaxe.ai https://content.zenimpact.io https://hub2.zenimpact.io https://idx.liadm.com https://rp.liadm.com https://rp4.liadm.com https://insight-api-kgw.zenimpact.io https://cys26963.jscrambler.com https://nbcu-ds-svr-side-tag-dev-001.ue.r.appspot.com https://edge.fullstory.com https://rs.fullstory.com https://browser-intake-datadoghq.com https://ara.paa-reporting-advertising.amazon https://www.google.com https://logx.optimizely.com https://*.optimizely.com https://*.ravelin.click; img-src 'self' data: localhost:* blob: https://peacocktv.com https://*.peacocktv.com https://t.co https://www.facebook.com https://nbcstreaming.sc.omtrdc.net https://www.google.com https://www.google.co.uk https://us-gmtdmp.mookie1.com https://www.google-analytics.com https://*.contentsquare.net https://stats.g.doubleclick.net https://s.pinimg.com https://sc-static.net https://www.redditstatic.com https://analytics.tiktok.com https://pixelb.randi.adswizz.com https://imp.i305175.net https://www.ojrq.net https://logs-01.loggly.com https://peacock.sjv.io https://d.agkn.com https://s0.ipstatp.com https://alb.reddit.com https://ct.pinterest.com https://business.topbuzz.com https://bid.g.doubleclick.net https://wsdk.rokt.com https://apps.rokt.com https://js.adsrvr.org https://insight.adsrvr.org https://cdn.cookielaw.org https://bat.bing.com https://*.adyen.com https://*.onetrust.com https://analytics.twitter.com https://googleads.g.doubleclick.net https://ad.doubleclick.net https://s.yimg.com https://sp.analytics.yahoo.com https://roost.nbcuni.com https://*.amazon-adsystem.com https://t.teads.tv https://cm.teads.tv https://a.teads.tv https://s8t.teads.tv https://www.paypalobjects.com https://*.scene7.com https://ad.doubleclick.net https://cm.everesttech.net https://*.qualtrics.com https://content.zenimpact.io https://hub2.zenimpact.io https://rp.liadm.com https://rp4.liadm.com https://cnv.event.prod.bidr.io https://rs.fullstory.com https://www.googletagmanager.com https://dpm.demdex.net https://cdn.optimizely.com https://braze-images.com; style-src 'self' 'unsafe-inline' https://*.peacocktv.com https://*.force.com https://*.salesforce-sites.com https://*.my.salesforce.com https://cdn.cookielaw.org https://*.onetrust.com https://content.zenimpact.io https://hub2.zenimpact.io https://*.optimizely.com; media-src 'self' data: blob: localhost:* https://peacocktv.com https://*.peacocktv.com https://roost.nbcuni.com https://content.zenimpact.io https://hub2.zenimpact.io; frame-src https://core.spreedly.com https://www.peacocktv.com/sas-3dsecure https://*.peacocktv.com https://nbcuss.demdex.net https://*.force.com https://*.my.salesforce.com https://*.salesforce-sites.com https://tr.snapchat.com https://*.fls.doubleclick.net https://td.doubleclick.net https://imp.i305175.net https://bid.g.doubleclick.net https://wsdk.rokt.com https://apps.rokt.com https://js.adsrvr.org https://insight.adsrvr.org https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/ https://peacockprincess22.creativezing.com https://checkoutshopper-live.adyen.com https://checkoutshopper-live-us.adyen.com https://tr6.snapchat.com https://pinterest.com http://ct.pinterest.com https://match.adsrvr.org https://*.amazon-adsystem.com https://apps.rokt.com https://p.teads.tv https://a.teads.tv https://www.youtube.com https://*.paypal.com https://*.optimizely.com https://*.qualtrics.com https://open.spotify.com https://content.zenimpact.io https://hub2.zenimpact.io https://www.googletagmanager.com https://a18154240447.cdn.optimizely.com https://a18154240447.cdn-pci.optimizely.com; block-all-mixed-content; upgrade-insecure-requests;",
+        "x-frame-options": "sameorigin",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1; mode=block"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "",
+      "header_count": 5
+    },
+    {
+      "domain": "pinterest.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000 ; includeSubDomains ; preload",
+        "content-security-policy": "default-src 'self' blob: s.pinimg.com s1.pinimg.com s2.pinimg.com; font-src 'self' m.media-amazon.com *.amazon-adsystem.com s.pinimg.com s1.pinimg.com s2.pinimg.com data: fonts.googleapis.com fonts.gstatic.com use.typekit.net; style-src 'self' blob: 'unsafe-inline' data: *.pinimg.com *.pinterest.com accounts.google.com fonts.googleapis.com *.adyen.com *.adyenpayments.com; img-src blob: data: *; base-uri 'none'; connect-src 'self' blob: m.media-amazon.com *.amazon-adsystem.com htlb.casalemedia.com *.2mdn.net *.ada.support *.pinimg.com *.pinterest.com accounts.google.com *.adyen.com pinterest-salvador.s3.amazonaws.com *.adyenpayments.com *.facebook.com *.doubleclick.net *.adtrafficquality.google www.recaptcha.net https://pinterest-api.arkoselabs.com/ www.googleapis.com *.dropboxapi.com pinterest-aberdeen.s3.amazonaws.com pinterest-aberdeen.s3.us-east-1.amazonaws.com pinterest-anaheim.s3.amazonaws.com pinterest-anaheim.s3.us-east-1.amazonaws.com pinterest-hilo.s3.amazonaws.com pinterest-hilo.s3.us-east-1.amazonaws.com pinterest-sim-toontown.s3.amazonaws.com pinterest-sim-toontown.s3.us-east-1.amazonaws.com pinterest-media-upload.s3.amazonaws.com pinterest-media-upload.s3.us-east-1.amazonaws.com pinterest-media-upload.s3-accelerate.amazonaws.com pinterest-media-upload.s3-accelerate.us-east-1.amazonaws.com pinterest-milwaukee.s3.amazonaws.com pinterest-milwaukee.s3.us-east-1.amazonaws.com pinterest-poughkeepsie.s3.amazonaws.com pinterest-poughkeepsie.s3.us-east-1.amazonaws.com pinterest-waterloo.s3.amazonaws.com pinterest-waterloo.s3.us-east-1.amazonaws.com pinterest-plymouth.s3.amazonaws.com pinterest-plymouth.s3.us-east-1.amazonaws.com pinterest-salvador.s3.us-east-1.amazonaws.com pinterest-yamagata.s3.amazonaws.com pinterest-yamagata.s3.us-east-1.amazonaws.com *.cedexis.com *.cedexis-radar.net *.tvpixel.com api.pinadmin.com *.live-video.net https://*.daily.co https://*.pluot.blue wss://*.wss.daily.co api.basistheory.com; form-action 'self' *.adyen.com *.klarna.com *.tink.com *.adyenpayments.com; frame-src 'self' *.ada.support *.pinimg.com *.pinterest.com *.adyen.com static-sandbox.dlocal.com static.dlocal.com *.google.com *.facebook.com *.doubleclick.net *.adtrafficquality.google *.safeframe.googlesyndication.com www.recaptcha.net https://iframe.arkoselabs.com/ https://pinterest-api.arkoselabs.com/ api.sardine.ai api.sandbox.sardine.ai pinterest-hilo.s3.amazonaws.com pinterest-hilo.s3.us-east-1.amazonaws.com pinterest-sim-toontown.s3.amazonaws.com pinterest-sim-toontown.s3.us-east-1.amazonaws.com pinterest-milwaukee.s3.amazonaws.com pinterest-milwaukee.s3.us-east-1.amazonaws.com pinterest-waterloo.s3.amazonaws.com pinterest-waterloo.s3.us-east-1.amazonaws.com pinterest-tolu.s3.amazonaws.com *.pinterdev.com content.googleapis.com *.youtube.com *.youtube-nocookie.com *.ytimg.com player.vimeo.com calendly.com vine.co bid.g.doubleclick.net *.fls.doubleclick.net pinlogs.s3.amazonaws.com pinlogs.s3.us-east-1.amazonaws.com advertising-delivery-metric-reports.s3.amazonaws.com advertising-delivery-metric-reports.s3.us-east-1.amazonaws.com servedby.flashtalking.com pinterest-uk.admo.tv pinterest-uk-web.admo.tv fbrpc://call *.linkedin.com px.ads.linkedin.com api.basistheory.com js.basistheory.com 3ds.basistheory.com; media-src 'self' blob: m.media-amazon.com *.2mdn.net data: *.pinimg.com *.live-video.net; object-src 'self'; script-src 'nonce-a820ff3d572400869b314188151b4894' 'strict-dynamic' 'self' blob: 'unsafe-inline' *.pinimg.com *.pinterest.com *.adyen.com js.dlocal.com js-sandbox.dlocal.com static-sandbox.dlocal.com static.dlocal.com *.adyenpayments.com 'report-sample' *.google.com connect.facebook.net *.google-analytics.com *.facebook.com *.googleadservices.com *.doubleclick.net *.adtrafficquality.google *.googletagmanager.com radar.cedexis.com *.cedexis-test.com www.gstatic.com/recaptcha/ www.gstatic.cn/recaptcha/ www.recaptcha.net https://pinterest-api.arkoselabs.com/ api.sardine.ai api.sandbox.sardine.ai 'wasm-unsafe-eval' js.basistheory.com 3ds.basistheory.com; worker-src 'self' blob: 'unsafe-inline'; report-uri /_/_/csp_report/?rid=1564608757919836; frame-ancestors 'self' , script-src 'self' blob: 'unsafe-inline' *.pinimg.com *.pinterest.com *.adyen.com js.dlocal.com js-sandbox.dlocal.com static-sandbox.dlocal.com static.dlocal.com *.adyenpayments.com 'report-sample' *.google.com connect.facebook.net *.google-analytics.com *.facebook.com *.googleadservices.com *.doubleclick.net *.adtrafficquality.google *.googletagmanager.com radar.cedexis.com *.cedexis-test.com www.gstatic.com/recaptcha/ www.gstatic.cn/recaptcha/ www.recaptcha.net https://pinterest-api.arkoselabs.com/ api.sardine.ai api.sandbox.sardine.ai 'wasm-unsafe-eval' js.basistheory.com 3ds.basistheory.com; report-uri /_/_/csp_report/?rid=1564608757919836",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1; mode=block",
+        "referrer-policy": "origin"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "",
+      "header_count": 6
+    },
+    {
+      "domain": "producthunt.com",
+      "headers": {
+        "strict-transport-security": "max-age=2592000; includeSubDomains; preload",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "0"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "cloudflare",
+      "header_count": 4
+    },
+    {
+      "domain": "realtor.com",
+      "headers": {},
+      "status": null,
+      "error": "HTTP Error 429: Too Many Requests",
+      "https_redirect": false
+    },
+    {
+      "domain": "reddit.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; includeSubdomains",
+        "content-security-policy": "child-src 'self' blob: accounts.google.com;connect-src 'self' events.redditmedia.com o418887.ingest.sentry.io *.redd.it *.reddit.com www.redditstatic.com vimeo.com alb.reddit.com accounts.google.com/gsi/ www.google.com/recaptcha/ w3-reporting.reddit.com reddit-uploaded-emoji.s3-accelerate.amazonaws.com reddit-uploaded-media.s3-accelerate.amazonaws.com reddit-uploaded-video.s3-accelerate.amazonaws.com reddit-subreddit-uploaded-media.s3-accelerate.amazonaws.com wss://*.wss.redditmedia.com wss://gql-realtime.reddit.com *.giphy.com js.stripe.com support.reddithelp.com matrix.redditspace.com www.google.com/ccm/ styles.redditmedia.com a.thumbs.redditmedia.com b.thumbs.redditmedia.com;default-src 'self';font-src 'self' data:;form-action 'self';frame-ancestors 'self' *.reddit.com *.snooguts.net;frame-src 'self' www.reddit.com www.youtube.com www.youtube-nocookie.com player.vimeo.com *.redditmedia.com cdn.embedly.com redgifs.com www.redgifs.com embed.reddit.com accounts.google.com/gsi/ www.google.com/recaptcha/ recaptcha.google.com/recaptcha/ js.stripe.com hooks.stripe.com *.devvit.net td.doubleclick.net/ www.googletagmanager.com/ https://www.tiktok.com/ https://www.instagram.com/;img-src 'self' data: blob: https:;manifest-src 'self' www.redditstatic.com;media-src 'self' blob: data: *.redd.it www.redditstatic.com matrix.redditspace.com;object-src 'none';script-src 'self' 'strict-dynamic' 'report-sample' 'nonce-eCiEy/ABtdel41U4Y5o1QQ==';style-src 'self' 'unsafe-inline' www.redditstatic.com *.reddit.com accounts.google.com/gsi/style;style-src-attr 'unsafe-inline';worker-src 'self' blob:;report-to csp;report-uri https://w3-reporting-csp.reddit.com/reports",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1; mode=block"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "snooserv",
+      "header_count": 5
+    },
+    {
+      "domain": "reuters.com",
+      "headers": {},
+      "status": null,
+      "error": "HTTP Error 401: HTTP Forbidden",
+      "https_redirect": false
+    },
+    {
+      "domain": "salesforce.com",
+      "headers": {
+        "strict-transport-security": "max-age=86400",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "0",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-permitted-cross-domain-policies": "master-only"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "",
+      "header_count": 6
+    },
+    {
+      "domain": "sendgrid.com",
+      "headers": {
+        "strict-transport-security": "max-age=31557600",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "",
+      "header_count": 3
+    },
+    {
+      "domain": "shopify.com",
+      "headers": {
+        "strict-transport-security": "max-age=15552000; includeSubDomains; preload",
+        "x-content-type-options": "nosniff"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "cloudflare",
+      "header_count": 2
+    },
+    {
+      "domain": "signal.org",
+      "headers": {
+        "x-content-type-options": "nosniff",
+        "referrer-policy": "strict-origin-when-cross-origin"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "cloudflare",
+      "header_count": 2
+    },
+    {
+      "domain": "slack.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "0",
+        "referrer-policy": "no-referrer",
+        "cross-origin-opener-policy": "same-origin"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "Apache",
+      "header_count": 5
+    },
+    {
+      "domain": "snapchat.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000, max-age=31536000; includeSubDomains",
+        "content-security-policy": "connect-src 'self' blob: https://gcp.api.snapchat.com https://aws.api.snapchat.com https://*.google-analytics.com https://*.analytics.google.com https://stats.g.doubleclick.net https://*.googletagmanager.com https://www.snapchat.com https://app.snapchat.com https://sentry.sc-prod.net https://us-central1-gcp.api.snapchat.com https://accounts.snapchat.com ws: wss: https://static.snapchat.com https://cdn.contentful.com https://story.snapchat.com https://hcaptcha.com https://*.hcaptcha.com https://www.google.com/recaptcha/ https://session.snapchat.com https://graphql.contentful.com https://cf-st.sc-cdn.net https://app.snapchat.com https://s.sc-cdn.net https://bolt-gcdn.sc-cdn.net; img-src 'self' blob: data: https://support-tools.storage.googleapis.com https://www.snapchat.com https://story.snapchat.com https://cf-st.sc-cdn.net https://*.google-analytics.com https://*.googletagmanager.com data: https://www.google.com https://www.google.co.uk https://www.google.com.sa https://www.google.ca https://www.google.fr https://www.google.com.no https://www.google.com.au https://static.snapchat.com https://images.bitmoji.com https://impala-media-production.s3.amazonaws.com https://bolt-gcdn.sc-cdn.net https://lens-storage.storage.googleapis.com https://community-lens.storage.googleapis.com https://lens-preview-storage.storage.googleapis.com https://app.snapchat.com https://sc-static-web-assets-prod.s3.amazonaws.com https://storage.googleapis.com; media-src https://bolt-gcdn.sc-cdn.net https://static.snapchat.com https://s.sc-cdn.net https://cf-st.sc-cdn.net blob:; script-src 'wasm-unsafe-eval' 'self' https://static.snapchat.com https://www.google-analytics.com https://*.googletagmanager.com https://hcaptcha.com https://*.hcaptcha.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' https://static.snapchat.com https://hcaptcha.com https://*.hcaptcha.com 'unsafe-inline'; default-src 'self'; font-src 'self' https://snap-design-system.storage.googleapis.com https://ads-interfaces.sc-cdn.net https://static.snapchat.com; object-src 'self' *.snapchat.com *.snap.com blob:; frame-ancestors https://localhost:3000 https://www.snapchat.com; frame-src https://iframe.arkoselabs.com https://hcaptcha.com https://*.hcaptcha.com https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; report-uri ; report-to ; block-all-mixed-content",
+        "x-frame-options": "DENY",
+        "x-xss-protection": "0"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "API Gateway",
+      "header_count": 4
+    },
+    {
+      "domain": "soundcloud.com",
+      "headers": {
+        "strict-transport-security": "max-age=63072000; includeSubdomains; preload",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "am/2",
+      "header_count": 3
+    },
+    {
+      "domain": "spotify.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000",
+        "content-security-policy": "script-src 'self' 'unsafe-eval' blob: open.spotifycdn.com open-review.spotifycdn.com quicksilver.scdn.co www.google-analytics.com www.googletagmanager.com static.ads-twitter.com analytics.twitter.com s.pinimg.com sc-static.net https://www.google.com/recaptcha/ cdn.ravenjs.com connect.facebook.net www.gstatic.com sb.scorecardresearch.com pixel-static.spotify.com cdn.cookielaw.org geolocation.onetrust.com www.googleoptimize.com www.fastly-insights.com static.hotjar.com script.hotjar.com https://www.googleadservices.com/pagead/conversion_async.js https://www.googleadservices.com/pagead/conversion/ https://analytics.tiktok.com/i18n/pixel/sdk.js https://analytics.tiktok.com/i18n/pixel/identify.js https://analytics.tiktok.com/i18n/pixel/config.js https://www.redditstatic.com/ads/pixel.js https://t.contentsquare.net/uxa/22f14577e19f3.js https://get.microsoft.com/badge/ms-store-badge.bundled.js https://cdn.us.heap-api.com https://heapanalytics.com 'sha256-WfsTi7oVogdF9vq5d14s2birjvCglqWF842fyHhzoNw=' 'sha256-KRzjHxCdT8icNaDOqPBdY0AlKiIh5F8r4bnbe1PQwss=' 'sha256-Z5wh7XXSBR1+mTxLSPFhywCZJt77+uP1GikAgPIsu2s=' 'sha256-o2wzIImHJ4+WWE5DCTR+myWU0UNml0+wwpDXRo++vII='; frame-ancestors 'self' https://adgen-dev.spotify.com/account/*/ad/*/details https://adgen-dev.spotify.com/preview/* https://local.spotify.net/account/*/ad/*/details https://local.spotify.net/preview/* https://app.smartly.io/*;",
+        "x-content-type-options": "nosniff"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "envoy",
+      "header_count": 3
+    },
+    {
+      "domain": "squarespace.com",
+      "headers": {
+        "strict-transport-security": "max-age=15552000",
+        "x-content-type-options": "nosniff"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "Squarespace",
+      "header_count": 2
+    },
+    {
+      "domain": "stackoverflow.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; includeSubDomains",
+        "content-security-policy": "upgrade-insecure-requests; frame-ancestors 'self' https://stackexchange.com",
+        "x-frame-options": "SAMEORIGIN"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "cloudflare",
+      "header_count": 3
+    },
+    {
+      "domain": "stripe.com",
+      "headers": {
+        "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
+        "content-security-policy": "base-uri 'none'; child-src 'none'; connect-src https://c.increment.com https://c.stripe.dev https://c.stripe.global https://c.stripe.partners blob: https://b.stripecdn.com https://errors.stripe.com https://ext.stripe.com https://r.stripe.com https://stripe-images.s3.us-west-1.amazonaws.com https://stripe.com 'self'; default-src 'none'; font-src https://b.stripecdn.com 'self'; form-action https://stripe.com 'self'; frame-ancestors https://app.contentful.com 'self'; frame-src https://b.stripecdn.com https://js.stripe.com https://support-conversations.stripe.com 'self'; img-src data: https://assets.ctfassets.net https://assets.stripeassets.com https://b.stripecdn.com https://images.ctfassets.net https://images.stripeassets.com https://q.stripe.com 'self'; manifest-src 'none'; media-src https://assets.ctfassets.net https://assets.stripeassets.com https://b.stripecdn.com https://videos.ctfassets.net https://videos.stripeassets.com 'self'; object-src 'none'; script-src https://b.stripecdn.com https://js.stripe.com 'self' 'sha256-3aWvb9tRBjmz1OjR3n7mwiTm94+s4iki4mMZF82asmc=' 'sha256-5LtzXhT7UFn+GqP5pKEMGL08UNZsrzANHFEBW/mQHGw=' 'sha256-beLzNcen8LrazzSCRjAapoIMTgJI0osPWGNSX7aK6lc=' 'sha256-cCM0Z4lzGkzQnmbdVw+ouz0JRawyaKcZ4yiqzqYS7ek=' 'sha256-vTifGUJH6hJYTvstw4xJ4xfr/vE0ELkOV4GpCumyqfg=' 'sha256-KxhSaxKB5RFTQsqfRwp+zG7iLjvMrTAySqnSvWlqct0=' 'sha256-tMuJ8c00j54yuxogrdIJeGhNVB350dc56i969XRz/Mc=' 'sha256-aEFSvCaVnb2wNwuO3IzA8J44RdTKt6vms9beA7BcCYg=' 'sha256-0SWEc2BfR2o77i2vUiNNIrFKQkjc2Ujsr2hlfZ6oUek=' 'report-sample'; style-src https://b.stripecdn.com 'self' 'unsafe-inline'; worker-src https://b.stripecdn.com 'self'; upgrade-insecure-requests; report-uri https://q.stripe.com/csp-violation?q=CmCY7QbbNfSUkTK6R5cPIi-5HfYosAStc2EtZVZiUhbFl4U1I4iToPrBIkPVIQY%3D",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "referrer-policy": "no-referrer-when-downgrade",
+        "cross-origin-opener-policy": "same-origin-allow-popups; report-to=\"wsp_coop\""
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "nginx",
+      "header_count": 6
+    },
+    {
+      "domain": "substack.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+        "content-security-policy": "frame-ancestors 'self' https://*.substack.com https://substack.com"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "cloudflare",
+      "header_count": 2
+    },
+    {
+      "domain": "target.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; includeSubDomains",
+        "content-security-policy": "frame-ancestors 'self' https://*.target.com;",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "referrer-policy": "no-referrer-when-downgrade"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "",
+      "header_count": 5
+    },
+    {
+      "domain": "techcrunch.com",
+      "headers": {
+        "strict-transport-security": "max-age=300;includeSubdomains",
+        "content-security-policy": "default-src 'self' *.techcrunch.com; frame-ancestors 'self'; frame-src 'self' https: data:; style-src 'self' 'unsafe-inline' *; img-src 'self' * data:; connect-src 'self' https:; object-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; worker-src 'self' blob:; media-src 'self' blob: *.youtube.com *.jetpackdigital.com *.jwplayer.com *.jwpsrv.com; font-src 'self' * data:; upgrade-insecure-requests; block-all-mixed-content; sandbox allow-forms allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox;",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "referrer-policy": "no-referrer-when-downgrade",
+        "permissions-policy": "autoplay=(), camera=(), fullscreen=*, geolocation=*, display-capture=(self), microphone=()"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "nginx",
+      "header_count": 6
+    },
+    {
+      "domain": "telegram.org",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+        "x-frame-options": "SAMEORIGIN"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "nginx/1.18.0",
+      "header_count": 2
+    },
+    {
+      "domain": "theverge.com",
+      "headers": {
+        "strict-transport-security": "max-age=31556952; preload",
+        "content-security-policy": "frame-ancestors https://platform.theverge.com https://*.theverge.com https://platform.theverge.com https://*.theverge.com 'self'"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "",
+      "header_count": 2
+    },
+    {
+      "domain": "tiktok.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; includeSubDomains",
+        "content-security-policy": "report-uri https://mon.tiktokv.com/monitor_browser/collect/batch/security/?bid=tiktok_pns&ev_type=csp&p=7bMffKqyqUbn8PMzRuxmsz&v=3&s=296&b=oab; report-to csp-endpoint; upgrade-insecure-requests; default-src 'self' 'unsafe-eval' 'unsafe-inline' blob: bytedance: data: wss://*.tiktok.com wss://*.tiktokv.com wss://*.tiktokv.eu wss://tiktok.com wss://tiktokv.com *.adsintegrity.net *.akamaized.net *.amazonaws.com *.bing.com *.bitssec.com *.bytedapm.com *.bytedgame.com *.bytehwm-row.com *.byteicdn.com *.byteintl.com *.byteintl.net *.byteintlapi.com *.byteintlstatic.com *.bytelemon.com *.byteoversea.com *.byteoversea.net *.bytevcloudapi.com *.capcut.com *.cloudflare.com *.ctfassets.net *.doubleclick.net *.evbuc.com *.eventim.de *.facebook.com *.facebook.net *.fbsbx.com *.fcdnstatic-intl.com *.fdmstatic.com *.g-p-static.com *.gauthmath.com *.giphy.com *.goofy-cdn.com *.goofy.app *.google.com *.googleadservices.com *.googleapis.com *.googlesyndication.com *.googletagmanager.com *.gstatic.com *.hsforms.com *.hsforms.net *.ibytedtos.com *.ibyteimg.com *.isnssdk.com *.jumio.ai *.kakao.com *.lemon8-app.com *.lemon8cdn.com *.licdn.com *.linkedin.com *.midtrans.com *.muscdn.com *.musical.ly *.oecstatic.com *.omise.co *.pangle-ads.com *.paypal.com *.pipopay.com *.pipopayment.com *.pipopayment.us *.redditstatic.com *.resso.me *.sgsnssdk.com *.soundon.global *.tableau.com *.tenor.com *.tiktok-row.net *.tiktok.com *.tiktok.ru *.tiktok.vn *.tiktokapis.com *.tiktokcdn-eu.com *.tiktokcdn-in.com *.tiktokcdn-us.com *.tiktokcdn.com *.tiktokcreativeone.com *.tiktokforbusinessoutbound.com *.tiktokglobalshop.com *.tiktokmusic.me *.tiktokrow-cdn.com *.tiktokshop.com *.tiktokstaticb.com *.tiktokus.info *.tiktokv.com *.tiktokv.eu *.tiktokv.us *.tiktokvapp.com *.tiktokw.eu *.tiktokw.us *.topbuzzcdn.com *.ttlivecdn.com *.ttlstatic.com *.ttwstatic.com *.vimeo.com *.vodupload.com *.xzcs3zlph.com *.yahoo.co.jp *.yhgfb-static.com *.youtube-nocookie.com *.zhiliaoapp.com api.music.apple.com code.jquery.com facebook.com google.com i.ticketweb.com images.universe.com media.ticketmaster.eu play.itunes.apple.com res.cloudinary.com s1.ticketm.net static-label.frontgatetickets.com static.captchami.com t.co tikitoks.com tiktok.com tiktok.ua tiktok.vn tiktokfollowersfree.com tiktokv.com tx41v.arkoselabs.com unpkg.com vimeo.com sf-website-login-bak.tiktokcdn.com; connect-src * 'unsafe-inline' blob: data:; frame-ancestors tea-va.bytedance.net www.tiktok.com; frame-src bytedance: *.kakao.com *.tiktok.com access.line.me accounts.google.com api.twitter.com appleid.apple.com assets.braintreegateway.com client-api.arkoselabs.com h.online-metrix.net lf16-web.tiktokcdn.com newassets.hcaptcha.com recaptcha.google.com tx41v.arkoselabs.com www.facebook.com www.google.com; script-src 'report-sample' 'unsafe-eval' 'inline-speculation-rules' 'wasm-unsafe-eval' accounts.google.com apis.google.com c.paypal.com cdnjs.cloudflare.com client-api.arkoselabs.com code.jquery.com connect.facebook.net developers.kakao.com googleads.g.doubleclick.net js-cdn.music.apple.com/musickit/v3/musickit.js js.hcaptcha.com js.hsforms.net lf16-cdn-tos.tiktokcdn-us.com/obj/static-tx/bric-captcha/core-captcha/ pay.google.com recaptcha.google.com s20.tiktokcdn.com s3.amazonaws.com sf16-website-login.neutral.tiktokcdn-eu.com/obj/tiktok_web_login_static_eu/pns/tiktok-cookie-banner/ sf16-website-login.neutral.ttwstatic.com sf16-website.neutral.ttwstatic.com ssl.bing.com static.captchami.com tiktok.captchami.com tx41v.arkoselabs.com unpkg.com vimeo.com www.google.com www.googleadservices.com www.googleapis.com www.googletagmanager.com www.gstatic.com www.vimeo.com sf-website-login-bak.tiktokcdn.com; worker-src www.tiktok.com/business/sw.js www.tiktok.com/embed/sw.js www.tiktok.com/firebase-messaging-sw.js www.tiktok.com/help/sw.js www.tiktok.com/sw.js www.tiktok.com/tiktokstudio/static/worker/ www.tiktok.com/tiktokstudio/sw.js www.tiktok.com/web-static-js/ www.tiktok.com/webapp-desktop/static/worker/"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "TLB",
+      "header_count": 2
+    },
+    {
+      "domain": "tripadvisor.com",
+      "headers": {},
+      "status": null,
+      "error": "HTTP Error 403: Forbidden",
+      "https_redirect": false
+    },
+    {
+      "domain": "tumblr.com",
+      "headers": {},
+      "status": null,
+      "error": "<urlopen error [Errno 54] Connection reset by peer>",
+      "https_redirect": false
+    },
+    {
+      "domain": "twilio.com",
+      "headers": {
+        "strict-transport-security": "max-age=31557600",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "",
+      "header_count": 3
+    },
+    {
+      "domain": "twitch.tv",
+      "headers": {
+        "strict-transport-security": "max-age=31536000",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1; mode=block"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "",
+      "header_count": 4
+    },
+    {
+      "domain": "twitter.com",
+      "headers": {
+        "strict-transport-security": "max-age=631138519; includeSubdomains",
+        "content-security-policy": "connect-src 'self' blob: https://fonts.googleapis.com/css https://mapsresources-pa.googleapis.com https://maps.googleapis.com https://translate.googleapis.com https://www.gstatic.com/maps/ https://*.pscp.tv https://*.twimg.com https://*.video.pscp.tv https://aa.twitter.com https://aa.x.com https://accounts.google.com/gsi/ https://ads-api.twitter.com https://ads-api.x.com https://api-stream.twitter.com https://api-stream.x.com https://api.twitter.com https://api.x.ai https://api.x.com https://api.x.com https://caps.twitter.com https://caps.x.com https://grok.x.com https://jf.twitter.com https://jf.x.com https://jf-t.x.com https://pay.twitter.com https://pay.x.com https://sentry.io https://ton-staging.atla.twitter.com https://ton-staging.atla.x.com https://ton-staging.pdxa.twitter.com https://ton-staging.pdxa.x.com https://ton.twitter.com https://ton.local.twitter.com https://ton.x.com https://twitter.com https://upload.twitter.com https://upload.x.com https://www.google-analytics.com https://x.com https://grok-api.gcp.mouseion.dev https://assets.mouseion.dev https://grok.com https://assets.grok.com https://imagine-public.x.ai/ wss://grok.com wss://grok-api.gcp.mouseion.dev https://*.adtrafficquality.google https://*.googlesyndication.com https://*.doubleclick.net https://adservice.google.com https://www.googleadservices.com https://pagead2.googlesyndication.com https://www.google.com https://google.com https://via.intercom.io https://api.intercom.io https://api.au.intercom.io https://api.eu.intercom.io https://api-iam.intercom.io https://api-iam.eu.intercom.io https://api-iam.au.intercom.io https://api-ping.intercom.io https://nexus-websocket-a.intercom.io wss://nexus-websocket-a.intercom.io https://nexus-websocket-b.intercom.io wss://nexus-websocket-b.intercom.io https://nexus-europe-websocket.intercom.io wss://nexus-europe-websocket.intercom.io https://nexus-australia-websocket.intercom.io wss://nexus-australia-websocket.intercom.io https://uploads.intercomcdn.com https://uploads.intercomcdn.eu https://uploads.au.intercomcdn.com https://uploads.eu.intercomcdn.com https://uploads.intercomusercontent.com https://livekit.grok.com wss://livekit.grok.com https://production.plaid.com/ https://sandbox.plaid.com/ https://ingestion.dv.socure.io https://network.dv.socure.io/ https://analytics.dv.socure.io/ https://payments-dev.x.com/customer/wasm/forward-with-v1.wasm https://payments-staging.x.com/customer/wasm/forward-with-v1.wasm https://payments-prod.x.com/customer/wasm/forward-with-v1.wasm https://money-dev.x.com/customer/wasm/forward-with-v1.wasm https://money-staging.x.com/customer/wasm/forward-with-v1.wasm https://money.x.com/customer/wasm/forward-with-v1.wasm https://api.stripe.com https://m.castle.io https://checkoutshopper-live.adyen.com wss://*.pscp.tv https://vmap.grabyo.com https://dwo3ckksxlb0v.cloudfront.net https://media.riffsy.com https://*.giphy.com https://media.tenor.com https://c.tenor.com wss://chat-ws.x.com https://d1muhwhmpsz4u8.cloudfront.net/ https://d2bchqfeno8n2m.cloudfront.net/ https://d2shtph9y6bxk.cloudfront.net/ https://xchat-hsm-staging.x.com/ https://realm-a.x.com https://realm-b.x.com https://realm-west1.x.com https://realm-east1.x.com https://hsm-staging.x.com https://ads-twitter.com https://analytics.twitter.com https://analytics.x.com         ; default-src 'self'; form-action 'self' https://twitter.com https://*.twitter.com https://x.com https://*.x.com https://localhost.twitter.com:3443 https://localhost.x.com:3443 https://intercom.help https://api-iam.intercom.io https://api-iam.eu.intercom.io https://api-iam.au.intercom.io; font-src 'self' https://*.twimg.com https://js.intercomcdn.com https://fonts.intercomcdn.com; frame-src 'self' https://accounts.google.com/ https://accounts.google.com/gsi/ https://cards-frame.twitter.com https://cdn.plaid.com/ https://client-api.arkoselabs.com/ https://content.googleapis.com/ https://iframe.arkoselabs.com/ https://mobile.twitter.com https://mobile.x.com https://pay.twitter.com https://pay.x.com https://google.com https://www.google.com https://intercom-sheets.com https://www.intercom-reporting.com https://www.youtube.com https://player.vimeo.com https://fast.wistia.net https://console.googletagservices.com https://*.doubleclick.net https://*.adtrafficquality.google https://*.safeframe.googlesyndication.com https://www.googleadservices.com https://googleadservices.com https://adservice.google.com https://*.googlesyndication.com https://td.doubleclick.net https://payments-dev.x.com/ https://payments-staging.x.com/ https://payments-prod.x.com/ https://sdn.payments-dev.x.com/ https://sdn.payments-staging.x.com/ https://sdn.payments-prod.x.com/ https://money-dev.x.com/ https://money-staging.x.com/ https://money.x.com/ https://sdn.money-dev.x.com/ https://sdn.money-staging.x.com/ https://sdn.money.x.com/ https://p2pcreditcardiframesandbox.crbcos.com https://p2pcreditcardiframe.crbcos.com https://verify-sandbox.plaid.com/ https://*.js.stripe.com https://js.stripe.com https://hooks.stripe.com https://cdn.getpinwheel.com/ https://artifacts.grokusercontent.com https://twitter.com https://x.com  https://recaptcha.net/recaptcha/; img-src 'self' blob: data: https://www.google.com/maps/place/ https://imgs.search.brave.com https://*.cdn.twitter.com https://*.cdn.x.com https://ton.twitter.com https://ton.x.com https://*.twimg.com https://analytics.twitter.com https://analytics.x.com https://cm.g.doubleclick.net https://www.google-analytics.com https://maps.googleapis.com https://www.periscope.tv https://www.pscp.tv https://ads-twitter.com https://ads-api.twitter.com https://ads-api.x.com https://api.x.com https://developer.x.com blob: data: https://js.intercomcdn.com https://static.intercomassets.com https://downloads.intercomcdn.com https://downloads.intercomcdn.eu https://downloads.au.intercomcdn.com https://uploads.intercomusercontent.com https://gifs.intercomcdn.com https://video-messages.intercomcdn.com https://messenger-apps.intercom.io https://messenger-apps.eu.intercom.io https://messenger-apps.au.intercom.io https://*.intercom-attachments-1.com https://*.intercom-attachments.eu https://*.au.intercom-attachments.com https://*.intercom-attachments-2.com https://*.intercom-attachments-3.com https://*.intercom-attachments-4.com https://*.intercom-attachments-5.com https://*.intercom-attachments-6.com https://*.intercom-attachments-7.com https://*.intercom-attachments-8.com https://*.intercom-attachments-9.com https://static.intercomassets.eu https://static.au.intercomassets.com https://media.riffsy.com https://*.giphy.com https://media.tenor.com https://c.tenor.com https://*.pscp.tv https://*.periscope.tv https://prod-periscope-profile.s3-us-west-2.amazonaws.com https://platform-lookaside.fbsbx.com https://scontent.xx.fbcdn.net https://scontent-sea1-1.xx.fbcdn.net https://*.googleusercontent.com https://t.co/1/i/adsct https://*.googleusercontent.com https://*.gstatic.com https://*.googlesyndication.com https://*.adtrafficquality.google https://www.google.com/ads/measurement/ https://*.google.com/ads/measurement/ https://googleads.g.doubleclick.net https://google.com https://www.google.com https://plaid-merchant-logos.plaid.com https://plaid-counterparty-logos.plaid.com https://assets.mouseion.dev https://assets.grok.com; manifest-src 'self'; media-src 'self' data: blob: https://twitter.com https://x.com https://*.twimg.com https://*.vine.co https://*.pscp.tv https://*.video.pscp.tv https://js.intercomcdn.com https://downloads.intercomcdn.com https://downloads.intercomcdn.eu https://downloads.au.intercomcdn.com https://dwo3ckksxlb0v.cloudfront.net; object-src 'none'; script-src 'self' 'unsafe-inline' https://*.twimg.com https://recaptcha.net/recaptcha/ http://www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js https://accounts.google.com/gsi/client https://apis.google.com/js/api.js https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js https://client-api.arkoselabs.com/ https://static.ads-twitter.com https://twitter.com https://www.google-analytics.com https://www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js https://x.com https://sdn.payments-dev.x.com/assets/loader.min.js https://sdn.payments-staging.x.com/assets/loader.min.js https://sdn.payments-prod.x.com/assets/loader.min.js https://sdn.money-dev.x.com/assets/loader.min.js https://sdn.money-staging.x.com/assets/loader.min.js https://sdn.money.x.com/assets/loader.min.js https://sdk.dv.socure.io/latest/device-risk-sdk.js https://cdn.plaid.com/link/v2/stable/link-initialize.js https://payments-dev.x.com/customer/wasm/xxp-forward-with-sdk.js https://payments-staging.x.com/customer/wasm/xxp-forward-with-sdk.js https://payments-prod.x.com/customer/wasm/xxp-forward-with-sdk.js https://money-dev.x.com/customer/wasm/xxp-forward-with-sdk.js https://money-staging.x.com/customer/wasm/xxp-forward-with-sdk.js https://money.x.com/customer/wasm/xxp-forward-with-sdk.js https://js.stripe.com https://*.js.stripe.com https://cdn.getpinwheel.com/pinwheel-v3.2.1.js https://securepubads.g.doubleclick.net https://www.googletagservices.com https://*.googletagservices.com https://pagead2.googlesyndication.com https://adservice.google.com https://www.googleadservices.com https://ads.google.com https://tpc.googlesyndication.com https://*.tpc.googlesyndication.com https://www.google.com https://googleads.g.doubleclick.net https://app.intercom.io https://widget.intercom.io https://js.intercomcdn.com   'wasm-unsafe-eval'  'nonce-Yjg3MzRkMzktOGYzYy00ZjI5LTliZTItN2FjYTk4MTBmNzJi'; style-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/style https://*.twimg.com; child-src 'self' blob:; worker-src 'self' blob:; report-uri https://x.com/i/csp_report?a=O5RXE%3D%3D%3D&ro=false",
+        "x-frame-options": "DENY",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "0",
+        "cross-origin-opener-policy": "unsafe-none",
+        "cross-origin-embedder-policy": "unsafe-none"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "cloudflare envoy",
+      "header_count": 7
+    },
+    {
+      "domain": "uber.com",
+      "headers": {},
+      "status": null,
+      "error": "HTTP Error 406: Not Acceptable",
+      "https_redirect": false
+    },
+    {
+      "domain": "vercel.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+        "content-security-policy": "default-src 'self' vercel.com *.vercel.com assets.vercel.com *.vercel.sh vercel.live wss://*.vercel.com *.codesandbox.io localhost:* chrome-extension://* https://www.youtube-nocookie.com *.chilipiper.com https://risk.clearbit.com https://react-tweet.vercel.app/*;script-src 'self' 'unsafe-eval' 'unsafe-inline' 'inline-speculation-rules' https://snap.licdn.com https://www.youtube.com cdn.vercel-insights.com va.vercel-scripts.com vercel.com *.vercel.com assets.vercel.com *.vercel.sh vercel.live wss://*.vercel.com *.codesandbox.io localhost:* chrome-extension://* https://www.youtube-nocookie.com *.chilipiper.com https://risk.clearbit.com https://react-tweet.vercel.app/* cdp.vercel.com;style-src 'self' 'unsafe-inline' vercel.com *.vercel.com assets.vercel.com *.vercel.sh vercel.live wss://*.vercel.com *.codesandbox.io localhost:* chrome-extension://* https://www.youtube-nocookie.com *.chilipiper.com https://risk.clearbit.com https://react-tweet.vercel.app/*;img-src 'self' blob: data: *.github.io avatars.githubusercontent.com user-images.githubusercontent.com vercel.com vercel.live *.vercel.sh assets.vercel.com cdn.raster.app https://images.ctfassets.net https://www.google.com https://i.ytimg.com https://s3.amazonaws.com pbs.twimg.com https://www.gravatar.com https://lishhsx6kmthaacj.public.blob.vercel-storage.com;media-src 'self' blob: data: vercel.com *.vercel.com assets.vercel.com *.vercel.sh vercel.live wss://*.vercel.com *.codesandbox.io localhost:* chrome-extension://* https://www.youtube-nocookie.com *.chilipiper.com https://risk.clearbit.com https://react-tweet.vercel.app/*;connect-src 'self' data: *.chilipiper.com *.ingest.sentry.io *.ingest.us.sentry.io wss://ws-us3.pusher.com sockjs-use3.pusher.com react-tweet.vercel.app https://*.contentful.com vercel.com *.vercel.com assets.vercel.com *.vercel.sh vercel.live wss://*.vercel.com *.codesandbox.io localhost:* chrome-extension://* https://www.youtube-nocookie.com *.chilipiper.com https://risk.clearbit.com https://react-tweet.vercel.app/* cdp.vercel.com;font-src 'self' vercel.com assets.vercel.com vercel.live fonts.gstatic.com *.vercel.sh;frame-ancestors  'self'  https://messaging.haus  https://vercel.com  https://app.contentful.com  https://*.contentful.com  https://*.vercel.sh  https://*.vercel.com",
+        "x-frame-options": "DENY",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "0",
+        "referrer-policy": "origin-when-cross-origin"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "Vercel",
+      "header_count": 6
+    },
+    {
+      "domain": "vimeo.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+        "x-frame-options": "sameorigin",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1; mode=block"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "cloudflare",
+      "header_count": 4
+    },
+    {
+      "domain": "vultr.com",
+      "headers": {
+        "strict-transport-security": "max-age=63072000",
+        "x-frame-options": "DENY",
+        "x-content-type-options": "nosniff",
+        "referrer-policy": "strict-origin-when-cross-origin"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "cloudflare",
+      "header_count": 4
+    },
+    {
+      "domain": "walmart.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000",
+        "content-security-policy": "frame-ancestors 'self' *.wal.co *.walmart-customcards.com *.walmart.com:* *.walmart.net *.walmartimages.com; report-uri https://csp.walmart.com/c/r/gl",
+        "x-frame-options": "SAMEORIGIN"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "",
+      "header_count": 3
+    },
+    {
+      "domain": "washingtonpost.com",
+      "headers": {},
+      "status": null,
+      "error": "[Errno 54] Connection reset by peer",
+      "https_redirect": false
+    },
+    {
+      "domain": "weebly.com",
+      "headers": {
+        "x-frame-options": "SAMEORIGIN"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "cloudflare",
+      "header_count": 1
+    },
+    {
+      "domain": "whatsapp.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; preload; includeSubDomains",
+        "content-security-policy": "default-src 'self' blob:;script-src *.whatsapp.com *.whatsapp.net *.facebook.com *.facebook.net 'nonce-B0ixG4eh' 'self' blob:;style-src *.whatsapp.com *.whatsapp.net 'unsafe-inline' *.facebook.com 'self' data: blob:;connect-src *.whatsapp.com *.whatsapp.net wss://*.facebook.com:* *.fbcdn.net 'self' data: blob:;font-src *.whatsapp.com *.whatsapp.net *.facebook.com static.xx.fbcdn.net data:;img-src *.whatsapp.com *.whatsapp.net *.facebook.com *.fbcdn.net *.fbsbx.com static.xx.fbcdn.net *.cdninstagram.com 'self' data: blob:;media-src *.fbcdn.net 'self' data: blob:;child-src 'self' data: blob:;frame-src *.facebook.com *.whatsapp.com 'self' data: blob:;manifest-src 'self' data: blob:;object-src 'self' data: blob:;worker-src *.whatsapp.com *.whatsapp.net *.facebook.com *.facebook.net 'nonce-B0ixG4eh' 'self' data: blob:;block-all-mixed-content;upgrade-insecure-requests;",
+        "x-frame-options": "DENY",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "0",
+        "permissions-policy": "accelerometer=(), attribution-reporting=(), autoplay=(), bluetooth=(), camera=(), ch-device-memory=(), ch-downlink=(), ch-dpr=(), ch-ect=(), ch-rtt=(), ch-save-data=(), ch-ua-arch=(), ch-ua-bitness=(), ch-viewport-height=(), ch-viewport-width=(), ch-width=(), clipboard-read=(), clipboard-write=(), compute-pressure=(), display-capture=(), encrypted-media=(), fullscreen=(self), gamepad=(), geolocation=(), gyroscope=(), hid=(), idle-detection=(), interest-cohort=(), keyboard-map=(), local-fonts=(), magnetometer=(), microphone=(), midi=(), otp-credentials=(), payment=(), picture-in-picture=(), private-state-token-issuance=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), shared-storage=(), shared-storage-select-url=(), private-state-token-redemption=(), usb=(), unload=(self), window-management=(), xr-spatial-tracking=();report-to=\"permissions_policy\"",
+        "cross-origin-opener-policy": "same-origin-allow-popups",
+        "cross-origin-resource-policy": "same-origin"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "",
+      "header_count": 8
+    },
+    {
+      "domain": "wikipedia.org",
+      "headers": {
+        "strict-transport-security": "max-age=106384710; includeSubDomains; preload"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "ATS/9.2.11",
+      "header_count": 1
+    },
+    {
+      "domain": "wired.com",
+      "headers": {
+        "x-content-type-options": "nosniff"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "CloudFront",
+      "header_count": 1
+    },
+    {
+      "domain": "wix.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff",
+        "referrer-policy": "no-referrer-when-downgrade"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "Pepyaka",
+      "header_count": 3
+    },
+    {
+      "domain": "wordpress.org",
+      "headers": {
+        "strict-transport-security": "max-age=3600",
+        "x-frame-options": "SAMEORIGIN"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "nginx",
+      "header_count": 2
+    },
+    {
+      "domain": "yelp.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+        "content-security-policy": "report-uri https://www.yelp.com/csp_block?id=c87a6cd0a9926ae3&page=enforced_by_default_directives&policy_hash=4a31667603ab2e38c60aeeb09daa5097&site=www&timestamp=1772965602; object-src 'self'; base-uri 'self' https://*.yelpcdn.com https://*.adsrvr.org https://6372968.fls.doubleclick.net; font-src 'self' data: https:",
+        "x-content-type-options": "nosniff"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "envoy",
+      "header_count": 3
+    },
+    {
+      "domain": "youtube.com",
+      "headers": {
+        "strict-transport-security": "max-age=31536000",
+        "content-security-policy": "require-trusted-types-for 'script'",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "0",
+        "permissions-policy": "ch-ua-arch=*, ch-ua-bitness=*, ch-ua-full-version=*, ch-ua-full-version-list=*, ch-ua-model=*, ch-ua-wow64=*, ch-ua-form-factors=*, ch-ua-platform=*, ch-ua-platform-version=*",
+        "cross-origin-opener-policy": "same-origin-allow-popups; report-to=\"youtube_main\""
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "ESF",
+      "header_count": 7
+    },
+    {
+      "domain": "zillow.com",
+      "headers": {
+        "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
+        "content-security-policy": "frame-ancestors none",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1",
+        "referrer-policy": "strict-origin-when-cross-origin"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "CloudFront",
+      "header_count": 5
+    },
+    {
+      "domain": "zoom.us",
+      "headers": {
+        "strict-transport-security": "max-age=15552000; includeSubDomains",
+        "cross-origin-resource-policy": "cross-origin"
+      },
+      "status": 200,
+      "error": null,
+      "https_redirect": true,
+      "server": "cloudflare",
+      "header_count": 2
+    }
+  ]
+}
