@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloud Hosting Price Comparison 2026: AWS vs Vercel vs Netlify vs Cloudflare</title>
+  <meta name="description" content="Compare pricing across major hosting platforms for static sites, serverless functions, and databases. Find the cheapest option for your use case.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0b10;
+      --card: #111318;
+      --border: #1e2030;
+      --accent: #818cf8;
+      --text: #c8d0de;
+      --text-muted: #6a7a90;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 80px 24px 60px;
+      background: linear-gradient(180deg, #0f1729 0%, var(--bg) 100%);
+      border-bottom: 1px solid var(--border);
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 900;
+      margin-bottom: 20px;
+      color: #fff;
+      max-width: 900px;
+      margin-inline: auto;
+      letter-spacing: -1px;
+    }
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Stats */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+    .stat-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 20px 30px;
+      border-radius: 12px;
+      text-align: center;
+      min-width: 200px;
+    }
+    .stat-num {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent);
+      margin-bottom: 5px;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+
+    /* Table Controls */
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    input, select {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 15px;
+      border-radius: 8px;
+      font-family: inherit;
+      outline: none;
+    }
+    input:focus, select:focus {
+      border-color: var(--accent);
+    }
+    input[type="text"] {
+      width: 300px;
+    }
+
+    /* Table */
+    .table-container {
+      overflow-x: auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 60px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    th {
+      background: rgba(255,255,255,0.03);
+      padding: 16px 20px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      user-select: none;
+    }
+    th:hover {
+      color: #fff;
+    }
+    td {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    .provider-name {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* Typography Sections */
+    h2 {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 24px;
+      margin-top: 40px;
+    }
+    h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .text-content p {
+      margin-bottom: 20px;
+    }
+
+    /* FAQ */
+    .faq-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 24px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+    }
+    .faq-item h3 {
+      margin-bottom: 12px;
+      color: var(--accent);
+    }
+    .faq-item p {
+      margin-bottom: 0;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 40px 24px;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 60px;
+    }
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .badge.yes { background: rgba(45, 184, 154, 0.15); color: #2DB89A; }
+    .badge.no { background: rgba(226, 54, 54, 0.15); color: #e23636; }
+    .badge.null { background: rgba(255, 255, 255, 0.1); color: #888; }
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "Cloud Hosting Price Comparison 2026",
+        "author": { "@type": "Organization", "name": "siliconbased.dev" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Which cloud provider has the best free tier?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Cloudflare Pages offers unlimited bandwidth on their free tier, making it one of the most generous for static sites."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How much does AWS bandwidth cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "AWS typical outbound bandwidth costs around $0.09 to $0.15 per GB depending on the service and region."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do Vercel and Netlify charge for bandwidth?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Both offer an initial free allowance (typically 100GB), but charge significantly higher rates for overages compared to raw infrastructure providers."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are custom domains free on hosting platforms?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, almost all modern hosting platforms include custom domain support on their free tiers."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which platform is cheapest for edge functions?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Cloudflare Workers/Pages often provide the most generous free limits and lowest costs for edge computing."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <div class="hero">
+    <h1>Cloud Hosting Price Comparison 2026</h1>
+    <p>We analyzed pricing across major hosting platforms for static sites, serverless functions, and databases to find the cheapest options.</p>
+
+    <div class="stats" id="hero-stats">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="controls">
+      <input type="text" id="searchInput" placeholder="Search providers...">
+      <select id="sortSelect">
+        <option value="provider">Sort by Name</option>
+        <option value="bandwidthPerGBUSD">Sort by Bandwidth Cost</option>
+        <option value="paidStartUSD">Sort by Paid Tier Start</option>
+      </select>
+    </div>
+
+    <div class="table-container">
+      <table id="pricingTable">
+        <thead>
+          <tr>
+            <th data-sort="provider">Provider ↕</th>
+            <th data-sort="freeTierBandwidthGB">Free Bandwidth ↕</th>
+            <th data-sort="freeTierBuildsMin">Free Builds ↕</th>
+            <th data-sort="paidStartUSD">Paid Start ↕</th>
+            <th data-sort="bandwidthPerGBUSD">Bandwidth / GB ↕</th>
+            <th>Functions</th>
+            <th>Custom Domains</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <div class="text-content">
+      <h2>Methodology</h2>
+      <p>Data was collected directly from official provider pricing pages in 2026. Free tier limits and paid tier starting prices were extracted. Where exact numbers for certain limits (like edge locations or function execution times) were not transparently listed, they were marked as null to prioritize accurate data over estimates.</p>
+
+      <h2>Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <h3>Which cloud provider has the best free tier?</h3>
+        <p>Cloudflare Pages generally offers the best free tier for static hosting due to unmetered bandwidth. Vercel and Netlify offer excellent developer experiences but have stricter limits (typically 100GB/mo).</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>How much does AWS bandwidth cost?</h3>
+        <p>AWS charges roughly $0.09 to $0.15 per GB for outbound data transfer depending on the service (like CloudFront or EC2) and region.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Do Vercel and Netlify charge for bandwidth?</h3>
+        <p>Yes. While both provide a generous free allowance, their overage rates for bandwidth are substantially higher than underlying infrastructure providers like AWS or DigitalOcean.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Are custom domains free on hosting platforms?</h3>
+        <p>Yes. The standard across almost all platforms (Vercel, Netlify, Cloudflare, Fly.io, etc.) is to include custom domain support even on free tiers.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Which platform is cheapest for edge functions?</h3>
+        <p>Cloudflare Workers offers a very competitive pricing model with a generous free tier (100k requests/day) and low costs at scale compared to traditional serverless offerings.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    © 2026 <a href="/">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+  </div>
+
+  <script>
+    // --- DATA TARGET BLOCK START ---
+    const pricingData = [
+  {
+    "provider": "Vercel",
+    "freeTierBandwidthGB": 100,
+    "freeTierBuildsMin": null,
+    "paidStartUSD": 20,
+    "bandwidthPerGBUSD": null,
+    "functionsIncluded": null,
+    "customDomains": null,
+    "edgeLocations": null
+  },
+  {
+    "provider": "Netlify",
+    "freeTierBandwidthGB": null,
+    "freeTierBuildsMin": 300,
+    "paidStartUSD": 19,
+    "bandwidthPerGBUSD": null,
+    "functionsIncluded": true,
+    "customDomains": true,
+    "edgeLocations": null
+  },
+  {
+    "provider": "Cloudflare Pages",
+    "freeTierBandwidthGB": null,
+    "freeTierBuildsMin": null,
+    "paidStartUSD": 20,
+    "bandwidthPerGBUSD": 0,
+    "functionsIncluded": true,
+    "customDomains": true,
+    "edgeLocations": 300
+  },
+  {
+    "provider": "AWS Amplify",
+    "freeTierBandwidthGB": 15,
+    "freeTierBuildsMin": 1000,
+    "paidStartUSD": null,
+    "bandwidthPerGBUSD": 0.15,
+    "functionsIncluded": true,
+    "customDomains": true,
+    "edgeLocations": null
+  },
+  {
+    "provider": "Fly.io",
+    "freeTierBandwidthGB": 100,
+    "freeTierBuildsMin": null,
+    "paidStartUSD": 5,
+    "bandwidthPerGBUSD": 0.02,
+    "functionsIncluded": false,
+    "customDomains": true,
+    "edgeLocations": null
+  },
+  {
+    "provider": "Render",
+    "freeTierBandwidthGB": 100,
+    "freeTierBuildsMin": 500,
+    "paidStartUSD": 7,
+    "bandwidthPerGBUSD": 0.1,
+    "functionsIncluded": false,
+    "customDomains": true,
+    "edgeLocations": null
+  },
+  {
+    "provider": "Railway",
+    "freeTierBandwidthGB": 100,
+    "freeTierBuildsMin": null,
+    "paidStartUSD": 5,
+    "bandwidthPerGBUSD": 0.1,
+    "functionsIncluded": false,
+    "customDomains": true,
+    "edgeLocations": null
+  },
+  {
+    "provider": "DigitalOcean App Platform",
+    "freeTierBandwidthGB": 1,
+    "freeTierBuildsMin": 100,
+    "paidStartUSD": 5,
+    "bandwidthPerGBUSD": 0.1,
+    "functionsIncluded": true,
+    "customDomains": true,
+    "edgeLocations": null
+  },
+  {
+    "provider": "Firebase Hosting",
+    "freeTierBandwidthGB": 10,
+    "freeTierBuildsMin": null,
+    "paidStartUSD": null,
+    "bandwidthPerGBUSD": 0.15,
+    "functionsIncluded": true,
+    "customDomains": true,
+    "edgeLocations": null
+  },
+  {
+    "provider": "Heroku",
+    "freeTierBandwidthGB": null,
+    "freeTierBuildsMin": null,
+    "paidStartUSD": 5,
+    "bandwidthPerGBUSD": null,
+    "functionsIncluded": false,
+    "customDomains": true,
+    "edgeLocations": null
+  }
+];
+    // --- DATA TARGET BLOCK END ---
+
+    // Formatters
+    const formatNull = (val, formatStr = '') => {
+      if (val === null) return '<span class="badge null">N/A</span>';
+      return formatStr.replace('{}', val);
+    };
+
+    const formatBool = (val) => {
+      if (val === null) return '<span class="badge null">N/A</span>';
+      return val ? '<span class="badge yes">Yes</span>' : '<span class="badge no">No</span>';
+    };
+
+    // Render Stats
+    const renderStats = () => {
+      const statsContainer = document.getElementById('hero-stats');
+      const totalProviders = pricingData.length;
+
+      let zeroBandwidthCost = pricingData.filter(p => p.bandwidthPerGBUSD === 0).length;
+      let freeCustomDomains = pricingData.filter(p => p.customDomains === true).length;
+
+      statsContainer.innerHTML = `
+        <div class="stat-box">
+          <div class="stat-num">${totalProviders}</div>
+          <div class="stat-label">Providers Analyzed</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">${zeroBandwidthCost}</div>
+          <div class="stat-label">Zero Egress Fees</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">${freeCustomDomains}</div>
+          <div class="stat-label">Free Custom Domains</div>
+        </div>
+      `;
+    };
+
+    // Render Table
+    const renderTable = (data) => {
+      const tbody = document.getElementById('tableBody');
+      tbody.innerHTML = '';
+
+      data.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="provider-name">${item.provider}</td>
+          <td>${formatNull(item.freeTierBandwidthGB, '{} GB')}</td>
+          <td>${formatNull(item.freeTierBuildsMin, '{}')}</td>
+          <td>${formatNull(item.paidStartUSD, '${}')}</td>
+          <td>${formatNull(item.bandwidthPerGBUSD, '${}')}</td>
+          <td>${formatBool(item.functionsIncluded)}</td>
+          <td>${formatBool(item.customDomains)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    };
+
+    // State
+    let currentData = [...pricingData];
+    let sortCol = 'provider';
+    let sortAsc = true;
+
+    // Sort Logic
+    const sortData = (col, asc) => {
+      currentData.sort((a, b) => {
+        let valA = a[col];
+        let valB = b[col];
+
+        if (valA === null) valA = asc ? Infinity : -Infinity;
+        if (valB === null) valB = asc ? Infinity : -Infinity;
+
+        if (valA < valB) return asc ? -1 : 1;
+        if (valA > valB) return asc ? 1 : -1;
+        return 0;
+      });
+      renderTable(currentData);
+    };
+
+    // Event Listeners
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase();
+      currentData = pricingData.filter(p =>
+        p.provider.toLowerCase().includes(term)
+      );
+      sortData(sortCol, sortAsc);
+    });
+
+    document.getElementById('sortSelect').addEventListener('change', (e) => {
+      sortCol = e.target.value;
+      sortAsc = true;
+      sortData(sortCol, sortAsc);
+    });
+
+    document.querySelectorAll('th[data-sort]').forEach(th => {
+      th.addEventListener('click', () => {
+        const col = th.getAttribute('data-sort');
+        if (sortCol === col) {
+          sortAsc = !sortAsc;
+        } else {
+          sortCol = col;
+          sortAsc = true;
+        }
+        sortData(sortCol, sortAsc);
+      });
+    });
+
+    // Init
+    renderStats();
+    sortData(sortCol, sortAsc);
+
+  </script>
+</body>
+</html>
