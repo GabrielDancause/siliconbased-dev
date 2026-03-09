@@ -67,16 +67,16 @@ pre{font-family:'JetBrains Mono',monospace;font-size:0.8rem;background:#0d0e16;b
   <div class="hero-tag">Lessons Learned</div>
   <h1>How to Prompt Google Jules for Original Research</h1>
   <p class="subtitle">We ran 350+ Jules sessions and learned what works. Here's our playbook for getting Jules to scrape websites, analyze data, and build interactive studies.</p>
-  <div class="date">Updated March 8, 2026 · Based on real production experience</div>
+  <div class="date">Updated March 9, 2026 · Based on real production experience</div>
 </div>
 
 <div class="main">
 
   <div class="stat-row">
-    <div class="stat-box"><div class="n">350+</div><div class="l">Sessions Run</div></div>
-    <div class="stat-box"><div class="n">6</div><div class="l">Research Studies</div></div>
-    <div class="stat-box"><div class="n">3</div><div class="l">Close → Reprompts</div></div>
-    <div class="stat-box"><div class="n">300</div><div class="l">Daily Limit</div></div>
+    <div class="stat-box"><div class="n">400+</div><div class="l">Sessions Run</div></div>
+    <div class="stat-box"><div class="n">8</div><div class="l">Studies Merged</div></div>
+    <div class="stat-box"><div class="n">7</div><div class="l">Domains</div></div>
+    <div class="stat-box"><div class="n">315</div><div class="l">Daily Limit</div></div>
   </div>
 
   <div class="card">
@@ -92,6 +92,7 @@ pre{font-family:'JetBrains Mono',monospace;font-size:0.8rem;background:#0d0e16;b
       <a href="#lesson7">8. Data Validation Ranges</a>
       <a href="#lesson8">9. Visual Style Matching</a>
       <a href="#lesson9">10. Listing Pages > Individual Pages</a>
+      <a href="#lesson10">10. Multi-Domain Repo Routing</a>
       <a href="#workflow">11. The Full Research Workflow</a>
       <a href="#limits">12. What Jules Can't Do</a>
       <a href="#template">13. The Prompt Template</a>
@@ -285,6 +286,43 @@ Do:   "Fetch https://www.kingarthurbaking.com/recipes/sourdough
        Extract all recipe URLs, then fetch each one."</pre>
   </div>
 
+  <!-- Lesson 10 -->
+  <div class="card" id="lesson10">
+    <h2>Lesson 10: Multi-Domain Repo Routing</h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">Each domain has its own repo — route studies to the correct one or everything lands in the wrong place</div>
+      <p>When running a factory that dispatches studies across multiple domains (siliconbased.dev, firemaths.info, 28grams.vip, etc.), every study must target the correct GitHub repo. If your queue defaults to one repo, studies for other domains will be built and merged into the wrong codebase. This is especially painful because Jules sessions can't be redirected mid-build.</p>
+    </div>
+    <div class="before-after">
+      <div class="ba-col ba-bad">
+        <div class="ba-label">❌ What went wrong</div>
+        Queue had <code>repo: "siliconbased-dev"</code> for studies targeting 28grams.vip, migratingmammals.com, firemaths.info, etc. Studies got built and merged into the wrong repo. Pages deployed on the wrong domain.<br><br>
+        <em>Result: Cooking oil study landed on siliconbased.dev instead of 28grams.vip</em>
+      </div>
+      <div class="ba-col ba-good">
+        <div class="ba-label">✅ The fix</div>
+        Maintain a domain→repo mapping in your factory script. Validate before dispatch. Repos often use dashes not dots: <code>28grams.vip</code> → <code>28grams-vip</code>, <code>firemaths.info</code> → <code>firemaths-info</code>.<br><br>
+        <em>Result: Every study routes to the correct repo and deploys on the right domain</em>
+      </div>
+    </div>
+    <pre>DOMAIN_TO_REPO = {
+    'siliconbased.dev':      'GabrielDancause/siliconbased-dev',
+    'westmountresearch.com': 'GabrielDancause/westmount-research',
+    'migratingmammals.com':  'GabrielDancause/migratingmammals-com',
+    'firemaths.info':        'GabrielDancause/firemaths-info',
+    '28grams.vip':           'GabrielDancause/28grams-vip',
+    'leeroyjenkins.quest':   'GabrielDancause/leeroyjenkins-quest',
+    'ijustwantto.live':      'GabrielDancause/ijustwantto-live',
+}
+
+# Validate BEFORE dispatch — can't fix mid-session
+correct = DOMAIN_TO_REPO.get(item['domain'])
+if correct and item['repo'] != correct:
+    item['repo'] = correct  # fix it</pre>
+    <p><strong>Pro tip:</strong> Verify all target repos are connected as Jules sources (<code>GET /v1alpha/sources</code>) before your first dispatch. A missing source = instant failure.</p>
+  </div>
+
   <!-- Full workflow -->
   <div class="card" id="workflow">
     <h2>The Full Research Workflow</h2>
@@ -381,12 +419,22 @@ methodology, citation, footer, JSON-LD]
 
   <div class="card">
     <h2>Our Studies So Far</h2>
+    <h3>siliconbased.dev</h3>
     <ul>
-      <li><a href="/security-headers-study" style="color:#818cf8">State of Security Headers 2026</a> — 85 sites analyzed (built manually)</li>
-      <li><a href="/page-weight-study" style="color:#818cf8">Average Web Page Weight 2026</a> — 100 sites analyzed (Jules v2)</li>
-      <li><a href="https://28grams.vip/sourdough-study" style="color:#818cf8">Sourdough Recipe Analysis</a> — 85 recipes analyzed (Jules v2)</li>
+      <li><a href="/security-headers-study" style="color:#818cf8">State of Security Headers 2026</a> — 85 sites analyzed</li>
+      <li><a href="/page-weight-study" style="color:#818cf8">Average Web Page Weight 2026</a> — 100 sites analyzed</li>
     </ul>
-    <p style="color:#555;font-size:0.82rem">More studies in progress: Digital Nomad Visa Index, GPU Performance Index, Savings Rate Comparison</p>
+    <h3>Westmount Research</h3>
+    <ul>
+      <li><a href="https://gabrieldancause.github.io/westmount-research/dividend-aristocrats" style="color:#818cf8">Dividend Aristocrats Analysis 2026</a> — 65+ companies</li>
+      <li><a href="https://gabrieldancause.github.io/westmount-research/broker-fees" style="color:#818cf8">Online Broker Fee Comparison 2026</a> — 20+ brokers</li>
+      <li><a href="https://gabrieldancause.github.io/westmount-research/etf-expense-ratios" style="color:#818cf8">ETF Expense Ratio Index 2026</a> — 80+ ETFs</li>
+      <li><a href="https://gabrieldancause.github.io/westmount-research/sector-pe-ratios" style="color:#818cf8">Sector P/E Ratios 2026</a> — 11 GICS sectors</li>
+      <li><a href="https://gabrieldancause.github.io/westmount-research/short-interest" style="color:#818cf8">Most Shorted Stocks 2026</a> — 50+ stocks</li>
+      <li><a href="https://gabrieldancause.github.io/westmount-research/buyback-leaders" style="color:#818cf8">Stock Buyback Leaders 2026</a> — 40+ companies</li>
+      <li><a href="https://gabrieldancause.github.io/westmount-research/market-concentration" style="color:#818cf8">S&P 500 Market Cap Concentration</a> — 503 companies</li>
+    </ul>
+    <p style="color:#555;font-size:0.82rem">13 more studies in progress across 7 domains — all routed to correct repos ✓</p>
   </div>
 
 </div>
