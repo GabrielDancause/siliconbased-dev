@@ -1,0 +1,102 @@
+[
+  {
+    "provider": "Vercel",
+    "freeTierBandwidthGB": 100,
+    "freeTierBuildsMin": null,
+    "paidStartUSD": 20,
+    "bandwidthPerGBUSD": null,
+    "functionsIncluded": null,
+    "customDomains": null,
+    "edgeLocations": null
+  },
+  {
+    "provider": "Netlify",
+    "freeTierBandwidthGB": null,
+    "freeTierBuildsMin": 300,
+    "paidStartUSD": 19,
+    "bandwidthPerGBUSD": null,
+    "functionsIncluded": true,
+    "customDomains": true,
+    "edgeLocations": null
+  },
+  {
+    "provider": "Cloudflare Pages",
+    "freeTierBandwidthGB": null,
+    "freeTierBuildsMin": null,
+    "paidStartUSD": 20,
+    "bandwidthPerGBUSD": 0,
+    "functionsIncluded": true,
+    "customDomains": true,
+    "edgeLocations": 300
+  },
+  {
+    "provider": "AWS Amplify",
+    "freeTierBandwidthGB": 15,
+    "freeTierBuildsMin": 1000,
+    "paidStartUSD": null,
+    "bandwidthPerGBUSD": 0.15,
+    "functionsIncluded": true,
+    "customDomains": true,
+    "edgeLocations": null
+  },
+  {
+    "provider": "Fly.io",
+    "freeTierBandwidthGB": 100,
+    "freeTierBuildsMin": null,
+    "paidStartUSD": 5,
+    "bandwidthPerGBUSD": 0.02,
+    "functionsIncluded": false,
+    "customDomains": true,
+    "edgeLocations": null
+  },
+  {
+    "provider": "Render",
+    "freeTierBandwidthGB": 100,
+    "freeTierBuildsMin": 500,
+    "paidStartUSD": 7,
+    "bandwidthPerGBUSD": 0.1,
+    "functionsIncluded": false,
+    "customDomains": true,
+    "edgeLocations": null
+  },
+  {
+    "provider": "Railway",
+    "freeTierBandwidthGB": 100,
+    "freeTierBuildsMin": null,
+    "paidStartUSD": 5,
+    "bandwidthPerGBUSD": 0.1,
+    "functionsIncluded": false,
+    "customDomains": true,
+    "edgeLocations": null
+  },
+  {
+    "provider": "DigitalOcean App Platform",
+    "freeTierBandwidthGB": 1,
+    "freeTierBuildsMin": 100,
+    "paidStartUSD": 5,
+    "bandwidthPerGBUSD": 0.1,
+    "functionsIncluded": true,
+    "customDomains": true,
+    "edgeLocations": null
+  },
+  {
+    "provider": "Firebase Hosting",
+    "freeTierBandwidthGB": 10,
+    "freeTierBuildsMin": null,
+    "paidStartUSD": null,
+    "bandwidthPerGBUSD": 0.15,
+    "functionsIncluded": true,
+    "customDomains": true,
+    "edgeLocations": null
+  },
+  {
+    "provider": "Heroku",
+    "freeTierBandwidthGB": null,
+    "freeTierBuildsMin": null,
+    "paidStartUSD": 5,
+    "bandwidthPerGBUSD": null,
+    "functionsIncluded": false,
+    "customDomains": true,
+    "edgeLocations": null
+  }
+]
