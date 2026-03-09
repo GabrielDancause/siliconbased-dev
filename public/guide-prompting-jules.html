@@ -93,9 +93,10 @@ pre{font-family:'JetBrains Mono',monospace;font-size:0.8rem;background:#0d0e16;b
       <a href="#lesson8">9. Visual Style Matching</a>
       <a href="#lesson9">10. Listing Pages > Individual Pages</a>
       <a href="#lesson10">10. Multi-Domain Repo Routing</a>
-      <a href="#workflow">11. The Full Research Workflow</a>
-      <a href="#limits">12. What Jules Can't Do</a>
-      <a href="#template">13. The Prompt Template</a>
+      <a href="#lesson11">11. Always Update the Homepage</a>
+      <a href="#workflow">12. The Full Research Workflow</a>
+      <a href="#limits">13. What Jules Can't Do</a>
+      <a href="#template">14. The Prompt Template</a>
     </div>
   </div>
 
@@ -321,6 +322,35 @@ correct = DOMAIN_TO_REPO.get(item['domain'])
 if correct and item['repo'] != correct:
     item['repo'] = correct  # fix it</pre>
     <p><strong>Pro tip:</strong> Verify all target repos are connected as Jules sources (<code>GET /v1alpha/sources</code>) before your first dispatch. A missing source = instant failure.</p>
+  </div>
+
+  <!-- Lesson 11 -->
+  <div class="card" id="lesson11">
+    <h2>Lesson 11: Always Update the Homepage</h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">Jules builds the study page perfectly — then forgets the homepage exists</div>
+      <p>Every study creates a beautiful standalone page in <code>public/</code>. But if the homepage (<code>src/pages/index.astro</code>) never gets updated, nobody discovers the study. The homepage is the front door — it needs to list every published study.</p>
+    </div>
+    <div class="before-after">
+      <div class="ba-col ba-bad">
+        <div class="ba-label">❌ What happens without it</div>
+        Study page exists at <code>/short-interest</code> but homepage still shows "UPCOMING" or doesn't list it at all. Users only find it via direct link. The site looks abandoned.<br><br>
+        <em>Result: 7 merged studies, homepage only shows 3</em>
+      </div>
+      <div class="ba-col ba-good">
+        <div class="ba-label">✅ The fix</div>
+        Add explicit instructions: "Update <code>src/pages/index.astro</code> — add this study to the <code>studies</code> array at the top, change tag from UPCOMING to ORIGINAL RESEARCH."<br><br>
+        <em>Result: Homepage always reflects the latest published research</em>
+      </div>
+    </div>
+    <pre>## IMPORTANT: Update the homepage
+After creating the study page, also update src/pages/index.astro:
+1. Find the `const studies = [` array
+2. Add a new entry at the TOP (most recent first)
+3. Change "UPCOMING" to "ORIGINAL RESEARCH" if updating existing
+4. Include: title, subtitle, slug, stat, statLabel, desc, tag</pre>
+    <p><strong>Rule of thumb:</strong> If a human would need to click something to find the study, Jules needs to create or update that link. Never assume the infrastructure handles discovery.</p>
   </div>
 
   <!-- Full workflow -->
