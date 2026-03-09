@@ -1,0 +1,22 @@
+Starting CoinGecko API pagination test...
+Fetching page 1: https://api.coingecko.com/api/v3/exchanges?per_page=50&page=1
+Successfully fetched page 1. Received 50 items.
+Waiting 10 seconds before next request...
+Fetching page 2: https://api.coingecko.com/api/v3/exchanges?per_page=50&page=2
+Successfully fetched page 2. Received 50 items.
+Waiting 10 seconds before next request...
+Fetching page 3: https://api.coingecko.com/api/v3/exchanges?per_page=50&page=3
+Successfully fetched page 3. Received 50 items.
+Waiting 10 seconds before next request...
+Fetching page 4: https://api.coingecko.com/api/v3/exchanges?per_page=50&page=4
+Error fetching page 4: Status Code: 429
+Waiting 10 seconds before next request...
+Fetching page 5: https://api.coingecko.com/api/v3/exchanges?per_page=50&page=5
+Error fetching page 5: Status Code: 429
+\n--- Fetching Complete ---
+Pages Attempted: 5
+Pages Succeeded: 3
+Successful Pages: 1, 2, 3
+Total Items Collected: 150
+Saved results to /app/data/test-pagination.json
+Saved HTML report to /app/public/test-pagination-results.html
