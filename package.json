@@ -9,15 +9,17 @@
     "astro": "astro",
     "generate:chmod": "node scripts/generate-chmod-pages.cjs",
     "generate:pageweight": "node scripts/crawl-page-weight.cjs",
-    "generate:sourdough": "node scripts/crawl-sourdough.cjs && node scripts/inject-sourdough-data.cjs"
+    "generate:sourdough": "node scripts/crawl-sourdough.cjs && node scripts/inject-sourdough-data.cjs",
+    "generate:travelcards": "node scripts/crawl-travel-cards.cjs"
   },
   "dependencies": {
     "astro": "^5.17.1",
+    "cheerio": "^1.2.0",
+    "playwright": "^1.58.2",
     "smol-toml": "^1.6.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
-    "jsdom": "^28.1.0",
-    "playwright": "^1.58.2"
+    "jsdom": "^28.1.0"
   }
 }
