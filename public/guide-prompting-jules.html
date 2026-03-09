@@ -95,9 +95,11 @@ pre{font-family:'JetBrains Mono',monospace;font-size:0.8rem;background:#0d0e16;b
       <a href="#lesson10">10. Multi-Domain Repo Routing</a>
       <a href="#lesson11">11. Always Update the Homepage</a>
       <a href="#lesson12">12. Know the Homepage Structure</a>
-      <a href="#workflow">13. The Full Research Workflow</a>
-      <a href="#limits">14. What Jules Can't Do</a>
-      <a href="#template">15. The Prompt Template</a>
+      <a href="#lesson13">13. Use a Rejection Checklist for Secondary Tasks</a>
+      <a href="#lesson14">14. Auto-Finalize Blocked Sessions</a>
+      <a href="#workflow">15. The Full Research Workflow</a>
+      <a href="#limits">16. What Jules Can't Do</a>
+      <a href="#template">17. The Prompt Template</a>
     </div>
   </div>
 
@@ -408,6 +410,71 @@ list-*.html   → LIST section
 *-rankings.html, *-ratios.html  → STUDY section
 everything else  → TOOL section</pre>
     <p><strong>Why this matters for prompts:</strong> When telling Jules to build a new page, specify: "This is a STUDY. Add it to the <code>studies</code> array in index.astro with title, subtitle, slug, stat, statLabel, desc, and tag." Jules won't guess the right section — tell it explicitly.</p>
+  </div>
+
+  <!-- Lesson 13 -->
+  <div class="card" id="lesson13">
+    <h2>Lesson 13: Use a Rejection Checklist for Secondary Tasks</h2>
+    <div class="lesson">
+      <div class="lesson-num">Hard Data</div>
+      <div class="lesson-title">Jules completes "core" tasks at 100% but ignores "secondary" tasks 70% of the time</div>
+      <p>We reviewed 7 consecutively merged studies. Inline data embedding (a core constraint) worked 100% of the time. But homepage updates, FAQ sections, and JSON-LD schema — all explicitly requested — were missing in 5 out of 7 PRs. Jules treats anything that doesn't affect the main page's functionality as optional.</p>
+    </div>
+    <div class="stat-row">
+      <div class="stat-box"><div class="n">100%</div><div class="l">Inline Data</div></div>
+      <div class="stat-box"><div class="n">29%</div><div class="l">Homepage Updated</div></div>
+      <div class="stat-box"><div class="n">29%</div><div class="l">FAQ Added</div></div>
+      <div class="stat-box"><div class="n">29%</div><div class="l">JSON-LD Added</div></div>
+    </div>
+    <div class="before-after">
+      <div class="ba-col ba-bad">
+        <div class="ba-label">❌ "Nice to have" framing</div>
+        "Also add a FAQ section and JSON-LD schema" buried in the middle of the prompt.<br><br>
+        <em>Result: Jules skips it 70% of the time — doesn't affect page functionality</em>
+      </div>
+      <div class="ba-col ba-good">
+        <div class="ba-label">✅ "Rejection" framing</div>
+        Put a numbered checklist at the END of the prompt. Frame as: "Your PR WILL be rejected if ANY are missing."<br><br>
+        <em>Result: Testing — hypothesis is that consequence framing + end-of-prompt placement = higher compliance</em>
+      </div>
+    </div>
+    <pre>## PR REJECTION CHECKLIST (PR will be rejected if ANY missing)
+1. [ ] public/{slug}.html — self-contained, ALL data inline
+2. [ ] FAQ section — 5 Q&As matching real search queries
+3. [ ] JSON-LD — Article + FAQPage schema
+4. [ ] src/pages/index.astro updated — correct section
+5. [ ] Data is REAL — scraped, not hardcoded
+6. [ ] Methodology section — sources, limitations</pre>
+    <p><strong>Why this works (hypothesis):</strong> Instructions at the end of a prompt are more salient. Framing as "rejection" makes them feel like constraints rather than suggestions. We'll report the data once the next batch of studies comes through.</p>
+  </div>
+
+  <!-- Lesson 14 -->
+  <div class="card" id="lesson14">
+    <h2>Lesson 14: Auto-Finalize Blocked Sessions</h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">When Jules asks a question, don't answer it — just tell it to ship</div>
+      <p>Jules sometimes enters <code>AWAITING_USER_FEEDBACK</code> state, asking a question before continuing. Through the API, you can't type a detailed answer — but you can send an empty message to unblock it. Jules interprets this as "proceed with your best judgment" and finalizes the PR.</p>
+    </div>
+    <div class="before-after">
+      <div class="ba-col ba-bad">
+        <div class="ba-label">❌ Before</div>
+        Session stuck in AWAITING_USER_FEEDBACK for hours. Required manually opening Jules web UI, reading the question, typing an answer.<br><br>
+        <em>Result: Blocked sessions waste budget time and slow the pipeline</em>
+      </div>
+      <div class="ba-col ba-good">
+        <div class="ba-label">✅ After</div>
+        <code>POST /sessions/{id}:sendMessage</code> with empty body <code>{}</code>. Jules finalizes immediately. Review the PR afterward — if it's bad, close and reprompt.<br><br>
+        <em>Result: Zero blocked sessions, fully automated pipeline</em>
+      </div>
+    </div>
+    <pre>// Auto-finalize any blocked session
+fetch(`sessions/${sid}:sendMessage`, {
+  method: 'POST',
+  headers: {'X-Goog-Api-Key': key, 'Content-Type': 'application/json'},
+  body: '{}'
+});</pre>
+    <p><strong>The logic:</strong> Your review process catches bad PRs anyway. Letting Jules ask questions just creates bottlenecks. Ship fast, review fast, reprompt fast.</p>
   </div>
 
   <!-- Full workflow -->
