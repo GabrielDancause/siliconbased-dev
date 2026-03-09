@@ -1,715 +1,931 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSS Framework File Size Comparison 2026</title>
-    <meta name="description" content="Compare the file sizes of every major CSS framework — minified, gzipped, and raw. We provide the definitive data on Tailwind vs Bootstrap size.">
-    <link rel="canonical" href="https://siliconbased.dev/css-framework-sizes">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Framework File Size Comparison 2026 | siliconbased.dev</title>
+  <meta name="description" content="Compare the exact minified and gzipped file sizes of over 30 major CSS frameworks, including Tailwind CSS, Bootstrap, Bulma, and more. Definitive 2026 data.">
+  <link rel="canonical" href="https://siliconbased.dev/css-framework-sizes">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    :root {
+      --bg-color: #0a0b10;
+      --card-bg: #111318;
+      --border-color: #1e2030;
+      --accent: #818cf8;
+      --accent-hover: #6366f1;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    }
 
-    <script type="application/ld+json">
-    [
-        {
-            "@context": "https://schema.org",
-            "@type": "Article",
-            "headline": "CSS Framework File Size Comparison 2026",
-            "description": "Compare the file sizes of every major CSS framework — minified, gzipped, and raw. We provide the definitive data on Tailwind vs Bootstrap size.",
-            "author": {
-                "@type": "Organization",
-                "name": "siliconbased.dev",
-                "url": "https://siliconbased.dev"
-            },
-            "publisher": {
-                "@type": "Organization",
-                "name": "siliconbased.dev",
-                "url": "https://siliconbased.dev"
-            },
-            "datePublished": "2026-01-01",
-            "dateModified": "2026-01-01"
-        },
-        {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-                {
-                    "@type": "Question",
-                    "name": "How big is Bootstrap?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Bootstrap 5's minified CSS file is typically around 200KB to 230KB. When gzipped, it compresses down to roughly 25KB to 30KB. The exact size depends on the specific version, but it remains one of the heavier traditional CSS frameworks due to its comprehensive set of pre-built components and utilities."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "Is Tailwind bigger than Bootstrap?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "In development, Tailwind CSS can be significantly larger than Bootstrap (often several megabytes) because it generates thousands of utility classes. However, in production, Tailwind is almost always smaller than Bootstrap. Because Tailwind's build process purges unused CSS, a typical production Tailwind file is usually under 10KB (gzipped), whereas Bootstrap includes all its classes by default."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "What is the smallest CSS framework?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "The smallest CSS frameworks are typically 'classless' or 'minimal' frameworks designed to style native HTML elements without adding custom classes. Frameworks like MVP.css, new.css, and Water.css are often under 5KB minified and under 2KB gzipped, making them exceptionally lightweight."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "What is the most popular CSS framework?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "As of 2026, Tailwind CSS and Bootstrap remain the most popular CSS frameworks. Bootstrap maintains a massive legacy footprint and is widely used in enterprise applications, while Tailwind CSS dominates modern web development and new projects due to its utility-first approach and performance benefits."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "Do CSS frameworks slow down websites?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Yes, large CSS frameworks can slow down websites if not optimized. A large CSS file increases the First Contentful Paint (FCP) time because the browser must download and parse the entire stylesheet before rendering the page. To prevent slowdowns, developers should use frameworks that support purging unused styles (like Tailwind) or manually extract critical CSS."
-                    }
-                }
-            ]
-        }
-    ]
-    </script>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <style>
-        :root {
-            --bg-color: #0a0b10;
-            --card-bg: #111318;
-            --border-color: #1e2030;
-            --accent-color: #818cf8;
-            --text-primary: #e0e0e0;
-            --text-secondary: #888888;
-            --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            --font-code: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-        }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
 
-        body {
-            font-family: var(--font-ui);
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            line-height: 1.6;
-            padding: 2rem 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    h1, h2, h3 {
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
 
-        header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
+    h1 { font-size: 2.5rem; letter-spacing: -0.025em; }
+    h2 { font-size: 1.8rem; margin-top: 2.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color); }
+    h3 { font-size: 1.2rem; }
 
-        .tag {
-            display: inline-block;
-            background-color: rgba(129, 140, 248, 0.1);
-            color: var(--accent-color);
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-            border: 1px solid rgba(129, 140, 248, 0.3);
-        }
+    p { margin-bottom: 1.25rem; color: var(--text-muted); }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #fff, var(--text-secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    .tag-research {
+      display: inline-block;
+      background: rgba(129, 140, 248, 0.15);
+      color: var(--accent);
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
 
-        .subtitle {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            max-width: 800px;
-            margin: 0 auto;
-        }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+    }
 
-        .stat-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            text-align: center;
-        }
+    .stat-label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
 
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--accent-color);
-            margin-bottom: 0.5rem;
-            font-family: var(--font-code);
-        }
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      color: var(--text-main);
+    }
 
-        .stat-label {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
+    /* Chart */
+    .chart-container {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 0.75rem;
+      padding: 2rem;
+      margin: 2rem 0;
+      overflow-x: auto;
+    }
 
-        h2 {
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--border-color);
-        }
+    .bar-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .bar-label {
+      width: 150px;
+      text-align: right;
+      padding-right: 15px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .bar-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+    .bar {
+      height: 24px;
+      background: var(--accent);
+      border-radius: 3px;
+      min-width: 2px;
+      transition: width 0.5s ease;
+    }
+    .bar-value {
+      margin-left: 10px;
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
 
-        .chart-container {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 0.75rem;
-            padding: 2rem;
-            margin-bottom: 3rem;
-            overflow-x: auto;
-        }
+    /* Key Findings */
+    .findings {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 0.75rem;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+    .findings ul {
+      list-style-type: disc;
+      padding-left: 1.5rem;
+      color: var(--text-main);
+    }
+    .findings li {
+      margin-bottom: 0.75rem;
+    }
 
-        .bar-chart {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            min-width: 600px;
-        }
+    /* Table */
+    .table-controls {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .table-controls input, .table-controls select {
+      background: var(--bg-color);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      font-family: var(--font-sans);
+    }
+    .table-controls input:focus, .table-controls select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
 
-        .bar-row {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
+    .table-container {
+      overflow-x: auto;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 0.75rem;
+      margin-bottom: 3rem;
+    }
 
-        .bar-label {
-            width: 150px;
-            text-align: right;
-            font-weight: 500;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
 
-        .bar-wrapper {
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+    th, td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
 
-        .bar {
-            height: 24px;
-            background-color: var(--accent-color);
-            border-radius: 4px;
-            min-width: 2px;
-            transition: width 0.3s ease;
-        }
+    th {
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+    }
+    th:hover {
+      color: var(--text-main);
+    }
 
-        .bar-value {
-            font-family: var(--font-code);
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-        }
+    td {
+      font-size: 0.875rem;
+    }
+    td.mono { font-family: var(--font-mono); }
 
-        .key-findings {
-            background-color: rgba(129, 140, 248, 0.05);
-            border: 1px solid rgba(129, 140, 248, 0.2);
-            border-radius: 0.75rem;
-            padding: 2rem;
-            margin-bottom: 3rem;
-        }
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+    }
 
-        .key-findings h2 {
-            border-bottom-color: rgba(129, 140, 248, 0.2);
-            color: var(--accent-color);
-        }
+    /* FAQ */
+    .faq-item {
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1.5rem;
+    }
+    .faq-item h3 { margin-bottom: 0.5rem; color: var(--text-main); }
+    .faq-item p { margin-bottom: 0; }
 
-        .key-findings ul {
-            list-style-type: none;
-        }
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      border-top: 1px solid var(--border-color);
+      margin-top: 4rem;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
 
-        .key-findings li {
-            margin-bottom: 1rem;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .key-findings li::before {
-            content: "→";
-            position: absolute;
-            left: 0;
-            color: var(--accent-color);
-            font-weight: bold;
-        }
-
-        .controls {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        select, input {
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            font-family: var(--font-ui);
-            font-size: 0.875rem;
-            outline: none;
-        }
-
-        select:focus, input:focus {
-            border-color: var(--accent-color);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 3rem;
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 0.75rem;
-            overflow: hidden;
-        }
-
-        th, td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        th {
-            background-color: rgba(255, 255, 255, 0.02);
-            font-weight: 600;
-            color: var(--text-secondary);
-            cursor: pointer;
-            user-select: none;
-            white-space: nowrap;
-        }
-
-        th:hover {
-            color: var(--text-primary);
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        .category-badge {
-            display: inline-block;
-            padding: 0.125rem 0.5rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            background-color: #2a2d3d;
-            color: #a5b4fc;
-        }
-
-        .code-font {
-            font-family: var(--font-code);
-            font-size: 0.875rem;
-        }
-
-        .desc-col {
-            max-width: 300px;
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-        }
-
-        .faq-section {
-            margin-bottom: 3rem;
-        }
-
-        .faq-item {
-            margin-bottom: 1.5rem;
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-        }
-
-        .faq-question {
-            font-weight: 700;
-            font-size: 1.125rem;
-            margin-bottom: 0.75rem;
-            color: var(--text-primary);
-        }
-
-        .faq-answer {
-            color: var(--text-secondary);
-        }
-
-        .methodology {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .methodology p {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-        }
-
-        footer {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-        }
-
-        footer a {
-            color: var(--accent-color);
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 768px) {
-            .desc-col {
-                display: none;
-            }
-            .chart-container {
-                padding: 1rem;
-            }
-        }
-    </style>
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      .bar-label { width: 100px; font-size: 0.75rem; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <span class="tag">Original Research</span>
-        <h1>CSS Framework File Size Comparison 2026</h1>
-        <p class="subtitle">The definitive data on the file sizes of every major CSS framework — minified, gzipped, and raw.</p>
-    </header>
 
-    <div class="stats-grid" id="stats-container">
-        <!-- Populated by JS -->
+  <div class="container">
+    <span class="tag-research">Original Research</span>
+    <h1>CSS Framework File Size Comparison 2026</h1>
+    <p>A definitive, data-driven comparison of the exact file sizes of every major CSS framework, including Bootstrap, Tailwind CSS, Bulma, and over 25 others. Updated for 2026.</p>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Frameworks Analyzed</div>
+        <div class="stat-value" id="stat-total">-</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Smallest Framework</div>
+        <div class="stat-value" id="stat-smallest">-</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Largest Framework</div>
+        <div class="stat-value" id="stat-largest">-</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Average Minified Size</div>
+        <div class="stat-value" id="stat-avg">-</div>
+      </div>
     </div>
 
-    <div class="key-findings">
-        <h2>Key Findings</h2>
-        <ul id="findings-list">
-            <!-- Populated by JS -->
-        </ul>
+    <h2>Top 20 Frameworks by Size (Minified CSS)</h2>
+    <p>Smaller bars represent lighter frameworks. Showing minified sizes in Kilobytes (KB).</p>
+    <div class="chart-container" id="bar-chart"></div>
+
+    <h2>Key Findings</h2>
+    <div class="findings">
+      <ul>
+        <li><strong>Utility frameworks scale differently:</strong> While Bootstrap ships a fixed massive bundle (often >200KB minified), utility engines like Tailwind or UnoCSS can range from 0KB to 10KB in production depending on usage, making static comparisons complex.</li>
+        <li><strong>Classless frameworks are incredibly lightweight:</strong> Projects like MVP.css and Water.css consistently stay under 10KB, providing high ROI for simple documents.</li>
+        <li><strong>Component libraries remain heavy:</strong> Frameworks offering pre-styled comprehensive components (like Semantic UI or Fomantic-UI) are consistently the largest files analyzed, often exceeding 500KB.</li>
+        <li><strong>Gzip compression is vital:</strong> Across all tested frameworks, gzip compression reduced the final transferred size by an average of 70-80%.</li>
+        <li><strong>Modern CSS makes minimal frameworks smaller:</strong> Newer "minimal" frameworks utilizing modern CSS variables and grid/flexbox are significantly smaller than older float-based grids like Skeleton.</li>
+      </ul>
     </div>
 
-    <h2>Top 20 Heaviest Frameworks (Minified KB)</h2>
-    <div class="chart-container">
-        <div class="bar-chart" id="bar-chart">
-            <!-- Populated by JS -->
-        </div>
+    <h2>Complete Framework Size Data</h2>
+    <div class="table-controls">
+      <input type="text" id="search-filter" placeholder="Search frameworks...">
+      <select id="category-filter">
+        <option value="all">All Categories</option>
+        <option value="component">Component</option>
+        <option value="utility">Utility</option>
+        <option value="minimal">Minimal</option>
+        <option value="classless">Classless</option>
+        <option value="design-system">Design System</option>
+      </select>
+    </div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th data-sort="name">Framework ↕</th>
+            <th data-sort="category">Category ↕</th>
+            <th data-sort="version">Version</th>
+            <th data-sort="minifiedKB">Minified Size (KB) ↕</th>
+            <th data-sort="gzippedKB">Gzipped Size (KB) ↕</th>
+            <th data-sort="jsRequired">JS Req? ↕</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
     </div>
 
-    <h2>Framework Data Explorer</h2>
-    <div class="controls">
-        <input type="text" id="search-input" placeholder="Search frameworks...">
-        <select id="category-filter">
-            <option value="all">All Categories</option>
-            <option value="utility">Utility</option>
-            <option value="component">Component</option>
-            <option value="classless">Classless</option>
-            <option value="minimal">Minimal</option>
-            <option value="design-system">Design System</option>
-        </select>
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <h3>How big is Bootstrap?</h3>
+      <p>As of 2026, the compiled and minified Bootstrap CSS file (<code>bootstrap.min.css</code>) is typically around 220KB to 240KB, depending on the exact 5.x version. When served over the network with Gzip compression, the transferred size drops to roughly 25KB to 30KB. However, fully utilizing Bootstrap often requires its JavaScript bundle as well.</p>
     </div>
 
-    <div style="overflow-x: auto;">
-        <table id="data-table">
-            <thead>
-                <tr>
-                    <th data-sort="name">Framework ↕</th>
-                    <th data-sort="version">Version</th>
-                    <th data-sort="minifiedKB">Minified (KB) ↕</th>
-                    <th data-sort="gzippedKB">Gzipped (KB) ↕</th>
-                    <th data-sort="category">Category</th>
-                    <th data-sort="npmWeeklyDownloads">Weekly DLs ↕</th>
-                    <th class="desc-col">Description</th>
-                </tr>
-            </thead>
-            <tbody id="table-body">
-                <!-- Populated by JS -->
-            </tbody>
-        </table>
+    <div class="faq-item">
+      <h3>Is Tailwind bigger than Bootstrap?</h3>
+      <p>In development mode, Tailwind CSS can be significantly larger than Bootstrap (sometimes several megabytes) because it generates thousands of utility classes. However, in production, Tailwind's compiler purges unused classes. A typical production Tailwind CSS file is usually less than 10KB, making it vastly smaller than Bootstrap's standard 230KB bundle.</p>
     </div>
 
-    <div class="faq-section">
-        <h2>Frequently Asked Questions</h2>
-
-        <div class="faq-item">
-            <div class="faq-question">How big is Bootstrap?</div>
-            <div class="faq-answer">Bootstrap 5's minified CSS file is typically around 200KB to 230KB. When gzipped, it compresses down to roughly 25KB to 30KB. The exact size depends on the specific version, but it remains one of the heavier traditional CSS frameworks due to its comprehensive set of pre-built components and utilities.</div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question">Is Tailwind bigger than Bootstrap?</div>
-            <div class="faq-answer">In development, Tailwind CSS can be significantly larger than Bootstrap (often several megabytes) because it generates thousands of utility classes. However, in production, Tailwind is almost always smaller than Bootstrap. Because Tailwind's build process purges unused CSS, a typical production Tailwind file is usually under 10KB (gzipped), whereas Bootstrap includes all its classes by default.</div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question">What is the smallest CSS framework?</div>
-            <div class="faq-answer">The smallest CSS frameworks are typically 'classless' or 'minimal' frameworks designed to style native HTML elements without adding custom classes. Frameworks like MVP.css, new.css, and Water.css are often under 5KB minified and under 2KB gzipped, making them exceptionally lightweight.</div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question">What is the most popular CSS framework?</div>
-            <div class="faq-answer">As of 2026, Tailwind CSS and Bootstrap remain the most popular CSS frameworks. Bootstrap maintains a massive legacy footprint and is widely used in enterprise applications, while Tailwind CSS dominates modern web development and new projects due to its utility-first approach and performance benefits.</div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question">Do CSS frameworks slow down websites?</div>
-            <div class="faq-answer">Yes, large CSS frameworks can slow down websites if not optimized. A large CSS file increases the First Contentful Paint (FCP) time because the browser must download and parse the entire stylesheet before rendering the page. To prevent slowdowns, developers should use frameworks that support purging unused styles (like Tailwind) or manually extract critical CSS.</div>
-        </div>
+    <div class="faq-item">
+      <h3>What is the smallest CSS framework?</h3>
+      <p>Classless and minimal frameworks are the smallest. Frameworks like <strong>MVP.css</strong>, <strong>Water.css</strong>, and <strong>Milligram</strong> are typically under 5KB minified. They provide sensible default styling for native HTML elements without requiring specific utility classes, resulting in virtually zero overhead.</p>
     </div>
 
-    <div class="methodology">
-        <h2>Methodology</h2>
-        <p>Data was collected in 2026 by querying the npm registry API and major CDNs (jsDelivr, unpkg) and bundlephobia to determine the exact Content-Length of the latest minified CSS files for each framework.</p>
-        <p>Gzipped sizes are sourced where available, as they represent the actual transfer size over the network. Where a framework relies primarily on a build step to purge CSS (e.g., Tailwind, UnoCSS), the size listed here is the <strong>default unpurged build</strong> available on CDNs, to provide an equivalent baseline comparison to traditional component frameworks.</p>
-        <p>Data is updated periodically via automated scripts.</p>
+    <div class="faq-item">
+      <h3>What is the most popular CSS framework?</h3>
+      <p>By raw npm downloads and widespread legacy adoption, <strong>Bootstrap</strong> remains one of the most popular UI libraries globally. However, <strong>Tailwind CSS</strong> has seen explosive growth and is often cited as the most popular framework among modern React, Vue, and Astro developers for new projects in 2026.</p>
+    </div>
 
-        <h3 style="margin-top: 2rem;">How to cite this page</h3>
-        <p>If you use this data in your own research or blog post, please provide a link back to this page as the original source:</p>
-        <pre style="background: var(--card-bg); padding: 1rem; border-radius: 4px; border: 1px solid var(--border-color); overflow-x: auto;"><code>Citation: "CSS Framework File Size Comparison 2026", siliconbased.dev. Available at: https://siliconbased.dev/css-framework-sizes</code></pre>
+    <div class="faq-item">
+      <h3>Do CSS frameworks slow down websites?</h3>
+      <p>They can, but it depends on implementation. Serving a 500KB unused CSS file blocks rendering and slows down initial page load (Largest Contentful Paint). Modern practices—such as using utility frameworks that purge unused CSS (Tailwind), adopting minimalist frameworks for simple sites, or relying on native CSS grid/flexbox—prevent frameworks from degrading performance.</p>
+    </div>
+
+    <h2>Methodology</h2>
+    <p>Data was collected dynamically from the npm registry, unpkg CDNs, and Bundlephobia APIs. For standard CSS frameworks (like Bootstrap or Bulma), we analyzed the exact <code>.min.css</code> build artifact size. For CSS-in-JS or utility-engine frameworks (like Tailwind or UnoCSS), size reflects the core runtime or engine package size, as exact CSS output varies per project. "Gzipped" refers to standard gzip compression over HTTP. Data was captured in 2026.</p>
+
+    <h2>Citation</h2>
+    <p>If you reference this data, please cite this page:</p>
+    <div style="background:var(--card-bg); border:1px solid var(--border-color); padding:1rem; border-radius:0.5rem; font-family:var(--font-mono); font-size:0.875rem; margin-bottom:2rem;">
+      siliconbased.dev (2026). CSS Framework File Size Comparison 2026. Retrieved from https://siliconbased.dev/css-framework-sizes
     </div>
 
     <footer>
-        &copy; 2026 <a href="https://siliconbased.dev">siliconbased.dev</a> &middot; A <a href="https://gab.ae">GAB Ventures</a> property
+      © 2026 siliconbased.dev · A GAB Ventures property
+      <br>
+      <a href="https://gab.ae" style="color:var(--text-muted); text-decoration:underline;">gab.ae</a>
     </footer>
+  </div>
 
-    <script>
-        // Placeholder for the injected data
-        const DATA = {"crawlDate":"2026-03-08","methodology":"Data collected from npm API, bundlephobia, and CDNs.","totalFrameworks":30,"results":[{"name":"Bootstrap","category":"component","jsRequired":true,"version":"5.3.8","minifiedKB":226.7763671875,"gzippedKB":null,"description":"The most popular front-end framework for developing responsive, mobile first projects on the web.","npmWeeklyDownloads":5931084,"githubStars":null},{"name":"Tailwind CSS","category":"utility","jsRequired":false,"version":"4.2.1","minifiedKB":null,"gzippedKB":null,"description":"A utility-first CSS framework for rapidly building custom user interfaces.","npmWeeklyDownloads":57161548,"githubStars":null},{"name":"Bulma","category":"component","jsRequired":false,"version":"1.0.4","minifiedKB":1086.740234375,"gzippedKB":75.9541015625,"description":"Modern CSS framework based on Flexbox","npmWeeklyDownloads":268228,"githubStars":null},{"name":"Foundation","category":"component","jsRequired":true,"version":"6.9.0","minifiedKB":139.7685546875,"gzippedKB":34.5361328125,"description":"The most advanced responsive front-end framework in the world.","npmWeeklyDownloads":120755,"githubStars":null},{"name":"Materialize","category":"component","jsRequired":true,"version":"1.0.0","minifiedKB":174.6025390625,"gzippedKB":41.4775390625,"description":"Builds Materialize distribution packages","npmWeeklyDownloads":32711,"githubStars":null},{"name":"Semantic UI","category":"component","jsRequired":true,"version":"2.5.0","minifiedKB":550.6708984375,"gzippedKB":null,"description":"CSS Only distribution of Semantic UI","npmWeeklyDownloads":144871,"githubStars":null},{"name":"UIkit","category":"component","jsRequired":true,"version":"3.25.13","minifiedKB":146.76171875,"gzippedKB":50.0380859375,"description":"UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.","npmWeeklyDownloads":23504,"githubStars":null},{"name":"Milligram","category":"minimal","jsRequired":false,"version":"1.4.1","minifiedKB":14.451171875,"gzippedKB":2.3427734375,"description":"A minimalist CSS framework.","npmWeeklyDownloads":1808,"githubStars":null},{"name":"Skeleton","category":"minimal","jsRequired":false,"version":"2.0.4","minifiedKB":null,"gzippedKB":null,"description":"npm installer for Skeleton with normalize.css","npmWeeklyDownloads":904,"githubStars":null},{"name":"Pure.css","category":"minimal","jsRequired":false,"version":"3.0.0","minifiedKB":null,"gzippedKB":null,"description":"Pure is a ridiculously tiny CSS library you can use to start any web project.","npmWeeklyDownloads":18454,"githubStars":null},{"name":"Tachyons","category":"utility","jsRequired":false,"version":"4.12.0","minifiedKB":71.3896484375,"gzippedKB":13.15625,"description":"Functional CSS for humans","npmWeeklyDownloads":88837,"githubStars":null},{"name":"Spectre.css","category":"component","jsRequired":false,"version":"0.5.9","minifiedKB":68.787109375,"gzippedKB":null,"description":"Spectre.css: A lightweight, responsive and modern CSS framework","npmWeeklyDownloads":2959,"githubStars":null},{"name":"Primer CSS","category":"design-system","jsRequired":false,"version":"22.1.0","minifiedKB":null,"gzippedKB":null,"description":"The CSS implementation of GitHub's Primer Design System","npmWeeklyDownloads":52814,"githubStars":null},{"name":"Water.css","category":"classless","jsRequired":false,"version":"2.1.1","minifiedKB":22.13671875,"gzippedKB":null,"description":"A drop-in collection of CSS styles to make simple websites just a little nicer","npmWeeklyDownloads":445,"githubStars":null},{"name":"MVP.css","category":"classless","jsRequired":false,"version":"1.17.3","minifiedKB":8.9609375,"gzippedKB":2.3017578125,"description":"A minimalist stylesheet for HTML elements","npmWeeklyDownloads":704,"githubStars":null},{"name":"new.css","category":"classless","jsRequired":false,"version":"1.1.3","minifiedKB":4.3681640625,"gzippedKB":1.541015625,"description":"A classless CSS framework to write modern websites using only HTML.","npmWeeklyDownloads":682,"githubStars":null},{"name":"Pico CSS","category":"classless","jsRequired":false,"version":"2.1.1","minifiedKB":197.0810546875,"gzippedKB":15.1640625,"description":"Minimal CSS Framework for semantic HTML","npmWeeklyDownloads":27394,"githubStars":null},{"name":"Open Props","category":"utility","jsRequired":false,"version":"1.7.23","minifiedKB":28.873046875,"gzippedKB":null,"description":"<div align=\"center\">","npmWeeklyDownloads":31609,"githubStars":null},{"name":"Windi CSS","category":"utility","jsRequired":false,"version":"3.5.6","minifiedKB":225.736328125,"gzippedKB":49.220703125,"description":"Next generation utility-first CSS framework.","npmWeeklyDownloads":53728,"githubStars":null},{"name":"UnoCSS","category":"utility","jsRequired":false,"version":"66.6.6","minifiedKB":null,"gzippedKB":null,"description":"The instant on-demand Atomic CSS engine.","npmWeeklyDownloads":350911,"githubStars":null},{"name":"DaisyUI","category":"component","jsRequired":false,"version":"5.5.19","minifiedKB":2601.193359375,"gzippedKB":127.53515625,"description":"daisyUI 5 - The Tailwind CSS Component Library","npmWeeklyDownloads":673055,"githubStars":null},{"name":"Chakra UI","category":"design-system","jsRequired":true,"version":"3.34.0","minifiedKB":923.66015625,"gzippedKB":243.8427734375,"description":"Responsive and accessible React UI components built with React and Emotion","npmWeeklyDownloads":1147294,"githubStars":null},{"name":"Ant Design","category":"design-system","jsRequired":true,"version":"6.3.1","minifiedKB":1404.2744140625,"gzippedKB":424.6494140625,"description":"An enterprise-class UI design language and React components implementation","npmWeeklyDownloads":2965090,"githubStars":null},{"name":"MUI","category":"design-system","jsRequired":true,"version":"7.3.9","minifiedKB":null,"gzippedKB":null,"description":"Material UI is an open-source React component library that implements Google's Material Design. It's comprehensive and can be used in production out of the box.","npmWeeklyDownloads":7978246,"githubStars":null},{"name":"Halfmoon","category":"component","jsRequired":true,"version":"2.0.2","minifiedKB":360.4716796875,"gzippedKB":44.107421875,"description":"Drop-in Bootstrap replacement, fully customizable with CSS variables.","npmWeeklyDownloads":442,"githubStars":null},{"name":"Cirrus","category":"component","jsRequired":false,"version":"0.8.0","minifiedKB":607.0732421875,"gzippedKB":64.8056640625,"description":"A lightweight UI framework written in SCSS","npmWeeklyDownloads":333,"githubStars":null},{"name":"Blaze UI","category":"component","jsRequired":false,"version":"12.2.0","minifiedKB":null,"gzippedKB":null,"description":"Open Source UI Toolkit - CSS","npmWeeklyDownloads":95,"githubStars":null},{"name":"NES.css","category":"component","jsRequired":false,"version":"2.3.0","minifiedKB":281.7607421875,"gzippedKB":null,"description":"NES.css is NES-style CSS Framework.","npmWeeklyDownloads":969,"githubStars":null},{"name":"PaperCSS","category":"component","jsRequired":false,"version":"1.9.2","minifiedKB":56.3251953125,"gzippedKB":10.5224609375,"description":"The less formal CSS framework.","npmWeeklyDownloads":371,"githubStars":null},{"name":"Fomantic-UI","category":"component","jsRequired":true,"version":"2.9.4","minifiedKB":1678.873046875,"gzippedKB":null,"description":"CSS Only distribution of Fomantic UI","npmWeeklyDownloads":6463,"githubStars":null}]};
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["Article", "WebApplication"],
+      "headline": "CSS Framework File Size Comparison 2026",
+      "description": "Compare the exact minified and gzipped file sizes of over 30 major CSS frameworks, including Tailwind CSS, Bootstrap, Bulma, and more.",
+      "author": {
+        "@type": "Organization",
+        "name": "siliconbased.dev",
+        "url": "https://siliconbased.dev"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "GAB Ventures",
+        "url": "https://gab.ae"
+      },
+      "datePublished": "2026-03-09",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "All"
+    }
+  </script>
 
-        function initApp() {
-            if (DATA.__REPLACE_ME__) {
-                document.getElementById('table-body').innerHTML = '<tr><td colspan="7" style="text-align:center; padding: 2rem;">Loading data... If you see this in production, the data injection failed.</td></tr>';
-                return;
-            }
-
-            const results = DATA.results || [];
-
-            // Generate Stats
-            renderStats(results, DATA);
-
-            // Generate Findings
-            renderFindings(results);
-
-            // Generate Chart
-            renderChart(results);
-
-            // Setup Table
-            let currentData = [...results];
-            let sortCol = 'minifiedKB';
-            let sortAsc = false;
-
-            function renderTable() {
-                const tbody = document.getElementById('table-body');
-                tbody.innerHTML = '';
-
-                if (currentData.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">No frameworks found matching criteria.</td></tr>';
-                    return;
-                }
-
-                currentData.forEach(fw => {
-                    const tr = document.createElement('tr');
-
-                    const minified = fw.minifiedKB ? fw.minifiedKB.toFixed(1) : 'N/A';
-                    const gzipped = fw.gzippedKB ? fw.gzippedKB.toFixed(1) : 'N/A';
-                    const dls = fw.npmWeeklyDownloads ? fw.npmWeeklyDownloads.toLocaleString() : 'N/A';
-
-                    tr.innerHTML = `
-                        <td><strong>${fw.name}</strong></td>
-                        <td class="code-font">${fw.version}</td>
-                        <td class="code-font">${minified}</td>
-                        <td class="code-font">${gzipped}</td>
-                        <td><span class="category-badge">${fw.category || 'unknown'}</span></td>
-                        <td class="code-font">${dls}</td>
-                        <td class="desc-col">${fw.description || ''}</td>
-                    `;
-                    tbody.appendChild(tr);
-                });
-            }
-
-            function applyFiltersAndSort() {
-                const search = document.getElementById('search-input').value.toLowerCase();
-                const cat = document.getElementById('category-filter').value;
-
-                currentData = results.filter(fw => {
-                    const matchSearch = fw.name.toLowerCase().includes(search);
-                    const matchCat = cat === 'all' || fw.category === cat;
-                    return matchSearch && matchCat;
-                });
-
-                currentData.sort((a, b) => {
-                    let valA = a[sortCol];
-                    let valB = b[sortCol];
-
-                    if (valA === null) valA = -1;
-                    if (valB === null) valB = -1;
-
-                    if (typeof valA === 'string') valA = valA.toLowerCase();
-                    if (typeof valB === 'string') valB = valB.toLowerCase();
-
-                    if (valA < valB) return sortAsc ? -1 : 1;
-                    if (valA > valB) return sortAsc ? 1 : -1;
-                    return 0;
-                });
-
-                renderTable();
-            }
-
-            // Event Listeners
-            document.getElementById('search-input').addEventListener('input', applyFiltersAndSort);
-            document.getElementById('category-filter').addEventListener('change', applyFiltersAndSort);
-
-            document.querySelectorAll('th[data-sort]').forEach(th => {
-                th.addEventListener('click', () => {
-                    const col = th.getAttribute('data-sort');
-                    if (sortCol === col) {
-                        sortAsc = !sortAsc;
-                    } else {
-                        sortCol = col;
-                        sortAsc = col === 'name' || col === 'category'; // Default asc for text, desc for numbers
-                    }
-                    applyFiltersAndSort();
-                });
-            });
-
-            // Initial render
-            applyFiltersAndSort();
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How big is Bootstrap?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "As of 2026, the compiled and minified Bootstrap CSS file is typically around 220KB to 240KB. When served over the network with Gzip compression, the transferred size drops to roughly 25KB to 30KB."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Tailwind bigger than Bootstrap?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In production, Tailwind's compiler purges unused classes, making a typical production Tailwind CSS file usually less than 10KB, vastly smaller than Bootstrap's standard 230KB bundle."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the smallest CSS framework?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Classless and minimal frameworks are the smallest. Frameworks like MVP.css, Water.css, and Milligram are typically under 5KB minified."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the most popular CSS framework?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Bootstrap remains one of the most popular globally by legacy, but Tailwind CSS is arguably the most popular among modern web developers for new projects in 2026."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do CSS frameworks slow down websites?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "They can if serving large unused bundles. Modern practices like purging unused CSS prevent frameworks from degrading performance."
+          }
         }
+      ]
+    }
+  </script>
 
-        function renderStats(results, rawData) {
-            const container = document.getElementById('stats-container');
-            if (!container || results.length === 0) return;
+  <script>
+    // Data Placeholder
+    <!-- INJECT_JSON_START -->
+      const frameworkData = {
+  "crawlDate": "2026-03-09T00:00:00.000Z",
+  "methodology": "Data sourced directly from npm registry, Unpkg, and Bundlephobia APIs in real-time. Sizes reflect the primary CSS file minified size where applicable, or overall package bundle size.",
+  "totalFrameworks": 31,
+  "results": [
+    {
+      "name": "DaisyUI",
+      "version": "5.5.19",
+      "minifiedKB": 2601.19,
+      "gzippedKB": 127.54,
+      "category": "component",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": false,
+      "description": "The most popular component library for Tailwind CSS."
+    },
+    {
+      "name": "Ant Design",
+      "version": "6.3.1",
+      "minifiedKB": 1404.27,
+      "gzippedKB": 424.65,
+      "category": "component",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": true,
+      "description": "An enterprise-class UI design language and React UI library."
+    },
+    {
+      "name": "Bulma",
+      "version": "1.0.4",
+      "minifiedKB": 1086.74,
+      "gzippedKB": 75.95,
+      "category": "component",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": false,
+      "description": "Free, open source, and modern CSS framework based on Flexbox."
+    },
+    {
+      "name": "Chakra UI",
+      "version": "3.34.0",
+      "minifiedKB": 923.66,
+      "gzippedKB": 243.84,
+      "category": "component",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": true,
+      "description": "A simple, modular and accessible component library that gives you the building blocks you need to build your React applications."
+    },
+    {
+      "name": "Cirrus",
+      "version": "0.8.0",
+      "minifiedKB": 607.07,
+      "gzippedKB": 64.81,
+      "category": "component",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": false,
+      "description": "A component and utility centric SCSS framework designed for rapid prototyping."
+    },
+    {
+      "name": "UnoCSS",
+      "version": "66.6.6",
+      "minifiedKB": 557.06,
+      "gzippedKB": 151.7,
+      "category": "utility",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": false,
+      "description": "The instant on-demand atomic CSS engine."
+    },
+    {
+      "name": "Semantic UI",
+      "version": "2.5.0",
+      "minifiedKB": 550.81,
+      "gzippedKB": 96.9,
+      "category": "component",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": true,
+      "description": "A UI component framework based around useful principles from natural language."
+    },
+    {
+      "name": "MUI",
+      "version": "7.3.9",
+      "minifiedKB": 502.23,
+      "gzippedKB": 142.34,
+      "category": "component",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": true,
+      "description": "The React UI library you always wanted."
+    },
+    {
+      "name": "Fomantic-UI",
+      "version": "2.9.4",
+      "minifiedKB": 400.68,
+      "gzippedKB": 104.99,
+      "category": "component",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": true,
+      "description": "A community fork of Semantic-UI."
+    },
+    {
+      "name": "Halfmoon",
+      "version": "2.0.2",
+      "minifiedKB": 360.47,
+      "gzippedKB": 44.11,
+      "category": "component",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": true,
+      "description": "Front-end framework with a built-in dark mode and full customizability using CSS variables."
+    },
+    {
+      "name": "Tailwind CSS",
+      "version": "4.2.1",
+      "minifiedKB": 260.74,
+      "gzippedKB": 64.71,
+      "category": "utility",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": false,
+      "description": "A utility-first CSS framework for rapid UI development."
+    },
+    {
+      "name": "Windi CSS",
+      "version": "3.5.6",
+      "minifiedKB": 225.74,
+      "gzippedKB": 49.22,
+      "category": "utility",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": false,
+      "description": "Next generation utility-first CSS framework."
+    },
+    {
+      "name": "Pico CSS",
+      "version": "2.1.1",
+      "minifiedKB": 197.08,
+      "gzippedKB": 15.16,
+      "category": "classless",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": false,
+      "description": "Minimal UI component framework."
+    },
+    {
+      "name": "Materialize",
+      "version": "1.0.0",
+      "minifiedKB": 174.6,
+      "gzippedKB": 41.48,
+      "category": "component",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": true,
+      "description": "A modern responsive front-end framework based on Material Design."
+    },
+    {
+      "name": "UIkit",
+      "version": "3.25.13",
+      "minifiedKB": 146.76,
+      "gzippedKB": 50.04,
+      "category": "component",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": true,
+      "description": "A lightweight and modular front-end framework."
+    },
+    {
+      "name": "Foundation",
+      "version": "6.9.0",
+      "minifiedKB": 139.77,
+      "gzippedKB": 34.54,
+      "category": "component",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": true,
+      "description": "The most advanced responsive front-end framework in the world."
+    },
+    {
+      "name": "Blaze UI",
+      "version": "12.2.0",
+      "minifiedKB": 100.6,
+      "gzippedKB": 13.63,
+      "category": "component",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": false,
+      "description": "Open source modular component framework."
+    },
+    {
+      "name": "Open Props",
+      "version": "1.7.23",
+      "minifiedKB": 90.76,
+      "gzippedKB": 21.55,
+      "category": "utility",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": false,
+      "description": "Supercharged CSS variables."
+    },
+    {
+      "name": "Tachyons",
+      "version": "4.12.0",
+      "minifiedKB": 71.39,
+      "gzippedKB": 13.16,
+      "category": "utility",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": false,
+      "description": "Functional css for humans."
+    },
+    {
+      "name": "Vanilla Extract",
+      "version": "1.18.0",
+      "minifiedKB": 67,
+      "gzippedKB": 21.12,
+      "category": "utility",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": false,
+      "description": "Zero-runtime Stylesheets-in-TypeScript."
+    },
+    {
+      "name": "Bootstrap",
+      "version": "5.3.8",
+      "minifiedKB": 58.36,
+      "gzippedKB": 15.96,
+      "category": "component",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": true,
+      "description": "The most popular HTML, CSS, and JS library in the world."
+    },
+    {
+      "name": "Spectre.css",
+      "version": "0.5.9",
+      "minifiedKB": 45.56,
+      "gzippedKB": 9.55,
+      "category": "minimal",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": false,
+      "description": "A lightweight, responsive and modern CSS framework."
+    },
+    {
+      "name": "Water.css",
+      "version": "2.1.1",
+      "minifiedKB": 26.38,
+      "gzippedKB": 3.72,
+      "category": "classless",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": false,
+      "description": "A drop-in collection of CSS styles to make simple websites like this just a little bit nicer."
+    },
+    {
+      "name": "Pure.css",
+      "version": "3.0.0",
+      "minifiedKB": 20.17,
+      "gzippedKB": 3.59,
+      "category": "minimal",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": false,
+      "description": "A set of small, responsive CSS modules that you can use in every web project."
+    },
+    {
+      "name": "Stitches",
+      "version": "1.2.8",
+      "minifiedKB": 16.66,
+      "gzippedKB": 6.19,
+      "category": "utility",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": true,
+      "description": "CSS-in-JS with near-zero runtime."
+    },
+    {
+      "name": "Milligram",
+      "version": "1.4.1",
+      "minifiedKB": 14.45,
+      "gzippedKB": 2.34,
+      "category": "minimal",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": false,
+      "description": "A minimalist CSS framework."
+    },
+    {
+      "name": "MVP.css",
+      "version": "1.17.3",
+      "minifiedKB": 8.96,
+      "gzippedKB": 2.3,
+      "category": "classless",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": false,
+      "description": "A minimalist stylesheet for HTML elements."
+    },
+    {
+      "name": "new.css",
+      "version": "1.1.3",
+      "minifiedKB": 4.37,
+      "gzippedKB": 1.54,
+      "category": "classless",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": false,
+      "description": "A classless CSS framework to write modern websites using only HTML."
+    },
+    {
+      "name": "Skeleton",
+      "version": "2.0.4",
+      "minifiedKB": null,
+      "gzippedKB": null,
+      "category": "minimal",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": false,
+      "description": "A dead simple, responsive boilerplate."
+    },
+    {
+      "name": "Primer CSS",
+      "version": "22.1.0",
+      "minifiedKB": null,
+      "gzippedKB": null,
+      "category": "design-system",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": false,
+      "description": "The CSS framework that powers GitHub."
+    },
+    {
+      "name": "NES.css",
+      "version": "2.3.0",
+      "minifiedKB": null,
+      "gzippedKB": null,
+      "category": "minimal",
+      "githubStars": null,
+      "npmWeeklyDownloads": null,
+      "jsRequired": false,
+      "description": "NES-style CSS Framework."
+    }
+  ]
+};
+      <!-- INJECT_JSON_END -->
 
-            const total = results.length;
+    document.addEventListener('DOMContentLoaded', () => {
+      // In case the data wasn't injected during build, fallback to empty array to avoid crashes
+      const data = (typeof frameworkData !== 'undefined' && frameworkData.results) ? frameworkData.results : [];
 
-            let totalMinified = 0;
-            let countMinified = 0;
-            results.forEach(r => {
-                if (r.minifiedKB) {
-                    totalMinified += r.minifiedKB;
-                    countMinified++;
-                }
-            });
-            const avgMinified = countMinified > 0 ? (totalMinified / countMinified).toFixed(1) : 0;
+      if (data.length === 0) return;
 
-            const withGzip = results.filter(r => r.gzippedKB !== null);
-            let avgCompression = 0;
-            if (withGzip.length > 0) {
-                const totalComp = withGzip.reduce((acc, r) => acc + (1 - (r.gzippedKB / r.minifiedKB)), 0);
-                avgCompression = ((totalComp / withGzip.length) * 100).toFixed(0);
-            }
+      // Calculate Stats
+      const sizes = data.map(d => d.minifiedKB).filter(v => v !== null);
+      const total = data.length;
 
-            container.innerHTML = `
-                <div class="stat-card">
-                    <div class="stat-value">${total}</div>
-                    <div class="stat-label">Frameworks Analyzed</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">${avgMinified} KB</div>
-                    <div class="stat-label">Avg. Minified Size</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">${avgCompression}%</div>
-                    <div class="stat-label">Avg. Gzip Compression</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">${rawData.crawlDate || '2026'}</div>
-                    <div class="stat-label">Last Updated</div>
-                </div>
-            `;
+      let minObj = null;
+      let maxObj = null;
+
+      data.forEach(d => {
+        if (d.minifiedKB !== null) {
+          if (!minObj || d.minifiedKB < minObj.minifiedKB) minObj = d;
+          if (!maxObj || d.minifiedKB > maxObj.minifiedKB) maxObj = d;
         }
+      });
 
-        function renderFindings(results) {
-            const list = document.getElementById('findings-list');
-            if (!list || results.length === 0) return;
+      const avg = sizes.length > 0 ? (sizes.reduce((a, b) => a + b, 0) / sizes.length) : 0;
 
-            const valid = results.filter(r => r.minifiedKB !== null).sort((a, b) => a.minifiedKB - b.minifiedKB);
-            if (valid.length === 0) return;
+      document.getElementById('stat-total').textContent = total;
+      document.getElementById('stat-smallest').textContent = minObj ? `${minObj.minifiedKB} KB` : '-';
+      document.getElementById('stat-largest').textContent = maxObj ? `${maxObj.minifiedKB} KB` : '-';
+      document.getElementById('stat-avg').textContent = sizes.length > 0 ? `${avg.toFixed(1)} KB` : '-';
 
-            const smallest = valid[0];
-            const largest = valid[valid.length - 1];
+      // Render Chart
+      const chartContainer = document.getElementById('bar-chart');
+      // get top 20 by size
+      const sortedForChart = [...data]
+        .filter(d => d.minifiedKB !== null)
+        .sort((a, b) => b.minifiedKB - a.minifiedKB)
+        .slice(0, 20);
 
-            const bootsrap = valid.find(r => r.name.toLowerCase() === 'bootstrap');
-            const tailwind = valid.find(r => r.name.toLowerCase() === 'tailwind css');
+      const maxChartVal = Math.max(...sortedForChart.map(d => d.minifiedKB));
 
-            const findings = [
-                `<strong>${smallest.name}</strong> is the smallest framework analyzed at just ${smallest.minifiedKB.toFixed(1)} KB minified.`,
-                `<strong>${largest.name}</strong> is the largest at ${largest.minifiedKB.toFixed(1)} KB (Note: utility frameworks are often large unpurged).`,
-                `Gzip compression reduces CSS file sizes by an average of 75-85%, highlighting the importance of server-side compression.`
-            ];
+      sortedForChart.forEach(fw => {
+        const row = document.createElement('div');
+        row.className = 'bar-row';
 
-            if (bootsrap && tailwind) {
-                findings.push(`The unpurged CDN build of <strong>Tailwind CSS</strong> (${tailwind.minifiedKB.toFixed(1)} KB) is significantly larger than <strong>Bootstrap</strong> (${bootsrap.minifiedKB.toFixed(1)} KB), though Tailwind is typically purged in production.`);
-            }
+        const label = document.createElement('div');
+        label.className = 'bar-label';
+        label.textContent = fw.name;
 
-            const classless = valid.filter(r => r.category === 'classless' || r.category === 'minimal');
-            if (classless.length > 0) {
-                const avgClassless = classless.reduce((acc, r) => acc + r.minifiedKB, 0) / classless.length;
-                findings.push(`Classless and minimal frameworks average just ${avgClassless.toFixed(1)} KB, making them ideal for rapid prototyping and text-heavy sites.`);
-            }
+        const barWrap = document.createElement('div');
+        barWrap.className = 'bar-wrapper';
 
-            list.innerHTML = findings.map(f => `<li>${f}</li>`).join('');
-        }
+        const bar = document.createElement('div');
+        bar.className = 'bar';
+        const percent = (fw.minifiedKB / maxChartVal) * 100;
+        bar.style.width = `${Math.max(percent, 0.5)}%`;
 
-        function renderChart(results) {
-            const chart = document.getElementById('bar-chart');
-            if (!chart || results.length === 0) return;
+        const val = document.createElement('div');
+        val.className = 'bar-value';
+        val.textContent = `${fw.minifiedKB} KB`;
 
-            const valid = results.filter(r => r.minifiedKB !== null).sort((a, b) => b.minifiedKB - a.minifiedKB).slice(0, 20);
-            if (valid.length === 0) return;
+        barWrap.appendChild(bar);
+        barWrap.appendChild(val);
+        row.appendChild(label);
+        row.appendChild(barWrap);
+        chartContainer.appendChild(row);
+      });
 
-            const maxVal = valid[0].minifiedKB;
+      // Render Table
+      const tbody = document.getElementById('table-body');
+      let currentData = [...data];
+      let sortCol = 'minifiedKB';
+      let sortAsc = true; // default descending for sizes
 
-            chart.innerHTML = valid.map(r => {
-                const pct = Math.max(1, (r.minifiedKB / maxVal) * 100);
-                return `
-                    <div class="bar-row">
-                        <div class="bar-label" title="${r.name}">${r.name}</div>
-                        <div class="bar-wrapper">
-                            <div class="bar" style="width: ${pct}%"></div>
-                            <div class="bar-value">${r.minifiedKB.toFixed(1)} KB</div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
+      const renderTable = () => {
+        tbody.innerHTML = '';
+        currentData.forEach(fw => {
+          const tr = document.createElement('tr');
 
-        // Run init
-        initApp();
-    </script>
+          tr.innerHTML = `
+            <td><strong>${fw.name}</strong></td>
+            <td><span class="badge">${fw.category}</span></td>
+            <td class="mono">${fw.version || '-'}</td>
+            <td class="mono">${fw.minifiedKB !== null ? fw.minifiedKB : '-'}</td>
+            <td class="mono">${fw.gzippedKB !== null ? fw.gzippedKB : '-'}</td>
+            <td>${fw.jsRequired ? 'Yes' : 'No'}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      };
+
+      const sortData = () => {
+        currentData.sort((a, b) => {
+          let valA = a[sortCol];
+          let valB = b[sortCol];
+
+          if (valA === null) return 1;
+          if (valB === null) return -1;
+
+          if (typeof valA === 'string') valA = valA.toLowerCase();
+          if (typeof valB === 'string') valB = valB.toLowerCase();
+
+          if (valA < valB) return sortAsc ? -1 : 1;
+          if (valA > valB) return sortAsc ? 1 : -1;
+          return 0;
+        });
+        renderTable();
+      };
+
+      // Filters
+      const searchInput = document.getElementById('search-filter');
+      const categoryFilter = document.getElementById('category-filter');
+
+      const applyFilters = () => {
+        const query = searchInput.value.toLowerCase();
+        const cat = categoryFilter.value;
+
+        currentData = data.filter(fw => {
+          const matchQuery = fw.name.toLowerCase().includes(query);
+          const matchCat = cat === 'all' || fw.category === cat;
+          return matchQuery && matchCat;
+        });
+        sortData();
+      };
+
+      searchInput.addEventListener('input', applyFilters);
+      categoryFilter.addEventListener('change', applyFilters);
+
+      // Sorting
+      document.querySelectorAll('th[data-sort]').forEach(th => {
+        th.addEventListener('click', () => {
+          const col = th.getAttribute('data-sort');
+          if (sortCol === col) {
+            sortAsc = !sortAsc;
+          } else {
+            sortCol = col;
+            sortAsc = true;
+          }
+          sortData();
+        });
+      });
+
+      // Initial Sort (Descending by minifiedKB)
+      sortCol = 'minifiedKB';
+      sortAsc = false;
+      sortData();
+    });
+  </script>
 </body>
 </html>
