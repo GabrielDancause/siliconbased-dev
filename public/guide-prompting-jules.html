@@ -94,9 +94,10 @@ pre{font-family:'JetBrains Mono',monospace;font-size:0.8rem;background:#0d0e16;b
       <a href="#lesson9">10. Listing Pages > Individual Pages</a>
       <a href="#lesson10">10. Multi-Domain Repo Routing</a>
       <a href="#lesson11">11. Always Update the Homepage</a>
-      <a href="#workflow">12. The Full Research Workflow</a>
-      <a href="#limits">13. What Jules Can't Do</a>
-      <a href="#template">14. The Prompt Template</a>
+      <a href="#lesson12">12. Know the Homepage Structure</a>
+      <a href="#workflow">13. The Full Research Workflow</a>
+      <a href="#limits">14. What Jules Can't Do</a>
+      <a href="#template">15. The Prompt Template</a>
     </div>
   </div>
 
@@ -353,6 +354,62 @@ After creating the study page, also update src/pages/index.astro:
     <p><strong>Rule of thumb:</strong> If a human would need to click something to find the study, Jules needs to create or update that link. Never assume the infrastructure handles discovery.</p>
   </div>
 
+  <!-- Lesson 12 -->
+  <div class="card" id="lesson12">
+    <h2>Lesson 12: Know the Homepage Structure</h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">Every domain has 4 sections — Tools, Studies, Guides, Lists — and each has a different card format</div>
+      <p>After 160+ pages across 7 domains, we standardized every homepage into the same 4-section layout. Jules needs to know which section its page belongs to and the exact card format for that section. Without this, it either adds to the wrong section or uses the wrong format.</p>
+    </div>
+    <h3>The 4 sections (in display order)</h3>
+    <ol>
+      <li><strong>🔧 Tools</strong> — Compact grid. Highest traffic, highest value. Calculators, converters, generators, testers, formatters.</li>
+      <li><strong>📊 Studies</strong> — Large cards with stat callout. Original research. The moat — unique data nobody else has.</li>
+      <li><strong>📚 Guides</strong> — Medium cards. Evergreen "how to" content. Filenames start with <code>guide-</code>.</li>
+      <li><strong>📋 Lists</strong> — Compact like tools. Curated recommendations. Filenames start with <code>list-</code>.</li>
+    </ol>
+    <h3>Card formats in index.astro</h3>
+    <pre>// TOOLS — compact card (emoji + name + desc)
+const tools = [
+  { emoji: "🧮", name: "Compound Interest Calculator",
+    slug: "/compound-interest-calculator",
+    desc: "Calculate how your money grows over time with compounding." },
+];
+
+// STUDIES — large card with stat callout
+const studies = [
+  { title: "S&P 500 Market Cap Concentration 2026",
+    subtitle: "503 companies ranked",
+    slug: "/market-concentration",
+    stat: "37.3%",
+    statLabel: "of S&P 500 in just 10 stocks",
+    desc: "Full description of findings.",
+    tag: "ORIGINAL RESEARCH" },
+];
+
+// GUIDES — medium card (emoji + name + desc)
+const guides = [
+  { emoji: "📚", name: "How to Start a Sourdough Starter",
+    slug: "/guide-sourdough",
+    desc: "7-day guide from flour to first loaf." },
+];
+
+// LISTS — compact card (emoji + name + desc)
+const lists = [
+  { emoji: "📋", name: "Best Kitchen Scales for Baking",
+    slug: "/list-kitchen-scales",
+    desc: "10 scales tested for accuracy and readability." },
+];</pre>
+    <h3>Naming conventions that determine category</h3>
+    <pre>guide-*.html  → GUIDE section
+list-*.html   → LIST section
+*-study.html, *-comparison.html, *-index.html,
+*-rankings.html, *-ratios.html  → STUDY section
+everything else  → TOOL section</pre>
+    <p><strong>Why this matters for prompts:</strong> When telling Jules to build a new page, specify: "This is a STUDY. Add it to the <code>studies</code> array in index.astro with title, subtitle, slug, stat, statLabel, desc, and tag." Jules won't guess the right section — tell it explicitly.</p>
+  </div>
+
   <!-- Full workflow -->
   <div class="card" id="workflow">
     <h2>The Full Research Workflow</h2>
@@ -439,6 +496,19 @@ methodology, citation, footer, JSON-LD]
 
 ### 4. package.json + deploy.yml
 [Script name and workflow step]
+
+## Update the homepage (src/pages/index.astro)
+This is a STUDY. Add it to the `studies` array:
+{
+  title: "[Full Title] 2026",
+  subtitle: "[X] [items] analyzed",
+  slug: "/[topic]-study",
+  stat: "[big number]",
+  statLabel: "[what the number means]",
+  desc: "[2-3 sentence summary of findings]",
+  tag: "ORIGINAL RESEARCH",
+}
+If it was listed as "UPCOMING", update in-place instead.
 
 ## CRITICAL
 - Get at least [N] items. Aim for [M]+.
