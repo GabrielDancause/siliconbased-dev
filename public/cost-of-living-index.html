@@ -4,169 +4,168 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Nomad Cost of Living Index 2026</title>
-    <meta name="description" content="Compare the true cost of living across 40+ top digital nomad cities in 2026. Explore rent, meals, coffee, and more for destinations like Chiang Mai, Lisbon, and Bali.">
+    <meta name="description" content="Compare the cost of living for digital nomads across 40+ popular cities. Find the cheapest cities, budget estimates, and more.">
     <link rel="canonical" href="https://migratingmammals.com/cost-of-living-index">
 
-    <!-- Google Fonts -->
+    <!-- Fonts: Inter & JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
             --bg-color: #0a0b10;
-            --card-bg: #111318;
-            --border-color: #1e2030;
             --accent-color: #C4956A;
-            --text-primary: #e0e0e0;
-            --text-secondary: #888888;
-            --font-ui: 'Inter', sans-serif;
-            --font-code: 'JetBrains Mono', monospace;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: #1f2937;
+            --card-bg: #111827;
         }
 
         body {
             background-color: var(--bg-color);
-            color: var(--text-primary);
-            font-family: var(--font-ui);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
             line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        a {
-            color: var(--accent-color);
-            text-decoration: none;
-            transition: opacity 0.2s;
-        }
-
-        a:hover {
-            opacity: 0.8;
-            text-decoration: underline;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1.5rem;
+            padding: 2rem 1rem;
+        }
+
+        h1, h2, h3 {
+            color: var(--accent-color);
+            font-weight: 700;
         }
 
         header {
-            padding: 4rem 0 2rem;
             text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-        }
-
-        .subtitle {
-            font-size: 1.125rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-
+        /* Stats Grid */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
-            margin-bottom: 4rem;
+            margin-bottom: 3rem;
         }
 
         .stat-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 0.75rem;
+            border-radius: 8px;
             padding: 1.5rem;
             text-align: center;
         }
 
-        .stat-card h3 {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.5rem;
-        }
-
         .stat-value {
+            font-family: 'JetBrains Mono', monospace;
             font-size: 2rem;
-            font-weight: 700;
             color: var(--accent-color);
-            margin-bottom: 0.25rem;
+            margin: 0.5rem 0;
         }
 
         .stat-label {
+            color: var(--text-muted);
             font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
-        section {
-            margin-bottom: 4rem;
+        /* Chart */
+        .region-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
         }
 
-        h2 {
+        .region-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .region-name {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .region-value {
             font-size: 1.5rem;
             font-weight: 700;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0.5rem;
+            color: var(--accent-color);
+            font-family: 'JetBrains Mono', monospace;
         }
 
         .chart-container {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 0.75rem;
+            border-radius: 8px;
             padding: 1.5rem;
-            height: 400px;
-            overflow-y: auto;
+            margin-bottom: 3rem;
+            overflow-x: auto;
+        }
+
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            height: 300px;
+            padding-bottom: 20px;
+            min-width: 800px;
+        }
+
+        .bar-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            flex: 1;
+            height: 100%;
             position: relative;
         }
 
-        .bar-row {
-            display: flex;
-            align-items: center;
-            margin-bottom: 0.75rem;
+        .bar {
+            background-color: var(--accent-color);
+            width: 100%;
+            border-radius: 4px 4px 0 0;
+            transition: height 0.3s ease;
+        }
+
+        .bar:hover {
+            opacity: 0.8;
         }
 
         .bar-label {
-            width: 150px;
-            font-size: 0.875rem;
-            flex-shrink: 0;
+            position: absolute;
+            bottom: -20px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
             white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            padding-right: 1rem;
-        }
-
-        .bar-wrapper {
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-        }
-
-        .bar {
-            height: 24px;
-            background-color: var(--accent-color);
-            border-radius: 4px;
-            min-width: 4px;
-            transition: width 0.3s ease;
+            transform: rotate(-45deg);
+            transform-origin: left top;
         }
 
         .bar-value {
-            margin-left: 0.75rem;
-            font-family: var(--font-code);
-            font-size: 0.875rem;
-            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            margin-bottom: 4px;
         }
 
+        /* Controls */
         .controls {
             display: flex;
             gap: 1rem;
@@ -174,27 +173,27 @@
             flex-wrap: wrap;
         }
 
-        select {
+        select, input {
             background-color: var(--card-bg);
-            color: var(--text-primary);
+            color: var(--text-main);
             border: 1px solid var(--border-color);
             padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            font-family: var(--font-ui);
-            font-size: 0.875rem;
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
             outline: none;
-            cursor: pointer;
         }
 
-        select:focus {
+        select:focus, input:focus {
             border-color: var(--accent-color);
         }
 
+        /* Table */
         .table-container {
             overflow-x: auto;
+            margin-bottom: 3rem;
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 0.75rem;
+            border-radius: 8px;
         }
 
         table {
@@ -206,962 +205,74 @@
         th, td {
             padding: 1rem;
             border-bottom: 1px solid var(--border-color);
-            white-space: nowrap;
         }
 
         th {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-secondary);
+            background-color: rgba(0,0,0,0.2);
+            color: var(--accent-color);
+            font-weight: 600;
             cursor: pointer;
-            user-select: none;
-            background-color: rgba(255, 255, 255, 0.02);
+            white-space: nowrap;
         }
 
         th:hover {
-            color: var(--text-primary);
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        th.sort-asc::after { content: " ▲"; }
-        th.sort-desc::after { content: " ▼"; }
-
-        td {
-            font-size: 0.875rem;
+            background-color: rgba(0,0,0,0.4);
         }
 
         td.number {
-            font-family: var(--font-code);
+            font-family: 'JetBrains Mono', monospace;
         }
 
-        tbody tr:hover {
-            background-color: rgba(255, 255, 255, 0.03);
+        /* FAQ */
+        .faq-section {
+            margin-bottom: 3rem;
         }
 
         .faq-item {
             margin-bottom: 1.5rem;
             background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 0.75rem;
             padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
         }
 
-        .faq-item h3 {
-            font-size: 1.125rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
+        .faq-question {
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-top: 0;
         }
 
-        .faq-item p {
-            color: var(--text-secondary);
-        }
-
+        /* Methodology */
         .methodology {
             background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 0.75rem;
             padding: 1.5rem;
-            color: var(--text-secondary);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 3rem;
             font-size: 0.875rem;
+            color: var(--text-muted);
         }
 
+        /* Footer */
         footer {
             text-align: center;
-            padding: 3rem 0;
+            padding: 2rem 0;
             border-top: 1px solid var(--border-color);
-            margin-top: 4rem;
-            color: var(--text-secondary);
+            color: var(--text-muted);
             font-size: 0.875rem;
         }
 
-        .region-badge {
-            display: inline-block;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            background-color: rgba(255,255,255,0.1);
-            color: var(--text-primary);
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
         }
 
-        .empty-cell {
-            color: var(--text-secondary);
-            opacity: 0.5;
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
-</head>
-<body>
 
-    <div class="container">
-        <header>
-            <h1>Digital Nomad Cost of Living Index 2026</h1>
-            <p class="subtitle">The definitive comparison of the true cost of living across the most popular digital nomad cities worldwide. Data sourced and calculated for remote workers.</p>
-        </header>
-
-        <section class="stats-grid" id="summary-stats">
-            <!-- Populated by JS -->
-            <div class="stat-card">
-                <h3>Cities Tracked</h3>
-                <div class="stat-value" id="stat-cities">-</div>
-                <div class="stat-label">Worldwide</div>
-            </div>
-            <div class="stat-card">
-                <h3>Cheapest City</h3>
-                <div class="stat-value" id="stat-cheapest">-</div>
-                <div class="stat-label" id="stat-cheapest-price">$-</div>
-            </div>
-            <div class="stat-card">
-                <h3>Most Expensive</h3>
-                <div class="stat-value" id="stat-expensive">-</div>
-                <div class="stat-label" id="stat-expensive-price">$-</div>
-            </div>
-            <div class="stat-card">
-                <h3>Global Average</h3>
-                <div class="stat-value" id="stat-avg">$-</div>
-                <div class="stat-label">Monthly Budget</div>
-            </div>
-        </section>
-
-        <section>
-            <h2>Monthly Budget Comparison</h2>
-            <p style="margin-bottom: 1rem; color: var(--text-secondary); font-size: 0.875rem;">Estimated monthly budget (USD) including rent, food, and basic necessities.</p>
-            <div class="chart-container" id="bar-chart">
-                <!-- Populated by JS -->
-            </div>
-        </section>
-
-        <section>
-            <h2>Explore the Data</h2>
-            <div class="controls">
-                <select id="filter-region">
-                    <option value="all">All Regions</option>
-                    <option value="Southeast Asia">Southeast Asia</option>
-                    <option value="Europe">Europe</option>
-                    <option value="Latin America">Latin America</option>
-                    <option value="East Asia">East Asia</option>
-                    <option value="Middle East">Middle East</option>
-                    <option value="Africa">Africa</option>
-                    <option value="North America">North America</option>
-                </select>
-                <select id="filter-budget">
-                    <option value="all">Any Budget</option>
-                    <option value="under1k">Under $1,000</option>
-                    <option value="1k-2k">$1,000 - $2,000</option>
-                    <option value="2k-3k">$2,000 - $3,000</option>
-                    <option value="over3k">Over $3,000</option>
-                </select>
-            </div>
-
-            <div class="table-container">
-                <table id="data-table">
-                    <thead>
-                        <tr>
-                            <th data-sort="city">City</th>
-                            <th data-sort="region">Region</th>
-                            <th data-sort="monthlyBudgetUSD" class="sort-asc">Monthly Budget</th>
-                            <th data-sort="rentStudioUSD">1BR Rent (Center)</th>
-                            <th data-sort="mealCheapUSD">Cheap Meal</th>
-                            <th data-sort="coffeeUSD">Coffee</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table-body">
-                        <!-- Populated by JS -->
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section>
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-item">
-                <h3>What is the cheapest city for digital nomads?</h3>
-                <p>Based on our 2026 data, Da Nang and Chiang Mai are among the cheapest popular cities for digital nomads, with estimated total monthly budgets often falling below $800 depending on lifestyle.</p>
-            </div>
-            <div class="faq-item">
-                <h3>How much does it cost to live in Chiang Mai?</h3>
-                <p>In 2026, a reasonable digital nomad monthly budget for Chiang Mai is around $700 - $900. A 1-bedroom apartment in the city center costs roughly $460/month, and inexpensive meals are around $2.20.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Is Lisbon expensive for digital nomads?</h3>
-                <p>Compared to Southeast Asia or Latin America, Lisbon is relatively expensive. Rents in the city center average around $1,560 for a studio/1BR, pushing the estimated monthly budget over $2,500.</p>
-            </div>
-            <div class="faq-item">
-                <h3>What is the best city for remote workers?</h3>
-                <p>The "best" city depends on preferences. For budget travelers, Da Nang or Chiang Mai. For European timezone and culture, Lisbon, Barcelona, or Budapest. For Latin America, Medellín and Buenos Aires are highly popular.</p>
-            </div>
-            <div class="faq-item">
-                <h3>How much money do you need to be a digital nomad?</h3>
-                <p>You can survive on under $1,000/month in Southeast Asia or parts of Latin America. For European cities, plan for $2,000 - $3,000. In North America, cities like New York or Miami require upwards of $5,000+ per month.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>Methodology</h2>
-            <div class="methodology">
-                <p>Data was aggregated in 2026 using crowd-sourced cost of living databases (such as Numbeo). The "Monthly Budget" is a simplified estimation tailored for remote workers: Rent for a 1-bedroom apartment in the city center + 60 inexpensive restaurant meals + 30 coffees + $50-$100 for local transport/misc. Prices are in USD and fluctuate based on exchange rates and seasonality. Null values indicate insufficient reliable data.</p>
-            </div>
-        </section>
-
-        <footer>
-            <p>© 2026 migratingmammals.com · A GAB Ventures property</p>
-            <p><a href="https://gab.ae" target="_blank">gab.ae</a></p>
-        </footer>
-    </div>
-
-    <script>
-        const DATA = [
-  {
-    "city": "Chiang Mai",
-    "country": "Thailand",
-    "region": "Southeast Asia",
-    "monthlyBudgetUSD": 705,
-    "rentStudioUSD": 466.42,
-    "mealCheapUSD": 2.2,
-    "coffeeUSD": 1.9,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Bangkok",
-    "country": "Thailand",
-    "region": "Southeast Asia",
-    "monthlyBudgetUSD": 1013,
-    "rentStudioUSD": 686.85,
-    "mealCheapUSD": 3.15,
-    "coffeeUSD": 2.91,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Bali (Canggu)",
-    "country": "Indonesia",
-    "region": "Southeast Asia",
-    "monthlyBudgetUSD": 1400,
-    "rentStudioUSD": 1085.21,
-    "mealCheapUSD": 3.25,
-    "coffeeUSD": 2.34,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Lisbon",
-    "country": "Portugal",
-    "region": "Europe",
-    "monthlyBudgetUSD": 2527,
-    "rentStudioUSD": 1562.07,
-    "mealCheapUSD": 13.94,
-    "coffeeUSD": 2.61,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Porto",
-    "country": "Portugal",
-    "region": "Europe",
-    "monthlyBudgetUSD": 2130,
-    "rentStudioUSD": 1277.14,
-    "mealCheapUSD": 12.2,
-    "coffeeUSD": 2.36,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Barcelona",
-    "country": "Spain",
-    "region": "Europe",
-    "monthlyBudgetUSD": 2882,
-    "rentStudioUSD": 1627.36,
-    "mealCheapUSD": 18.59,
-    "coffeeUSD": 2.99,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Berlin",
-    "country": "Germany",
-    "region": "Europe",
-    "monthlyBudgetUSD": 2717,
-    "rentStudioUSD": 1484.89,
-    "mealCheapUSD": 17.43,
-    "coffeeUSD": 4.53,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Prague",
-    "country": "Czech Republic",
-    "region": "Europe",
-    "monthlyBudgetUSD": 2014,
-    "rentStudioUSD": 1200.73,
-    "mealCheapUSD": 10.72,
-    "coffeeUSD": 4,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Budapest",
-    "country": "Hungary",
-    "region": "Europe",
-    "monthlyBudgetUSD": 1681,
-    "rentStudioUSD": 824.09,
-    "mealCheapUSD": 11.84,
-    "coffeeUSD": 3.22,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Tbilisi",
-    "country": "Georgia",
-    "region": "Europe",
-    "monthlyBudgetUSD": 1479,
-    "rentStudioUSD": 675.55,
-    "mealCheapUSD": 11.02,
-    "coffeeUSD": 3.09,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Medellín",
-    "country": "Colombia",
-    "region": "Latin America",
-    "monthlyBudgetUSD": 1179,
-    "rentStudioUSD": 671.27,
-    "mealCheapUSD": 6.66,
-    "coffeeUSD": 1.95,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Mexico City",
-    "country": "Mexico",
-    "region": "Latin America",
-    "monthlyBudgetUSD": 2004,
-    "rentStudioUSD": 1164.03,
-    "mealCheapUSD": 11.24,
-    "coffeeUSD": 3.84,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Playa del Carmen",
-    "country": "Mexico",
-    "region": "Latin America",
-    "monthlyBudgetUSD": 1886,
-    "rentStudioUSD": 1047.44,
-    "mealCheapUSD": 11.24,
-    "coffeeUSD": 3.82,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Buenos Aires",
-    "country": "Argentina",
-    "region": "Latin America",
-    "monthlyBudgetUSD": 2107,
-    "rentStudioUSD": 737.35,
-    "mealCheapUSD": 20,
-    "coffeeUSD": 4,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Lima",
-    "country": "Peru",
-    "region": "Latin America",
-    "monthlyBudgetUSD": 1107,
-    "rentStudioUSD": 702.83,
-    "mealCheapUSD": 4.38,
-    "coffeeUSD": 3.05,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Bogotá",
-    "country": "Colombia",
-    "region": "Latin America",
-    "monthlyBudgetUSD": 1056,
-    "rentStudioUSD": 548.45,
-    "mealCheapUSD": 6.66,
-    "coffeeUSD": 1.94,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Ho Chi Minh City",
-    "country": "Vietnam",
-    "region": "Southeast Asia",
-    "monthlyBudgetUSD": 797,
-    "rentStudioUSD": 577.69,
-    "mealCheapUSD": 1.91,
-    "coffeeUSD": 1.81,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Da Nang",
-    "country": "Vietnam",
-    "region": "Southeast Asia",
-    "monthlyBudgetUSD": 667,
-    "rentStudioUSD": 455.07,
-    "mealCheapUSD": 1.91,
-    "coffeeUSD": 1.57,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Kuala Lumpur",
-    "country": "Malaysia",
-    "region": "Southeast Asia",
-    "monthlyBudgetUSD": 1119,
-    "rentStudioUSD": 661.83,
-    "mealCheapUSD": 5.07,
-    "coffeeUSD": 3.44,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Seoul",
-    "country": "South Korea",
-    "region": "East Asia",
-    "monthlyBudgetUSD": 1520,
-    "rentStudioUSD": 837.61,
-    "mealCheapUSD": 8.75,
-    "coffeeUSD": 3.58,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Tokyo",
-    "country": "Japan",
-    "region": "East Asia",
-    "monthlyBudgetUSD": 1750,
-    "rentStudioUSD": 1144.33,
-    "mealCheapUSD": 7.61,
-    "coffeeUSD": 3.29,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Taipei",
-    "country": "Taiwan",
-    "region": "East Asia",
-    "monthlyBudgetUSD": 1215,
-    "rentStudioUSD": 739.68,
-    "mealCheapUSD": 5.34,
-    "coffeeUSD": 3.51,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Dubai",
-    "country": "United Arab Emirates",
-    "region": "Middle East",
-    "monthlyBudgetUSD": 3297,
-    "rentStudioUSD": 2333.9,
-    "mealCheapUSD": 12.25,
-    "coffeeUSD": 5.95,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Cape Town",
-    "country": "South Africa",
-    "region": "Africa",
-    "monthlyBudgetUSD": 1862,
-    "rentStudioUSD": 1015.4,
-    "mealCheapUSD": 12.09,
-    "coffeeUSD": 2.38,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Nairobi",
-    "country": "Kenya",
-    "region": "Africa",
-    "monthlyBudgetUSD": 897,
-    "rentStudioUSD": 436.75,
-    "mealCheapUSD": 5.61,
-    "coffeeUSD": 2.45,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Marrakech",
-    "country": "Morocco",
-    "region": "Africa",
-    "monthlyBudgetUSD": 844,
-    "rentStudioUSD": 488.75,
-    "mealCheapUSD": 3.77,
-    "coffeeUSD": 2.64,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Split",
-    "country": "Croatia",
-    "region": "Europe",
-    "monthlyBudgetUSD": 2248,
-    "rentStudioUSD": 1060.02,
-    "mealCheapUSD": 17.43,
-    "coffeeUSD": 3.06,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Athens",
-    "country": "Greece",
-    "region": "Europe",
-    "monthlyBudgetUSD": 1927,
-    "rentStudioUSD": 707.35,
-    "mealCheapUSD": 17.43,
-    "coffeeUSD": 4.13,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Bucharest",
-    "country": "Romania",
-    "region": "Europe",
-    "monthlyBudgetUSD": 1649,
-    "rentStudioUSD": 679.97,
-    "mealCheapUSD": 13.69,
-    "coffeeUSD": 3.27,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Sofia",
-    "country": "Bulgaria",
-    "region": "Europe",
-    "monthlyBudgetUSD": 1626,
-    "rentStudioUSD": 772.57,
-    "mealCheapUSD": 11.88,
-    "coffeeUSD": 3.02,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Belgrade",
-    "country": "Serbia",
-    "region": "Europe",
-    "monthlyBudgetUSD": 1818,
-    "rentStudioUSD": 909.08,
-    "mealCheapUSD": 12.87,
-    "coffeeUSD": 2.88,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Tirana",
-    "country": "Albania",
-    "region": "Europe",
-    "monthlyBudgetUSD": 1683,
-    "rentStudioUSD": 841.19,
-    "mealCheapUSD": 12.12,
-    "coffeeUSD": 2.14,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Las Palmas",
-    "country": "Spain",
-    "region": "Europe",
-    "monthlyBudgetUSD": 1903,
-    "rentStudioUSD": 1009.61,
-    "mealCheapUSD": 12.78,
-    "coffeeUSD": 2.54,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Florianopolis",
-    "country": "Brazil",
-    "region": "Latin America",
-    "monthlyBudgetUSD": 1152,
-    "rentStudioUSD": 580.88,
-    "mealCheapUSD": 7.63,
-    "coffeeUSD": 2.1,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Austin",
-    "country": "United States",
-    "region": "North America",
-    "monthlyBudgetUSD": 3534,
-    "rentStudioUSD": 2117.65,
-    "mealCheapUSD": 20,
-    "coffeeUSD": 5.53,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Denver",
-    "country": "United States",
-    "region": "North America",
-    "monthlyBudgetUSD": 3363,
-    "rentStudioUSD": 2067.17,
-    "mealCheapUSD": 18,
-    "coffeeUSD": 5.53,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Miami",
-    "country": "United States",
-    "region": "North America",
-    "monthlyBudgetUSD": 5002,
-    "rentStudioUSD": 2985.6,
-    "mealCheapUSD": 30,
-    "coffeeUSD": 5.56,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "New York",
-    "country": "United States",
-    "region": "North America",
-    "monthlyBudgetUSD": 6188,
-    "rentStudioUSD": 4468.58,
-    "mealCheapUSD": 25,
-    "coffeeUSD": 5.64,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "London",
-    "country": "United Kingdom",
-    "region": "Europe",
-    "monthlyBudgetUSD": 4992,
-    "rentStudioUSD": 3173.76,
-    "mealCheapUSD": 26.81,
-    "coffeeUSD": 5.33,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Amsterdam",
-    "country": "Netherlands",
-    "region": "Europe",
-    "monthlyBudgetUSD": 4194,
-    "rentStudioUSD": 2608.78,
-    "mealCheapUSD": 23.23,
-    "coffeeUSD": 4.72,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Paris",
-    "country": "France",
-    "region": "Europe",
-    "monthlyBudgetUSD": 2852,
-    "rentStudioUSD": 1602.29,
-    "mealCheapUSD": 17.43,
-    "coffeeUSD": 5.14,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  },
-  {
-    "city": "Singapore",
-    "country": "Singapore",
-    "region": "Southeast Asia",
-    "monthlyBudgetUSD": 3467,
-    "rentStudioUSD": 2703.91,
-    "mealCheapUSD": 9.53,
-    "coffeeUSD": 4.71,
-    "coworkingMonthlyUSD": null,
-    "internetSpeedMbps": null,
-    "safetyRating": null,
-    "nomadScore": null,
-    "climate": null
-  }
-];
-
-        function formatCurrency(val) {
-            if (val === null || val === undefined || isNaN(val)) return '<span class="empty-cell">N/A</span>';
-            return '$' + val.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
-        }
-
-        function formatNumber(val) {
-             if (val === null || val === undefined || isNaN(val)) return null;
-             return Number(val);
-        }
-
-        let currentData = [...DATA];
-        let sortCol = 'monthlyBudgetUSD';
-        let sortAsc = true;
-
-        function updateStats() {
-            if (currentData.length === 0) return;
-
-            const validBudgets = currentData.filter(d => formatNumber(d.monthlyBudgetUSD) !== null);
-            validBudgets.sort((a, b) => a.monthlyBudgetUSD - b.monthlyBudgetUSD);
-
-            document.getElementById('stat-cities').textContent = currentData.length;
-
-            if (validBudgets.length > 0) {
-                const cheapest = validBudgets[0];
-                const expensive = validBudgets[validBudgets.length - 1];
-                const avg = validBudgets.reduce((acc, val) => acc + val.monthlyBudgetUSD, 0) / validBudgets.length;
-
-                document.getElementById('stat-cheapest').textContent = cheapest.city;
-                document.getElementById('stat-cheapest-price').textContent = '$' + cheapest.monthlyBudgetUSD + '/mo';
-
-                document.getElementById('stat-expensive').textContent = expensive.city;
-                document.getElementById('stat-expensive-price').textContent = '$' + expensive.monthlyBudgetUSD + '/mo';
-
-                document.getElementById('stat-avg').textContent = '$' + Math.round(avg) + '/mo';
-            }
-        }
-
-        function renderChart() {
-            const container = document.getElementById('bar-chart');
-            container.innerHTML = '';
-
-            const validBudgets = currentData.filter(d => formatNumber(d.monthlyBudgetUSD) !== null);
-            validBudgets.sort((a, b) => a.monthlyBudgetUSD - b.monthlyBudgetUSD);
-
-            if (validBudgets.length === 0) {
-                container.innerHTML = '<p class="empty-cell">No data available for chart.</p>';
-                return;
-            }
-
-            const maxBudget = Math.max(...validBudgets.map(d => d.monthlyBudgetUSD));
-
-            validBudgets.forEach(d => {
-                const percentage = (d.monthlyBudgetUSD / maxBudget) * 100;
-
-                const row = document.createElement('div');
-                row.className = 'bar-row';
-
-                row.innerHTML = `
-                    <div class="bar-label" title="${d.city}, ${d.country}">${d.city}</div>
-                    <div class="bar-wrapper">
-                        <div class="bar" style="width: ${percentage}%"></div>
-                        <div class="bar-value">$${d.monthlyBudgetUSD.toLocaleString()}</div>
-                    </div>
-                `;
-                container.appendChild(row);
-            });
-        }
-
-        function renderTable() {
-            const tbody = document.getElementById('table-body');
-            tbody.innerHTML = '';
-
-            currentData.sort((a, b) => {
-                let valA = a[sortCol];
-                let valB = b[sortCol];
-
-                if (valA === null) valA = sortAsc ? Infinity : -Infinity;
-                if (valB === null) valB = sortAsc ? Infinity : -Infinity;
-
-                if (typeof valA === 'string') {
-                    return sortAsc ? valA.localeCompare(valB) : valB.localeCompare(valA);
-                } else {
-                    return sortAsc ? valA - valB : valB - valA;
-                }
-            });
-
-            currentData.forEach(d => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td><strong>${d.city}</strong><br><span style="font-size:0.75rem; color:var(--text-secondary)">${d.country}</span></td>
-                    <td><span class="region-badge">${d.region}</span></td>
-                    <td class="number" style="color:var(--accent-color)">${formatCurrency(d.monthlyBudgetUSD)}</td>
-                    <td class="number">${formatCurrency(d.rentStudioUSD)}</td>
-                    <td class="number">${formatCurrency(d.mealCheapUSD)}</td>
-                    <td class="number">${formatCurrency(d.coffeeUSD)}</td>
-                `;
-                tbody.appendChild(tr);
-            });
-
-            document.querySelectorAll('th').forEach(th => {
-                th.classList.remove('sort-asc', 'sort-desc');
-                if (th.dataset.sort === sortCol) {
-                    th.classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
-                }
-            });
-        }
-
-        function applyFilters() {
-            const region = document.getElementById('filter-region').value;
-            const budget = document.getElementById('filter-budget').value;
-
-            currentData = DATA.filter(d => {
-                let regionMatch = region === 'all' || d.region === region;
-                let budgetMatch = true;
-
-                if (budget !== 'all') {
-                    const b = formatNumber(d.monthlyBudgetUSD);
-                    if (b === null) return false; // Filter out nulls when budget is strictly selected
-                    if (budget === 'under1k') budgetMatch = b < 1000;
-                    if (budget === '1k-2k') budgetMatch = b >= 1000 && b <= 2000;
-                    if (budget === '2k-3k') budgetMatch = b > 2000 && b <= 3000;
-                    if (budget === 'over3k') budgetMatch = b > 3000;
-                }
-
-                return regionMatch && budgetMatch;
-            });
-
-            renderChart();
-            renderTable();
-            updateStats();
-        }
-
-        document.getElementById('filter-region').addEventListener('change', applyFilters);
-        document.getElementById('filter-budget').addEventListener('change', applyFilters);
-
-        document.querySelectorAll('th').forEach(th => {
-            th.addEventListener('click', () => {
-                const col = th.dataset.sort;
-                if (!col) return;
-
-                if (sortCol === col) {
-                    sortAsc = !sortAsc;
-                } else {
-                    sortCol = col;
-                    sortAsc = true;
-                }
-                renderTable();
-            });
-        });
-
-        function init() {
-            if(Array.isArray(DATA)) {
-                applyFilters();
-            } else {
-                console.error("DATA is not an array, ensure it is injected correctly.");
-            }
-        }
-
-        init();
-    </script>
-
-    <!-- JSON-LD Structured Data -->
+    <!-- JSON-LD schemas -->
     <script type="application/ld+json">
     [
       {
@@ -1170,32 +281,907 @@
         "name": "Digital Nomad Cost of Living Index 2026",
         "url": "https://migratingmammals.com/cost-of-living-index",
         "applicationCategory": "BusinessApplication",
-        "operatingSystem": "All",
-        "description": "Compare the true cost of living across 40+ top digital nomad cities in 2026. Explore rent, meals, and monthly budgets.",
-        "provider": {
-            "@type": "Organization",
-            "name": "migratingmammals.com"
-        }
+        "description": "Interactive tool to compare the cost of living for digital nomads across global cities."
       },
       {
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": "Digital Nomad Cost of Living Index 2026",
-        "description": "The definitive comparison of the true cost of living across the most popular digital nomad cities worldwide.",
+        "description": "Definitive comparison of digital nomad costs across 40+ popular cities.",
         "author": {
-            "@type": "Organization",
-            "name": "migratingmammals.com"
+          "@type": "Organization",
+          "name": "migratingmammals.com"
         },
         "publisher": {
-            "@type": "Organization",
-            "name": "migratingmammals.com"
-        },
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https://migratingmammals.com/cost-of-living-index"
+          "@type": "Organization",
+          "name": "GAB Ventures"
         }
       }
     ]
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Digital Nomad Cost of Living Index 2026</h1>
+            <p>The definitive comparison for remote workers. Live data on rent, food, and monthly budgets across 40+ top nomad destinations.</p>
+        </header>
+
+        <!-- Dynamic Stats Grid -->
+        <div class="stats-grid" id="statsGrid">
+            <!-- Populated by JS -->
+        </div>
+
+        <!-- Chart Section -->
+        <h2>Monthly Budget Comparison (Cheapest to Most Expensive)</h2>
+        <div class="chart-container">
+            <div class="bar-chart" id="barChart">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+
+        <!-- Region Comparison Section -->
+        <h2>Average Budget by Region</h2>
+        <div class="region-grid" id="regionGrid">
+            <!-- Populated by JS -->
+        </div>
+
+        <!-- Filter & Table Section -->
+        <h2>City Data Directory</h2>
+        <div class="controls">
+            <select id="regionFilter">
+                <option value="All">All Regions</option>
+                <option value="Southeast Asia">Southeast Asia</option>
+                <option value="Europe">Europe</option>
+                <option value="Latin America">Latin America</option>
+                <option value="East Asia">East Asia</option>
+                <option value="Middle East">Middle East</option>
+                <option value="Africa">Africa</option>
+                <option value="North America">North America</option>
+            </select>
+            <select id="budgetFilter">
+                <option value="All">Any Budget</option>
+                <option value="Under 1000">Under $1,000 / mo</option>
+                <option value="1000-2000">$1,000 - $2,000 / mo</option>
+                <option value="Over 2000">Over $2,000 / mo</option>
+            </select>
+        </div>
+
+        <div class="table-container">
+            <table id="dataTable">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable('city')">City ↕</th>
+                        <th onclick="sortTable('country')">Country ↕</th>
+                        <th onclick="sortTable('region')">Region ↕</th>
+                        <th onclick="sortTable('monthlyBudgetUSD')">Monthly Budget ↕</th>
+                        <th onclick="sortTable('rentStudioUSD')">1BR Rent ↕</th>
+                        <th onclick="sortTable('mealCheapUSD')">Cheap Meal ↕</th>
+                        <th onclick="sortTable('coffeeUSD')">Coffee ↕</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Populated by JS -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3 class="faq-question">What is the cheapest city for digital nomads?</h3>
+                <p>Based on our 2026 data, cities in Southeast Asia like Chiang Mai and Da Nang often rank as the most affordable, with estimated monthly living costs frequently dipping under $1,000 depending on your lifestyle choices.</p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">How much does it cost to live in Chiang Mai?</h3>
+                <p>Chiang Mai remains incredibly budget-friendly. A typical nomad can live comfortably for around $800 to $1,200 per month, which covers a modern studio apartment, daily local meals, and coworking space access.</p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">Is Lisbon expensive for digital nomads?</h3>
+                <p>Lisbon has become significantly more expensive over the last few years due to high demand. While food and transport remain relatively reasonable compared to Northern Europe, rent prices for central apartments have pushed the average nomad budget to over $2,500 per month.</p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">What is the best city for remote workers?</h3>
+                <p>The "best" city depends entirely on your priorities. For budget and community, Chiang Mai and Bali are top-tier. For European culture and timezones, Lisbon and Barcelona are favorites. For an urban lifestyle in Latin America, Medellín and Mexico City are highly rated.</p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">How much money do you need to be a digital nomad?</h3>
+                <p>To safely sustain a digital nomad lifestyle globally, a reliable income of at least $2,000 to $3,000 per month is recommended. While you can survive on less in certain regions, having a buffer ensures you can handle emergencies, flights, and enjoy your host country.</p>
+            </div>
+        </div>
+
+        <!-- Methodology -->
+        <div class="methodology">
+            <h2>Methodology</h2>
+            <p>Our 2026 Digital Nomad Cost of Living Index compiles data for 40+ popular remote work hubs. Data is aggregated from trusted crowd-sourced indices and direct price scraping where available. The "Monthly Budget" is a baseline estimate intended for a single remote worker, factoring in median rent for a 1-bedroom apartment in the city center, 60 cheap meals, 30 coffees, and a $300 buffer for groceries, coworking, and local transport. Where exact metrics could not be verified, they are marked as unavailable (null) to preserve data integrity.</p>
+        </div>
+
+        <footer>
+            &copy; 2026 <a href="https://migratingmammals.com">migratingmammals.com</a> &middot; A <a href="https://gab.ae">GAB Ventures</a> property
+        </footer>
+    </div>
+
+    <!-- Inject Data here -->
+    <script>
+        const rawData = [
+  {
+    "city": "Chiang Mai",
+    "country": "Thailand",
+    "region": "Southeast Asia",
+    "monthlyBudgetUSD": 951,
+    "rentStudioUSD": 462.96,
+    "mealCheapUSD": 2.19,
+    "coffeeUSD": 1.89,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Tropical savanna"
+  },
+  {
+    "city": "Bangkok",
+    "country": "Thailand",
+    "region": "Southeast Asia",
+    "monthlyBudgetUSD": 1256,
+    "rentStudioUSD": 682,
+    "mealCheapUSD": 3.12,
+    "coffeeUSD": 2.88,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Tropical savanna"
+  },
+  {
+    "city": "Bali (Canggu)",
+    "country": "Indonesia",
+    "region": "Southeast Asia",
+    "monthlyBudgetUSD": 1650,
+    "rentStudioUSD": 1085,
+    "mealCheapUSD": 3.25,
+    "coffeeUSD": 2.34,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Tropical monsoon"
+  },
+  {
+    "city": "Lisbon",
+    "country": "Portugal",
+    "region": "Europe",
+    "monthlyBudgetUSD": 2759,
+    "rentStudioUSD": 1551.16,
+    "mealCheapUSD": 13.84,
+    "coffeeUSD": 2.59,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Mediterranean"
+  },
+  {
+    "city": "Porto",
+    "country": "Portugal",
+    "region": "Europe",
+    "monthlyBudgetUSD": 2365,
+    "rentStudioUSD": 1268.22,
+    "mealCheapUSD": 12.11,
+    "coffeeUSD": 2.34,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Mediterranean"
+  },
+  {
+    "city": "Barcelona",
+    "country": "Spain",
+    "region": "Europe",
+    "monthlyBudgetUSD": 3113,
+    "rentStudioUSD": 1615.99,
+    "mealCheapUSD": 18.46,
+    "coffeeUSD": 2.97,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Mediterranean"
+  },
+  {
+    "city": "Berlin",
+    "country": "Germany",
+    "region": "Europe",
+    "monthlyBudgetUSD": 2948,
+    "rentStudioUSD": 1474.51,
+    "mealCheapUSD": 17.3,
+    "coffeeUSD": 4.5,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Oceanic"
+  },
+  {
+    "city": "Prague",
+    "country": "Czech Republic",
+    "region": "Europe",
+    "monthlyBudgetUSD": 2294,
+    "rentStudioUSD": 1201.89,
+    "mealCheapUSD": 11.23,
+    "coffeeUSD": 3.96,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Oceanic / Humid continental"
+  },
+  {
+    "city": "Budapest",
+    "country": "Hungary",
+    "region": "Europe",
+    "monthlyBudgetUSD": 1910,
+    "rentStudioUSD": 813.44,
+    "mealCheapUSD": 11.69,
+    "coffeeUSD": 3.17,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Humid subtropical / Oceanic"
+  },
+  {
+    "city": "Tbilisi",
+    "country": "Georgia",
+    "region": "Europe",
+    "monthlyBudgetUSD": 1731,
+    "rentStudioUSD": 677.47,
+    "mealCheapUSD": 11.01,
+    "coffeeUSD": 3.09,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Humid subtropical"
+  },
+  {
+    "city": "Medellín",
+    "country": "Colombia",
+    "region": "Latin America",
+    "monthlyBudgetUSD": 1421,
+    "rentStudioUSD": 666.46,
+    "mealCheapUSD": 6.61,
+    "coffeeUSD": 1.94,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Tropical rainforest"
+  },
+  {
+    "city": "Mexico City",
+    "country": "Mexico",
+    "region": "Latin America",
+    "monthlyBudgetUSD": 2233,
+    "rentStudioUSD": 1151.55,
+    "mealCheapUSD": 11.12,
+    "coffeeUSD": 3.8,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Subtropical highland"
+  },
+  {
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "region": "Latin America",
+    "monthlyBudgetUSD": 2117,
+    "rentStudioUSD": 1036.21,
+    "mealCheapUSD": 11.12,
+    "coffeeUSD": 3.78,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Tropical savanna"
+  },
+  {
+    "city": "Buenos Aires",
+    "country": "Argentina",
+    "region": "Latin America",
+    "monthlyBudgetUSD": 2357,
+    "rentStudioUSD": 737.35,
+    "mealCheapUSD": 20,
+    "coffeeUSD": 4,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Humid subtropical"
+  },
+  {
+    "city": "Lima",
+    "country": "Peru",
+    "region": "Latin America",
+    "monthlyBudgetUSD": 1354,
+    "rentStudioUSD": 700.85,
+    "mealCheapUSD": 4.36,
+    "coffeeUSD": 3.04,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Mild desert"
+  },
+  {
+    "city": "Bogotá",
+    "country": "Colombia",
+    "region": "Latin America",
+    "monthlyBudgetUSD": 1299,
+    "rentStudioUSD": 544.63,
+    "mealCheapUSD": 6.61,
+    "coffeeUSD": 1.92,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Oceanic / Mediterranean"
+  },
+  {
+    "city": "Ho Chi Minh City",
+    "country": "Vietnam",
+    "region": "Southeast Asia",
+    "monthlyBudgetUSD": 1047,
+    "rentStudioUSD": 577.69,
+    "mealCheapUSD": 1.91,
+    "coffeeUSD": 1.81,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Tropical savanna"
+  },
+  {
+    "city": "Da Nang",
+    "country": "Vietnam",
+    "region": "Southeast Asia",
+    "monthlyBudgetUSD": 917,
+    "rentStudioUSD": 455.07,
+    "mealCheapUSD": 1.91,
+    "coffeeUSD": 1.57,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Tropical monsoon"
+  },
+  {
+    "city": "Kuala Lumpur",
+    "country": "Malaysia",
+    "region": "Southeast Asia",
+    "monthlyBudgetUSD": 1369,
+    "rentStudioUSD": 661.85,
+    "mealCheapUSD": 5.07,
+    "coffeeUSD": 3.44,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Tropical rainforest"
+  },
+  {
+    "city": "Seoul",
+    "country": "South Korea",
+    "region": "East Asia",
+    "monthlyBudgetUSD": 1772,
+    "rentStudioUSD": 838.72,
+    "mealCheapUSD": 8.76,
+    "coffeeUSD": 3.58,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Humid continental / Subtropical"
+  },
+  {
+    "city": "Tokyo",
+    "country": "Japan",
+    "region": "East Asia",
+    "monthlyBudgetUSD": 1994,
+    "rentStudioUSD": 1140.47,
+    "mealCheapUSD": 7.58,
+    "coffeeUSD": 3.28,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Humid subtropical"
+  },
+  {
+    "city": "Taipei",
+    "country": "Taiwan",
+    "region": "East Asia",
+    "monthlyBudgetUSD": 1465,
+    "rentStudioUSD": 739.64,
+    "mealCheapUSD": 5.34,
+    "coffeeUSD": 3.51,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Humid subtropical"
+  },
+  {
+    "city": "Dubai",
+    "country": "United Arab Emirates",
+    "region": "Middle East",
+    "monthlyBudgetUSD": 3547,
+    "rentStudioUSD": 2333.83,
+    "mealCheapUSD": 12.25,
+    "coffeeUSD": 5.95,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Hot desert"
+  },
+  {
+    "city": "Cape Town",
+    "country": "South Africa",
+    "region": "Africa",
+    "monthlyBudgetUSD": 2090,
+    "rentStudioUSD": 1003.18,
+    "mealCheapUSD": 11.94,
+    "coffeeUSD": 2.35,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Mediterranean"
+  },
+  {
+    "city": "Nairobi",
+    "country": "Kenya",
+    "region": "Africa",
+    "monthlyBudgetUSD": 1150,
+    "rentStudioUSD": 438.31,
+    "mealCheapUSD": 5.63,
+    "coffeeUSD": 2.46,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Subtropical highland"
+  },
+  {
+    "city": "Marrakech",
+    "country": "Morocco",
+    "region": "Africa",
+    "monthlyBudgetUSD": 1094,
+    "rentStudioUSD": 488.55,
+    "mealCheapUSD": 3.77,
+    "coffeeUSD": 2.64,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Hot semi-arid"
+  },
+  {
+    "city": "Split",
+    "country": "Croatia",
+    "region": "Europe",
+    "monthlyBudgetUSD": 2482,
+    "rentStudioUSD": 1052.61,
+    "mealCheapUSD": 17.3,
+    "coffeeUSD": 3.04,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Mediterranean"
+  },
+  {
+    "city": "Athens",
+    "country": "Greece",
+    "region": "Europe",
+    "monthlyBudgetUSD": 2170,
+    "rentStudioUSD": 709,
+    "mealCheapUSD": 17.3,
+    "coffeeUSD": 4.1,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Mediterranean"
+  },
+  {
+    "city": "Bucharest",
+    "country": "Romania",
+    "region": "Europe",
+    "monthlyBudgetUSD": 1898,
+    "rentStudioUSD": 678.93,
+    "mealCheapUSD": 13.69,
+    "coffeeUSD": 3.27,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Humid continental"
+  },
+  {
+    "city": "Sofia",
+    "country": "Bulgaria",
+    "region": "Europe",
+    "monthlyBudgetUSD": 1872,
+    "rentStudioUSD": 772.19,
+    "mealCheapUSD": 11.8,
+    "coffeeUSD": 3.05,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Humid continental"
+  },
+  {
+    "city": "Belgrade",
+    "country": "Serbia",
+    "region": "Europe",
+    "monthlyBudgetUSD": 2055,
+    "rentStudioUSD": 896.09,
+    "mealCheapUSD": 12.88,
+    "coffeeUSD": 2.88,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Humid subtropical"
+  },
+  {
+    "city": "Tirana",
+    "country": "Albania",
+    "region": "Europe",
+    "monthlyBudgetUSD": 1930,
+    "rentStudioUSD": 839.51,
+    "mealCheapUSD": 12.11,
+    "coffeeUSD": 2.14,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Mediterranean"
+  },
+  {
+    "city": "Las Palmas",
+    "country": "Spain",
+    "region": "Europe",
+    "monthlyBudgetUSD": 2140,
+    "rentStudioUSD": 1002.56,
+    "mealCheapUSD": 12.69,
+    "coffeeUSD": 2.52,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Hot desert"
+  },
+  {
+    "city": "Florianopolis",
+    "country": "Brazil",
+    "region": "Latin America",
+    "monthlyBudgetUSD": 1402,
+    "rentStudioUSD": 580.87,
+    "mealCheapUSD": 7.63,
+    "coffeeUSD": 2.1,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Humid subtropical"
+  },
+  {
+    "city": "Austin",
+    "country": "United States",
+    "region": "North America",
+    "monthlyBudgetUSD": 3784,
+    "rentStudioUSD": 2117.65,
+    "mealCheapUSD": 20,
+    "coffeeUSD": 5.53,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Humid subtropical"
+  },
+  {
+    "city": "Denver",
+    "country": "United States",
+    "region": "North America",
+    "monthlyBudgetUSD": 3613,
+    "rentStudioUSD": 2067.17,
+    "mealCheapUSD": 18,
+    "coffeeUSD": 5.53,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Semi-arid"
+  },
+  {
+    "city": "Miami",
+    "country": "United States",
+    "region": "North America",
+    "monthlyBudgetUSD": 5252,
+    "rentStudioUSD": 2985.6,
+    "mealCheapUSD": 30,
+    "coffeeUSD": 5.56,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Tropical monsoon"
+  },
+  {
+    "city": "New York",
+    "country": "United States",
+    "region": "North America",
+    "monthlyBudgetUSD": 6438,
+    "rentStudioUSD": 4468.58,
+    "mealCheapUSD": 25,
+    "coffeeUSD": 5.64,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Humid subtropical"
+  },
+  {
+    "city": "London",
+    "country": "United Kingdom",
+    "region": "Europe",
+    "monthlyBudgetUSD": 5210,
+    "rentStudioUSD": 3152.69,
+    "mealCheapUSD": 26.64,
+    "coffeeUSD": 5.31,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Oceanic"
+  },
+  {
+    "city": "Amsterdam",
+    "country": "Netherlands",
+    "region": "Europe",
+    "monthlyBudgetUSD": 4415,
+    "rentStudioUSD": 2590.55,
+    "mealCheapUSD": 23.07,
+    "coffeeUSD": 4.69,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Oceanic"
+  },
+  {
+    "city": "Paris",
+    "country": "France",
+    "region": "Europe",
+    "monthlyBudgetUSD": 3082,
+    "rentStudioUSD": 1591.1,
+    "mealCheapUSD": 17.3,
+    "coffeeUSD": 5.11,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Oceanic"
+  },
+  {
+    "city": "Singapore",
+    "country": "Singapore",
+    "region": "Southeast Asia",
+    "monthlyBudgetUSD": 3705,
+    "rentStudioUSD": 2696.75,
+    "mealCheapUSD": 9.46,
+    "coffeeUSD": 4.69,
+    "coworkingMonthlyUSD": null,
+    "internetSpeedMbps": null,
+    "safetyRating": null,
+    "nomadScore": null,
+    "climate": "Tropical rainforest"
+  }
+];
+
+        let currentData = [...rawData];
+        let currentSortCol = 'monthlyBudgetUSD';
+        let sortAsc = true;
+
+        const tableBody = document.getElementById('tableBody');
+        const regionFilter = document.getElementById('regionFilter');
+        const budgetFilter = document.getElementById('budgetFilter');
+
+        function formatUSD(val) {
+            if (val === null || val === undefined) return '-';
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(val);
+        }
+
+        function formatSmallUSD(val) {
+            if (val === null || val === undefined) return '-';
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(val);
+        }
+
+        function renderStats() {
+            const validBudgets = rawData.filter(d => d.monthlyBudgetUSD !== null);
+            validBudgets.sort((a,b) => a.monthlyBudgetUSD - b.monthlyBudgetUSD);
+
+            let cheapest = {city: 'N/A', monthlyBudgetUSD: 0};
+            let priciest = {city: 'N/A', monthlyBudgetUSD: 0};
+            let avgBudget = 0;
+
+            if (validBudgets.length > 0) {
+                cheapest = validBudgets[0];
+                priciest = validBudgets[validBudgets.length - 1];
+                const sum = validBudgets.reduce((acc, curr) => acc + curr.monthlyBudgetUSD, 0);
+                avgBudget = sum / validBudgets.length;
+            }
+
+            document.getElementById('statsGrid').innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-label">Most Affordable</div>
+                    <div class="stat-value">${cheapest.city}</div>
+                    <div style="font-size: 0.875rem; color: var(--text-muted)">${formatUSD(cheapest.monthlyBudgetUSD)} / mo</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Most Expensive</div>
+                    <div class="stat-value">${priciest.city}</div>
+                    <div style="font-size: 0.875rem; color: var(--text-muted)">${formatUSD(priciest.monthlyBudgetUSD)} / mo</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Global Average Budget</div>
+                    <div class="stat-value">${formatUSD(avgBudget)}</div>
+                    <div style="font-size: 0.875rem; color: var(--text-muted)">Per month</div>
+                </div>
+            `;
+        }
+
+        function renderRegionComparison() {
+            const validBudgets = rawData.filter(d => d.monthlyBudgetUSD !== null && d.region);
+
+            // Group by region
+            const regionStats = {};
+            validBudgets.forEach(city => {
+                if (!regionStats[city.region]) {
+                    regionStats[city.region] = { sum: 0, count: 0 };
+                }
+                regionStats[city.region].sum += city.monthlyBudgetUSD;
+                regionStats[city.region].count++;
+            });
+
+            // Calculate averages and sort
+            const averages = Object.keys(regionStats).map(region => ({
+                region: region,
+                avg: regionStats[region].sum / regionStats[region].count
+            })).sort((a, b) => a.avg - b.avg);
+
+            const gridHtml = averages.map(item => `
+                <div class="region-card">
+                    <div class="region-name">${item.region}</div>
+                    <div class="region-value">${formatUSD(item.avg)}</div>
+                </div>
+            `).join('');
+
+            document.getElementById('regionGrid').innerHTML = gridHtml;
+        }
+
+        function renderChart() {
+            const validBudgets = rawData.filter(d => d.monthlyBudgetUSD !== null);
+            validBudgets.sort((a,b) => a.monthlyBudgetUSD - b.monthlyBudgetUSD);
+
+            const maxBudget = Math.max(...validBudgets.map(d => d.monthlyBudgetUSD), 1);
+
+            const chartHtml = validBudgets.map(city => {
+                const heightPct = (city.monthlyBudgetUSD / maxBudget) * 100;
+                return `
+                    <div class="bar-group">
+                        <div class="bar-value">${formatUSD(city.monthlyBudgetUSD)}</div>
+                        <div class="bar" style="height: ${heightPct}%" title="${city.city}: ${formatUSD(city.monthlyBudgetUSD)}"></div>
+                        <div class="bar-label">${city.city}</div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('barChart').innerHTML = chartHtml;
+        }
+
+        function renderTable() {
+            tableBody.innerHTML = currentData.map(row => `
+                <tr>
+                    <td>${row.city}</td>
+                    <td>${row.country}</td>
+                    <td>${row.region}</td>
+                    <td class="number">${formatUSD(row.monthlyBudgetUSD)}</td>
+                    <td class="number">${formatUSD(row.rentStudioUSD)}</td>
+                    <td class="number">${formatSmallUSD(row.mealCheapUSD)}</td>
+                    <td class="number">${formatSmallUSD(row.coffeeUSD)}</td>
+                </tr>
+            `).join('');
+        }
+
+        function sortTable(col) {
+            if (currentSortCol === col) {
+                sortAsc = !sortAsc;
+            } else {
+                currentSortCol = col;
+                sortAsc = true;
+            }
+
+            currentData.sort((a, b) => {
+                let valA = a[col];
+                let valB = b[col];
+
+                // Handle nulls
+                if (valA === null) valA = sortAsc ? Infinity : -Infinity;
+                if (valB === null) valB = sortAsc ? Infinity : -Infinity;
+
+                if (typeof valA === 'string') {
+                    return sortAsc ? valA.localeCompare(valB) : valB.localeCompare(valA);
+                }
+                return sortAsc ? valA - valB : valB - valA;
+            });
+            renderTable();
+        }
+
+        function applyFilters() {
+            const region = regionFilter.value;
+            const budget = budgetFilter.value;
+
+            currentData = rawData.filter(row => {
+                let rMatch = true;
+                if (region !== 'All') {
+                    rMatch = row.region === region;
+                }
+
+                let bMatch = true;
+                if (budget !== 'All') {
+                    if (row.monthlyBudgetUSD === null) {
+                        bMatch = false;
+                    } else if (budget === 'Under 1000') {
+                        bMatch = row.monthlyBudgetUSD < 1000;
+                    } else if (budget === '1000-2000') {
+                        bMatch = row.monthlyBudgetUSD >= 1000 && row.monthlyBudgetUSD <= 2000;
+                    } else if (budget === 'Over 2000') {
+                        bMatch = row.monthlyBudgetUSD > 2000;
+                    }
+                }
+
+                return rMatch && bMatch;
+            });
+
+            // Re-sort current data
+            const col = currentSortCol;
+            currentData.sort((a, b) => {
+                let valA = a[col];
+                let valB = b[col];
+                if (valA === null) valA = sortAsc ? Infinity : -Infinity;
+                if (valB === null) valB = sortAsc ? Infinity : -Infinity;
+                if (typeof valA === 'string') return sortAsc ? valA.localeCompare(valB) : valB.localeCompare(valA);
+                return sortAsc ? valA - valB : valB - valA;
+            });
+
+            renderTable();
+        }
+
+        regionFilter.addEventListener('change', applyFilters);
+        budgetFilter.addEventListener('change', applyFilters);
+
+        // Initial render
+        renderStats();
+        renderRegionComparison();
+        renderChart();
+        sortTable('monthlyBudgetUSD'); // initial sort
     </script>
 </body>
 </html>
