@@ -10,7 +10,8 @@
     "generate:chmod": "node scripts/generate-chmod-pages.cjs",
     "generate:pageweight": "node scripts/crawl-page-weight.cjs",
     "generate:sourdough": "node scripts/crawl-sourdough.cjs && node scripts/inject-sourdough-data.cjs",
-    "generate:cssframeworks": "node scripts/crawl-css-frameworks.cjs && node scripts/inject-css-frameworks.cjs"
+    "generate:cssframeworks": "node scripts/crawl-css-frameworks.cjs && node scripts/inject-css-frameworks.cjs",
+    "generate:apitimes": "node scripts/crawl-api-times.cjs && node scripts/inject-api-times.cjs"
   },
   "dependencies": {
     "astro": "^5.17.1",
