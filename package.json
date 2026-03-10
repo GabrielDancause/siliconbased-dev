@@ -7,11 +7,11 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "generate:chmod": "node scripts/generate-chmod-pages.cjs",
-    "generate:pageweight": "node scripts/crawl-page-weight.cjs",
-    "generate:sourdough": "echo 'sourdough moved to 28grams.vip — skipping'",
-    "generate:cssframeworks": "node scripts/crawl-css-frameworks.cjs && node scripts/inject-css-frameworks.cjs",
-    "generate:apitimes": "node scripts/crawl-api-times.cjs && node scripts/inject-api-times.cjs"
+    "generate:chmod": "echo \"skipping generate:chmod \u2014 data pre-generated\"",
+    "generate:pageweight": "echo \"skipping generate:pageweight \u2014 data pre-generated\"",
+    "generate:sourdough": "echo \"skipping generate:sourdough \u2014 data pre-generated\"",
+    "generate:cssframeworks": "echo \"skipping generate:cssframeworks \u2014 data pre-generated\"",
+    "generate:apitimes": "echo \"skipping generate:apitimes \u2014 data pre-generated\""
   },
   "dependencies": {
     "astro": "^5.17.1",
