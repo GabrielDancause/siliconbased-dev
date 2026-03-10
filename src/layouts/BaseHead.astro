@@ -1,19 +1,19 @@
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-G86C7NJG3F"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-G86C7NJG3F');</script>
 ---
 interface Props {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   ogTitle?: string;
   ogDescription?: string;
 }
 const { title, description, ogTitle, ogDescription } = Astro.props;
 ---
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G86C7NJG3F"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-G86C7NJG3F');</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{title}</title>
-<meta name="description" content={description}>
+{title && <title>{title}</title>}
+{description && <meta name="description" content={description}>}
 <meta property="og:title" content={ogTitle || title}>
 <meta property="og:description" content={ogDescription || description}>
 <meta property="og:type" content="article">

@@ -1,5 +1,6 @@
 ---
 import BaseHead from '../layouts/BaseHead.astro';
+import Nav from '../components/Nav.astro';
 
 // Tools (everything except studies, guides, lists)
 const tools = [
@@ -214,6 +215,16 @@ const lists = [
       color: #5a6a80; 
       font-size: 1rem; 
     }
+    .view-all {
+      display: inline-block;
+      margin-top: 12px;
+      color: #818cf8;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .view-all:hover { color: #a5b4fc; }
 
     /* Tools Grid */
     .tools-grid { 
@@ -388,6 +399,7 @@ const lists = [
   </style>
 </head>
 <body>
+  <Nav />
   <!-- Hero -->
   <div class="hero">
     <div class="hero-content">
@@ -404,6 +416,7 @@ const lists = [
         <span class="section-tag">🛠️ TOOLS</span>
         <h2 class="section-title">Developer Tools</h2>
         <p class="section-sub">Free, client-side, no signup. Built for devs who ship fast.</p>
+        <a href="/tools/" class="view-all">View all {tools.length} tools →</a>
       </div>
       <div class="tools-grid">
         {tools.map(tool => (
@@ -424,6 +437,7 @@ const lists = [
         <span class="section-tag">🔬 RESEARCH</span>
         <h2 class="section-title">Original Studies</h2>
         <p class="section-sub">Real data nobody else has packaged. Crawled, measured, analyzed.</p>
+        <a href="/studies/" class="view-all">View all {studies.length} studies →</a>
       </div>
       <div class="studies-grid">
         {studies.map(study => (
@@ -448,6 +462,7 @@ const lists = [
         <span class="section-tag">📚 GUIDES</span>
         <h2 class="section-title">Developer Guides</h2>
         <p class="section-sub">Cheat sheets and references for common dev tasks.</p>
+        <a href="/guides/" class="view-all">View all {guides.length} guides →</a>
       </div>
       <div class="guides-grid">
         {guides.map(guide => (
@@ -468,6 +483,7 @@ const lists = [
         <span class="section-tag">📋 LISTS</span>
         <h2 class="section-title">Curated Lists</h2>
         <p class="section-sub">Best tools, libraries, and resources for developers.</p>
+        <a href="/lists/" class="view-all">View all {lists.length} lists →</a>
       </div>
       <div class="lists-grid">
         {lists.map(list => (
