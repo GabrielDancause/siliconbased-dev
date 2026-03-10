@@ -9,7 +9,7 @@
     "astro": "astro",
     "generate:chmod": "node scripts/generate-chmod-pages.cjs",
     "generate:pageweight": "node scripts/crawl-page-weight.cjs",
-    "generate:sourdough": "node scripts/crawl-sourdough.cjs && node scripts/inject-sourdough-data.cjs",
+    "generate:sourdough": "echo 'sourdough moved to 28grams.vip — skipping'",
     "generate:cssframeworks": "node scripts/crawl-css-frameworks.cjs && node scripts/inject-css-frameworks.cjs",
     "generate:apitimes": "node scripts/crawl-api-times.cjs && node scripts/inject-api-times.cjs"
   },
