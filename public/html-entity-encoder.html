@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G86C7NJG3F"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-G86C7NJG3F');</script>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://siliconbased.dev/html-entity-encoder.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML Entity Encoder & Decoder</title>
+<meta name="description" content="Why do characters break your code? Discover the invisible symbols hiding in plain sight and the single click that makes them completely safe.">
+<meta property="og:title" content="HTML Entity Encoder & Decoder">
+<meta property="og:description" content="Why do characters break your code? Discover the invisible symbols hiding in plain sight and the single click that makes them completely safe.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "HTML Entity Encoder & Decoder",
+  "url": "https://siliconbased.dev/html-entity-encoder.html",
+  "description": "Why do characters break your code? Discover the invisible symbols hiding in plain sight and the single click that makes them completely safe.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is an html entity encoder?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An html entity encoder is a tool that converts special characters (like <, >, &, or quotes) into HTML entities. This ensures that the characters are safely displayed as text rather than being parsed as code by the web browser."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I encode html online?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "To encode html online, simply paste your text or HTML snippet into an online encoder tool. It instantly transforms reserved symbols into their corresponding HTML entities (like &lt; or &amp;), making it secure for web use."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are html special characters?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "HTML special characters are reserved symbols that have specific meanings in HTML syntax. The most common ones include the less-than sign (<), greater-than sign (>), ampersand (&), and quotation marks (\\\" and '). They must be converted to entities to prevent parsing errors."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where can I find an html entities list?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An html entities list provides a comprehensive mapping of characters to their named, decimal, and hexadecimal entity references. Many HTML entity encoders include a built-in reference table highlighting common symbols like math, currency, and arrows."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do I need to decode HTML entities?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You need to decode HTML entities when you have raw source code or text that contains entities (like &amp;quot;) and you want to convert them back into their readable character forms (like \\\") for editing, analysis, or displaying outside of a browser."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "HTML Entity Encoder & Decoder: Convert Special Characters Safely",
+  "description": "Encode text to HTML entities or decode entities to text. Complete searchable reference table of all HTML entities.",
+  "datePublished": "2023-11-01T08:00:00+08:00",
+  "author": {
+    "@type": "Organization",
+    "name": "siliconbased.dev"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "siliconbased.dev",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://siliconbased.dev/logo.png"
+    }
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #060a12; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+/* Sticky Nav */
+.site-nav {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(6,10,18,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px; height: 48px;
+}
+.nav-brand {
+  font-size: 0.9rem; font-weight: 700;
+  color: #fff; text-decoration: none; letter-spacing: -0.3px;
+}
+.nav-brand:hover { color: #818cf8; }
+.nav-links { display: flex; gap: 8px; }
+.nav-link {
+  color: #8a94a6; text-decoration: none;
+  font-size: 0.82rem; font-weight: 500;
+  padding: 6px 14px; border-radius: 6px;
+  transition: all 0.15s;
+}
+.nav-link:hover { color: #fff; background: rgba(255,255,255,0.06); }
+
+.hero { text-align: center; padding: 48px 24px 24px; }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 8px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 1rem; max-width: 600px; margin: 0 auto; }
+
+.main { max-width: 1000px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Tabs */
+.tabs { display: flex; justify-content: center; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
+.tab-btn { background: #0a1020; border: 1px solid #152040; color: #888; padding: 10px 24px; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; }
+.tab-btn:hover { background: #152040; color: #ccc; }
+.tab-btn.active { background: #818cf8; color: #fff; border-color: #818cf8; box-shadow: 0 4px 12px rgba(129, 140, 248, 0.2); }
+
+/* Card */
+.tool-card { background: #0a1020; border: 1px solid #152040; border-radius: 16px; overflow: hidden; margin-bottom: 40px; }
+.tool-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: rgba(21, 32, 64, 0.3); border-bottom: 1px solid #152040; flex-wrap: wrap; gap: 12px; }
+.tool-header h3 { font-size: 0.95rem; font-weight: 600; color: #ccc; display: flex; align-items: center; gap: 8px; }
+
+/* Options */
+.options-group { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.option-label { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: #888; cursor: pointer; user-select: none; }
+.option-label input[type="radio"], .option-label input[type="checkbox"] { accent-color: #818cf8; width: 16px; height: 16px; cursor: pointer; }
+
+/* Inputs/Outputs */
+.tool-body { padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+.textarea-wrapper { position: relative; display: flex; flex-direction: column; gap: 8px; }
+.textarea-label { font-size: 0.85rem; font-weight: 600; color: #818cf8; display: flex; justify-content: space-between; }
+.char-count { color: #666; font-weight: 400; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; }
+
+.input-area { width: 100%; min-height: 200px; background: #060a12; border: 1px solid #152040; border-radius: 12px; padding: 16px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; resize: vertical; outline: none; transition: border-color 0.2s; line-height: 1.5; }
+.input-area:focus { border-color: #818cf8; }
+.input-area::placeholder { color: #444; }
+
+/* Actions */
+.actions-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.actions-left, .actions-right { display: flex; gap: 12px; }
+.btn { background: #0a1020; border: 1px solid #152040; color: #ccc; padding: 10px 20px; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+.btn:hover { background: #152040; color: #fff; }
+.btn-primary { background: #818cf8; color: #fff; border-color: #818cf8; }
+.btn-primary:hover { background: #6366f1; border-color: #6366f1; }
+.btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+.error-msg { color: #ef4444; font-size: 0.85rem; margin-top: -12px; display: none; }
+.error-msg.visible { display: block; }
+
+/* Reference Table */
+.reference-section { margin-top: 48px; }
+.reference-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 16px; }
+.reference-header h2 { color: #fff; font-size: 1.5rem; font-weight: 700; }
+.search-input { background: #0a1020; border: 1px solid #152040; border-radius: 8px; padding: 10px 16px; color: #fff; font-family: 'Inter', sans-serif; width: 100%; max-width: 300px; outline: none; }
+.search-input:focus { border-color: #818cf8; }
+
+.table-container { overflow-x: auto; background: #0a1020; border: 1px solid #152040; border-radius: 12px; }
+table { width: 100%; border-collapse: collapse; text-align: left; }
+th, td { padding: 12px 16px; border-bottom: 1px solid #152040; }
+th { background: rgba(21, 32, 64, 0.3); font-size: 0.85rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+td { font-size: 0.95rem; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(129, 140, 248, 0.05); }
+
+.char-cell { font-size: 1.2rem; font-family: 'Inter', sans-serif; text-align: center; width: 60px; }
+.code-cell { font-family: 'JetBrains Mono', monospace; color: #818cf8; }
+.desc-cell { color: #ccc; }
+.copy-icon { cursor: pointer; color: #666; transition: color 0.2s; margin-left: 8px; vertical-align: middle; }
+.copy-icon:hover { color: #818cf8; }
+
+tr.highlight td { background: rgba(129, 140, 248, 0.1); }
+tr.highlight .desc-cell::after { content: ' (Common)'; font-size: 0.75rem; color: #818cf8; font-weight: 600; margin-left: 8px; }
+
+/* FAQ Section */
+.faq-section { margin-top: 64px; border-top: 1px solid #152040; padding-top: 48px; }
+.faq-section h2 { color: #fff; font-size: 1.8rem; font-weight: 800; margin-bottom: 32px; text-align: center; }
+.faq-item { background: #0a1020; border: 1px solid #152040; border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+.faq-item h3 { color: #fff; font-size: 1.1rem; font-weight: 600; margin-bottom: 12px; }
+.faq-item p { color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #152040; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .actions-row { flex-direction: column; align-items: stretch; }
+  .actions-left, .actions-right { width: 100%; justify-content: center; }
+  .btn { flex: 1; justify-content: center; }
+  .tool-header { flex-direction: column; align-items: flex-start; }
+  .options-group { width: 100%; justify-content: flex-start; }
+  .reference-header { flex-direction: column; align-items: stretch; }
+  .search-input { max-width: none; }
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-brand">siliconbased.dev</a>
+    <div class="nav-links">
+      <a href="/#tools" class="nav-link">Tools</a>
+      <a href="/#studies" class="nav-link">Studies</a>
+      <a href="/#guides" class="nav-link">Guides</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>HTML Entity Encoder / Decoder</h1>
+  <p>Convert special characters to HTML entities safely. Bulk encode, decode, and lookup references instantly.</p>
+</div>
+
+<div class="main">
+
+  <div class="tabs">
+    <button class="tab-btn active" id="tabEncode">Encode</button>
+    <button class="tab-btn" id="tabDecode">Decode</button>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <h3 id="modeTitle">Text to HTML Entities</h3>
+      <div class="options-group" id="encodeOptions">
+        <label class="option-label">
+          <input type="radio" name="format" value="named" checked> Named (&amp;amp;)
+        </label>
+        <label class="option-label">
+          <input type="radio" name="format" value="decimal"> Decimal (&amp;#38;)
+        </label>
+        <label class="option-label">
+          <input type="radio" name="format" value="hex"> Hex (&amp;#x26;)
+        </label>
+        <span style="border-left: 1px solid #152040; height: 16px; margin: 0 4px;"></span>
+        <label class="option-label" title="Also encode standard ASCII characters">
+          <input type="checkbox" id="encodeAllOpt"> Encode All
+        </label>
+      </div>
+    </div>
+
+    <div class="tool-body">
+      <div class="textarea-wrapper">
+        <div class="textarea-label">
+          <span id="inputLabel">Input Text</span>
+          <span class="char-count" id="inputCount">0 chars</span>
+        </div>
+        <textarea class="input-area" id="inputText" placeholder="Type or paste your text here..." spellcheck="false"></textarea>
+      </div>
+
+      <div class="actions-row">
+        <div class="actions-left">
+          <button class="btn btn-primary" id="processBtn">Encode</button>
+        </div>
+        <div class="actions-right">
+          <button class="btn" id="clearBtn">Clear</button>
+        </div>
+      </div>
+
+      <div class="error-msg" id="errorMsg">Failed to process input.</div>
+
+      <div class="textarea-wrapper">
+        <div class="textarea-label">
+          <span id="outputLabel">HTML Entities Output</span>
+          <span class="char-count" id="outputCount">0 chars</span>
+        </div>
+        <textarea class="input-area" id="outputText" readonly placeholder="Result will appear here..."></textarea>
+      </div>
+
+      <div class="actions-row">
+        <div style="flex:1"></div>
+        <button class="btn" id="copyBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          Copy Result
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="reference-section">
+    <div class="reference-header">
+      <h2>HTML Entities List</h2>
+      <input type="text" class="search-input" id="searchInput" placeholder="Search entities (e.g., arrow, math, copy)...">
+    </div>
+
+    <div class="table-container">
+      <table id="entitiesTable">
+        <thead>
+          <tr>
+            <th>Char</th>
+            <th>Description</th>
+            <th>Named</th>
+            <th>Decimal</th>
+            <th>Hex</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <h3>What is an html entity encoder?</h3>
+      <p>An html entity encoder is a tool that converts special characters (like &lt;, &gt;, &amp;, or quotes) into HTML entities. This ensures that the characters are safely displayed as text rather than being parsed as code by the web browser, preventing formatting issues and potential security vulnerabilities like XSS.</p>
+    </div>
+    <div class="faq-item">
+      <h3>How do I encode html online?</h3>
+      <p>To encode html online, simply paste your text or HTML snippet into our encoder tool above. Select your preferred output format (Named, Decimal, or Hexadecimal) and it instantly transforms reserved symbols into their corresponding HTML entities (like <code>&amp;lt;</code> or <code>&amp;amp;</code>), making it perfectly secure for web use.</p>
+    </div>
+    <div class="faq-item">
+      <h3>What are html special characters?</h3>
+      <p>HTML special characters are reserved symbols that have specific structural meanings in HTML syntax. The most common ones include the less-than sign (<code>&lt;</code>), greater-than sign (<code>&gt;</code>), ampersand (<code>&amp;</code>), and quotation marks (<code>"</code> and <code>'</code>). Because browsers use these to build the page structure, they must be converted to entities if you want to display them as normal text.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Where can I find an html entities list?</h3>
+      <p>An extensive html entities list is provided right on this page! It offers a comprehensive, searchable mapping of characters to their named, decimal, and hexadecimal entity references. We highlight the most commonly used symbols including math operators, currency symbols, arrows, and punctuation for quick access.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Why do I need to decode HTML entities?</h3>
+      <p>You need to decode HTML entities when you have raw source code, scraped data, or database text that contains entities (like <code>&amp;quot;</code> or <code>&amp;copy;</code>) and you want to convert them back into their native, readable character forms (like <code>"</code> or <code>©</code>). This is essential for editing, data analysis, or displaying the content correctly outside of a web browser context.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2026 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property. Not investment advice. All information for educational purposes only.
+</div>
+
+<script>
+const tabEncode = document.getElementById('tabEncode');
+const tabDecode = document.getElementById('tabDecode');
+const modeTitle = document.getElementById('modeTitle');
+const inputLabel = document.getElementById('inputLabel');
+const outputLabel = document.getElementById('outputLabel');
+const processBtn = document.getElementById('processBtn');
+const clearBtn = document.getElementById('clearBtn');
+const inputText = document.getElementById('inputText');
+const outputText = document.getElementById('outputText');
+const inputCount = document.getElementById('inputCount');
+const outputCount = document.getElementById('outputCount');
+const copyBtn = document.getElementById('copyBtn');
+const encodeOptions = document.getElementById('encodeOptions');
+const formatRadios = document.querySelectorAll('input[name="format"]');
+const encodeAllOpt = document.getElementById('encodeAllOpt');
+const errorMsg = document.getElementById('errorMsg');
+const searchInput = document.getElementById('searchInput');
+const tableBody = document.getElementById('tableBody');
+
+let currentMode = 'encode';
+
+// Comprehensive Entity List
+const entityData = [
+  { char: '<', desc: 'Less-than sign', named: '&lt;', dec: '&#60;', hex: '&#x3c;', common: true },
+  { char: '>', desc: 'Greater-than sign', named: '&gt;', dec: '&#62;', hex: '&#x3e;', common: true },
+  { char: '&', desc: 'Ampersand', named: '&amp;', dec: '&#38;', hex: '&#x26;', common: true },
+  { char: '"', desc: 'Quotation mark', named: '&quot;', dec: '&#34;', hex: '&#x22;', common: true },
+  { char: "'", desc: 'Apostrophe', named: '&apos;', dec: '&#39;', hex: '&#x27;', common: true },
+  { char: ' ', desc: 'Non-breaking space', named: '&nbsp;', dec: '&#160;', hex: '&#xa0;', common: true },
+  { char: '¢', desc: 'Cent sign', named: '&cent;', dec: '&#162;', hex: '&#xa2;', common: true },
+  { char: '£', desc: 'Pound sign', named: '&pound;', dec: '&#163;', hex: '&#xa3;', common: true },
+  { char: '¥', desc: 'Yen sign', named: '&yen;', dec: '&#165;', hex: '&#xa5;', common: true },
+  { char: '€', desc: 'Euro sign', named: '&euro;', dec: '&#8364;', hex: '&#x20ac;', common: true },
+  { char: '©', desc: 'Copyright', named: '&copy;', dec: '&#169;', hex: '&#xa9;', common: true },
+  { char: '®', desc: 'Registered trademark', named: '&reg;', dec: '&#174;', hex: '&#xae;', common: true },
+  { char: '™', desc: 'Trademark', named: '&trade;', dec: '&#8482;', hex: '&#x2122;', common: true },
+  { char: '§', desc: 'Section sign', named: '&sect;', dec: '&#167;', hex: '&#xa7;' },
+  { char: '°', desc: 'Degree sign', named: '&deg;', dec: '&#176;', hex: '&#xb0;', common: true },
+  { char: '±', desc: 'Plus-minus sign', named: '&plusmn;', dec: '&#177;', hex: '&#xb1;', common: true },
+  { char: '÷', desc: 'Division sign', named: '&divide;', dec: '&#247;', hex: '&#xf7;', common: true },
+  { char: '×', desc: 'Multiplication sign', named: '&times;', dec: '&#215;', hex: '&#xd7;', common: true },
+  { char: 'µ', desc: 'Micro sign', named: '&micro;', dec: '&#181;', hex: '&#xb5;' },
+  { char: '¶', desc: 'Paragraph sign', named: '&para;', dec: '&#182;', hex: '&#xb6;' },
+  { char: '·', desc: 'Middle dot', named: '&middot;', dec: '&#183;', hex: '&#xb7;' },
+  { char: '←', desc: 'Left arrow', named: '&larr;', dec: '&#8592;', hex: '&#x2190;', common: true },
+  { char: '↑', desc: 'Up arrow', named: '&uarr;', dec: '&#8593;', hex: '&#x2191;', common: true },
+  { char: '→', desc: 'Right arrow', named: '&rarr;', dec: '&#8594;', hex: '&#x2192;', common: true },
+  { char: '↓', desc: 'Down arrow', named: '&darr;', dec: '&#8595;', hex: '&#x2193;', common: true },
+  { char: '↔', desc: 'Left right arrow', named: '&harr;', dec: '&#8596;', hex: '&#x2194;' },
+  { char: '♠', desc: 'Spade suit', named: '&spades;', dec: '&#9824;', hex: '&#x2660;' },
+  { char: '♣', desc: 'Club suit', named: '&clubs;', dec: '&#9827;', hex: '&#x2663;' },
+  { char: '♥', desc: 'Heart suit', named: '&hearts;', dec: '&#9829;', hex: '&#x2665;' },
+  { char: '♦', desc: 'Diamond suit', named: '&diams;', dec: '&#9830;', hex: '&#x2666;' },
+  { char: '½', desc: 'Fraction one half', named: '&frac12;', dec: '&#189;', hex: '&#xbd;' },
+  { char: '¼', desc: 'Fraction one quarter', named: '&frac14;', dec: '&#188;', hex: '&#xbc;' },
+  { char: '¾', desc: 'Fraction three quarters', named: '&frac34;', dec: '&#190;', hex: '&#xbe;' },
+  { char: '∞', desc: 'Infinity', named: '&infin;', dec: '&#8734;', hex: '&#x221e;' },
+  { char: '∑', desc: 'N-ary summation', named: '&sum;', dec: '&#8721;', hex: '&#x2211;' },
+  { char: '√', desc: 'Square root', named: '&radic;', dec: '&#8730;', hex: '&#x221a;' }
+];
+
+// Mapping for encoding
+const encodeMapNamed = {};
+entityData.forEach(e => { if (e.named) encodeMapNamed[e.char] = e.named; });
+
+function updateCounts() {
+  inputCount.textContent = `${inputText.value.length} chars`;
+  outputCount.textContent = `${outputText.value.length} chars`;
+}
+
+function getSelectedFormat() {
+  for (const radio of formatRadios) {
+    if (radio.checked) return radio.value;
+  }
+  return 'named';
+}
+
+function copyText(text) {
+  navigator.clipboard.writeText(text);
+}
+
+function getCopyIcon() {
+  return `<svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" title="Copy"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
+}
+
+function renderTable(filterText = '') {
+  tableBody.innerHTML = '';
+  const lowerFilter = filterText.toLowerCase();
+
+  entityData.forEach(e => {
+    if (filterText && !e.desc.toLowerCase().includes(lowerFilter) && !e.named.toLowerCase().includes(lowerFilter)) {
+      return;
+    }
+
+    const tr = document.createElement('tr');
+    if (e.common) tr.className = 'highlight';
+
+    tr.innerHTML = `
+      <td class="char-cell">${e.char}</td>
+      <td class="desc-cell">${e.desc}</td>
+      <td class="code-cell copy-trigger" data-copy="${e.named.replace(/"/g, '&quot;')}">${e.named.replace(/&/g, '&amp;')} ${getCopyIcon()}</td>
+      <td class="code-cell copy-trigger" data-copy="${e.dec.replace(/"/g, '&quot;')}">${e.dec.replace(/&/g, '&amp;')} ${getCopyIcon()}</td>
+      <td class="code-cell copy-trigger" data-copy="${e.hex.replace(/"/g, '&quot;')}">${e.hex.replace(/&/g, '&amp;')} ${getCopyIcon()}</td>
+    `;
+    tableBody.appendChild(tr);
+  });
+
+  // Attach event listeners to new elements
+  document.querySelectorAll('.copy-trigger').forEach(cell => {
+    cell.addEventListener('click', function() {
+      const textToCopy = this.getAttribute('data-copy');
+      if(textToCopy) copyText(textToCopy);
+
+      const svg = this.querySelector('svg');
+      if(svg) {
+        svg.style.color = '#4ade80';
+        setTimeout(() => svg.style.color = '', 1000);
+      }
+    });
+  });
+}
+
+function process() {
+  errorMsg.classList.remove('visible');
+  let text = inputText.value;
+  if (!text) {
+    outputText.value = '';
+    updateCounts();
+    return;
+  }
+
+  try {
+    if (currentMode === 'encode') {
+      const format = getSelectedFormat();
+      const encodeAll = encodeAllOpt.checked;
+      let result = '';
+
+      for (const char of text) {
+        const code = char.codePointAt(0);
+        const isSpecial = code > 127 || char === '<' || char === '>' || char === '&' || char === '"' || char === "'";
+
+        if (encodeAll || isSpecial) {
+          if (format === 'named' && encodeMapNamed[char]) {
+            result += encodeMapNamed[char];
+          } else if (format === 'hex') {
+            result += '&#x' + code.toString(16) + ';';
+          } else {
+            result += '&#' + code + ';';
+          }
+        } else {
+          result += char;
+        }
+      }
+      outputText.value = result;
+
+    } else {
+      // Decode mode: replace entities without destroying surrounding HTML
+      const txt = document.createElement('textarea');
+      // Encode first to prevent XSS issues, then replace specifically
+      // We'll use a safer approach - matching entity patterns only
+      outputText.value = text.replace(/&[a-zA-Z0-9#]+;/g, function(match) {
+        txt.innerHTML = match;
+        return txt.value;
+      });
+    }
+  } catch (err) {
+    errorMsg.classList.add('visible');
+    outputText.value = '';
+  }
+  updateCounts();
+}
+
+// Event Listeners
+tabEncode.addEventListener('click', () => {
+  if (currentMode === 'encode') return;
+  currentMode = 'encode';
+  tabEncode.classList.add('active');
+  tabDecode.classList.remove('active');
+
+  modeTitle.textContent = 'Text to HTML Entities';
+  inputLabel.textContent = 'Input Text';
+  outputLabel.textContent = 'HTML Entities Output';
+  processBtn.textContent = 'Encode';
+  encodeOptions.style.display = 'flex';
+
+  let temp = inputText.value;
+  inputText.value = outputText.value;
+  outputText.value = temp;
+  process();
+});
+
+tabDecode.addEventListener('click', () => {
+  if (currentMode === 'decode') return;
+  currentMode = 'decode';
+  tabDecode.classList.add('active');
+  tabEncode.classList.remove('active');
+
+  modeTitle.textContent = 'HTML Entities to Text';
+  inputLabel.textContent = 'HTML Entities Input';
+  outputLabel.textContent = 'Decoded Text Output';
+  processBtn.textContent = 'Decode';
+  encodeOptions.style.display = 'none';
+
+  let temp = inputText.value;
+  inputText.value = outputText.value;
+  outputText.value = temp;
+  process();
+});
+
+inputText.addEventListener('input', process);
+formatRadios.forEach(r => r.addEventListener('change', process));
+encodeAllOpt.addEventListener('change', process);
+processBtn.addEventListener('click', process);
+
+clearBtn.addEventListener('click', () => {
+  inputText.value = '';
+  process();
+  inputText.focus();
+});
+
+copyBtn.addEventListener('click', () => {
+  if (!outputText.value) return;
+  navigator.clipboard.writeText(outputText.value).then(() => {
+    const originalText = copyBtn.innerHTML;
+    copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+    copyBtn.classList.add('copied');
+    setTimeout(() => {
+      copyBtn.innerHTML = originalText;
+      copyBtn.classList.remove('copied');
+    }, 2000);
+  });
+});
+
+searchInput.addEventListener('input', (e) => {
+  renderTable(e.target.value);
+});
+
+// Init
+renderTable();
+updateCounts();
+</script>
+</body>
+</html>
