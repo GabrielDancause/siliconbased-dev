@@ -1,0 +1,6366 @@
+[
+  {
+    "name": "aliceblue",
+    "hex": "#f0f8ff",
+    "rgb": {
+      "r": 240,
+      "g": 248,
+      "b": 255,
+      "string": "rgb(240, 248, 255)"
+    },
+    "hsl": {
+      "h": 208,
+      "s": 100,
+      "l": 97,
+      "string": "hsl(208, 100%, 97%)"
+    },
+    "category": "blue",
+    "luminance": 0.9288006825347458,
+    "isLight": true,
+    "complementary": {
+      "hex": "#fff7f0",
+      "closestMatch": "seashell"
+    },
+    "analogousColors": [
+      {
+        "hex": "#f0f0ff",
+        "closestMatch": "aliceblue"
+      },
+      {
+        "hex": "#f0fffe",
+        "closestMatch": "azure"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#fff0f8",
+        "closestMatch": "lavenderblush"
+      },
+      {
+        "hex": "#f8fff0",
+        "closestMatch": "ivory"
+      }
+    ]
+  },
+  {
+    "name": "antiquewhite",
+    "hex": "#faebd7",
+    "rgb": {
+      "r": 250,
+      "g": 235,
+      "b": 215,
+      "string": "rgb(250, 235, 215)"
+    },
+    "hsl": {
+      "h": 34,
+      "s": 78,
+      "l": 91,
+      "string": "hsl(34, 78%, 91%)"
+    },
+    "category": "white",
+    "luminance": 0.8464695170775406,
+    "isLight": true,
+    "complementary": {
+      "hex": "#d6e6fa",
+      "closestMatch": "lavender"
+    },
+    "analogousColors": [
+      {
+        "hex": "#f8fad6",
+        "closestMatch": "lightgoldenrodyellow"
+      },
+      {
+        "hex": "#fad9d6",
+        "closestMatch": "mistyrose"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#d6faea",
+        "closestMatch": "lightcyan"
+      },
+      {
+        "hex": "#ead6fa",
+        "closestMatch": "lavender"
+      }
+    ]
+  },
+  {
+    "name": "aqua",
+    "hex": "#00ffff",
+    "rgb": {
+      "r": 0,
+      "g": 255,
+      "b": 255,
+      "string": "rgb(0, 255, 255)"
+    },
+    "hsl": {
+      "h": 180,
+      "s": 100,
+      "l": 50,
+      "string": "hsl(180, 100%, 50%)"
+    },
+    "category": "blue",
+    "luminance": 0.7874,
+    "isLight": true,
+    "complementary": {
+      "hex": "#ff0000",
+      "closestMatch": "red"
+    },
+    "analogousColors": [
+      {
+        "hex": "#0080ff",
+        "closestMatch": "dodgerblue"
+      },
+      {
+        "hex": "#00ff80",
+        "closestMatch": "springgreen"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#ff00ff",
+        "closestMatch": "fuchsia"
+      },
+      {
+        "hex": "#ffff00",
+        "closestMatch": "yellow"
+      }
+    ]
+  },
+  {
+    "name": "aquamarine",
+    "hex": "#7fffd4",
+    "rgb": {
+      "r": 127,
+      "g": 255,
+      "b": 212,
+      "string": "rgb(127, 255, 212)"
+    },
+    "hsl": {
+      "h": 160,
+      "s": 100,
+      "l": 75,
+      "string": "hsl(160, 100%, 75%)"
+    },
+    "category": "green",
+    "luminance": 0.8078549208338043,
+    "isLight": true,
+    "complementary": {
+      "hex": "#ff80aa",
+      "closestMatch": "hotpink"
+    },
+    "analogousColors": [
+      {
+        "hex": "#80eaff",
+        "closestMatch": "lightskyblue"
+      },
+      {
+        "hex": "#80ff95",
+        "closestMatch": "lightgreen"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#d580ff",
+        "closestMatch": "violet"
+      },
+      {
+        "hex": "#ffd580",
+        "closestMatch": "khaki"
+      }
+    ]
+  },
+  {
+    "name": "azure",
+    "hex": "#f0ffff",
+    "rgb": {
+      "r": 240,
+      "g": 255,
+      "b": 255,
+      "string": "rgb(240, 255, 255)"
+    },
+    "hsl": {
+      "h": 180,
+      "s": 100,
+      "l": 97,
+      "string": "hsl(180, 100%, 97%)"
+    },
+    "category": "blue",
+    "luminance": 0.9726526495416643,
+    "isLight": true,
+    "complementary": {
+      "hex": "#fff0f0",
+      "closestMatch": "lavenderblush"
+    },
+    "analogousColors": [
+      {
+        "hex": "#f0f7ff",
+        "closestMatch": "aliceblue"
+      },
+      {
+        "hex": "#f0fff7",
+        "closestMatch": "mintcream"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#fff0ff",
+        "closestMatch": "lavenderblush"
+      },
+      {
+        "hex": "#fffff0",
+        "closestMatch": "ivory"
+      }
+    ]
+  },
+  {
+    "name": "beige",
+    "hex": "#f5f5dc",
+    "rgb": {
+      "r": 245,
+      "g": 245,
+      "b": 220,
+      "string": "rgb(245, 245, 220)"
+    },
+    "hsl": {
+      "h": 60,
+      "s": 56,
+      "l": 91,
+      "string": "hsl(60, 56%, 91%)"
+    },
+    "category": "yellow",
+    "luminance": 0.8988459998705022,
+    "isLight": true,
+    "complementary": {
+      "hex": "#dbdbf5",
+      "closestMatch": "lavender"
+    },
+    "analogousColors": [
+      {
+        "hex": "#e8f5db",
+        "closestMatch": "beige"
+      },
+      {
+        "hex": "#f5e8db",
+        "closestMatch": "antiquewhite"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#dbf5f5",
+        "closestMatch": "lightcyan"
+      },
+      {
+        "hex": "#f5dbf5",
+        "closestMatch": "lavender"
+      }
+    ]
+  },
+  {
+    "name": "bisque",
+    "hex": "#ffe4c4",
+    "rgb": {
+      "r": 255,
+      "g": 228,
+      "b": 196,
+      "string": "rgb(255, 228, 196)"
+    },
+    "hsl": {
+      "h": 33,
+      "s": 100,
+      "l": 88,
+      "string": "hsl(33, 100%, 88%)"
+    },
+    "category": "orange",
+    "luminance": 0.8073232737297877,
+    "isLight": true,
+    "complementary": {
+      "hex": "#c2ddff",
+      "closestMatch": "paleturquoise"
+    },
+    "analogousColors": [
+      {
+        "hex": "#fcffc2",
+        "closestMatch": "lemonchiffon"
+      },
+      {
+        "hex": "#ffc5c2",
+        "closestMatch": "pink"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#c2ffe3",
+        "closestMatch": "paleturquoise"
+      },
+      {
+        "hex": "#e3c2ff",
+        "closestMatch": "lavender"
+      }
+    ]
+  },
+  {
+    "name": "black",
+    "hex": "#000000",
+    "rgb": {
+      "r": 0,
+      "g": 0,
+      "b": 0,
+      "string": "rgb(0, 0, 0)"
+    },
+    "hsl": {
+      "h": 0,
+      "s": 0,
+      "l": 0,
+      "string": "hsl(0, 0%, 0%)"
+    },
+    "category": "black",
+    "luminance": 0,
+    "isLight": false,
+    "complementary": {
+      "hex": "#000000",
+      "closestMatch": "black"
+    },
+    "analogousColors": [
+      {
+        "hex": "#000000",
+        "closestMatch": "black"
+      },
+      {
+        "hex": "#000000",
+        "closestMatch": "black"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#000000",
+        "closestMatch": "black"
+      },
+      {
+        "hex": "#000000",
+        "closestMatch": "black"
+      }
+    ]
+  },
+  {
+    "name": "blanchedalmond",
+    "hex": "#ffebcd",
+    "rgb": {
+      "r": 255,
+      "g": 235,
+      "b": 205,
+      "string": "rgb(255, 235, 205)"
+    },
+    "hsl": {
+      "h": 36,
+      "s": 100,
+      "l": 90,
+      "string": "hsl(36, 100%, 90%)"
+    },
+    "category": "orange",
+    "luminance": 0.8508443960815608,
+    "isLight": true,
+    "complementary": {
+      "hex": "#cce0ff",
+      "closestMatch": "lavender"
+    },
+    "analogousColors": [
+      {
+        "hex": "#faffcc",
+        "closestMatch": "lemonchiffon"
+      },
+      {
+        "hex": "#ffd1cc",
+        "closestMatch": "pink"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#ccffeb",
+        "closestMatch": "lightcyan"
+      },
+      {
+        "hex": "#ebccff",
+        "closestMatch": "lavender"
+      }
+    ]
+  },
+  {
+    "name": "blue",
+    "hex": "#0000ff",
+    "rgb": {
+      "r": 0,
+      "g": 0,
+      "b": 255,
+      "string": "rgb(0, 0, 255)"
+    },
+    "hsl": {
+      "h": 240,
+      "s": 100,
+      "l": 50,
+      "string": "hsl(240, 100%, 50%)"
+    },
+    "category": "blue",
+    "luminance": 0.0722,
+    "isLight": false,
+    "complementary": {
+      "hex": "#ffff00",
+      "closestMatch": "yellow"
+    },
+    "analogousColors": [
+      {
+        "hex": "#8000ff",
+        "closestMatch": "darkviolet"
+      },
+      {
+        "hex": "#0080ff",
+        "closestMatch": "dodgerblue"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#ff0000",
+        "closestMatch": "red"
+      },
+      {
+        "hex": "#00ff00",
+        "closestMatch": "lime"
+      }
+    ]
+  },
+  {
+    "name": "blueviolet",
+    "hex": "#8a2be2",
+    "rgb": {
+      "r": 138,
+      "g": 43,
+      "b": 226,
+      "string": "rgb(138, 43, 226)"
+    },
+    "hsl": {
+      "h": 271,
+      "s": 76,
+      "l": 53,
+      "string": "hsl(271, 76%, 53%)"
+    },
+    "category": "purple",
+    "luminance": 0.12622014321946048,
+    "isLight": false,
+    "complementary": {
+      "hex": "#84e22c",
+      "closestMatch": "yellowgreen"
+    },
+    "analogousColors": [
+      {
+        "hex": "#e22cdf",
+        "closestMatch": "mediumorchid"
+      },
+      {
+        "hex": "#2f2ce2",
+        "closestMatch": "royalblue"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#e28a2c",
+        "closestMatch": "peru"
+      },
+      {
+        "hex": "#2ce28a",
+        "closestMatch": "mediumspringgreen"
+      }
+    ]
+  },
+  {
+    "name": "brown",
+    "hex": "#a52a2a",
+    "rgb": {
+      "r": 165,
+      "g": 42,
+      "b": 42,
+      "string": "rgb(165, 42, 42)"
+    },
+    "hsl": {
+      "h": 0,
+      "s": 59,
+      "l": 41,
+      "string": "hsl(0, 59%, 41%)"
+    },
+    "category": "brown",
+    "luminance": 0.09822428787651084,
+    "isLight": false,
+    "complementary": {
+      "hex": "#2ba6a6",
+      "closestMatch": "lightseagreen"
+    },
+    "analogousColors": [
+      {
+        "hex": "#a6692b",
+        "closestMatch": "sienna"
+      },
+      {
+        "hex": "#a62b69",
+        "closestMatch": "mediumvioletred"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#2ba62b",
+        "closestMatch": "forestgreen"
+      },
+      {
+        "hex": "#2b2ba6",
+        "closestMatch": "darkslateblue"
+      }
+    ]
+  },
+  {
+    "name": "burlywood",
+    "hex": "#deb887",
+    "rgb": {
+      "r": 222,
+      "g": 184,
+      "b": 135,
+      "string": "rgb(222, 184, 135)"
+    },
+    "hsl": {
+      "h": 34,
+      "s": 57,
+      "l": 70,
+      "string": "hsl(34, 57%, 70%)"
+    },
+    "category": "brown",
+    "luminance": 0.5155984453389335,
+    "isLight": true,
+    "complementary": {
+      "hex": "#87adde",
+      "closestMatch": "skyblue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#d8de87",
+        "closestMatch": "khaki"
+      },
+      {
+        "hex": "#de8d87",
+        "closestMatch": "darksalmon"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#87deb8",
+        "closestMatch": "mediumaquamarine"
+      },
+      {
+        "hex": "#b887de",
+        "closestMatch": "orchid"
+      }
+    ]
+  },
+  {
+    "name": "cadetblue",
+    "hex": "#5f9ea0",
+    "rgb": {
+      "r": 95,
+      "g": 158,
+      "b": 160,
+      "string": "rgb(95, 158, 160)"
+    },
+    "hsl": {
+      "h": 182,
+      "s": 25,
+      "l": 50,
+      "string": "hsl(182, 25%, 50%)"
+    },
+    "category": "blue",
+    "luminance": 0.29424681085422066,
+    "isLight": true,
+    "complementary": {
+      "hex": "#9f6260",
+      "closestMatch": "indianred"
+    },
+    "analogousColors": [
+      {
+        "hex": "#607d9f",
+        "closestMatch": "slategray"
+      },
+      {
+        "hex": "#609f82",
+        "closestMatch": "cadetblue"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#9f609d",
+        "closestMatch": "gray"
+      },
+      {
+        "hex": "#9d9f60",
+        "closestMatch": "darkkhaki"
+      }
+    ]
+  },
+  {
+    "name": "chartreuse",
+    "hex": "#7fff00",
+    "rgb": {
+      "r": 127,
+      "g": 255,
+      "b": 0,
+      "string": "rgb(127, 255, 0)"
+    },
+    "hsl": {
+      "h": 90,
+      "s": 100,
+      "l": 50,
+      "string": "hsl(90, 100%, 50%)"
+    },
+    "category": "green",
+    "luminance": 0.7603202590262281,
+    "isLight": true,
+    "complementary": {
+      "hex": "#8000ff",
+      "closestMatch": "darkviolet"
+    },
+    "analogousColors": [
+      {
+        "hex": "#00ff00",
+        "closestMatch": "lime"
+      },
+      {
+        "hex": "#ffff00",
+        "closestMatch": "yellow"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#0080ff",
+        "closestMatch": "dodgerblue"
+      },
+      {
+        "hex": "#ff0080",
+        "closestMatch": "deeppink"
+      }
+    ]
+  },
+  {
+    "name": "chocolate",
+    "hex": "#d2691e",
+    "rgb": {
+      "r": 210,
+      "g": 105,
+      "b": 30,
+      "string": "rgb(210, 105, 30)"
+    },
+    "hsl": {
+      "h": 25,
+      "s": 75,
+      "l": 47,
+      "string": "hsl(25, 75%, 47%)"
+    },
+    "category": "brown",
+    "luminance": 0.23898526114557295,
+    "isLight": true,
+    "complementary": {
+      "hex": "#1e87d2",
+      "closestMatch": "dodgerblue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#d2c31e",
+        "closestMatch": "goldenrod"
+      },
+      {
+        "hex": "#d21e2d",
+        "closestMatch": "crimson"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#1ed269",
+        "closestMatch": "mediumseagreen"
+      },
+      {
+        "hex": "#691ed2",
+        "closestMatch": "blueviolet"
+      }
+    ]
+  },
+  {
+    "name": "coral",
+    "hex": "#ff7f50",
+    "rgb": {
+      "r": 255,
+      "g": 127,
+      "b": 80,
+      "string": "rgb(255, 127, 80)"
+    },
+    "hsl": {
+      "h": 16,
+      "s": 100,
+      "l": 66,
+      "string": "hsl(16, 100%, 66%)"
+    },
+    "category": "orange",
+    "luminance": 0.3701793087292369,
+    "isLight": true,
+    "complementary": {
+      "hex": "#52d1ff",
+      "closestMatch": "mediumturquoise"
+    },
+    "analogousColors": [
+      {
+        "hex": "#ffd752",
+        "closestMatch": "sandybrown"
+      },
+      {
+        "hex": "#ff527a",
+        "closestMatch": "salmon"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#52ff80",
+        "closestMatch": "lightgreen"
+      },
+      {
+        "hex": "#8052ff",
+        "closestMatch": "mediumslateblue"
+      }
+    ]
+  },
+  {
+    "name": "cornflowerblue",
+    "hex": "#6495ed",
+    "rgb": {
+      "r": 100,
+      "g": 149,
+      "b": 237,
+      "string": "rgb(100, 149, 237)"
+    },
+    "hsl": {
+      "h": 219,
+      "s": 79,
+      "l": 66,
+      "string": "hsl(219, 79%, 66%)"
+    },
+    "category": "blue",
+    "luminance": 0.30318641994179374,
+    "isLight": true,
+    "complementary": {
+      "hex": "#edbd64",
+      "closestMatch": "sandybrown"
+    },
+    "analogousColors": [
+      {
+        "hex": "#7864ed",
+        "closestMatch": "mediumslateblue"
+      },
+      {
+        "hex": "#64d8ed",
+        "closestMatch": "skyblue"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#ed6494",
+        "closestMatch": "palevioletred"
+      },
+      {
+        "hex": "#94ed64",
+        "closestMatch": "lightgreen"
+      }
+    ]
+  },
+  {
+    "name": "cornsilk",
+    "hex": "#fff8dc",
+    "rgb": {
+      "r": 255,
+      "g": 248,
+      "b": 220,
+      "string": "rgb(255, 248, 220)"
+    },
+    "hsl": {
+      "h": 48,
+      "s": 100,
+      "l": 93,
+      "string": "hsl(48, 100%, 93%)"
+    },
+    "category": "yellow",
+    "luminance": 0.9356211037296494,
+    "isLight": true,
+    "complementary": {
+      "hex": "#dbe2ff",
+      "closestMatch": "lavender"
+    },
+    "analogousColors": [
+      {
+        "hex": "#f4ffdb",
+        "closestMatch": "beige"
+      },
+      {
+        "hex": "#ffe6db",
+        "closestMatch": "mistyrose"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#dbfff8",
+        "closestMatch": "lightcyan"
+      },
+      {
+        "hex": "#f8dbff",
+        "closestMatch": "lavender"
+      }
+    ]
+  },
+  {
+    "name": "crimson",
+    "hex": "#dc143c",
+    "rgb": {
+      "r": 220,
+      "g": 20,
+      "b": 60,
+      "string": "rgb(220, 20, 60)"
+    },
+    "hsl": {
+      "h": 348,
+      "s": 83,
+      "l": 47,
+      "string": "hsl(348, 83%, 47%)"
+    },
+    "category": "red",
+    "luminance": 0.1604219995302558,
+    "isLight": false,
+    "complementary": {
+      "hex": "#14dbb4",
+      "closestMatch": "darkturquoise"
+    },
+    "analogousColors": [
+      {
+        "hex": "#db5014",
+        "closestMatch": "chocolate"
+      },
+      {
+        "hex": "#db14a0",
+        "closestMatch": "mediumvioletred"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#3cdb14",
+        "closestMatch": "limegreen"
+      },
+      {
+        "hex": "#143cdb",
+        "closestMatch": "royalblue"
+      }
+    ]
+  },
+  {
+    "name": "cyan",
+    "hex": "#00ffff",
+    "rgb": {
+      "r": 0,
+      "g": 255,
+      "b": 255,
+      "string": "rgb(0, 255, 255)"
+    },
+    "hsl": {
+      "h": 180,
+      "s": 100,
+      "l": 50,
+      "string": "hsl(180, 100%, 50%)"
+    },
+    "category": "blue",
+    "luminance": 0.7874,
+    "isLight": true,
+    "complementary": {
+      "hex": "#ff0000",
+      "closestMatch": "red"
+    },
+    "analogousColors": [
+      {
+        "hex": "#0080ff",
+        "closestMatch": "dodgerblue"
+      },
+      {
+        "hex": "#00ff80",
+        "closestMatch": "springgreen"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#ff00ff",
+        "closestMatch": "fuchsia"
+      },
+      {
+        "hex": "#ffff00",
+        "closestMatch": "yellow"
+      }
+    ]
+  },
+  {
+    "name": "darkblue",
+    "hex": "#00008b",
+    "rgb": {
+      "r": 0,
+      "g": 0,
+      "b": 139,
+      "string": "rgb(0, 0, 139)"
+    },
+    "hsl": {
+      "h": 240,
+      "s": 100,
+      "l": 27,
+      "string": "hsl(240, 100%, 27%)"
+    },
+    "category": "blue",
+    "luminance": 0.018640801980939217,
+    "isLight": false,
+    "complementary": {
+      "hex": "#8a8a00",
+      "closestMatch": "olive"
+    },
+    "analogousColors": [
+      {
+        "hex": "#45008a",
+        "closestMatch": "indigo"
+      },
+      {
+        "hex": "#00458a",
+        "closestMatch": "midnightblue"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#8a0000",
+        "closestMatch": "darkred"
+      },
+      {
+        "hex": "#008a00",
+        "closestMatch": "green"
+      }
+    ]
+  },
+  {
+    "name": "darkcyan",
+    "hex": "#008b8b",
+    "rgb": {
+      "r": 0,
+      "g": 139,
+      "b": 139,
+      "string": "rgb(0, 139, 139)"
+    },
+    "hsl": {
+      "h": 180,
+      "s": 100,
+      "l": 27,
+      "string": "hsl(180, 100%, 27%)"
+    },
+    "category": "blue",
+    "luminance": 0.2032931783904645,
+    "isLight": true,
+    "complementary": {
+      "hex": "#8a0000",
+      "closestMatch": "darkred"
+    },
+    "analogousColors": [
+      {
+        "hex": "#00458a",
+        "closestMatch": "midnightblue"
+      },
+      {
+        "hex": "#008a45",
+        "closestMatch": "forestgreen"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#8a008a",
+        "closestMatch": "darkmagenta"
+      },
+      {
+        "hex": "#8a8a00",
+        "closestMatch": "olive"
+      }
+    ]
+  },
+  {
+    "name": "darkgoldenrod",
+    "hex": "#b8860b",
+    "rgb": {
+      "r": 184,
+      "g": 134,
+      "b": 11,
+      "string": "rgb(184, 134, 11)"
+    },
+    "hsl": {
+      "h": 43,
+      "s": 89,
+      "l": 38,
+      "string": "hsl(43, 89%, 38%)"
+    },
+    "category": "orange",
+    "luminance": 0.27264703559992554,
+    "isLight": true,
+    "complementary": {
+      "hex": "#0b3cb7",
+      "closestMatch": "mediumblue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#92b70b",
+        "closestMatch": "yellowgreen"
+      },
+      {
+        "hex": "#b7300b",
+        "closestMatch": "firebrick"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#0bb786",
+        "closestMatch": "lightseagreen"
+      },
+      {
+        "hex": "#860bb7",
+        "closestMatch": "darkviolet"
+      }
+    ]
+  },
+  {
+    "name": "darkgray",
+    "hex": "#a9a9a9",
+    "rgb": {
+      "r": 169,
+      "g": 169,
+      "b": 169,
+      "string": "rgb(169, 169, 169)"
+    },
+    "hsl": {
+      "h": 0,
+      "s": 0,
+      "l": 66,
+      "string": "hsl(0, 0%, 66%)"
+    },
+    "category": "gray",
+    "luminance": 0.3967552307256268,
+    "isLight": true,
+    "complementary": {
+      "hex": "#a8a8a8",
+      "closestMatch": "darkgray"
+    },
+    "analogousColors": [
+      {
+        "hex": "#a8a8a8",
+        "closestMatch": "darkgray"
+      },
+      {
+        "hex": "#a8a8a8",
+        "closestMatch": "darkgray"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#a8a8a8",
+        "closestMatch": "darkgray"
+      },
+      {
+        "hex": "#a8a8a8",
+        "closestMatch": "darkgray"
+      }
+    ]
+  },
+  {
+    "name": "darkgreen",
+    "hex": "#006400",
+    "rgb": {
+      "r": 0,
+      "g": 100,
+      "b": 0,
+      "string": "rgb(0, 100, 0)"
+    },
+    "hsl": {
+      "h": 120,
+      "s": 100,
+      "l": 20,
+      "string": "hsl(120, 100%, 20%)"
+    },
+    "category": "green",
+    "luminance": 0.09114342904757504,
+    "isLight": false,
+    "complementary": {
+      "hex": "#660066",
+      "closestMatch": "purple"
+    },
+    "analogousColors": [
+      {
+        "hex": "#006633",
+        "closestMatch": "darkgreen"
+      },
+      {
+        "hex": "#336600",
+        "closestMatch": "darkgreen"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#000066",
+        "closestMatch": "navy"
+      },
+      {
+        "hex": "#660000",
+        "closestMatch": "maroon"
+      }
+    ]
+  },
+  {
+    "name": "darkgrey",
+    "hex": "#a9a9a9",
+    "rgb": {
+      "r": 169,
+      "g": 169,
+      "b": 169,
+      "string": "rgb(169, 169, 169)"
+    },
+    "hsl": {
+      "h": 0,
+      "s": 0,
+      "l": 66,
+      "string": "hsl(0, 0%, 66%)"
+    },
+    "category": "gray",
+    "luminance": 0.3967552307256268,
+    "isLight": true,
+    "complementary": {
+      "hex": "#a8a8a8",
+      "closestMatch": "darkgray"
+    },
+    "analogousColors": [
+      {
+        "hex": "#a8a8a8",
+        "closestMatch": "darkgray"
+      },
+      {
+        "hex": "#a8a8a8",
+        "closestMatch": "darkgray"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#a8a8a8",
+        "closestMatch": "darkgray"
+      },
+      {
+        "hex": "#a8a8a8",
+        "closestMatch": "darkgray"
+      }
+    ]
+  },
+  {
+    "name": "darkkhaki",
+    "hex": "#bdb76b",
+    "rgb": {
+      "r": 189,
+      "g": 183,
+      "b": 107,
+      "string": "rgb(189, 183, 107)"
+    },
+    "hsl": {
+      "h": 56,
+      "s": 38,
+      "l": 58,
+      "string": "hsl(56, 38%, 58%)"
+    },
+    "category": "yellow",
+    "luminance": 0.45747326349994166,
+    "isLight": true,
+    "complementary": {
+      "hex": "#6b71bd",
+      "closestMatch": "slateblue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#99bd6b",
+        "closestMatch": "darkkhaki"
+      },
+      {
+        "hex": "#bd8e6b",
+        "closestMatch": "rosybrown"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#6bbdb7",
+        "closestMatch": "mediumaquamarine"
+      },
+      {
+        "hex": "#b76bbd",
+        "closestMatch": "mediumorchid"
+      }
+    ]
+  },
+  {
+    "name": "darkmagenta",
+    "hex": "#8b008b",
+    "rgb": {
+      "r": 139,
+      "g": 0,
+      "b": 139,
+      "string": "rgb(139, 0, 139)"
+    },
+    "hsl": {
+      "h": 300,
+      "s": 100,
+      "l": 27,
+      "string": "hsl(300, 100%, 27%)"
+    },
+    "category": "purple",
+    "luminance": 0.07353047651207048,
+    "isLight": false,
+    "complementary": {
+      "hex": "#008a00",
+      "closestMatch": "green"
+    },
+    "analogousColors": [
+      {
+        "hex": "#8a0045",
+        "closestMatch": "brown"
+      },
+      {
+        "hex": "#45008a",
+        "closestMatch": "indigo"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#8a8a00",
+        "closestMatch": "olive"
+      },
+      {
+        "hex": "#008a8a",
+        "closestMatch": "darkcyan"
+      }
+    ]
+  },
+  {
+    "name": "darkolivegreen",
+    "hex": "#556b2f",
+    "rgb": {
+      "r": 85,
+      "g": 107,
+      "b": 47,
+      "string": "rgb(85, 107, 47)"
+    },
+    "hsl": {
+      "h": 82,
+      "s": 39,
+      "l": 30,
+      "string": "hsl(82, 39%, 30%)"
+    },
+    "category": "green",
+    "luminance": 0.1265192088488916,
+    "isLight": false,
+    "complementary": {
+      "hex": "#452f6a",
+      "closestMatch": "darkslateblue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#376a2f",
+        "closestMatch": "darkolivegreen"
+      },
+      {
+        "hex": "#6a622f",
+        "closestMatch": "darkolivegreen"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#2f546a",
+        "closestMatch": "darkslategray"
+      },
+      {
+        "hex": "#6a2f54",
+        "closestMatch": "dimgray"
+      }
+    ]
+  },
+  {
+    "name": "darkorange",
+    "hex": "#ff8c00",
+    "rgb": {
+      "r": 255,
+      "g": 140,
+      "b": 0,
+      "string": "rgb(255, 140, 0)"
+    },
+    "hsl": {
+      "h": 33,
+      "s": 100,
+      "l": 50,
+      "string": "hsl(33, 100%, 50%)"
+    },
+    "category": "orange",
+    "luminance": 0.40016167026523874,
+    "isLight": true,
+    "complementary": {
+      "hex": "#0073ff",
+      "closestMatch": "dodgerblue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#f2ff00",
+        "closestMatch": "yellow"
+      },
+      {
+        "hex": "#ff0d00",
+        "closestMatch": "red"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#00ff8c",
+        "closestMatch": "springgreen"
+      },
+      {
+        "hex": "#8c00ff",
+        "closestMatch": "darkviolet"
+      }
+    ]
+  },
+  {
+    "name": "darkorchid",
+    "hex": "#9932cc",
+    "rgb": {
+      "r": 153,
+      "g": 50,
+      "b": 204,
+      "string": "rgb(153, 50, 204)"
+    },
+    "hsl": {
+      "h": 280,
+      "s": 61,
+      "l": 50,
+      "string": "hsl(280, 61%, 50%)"
+    },
+    "category": "purple",
+    "luminance": 0.13413142174856776,
+    "isLight": false,
+    "complementary": {
+      "hex": "#66cd32",
+      "closestMatch": "limegreen"
+    },
+    "analogousColors": [
+      {
+        "hex": "#cd32b3",
+        "closestMatch": "mediumorchid"
+      },
+      {
+        "hex": "#4c32cd",
+        "closestMatch": "slateblue"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#cd9932",
+        "closestMatch": "peru"
+      },
+      {
+        "hex": "#32cd99",
+        "closestMatch": "lightseagreen"
+      }
+    ]
+  },
+  {
+    "name": "darkred",
+    "hex": "#8b0000",
+    "rgb": {
+      "r": 139,
+      "g": 0,
+      "b": 0,
+      "string": "rgb(139, 0, 0)"
+    },
+    "hsl": {
+      "h": 0,
+      "s": 100,
+      "l": 27,
+      "string": "hsl(0, 100%, 27%)"
+    },
+    "category": "red",
+    "luminance": 0.05488967453113127,
+    "isLight": false,
+    "complementary": {
+      "hex": "#008a8a",
+      "closestMatch": "darkcyan"
+    },
+    "analogousColors": [
+      {
+        "hex": "#8a4500",
+        "closestMatch": "saddlebrown"
+      },
+      {
+        "hex": "#8a0045",
+        "closestMatch": "brown"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#008a00",
+        "closestMatch": "green"
+      },
+      {
+        "hex": "#00008a",
+        "closestMatch": "darkblue"
+      }
+    ]
+  },
+  {
+    "name": "darksalmon",
+    "hex": "#e9967a",
+    "rgb": {
+      "r": 233,
+      "g": 150,
+      "b": 122,
+      "string": "rgb(233, 150, 122)"
+    },
+    "hsl": {
+      "h": 15,
+      "s": 72,
+      "l": 70,
+      "string": "hsl(15, 72%, 70%)"
+    },
+    "category": "orange",
+    "luminance": 0.4054147156338076,
+    "isLight": true,
+    "complementary": {
+      "hex": "#7bceea",
+      "closestMatch": "skyblue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#eace7b",
+        "closestMatch": "burlywood"
+      },
+      {
+        "hex": "#ea7b97",
+        "closestMatch": "palevioletred"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#7bea97",
+        "closestMatch": "lightgreen"
+      },
+      {
+        "hex": "#977bea",
+        "closestMatch": "mediumpurple"
+      }
+    ]
+  },
+  {
+    "name": "darkseagreen",
+    "hex": "#8fbc8f",
+    "rgb": {
+      "r": 143,
+      "g": 188,
+      "b": 143,
+      "string": "rgb(143, 188, 143)"
+    },
+    "hsl": {
+      "h": 120,
+      "s": 25,
+      "l": 65,
+      "string": "hsl(120, 25%, 65%)"
+    },
+    "category": "green",
+    "luminance": 0.43789249325969065,
+    "isLight": true,
+    "complementary": {
+      "hex": "#bc8fbc",
+      "closestMatch": "darkgray"
+    },
+    "analogousColors": [
+      {
+        "hex": "#8fbca6",
+        "closestMatch": "darkseagreen"
+      },
+      {
+        "hex": "#a6bc8f",
+        "closestMatch": "darkseagreen"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#8f8fbc",
+        "closestMatch": "darkgray"
+      },
+      {
+        "hex": "#bc8f8f",
+        "closestMatch": "rosybrown"
+      }
+    ]
+  },
+  {
+    "name": "darkslateblue",
+    "hex": "#483d8b",
+    "rgb": {
+      "r": 72,
+      "g": 61,
+      "b": 139,
+      "string": "rgb(72, 61, 139)"
+    },
+    "hsl": {
+      "h": 248,
+      "s": 39,
+      "l": 39,
+      "string": "hsl(248, 39%, 39%)"
+    },
+    "category": "blue",
+    "luminance": 0.06579284622798763,
+    "isLight": false,
+    "complementary": {
+      "hex": "#808a3d",
+      "closestMatch": "olivedrab"
+    },
+    "analogousColors": [
+      {
+        "hex": "#6e3d8a",
+        "closestMatch": "rebeccapurple"
+      },
+      {
+        "hex": "#3d598a",
+        "closestMatch": "darkslateblue"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#8a473d",
+        "closestMatch": "sienna"
+      },
+      {
+        "hex": "#3d8a47",
+        "closestMatch": "seagreen"
+      }
+    ]
+  },
+  {
+    "name": "darkslategray",
+    "hex": "#2f4f4f",
+    "rgb": {
+      "r": 47,
+      "g": 79,
+      "b": 79,
+      "string": "rgb(47, 79, 79)"
+    },
+    "hsl": {
+      "h": 180,
+      "s": 25,
+      "l": 25,
+      "string": "hsl(180, 25%, 25%)"
+    },
+    "category": "gray",
+    "luminance": 0.06760815192804356,
+    "isLight": false,
+    "complementary": {
+      "hex": "#503030",
+      "closestMatch": "darkslategray"
+    },
+    "analogousColors": [
+      {
+        "hex": "#304050",
+        "closestMatch": "darkslategray"
+      },
+      {
+        "hex": "#305040",
+        "closestMatch": "darkslategray"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#503050",
+        "closestMatch": "darkslategray"
+      },
+      {
+        "hex": "#505030",
+        "closestMatch": "darkolivegreen"
+      }
+    ]
+  },
+  {
+    "name": "darkslategrey",
+    "hex": "#2f4f4f",
+    "rgb": {
+      "r": 47,
+      "g": 79,
+      "b": 79,
+      "string": "rgb(47, 79, 79)"
+    },
+    "hsl": {
+      "h": 180,
+      "s": 25,
+      "l": 25,
+      "string": "hsl(180, 25%, 25%)"
+    },
+    "category": "gray",
+    "luminance": 0.06760815192804356,
+    "isLight": false,
+    "complementary": {
+      "hex": "#503030",
+      "closestMatch": "darkslategray"
+    },
+    "analogousColors": [
+      {
+        "hex": "#304050",
+        "closestMatch": "darkslategray"
+      },
+      {
+        "hex": "#305040",
+        "closestMatch": "darkslategray"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#503050",
+        "closestMatch": "darkslategray"
+      },
+      {
+        "hex": "#505030",
+        "closestMatch": "darkolivegreen"
+      }
+    ]
+  },
+  {
+    "name": "darkturquoise",
+    "hex": "#00ced1",
+    "rgb": {
+      "r": 0,
+      "g": 206,
+      "b": 209,
+      "string": "rgb(0, 206, 209)"
+    },
+    "hsl": {
+      "h": 181,
+      "s": 100,
+      "l": 41,
+      "string": "hsl(181, 100%, 41%)"
+    },
+    "category": "blue",
+    "luminance": 0.4874606277449036,
+    "isLight": true,
+    "complementary": {
+      "hex": "#d10300",
+      "closestMatch": "red"
+    },
+    "analogousColors": [
+      {
+        "hex": "#0065d1",
+        "closestMatch": "royalblue"
+      },
+      {
+        "hex": "#00d16c",
+        "closestMatch": "springgreen"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#d100ce",
+        "closestMatch": "darkviolet"
+      },
+      {
+        "hex": "#ced100",
+        "closestMatch": "gold"
+      }
+    ]
+  },
+  {
+    "name": "darkviolet",
+    "hex": "#9400d3",
+    "rgb": {
+      "r": 148,
+      "g": 0,
+      "b": 211,
+      "string": "rgb(148, 0, 211)"
+    },
+    "hsl": {
+      "h": 282,
+      "s": 100,
+      "l": 41,
+      "string": "hsl(282, 100%, 41%)"
+    },
+    "category": "purple",
+    "luminance": 0.10999048339343437,
+    "isLight": false,
+    "complementary": {
+      "hex": "#3fd100",
+      "closestMatch": "limegreen"
+    },
+    "analogousColors": [
+      {
+        "hex": "#d100a7",
+        "closestMatch": "mediumvioletred"
+      },
+      {
+        "hex": "#2a00d1",
+        "closestMatch": "mediumblue"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#d19200",
+        "closestMatch": "darkgoldenrod"
+      },
+      {
+        "hex": "#00d192",
+        "closestMatch": "mediumspringgreen"
+      }
+    ]
+  },
+  {
+    "name": "deeppink",
+    "hex": "#ff1493",
+    "rgb": {
+      "r": 255,
+      "g": 20,
+      "b": 147,
+      "string": "rgb(255, 20, 147)"
+    },
+    "hsl": {
+      "h": 328,
+      "s": 100,
+      "l": 54,
+      "string": "hsl(328, 100%, 54%)"
+    },
+    "category": "pink",
+    "luminance": 0.2386689582827583,
+    "isLight": true,
+    "complementary": {
+      "hex": "#14ff82",
+      "closestMatch": "springgreen"
+    },
+    "analogousColors": [
+      {
+        "hex": "#ff141c",
+        "closestMatch": "red"
+      },
+      {
+        "hex": "#f714ff",
+        "closestMatch": "fuchsia"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#92ff14",
+        "closestMatch": "chartreuse"
+      },
+      {
+        "hex": "#1492ff",
+        "closestMatch": "dodgerblue"
+      }
+    ]
+  },
+  {
+    "name": "deepskyblue",
+    "hex": "#00bfff",
+    "rgb": {
+      "r": 0,
+      "g": 191,
+      "b": 255,
+      "string": "rgb(0, 191, 255)"
+    },
+    "hsl": {
+      "h": 195,
+      "s": 100,
+      "l": 50,
+      "string": "hsl(195, 100%, 50%)"
+    },
+    "category": "blue",
+    "luminance": 0.44481603395575414,
+    "isLight": true,
+    "complementary": {
+      "hex": "#ff4000",
+      "closestMatch": "orangered"
+    },
+    "analogousColors": [
+      {
+        "hex": "#0040ff",
+        "closestMatch": "blue"
+      },
+      {
+        "hex": "#00ffbf",
+        "closestMatch": "mediumspringgreen"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#ff00bf",
+        "closestMatch": "deeppink"
+      },
+      {
+        "hex": "#bfff00",
+        "closestMatch": "greenyellow"
+      }
+    ]
+  },
+  {
+    "name": "dimgray",
+    "hex": "#696969",
+    "rgb": {
+      "r": 105,
+      "g": 105,
+      "b": 105,
+      "string": "rgb(105, 105, 105)"
+    },
+    "hsl": {
+      "h": 0,
+      "s": 0,
+      "l": 41,
+      "string": "hsl(0, 0%, 41%)"
+    },
+    "category": "gray",
+    "luminance": 0.14126329114027164,
+    "isLight": false,
+    "complementary": {
+      "hex": "#696969",
+      "closestMatch": "dimgray"
+    },
+    "analogousColors": [
+      {
+        "hex": "#696969",
+        "closestMatch": "dimgray"
+      },
+      {
+        "hex": "#696969",
+        "closestMatch": "dimgray"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#696969",
+        "closestMatch": "dimgray"
+      },
+      {
+        "hex": "#696969",
+        "closestMatch": "dimgray"
+      }
+    ]
+  },
+  {
+    "name": "dimgrey",
+    "hex": "#696969",
+    "rgb": {
+      "r": 105,
+      "g": 105,
+      "b": 105,
+      "string": "rgb(105, 105, 105)"
+    },
+    "hsl": {
+      "h": 0,
+      "s": 0,
+      "l": 41,
+      "string": "hsl(0, 0%, 41%)"
+    },
+    "category": "gray",
+    "luminance": 0.14126329114027164,
+    "isLight": false,
+    "complementary": {
+      "hex": "#696969",
+      "closestMatch": "dimgray"
+    },
+    "analogousColors": [
+      {
+        "hex": "#696969",
+        "closestMatch": "dimgray"
+      },
+      {
+        "hex": "#696969",
+        "closestMatch": "dimgray"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#696969",
+        "closestMatch": "dimgray"
+      },
+      {
+        "hex": "#696969",
+        "closestMatch": "dimgray"
+      }
+    ]
+  },
+  {
+    "name": "dodgerblue",
+    "hex": "#1e90ff",
+    "rgb": {
+      "r": 30,
+      "g": 144,
+      "b": 255,
+      "string": "rgb(30, 144, 255)"
+    },
+    "hsl": {
+      "h": 210,
+      "s": 100,
+      "l": 56,
+      "string": "hsl(210, 100%, 56%)"
+    },
+    "category": "blue",
+    "luminance": 0.2744253699145608,
+    "isLight": true,
+    "complementary": {
+      "hex": "#ff8f1f",
+      "closestMatch": "darkorange"
+    },
+    "analogousColors": [
+      {
+        "hex": "#1f1fff",
+        "closestMatch": "blue"
+      },
+      {
+        "hex": "#1fffff",
+        "closestMatch": "aqua"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#ff1f8f",
+        "closestMatch": "deeppink"
+      },
+      {
+        "hex": "#8fff1f",
+        "closestMatch": "greenyellow"
+      }
+    ]
+  },
+  {
+    "name": "firebrick",
+    "hex": "#b22222",
+    "rgb": {
+      "r": 178,
+      "g": 34,
+      "b": 34,
+      "string": "rgb(178, 34, 34)"
+    },
+    "hsl": {
+      "h": 0,
+      "s": 68,
+      "l": 42,
+      "string": "hsl(0, 68%, 42%)"
+    },
+    "category": "red",
+    "luminance": 0.10724525535015232,
+    "isLight": false,
+    "complementary": {
+      "hex": "#22b4b4",
+      "closestMatch": "lightseagreen"
+    },
+    "analogousColors": [
+      {
+        "hex": "#b46b22",
+        "closestMatch": "chocolate"
+      },
+      {
+        "hex": "#b4226b",
+        "closestMatch": "mediumvioletred"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#22b422",
+        "closestMatch": "limegreen"
+      },
+      {
+        "hex": "#2222b4",
+        "closestMatch": "mediumblue"
+      }
+    ]
+  },
+  {
+    "name": "floralwhite",
+    "hex": "#fffaf0",
+    "rgb": {
+      "r": 255,
+      "g": 250,
+      "b": 240,
+      "string": "rgb(255, 250, 240)"
+    },
+    "hsl": {
+      "h": 40,
+      "s": 100,
+      "l": 97,
+      "string": "hsl(40, 100%, 97%)"
+    },
+    "category": "white",
+    "luminance": 0.9592248482500426,
+    "isLight": true,
+    "complementary": {
+      "hex": "#f0f5ff",
+      "closestMatch": "aliceblue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#fcfff0",
+        "closestMatch": "ivory"
+      },
+      {
+        "hex": "#fff2f0",
+        "closestMatch": "seashell"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#f0fffa",
+        "closestMatch": "azure"
+      },
+      {
+        "hex": "#faf0ff",
+        "closestMatch": "ghostwhite"
+      }
+    ]
+  },
+  {
+    "name": "forestgreen",
+    "hex": "#228b22",
+    "rgb": {
+      "r": 34,
+      "g": 139,
+      "b": 34,
+      "string": "rgb(34, 139, 34)"
+    },
+    "hsl": {
+      "h": 120,
+      "s": 61,
+      "l": 34,
+      "string": "hsl(120, 61%, 34%)"
+    },
+    "category": "green",
+    "luminance": 0.18920812076002244,
+    "isLight": true,
+    "complementary": {
+      "hex": "#8c228c",
+      "closestMatch": "darkmagenta"
+    },
+    "analogousColors": [
+      {
+        "hex": "#228c57",
+        "closestMatch": "seagreen"
+      },
+      {
+        "hex": "#578c22",
+        "closestMatch": "olivedrab"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#22228c",
+        "closestMatch": "midnightblue"
+      },
+      {
+        "hex": "#8c2222",
+        "closestMatch": "brown"
+      }
+    ]
+  },
+  {
+    "name": "fuchsia",
+    "hex": "#ff00ff",
+    "rgb": {
+      "r": 255,
+      "g": 0,
+      "b": 255,
+      "string": "rgb(255, 0, 255)"
+    },
+    "hsl": {
+      "h": 300,
+      "s": 100,
+      "l": 50,
+      "string": "hsl(300, 100%, 50%)"
+    },
+    "category": "pink",
+    "luminance": 0.2848,
+    "isLight": true,
+    "complementary": {
+      "hex": "#00ff00",
+      "closestMatch": "lime"
+    },
+    "analogousColors": [
+      {
+        "hex": "#ff0080",
+        "closestMatch": "deeppink"
+      },
+      {
+        "hex": "#8000ff",
+        "closestMatch": "darkviolet"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#ffff00",
+        "closestMatch": "yellow"
+      },
+      {
+        "hex": "#00ffff",
+        "closestMatch": "aqua"
+      }
+    ]
+  },
+  {
+    "name": "gainsboro",
+    "hex": "#dcdcdc",
+    "rgb": {
+      "r": 220,
+      "g": 220,
+      "b": 220,
+      "string": "rgb(220, 220, 220)"
+    },
+    "hsl": {
+      "h": 0,
+      "s": 0,
+      "l": 86,
+      "string": "hsl(0, 0%, 86%)"
+    },
+    "category": "gray",
+    "luminance": 0.7156935005064807,
+    "isLight": true,
+    "complementary": {
+      "hex": "#dbdbdb",
+      "closestMatch": "gainsboro"
+    },
+    "analogousColors": [
+      {
+        "hex": "#dbdbdb",
+        "closestMatch": "gainsboro"
+      },
+      {
+        "hex": "#dbdbdb",
+        "closestMatch": "gainsboro"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#dbdbdb",
+        "closestMatch": "gainsboro"
+      },
+      {
+        "hex": "#dbdbdb",
+        "closestMatch": "gainsboro"
+      }
+    ]
+  },
+  {
+    "name": "ghostwhite",
+    "hex": "#f8f8ff",
+    "rgb": {
+      "r": 248,
+      "g": 248,
+      "b": 255,
+      "string": "rgb(248, 248, 255)"
+    },
+    "hsl": {
+      "h": 240,
+      "s": 100,
+      "l": 99,
+      "string": "hsl(240, 100%, 99%)"
+    },
+    "category": "white",
+    "luminance": 0.9431126188632285,
+    "isLight": true,
+    "complementary": {
+      "hex": "#fffffa",
+      "closestMatch": "snow"
+    },
+    "analogousColors": [
+      {
+        "hex": "#fcfaff",
+        "closestMatch": "ghostwhite"
+      },
+      {
+        "hex": "#fafcff",
+        "closestMatch": "ghostwhite"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#fffafa",
+        "closestMatch": "snow"
+      },
+      {
+        "hex": "#fafffa",
+        "closestMatch": "mintcream"
+      }
+    ]
+  },
+  {
+    "name": "gold",
+    "hex": "#ffd700",
+    "rgb": {
+      "r": 255,
+      "g": 215,
+      "b": 0,
+      "string": "rgb(255, 215, 0)"
+    },
+    "hsl": {
+      "h": 51,
+      "s": 100,
+      "l": 50,
+      "string": "hsl(51, 100%, 50%)"
+    },
+    "category": "yellow",
+    "luminance": 0.6986087742815887,
+    "isLight": true,
+    "complementary": {
+      "hex": "#0026ff",
+      "closestMatch": "blue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#a6ff00",
+        "closestMatch": "chartreuse"
+      },
+      {
+        "hex": "#ff5900",
+        "closestMatch": "orangered"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#00ffd9",
+        "closestMatch": "aqua"
+      },
+      {
+        "hex": "#d900ff",
+        "closestMatch": "fuchsia"
+      }
+    ]
+  },
+  {
+    "name": "goldenrod",
+    "hex": "#daa520",
+    "rgb": {
+      "r": 218,
+      "g": 165,
+      "b": 32,
+      "string": "rgb(218, 165, 32)"
+    },
+    "hsl": {
+      "h": 43,
+      "s": 74,
+      "l": 49,
+      "string": "hsl(43, 74%, 49%)"
+    },
+    "category": "orange",
+    "luminance": 0.41919977809568426,
+    "isLight": true,
+    "complementary": {
+      "hex": "#2055d9",
+      "closestMatch": "royalblue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#b1d920",
+        "closestMatch": "yellowgreen"
+      },
+      {
+        "hex": "#d94920",
+        "closestMatch": "chocolate"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#20d9a5",
+        "closestMatch": "lightseagreen"
+      },
+      {
+        "hex": "#a520d9",
+        "closestMatch": "darkorchid"
+      }
+    ]
+  },
+  {
+    "name": "gray",
+    "hex": "#808080",
+    "rgb": {
+      "r": 128,
+      "g": 128,
+      "b": 128,
+      "string": "rgb(128, 128, 128)"
+    },
+    "hsl": {
+      "h": 0,
+      "s": 0,
+      "l": 50,
+      "string": "hsl(0, 0%, 50%)"
+    },
+    "category": "gray",
+    "luminance": 0.2158605001138992,
+    "isLight": true,
+    "complementary": {
+      "hex": "#808080",
+      "closestMatch": "gray"
+    },
+    "analogousColors": [
+      {
+        "hex": "#808080",
+        "closestMatch": "gray"
+      },
+      {
+        "hex": "#808080",
+        "closestMatch": "gray"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#808080",
+        "closestMatch": "gray"
+      },
+      {
+        "hex": "#808080",
+        "closestMatch": "gray"
+      }
+    ]
+  },
+  {
+    "name": "green",
+    "hex": "#008000",
+    "rgb": {
+      "r": 0,
+      "g": 128,
+      "b": 0,
+      "string": "rgb(0, 128, 0)"
+    },
+    "hsl": {
+      "h": 120,
+      "s": 100,
+      "l": 25,
+      "string": "hsl(120, 100%, 25%)"
+    },
+    "category": "green",
+    "luminance": 0.1543834296814607,
+    "isLight": false,
+    "complementary": {
+      "hex": "#800080",
+      "closestMatch": "purple"
+    },
+    "analogousColors": [
+      {
+        "hex": "#008040",
+        "closestMatch": "forestgreen"
+      },
+      {
+        "hex": "#408000",
+        "closestMatch": "forestgreen"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#000080",
+        "closestMatch": "navy"
+      },
+      {
+        "hex": "#800000",
+        "closestMatch": "maroon"
+      }
+    ]
+  },
+  {
+    "name": "greenyellow",
+    "hex": "#adff2f",
+    "rgb": {
+      "r": 173,
+      "g": 255,
+      "b": 47,
+      "string": "rgb(173, 255, 47)"
+    },
+    "hsl": {
+      "h": 84,
+      "s": 100,
+      "l": 59,
+      "string": "hsl(84, 100%, 59%)"
+    },
+    "category": "green",
+    "luminance": 0.8060947261145331,
+    "isLight": true,
+    "complementary": {
+      "hex": "#822eff",
+      "closestMatch": "blueviolet"
+    },
+    "analogousColors": [
+      {
+        "hex": "#43ff2e",
+        "closestMatch": "limegreen"
+      },
+      {
+        "hex": "#ffea2e",
+        "closestMatch": "gold"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#2eabff",
+        "closestMatch": "dodgerblue"
+      },
+      {
+        "hex": "#ff2eab",
+        "closestMatch": "deeppink"
+      }
+    ]
+  },
+  {
+    "name": "grey",
+    "hex": "#808080",
+    "rgb": {
+      "r": 128,
+      "g": 128,
+      "b": 128,
+      "string": "rgb(128, 128, 128)"
+    },
+    "hsl": {
+      "h": 0,
+      "s": 0,
+      "l": 50,
+      "string": "hsl(0, 0%, 50%)"
+    },
+    "category": "gray",
+    "luminance": 0.2158605001138992,
+    "isLight": true,
+    "complementary": {
+      "hex": "#808080",
+      "closestMatch": "gray"
+    },
+    "analogousColors": [
+      {
+        "hex": "#808080",
+        "closestMatch": "gray"
+      },
+      {
+        "hex": "#808080",
+        "closestMatch": "gray"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#808080",
+        "closestMatch": "gray"
+      },
+      {
+        "hex": "#808080",
+        "closestMatch": "gray"
+      }
+    ]
+  },
+  {
+    "name": "honeydew",
+    "hex": "#f0fff0",
+    "rgb": {
+      "r": 240,
+      "g": 255,
+      "b": 240,
+      "string": "rgb(240, 255, 240)"
+    },
+    "hsl": {
+      "h": 120,
+      "s": 100,
+      "l": 97,
+      "string": "hsl(120, 100%, 97%)"
+    },
+    "category": "white",
+    "luminance": 0.9633653555478174,
+    "isLight": true,
+    "complementary": {
+      "hex": "#fff0ff",
+      "closestMatch": "lavenderblush"
+    },
+    "analogousColors": [
+      {
+        "hex": "#f0fff7",
+        "closestMatch": "mintcream"
+      },
+      {
+        "hex": "#f7fff0",
+        "closestMatch": "honeydew"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#f0f0ff",
+        "closestMatch": "aliceblue"
+      },
+      {
+        "hex": "#fff0f0",
+        "closestMatch": "lavenderblush"
+      }
+    ]
+  },
+  {
+    "name": "hotpink",
+    "hex": "#ff69b4",
+    "rgb": {
+      "r": 255,
+      "g": 105,
+      "b": 180,
+      "string": "rgb(255, 105, 180)"
+    },
+    "hsl": {
+      "h": 330,
+      "s": 100,
+      "l": 71,
+      "string": "hsl(330, 100%, 71%)"
+    },
+    "category": "pink",
+    "luminance": 0.3465843816971475,
+    "isLight": true,
+    "complementary": {
+      "hex": "#6bffb5",
+      "closestMatch": "aquamarine"
+    },
+    "analogousColors": [
+      {
+        "hex": "#ff6b6b",
+        "closestMatch": "salmon"
+      },
+      {
+        "hex": "#ff6bff",
+        "closestMatch": "violet"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#b5ff6b",
+        "closestMatch": "palegreen"
+      },
+      {
+        "hex": "#6bb5ff",
+        "closestMatch": "cornflowerblue"
+      }
+    ]
+  },
+  {
+    "name": "indianred",
+    "hex": "#cd5c5c",
+    "rgb": {
+      "r": 205,
+      "g": 92,
+      "b": 92,
+      "string": "rgb(205, 92, 92)"
+    },
+    "hsl": {
+      "h": 0,
+      "s": 53,
+      "l": 58,
+      "string": "hsl(0, 53%, 58%)"
+    },
+    "category": "red",
+    "luminance": 0.21406134963883997,
+    "isLight": true,
+    "complementary": {
+      "hex": "#5bcdcd",
+      "closestMatch": "mediumturquoise"
+    },
+    "analogousColors": [
+      {
+        "hex": "#cd945b",
+        "closestMatch": "peru"
+      },
+      {
+        "hex": "#cd5b94",
+        "closestMatch": "palevioletred"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#5bcd5b",
+        "closestMatch": "mediumseagreen"
+      },
+      {
+        "hex": "#5b5bcd",
+        "closestMatch": "slateblue"
+      }
+    ]
+  },
+  {
+    "name": "indigo",
+    "hex": "#4b0082",
+    "rgb": {
+      "r": 75,
+      "g": 0,
+      "b": 130,
+      "string": "rgb(75, 0, 130)"
+    },
+    "hsl": {
+      "h": 275,
+      "s": 100,
+      "l": 25,
+      "string": "hsl(275, 100%, 25%)"
+    },
+    "category": "purple",
+    "luminance": 0.031075614863369856,
+    "isLight": false,
+    "complementary": {
+      "hex": "#358000",
+      "closestMatch": "forestgreen"
+    },
+    "analogousColors": [
+      {
+        "hex": "#800075",
+        "closestMatch": "purple"
+      },
+      {
+        "hex": "#0b0080",
+        "closestMatch": "navy"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#804a00",
+        "closestMatch": "saddlebrown"
+      },
+      {
+        "hex": "#00804a",
+        "closestMatch": "seagreen"
+      }
+    ]
+  },
+  {
+    "name": "ivory",
+    "hex": "#fffff0",
+    "rgb": {
+      "r": 255,
+      "g": 255,
+      "b": 240,
+      "string": "rgb(255, 255, 240)"
+    },
+    "hsl": {
+      "h": 60,
+      "s": 100,
+      "l": 97,
+      "string": "hsl(60, 100%, 97%)"
+    },
+    "category": "white",
+    "luminance": 0.9907127060061531,
+    "isLight": true,
+    "complementary": {
+      "hex": "#f0f0ff",
+      "closestMatch": "aliceblue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#f7fff0",
+        "closestMatch": "honeydew"
+      },
+      {
+        "hex": "#fff7f0",
+        "closestMatch": "seashell"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#f0ffff",
+        "closestMatch": "azure"
+      },
+      {
+        "hex": "#fff0ff",
+        "closestMatch": "lavenderblush"
+      }
+    ]
+  },
+  {
+    "name": "khaki",
+    "hex": "#f0e68c",
+    "rgb": {
+      "r": 240,
+      "g": 230,
+      "b": 140,
+      "string": "rgb(240, 230, 140)"
+    },
+    "hsl": {
+      "h": 54,
+      "s": 77,
+      "l": 75,
+      "string": "hsl(54, 77%, 75%)"
+    },
+    "category": "yellow",
+    "luminance": 0.7701234339412055,
+    "isLight": true,
+    "complementary": {
+      "hex": "#8e98f0",
+      "closestMatch": "cornflowerblue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#c9f08e",
+        "closestMatch": "khaki"
+      },
+      {
+        "hex": "#f0b58e",
+        "closestMatch": "burlywood"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#8ef0e7",
+        "closestMatch": "aquamarine"
+      },
+      {
+        "hex": "#e78ef0",
+        "closestMatch": "violet"
+      }
+    ]
+  },
+  {
+    "name": "lavender",
+    "hex": "#e6e6fa",
+    "rgb": {
+      "r": 230,
+      "g": 230,
+      "b": 250,
+      "string": "rgb(230, 230, 250)"
+    },
+    "hsl": {
+      "h": 240,
+      "s": 67,
+      "l": 94,
+      "string": "hsl(240, 67%, 94%)"
+    },
+    "category": "purple",
+    "luminance": 0.8031875051452129,
+    "isLight": true,
+    "complementary": {
+      "hex": "#fafae5",
+      "closestMatch": "oldlace"
+    },
+    "analogousColors": [
+      {
+        "hex": "#f0e5fa",
+        "closestMatch": "lavender"
+      },
+      {
+        "hex": "#e5f0fa",
+        "closestMatch": "lavender"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#fae5e5",
+        "closestMatch": "mistyrose"
+      },
+      {
+        "hex": "#e5fae5",
+        "closestMatch": "honeydew"
+      }
+    ]
+  },
+  {
+    "name": "lavenderblush",
+    "hex": "#fff0f5",
+    "rgb": {
+      "r": 255,
+      "g": 240,
+      "b": 245,
+      "string": "rgb(255, 240, 245)"
+    },
+    "hsl": {
+      "h": 340,
+      "s": 100,
+      "l": 97,
+      "string": "hsl(340, 100%, 97%)"
+    },
+    "category": "pink",
+    "luminance": 0.9017274863104646,
+    "isLight": true,
+    "complementary": {
+      "hex": "#f0fffa",
+      "closestMatch": "azure"
+    },
+    "analogousColors": [
+      {
+        "hex": "#fff2f0",
+        "closestMatch": "seashell"
+      },
+      {
+        "hex": "#fff0fc",
+        "closestMatch": "lavenderblush"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#f5fff0",
+        "closestMatch": "honeydew"
+      },
+      {
+        "hex": "#f0f5ff",
+        "closestMatch": "aliceblue"
+      }
+    ]
+  },
+  {
+    "name": "lawngreen",
+    "hex": "#7cfc00",
+    "rgb": {
+      "r": 124,
+      "g": 252,
+      "b": 0,
+      "string": "rgb(124, 252, 0)"
+    },
+    "hsl": {
+      "h": 90,
+      "s": 100,
+      "l": 49,
+      "string": "hsl(90, 100%, 49%)"
+    },
+    "category": "green",
+    "luminance": 0.7390589312496334,
+    "isLight": true,
+    "complementary": {
+      "hex": "#7d00fa",
+      "closestMatch": "darkviolet"
+    },
+    "analogousColors": [
+      {
+        "hex": "#00fa00",
+        "closestMatch": "lime"
+      },
+      {
+        "hex": "#fafa00",
+        "closestMatch": "yellow"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#007dfa",
+        "closestMatch": "dodgerblue"
+      },
+      {
+        "hex": "#fa007d",
+        "closestMatch": "deeppink"
+      }
+    ]
+  },
+  {
+    "name": "lemonchiffon",
+    "hex": "#fffacd",
+    "rgb": {
+      "r": 255,
+      "g": 250,
+      "b": 205,
+      "string": "rgb(255, 250, 205)"
+    },
+    "hsl": {
+      "h": 54,
+      "s": 100,
+      "l": 90,
+      "string": "hsl(54, 100%, 90%)"
+    },
+    "category": "yellow",
+    "luminance": 0.9403899224562173,
+    "isLight": true,
+    "complementary": {
+      "hex": "#ccd1ff",
+      "closestMatch": "lavender"
+    },
+    "analogousColors": [
+      {
+        "hex": "#ebffcc",
+        "closestMatch": "lightgoldenrodyellow"
+      },
+      {
+        "hex": "#ffe0cc",
+        "closestMatch": "bisque"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#ccfffa",
+        "closestMatch": "lightcyan"
+      },
+      {
+        "hex": "#faccff",
+        "closestMatch": "lavender"
+      }
+    ]
+  },
+  {
+    "name": "lightblue",
+    "hex": "#add8e6",
+    "rgb": {
+      "r": 173,
+      "g": 216,
+      "b": 230,
+      "string": "rgb(173, 216, 230)"
+    },
+    "hsl": {
+      "h": 195,
+      "s": 53,
+      "l": 79,
+      "string": "hsl(195, 53%, 79%)"
+    },
+    "category": "blue",
+    "luminance": 0.637091412808066,
+    "isLight": true,
+    "complementary": {
+      "hex": "#e6bbad",
+      "closestMatch": "lightpink"
+    },
+    "analogousColors": [
+      {
+        "hex": "#adbbe6",
+        "closestMatch": "lightsteelblue"
+      },
+      {
+        "hex": "#ade6d8",
+        "closestMatch": "powderblue"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#e6add8",
+        "closestMatch": "plum"
+      },
+      {
+        "hex": "#d8e6ad",
+        "closestMatch": "palegoldenrod"
+      }
+    ]
+  },
+  {
+    "name": "lightcoral",
+    "hex": "#f08080",
+    "rgb": {
+      "r": 240,
+      "g": 128,
+      "b": 128,
+      "string": "rgb(240, 128, 128)"
+    },
+    "hsl": {
+      "h": 0,
+      "s": 79,
+      "l": 72,
+      "string": "hsl(0, 79%, 72%)"
+    },
+    "category": "red",
+    "luminance": 0.35522120733134854,
+    "isLight": true,
+    "complementary": {
+      "hex": "#7ff0f0",
+      "closestMatch": "aquamarine"
+    },
+    "analogousColors": [
+      {
+        "hex": "#f0b87f",
+        "closestMatch": "burlywood"
+      },
+      {
+        "hex": "#f07fb8",
+        "closestMatch": "hotpink"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#7ff07f",
+        "closestMatch": "lightgreen"
+      },
+      {
+        "hex": "#7f7ff0",
+        "closestMatch": "mediumslateblue"
+      }
+    ]
+  },
+  {
+    "name": "lightcyan",
+    "hex": "#e0ffff",
+    "rgb": {
+      "r": 224,
+      "g": 255,
+      "b": 255,
+      "string": "rgb(224, 255, 255)"
+    },
+    "hsl": {
+      "h": 180,
+      "s": 100,
+      "l": 94,
+      "string": "hsl(180, 100%, 94%)"
+    },
+    "category": "blue",
+    "luminance": 0.9458729349482864,
+    "isLight": true,
+    "complementary": {
+      "hex": "#ffe0e0",
+      "closestMatch": "mistyrose"
+    },
+    "analogousColors": [
+      {
+        "hex": "#e0f0ff",
+        "closestMatch": "lavender"
+      },
+      {
+        "hex": "#e0fff0",
+        "closestMatch": "lightcyan"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#ffe0ff",
+        "closestMatch": "lavenderblush"
+      },
+      {
+        "hex": "#ffffe0",
+        "closestMatch": "lightyellow"
+      }
+    ]
+  },
+  {
+    "name": "lightgoldenrodyellow",
+    "hex": "#fafad2",
+    "rgb": {
+      "r": 250,
+      "g": 250,
+      "b": 210,
+      "string": "rgb(250, 250, 210)"
+    },
+    "hsl": {
+      "h": 60,
+      "s": 80,
+      "l": 90,
+      "string": "hsl(60, 80%, 90%)"
+    },
+    "category": "yellow",
+    "luminance": 0.9334835101829637,
+    "isLight": true,
+    "complementary": {
+      "hex": "#d1d1fa",
+      "closestMatch": "lavender"
+    },
+    "analogousColors": [
+      {
+        "hex": "#e6fad1",
+        "closestMatch": "beige"
+      },
+      {
+        "hex": "#fae6d1",
+        "closestMatch": "antiquewhite"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#d1fafa",
+        "closestMatch": "lightcyan"
+      },
+      {
+        "hex": "#fad1fa",
+        "closestMatch": "lavender"
+      }
+    ]
+  },
+  {
+    "name": "lightgray",
+    "hex": "#d3d3d3",
+    "rgb": {
+      "r": 211,
+      "g": 211,
+      "b": 211,
+      "string": "rgb(211, 211, 211)"
+    },
+    "hsl": {
+      "h": 0,
+      "s": 0,
+      "l": 83,
+      "string": "hsl(0, 0%, 83%)"
+    },
+    "category": "gray",
+    "luminance": 0.6514056374198242,
+    "isLight": true,
+    "complementary": {
+      "hex": "#d4d4d4",
+      "closestMatch": "lightgray"
+    },
+    "analogousColors": [
+      {
+        "hex": "#d4d4d4",
+        "closestMatch": "lightgray"
+      },
+      {
+        "hex": "#d4d4d4",
+        "closestMatch": "lightgray"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#d4d4d4",
+        "closestMatch": "lightgray"
+      },
+      {
+        "hex": "#d4d4d4",
+        "closestMatch": "lightgray"
+      }
+    ]
+  },
+  {
+    "name": "lightgreen",
+    "hex": "#90ee90",
+    "rgb": {
+      "r": 144,
+      "g": 238,
+      "b": 144,
+      "string": "rgb(144, 238, 144)"
+    },
+    "hsl": {
+      "h": 120,
+      "s": 73,
+      "l": 75,
+      "string": "hsl(120, 73%, 75%)"
+    },
+    "category": "green",
+    "luminance": 0.6909197995686476,
+    "isLight": true,
+    "complementary": {
+      "hex": "#ee91ee",
+      "closestMatch": "violet"
+    },
+    "analogousColors": [
+      {
+        "hex": "#91eebf",
+        "closestMatch": "aquamarine"
+      },
+      {
+        "hex": "#bfee91",
+        "closestMatch": "palegreen"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#9191ee",
+        "closestMatch": "mediumpurple"
+      },
+      {
+        "hex": "#ee9191",
+        "closestMatch": "darksalmon"
+      }
+    ]
+  },
+  {
+    "name": "lightgrey",
+    "hex": "#d3d3d3",
+    "rgb": {
+      "r": 211,
+      "g": 211,
+      "b": 211,
+      "string": "rgb(211, 211, 211)"
+    },
+    "hsl": {
+      "h": 0,
+      "s": 0,
+      "l": 83,
+      "string": "hsl(0, 0%, 83%)"
+    },
+    "category": "gray",
+    "luminance": 0.6514056374198242,
+    "isLight": true,
+    "complementary": {
+      "hex": "#d4d4d4",
+      "closestMatch": "lightgray"
+    },
+    "analogousColors": [
+      {
+        "hex": "#d4d4d4",
+        "closestMatch": "lightgray"
+      },
+      {
+        "hex": "#d4d4d4",
+        "closestMatch": "lightgray"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#d4d4d4",
+        "closestMatch": "lightgray"
+      },
+      {
+        "hex": "#d4d4d4",
+        "closestMatch": "lightgray"
+      }
+    ]
+  },
+  {
+    "name": "lightpink",
+    "hex": "#ffb6c1",
+    "rgb": {
+      "r": 255,
+      "g": 182,
+      "b": 193,
+      "string": "rgb(255, 182, 193)"
+    },
+    "hsl": {
+      "h": 351,
+      "s": 100,
+      "l": 86,
+      "string": "hsl(351, 100%, 86%)"
+    },
+    "category": "pink",
+    "luminance": 0.5856615273489745,
+    "isLight": true,
+    "complementary": {
+      "hex": "#b8fff4",
+      "closestMatch": "paleturquoise"
+    },
+    "analogousColors": [
+      {
+        "hex": "#ffd1b8",
+        "closestMatch": "peachpuff"
+      },
+      {
+        "hex": "#ffb8e6",
+        "closestMatch": "pink"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#c2ffb8",
+        "closestMatch": "palegoldenrod"
+      },
+      {
+        "hex": "#b8c2ff",
+        "closestMatch": "lightsteelblue"
+      }
+    ]
+  },
+  {
+    "name": "lightsalmon",
+    "hex": "#ffa07a",
+    "rgb": {
+      "r": 255,
+      "g": 160,
+      "b": 122,
+      "string": "rgb(255, 160, 122)"
+    },
+    "hsl": {
+      "h": 17,
+      "s": 100,
+      "l": 74,
+      "string": "hsl(17, 100%, 74%)"
+    },
+    "category": "orange",
+    "luminance": 0.47806752252059603,
+    "isLight": true,
+    "complementary": {
+      "hex": "#7ad9ff",
+      "closestMatch": "lightskyblue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#ffe27a",
+        "closestMatch": "khaki"
+      },
+      {
+        "hex": "#ff7a97",
+        "closestMatch": "lightcoral"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#7affa0",
+        "closestMatch": "palegreen"
+      },
+      {
+        "hex": "#a07aff",
+        "closestMatch": "mediumpurple"
+      }
+    ]
+  },
+  {
+    "name": "lightseagreen",
+    "hex": "#20b2aa",
+    "rgb": {
+      "r": 32,
+      "g": 178,
+      "b": 170,
+      "string": "rgb(32, 178, 170)"
+    },
+    "hsl": {
+      "h": 177,
+      "s": 70,
+      "l": 41,
+      "string": "hsl(177, 70%, 41%)"
+    },
+    "category": "green",
+    "luminance": 0.35050145117042,
+    "isLight": true,
+    "complementary": {
+      "hex": "#b21f27",
+      "closestMatch": "firebrick"
+    },
+    "analogousColors": [
+      {
+        "hex": "#1f70b2",
+        "closestMatch": "steelblue"
+      },
+      {
+        "hex": "#1fb261",
+        "closestMatch": "mediumseagreen"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#aa1fb2",
+        "closestMatch": "darkorchid"
+      },
+      {
+        "hex": "#b2aa1f",
+        "closestMatch": "goldenrod"
+      }
+    ]
+  },
+  {
+    "name": "lightskyblue",
+    "hex": "#87cefa",
+    "rgb": {
+      "r": 135,
+      "g": 206,
+      "b": 250,
+      "string": "rgb(135, 206, 250)"
+    },
+    "hsl": {
+      "h": 203,
+      "s": 92,
+      "l": 75,
+      "string": "hsl(203, 92%, 75%)"
+    },
+    "category": "blue",
+    "luminance": 0.56195637618331,
+    "isLight": true,
+    "complementary": {
+      "hex": "#fab285",
+      "closestMatch": "lightsalmon"
+    },
+    "analogousColors": [
+      {
+        "hex": "#8592fa",
+        "closestMatch": "cornflowerblue"
+      },
+      {
+        "hex": "#85faec",
+        "closestMatch": "aquamarine"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#fa85cd",
+        "closestMatch": "violet"
+      },
+      {
+        "hex": "#cdfa85",
+        "closestMatch": "khaki"
+      }
+    ]
+  },
+  {
+    "name": "lightslategray",
+    "hex": "#778899",
+    "rgb": {
+      "r": 119,
+      "g": 136,
+      "b": 153,
+      "string": "rgb(119, 136, 153)"
+    },
+    "hsl": {
+      "h": 210,
+      "s": 14,
+      "l": 53,
+      "string": "hsl(210, 14%, 53%)"
+    },
+    "category": "gray",
+    "luminance": 0.23830165007286933,
+    "isLight": true,
+    "complementary": {
+      "hex": "#988776",
+      "closestMatch": "gray"
+    },
+    "analogousColors": [
+      {
+        "hex": "#767698",
+        "closestMatch": "slategray"
+      },
+      {
+        "hex": "#769898",
+        "closestMatch": "lightslategray"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#987687",
+        "closestMatch": "gray"
+      },
+      {
+        "hex": "#879876",
+        "closestMatch": "gray"
+      }
+    ]
+  },
+  {
+    "name": "lightslategrey",
+    "hex": "#778899",
+    "rgb": {
+      "r": 119,
+      "g": 136,
+      "b": 153,
+      "string": "rgb(119, 136, 153)"
+    },
+    "hsl": {
+      "h": 210,
+      "s": 14,
+      "l": 53,
+      "string": "hsl(210, 14%, 53%)"
+    },
+    "category": "gray",
+    "luminance": 0.23830165007286933,
+    "isLight": true,
+    "complementary": {
+      "hex": "#988776",
+      "closestMatch": "gray"
+    },
+    "analogousColors": [
+      {
+        "hex": "#767698",
+        "closestMatch": "slategray"
+      },
+      {
+        "hex": "#769898",
+        "closestMatch": "lightslategray"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#987687",
+        "closestMatch": "gray"
+      },
+      {
+        "hex": "#879876",
+        "closestMatch": "gray"
+      }
+    ]
+  },
+  {
+    "name": "lightsteelblue",
+    "hex": "#b0c4de",
+    "rgb": {
+      "r": 176,
+      "g": 196,
+      "b": 222,
+      "string": "rgb(176, 196, 222)"
+    },
+    "hsl": {
+      "h": 214,
+      "s": 41,
+      "l": 78,
+      "string": "hsl(214, 41%, 78%)"
+    },
+    "category": "blue",
+    "luminance": 0.5398388828466576,
+    "isLight": true,
+    "complementary": {
+      "hex": "#decab0",
+      "closestMatch": "wheat"
+    },
+    "analogousColors": [
+      {
+        "hex": "#b3b0de",
+        "closestMatch": "lightsteelblue"
+      },
+      {
+        "hex": "#b0dbde",
+        "closestMatch": "lightblue"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#deb0c4",
+        "closestMatch": "thistle"
+      },
+      {
+        "hex": "#c4deb0",
+        "closestMatch": "silver"
+      }
+    ]
+  },
+  {
+    "name": "lightyellow",
+    "hex": "#ffffe0",
+    "rgb": {
+      "r": 255,
+      "g": 255,
+      "b": 224,
+      "string": "rgb(255, 255, 224)"
+    },
+    "hsl": {
+      "h": 60,
+      "s": 100,
+      "l": 94,
+      "string": "hsl(60, 100%, 94%)"
+    },
+    "category": "yellow",
+    "luminance": 0.981618183928816,
+    "isLight": true,
+    "complementary": {
+      "hex": "#e0e0ff",
+      "closestMatch": "lavender"
+    },
+    "analogousColors": [
+      {
+        "hex": "#f0ffe0",
+        "closestMatch": "beige"
+      },
+      {
+        "hex": "#fff0e0",
+        "closestMatch": "linen"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#e0ffff",
+        "closestMatch": "lightcyan"
+      },
+      {
+        "hex": "#ffe0ff",
+        "closestMatch": "lavenderblush"
+      }
+    ]
+  },
+  {
+    "name": "lime",
+    "hex": "#00ff00",
+    "rgb": {
+      "r": 0,
+      "g": 255,
+      "b": 0,
+      "string": "rgb(0, 255, 0)"
+    },
+    "hsl": {
+      "h": 120,
+      "s": 100,
+      "l": 50,
+      "string": "hsl(120, 100%, 50%)"
+    },
+    "category": "green",
+    "luminance": 0.7152,
+    "isLight": true,
+    "complementary": {
+      "hex": "#ff00ff",
+      "closestMatch": "fuchsia"
+    },
+    "analogousColors": [
+      {
+        "hex": "#00ff80",
+        "closestMatch": "springgreen"
+      },
+      {
+        "hex": "#80ff00",
+        "closestMatch": "chartreuse"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#0000ff",
+        "closestMatch": "blue"
+      },
+      {
+        "hex": "#ff0000",
+        "closestMatch": "red"
+      }
+    ]
+  },
+  {
+    "name": "limegreen",
+    "hex": "#32cd32",
+    "rgb": {
+      "r": 50,
+      "g": 205,
+      "b": 50,
+      "string": "rgb(50, 205, 50)"
+    },
+    "hsl": {
+      "h": 120,
+      "s": 61,
+      "l": 50,
+      "string": "hsl(120, 61%, 50%)"
+    },
+    "category": "green",
+    "luminance": 0.44571042246097853,
+    "isLight": true,
+    "complementary": {
+      "hex": "#cd32cd",
+      "closestMatch": "mediumorchid"
+    },
+    "analogousColors": [
+      {
+        "hex": "#32cd80",
+        "closestMatch": "mediumseagreen"
+      },
+      {
+        "hex": "#80cd32",
+        "closestMatch": "yellowgreen"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#3232cd",
+        "closestMatch": "royalblue"
+      },
+      {
+        "hex": "#cd3232",
+        "closestMatch": "crimson"
+      }
+    ]
+  },
+  {
+    "name": "linen",
+    "hex": "#faf0e6",
+    "rgb": {
+      "r": 250,
+      "g": 240,
+      "b": 230,
+      "string": "rgb(250, 240, 230)"
+    },
+    "hsl": {
+      "h": 30,
+      "s": 67,
+      "l": 94,
+      "string": "hsl(30, 67%, 94%)"
+    },
+    "category": "white",
+    "luminance": 0.883573409843794,
+    "isLight": true,
+    "complementary": {
+      "hex": "#e5f0fa",
+      "closestMatch": "lavender"
+    },
+    "analogousColors": [
+      {
+        "hex": "#fafae5",
+        "closestMatch": "oldlace"
+      },
+      {
+        "hex": "#fae5e5",
+        "closestMatch": "mistyrose"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#e5faf0",
+        "closestMatch": "honeydew"
+      },
+      {
+        "hex": "#f0e5fa",
+        "closestMatch": "lavender"
+      }
+    ]
+  },
+  {
+    "name": "magenta",
+    "hex": "#ff00ff",
+    "rgb": {
+      "r": 255,
+      "g": 0,
+      "b": 255,
+      "string": "rgb(255, 0, 255)"
+    },
+    "hsl": {
+      "h": 300,
+      "s": 100,
+      "l": 50,
+      "string": "hsl(300, 100%, 50%)"
+    },
+    "category": "pink",
+    "luminance": 0.2848,
+    "isLight": true,
+    "complementary": {
+      "hex": "#00ff00",
+      "closestMatch": "lime"
+    },
+    "analogousColors": [
+      {
+        "hex": "#ff0080",
+        "closestMatch": "deeppink"
+      },
+      {
+        "hex": "#8000ff",
+        "closestMatch": "darkviolet"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#ffff00",
+        "closestMatch": "yellow"
+      },
+      {
+        "hex": "#00ffff",
+        "closestMatch": "aqua"
+      }
+    ]
+  },
+  {
+    "name": "maroon",
+    "hex": "#800000",
+    "rgb": {
+      "r": 128,
+      "g": 0,
+      "b": 0,
+      "string": "rgb(128, 0, 0)"
+    },
+    "hsl": {
+      "h": 0,
+      "s": 100,
+      "l": 25,
+      "string": "hsl(0, 100%, 25%)"
+    },
+    "category": "red",
+    "luminance": 0.04589194232421498,
+    "isLight": false,
+    "complementary": {
+      "hex": "#008080",
+      "closestMatch": "teal"
+    },
+    "analogousColors": [
+      {
+        "hex": "#804000",
+        "closestMatch": "saddlebrown"
+      },
+      {
+        "hex": "#800040",
+        "closestMatch": "brown"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#008000",
+        "closestMatch": "green"
+      },
+      {
+        "hex": "#000080",
+        "closestMatch": "navy"
+      }
+    ]
+  },
+  {
+    "name": "mediumaquamarine",
+    "hex": "#66cdaa",
+    "rgb": {
+      "r": 102,
+      "g": 205,
+      "b": 170,
+      "string": "rgb(102, 205, 170)"
+    },
+    "hsl": {
+      "h": 160,
+      "s": 51,
+      "l": 60,
+      "string": "hsl(160, 51%, 60%)"
+    },
+    "category": "green",
+    "luminance": 0.4938970331080111,
+    "isLight": true,
+    "complementary": {
+      "hex": "#cd6588",
+      "closestMatch": "palevioletred"
+    },
+    "analogousColors": [
+      {
+        "hex": "#65bccd",
+        "closestMatch": "mediumturquoise"
+      },
+      {
+        "hex": "#65cd76",
+        "closestMatch": "mediumseagreen"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#aa65cd",
+        "closestMatch": "mediumorchid"
+      },
+      {
+        "hex": "#cdaa65",
+        "closestMatch": "darkkhaki"
+      }
+    ]
+  },
+  {
+    "name": "mediumblue",
+    "hex": "#0000cd",
+    "rgb": {
+      "r": 0,
+      "g": 0,
+      "b": 205,
+      "string": "rgb(0, 0, 205)"
+    },
+    "hsl": {
+      "h": 240,
+      "s": 100,
+      "l": 40,
+      "string": "hsl(240, 100%, 40%)"
+    },
+    "category": "blue",
+    "luminance": 0.04407778021232783,
+    "isLight": false,
+    "complementary": {
+      "hex": "#cccc00",
+      "closestMatch": "gold"
+    },
+    "analogousColors": [
+      {
+        "hex": "#6600cc",
+        "closestMatch": "darkviolet"
+      },
+      {
+        "hex": "#0066cc",
+        "closestMatch": "royalblue"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#cc0000",
+        "closestMatch": "red"
+      },
+      {
+        "hex": "#00cc00",
+        "closestMatch": "lime"
+      }
+    ]
+  },
+  {
+    "name": "mediumorchid",
+    "hex": "#ba55d3",
+    "rgb": {
+      "r": 186,
+      "g": 85,
+      "b": 211,
+      "string": "rgb(186, 85, 211)"
+    },
+    "hsl": {
+      "h": 288,
+      "s": 59,
+      "l": 58,
+      "string": "hsl(288, 59%, 58%)"
+    },
+    "category": "purple",
+    "luminance": 0.21639251153773434,
+    "isLight": true,
+    "complementary": {
+      "hex": "#6ed355",
+      "closestMatch": "yellowgreen"
+    },
+    "analogousColors": [
+      {
+        "hex": "#d355ad",
+        "closestMatch": "palevioletred"
+      },
+      {
+        "hex": "#7b55d3",
+        "closestMatch": "slateblue"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#d3ba55",
+        "closestMatch": "darkkhaki"
+      },
+      {
+        "hex": "#55d3ba",
+        "closestMatch": "mediumturquoise"
+      }
+    ]
+  },
+  {
+    "name": "mediumpurple",
+    "hex": "#9370db",
+    "rgb": {
+      "r": 147,
+      "g": 112,
+      "b": 219,
+      "string": "rgb(147, 112, 219)"
+    },
+    "hsl": {
+      "h": 260,
+      "s": 60,
+      "l": 65,
+      "string": "hsl(260, 60%, 65%)"
+    },
+    "category": "purple",
+    "luminance": 0.22905858091648007,
+    "isLight": true,
+    "complementary": {
+      "hex": "#b8db70",
+      "closestMatch": "darkkhaki"
+    },
+    "analogousColors": [
+      {
+        "hex": "#c970db",
+        "closestMatch": "orchid"
+      },
+      {
+        "hex": "#7082db",
+        "closestMatch": "cornflowerblue"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#db9470",
+        "closestMatch": "darksalmon"
+      },
+      {
+        "hex": "#70db94",
+        "closestMatch": "mediumaquamarine"
+      }
+    ]
+  },
+  {
+    "name": "mediumseagreen",
+    "hex": "#3cb371",
+    "rgb": {
+      "r": 60,
+      "g": 179,
+      "b": 113,
+      "string": "rgb(60, 179, 113)"
+    },
+    "hsl": {
+      "h": 147,
+      "s": 50,
+      "l": 47,
+      "string": "hsl(147, 50%, 47%)"
+    },
+    "category": "green",
+    "luminance": 0.34393112338131243,
+    "isLight": true,
+    "complementary": {
+      "hex": "#b43c7e",
+      "closestMatch": "mediumvioletred"
+    },
+    "analogousColors": [
+      {
+        "hex": "#3cb4ae",
+        "closestMatch": "lightseagreen"
+      },
+      {
+        "hex": "#42b43c",
+        "closestMatch": "limegreen"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#723cb4",
+        "closestMatch": "rebeccapurple"
+      },
+      {
+        "hex": "#b4723c",
+        "closestMatch": "peru"
+      }
+    ]
+  },
+  {
+    "name": "mediumslateblue",
+    "hex": "#7b68ee",
+    "rgb": {
+      "r": 123,
+      "g": 104,
+      "b": 238,
+      "string": "rgb(123, 104, 238)"
+    },
+    "hsl": {
+      "h": 249,
+      "s": 80,
+      "l": 67,
+      "string": "hsl(249, 80%, 67%)"
+    },
+    "category": "blue",
+    "luminance": 0.20284629471622434,
+    "isLight": true,
+    "complementary": {
+      "hex": "#daee68",
+      "closestMatch": "khaki"
+    },
+    "analogousColors": [
+      {
+        "hex": "#bf68ee",
+        "closestMatch": "mediumorchid"
+      },
+      {
+        "hex": "#6897ee",
+        "closestMatch": "cornflowerblue"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#ee7c68",
+        "closestMatch": "salmon"
+      },
+      {
+        "hex": "#68ee7c",
+        "closestMatch": "lightgreen"
+      }
+    ]
+  },
+  {
+    "name": "mediumspringgreen",
+    "hex": "#00fa9a",
+    "rgb": {
+      "r": 0,
+      "g": 250,
+      "b": 154,
+      "string": "rgb(0, 250, 154)"
+    },
+    "hsl": {
+      "h": 157,
+      "s": 100,
+      "l": 49,
+      "string": "hsl(157, 100%, 49%)"
+    },
+    "category": "green",
+    "luminance": 0.7070430819418445,
+    "isLight": true,
+    "complementary": {
+      "hex": "#fa0060",
+      "closestMatch": "crimson"
+    },
+    "analogousColors": [
+      {
+        "hex": "#00ddfa",
+        "closestMatch": "deepskyblue"
+      },
+      {
+        "hex": "#00fa1d",
+        "closestMatch": "lime"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#9a00fa",
+        "closestMatch": "darkviolet"
+      },
+      {
+        "hex": "#fa9a00",
+        "closestMatch": "orange"
+      }
+    ]
+  },
+  {
+    "name": "mediumturquoise",
+    "hex": "#48d1cc",
+    "rgb": {
+      "r": 72,
+      "g": 209,
+      "b": 204,
+      "string": "rgb(72, 209, 204)"
+    },
+    "hsl": {
+      "h": 178,
+      "s": 60,
+      "l": 55,
+      "string": "hsl(178, 60%, 55%)"
+    },
+    "category": "blue",
+    "luminance": 0.5133827926447992,
+    "isLight": true,
+    "complementary": {
+      "hex": "#d1474c",
+      "closestMatch": "indianred"
+    },
+    "analogousColors": [
+      {
+        "hex": "#4791d1",
+        "closestMatch": "steelblue"
+      },
+      {
+        "hex": "#47d188",
+        "closestMatch": "mediumseagreen"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#cd47d1",
+        "closestMatch": "mediumorchid"
+      },
+      {
+        "hex": "#d1cd47",
+        "closestMatch": "darkkhaki"
+      }
+    ]
+  },
+  {
+    "name": "mediumvioletred",
+    "hex": "#c71585",
+    "rgb": {
+      "r": 199,
+      "g": 21,
+      "b": 133,
+      "string": "rgb(199, 21, 133)"
+    },
+    "hsl": {
+      "h": 322,
+      "s": 81,
+      "l": 43,
+      "string": "hsl(322, 81%, 43%)"
+    },
+    "category": "purple",
+    "luminance": 0.14371899849357195,
+    "isLight": false,
+    "complementary": {
+      "hex": "#15c656",
+      "closestMatch": "limegreen"
+    },
+    "analogousColors": [
+      {
+        "hex": "#c6152d",
+        "closestMatch": "firebrick"
+      },
+      {
+        "hex": "#af15c6",
+        "closestMatch": "darkviolet"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#85c615",
+        "closestMatch": "yellowgreen"
+      },
+      {
+        "hex": "#1585c6",
+        "closestMatch": "steelblue"
+      }
+    ]
+  },
+  {
+    "name": "midnightblue",
+    "hex": "#191970",
+    "rgb": {
+      "r": 25,
+      "g": 25,
+      "b": 112,
+      "string": "rgb(25, 25, 112)"
+    },
+    "hsl": {
+      "h": 240,
+      "s": 64,
+      "l": 27,
+      "string": "hsl(240, 64%, 27%)"
+    },
+    "category": "blue",
+    "luminance": 0.020717866350860488,
+    "isLight": false,
+    "complementary": {
+      "hex": "#717119",
+      "closestMatch": "olivedrab"
+    },
+    "analogousColors": [
+      {
+        "hex": "#451971",
+        "closestMatch": "indigo"
+      },
+      {
+        "hex": "#194571",
+        "closestMatch": "darkslategray"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#711919",
+        "closestMatch": "maroon"
+      },
+      {
+        "hex": "#197119",
+        "closestMatch": "forestgreen"
+      }
+    ]
+  },
+  {
+    "name": "mintcream",
+    "hex": "#f5fffa",
+    "rgb": {
+      "r": 245,
+      "g": 255,
+      "b": 250,
+      "string": "rgb(245, 255, 250)"
+    },
+    "hsl": {
+      "h": 150,
+      "s": 100,
+      "l": 98,
+      "string": "hsl(150, 100%, 98%)"
+    },
+    "category": "white",
+    "luminance": 0.9783460494758793,
+    "isLight": true,
+    "complementary": {
+      "hex": "#fff5fa",
+      "closestMatch": "snow"
+    },
+    "analogousColors": [
+      {
+        "hex": "#f5ffff",
+        "closestMatch": "azure"
+      },
+      {
+        "hex": "#f5fff5",
+        "closestMatch": "mintcream"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#faf5ff",
+        "closestMatch": "ghostwhite"
+      },
+      {
+        "hex": "#fffaf5",
+        "closestMatch": "floralwhite"
+      }
+    ]
+  },
+  {
+    "name": "mistyrose",
+    "hex": "#ffe4e1",
+    "rgb": {
+      "r": 255,
+      "g": 228,
+      "b": 225,
+      "string": "rgb(255, 228, 225)"
+    },
+    "hsl": {
+      "h": 6,
+      "s": 100,
+      "l": 94,
+      "string": "hsl(6, 100%, 94%)"
+    },
+    "category": "pink",
+    "luminance": 0.8218304785918541,
+    "isLight": true,
+    "complementary": {
+      "hex": "#e0fcff",
+      "closestMatch": "lightcyan"
+    },
+    "analogousColors": [
+      {
+        "hex": "#fff3e0",
+        "closestMatch": "cornsilk"
+      },
+      {
+        "hex": "#ffe0ed",
+        "closestMatch": "mistyrose"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#e0ffe3",
+        "closestMatch": "honeydew"
+      },
+      {
+        "hex": "#e3e0ff",
+        "closestMatch": "lavender"
+      }
+    ]
+  },
+  {
+    "name": "moccasin",
+    "hex": "#ffe4b5",
+    "rgb": {
+      "r": 255,
+      "g": 228,
+      "b": 181,
+      "string": "rgb(255, 228, 181)"
+    },
+    "hsl": {
+      "h": 38,
+      "s": 100,
+      "l": 85,
+      "string": "hsl(38, 100%, 85%)"
+    },
+    "category": "orange",
+    "luminance": 0.8008300099156694,
+    "isLight": true,
+    "complementary": {
+      "hex": "#b3cfff",
+      "closestMatch": "lightblue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#f5ffb3",
+        "closestMatch": "palegoldenrod"
+      },
+      {
+        "hex": "#ffbdb3",
+        "closestMatch": "lightpink"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#b3ffe3",
+        "closestMatch": "paleturquoise"
+      },
+      {
+        "hex": "#e3b3ff",
+        "closestMatch": "plum"
+      }
+    ]
+  },
+  {
+    "name": "navajowhite",
+    "hex": "#ffdead",
+    "rgb": {
+      "r": 255,
+      "g": 222,
+      "b": 173,
+      "string": "rgb(255, 222, 173)"
+    },
+    "hsl": {
+      "h": 36,
+      "s": 100,
+      "l": 84,
+      "string": "hsl(36, 100%, 84%)"
+    },
+    "category": "white",
+    "luminance": 0.7651968234278564,
+    "isLight": true,
+    "complementary": {
+      "hex": "#adceff",
+      "closestMatch": "lightblue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#f7ffad",
+        "closestMatch": "palegoldenrod"
+      },
+      {
+        "hex": "#ffb6ad",
+        "closestMatch": "lightpink"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#adffde",
+        "closestMatch": "paleturquoise"
+      },
+      {
+        "hex": "#deadff",
+        "closestMatch": "plum"
+      }
+    ]
+  },
+  {
+    "name": "navy",
+    "hex": "#000080",
+    "rgb": {
+      "r": 0,
+      "g": 0,
+      "b": 128,
+      "string": "rgb(0, 0, 128)"
+    },
+    "hsl": {
+      "h": 240,
+      "s": 100,
+      "l": 25,
+      "string": "hsl(240, 100%, 25%)"
+    },
+    "category": "blue",
+    "luminance": 0.015585128108223524,
+    "isLight": false,
+    "complementary": {
+      "hex": "#808000",
+      "closestMatch": "olive"
+    },
+    "analogousColors": [
+      {
+        "hex": "#400080",
+        "closestMatch": "indigo"
+      },
+      {
+        "hex": "#004080",
+        "closestMatch": "midnightblue"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#800000",
+        "closestMatch": "maroon"
+      },
+      {
+        "hex": "#008000",
+        "closestMatch": "green"
+      }
+    ]
+  },
+  {
+    "name": "oldlace",
+    "hex": "#fdf5e6",
+    "rgb": {
+      "r": 253,
+      "g": 245,
+      "b": 230,
+      "string": "rgb(253, 245, 230)"
+    },
+    "hsl": {
+      "h": 39,
+      "s": 85,
+      "l": 95,
+      "string": "hsl(39, 85%, 95%)"
+    },
+    "category": "white",
+    "luminance": 0.91900633405549,
+    "isLight": true,
+    "complementary": {
+      "hex": "#e7effd",
+      "closestMatch": "lavender"
+    },
+    "analogousColors": [
+      {
+        "hex": "#fafde7",
+        "closestMatch": "oldlace"
+      },
+      {
+        "hex": "#fdebe7",
+        "closestMatch": "linen"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#e7fdf6",
+        "closestMatch": "honeydew"
+      },
+      {
+        "hex": "#f6e7fd",
+        "closestMatch": "lavenderblush"
+      }
+    ]
+  },
+  {
+    "name": "olive",
+    "hex": "#808000",
+    "rgb": {
+      "r": 128,
+      "g": 128,
+      "b": 0,
+      "string": "rgb(128, 128, 0)"
+    },
+    "hsl": {
+      "h": 60,
+      "s": 100,
+      "l": 25,
+      "string": "hsl(60, 100%, 25%)"
+    },
+    "category": "green",
+    "luminance": 0.2002753720056757,
+    "isLight": true,
+    "complementary": {
+      "hex": "#000080",
+      "closestMatch": "navy"
+    },
+    "analogousColors": [
+      {
+        "hex": "#408000",
+        "closestMatch": "forestgreen"
+      },
+      {
+        "hex": "#804000",
+        "closestMatch": "saddlebrown"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#008080",
+        "closestMatch": "teal"
+      },
+      {
+        "hex": "#800080",
+        "closestMatch": "purple"
+      }
+    ]
+  },
+  {
+    "name": "olivedrab",
+    "hex": "#6b8e23",
+    "rgb": {
+      "r": 107,
+      "g": 142,
+      "b": 35,
+      "string": "rgb(107, 142, 35)"
+    },
+    "hsl": {
+      "h": 80,
+      "s": 60,
+      "l": 35,
+      "string": "hsl(80, 60%, 35%)"
+    },
+    "category": "green",
+    "luminance": 0.2259315095192918,
+    "isLight": true,
+    "complementary": {
+      "hex": "#47248f",
+      "closestMatch": "darkslateblue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#368f24",
+        "closestMatch": "forestgreen"
+      },
+      {
+        "hex": "#8f7d24",
+        "closestMatch": "olive"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#246b8f",
+        "closestMatch": "teal"
+      },
+      {
+        "hex": "#8f246b",
+        "closestMatch": "purple"
+      }
+    ]
+  },
+  {
+    "name": "orange",
+    "hex": "#ffa500",
+    "rgb": {
+      "r": 255,
+      "g": 165,
+      "b": 0,
+      "string": "rgb(255, 165, 0)"
+    },
+    "hsl": {
+      "h": 39,
+      "s": 100,
+      "l": 50,
+      "string": "hsl(39, 100%, 50%)"
+    },
+    "category": "orange",
+    "luminance": 0.4817026703630963,
+    "isLight": true,
+    "complementary": {
+      "hex": "#0059ff",
+      "closestMatch": "dodgerblue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#d9ff00",
+        "closestMatch": "yellow"
+      },
+      {
+        "hex": "#ff2600",
+        "closestMatch": "orangered"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#00ffa6",
+        "closestMatch": "mediumspringgreen"
+      },
+      {
+        "hex": "#a600ff",
+        "closestMatch": "darkviolet"
+      }
+    ]
+  },
+  {
+    "name": "orangered",
+    "hex": "#ff4500",
+    "rgb": {
+      "r": 255,
+      "g": 69,
+      "b": 0,
+      "string": "rgb(255, 69, 0)"
+    },
+    "hsl": {
+      "h": 16,
+      "s": 100,
+      "l": 50,
+      "string": "hsl(16, 100%, 50%)"
+    },
+    "category": "orange",
+    "luminance": 0.2551624375341642,
+    "isLight": true,
+    "complementary": {
+      "hex": "#00bbff",
+      "closestMatch": "deepskyblue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#ffc300",
+        "closestMatch": "gold"
+      },
+      {
+        "hex": "#ff003c",
+        "closestMatch": "crimson"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#00ff44",
+        "closestMatch": "springgreen"
+      },
+      {
+        "hex": "#4400ff",
+        "closestMatch": "blue"
+      }
+    ]
+  },
+  {
+    "name": "orchid",
+    "hex": "#da70d6",
+    "rgb": {
+      "r": 218,
+      "g": 112,
+      "b": 214,
+      "string": "rgb(218, 112, 214)"
+    },
+    "hsl": {
+      "h": 302,
+      "s": 59,
+      "l": 65,
+      "string": "hsl(302, 59%, 65%)"
+    },
+    "category": "purple",
+    "luminance": 0.3134880676143873,
+    "isLight": true,
+    "complementary": {
+      "hex": "#71da75",
+      "closestMatch": "lightgreen"
+    },
+    "analogousColors": [
+      {
+        "hex": "#da71a2",
+        "closestMatch": "palevioletred"
+      },
+      {
+        "hex": "#a971da",
+        "closestMatch": "mediumpurple"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#d7da71",
+        "closestMatch": "khaki"
+      },
+      {
+        "hex": "#71d7da",
+        "closestMatch": "skyblue"
+      }
+    ]
+  },
+  {
+    "name": "palegoldenrod",
+    "hex": "#eee8aa",
+    "rgb": {
+      "r": 238,
+      "g": 232,
+      "b": 170,
+      "string": "rgb(238, 232, 170)"
+    },
+    "hsl": {
+      "h": 55,
+      "s": 67,
+      "l": 80,
+      "string": "hsl(55, 67%, 80%)"
+    },
+    "category": "yellow",
+    "luminance": 0.7879264788761454,
+    "isLight": true,
+    "complementary": {
+      "hex": "#aab0ee",
+      "closestMatch": "lightsteelblue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#d2eeaa",
+        "closestMatch": "palegoldenrod"
+      },
+      {
+        "hex": "#eec6aa",
+        "closestMatch": "wheat"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#aaeee8",
+        "closestMatch": "paleturquoise"
+      },
+      {
+        "hex": "#e8aaee",
+        "closestMatch": "plum"
+      }
+    ]
+  },
+  {
+    "name": "palegreen",
+    "hex": "#98fb98",
+    "rgb": {
+      "r": 152,
+      "g": 251,
+      "b": 152,
+      "string": "rgb(152, 251, 152)"
+    },
+    "hsl": {
+      "h": 120,
+      "s": 93,
+      "l": 79,
+      "string": "hsl(120, 93%, 79%)"
+    },
+    "category": "green",
+    "luminance": 0.7793675900635257,
+    "isLight": true,
+    "complementary": {
+      "hex": "#fb98fb",
+      "closestMatch": "violet"
+    },
+    "analogousColors": [
+      {
+        "hex": "#98fbc9",
+        "closestMatch": "aquamarine"
+      },
+      {
+        "hex": "#c9fb98",
+        "closestMatch": "palegoldenrod"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#9898fb",
+        "closestMatch": "mediumpurple"
+      },
+      {
+        "hex": "#fb9898",
+        "closestMatch": "lightsalmon"
+      }
+    ]
+  },
+  {
+    "name": "paleturquoise",
+    "hex": "#afeeee",
+    "rgb": {
+      "r": 175,
+      "g": 238,
+      "b": 238,
+      "string": "rgb(175, 238, 238)"
+    },
+    "hsl": {
+      "h": 180,
+      "s": 65,
+      "l": 81,
+      "string": "hsl(180, 65%, 81%)"
+    },
+    "category": "blue",
+    "luminance": 0.7643607792171382,
+    "isLight": true,
+    "complementary": {
+      "hex": "#eeafaf",
+      "closestMatch": "lightpink"
+    },
+    "analogousColors": [
+      {
+        "hex": "#afcfee",
+        "closestMatch": "lightblue"
+      },
+      {
+        "hex": "#afeecf",
+        "closestMatch": "powderblue"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#eeafee",
+        "closestMatch": "plum"
+      },
+      {
+        "hex": "#eeeeaf",
+        "closestMatch": "palegoldenrod"
+      }
+    ]
+  },
+  {
+    "name": "palevioletred",
+    "hex": "#db7093",
+    "rgb": {
+      "r": 219,
+      "g": 112,
+      "b": 147,
+      "string": "rgb(219, 112, 147)"
+    },
+    "hsl": {
+      "h": 340,
+      "s": 60,
+      "l": 65,
+      "string": "hsl(340, 60%, 65%)"
+    },
+    "category": "purple",
+    "luminance": 0.2875499411788909,
+    "isLight": true,
+    "complementary": {
+      "hex": "#70dbb8",
+      "closestMatch": "mediumaquamarine"
+    },
+    "analogousColors": [
+      {
+        "hex": "#db8270",
+        "closestMatch": "darksalmon"
+      },
+      {
+        "hex": "#db70c9",
+        "closestMatch": "orchid"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#94db70",
+        "closestMatch": "lightgreen"
+      },
+      {
+        "hex": "#7094db",
+        "closestMatch": "cornflowerblue"
+      }
+    ]
+  },
+  {
+    "name": "papayawhip",
+    "hex": "#ffefd5",
+    "rgb": {
+      "r": 255,
+      "g": 239,
+      "b": 213,
+      "string": "rgb(255, 239, 213)"
+    },
+    "hsl": {
+      "h": 37,
+      "s": 100,
+      "l": 92,
+      "string": "hsl(37, 100%, 92%)"
+    },
+    "category": "orange",
+    "luminance": 0.877971001998354,
+    "isLight": true,
+    "complementary": {
+      "hex": "#d6e6ff",
+      "closestMatch": "lavender"
+    },
+    "analogousColors": [
+      {
+        "hex": "#faffd6",
+        "closestMatch": "lightgoldenrodyellow"
+      },
+      {
+        "hex": "#ffdbd6",
+        "closestMatch": "mistyrose"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#d6ffef",
+        "closestMatch": "lightcyan"
+      },
+      {
+        "hex": "#efd6ff",
+        "closestMatch": "lavender"
+      }
+    ]
+  },
+  {
+    "name": "peachpuff",
+    "hex": "#ffdab9",
+    "rgb": {
+      "r": 255,
+      "g": 218,
+      "b": 185,
+      "string": "rgb(255, 218, 185)"
+    },
+    "hsl": {
+      "h": 28,
+      "s": 100,
+      "l": 86,
+      "string": "hsl(28, 100%, 86%)"
+    },
+    "category": "orange",
+    "luminance": 0.7490558987825107,
+    "isLight": true,
+    "complementary": {
+      "hex": "#b8deff",
+      "closestMatch": "paleturquoise"
+    },
+    "analogousColors": [
+      {
+        "hex": "#fffdb8",
+        "closestMatch": "lemonchiffon"
+      },
+      {
+        "hex": "#ffb8ba",
+        "closestMatch": "lightpink"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#b8ffd9",
+        "closestMatch": "paleturquoise"
+      },
+      {
+        "hex": "#d9b8ff",
+        "closestMatch": "thistle"
+      }
+    ]
+  },
+  {
+    "name": "peru",
+    "hex": "#cd853f",
+    "rgb": {
+      "r": 205,
+      "g": 133,
+      "b": 63,
+      "string": "rgb(205, 133, 63)"
+    },
+    "hsl": {
+      "h": 30,
+      "s": 59,
+      "l": 53,
+      "string": "hsl(30, 59%, 53%)"
+    },
+    "category": "brown",
+    "luminance": 0.30113074877935697,
+    "isLight": true,
+    "complementary": {
+      "hex": "#4087ce",
+      "closestMatch": "steelblue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#cece40",
+        "closestMatch": "darkkhaki"
+      },
+      {
+        "hex": "#ce4040",
+        "closestMatch": "indianred"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#40ce87",
+        "closestMatch": "mediumseagreen"
+      },
+      {
+        "hex": "#8740ce",
+        "closestMatch": "darkorchid"
+      }
+    ]
+  },
+  {
+    "name": "pink",
+    "hex": "#ffc0cb",
+    "rgb": {
+      "r": 255,
+      "g": 192,
+      "b": 203,
+      "string": "rgb(255, 192, 203)"
+    },
+    "hsl": {
+      "h": 350,
+      "s": 100,
+      "l": 88,
+      "string": "hsl(350, 100%, 88%)"
+    },
+    "category": "pink",
+    "luminance": 0.6327107070246613,
+    "isLight": true,
+    "complementary": {
+      "hex": "#c2fff5",
+      "closestMatch": "paleturquoise"
+    },
+    "analogousColors": [
+      {
+        "hex": "#ffd6c2",
+        "closestMatch": "peachpuff"
+      },
+      {
+        "hex": "#ffc2eb",
+        "closestMatch": "pink"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#ccffc2",
+        "closestMatch": "gainsboro"
+      },
+      {
+        "hex": "#c2ccff",
+        "closestMatch": "lightblue"
+      }
+    ]
+  },
+  {
+    "name": "plum",
+    "hex": "#dda0dd",
+    "rgb": {
+      "r": 221,
+      "g": 160,
+      "b": 221,
+      "string": "rgb(221, 160, 221)"
+    },
+    "hsl": {
+      "h": 300,
+      "s": 47,
+      "l": 75,
+      "string": "hsl(300, 47%, 75%)"
+    },
+    "category": "purple",
+    "luminance": 0.45734221587969115,
+    "isLight": true,
+    "complementary": {
+      "hex": "#a1dda1",
+      "closestMatch": "lightgreen"
+    },
+    "analogousColors": [
+      {
+        "hex": "#dda1bf",
+        "closestMatch": "plum"
+      },
+      {
+        "hex": "#bfa1dd",
+        "closestMatch": "plum"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#dddda1",
+        "closestMatch": "palegoldenrod"
+      },
+      {
+        "hex": "#a1dddd",
+        "closestMatch": "lightblue"
+      }
+    ]
+  },
+  {
+    "name": "powderblue",
+    "hex": "#b0e0e6",
+    "rgb": {
+      "r": 176,
+      "g": 224,
+      "b": 230,
+      "string": "rgb(176, 224, 230)"
+    },
+    "hsl": {
+      "h": 187,
+      "s": 52,
+      "l": 80,
+      "string": "hsl(187, 52%, 80%)"
+    },
+    "category": "blue",
+    "luminance": 0.6825458650060525,
+    "isLight": true,
+    "complementary": {
+      "hex": "#e7b8b1",
+      "closestMatch": "lightpink"
+    },
+    "analogousColors": [
+      {
+        "hex": "#b1c6e7",
+        "closestMatch": "lightsteelblue"
+      },
+      {
+        "hex": "#b1e7d2",
+        "closestMatch": "powderblue"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#e7b1e0",
+        "closestMatch": "plum"
+      },
+      {
+        "hex": "#e0e7b1",
+        "closestMatch": "palegoldenrod"
+      }
+    ]
+  },
+  {
+    "name": "purple",
+    "hex": "#800080",
+    "rgb": {
+      "r": 128,
+      "g": 0,
+      "b": 128,
+      "string": "rgb(128, 0, 128)"
+    },
+    "hsl": {
+      "h": 300,
+      "s": 100,
+      "l": 25,
+      "string": "hsl(300, 100%, 25%)"
+    },
+    "category": "purple",
+    "luminance": 0.0614770704324385,
+    "isLight": false,
+    "complementary": {
+      "hex": "#008000",
+      "closestMatch": "green"
+    },
+    "analogousColors": [
+      {
+        "hex": "#800040",
+        "closestMatch": "brown"
+      },
+      {
+        "hex": "#400080",
+        "closestMatch": "indigo"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#808000",
+        "closestMatch": "olive"
+      },
+      {
+        "hex": "#008080",
+        "closestMatch": "teal"
+      }
+    ]
+  },
+  {
+    "name": "rebeccapurple",
+    "hex": "#663399",
+    "rgb": {
+      "r": 102,
+      "g": 51,
+      "b": 153,
+      "string": "rgb(102, 51, 153)"
+    },
+    "hsl": {
+      "h": 270,
+      "s": 50,
+      "l": 40,
+      "string": "hsl(270, 50%, 40%)"
+    },
+    "category": "purple",
+    "luminance": 0.07492341159447033,
+    "isLight": false,
+    "complementary": {
+      "hex": "#669933",
+      "closestMatch": "olivedrab"
+    },
+    "analogousColors": [
+      {
+        "hex": "#993399",
+        "closestMatch": "rebeccapurple"
+      },
+      {
+        "hex": "#333399",
+        "closestMatch": "darkslateblue"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#996633",
+        "closestMatch": "sienna"
+      },
+      {
+        "hex": "#339966",
+        "closestMatch": "seagreen"
+      }
+    ]
+  },
+  {
+    "name": "red",
+    "hex": "#ff0000",
+    "rgb": {
+      "r": 255,
+      "g": 0,
+      "b": 0,
+      "string": "rgb(255, 0, 0)"
+    },
+    "hsl": {
+      "h": 0,
+      "s": 100,
+      "l": 50,
+      "string": "hsl(0, 100%, 50%)"
+    },
+    "category": "red",
+    "luminance": 0.2126,
+    "isLight": true,
+    "complementary": {
+      "hex": "#00ffff",
+      "closestMatch": "aqua"
+    },
+    "analogousColors": [
+      {
+        "hex": "#ff8000",
+        "closestMatch": "darkorange"
+      },
+      {
+        "hex": "#ff0080",
+        "closestMatch": "deeppink"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#00ff00",
+        "closestMatch": "lime"
+      },
+      {
+        "hex": "#0000ff",
+        "closestMatch": "blue"
+      }
+    ]
+  },
+  {
+    "name": "rosybrown",
+    "hex": "#bc8f8f",
+    "rgb": {
+      "r": 188,
+      "g": 143,
+      "b": 143,
+      "string": "rgb(188, 143, 143)"
+    },
+    "hsl": {
+      "h": 0,
+      "s": 25,
+      "l": 65,
+      "string": "hsl(0, 25%, 65%)"
+    },
+    "category": "brown",
+    "luminance": 0.323194576494071,
+    "isLight": true,
+    "complementary": {
+      "hex": "#8fbcbc",
+      "closestMatch": "darkgray"
+    },
+    "analogousColors": [
+      {
+        "hex": "#bca68f",
+        "closestMatch": "rosybrown"
+      },
+      {
+        "hex": "#bc8fa6",
+        "closestMatch": "rosybrown"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#8fbc8f",
+        "closestMatch": "darkseagreen"
+      },
+      {
+        "hex": "#8f8fbc",
+        "closestMatch": "darkgray"
+      }
+    ]
+  },
+  {
+    "name": "royalblue",
+    "hex": "#4169e1",
+    "rgb": {
+      "r": 65,
+      "g": 105,
+      "b": 225,
+      "string": "rgb(65, 105, 225)"
+    },
+    "hsl": {
+      "h": 225,
+      "s": 73,
+      "l": 57,
+      "string": "hsl(225, 73%, 57%)"
+    },
+    "category": "blue",
+    "luminance": 0.16663210743188323,
+    "isLight": false,
+    "complementary": {
+      "hex": "#e1b941",
+      "closestMatch": "goldenrod"
+    },
+    "analogousColors": [
+      {
+        "hex": "#6941e1",
+        "closestMatch": "slateblue"
+      },
+      {
+        "hex": "#41b9e1",
+        "closestMatch": "mediumturquoise"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#e14169",
+        "closestMatch": "indianred"
+      },
+      {
+        "hex": "#69e141",
+        "closestMatch": "yellowgreen"
+      }
+    ]
+  },
+  {
+    "name": "saddlebrown",
+    "hex": "#8b4513",
+    "rgb": {
+      "r": 139,
+      "g": 69,
+      "b": 19,
+      "string": "rgb(139, 69, 19)"
+    },
+    "hsl": {
+      "h": 25,
+      "s": 76,
+      "l": 31,
+      "string": "hsl(25, 76%, 31%)"
+    },
+    "category": "brown",
+    "luminance": 0.09792228502052074,
+    "isLight": false,
+    "complementary": {
+      "hex": "#13598b",
+      "closestMatch": "teal"
+    },
+    "analogousColors": [
+      {
+        "hex": "#8b8113",
+        "closestMatch": "olive"
+      },
+      {
+        "hex": "#8b131d",
+        "closestMatch": "darkred"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#138b45",
+        "closestMatch": "seagreen"
+      },
+      {
+        "hex": "#45138b",
+        "closestMatch": "indigo"
+      }
+    ]
+  },
+  {
+    "name": "salmon",
+    "hex": "#fa8072",
+    "rgb": {
+      "r": 250,
+      "g": 128,
+      "b": 114,
+      "string": "rgb(250, 128, 114)"
+    },
+    "hsl": {
+      "h": 6,
+      "s": 93,
+      "l": 71,
+      "string": "hsl(6, 93%, 71%)"
+    },
+    "category": "orange",
+    "luminance": 0.3697724152759546,
+    "isLight": true,
+    "complementary": {
+      "hex": "#70ecfa",
+      "closestMatch": "lightskyblue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#fac370",
+        "closestMatch": "sandybrown"
+      },
+      {
+        "hex": "#fa70a7",
+        "closestMatch": "hotpink"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#70fa7e",
+        "closestMatch": "lightgreen"
+      },
+      {
+        "hex": "#7e70fa",
+        "closestMatch": "mediumslateblue"
+      }
+    ]
+  },
+  {
+    "name": "sandybrown",
+    "hex": "#f4a460",
+    "rgb": {
+      "r": 244,
+      "g": 164,
+      "b": 96,
+      "string": "rgb(244, 164, 96)"
+    },
+    "hsl": {
+      "h": 28,
+      "s": 87,
+      "l": 67,
+      "string": "hsl(28, 87%, 67%)"
+    },
+    "category": "brown",
+    "luminance": 0.46628543696283437,
+    "isLight": true,
+    "complementary": {
+      "hex": "#62b0f4",
+      "closestMatch": "cornflowerblue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#f4ef62",
+        "closestMatch": "khaki"
+      },
+      {
+        "hex": "#f46267",
+        "closestMatch": "salmon"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#62f4a6",
+        "closestMatch": "mediumaquamarine"
+      },
+      {
+        "hex": "#a662f4",
+        "closestMatch": "mediumpurple"
+      }
+    ]
+  },
+  {
+    "name": "seagreen",
+    "hex": "#2e8b57",
+    "rgb": {
+      "r": 46,
+      "g": 139,
+      "b": 87,
+      "string": "rgb(46, 139, 87)"
+    },
+    "hsl": {
+      "h": 146,
+      "s": 50,
+      "l": 36,
+      "string": "hsl(146, 50%, 36%)"
+    },
+    "category": "green",
+    "luminance": 0.1973419970627483,
+    "isLight": true,
+    "complementary": {
+      "hex": "#8a2e62",
+      "closestMatch": "purple"
+    },
+    "analogousColors": [
+      {
+        "hex": "#2e8a84",
+        "closestMatch": "seagreen"
+      },
+      {
+        "hex": "#348a2e",
+        "closestMatch": "forestgreen"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#562e8a",
+        "closestMatch": "darkslateblue"
+      },
+      {
+        "hex": "#8a562e",
+        "closestMatch": "sienna"
+      }
+    ]
+  },
+  {
+    "name": "seashell",
+    "hex": "#fff5ee",
+    "rgb": {
+      "r": 255,
+      "g": 245,
+      "b": 238,
+      "string": "rgb(255, 245, 238)"
+    },
+    "hsl": {
+      "h": 25,
+      "s": 100,
+      "l": 97,
+      "string": "hsl(25, 100%, 97%)"
+    },
+    "category": "white",
+    "luminance": 0.9273786220692231,
+    "isLight": true,
+    "complementary": {
+      "hex": "#f0f9ff",
+      "closestMatch": "aliceblue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#fffef0",
+        "closestMatch": "ivory"
+      },
+      {
+        "hex": "#fff0f1",
+        "closestMatch": "lavenderblush"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#f0fff6",
+        "closestMatch": "honeydew"
+      },
+      {
+        "hex": "#f6f0ff",
+        "closestMatch": "ghostwhite"
+      }
+    ]
+  },
+  {
+    "name": "sienna",
+    "hex": "#a0522d",
+    "rgb": {
+      "r": 160,
+      "g": 82,
+      "b": 45,
+      "string": "rgb(160, 82, 45)"
+    },
+    "hsl": {
+      "h": 19,
+      "s": 56,
+      "l": 40,
+      "string": "hsl(19, 56%, 40%)"
+    },
+    "category": "brown",
+    "luminance": 0.13697631337097682,
+    "isLight": false,
+    "complementary": {
+      "hex": "#2d7b9f",
+      "closestMatch": "steelblue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#9f8a2d",
+        "closestMatch": "darkgoldenrod"
+      },
+      {
+        "hex": "#9f2d42",
+        "closestMatch": "brown"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#2d9f51",
+        "closestMatch": "seagreen"
+      },
+      {
+        "hex": "#512d9f",
+        "closestMatch": "rebeccapurple"
+      }
+    ]
+  },
+  {
+    "name": "silver",
+    "hex": "#c0c0c0",
+    "rgb": {
+      "r": 192,
+      "g": 192,
+      "b": 192,
+      "string": "rgb(192, 192, 192)"
+    },
+    "hsl": {
+      "h": 0,
+      "s": 0,
+      "l": 75,
+      "string": "hsl(0, 0%, 75%)"
+    },
+    "category": "gray",
+    "luminance": 0.5271151257058131,
+    "isLight": true,
+    "complementary": {
+      "hex": "#bfbfbf",
+      "closestMatch": "silver"
+    },
+    "analogousColors": [
+      {
+        "hex": "#bfbfbf",
+        "closestMatch": "silver"
+      },
+      {
+        "hex": "#bfbfbf",
+        "closestMatch": "silver"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#bfbfbf",
+        "closestMatch": "silver"
+      },
+      {
+        "hex": "#bfbfbf",
+        "closestMatch": "silver"
+      }
+    ]
+  },
+  {
+    "name": "skyblue",
+    "hex": "#87ceeb",
+    "rgb": {
+      "r": 135,
+      "g": 206,
+      "b": 235,
+      "string": "rgb(135, 206, 235)"
+    },
+    "hsl": {
+      "h": 197,
+      "s": 71,
+      "l": 73,
+      "string": "hsl(197, 71%, 73%)"
+    },
+    "category": "blue",
+    "luminance": 0.5529166851818414,
+    "isLight": true,
+    "complementary": {
+      "hex": "#eba589",
+      "closestMatch": "darksalmon"
+    },
+    "analogousColors": [
+      {
+        "hex": "#899eeb",
+        "closestMatch": "cornflowerblue"
+      },
+      {
+        "hex": "#89ebd6",
+        "closestMatch": "aquamarine"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#eb89cf",
+        "closestMatch": "plum"
+      },
+      {
+        "hex": "#cfeb89",
+        "closestMatch": "khaki"
+      }
+    ]
+  },
+  {
+    "name": "slateblue",
+    "hex": "#6a5acd",
+    "rgb": {
+      "r": 106,
+      "g": 90,
+      "b": 205,
+      "string": "rgb(106, 90, 205)"
+    },
+    "hsl": {
+      "h": 248,
+      "s": 53,
+      "l": 58,
+      "string": "hsl(248, 53%, 58%)"
+    },
+    "category": "blue",
+    "luminance": 0.14784278062136097,
+    "isLight": false,
+    "complementary": {
+      "hex": "#becd5b",
+      "closestMatch": "darkkhaki"
+    },
+    "analogousColors": [
+      {
+        "hex": "#a35bcd",
+        "closestMatch": "mediumorchid"
+      },
+      {
+        "hex": "#5b85cd",
+        "closestMatch": "steelblue"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#cd6a5b",
+        "closestMatch": "indianred"
+      },
+      {
+        "hex": "#5bcd6a",
+        "closestMatch": "mediumseagreen"
+      }
+    ]
+  },
+  {
+    "name": "slategray",
+    "hex": "#708090",
+    "rgb": {
+      "r": 112,
+      "g": 128,
+      "b": 144,
+      "string": "rgb(112, 128, 144)"
+    },
+    "hsl": {
+      "h": 210,
+      "s": 13,
+      "l": 50,
+      "string": "hsl(210, 13%, 50%)"
+    },
+    "category": "gray",
+    "luminance": 0.2089670407653614,
+    "isLight": true,
+    "complementary": {
+      "hex": "#90806f",
+      "closestMatch": "gray"
+    },
+    "analogousColors": [
+      {
+        "hex": "#6f6f90",
+        "closestMatch": "slategray"
+      },
+      {
+        "hex": "#6f9090",
+        "closestMatch": "lightslategray"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#906f80",
+        "closestMatch": "gray"
+      },
+      {
+        "hex": "#80906f",
+        "closestMatch": "gray"
+      }
+    ]
+  },
+  {
+    "name": "slategrey",
+    "hex": "#708090",
+    "rgb": {
+      "r": 112,
+      "g": 128,
+      "b": 144,
+      "string": "rgb(112, 128, 144)"
+    },
+    "hsl": {
+      "h": 210,
+      "s": 13,
+      "l": 50,
+      "string": "hsl(210, 13%, 50%)"
+    },
+    "category": "gray",
+    "luminance": 0.2089670407653614,
+    "isLight": true,
+    "complementary": {
+      "hex": "#90806f",
+      "closestMatch": "gray"
+    },
+    "analogousColors": [
+      {
+        "hex": "#6f6f90",
+        "closestMatch": "slategray"
+      },
+      {
+        "hex": "#6f9090",
+        "closestMatch": "lightslategray"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#906f80",
+        "closestMatch": "gray"
+      },
+      {
+        "hex": "#80906f",
+        "closestMatch": "gray"
+      }
+    ]
+  },
+  {
+    "name": "snow",
+    "hex": "#fffafa",
+    "rgb": {
+      "r": 255,
+      "g": 250,
+      "b": 250,
+      "string": "rgb(255, 250, 250)"
+    },
+    "hsl": {
+      "h": 0,
+      "s": 100,
+      "l": 99,
+      "string": "hsl(0, 100%, 99%)"
+    },
+    "category": "white",
+    "luminance": 0.9653334183484878,
+    "isLight": true,
+    "complementary": {
+      "hex": "#faffff",
+      "closestMatch": "white"
+    },
+    "analogousColors": [
+      {
+        "hex": "#fffcfa",
+        "closestMatch": "snow"
+      },
+      {
+        "hex": "#fffafc",
+        "closestMatch": "snow"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#fafffa",
+        "closestMatch": "mintcream"
+      },
+      {
+        "hex": "#fafaff",
+        "closestMatch": "ghostwhite"
+      }
+    ]
+  },
+  {
+    "name": "springgreen",
+    "hex": "#00ff7f",
+    "rgb": {
+      "r": 0,
+      "g": 255,
+      "b": 127,
+      "string": "rgb(0, 255, 127)"
+    },
+    "hsl": {
+      "h": 150,
+      "s": 100,
+      "l": 50,
+      "string": "hsl(150, 100%, 50%)"
+    },
+    "category": "green",
+    "luminance": 0.7305230606852947,
+    "isLight": true,
+    "complementary": {
+      "hex": "#ff0080",
+      "closestMatch": "deeppink"
+    },
+    "analogousColors": [
+      {
+        "hex": "#00ffff",
+        "closestMatch": "aqua"
+      },
+      {
+        "hex": "#00ff00",
+        "closestMatch": "lime"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#8000ff",
+        "closestMatch": "darkviolet"
+      },
+      {
+        "hex": "#ff8000",
+        "closestMatch": "darkorange"
+      }
+    ]
+  },
+  {
+    "name": "steelblue",
+    "hex": "#4682b4",
+    "rgb": {
+      "r": 70,
+      "g": 130,
+      "b": 180,
+      "string": "rgb(70, 130, 180)"
+    },
+    "hsl": {
+      "h": 207,
+      "s": 44,
+      "l": 49,
+      "string": "hsl(207, 44%, 49%)"
+    },
+    "category": "blue",
+    "luminance": 0.20562642207624857,
+    "isLight": true,
+    "complementary": {
+      "hex": "#b47746",
+      "closestMatch": "peru"
+    },
+    "analogousColors": [
+      {
+        "hex": "#464bb4",
+        "closestMatch": "darkslateblue"
+      },
+      {
+        "hex": "#46b4ae",
+        "closestMatch": "cadetblue"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#b44682",
+        "closestMatch": "indianred"
+      },
+      {
+        "hex": "#82b446",
+        "closestMatch": "yellowgreen"
+      }
+    ]
+  },
+  {
+    "name": "tan",
+    "hex": "#d2b48c",
+    "rgb": {
+      "r": 210,
+      "g": 180,
+      "b": 140,
+      "string": "rgb(210, 180, 140)"
+    },
+    "hsl": {
+      "h": 34,
+      "s": 44,
+      "l": 69,
+      "string": "hsl(34, 44%, 69%)"
+    },
+    "category": "brown",
+    "luminance": 0.4823760416392152,
+    "isLight": true,
+    "complementary": {
+      "hex": "#8dabd3",
+      "closestMatch": "skyblue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#ced38d",
+        "closestMatch": "tan"
+      },
+      {
+        "hex": "#d3928d",
+        "closestMatch": "rosybrown"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#8dd3b5",
+        "closestMatch": "mediumaquamarine"
+      },
+      {
+        "hex": "#b58dd3",
+        "closestMatch": "mediumpurple"
+      }
+    ]
+  },
+  {
+    "name": "teal",
+    "hex": "#008080",
+    "rgb": {
+      "r": 0,
+      "g": 128,
+      "b": 128,
+      "string": "rgb(0, 128, 128)"
+    },
+    "hsl": {
+      "h": 180,
+      "s": 100,
+      "l": 25,
+      "string": "hsl(180, 100%, 25%)"
+    },
+    "category": "blue",
+    "luminance": 0.16996855778968423,
+    "isLight": false,
+    "complementary": {
+      "hex": "#800000",
+      "closestMatch": "maroon"
+    },
+    "analogousColors": [
+      {
+        "hex": "#004080",
+        "closestMatch": "midnightblue"
+      },
+      {
+        "hex": "#008040",
+        "closestMatch": "forestgreen"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#800080",
+        "closestMatch": "purple"
+      },
+      {
+        "hex": "#808000",
+        "closestMatch": "olive"
+      }
+    ]
+  },
+  {
+    "name": "thistle",
+    "hex": "#d8bfd8",
+    "rgb": {
+      "r": 216,
+      "g": 191,
+      "b": 216,
+      "string": "rgb(216, 191, 216)"
+    },
+    "hsl": {
+      "h": 300,
+      "s": 24,
+      "l": 80,
+      "string": "hsl(300, 24%, 80%)"
+    },
+    "category": "purple",
+    "luminance": 0.5681840109373315,
+    "isLight": true,
+    "complementary": {
+      "hex": "#c0d8c0",
+      "closestMatch": "silver"
+    },
+    "analogousColors": [
+      {
+        "hex": "#d8c0cc",
+        "closestMatch": "thistle"
+      },
+      {
+        "hex": "#ccc0d8",
+        "closestMatch": "thistle"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#d8d8c0",
+        "closestMatch": "lightgray"
+      },
+      {
+        "hex": "#c0d8d8",
+        "closestMatch": "lightgray"
+      }
+    ]
+  },
+  {
+    "name": "tomato",
+    "hex": "#ff6347",
+    "rgb": {
+      "r": 255,
+      "g": 99,
+      "b": 71,
+      "string": "rgb(255, 99, 71)"
+    },
+    "hsl": {
+      "h": 9,
+      "s": 100,
+      "l": 64,
+      "string": "hsl(9, 100%, 64%)"
+    },
+    "category": "orange",
+    "luminance": 0.3063861271941505,
+    "isLight": true,
+    "complementary": {
+      "hex": "#47e3ff",
+      "closestMatch": "turquoise"
+    },
+    "analogousColors": [
+      {
+        "hex": "#ffbf47",
+        "closestMatch": "sandybrown"
+      },
+      {
+        "hex": "#ff4788",
+        "closestMatch": "deeppink"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#47ff63",
+        "closestMatch": "limegreen"
+      },
+      {
+        "hex": "#6347ff",
+        "closestMatch": "mediumslateblue"
+      }
+    ]
+  },
+  {
+    "name": "turquoise",
+    "hex": "#40e0d0",
+    "rgb": {
+      "r": 64,
+      "g": 224,
+      "b": 208,
+      "string": "rgb(64, 224, 208)"
+    },
+    "hsl": {
+      "h": 174,
+      "s": 72,
+      "l": 56,
+      "string": "hsl(174, 72%, 56%)"
+    },
+    "category": "blue",
+    "luminance": 0.5895536427577984,
+    "isLight": true,
+    "complementary": {
+      "hex": "#e03e4e",
+      "closestMatch": "indianred"
+    },
+    "analogousColors": [
+      {
+        "hex": "#3e9fe0",
+        "closestMatch": "cornflowerblue"
+      },
+      {
+        "hex": "#3ee07f",
+        "closestMatch": "mediumseagreen"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#cf3ee0",
+        "closestMatch": "mediumorchid"
+      },
+      {
+        "hex": "#e0cf3e",
+        "closestMatch": "goldenrod"
+      }
+    ]
+  },
+  {
+    "name": "violet",
+    "hex": "#ee82ee",
+    "rgb": {
+      "r": 238,
+      "g": 130,
+      "b": 238,
+      "string": "rgb(238, 130, 238)"
+    },
+    "hsl": {
+      "h": 300,
+      "s": 76,
+      "l": 72,
+      "string": "hsl(300, 76%, 72%)"
+    },
+    "category": "purple",
+    "luminance": 0.40315452986676326,
+    "isLight": true,
+    "complementary": {
+      "hex": "#81ee81",
+      "closestMatch": "lightgreen"
+    },
+    "analogousColors": [
+      {
+        "hex": "#ee81b8",
+        "closestMatch": "hotpink"
+      },
+      {
+        "hex": "#b881ee",
+        "closestMatch": "mediumpurple"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#eeee81",
+        "closestMatch": "khaki"
+      },
+      {
+        "hex": "#81eeee",
+        "closestMatch": "aquamarine"
+      }
+    ]
+  },
+  {
+    "name": "wheat",
+    "hex": "#f5deb3",
+    "rgb": {
+      "r": 245,
+      "g": 222,
+      "b": 179,
+      "string": "rgb(245, 222, 179)"
+    },
+    "hsl": {
+      "h": 39,
+      "s": 77,
+      "l": 83,
+      "string": "hsl(39, 77%, 83%)"
+    },
+    "category": "orange",
+    "luminance": 0.7490970282048215,
+    "isLight": true,
+    "complementary": {
+      "hex": "#b2caf5",
+      "closestMatch": "lightblue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#ebf5b2",
+        "closestMatch": "palegoldenrod"
+      },
+      {
+        "hex": "#f5bcb2",
+        "closestMatch": "lightpink"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#b2f5de",
+        "closestMatch": "paleturquoise"
+      },
+      {
+        "hex": "#deb2f5",
+        "closestMatch": "plum"
+      }
+    ]
+  },
+  {
+    "name": "white",
+    "hex": "#ffffff",
+    "rgb": {
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "string": "rgb(255, 255, 255)"
+    },
+    "hsl": {
+      "h": 0,
+      "s": 0,
+      "l": 100,
+      "string": "hsl(0, 0%, 100%)"
+    },
+    "category": "white",
+    "luminance": 1,
+    "isLight": true,
+    "complementary": {
+      "hex": "#ffffff",
+      "closestMatch": "white"
+    },
+    "analogousColors": [
+      {
+        "hex": "#ffffff",
+        "closestMatch": "white"
+      },
+      {
+        "hex": "#ffffff",
+        "closestMatch": "white"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#ffffff",
+        "closestMatch": "white"
+      },
+      {
+        "hex": "#ffffff",
+        "closestMatch": "white"
+      }
+    ]
+  },
+  {
+    "name": "whitesmoke",
+    "hex": "#f5f5f5",
+    "rgb": {
+      "r": 245,
+      "g": 245,
+      "b": 245,
+      "string": "rgb(245, 245, 245)"
+    },
+    "hsl": {
+      "h": 0,
+      "s": 0,
+      "l": 96,
+      "string": "hsl(0, 0%, 96%)"
+    },
+    "category": "white",
+    "luminance": 0.9130986517934191,
+    "isLight": true,
+    "complementary": {
+      "hex": "#f5f5f5",
+      "closestMatch": "whitesmoke"
+    },
+    "analogousColors": [
+      {
+        "hex": "#f5f5f5",
+        "closestMatch": "whitesmoke"
+      },
+      {
+        "hex": "#f5f5f5",
+        "closestMatch": "whitesmoke"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#f5f5f5",
+        "closestMatch": "whitesmoke"
+      },
+      {
+        "hex": "#f5f5f5",
+        "closestMatch": "whitesmoke"
+      }
+    ]
+  },
+  {
+    "name": "yellow",
+    "hex": "#ffff00",
+    "rgb": {
+      "r": 255,
+      "g": 255,
+      "b": 0,
+      "string": "rgb(255, 255, 0)"
+    },
+    "hsl": {
+      "h": 60,
+      "s": 100,
+      "l": 50,
+      "string": "hsl(60, 100%, 50%)"
+    },
+    "category": "yellow",
+    "luminance": 0.9278,
+    "isLight": true,
+    "complementary": {
+      "hex": "#0000ff",
+      "closestMatch": "blue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#80ff00",
+        "closestMatch": "chartreuse"
+      },
+      {
+        "hex": "#ff8000",
+        "closestMatch": "darkorange"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#00ffff",
+        "closestMatch": "aqua"
+      },
+      {
+        "hex": "#ff00ff",
+        "closestMatch": "fuchsia"
+      }
+    ]
+  },
+  {
+    "name": "yellowgreen",
+    "hex": "#9acd32",
+    "rgb": {
+      "r": 154,
+      "g": 205,
+      "b": 50,
+      "string": "rgb(154, 205, 50)"
+    },
+    "hsl": {
+      "h": 80,
+      "s": 61,
+      "l": 50,
+      "string": "hsl(80, 61%, 50%)"
+    },
+    "category": "green",
+    "luminance": 0.5076295720870695,
+    "isLight": true,
+    "complementary": {
+      "hex": "#6632cd",
+      "closestMatch": "slateblue"
+    },
+    "analogousColors": [
+      {
+        "hex": "#4ccd32",
+        "closestMatch": "limegreen"
+      },
+      {
+        "hex": "#cdb332",
+        "closestMatch": "goldenrod"
+      }
+    ],
+    "triadicColors": [
+      {
+        "hex": "#3299cd",
+        "closestMatch": "steelblue"
+      },
+      {
+        "hex": "#cd3299",
+        "closestMatch": "mediumvioletred"
+      }
+    ]
+  }
+]

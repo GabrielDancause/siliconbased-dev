@@ -14,7 +14,8 @@
     "generate:apitimes": "echo \"skipping generate:apitimes — data pre-generated\"",
     "generate:travelcards": "node scripts/crawl-travel-cards.cjs",
     "generate:protein": "node scripts/crawl-protein-costs.cjs && node scripts/inject-protein-data.cjs",
-    "generate:tax-brackets": "node scripts/crawl-tax-brackets.cjs && node scripts/generate-tax-brackets-html.cjs"
+    "generate:tax-brackets": "node scripts/crawl-tax-brackets.cjs && node scripts/generate-tax-brackets-html.cjs",
+    "generate:colors": "node scripts/generate-css-colors-json.js && node scripts/generate-color-pages.js"
   },
   "dependencies": {
     "astro": "^5.17.1",
