@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Cheat Sheet: Every Command You Actually Need | siliconbased.dev</title>
+    <meta name="description" content="Over 80% of developers repeat the same Git mistakes. Discover the ultimate git cheat sheet that transforms confusing merge conflicts into a seamless workflow.">
+    <link rel="canonical" href="https://siliconbased.dev/git-cheat-sheet.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Git Cheat Sheet: Every Command You Actually Need",
+      "description": "Over 80% of developers repeat the same Git mistakes. Discover the ultimate git cheat sheet that transforms confusing merge conflicts into a seamless workflow.",
+      "datePublished": "2026-03-10",
+      "publisher": {
+        "@type": "Organization",
+        "name": "GAB Ventures",
+        "url": "https://gab.ae"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Where can I find a complete git commands list?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "This page serves as a comprehensive git commands list, covering everything from basic setup and branching to advanced features like interactive rebasing and cherry-picking."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the best git cheat sheet for beginners?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The best git cheat sheet provides an organized workflow reference with practical examples for staging, committing, pushing, and undoing mistakes instantly."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I use a git reference guide effectively?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A git reference guide is most effective when it is searchable and copy-paste friendly. Use the search bar to find the exact syntax for the command you need."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the most common git commands used daily?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The most common git commands for daily workflows include git status, git add, git commit, git push, and git pull. Mastering these covers the majority of typical tasks."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I undo a git command mistake?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our git cheat sheet includes a dedicated undoing section that provides step-by-step commands to resolve mistakes, handle conflicted files, and safely revert or reset."
+          }
+        }
+      ]
+    }
+    </script>
+    <style>
+        :root {
+            --bg-color: #060a12;
+            --card-bg: #0a1020;
+            --border-color: #152040;
+            --accent-color: #818cf8;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --font-body: 'Inter', sans-serif;
+            --font-code: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Nav Styles */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(6, 10, 18, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-brand {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+            flex: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            color: #fff;
+        }
+
+        h1 span {
+            color: var(--accent-color);
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Search input */
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        /* Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-header {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.02);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .command-item {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .command-item:last-child {
+            border-bottom: none;
+        }
+
+        .command-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .command-code-wrap {
+            display: flex;
+            align-items: center;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .command-code {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            font-family: var(--font-code);
+            font-size: 0.85rem;
+            color: #fff;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+        }
+
+        .command-code::-webkit-scrollbar {
+            display: none;
+        }
+
+        .copy-btn {
+            background: transparent;
+            border: none;
+            border-left: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 0 0.75rem;
+            cursor: pointer;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            color: var(--accent-color);
+            background: rgba(129, 140, 248, 0.1);
+        }
+
+        .copy-btn.copied {
+            color: #4ade80;
+        }
+
+        .highlight {
+            background-color: rgba(129, 140, 248, 0.2);
+            color: #a5b4fc;
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+            background: var(--card-bg);
+            border: 1px dashed var(--border-color);
+            border-radius: 12px;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 3rem;
+        }
+
+        .faq-section h2 {
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            padding: 1.25rem;
+        }
+
+        .faq-item h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .faq-item p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: auto;
+        }
+
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G86C7NJG3F"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-G86C7NJG3F');</script>
+</head>
+<body>
+
+<nav style="position: sticky; top: 0; z-index: 1000; background: rgba(6, 10, 18, 0.85); backdrop-filter: blur(12px);">
+    <a href="/" class="nav-brand">siliconbased.dev</a>
+    <div class="nav-links">
+        <a href="/#studies">Studies</a>
+        <a href="/#tools">Tools</a>
+        <a href="/#guides">Guides</a>
+    </div>
+</nav>
+
+<main>
+    <header>
+        <h1>Git Cheat Sheet: <span>Every Command You Actually Need</span></h1>
+        <p class="subtitle">A searchable, copy-paste friendly git reference and commands list for daily workflows.</p>
+    </header>
+
+    <div class="search-container">
+        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search common git commands (e.g. merge, rebase, undo)..." aria-label="Search git commands">
+    </div>
+
+    <div class="grid" id="commandsGrid">
+        <!-- Injected via JS -->
+    </div>
+
+    <section class="faq-section">
+        <h2>Frequently Asked Questions</h2>
+
+        <div class="faq-item">
+            <h3>Where can I find a complete git commands list?</h3>
+            <p>This page serves as a comprehensive git commands list, covering everything from basic setup and branching to advanced features like interactive rebasing and cherry-picking. You can search instantly using the bar above.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>What is the best git cheat sheet for beginners?</h3>
+            <p>The best git cheat sheet provides an organized workflow reference with practical examples for staging, committing, pushing, and undoing mistakes instantly. We've organized this page specifically to mirror real-world developer workflows.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>How do I use a git reference guide effectively?</h3>
+            <p>A git reference guide is most effective when it is searchable and copy-paste friendly. Use the search bar to find the exact syntax for the command you need, and utilize our one-click copy buttons to paste directly into your terminal.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>What are the most common git commands used daily?</h3>
+            <p>The most common git commands for daily workflows include <code>git status</code>, <code>git add</code>, <code>git commit</code>, <code>git push</code>, and <code>git pull</code>. Mastering these covers the majority of typical daily tasks.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>How do I undo a git command mistake?</h3>
+            <p>Our git cheat sheet includes a dedicated undoing section that provides step-by-step commands to resolve mistakes, handle conflicted files, and safely revert or reset.</p>
+        </div>
+    </section>
+</main>
+
+<footer>
+    © 2026 siliconbased.dev · A <a href="https://gab.ae">GAB Ventures</a> property. Not investment advice. All information for educational purposes only.
+</footer>
+
+<script>
+const commandData = [
+    {
+        category: "Setup & Config",
+        items: [
+            { desc: "Initialize a new local repository", cmd: "git init" },
+            { desc: "Clone an existing repository", cmd: "git clone <url>" },
+            { desc: "Set global username", cmd: 'git config --global user.name "Your Name"' },
+            { desc: "Set global email", cmd: 'git config --global user.email "you@email.com"' },
+            { desc: "View current configuration", cmd: "git config --list" }
+        ]
+    },
+    {
+        category: "Branching",
+        items: [
+            { desc: "List local branches", cmd: "git branch" },
+            { desc: "Create a new branch", cmd: "git branch <branch-name>" },
+            { desc: "Switch to a branch", cmd: "git checkout <branch-name>" },
+            { desc: "Create & switch to new branch", cmd: "git checkout -b <branch-name>" },
+            { desc: "Delete a branch locally", cmd: "git branch -d <branch-name>" },
+            { desc: "Force delete a branch locally", cmd: "git branch -D <branch-name>" },
+            { desc: "Rename current branch", cmd: "git branch -m <new-name>" }
+        ]
+    },
+    {
+        category: "Staging",
+        items: [
+            { desc: "Check repo status", cmd: "git status" },
+            { desc: "Stage a specific file", cmd: "git add <file>" },
+            { desc: "Stage all changed files", cmd: "git add ." },
+            { desc: "Unstage a file (keep changes)", cmd: "git reset <file>" },
+            { desc: "View unstaged changes", cmd: "git diff" },
+            { desc: "View staged changes", cmd: "git diff --staged" }
+        ]
+    },
+    {
+        category: "Committing",
+        items: [
+            { desc: "Commit staged changes", cmd: 'git commit -m "Your message"' },
+            { desc: "Stage tracked files & commit", cmd: 'git commit -am "Your message"' },
+            { desc: "Modify last commit (amend)", cmd: "git commit --amend -m 'New msg'" },
+            { desc: "View commit history", cmd: "git log --oneline" },
+            { desc: "Find which commit caused a bug (bisect)", cmd: "git bisect start" }
+        ]
+    },
+    {
+        category: "Pushing & Pulling",
+        items: [
+            { desc: "Add remote repository", cmd: "git remote add origin <url>" },
+            { desc: "Push local commits to remote", cmd: "git push origin <branch>" },
+            { desc: "Force push (overwrite remote)", cmd: "git push -f origin <branch>" },
+            { desc: "Fetch remote changes", cmd: "git fetch" },
+            { desc: "Fetch and merge (pull)", cmd: "git pull origin <branch>" },
+            { desc: "Delete remote branch", cmd: "git push origin --delete <branch>" }
+        ]
+    },
+    {
+        category: "Merging",
+        items: [
+            { desc: "Merge branch into current", cmd: "git merge <branch-name>" },
+            { desc: "Abort merge during conflict", cmd: "git merge --abort" },
+            { desc: "Resolve merge conflicts (mark resolved)", cmd: "git add <resolved-file>" },
+            { desc: "Complete merge after resolving", cmd: "git commit" },
+            { desc: "Apply specific commit (cherry-pick)", cmd: "git cherry-pick <commit-hash>" }
+        ]
+    },
+    {
+        category: "Rebasing",
+        items: [
+            { desc: "Rebase current onto base", cmd: "git rebase <base-branch>" },
+            { desc: "Interactive rebase (last N)", cmd: "git rebase -i HEAD~<N>" },
+            { desc: "Continue after resolving", cmd: "git rebase --continue" },
+            { desc: "Skip current commit in rebase", cmd: "git rebase --skip" },
+            { desc: "Abort ongoing rebase", cmd: "git rebase --abort" }
+        ]
+    },
+    {
+        category: "Stashing",
+        items: [
+            { desc: "Stash changes temporarily", cmd: "git stash" },
+            { desc: "Stash with message", cmd: 'git stash save "message"' },
+            { desc: "List all stashes", cmd: "git stash list" },
+            { desc: "Apply latest stash & remove", cmd: "git stash pop" },
+            { desc: "Apply latest stash & keep", cmd: "git stash apply" },
+            { desc: "Clear all stashes", cmd: "git stash clear" }
+        ]
+    },
+    {
+        category: "Undoing",
+        items: [
+            { desc: "Undo last commit (keep changes)", cmd: "git reset --soft HEAD~1" },
+            { desc: "Undo last commit (destroy changes)", cmd: "git reset --hard HEAD~1" },
+            { desc: "Revert commit with new commit", cmd: "git revert <commit-hash>" },
+            { desc: "Discard changes in local file", cmd: "git checkout -- <file>" },
+            { desc: "Remove untracked files", cmd: "git clean -fd" }
+        ]
+    }
+];
+
+const grid = document.getElementById('commandsGrid');
+const searchInput = document.getElementById('searchInput');
+
+function renderCommands(query = '') {
+    grid.innerHTML = '';
+    const lowerQuery = query.toLowerCase().trim();
+    let hasResults = false;
+
+    commandData.forEach(cat => {
+        const filtered = cat.items.filter(item =>
+            item.cmd.toLowerCase().includes(lowerQuery) ||
+            item.desc.toLowerCase().includes(lowerQuery)
+        );
+
+        if (filtered.length > 0) {
+            hasResults = true;
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            let html = `<div class="card-header">${cat.category}</div>`;
+
+            filtered.forEach(item => {
+                let d = item.desc;
+                let c = item.cmd;
+
+                if (lowerQuery) {
+                    const escapedQuery = lowerQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                    const regex = new RegExp(`(${escapedQuery})`, 'gi');
+                    d = d.replace(regex, '<span class="highlight">$1</span>');
+                    c = c.replace(regex, '<span class="highlight">$1</span>');
+                }
+
+                html += `
+                    <div class="command-item">
+                        <div class="command-desc">${d}</div>
+                        <div class="command-code-wrap">
+                            <div class="command-code">${c}</div>
+                            <button class="copy-btn" data-copy="${item.cmd.replace(/"/g, '&quot;')}" aria-label="Copy to clipboard">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            card.innerHTML = html;
+            grid.appendChild(card);
+        }
+    });
+
+    if (!hasResults) {
+        grid.innerHTML = '<div class="no-results">No git commands found matching your search. Try different keywords.</div>';
+    } else {
+        attachCopyEvents();
+    }
+}
+
+function attachCopyEvents() {
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            if (this.classList.contains('copied')) return;
+            const text = this.getAttribute('data-copy');
+            const originalHTML = this.innerHTML;
+            navigator.clipboard.writeText(text).then(() => {
+                this.classList.add('copied');
+                this.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                setTimeout(() => {
+                    this.classList.remove('copied');
+                    this.innerHTML = originalHTML;
+                }, 1500);
+            });
+        });
+    });
+}
+
+searchInput.addEventListener('input', (e) => renderCommands(e.target.value));
+
+// Initial render
+renderCommands();
+</script>
+
+</body>
+</html>

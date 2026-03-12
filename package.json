@@ -7,15 +7,24 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "generate:chmod": "echo \"skipping generate:chmod — data pre-generated\"",
+    "generate:pageweight": "echo \"skipping generate:pageweight — data pre-generated\"",
+    "generate:sourdough": "echo \"skipping generate:sourdough — data pre-generated\"",
+    "generate:cssframeworks": "echo \"skipping generate:cssframeworks — data pre-generated\"",
+    "generate:apitimes": "echo \"skipping generate:apitimes — data pre-generated\"",
+    "generate:travelcards": "node scripts/crawl-travel-cards.cjs",
+    "generate:protein": "node scripts/crawl-protein-costs.cjs && node scripts/inject-protein-data.cjs",
+    "generate:tax-brackets": "node scripts/crawl-tax-brackets.cjs && node scripts/generate-tax-brackets-html.cjs",
     "generate:colors": "node scripts/generate-css-colors-json.js && node scripts/generate-color-pages.js"
   },
   "dependencies": {
     "astro": "^5.17.1",
-    "jsdom": "^28.1.0",
+    "cheerio": "^1.2.0",
+    "playwright": "^1.58.2",
     "smol-toml": "^1.6.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
-    "playwright": "^1.58.2"
+    "jsdom": "^28.1.0"
   }
 }

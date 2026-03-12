@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSL Certificate Checker: Verify HTTPS, Expiry & Chain of Trust</title>
+    <meta name="description" content="See what 90% of web servers miss about their SSL configuration. Check expiry, issuer, and trust chains instantly—before your users see a security warning.">
+    <link rel="canonical" href="https://siliconbased.dev/ssl-certificate-checker.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G86C7NJG3F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-G86C7NJG3F');
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "SSL Certificate Checker: Verify HTTPS, Expiry & Chain of Trust",
+      "description": "See what 90% of web servers miss about their SSL configuration. Check expiry, issuer, and trust chains instantly—before your users see a security warning.",
+      "datePublished": "2026-03-10",
+      "publisher": {
+        "@type": "Organization",
+        "name": "siliconbased.dev",
+        "url": "https://siliconbased.dev"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is an ssl checker and why do I need one?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "An SSL checker is a tool that analyzes your website's SSL/TLS certificate to ensure it is correctly installed, valid, and trusted by browsers. You need it to prevent security warnings that deter visitors, protect user data via encryption, and maintain search engine rankings, as search engines penalize sites without secure HTTPS connections."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I check ssl certificate expiry?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "To perform an ssl expiry check, simply enter your domain name into an SSL certificate checker tool. The tool will parse the certificate's 'valid_to' date and display exactly how many days are remaining until expiration, allowing you to renew it before it lapses and causes an outage."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does my ssl certificate checker show a 'mismatched domain' error?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A mismatched domain error occurs when the domain name you are visiting does not match the Subject Alternative Name (SAN) or Common Name (CN) listed on the SSL certificate. This often happens if the certificate is issued for 'www.example.com' but you visit 'example.com', or if the site is sharing an IP address with another domain without proper SNI configuration."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does 'chain of trust' mean when I check ssl certificate details?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The chain of trust is a sequence of certificates that links your server's certificate back to a trusted Root Certificate Authority (CA) pre-installed in browsers. A complete chain includes your certificate, one or more intermediate certificates, and the root CA. If intermediate certificates are missing from your server configuration, browsers will display a 'not trusted' warning."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is my SSL grade low despite having a valid certificate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A valid certificate is only part of a secure HTTPS setup. A low grade in an ssl checker usually indicates underlying server configuration issues, such as supporting outdated protocols (like TLS 1.0 or 1.1) or weak cipher suites (like RC4 or DES). Disabling these legacy settings and enforcing TLS 1.2 or 1.3 will improve your grade."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        :root {
+            --bg-color: #060a12;
+            --card-bg: #0a1020;
+            --border-color: #152040;
+            --accent: #818cf8;
+            --accent-hover: #6366f1;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --grade-a: #10b981;
+            --grade-b: #3b82f6;
+            --grade-c: #f59e0b;
+            --grade-f: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Sticky Nav */
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(6, 10, 18, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--text-main);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Layout */
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #fff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .lead {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
+
+        /* Search Section */
+        .search-container {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .search-input {
+            flex: 1;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 1rem 1.25rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .search-btn {
+            background-color: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 0 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .search-btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .note {
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        /* Results Section */
+        #result-container {
+            display: none;
+            margin-bottom: 3rem;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .domain-title {
+            font-size: 1.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .status-valid { background: rgba(16, 185, 129, 0.1); color: var(--grade-a); border: 1px solid rgba(16, 185, 129, 0.2); }
+        .status-error { background: rgba(239, 68, 68, 0.1); color: var(--grade-f); border: 1px solid rgba(239, 68, 68, 0.2); }
+
+        .grade-box {
+            text-align: center;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+        }
+
+        .grade-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .grade-value {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+        .grade-A { color: var(--grade-a); }
+        .grade-B { color: var(--grade-b); }
+        .grade-C { color: var(--grade-c); }
+        .grade-F { color: var(--grade-f); }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.125rem;
+            margin-bottom: 1.25rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .data-row {
+            margin-bottom: 1rem;
+        }
+        .data-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .data-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .data-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            word-break: break-all;
+        }
+
+        .chain-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .chain-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+        }
+        .chain-list li::before {
+            content: "↳";
+            position: absolute;
+            left: 0;
+            color: var(--text-muted);
+        }
+        .chain-list li:first-child::before {
+            content: "•";
+        }
+
+        .issues-list {
+            list-style: none;
+        }
+        .issues-list li {
+            padding: 0.75rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .issue-error {
+            background: rgba(239, 68, 68, 0.1);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+        .issue-warn {
+            background: rgba(245, 158, 11, 0.1);
+            color: #fcd34d;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+        .issue-ok {
+            background: rgba(16, 185, 129, 0.1);
+            color: #6ee7b7;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        /* Datatable */
+        .database-section {
+            margin-top: 4rem;
+        }
+        .database-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-muted);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        td {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        tbody tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+            cursor: pointer;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-top: 5rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 3rem;
+        }
+
+        .faq-section h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .faq-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .faq-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .faq-card h3 {
+            font-size: 1.125rem;
+            margin-bottom: 0.75rem;
+            color: var(--accent);
+        }
+
+        .faq-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 5rem;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-disclaimer {
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .search-form { flex-direction: column; }
+            .result-header { flex-direction: column; gap: 1.5rem; align-items: stretch; }
+            .grade-box { align-self: flex-start; }
+            h1 { font-size: 2rem; }
+            .nav-container { flex-direction: column; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="sticky-nav">
+        <div class="nav-container">
+            <a href="/" class="brand">siliconbased.dev</a>
+            <div class="nav-links">
+                <a href="/#studies">Studies</a>
+                <a href="/#tools">Tools</a>
+                <a href="/#guides">Guides</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <header>
+            <h1>SSL Certificate Checker</h1>
+            <p class="lead">Verify HTTPS configuration, perform an SSL expiry check, and debug the chain of trust against our crawled database of certificates.</p>
+        </header>
+
+        <section class="search-container">
+            <form class="search-form" id="search-form">
+                <input type="text" id="domain-input" class="search-input" placeholder="e.g., example.com" required autocomplete="off" spellcheck="false">
+                <button type="submit" class="search-btn">Check SSL</button>
+            </form>
+            <p class="note">Currently searching our recent dataset of pre-crawled domains to guarantee instant, reliable results without CORS limitations.</p>
+        </section>
+
+        <section id="result-container">
+            <!-- Results will be injected here via JS -->
+        </section>
+
+        <section class="database-section">
+            <h2>Recent SSL Scans</h2>
+            <div class="table-wrapper">
+                <table id="db-table">
+                    <thead>
+                        <tr>
+                            <th>Domain</th>
+                            <th>Grade</th>
+                            <th>Issuer</th>
+                            <th>Expiry</th>
+                            <th>Protocol</th>
+                        </tr>
+                    </thead>
+                    <tbody id="db-tbody">
+                        <!-- Populated via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-card">
+                    <h3>What is an ssl checker and why do I need one?</h3>
+                    <p>An SSL checker is a tool that analyzes your website's SSL/TLS certificate to ensure it is correctly installed, valid, and trusted by browsers. You need it to prevent security warnings that deter visitors, protect user data via encryption, and maintain search engine rankings, as search engines penalize sites without secure HTTPS connections.</p>
+                </div>
+                <div class="faq-card">
+                    <h3>How do I check ssl certificate expiry?</h3>
+                    <p>To perform an ssl expiry check, simply enter your domain name into an SSL certificate checker tool. The tool will parse the certificate's 'valid_to' date and display exactly how many days are remaining until expiration, allowing you to renew it before it lapses and causes an outage.</p>
+                </div>
+                <div class="faq-card">
+                    <h3>Why does my ssl certificate checker show a 'mismatched domain' error?</h3>
+                    <p>A mismatched domain error occurs when the domain name you are visiting does not match the Subject Alternative Name (SAN) or Common Name (CN) listed on the SSL certificate. This often happens if the certificate is issued for 'www.example.com' but you visit 'example.com', or if the site is sharing an IP address with another domain without proper SNI configuration.</p>
+                </div>
+                <div class="faq-card">
+                    <h3>What does 'chain of trust' mean when I check ssl certificate details?</h3>
+                    <p>The chain of trust is a sequence of certificates that links your server's certificate back to a trusted Root Certificate Authority (CA) pre-installed in browsers. A complete chain includes your certificate, one or more intermediate certificates, and the root CA. If intermediate certificates are missing from your server configuration, browsers will display a 'not trusted' warning.</p>
+                </div>
+                <div class="faq-card">
+                    <h3>Why is my SSL grade low despite having a valid certificate?</h3>
+                    <p>A valid certificate is only part of a secure HTTPS setup. A low grade in an ssl checker usually indicates underlying server configuration issues, such as supporting outdated protocols (like TLS 1.0 or 1.1) or weak cipher suites (like RC4 or DES). Disabling these legacy settings and enforcing TLS 1.2 or 1.3 will improve your grade.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2026 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property.</p>
+        <p class="footer-disclaimer">Not investment advice. All information for educational purposes only.</p>
+    </footer>
+
+    <script>
+        // DATA PLACEHOLDER - DO NOT MODIFY THE CONST DECLARATION LINE MANUALLY
+        const apiData = [
+  {
+    "domain": "expired.badssl.com",
+    "subject": "*.badssl.com",
+    "issuer": "COMODO CA Limited",
+    "valid_from": "Apr  9 00:00:00 2015 GMT",
+    "valid_to": "Apr 12 23:59:59 2015 GMT",
+    "days_remaining": -3986,
+    "protocol": "TLSv1.2",
+    "cipher": "ECDHE-RSA-AES128-GCM-SHA256",
+    "chain": [
+      "*.badssl.com",
+      "COMODO RSA Domain Validation Secure Server CA",
+      "COMODO RSA Certification Authority"
+    ],
+    "isExpired": true,
+    "isSelfSigned": false,
+    "domainMatches": true,
+    "isWeakCipher": false,
+    "grade": "F"
+  },
+  {
+    "domain": "wrong.host.badssl.com",
+    "subject": "*.badssl.com",
+    "issuer": "Let's Encrypt",
+    "valid_from": "Jan 20 20:02:51 2026 GMT",
+    "valid_to": "Apr 20 20:02:50 2026 GMT",
+    "days_remaining": 40,
+    "protocol": "TLSv1.2",
+    "cipher": "ECDHE-RSA-AES128-GCM-SHA256",
+    "chain": [
+      "*.badssl.com",
+      "R13",
+      "ISRG Root X1"
+    ],
+    "isExpired": false,
+    "isSelfSigned": false,
+    "domainMatches": true,
+    "isWeakCipher": false,
+    "grade": "A"
+  },
+  {
+    "domain": "self-signed.badssl.com",
+    "subject": "*.badssl.com",
+    "issuer": "BadSSL",
+    "valid_from": "Mar 10 21:01:30 2026 GMT",
+    "valid_to": "Mar  9 21:01:30 2028 GMT",
+    "days_remaining": 729,
+    "protocol": "TLSv1.2",
+    "cipher": "ECDHE-RSA-AES128-GCM-SHA256",
+    "chain": [
+      "*.badssl.com"
+    ],
+    "isExpired": false,
+    "isSelfSigned": true,
+    "domainMatches": true,
+    "isWeakCipher": false,
+    "grade": "F"
+  },
+  {
+    "domain": "siliconbased.dev",
+    "subject": "siliconbased.dev",
+    "issuer": "Let's Encrypt",
+    "valid_from": "Mar  7 23:23:54 2026 GMT",
+    "valid_to": "Jun  5 23:23:53 2026 GMT",
+    "days_remaining": 86,
+    "protocol": "TLSv1.3",
+    "cipher": "TLS_AES_128_GCM_SHA256",
+    "chain": [
+      "siliconbased.dev",
+      "R12",
+      "ISRG Root X1"
+    ],
+    "isExpired": false,
+    "isSelfSigned": false,
+    "domainMatches": true,
+    "isWeakCipher": false,
+    "grade": "A"
+  },
+  {
+    "domain": "youtube.com",
+    "subject": "*.google.com",
+    "issuer": "Google Trust Services",
+    "valid_from": "Feb  2 08:36:38 2026 GMT",
+    "valid_to": "Apr 27 08:36:37 2026 GMT",
+    "days_remaining": 46,
+    "protocol": "TLSv1.3",
+    "cipher": "TLS_AES_256_GCM_SHA384",
+    "chain": [
+      "*.google.com",
+      "WR2",
+      "GTS Root R1"
+    ],
+    "isExpired": false,
+    "isSelfSigned": false,
+    "domainMatches": true,
+    "isWeakCipher": false,
+    "grade": "A"
+  },
+  {
+    "domain": "wordpress.org",
+    "subject": "wordpress.org",
+    "issuer": "Let's Encrypt",
+    "valid_from": "Jan 26 19:43:57 2026 GMT",
+    "valid_to": "Apr 26 19:43:56 2026 GMT",
+    "days_remaining": 46,
+    "protocol": "TLSv1.3",
+    "cipher": "TLS_AES_256_GCM_SHA384",
+    "chain": [
+      "wordpress.org",
+      "E8",
+      "ISRG Root X1"
+    ],
+    "isExpired": false,
+    "isSelfSigned": false,
+    "domainMatches": true,
+    "isWeakCipher": false,
+    "grade": "A"
+  },
+  {
+    "domain": "googleusercontent.com",
+    "subject": "*.googleusercontent.com",
+    "issuer": "Google Trust Services",
+    "valid_from": "Feb  2 08:37:55 2026 GMT",
+    "valid_to": "Apr 27 08:37:54 2026 GMT",
+    "days_remaining": 46,
+    "protocol": "TLSv1.3",
+    "cipher": "TLS_AES_256_GCM_SHA384",
+    "chain": [
+      "*.googleusercontent.com",
+      "WR2",
+      "GTS Root R1"
+    ],
+    "isExpired": false,
+    "isSelfSigned": false,
+    "domainMatches": true,
+    "isWeakCipher": false,
+    "grade": "A"
+  },
+  {
+    "domain": "apple.com",
+    "subject": "apple.com",
+    "issuer": "Apple Inc.",
+    "valid_from": "Feb 26 18:07:16 2026 GMT",
+    "valid_to": "May 27 19:09:49 2026 GMT",
+    "days_remaining": 77,
+    "protocol": "TLSv1.3",
+    "cipher": "TLS_AES_256_GCM_SHA384",
+    "chain": [
+      "apple.com",
+      "Apple Public EV Server ECC CA 1 - G1",
+      "DigiCert Global Root G3"
+    ],
+    "isExpired": false,
+    "isSelfSigned": false,
+    "domainMatches": true,
+    "isWeakCipher": false,
+    "grade": "A"
+  },
+  {
+    "domain": "linkedin.com",
+    "subject": "www.linkedin.com",
+    "issuer": "DigiCert Inc",
+    "valid_from": "Feb 11 00:00:00 2026 GMT",
+    "valid_to": "Aug 11 23:59:59 2026 GMT",
+    "days_remaining": 153,
+    "protocol": "TLSv1.3",
+    "cipher": "TLS_AES_256_GCM_SHA384",
+    "chain": [
+      "www.linkedin.com",
+      "DigiCert SHA2 Secure Server CA",
+      "DigiCert Global Root CA"
+    ],
+    "isExpired": false,
+    "isSelfSigned": false,
+    "domainMatches": true,
+    "isWeakCipher": false,
+    "grade": "A"
+  },
+  {
+    "domain": "microsoft.com",
+    "subject": "microsoft.com",
+    "issuer": "Microsoft Corporation",
+    "valid_from": "Mar 10 18:31:55 2026 GMT",
+    "valid_to": "Sep  6 18:31:55 2026 GMT",
+    "days_remaining": 179,
+    "protocol": "TLSv1.3",
+    "cipher": "TLS_AES_256_GCM_SHA384",
+    "chain": [
+      "microsoft.com",
+      "Microsoft TLS G2 RSA CA OCSP 02",
+      "Microsoft TLS RSA Root G2",
+      "DigiCert Global Root G2"
+    ],
+    "isExpired": false,
+    "isSelfSigned": false,
+    "domainMatches": true,
+    "isWeakCipher": false,
+    "grade": "A"
+  },
+  {
+    "domain": "whatsapp.com",
+    "subject": "*.whatsapp.net",
+    "issuer": "DigiCert Inc",
+    "valid_from": "Dec 18 00:00:00 2025 GMT",
+    "valid_to": "Mar 18 23:59:59 2026 GMT",
+    "days_remaining": 7,
+    "protocol": "TLSv1.3",
+    "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+    "chain": [
+      "*.whatsapp.net",
+      "DigiCert Global G2 TLS RSA SHA256 2020 CA1",
+      "DigiCert Global Root G2"
+    ],
+    "isExpired": false,
+    "isSelfSigned": false,
+    "domainMatches": true,
+    "isWeakCipher": false,
+    "grade": "A"
+  },
+  {
+    "domain": "youtu.be",
+    "subject": "*.google.com",
+    "issuer": "Google Trust Services",
+    "valid_from": "Feb  2 08:36:38 2026 GMT",
+    "valid_to": "Apr 27 08:36:37 2026 GMT",
+    "days_remaining": 46,
+    "protocol": "TLSv1.3",
+    "cipher": "TLS_AES_256_GCM_SHA384",
+    "chain": [
+      "*.google.com",
+      "WR2",
+      "GTS Root R1"
+    ],
+    "isExpired": false,
+    "isSelfSigned": false,
+    "domainMatches": true,
+    "isWeakCipher": false,
+    "grade": "A"
+  },
+  {
+    "domain": "support.google.com",
+    "subject": "*.google.com",
+    "issuer": "Google Trust Services",
+    "valid_from": "Feb  2 08:36:38 2026 GMT",
+    "valid_to": "Apr 27 08:36:37 2026 GMT",
+    "days_remaining": 46,
+    "protocol": "TLSv1.3",
+    "cipher": "TLS_AES_256_GCM_SHA384",
+    "chain": [
+      "*.google.com",
+      "WR2",
+      "GTS Root R1"
+    ],
+    "isExpired": false,
+    "isSelfSigned": false,
+    "domainMatches": true,
+    "isWeakCipher": false,
+    "grade": "A"
+  },
+  {
+    "domain": "policies.google.com",
+    "subject": "*.google.com",
+    "issuer": "Google Trust Services",
+    "valid_from": "Feb  2 08:36:38 2026 GMT",
+    "valid_to": "Apr 27 08:36:37 2026 GMT",
+    "days_remaining": 46,
+    "protocol": "TLSv1.3",
+    "cipher": "TLS_AES_256_GCM_SHA384",
+    "chain": [
+      "*.google.com",
+      "WR2",
+      "GTS Root R1"
+    ],
+    "isExpired": false,
+    "isSelfSigned": false,
+    "domainMatches": true,
+    "isWeakCipher": false,
+    "grade": "A"
+  },
+  {
+    "domain": "docs.google.com",
+    "subject": "*.google.com",
+    "issuer": "Google Trust Services",
+    "valid_from": "Feb  2 08:36:38 2026 GMT",
+    "valid_to": "Apr 27 08:36:37 2026 GMT",
+    "days_remaining": 46,
+    "protocol": "TLSv1.3",
+    "cipher": "TLS_AES_256_GCM_SHA384",
+    "chain": [
+      "*.google.com",
+      "WR2",
+      "GTS Root R1"
+    ],
+    "isExpired": false,
+    "isSelfSigned": false,
+    "domainMatches": true,
+    "isWeakCipher": false,
+    "grade": "A"
+  },
+  {
+    "domain": "play.google.com",
+    "subject": "*.google.com",
+    "issuer": "Google Trust Services",
+    "valid_from": "Feb  2 08:36:38 2026 GMT",
+    "valid_to": "Apr 27 08:36:37 2026 GMT",
+    "days_remaining": 46,
+    "protocol": "TLSv1.3",
+    "cipher": "TLS_AES_256_GCM_SHA384",
+    "chain": [
+      "*.google.com",
+      "WR2",
+      "GTS Root R1"
+    ],
+    "isExpired": false,
+    "isSelfSigned": false,
+    "domainMatches": true,
+    "isWeakCipher": false,
+    "grade": "A"
+  },
+  {
+    "domain": "mozilla.org",
+    "subject": "mozilla.org",
+    "issuer": "Google Trust Services",
+    "valid_from": "Feb 11 11:59:04 2026 GMT",
+    "valid_to": "May 12 12:52:37 2026 GMT",
+    "days_remaining": 61,
+    "protocol": "TLSv1.3",
+    "cipher": "TLS_AES_256_GCM_SHA384",
+    "chain": [
+      "mozilla.org",
+      "WR3",
+      "GTS Root R1"
+    ],
+    "isExpired": false,
+    "isSelfSigned": false,
+    "domainMatches": true,
+    "isWeakCipher": false,
+    "grade": "A"
+  },
+  {
+    "domain": "tiktok.com",
+    "subject": "*.tiktok.com",
+    "issuer": "DigiCert Inc",
+    "valid_from": "Jun 16 00:00:00 2025 GMT",
+    "valid_to": "Jun 15 23:59:59 2026 GMT",
+    "days_remaining": 96,
+    "protocol": "TLSv1.3",
+    "cipher": "TLS_AES_256_GCM_SHA384",
+    "chain": [
+      "*.tiktok.com",
+      "RapidSSL TLS ECC CA G1",
+      "DigiCert Global Root G3"
+    ],
+    "isExpired": false,
+    "isSelfSigned": false,
+    "domainMatches": true,
+    "isWeakCipher": false,
+    "grade": "A"
+  },
+  {
+    "domain": "en.wikipedia.org",
+    "subject": "*.wikipedia.org",
+    "issuer": "Let's Encrypt",
+    "valid_from": "Feb  6 21:41:32 2026 GMT",
+    "valid_to": "May  7 21:41:31 2026 GMT",
+    "days_remaining": 57,
+    "protocol": "TLSv1.3",
+    "cipher": "TLS_AES_128_GCM_SHA256",
+    "chain": [
+      "*.wikipedia.org",
+      "E8",
+      "ISRG Root X1"
+    ],
+    "isExpired": false,
+    "isSelfSigned": false,
+    "domainMatches": true,
+    "isWeakCipher": false,
+    "grade": "A"
+  },
+  {
+    "domain": "europa.eu",
+    "subject": "europa.eu",
+    "issuer": "GlobalSign nv-sa",
+    "valid_from": "Aug  7 13:20:53 2025 GMT",
+    "valid_to": "Aug 14 13:20:53 2026 GMT",
+    "days_remaining": 155,
+    "protocol": "TLSv1.3",
+    "cipher": "TLS_AES_128_GCM_SHA256",
+    "chain": [
+      "europa.eu",
+      "GlobalSign Atlas R3 OV TLS CA 2025 Q3",
+      "GlobalSign"
+    ],
+    "isExpired": false,
+    "isSelfSigned": false,
+    "domainMatches": true,
+    "isWeakCipher": false,
+    "grade": "A"
+  },
+  {
+    "domain": "wa.me",
+    "subject": "*.whatsapp.net",
+    "issuer": "DigiCert Inc",
+    "valid_from": "Dec 18 00:00:00 2025 GMT",
+    "valid_to": "Mar 18 23:59:59 2026 GMT",
+    "days_remaining": 7,
+    "protocol": "TLSv1.3",
+    "cipher": "TLS_CHACHA20_POLY1305_SHA256",
+    "chain": [
+      "*.whatsapp.net",
+      "DigiCert Global G2 TLS RSA SHA256 2020 CA1",
+      "DigiCert Global Root G2"
+    ],
+    "isExpired": false,
+    "isSelfSigned": false,
+    "domainMatches": true,
+    "isWeakCipher": false,
+    "grade": "A"
+  },
+  {
+    "domain": "maps.google.com",
+    "subject": "*.google.com",
+    "issuer": "Google Trust Services",
+    "valid_from": "Feb  2 08:36:38 2026 GMT",
+    "valid_to": "Apr 27 08:36:37 2026 GMT",
+    "days_remaining": 46,
+    "protocol": "TLSv1.3",
+    "cipher": "TLS_AES_256_GCM_SHA384",
+    "chain": [
+      "*.google.com",
+      "WR2",
+      "GTS Root R1"
+    ],
+    "isExpired": false,
+    "isSelfSigned": false,
+    "domainMatches": true,
+    "isWeakCipher": false,
+    "grade": "A"
+  },
+  {
+    "domain": "drive.google.com",
+    "subject": "*.google.com",
+    "issuer": "Google Trust Services",
+    "valid_from": "Feb  2 08:36:38 2026 GMT",
+    "valid_to": "Apr 27 08:36:37 2026 GMT",
+    "days_remaining": 46,
+    "protocol": "TLSv1.3",
+    "cipher": "TLS_AES_256_GCM_SHA384",
+    "chain": [
+      "*.google.com",
+      "WR2",
+      "GTS Root R1"
+    ],
+    "isExpired": false,
+    "isSelfSigned": false,
+    "domainMatches": true,
+    "isWeakCipher": false,
+    "grade": "A"
+  },
+  {
+    "domain": "t.me",
+    "subject": "*.t.me",
+    "issuer": "GoDaddy.com, Inc.",
+    "valid_from": "Oct 21 19:17:28 2025 GMT",
+    "valid_to": "Nov 22 19:17:28 2026 GMT",
+    "days_remaining": 256,
+    "protocol": "TLSv1.3",
+    "cipher": "TLS_AES_256_GCM_SHA384",
+    "chain": [
+      "*.t.me",
+      "Go Daddy Secure Certificate Authority - G2",
+      "Go Daddy Root Certificate Authority - G2"
+    ],
+    "isExpired": false,
+    "isSelfSigned": false,
+    "domainMatches": true,
+    "isWeakCipher": false,
+    "grade": "A"
+  },
+  {
+    "domain": "accounts.google.com",
+    "subject": "accounts.google.com",
+    "issuer": "Google Trust Services",
+    "valid_from": "Feb  2 08:38:48 2026 GMT",
+    "valid_to": "Apr 27 08:38:47 2026 GMT",
+    "days_remaining": 46,
+    "protocol": "TLSv1.3",
+    "cipher": "TLS_AES_256_GCM_SHA384",
+    "chain": [
+      "accounts.google.com",
+      "WR2",
+      "GTS Root R1"
+    ],
+    "isExpired": false,
+    "isSelfSigned": false,
+    "domainMatches": true,
+    "isWeakCipher": false,
+    "grade": "A"
+  },
+  {
+    "domain": "es.wikipedia.org",
+    "subject": "*.wikipedia.org",
+    "issuer": "Let's Encrypt",
+    "valid_from": "Feb  6 21:41:32 2026 GMT",
+    "valid_to": "May  7 21:41:31 2026 GMT",
+    "days_remaining": 57,
+    "protocol": "TLSv1.3",
+    "cipher": "TLS_AES_128_GCM_SHA256",
+    "chain": [
+      "*.wikipedia.org",
+      "E8",
+      "ISRG Root X1"
+    ],
+    "isExpired": false,
+    "isSelfSigned": false,
+    "domainMatches": true,
+    "isWeakCipher": false,
+    "grade": "A"
+  }
+];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const tbody = document.getElementById('db-tbody');
+
+            // Populate table
+            apiData.forEach(item => {
+                if (!item) return;
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${item.domain}</td>
+                    <td><span style="color: var(--grade-${item.grade.toLowerCase()}); font-weight: bold;">${item.grade}</span></td>
+                    <td>${item.issuer.substring(0, 20)}${item.issuer.length > 20 ? '...' : ''}</td>
+                    <td>${item.days_remaining > 0 ? item.days_remaining + ' days' : 'Expired'}</td>
+                    <td>${item.protocol || '-'}</td>
+                `;
+                tr.addEventListener('click', () => {
+                    document.getElementById('domain-input').value = item.domain;
+                    document.getElementById('search-form').dispatchEvent(new Event('submit'));
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+                tbody.appendChild(tr);
+            });
+
+            // Handle Search
+            document.getElementById('search-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const input = document.getElementById('domain-input').value.trim().toLowerCase();
+                const cleanDomain = input.replace(/^https?:\/\//, '').replace(/\/.*$/, '');
+
+                const resultContainer = document.getElementById('result-container');
+                resultContainer.style.display = 'block';
+
+                const data = apiData.find(d => d && d.domain === cleanDomain);
+
+                if (data) {
+                    renderResult(data, resultContainer);
+                } else {
+                    renderError(cleanDomain, resultContainer);
+                }
+            });
+
+            function renderResult(data, container) {
+                const isValid = data.grade !== 'F';
+
+                let issuesHtml = '';
+                if (data.isExpired) issuesHtml += `<li class="issue-error">❌ Certificate has expired (${Math.abs(data.days_remaining)} days ago)</li>`;
+                if (data.isSelfSigned) issuesHtml += `<li class="issue-error">❌ Certificate is self-signed (untrusted)</li>`;
+                if (!data.domainMatches) issuesHtml += `<li class="issue-error">❌ Mismatched domain (cert does not cover ${data.domain})</li>`;
+                if (data.isWeakCipher) issuesHtml += `<li class="issue-warn">⚠️ Server is using weak ciphers or outdated protocols</li>`;
+
+                if (issuesHtml === '') {
+                    issuesHtml = `<li class="issue-ok">✅ No common SSL errors detected</li>`;
+                }
+
+                container.innerHTML = `
+                    <div class="result-header">
+                        <div>
+                            <div class="domain-title">${data.domain}</div>
+                            <div class="status-badge ${isValid ? 'status-valid' : 'status-error'}">
+                                ${isValid ? 'Certificate Valid' : 'Security Warning'}
+                            </div>
+                        </div>
+                        <div class="grade-box">
+                            <div class="grade-label">Overall Grade</div>
+                            <div class="grade-value grade-${data.grade}">${data.grade}</div>
+                        </div>
+                    </div>
+
+                    <div class="grid">
+                        <div class="card">
+                            <h3>Certificate Details</h3>
+                            <div class="data-row">
+                                <div class="data-label">Issuer</div>
+                                <div class="data-val">${data.issuer}</div>
+                            </div>
+                            <div class="data-row">
+                                <div class="data-label">Subject</div>
+                                <div class="data-val">${data.subject}</div>
+                            </div>
+                            <div class="data-row">
+                                <div class="data-label">Valid From</div>
+                                <div class="data-val">${data.valid_from}</div>
+                            </div>
+                            <div class="data-row">
+                                <div class="data-label">Valid To</div>
+                                <div class="data-val">${data.valid_to} (${data.days_remaining} days)</div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3>Connection Protocol</h3>
+                            <div class="data-row">
+                                <div class="data-label">Protocol Version</div>
+                                <div class="data-val">${data.protocol || 'Unknown'}</div>
+                            </div>
+                            <div class="data-row">
+                                <div class="data-label">Cipher Suite</div>
+                                <div class="data-val">${data.cipher || 'Unknown'}</div>
+                            </div>
+
+                            <h3 style="margin-top: 1.5rem">Security Issues</h3>
+                            <ul class="issues-list">
+                                ${issuesHtml}
+                            </ul>
+                        </div>
+
+                        <div class="card" style="grid-column: 1 / -1;">
+                            <h3>Chain of Trust</h3>
+                            <ul class="chain-list">
+                                ${data.chain.map(c => `<li>${c}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            }
+
+            function escapeHTML(str) {
+                return str.replace(/[&<>'"]/g,
+                    tag => ({
+                        '&': '&amp;',
+                        '<': '&lt;',
+                        '>': '&gt;',
+                        "'": '&#39;',
+                        '"': '&quot;'
+                    }[tag])
+                );
+            }
+
+            function renderError(domain, container) {
+                const safeDomain = escapeHTML(domain);
+                container.innerHTML = `
+                    <div class="card" style="border-color: var(--grade-f); text-align: center; padding: 3rem 1.5rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">⚠️</div>
+                        <h3 style="justify-content: center; margin-bottom: 0.5rem;">Domain Not Found in Database</h3>
+                        <p style="color: var(--text-muted); font-family: 'JetBrains Mono', monospace; margin-bottom: 1rem;">${safeDomain}</p>
+                        <p style="color: var(--text-muted);">This static tool currently only queries our pre-crawled database of top websites. Please select a domain from the table below.</p>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G86C7NJG3F"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-G86C7NJG3F');</script>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://siliconbased.dev/color-palette" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Color Palette Generator | Harmonious Palettes & Image Extraction</title>
+<meta name="description" content="Generate beautiful, harmonious color palettes including complementary, analogous, triadic, and tetradic. Extract colors from images instantly. Free and works offline.">
+<meta property="og:title" content="Color Palette Generator">
+<meta property="og:description" content="Generate beautiful, harmonious color palettes including complementary, analogous, triadic, and tetradic. Extract colors from images instantly. Free and works offline.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Color Palette Generator",
+  "url": "https://siliconbased.dev/color-palette",
+  "description": "Generate harmonious color palettes and extract colors from images.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Understanding Color Palettes and Harmonies",
+  "description": "A guide to complementary, analogous, triadic, and tetradic color palettes.",
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 900px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+/* Input Section */
+.input-section { display: flex; flex-direction: column; align-items: center; margin-bottom: 32px; gap: 24px; }
+
+.base-color-container { display: flex; flex-direction: column; align-items: center; gap: 16px; width: 100%; }
+.color-input-wrapper { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: center; width: 100%; }
+.color-input { background: #111318; border: 2px solid #1e2030; border-radius: 12px; font-size: 2rem; font-weight: 700; color: #818cf8; font-family: 'JetBrains Mono', monospace; text-align: center; width: 100%; max-width: 300px; padding: 12px; outline: none; transition: border-color 0.2s; }
+.color-input:focus { border-color: #818cf8; }
+.color-picker { width: 56px; height: 56px; border: none; border-radius: 12px; cursor: pointer; background: none; padding: 0; }
+.color-picker::-webkit-color-swatch-wrapper { padding: 0; }
+.color-picker::-webkit-color-swatch { border: 2px solid #1e2030; border-radius: 12px; }
+
+.divider { width: 100%; max-width: 400px; height: 1px; background: #1e2030; position: relative; margin: 8px 0; }
+.divider::after { content: "OR"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #0a0b10; padding: 0 12px; color: #888; font-size: 0.8rem; font-weight: 600; }
+
+.image-upload-wrapper { width: 100%; max-width: 400px; }
+.file-upload-btn { background: #111318; border: 1px dashed #3a3f58; color: #818cf8; padding: 24px; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; width: 100%; text-align: center; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.file-upload-btn:hover { border-color: #818cf8; background: #151822; }
+.file-upload-btn svg { width: 24px; height: 24px; fill: currentColor; }
+.file-upload-btn span.subtext { font-size: 0.8rem; color: #888; font-weight: 400; }
+input[type="file"] { display: none; }
+#imagePreviewContainer { display: none; margin-top: 16px; width: 100%; max-width: 400px; border-radius: 12px; overflow: hidden; border: 1px solid #1e2030; position: relative; }
+#imagePreview { width: 100%; display: block; }
+.remove-img-btn { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 50%; width: 28px; height: 28px; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+.remove-img-btn:hover { background: rgba(200,50,50,0.8); }
+
+/* Palettes Section */
+.palettes-section { display: flex; flex-direction: column; gap: 32px; margin-bottom: 40px; }
+.palette-card { background: #111318; border: 1px solid #1e2030; border-radius: 16px; padding: 24px; }
+.palette-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
+.palette-title { font-size: 1.2rem; font-weight: 700; color: #fff; }
+.palette-desc { font-size: 0.9rem; color: #888; }
+.palette-colors { display: flex; height: 100px; border-radius: 12px; overflow: hidden; border: 1px solid #1e2030; width: 100%; }
+.palette-color { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: flex 0.2s; position: relative; }
+.palette-color:hover { flex: 1.5; }
+.palette-color-val { opacity: 0; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; font-weight: 600; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.8); background: rgba(0,0,0,0.4); padding: 6px 10px; border-radius: 6px; transition: opacity 0.2s; pointer-events: none; }
+.palette-color:hover .palette-color-val { opacity: 1; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .palette-colors { height: 120px; flex-direction: column; }
+  .palette-color:hover { flex: 2; }
+  .palette-color-val { opacity: 1; text-shadow: none; font-size: 0.8rem; padding: 2px 6px; }
+}
+@media (min-width: 601px) {
+  .palette-color-val { opacity: 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Color Palette Generator 🎨</h1>
+  <p>Generate harmonious color palettes or extract colors from an image.</p>
+</div>
+
+<div class="main">
+
+  <div class="input-section">
+    <div class="base-color-container">
+      <div class="color-input-wrapper">
+        <input type="color" id="colorPicker" class="color-picker" value="#818cf8">
+        <input type="text" id="colorInput" class="color-input" value="#818cf8" autocomplete="off" spellcheck="false" placeholder="e.g. #818cf8">
+      </div>
+      <div id="errorMsg" style="color: #f87171; font-size: 0.85rem; height: 1.2em; display: none;">Invalid color format</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="image-upload-wrapper">
+      <label for="imageUpload" class="file-upload-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54-1.96-2.36L6.5 17h11l-3.54-4.71z"/></svg>
+        Extract from Image
+        <span class="subtext">JPG, PNG, WebP (processed locally)</span>
+      </label>
+      <input type="file" id="imageUpload" accept="image/jpeg, image/png, image/webp">
+
+      <div id="imagePreviewContainer">
+        <button class="remove-img-btn" id="removeImgBtn" aria-label="Remove image">&times;</button>
+        <img id="imagePreview" alt="Uploaded image preview">
+      </div>
+    </div>
+  </div>
+
+  <div class="palettes-section">
+    <div class="palette-card">
+      <div class="palette-header">
+        <span class="palette-title">Complementary</span>
+        <span class="palette-desc">High contrast, vibrant</span>
+      </div>
+      <div class="palette-colors" id="palComplementary"></div>
+    </div>
+
+    <div class="palette-card">
+      <div class="palette-header">
+        <span class="palette-title">Analogous</span>
+        <span class="palette-desc">Harmonious, serene, natural</span>
+      </div>
+      <div class="palette-colors" id="palAnalogous"></div>
+    </div>
+
+    <div class="palette-card">
+      <div class="palette-header">
+        <span class="palette-title">Triadic</span>
+        <span class="palette-desc">Balanced, colorful, dynamic</span>
+      </div>
+      <div class="palette-colors" id="palTriadic"></div>
+    </div>
+
+    <div class="palette-card">
+      <div class="palette-header">
+        <span class="palette-title">Tetradic</span>
+        <span class="palette-desc">Rich, complex, dramatic</span>
+      </div>
+      <div class="palette-colors" id="palTetradic"></div>
+    </div>
+
+    <div class="palette-card" id="extractedPaletteCard" style="display: none;">
+      <div class="palette-header">
+        <span class="palette-title">Extracted Palette</span>
+        <span class="palette-desc">Dominant colors from image</span>
+      </div>
+      <div class="palette-colors" id="palExtracted"></div>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>Color Harmonies Explained</h2>
+    <p>Creating a beautiful design starts with a solid color palette. Using proven color theory harmonies ensures your colors work well together naturally.</p>
+
+    <h3>Complementary Palettes</h3>
+    <p>A complementary color palette uses colors that are opposite each other on the color wheel. This creates the highest level of contrast, making the design elements pop. It's excellent for drawing attention to specific areas like buttons or calls to action.</p>
+
+    <h3>Analogous Palettes</h3>
+    <p>Analogous color palettes involve colors that are situated next to each other on the color wheel. They match well, creating serene and comfortable designs. Analogous palettes are often found in nature and are pleasing to the eye.</p>
+
+    <h3>Triadic Palettes</h3>
+    <p>A triadic color scheme utilizes colors that are evenly spaced around the color wheel. They offer high contrast while retaining harmony. Triadic palettes are vibrant, even if you use pale or unsaturated versions of your hues.</p>
+
+    <h3>Tetradic (Double Complementary) Palettes</h3>
+    <p>The tetradic (or double complementary) scheme is the richest of all the schemes because it uses four colors arranged into two complementary color pairs. This scheme is hard to harmonize and works best if you let one color be dominant while the others serve as accents.</p>
+
+    <h2>Extracting Colors from Images</h2>
+    <p>Our tool allows you to upload an image and instantly extract its dominant colors. All image processing happens locally in your browser—your image is never uploaded to any server, ensuring complete privacy and fast offline performance.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const colorInput = document.getElementById('colorInput');
+const colorPicker = document.getElementById('colorPicker');
+const errorMsg = document.getElementById('errorMsg');
+
+const palComplementary = document.getElementById('palComplementary');
+const palAnalogous = document.getElementById('palAnalogous');
+const palTriadic = document.getElementById('palTriadic');
+const palTetradic = document.getElementById('palTetradic');
+
+const imageUpload = document.getElementById('imageUpload');
+const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+const imagePreview = document.getElementById('imagePreview');
+const removeImgBtn = document.getElementById('removeImgBtn');
+const extractedPaletteCard = document.getElementById('extractedPaletteCard');
+const palExtracted = document.getElementById('palExtracted');
+
+// --- Color Parsing & Conversion Utils ---
+
+function parseColor(str) {
+  str = str.trim().toLowerCase();
+  const dummy = document.createElement('div');
+  dummy.style.color = str;
+  if (dummy.style.color === '') return null;
+  document.body.appendChild(dummy);
+  const computed = window.getComputedStyle(dummy).color;
+  document.body.removeChild(dummy);
+  if (!computed || computed === 'rgba(0, 0, 0, 0)' && str !== 'transparent') return null;
+  const match = computed.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+  if (match) return [parseInt(match[1]), parseInt(match[2]), parseInt(match[3])];
+  return null;
+}
+
+function rgbToHex(r, g, b) {
+  const toHex = (n) => {
+    const hex = n.toString(16);
+    return hex.length === 1 ? '0' + hex : hex;
+  };
+  return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+}
+
+function rgbToHsl(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h, s, l = (max + min) / 2;
+  if (max === min) {
+    h = s = 0; // achromatic
+  } else {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      case b: h = (r - g) / d + 4; break;
+    }
+    h /= 6;
+  }
+  return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)];
+}
+
+function hslToRgb(h, s, l) {
+  h /= 360; s /= 100; l /= 100;
+  let r, g, b;
+  if (s === 0) {
+    r = g = b = l; // achromatic
+  } else {
+    const hue2rgb = (p, q, t) => {
+      if (t < 0) t += 1;
+      if (t > 1) t -= 1;
+      if (t < 1/6) return p + (q - p) * 6 * t;
+      if (t < 1/2) return q;
+      if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+      return p;
+    };
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    const p = 2 * l - q;
+    r = hue2rgb(p, q, h + 1/3);
+    g = hue2rgb(p, q, h);
+    b = hue2rgb(p, q, h - 1/3);
+  }
+  return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+}
+
+// --- UI Updates ---
+
+function renderPalette(container, colorsHsl) {
+  container.innerHTML = '';
+  colorsHsl.forEach(([h, s, l]) => {
+    const [r, g, b] = hslToRgb(h, s, l);
+    const hex = rgbToHex(r, g, b);
+
+    const div = document.createElement('div');
+    div.className = 'palette-color';
+    div.style.backgroundColor = hex;
+    // Simple text color logic based on lightness
+    div.style.color = l > 50 ? '#000' : '#fff';
+
+    const span = document.createElement('span');
+    span.className = 'palette-color-val';
+    span.textContent = hex;
+
+    div.appendChild(span);
+
+    // Click to copy
+    div.addEventListener('click', () => {
+      navigator.clipboard.writeText(hex);
+      span.textContent = 'Copied!';
+      setTimeout(() => span.textContent = hex, 1000);
+    });
+
+    container.appendChild(div);
+  });
+}
+
+function updateUI(rgb) {
+  const [r, g, b] = rgb;
+  const hex = rgbToHex(r, g, b);
+  const [h, s, l] = rgbToHsl(r, g, b);
+
+  // Sync inputs, avoiding currently focused element
+  if (document.activeElement !== colorInput) {
+    colorInput.value = hex;
+  }
+  if (document.activeElement !== colorPicker) {
+    colorPicker.value = hex;
+  }
+
+  // Generate and render Palettes
+  renderPalette(palComplementary, [
+    [h, s, l],
+    [(h + 180) % 360, s, l]
+  ]);
+
+  renderPalette(palAnalogous, [
+    [(h - 30 + 360) % 360, s, l],
+    [h, s, l],
+    [(h + 30) % 360, s, l]
+  ]);
+
+  renderPalette(palTriadic, [
+    [h, s, l],
+    [(h + 120) % 360, s, l],
+    [(h + 240) % 360, s, l]
+  ]);
+
+  renderPalette(palTetradic, [
+    [h, s, l],
+    [(h + 90) % 360, s, l],
+    [(h + 180) % 360, s, l],
+    [(h + 270) % 360, s, l]
+  ]);
+
+  errorMsg.style.display = 'none';
+}
+
+function handleInput(val) {
+  const rgb = parseColor(val);
+  if (rgb) {
+    updateUI(rgb);
+  } else {
+    errorMsg.style.display = 'block';
+  }
+}
+
+// --- Image Extraction ---
+
+function quantizeColors(pixels, depth = 0) {
+  // Simple median cut algorithm implementation for color quantization
+  const MAX_DEPTH = 3;
+  if (depth === MAX_DEPTH || pixels.length === 0) {
+    const sum = pixels.reduce((acc, p) => [acc[0] + p.r, acc[1] + p.g, acc[2] + p.b], [0, 0, 0]);
+    const count = pixels.length || 1;
+    return [{ r: Math.round(sum[0]/count), g: Math.round(sum[1]/count), b: Math.round(sum[2]/count) }];
+  }
+
+  // Find channel with biggest range
+  const ranges = pixels.reduce((acc, p) => {
+    acc.r.min = Math.min(acc.r.min, p.r); acc.r.max = Math.max(acc.r.max, p.r);
+    acc.g.min = Math.min(acc.g.min, p.g); acc.g.max = Math.max(acc.g.max, p.g);
+    acc.b.min = Math.min(acc.b.min, p.b); acc.b.max = Math.max(acc.b.max, p.b);
+    return acc;
+  }, { r: {min: 255, max: 0}, g: {min: 255, max: 0}, b: {min: 255, max: 0} });
+
+  let maxRange = -1;
+  let maxChannel = 'r';
+  for (const channel of ['r', 'g', 'b']) {
+    const range = ranges[channel].max - ranges[channel].min;
+    if (range > maxRange) {
+      maxRange = range;
+      maxChannel = channel;
+    }
+  }
+
+  // Sort by the channel with max range
+  pixels.sort((a, b) => a[maxChannel] - b[maxChannel]);
+
+  const mid = Math.floor(pixels.length / 2);
+  return [
+    ...quantizeColors(pixels.slice(0, mid), depth + 1),
+    ...quantizeColors(pixels.slice(mid), depth + 1)
+  ];
+}
+
+function extractColorsFromImage(img) {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+
+  // Scale down to speed up processing
+  const maxDim = 100;
+  let w = img.width, h = img.height;
+  if (w > h) { h = h * (maxDim / w); w = maxDim; }
+  else { w = w * (maxDim / h); h = maxDim; }
+
+  canvas.width = w; canvas.height = h;
+  ctx.drawImage(img, 0, 0, w, h);
+
+  const imageData = ctx.getImageData(0, 0, w, h).data;
+  const pixels = [];
+
+  // Sample every 4th pixel for speed
+  for (let i = 0; i < imageData.length; i += 16) {
+    if (imageData[i + 3] > 128) { // Ignore transparent
+      pixels.push({ r: imageData[i], g: imageData[i + 1], b: imageData[i + 2] });
+    }
+  }
+
+  const paletteRGB = quantizeColors(pixels);
+
+  // Convert to HSL and filter close colors? Median cut gives us 8 colors (2^3).
+  // We'll take top 5 or 6 unique-ish ones.
+  const paletteHSL = paletteRGB.slice(0, 6).map(p => rgbToHsl(p.r, p.g, p.b));
+
+  renderPalette(palExtracted, paletteHSL);
+  extractedPaletteCard.style.display = 'block';
+
+  // Set first color as base
+  if (paletteRGB.length > 0) {
+    const dominant = paletteRGB[0];
+    handleInput(rgbToHex(dominant.r, dominant.g, dominant.b));
+  }
+}
+
+imageUpload.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    const img = new Image();
+    img.onload = () => {
+      imagePreview.src = img.src;
+      imagePreviewContainer.style.display = 'block';
+      extractColorsFromImage(img);
+    };
+    img.src = event.target.result;
+  };
+  reader.readAsDataURL(file);
+});
+
+removeImgBtn.addEventListener('click', () => {
+  imageUpload.value = '';
+  imagePreviewContainer.style.display = 'none';
+  extractedPaletteCard.style.display = 'none';
+  imagePreview.src = '';
+});
+
+// --- Event Listeners ---
+
+colorInput.addEventListener('input', (e) => handleInput(e.target.value));
+colorPicker.addEventListener('input', (e) => handleInput(e.target.value));
+
+// Initialize with default color
+handleInput(colorInput.value);
+
+</script>
+</body>
+</html>

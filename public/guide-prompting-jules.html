@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G86C7NJG3F"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-G86C7NJG3F');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Prompt Google Jules for Research — 24 Lessons from 500+ Sessions | siliconbased.dev</title>
+<meta name="description" content="We ran 500+ Google Jules sessions across 9 domains and built a fully automated content factory. Every lesson, every mistake, and the exact process that ships pages while you sleep.">
+<meta property="og:title" content="How to Prompt Google Jules — 24 Lessons from 500+ Sessions">
+<meta property="og:description" content="The complete playbook for using Jules at scale: prompting, validation, automation, and the zero-click SEO fix that changed everything.">
+<link rel="canonical" href="https://siliconbased.dev/guide-prompting-jules">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"How to Prompt Google Jules for Research — 24 Lessons from 500+ Sessions","description":"Complete guide to prompting Google Jules for web scraping, original research, and automated content factories across multiple domains.","author":{"@type":"Organization","name":"siliconbased.dev"},"publisher":{"@type":"Organization","name":"GAB Ventures","url":"https://gab.ae"},"datePublished":"2026-03-08","dateModified":"2026-03-11"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Can Google Jules make HTTP requests and scrape websites?","acceptedAnswer":{"@type":"Answer","text":"Yes. Jules runs in a GitHub Codespace with full internet access. It can make HTTPS GET/HEAD requests, parse HTML, follow redirects, and save results to JSON — but it cannot render JavaScript or bypass anti-scraping measures."}},
+{"@type":"Question","name":"How many Jules sessions can you run per day?","acceptedAnswer":{"@type":"Answer","text":"Google Jules allows 300 sessions per day per account with up to 60 concurrent sessions. Each session takes roughly 20-45 minutes to complete."}},
+{"@type":"Question","name":"How do you prevent Jules from generating fake data?","acceptedAnswer":{"@type":"Answer","text":"Include explicit anti-hallucination phrases like 'null over fake data, always' and define validation ranges for every numeric field. Jules follows these constraints when clearly stated."}},
+{"@type":"Question","name":"What is the best way to automate Jules at scale?","acceptedAnswer":{"@type":"Answer","text":"Use a dispatch cron to send sessions via the Jules API, a review cron to merge PRs, and a post-merge validation script to catch missing elements like GA tags, nav bars, and sitemaps."}},
+{"@type":"Question","name":"How do you fix zero-click searches from Jules-generated content?","acceptedAnswer":{"@type":"Answer","text":"Rewrite meta descriptions to create curiosity gaps — tease the data without revealing the key stat. Instead of stating the answer, make users click to find it."}}
+]}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Inter',sans-serif;background:#0a0b10;color:#e0e0e0;line-height:1.8}
+code{font-family:'JetBrains Mono',monospace;font-size:0.82rem;background:#13151d;padding:2px 6px;border-radius:4px;color:#818cf8}
+pre{font-family:'JetBrains Mono',monospace;font-size:0.8rem;background:#0d0e16;border:1px solid #1e2030;border-radius:10px;padding:20px;overflow-x:auto;margin:16px 0;color:#ccc;line-height:1.6}
+.hero{text-align:center;padding:56px 24px 40px;background:linear-gradient(180deg,#0f1729 0%,#0a0b10 100%)}
+.hero-tag{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#818cf8;margin-bottom:12px}
+.hero h1{font-size:2rem;font-weight:900;color:#fff;margin-bottom:12px;letter-spacing:-0.5px;max-width:700px;margin-left:auto;margin-right:auto}
+.hero .subtitle{color:#666;font-size:0.95rem;max-width:560px;margin:0 auto 16px}
+.hero .date{font-size:0.78rem;color:#444}
+.main{max-width:780px;margin:0 auto;padding:32px 20px 60px}
+.card{background:#111318;border:1px solid #1e2030;border-radius:14px;padding:28px 24px;margin-bottom:20px}
+.card h2{font-size:1.25rem;font-weight:800;color:#fff;margin-bottom:14px}
+.card h3{font-size:1.05rem;font-weight:700;color:#ccc;margin:20px 0 10px}
+.card p{font-size:0.9rem;color:#999;line-height:1.8;margin-bottom:12px}
+.card ul,.card ol{font-size:0.9rem;color:#999;padding-left:24px;margin-bottom:12px}
+.card li{margin-bottom:6px;line-height:1.7}
+.card strong{color:#ccc}
+.lesson{background:#0f1120;border:1px solid #1a2040;border-radius:10px;padding:20px;margin:16px 0}
+.lesson .lesson-num{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#818cf8;margin-bottom:6px}
+.lesson .lesson-title{font-size:1rem;font-weight:700;color:#fff;margin-bottom:8px}
+.lesson p{font-size:0.85rem;color:#999;margin-bottom:8px}
+.before-after{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.ba-col{border-radius:10px;padding:16px;font-size:0.82rem}
+.ba-bad{background:#1a0a0a;border:1px solid #2e1515;color:#f87171}
+.ba-good{background:#0a1a10;border:1px solid #152e15;color:#34d399}
+.ba-label{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;opacity:0.7}
+.stat-row{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0}
+.stat-box{background:#0a0b10;border:1px solid #1e2030;border-radius:10px;padding:14px 20px;text-align:center;flex:1;min-width:100px}
+.stat-box .n{font-size:1.5rem;font-weight:900;color:#818cf8}.stat-box .l{font-size:0.68rem;color:#666;text-transform:uppercase;margin-top:2px}
+.toc{background:#0a0b10;border:1px solid #1e2030;border-radius:10px;padding:20px;margin:16px 0}
+.toc a{color:#818cf8;text-decoration:none;font-size:0.85rem;display:block;padding:3px 0}
+.toc a:hover{text-decoration:underline}
+.toc .toc-section{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#555;margin:14px 0 6px;padding-top:8px;border-top:1px solid #1e2030}
+.toc .toc-section:first-child{border-top:none;margin-top:0;padding-top:0}
+.new-tag{display:inline-block;background:#818cf8;color:#0a0b10;font-size:0.55rem;font-weight:800;padding:2px 6px;border-radius:4px;margin-left:6px;vertical-align:middle;letter-spacing:0.5px}
+.footer{text-align:center;padding:40px 24px;font-size:0.78rem;color:#555;border-top:1px solid #151520;margin-top:40px}
+.footer a{color:#818cf8;text-decoration:none}
+@media(max-width:600px){
+  .hero h1{font-size:1.5rem}
+  .main{padding:20px 14px}
+  .before-after{grid-template-columns:1fr}
+  .stat-row{gap:8px}
+  .stat-box{min-width:80px;padding:10px 12px}
+  .stat-box .n{font-size:1.2rem}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-tag">Lessons Learned — Updated March 11, 2026</div>
+  <h1>How to Prompt Google Jules for Original Research</h1>
+  <p class="subtitle">500+ sessions, 9 domains, 400+ pages shipped. Every lesson from building a fully automated content factory — including the SEO disaster we almost missed.</p>
+  <div class="date">Updated March 11, 2026 · Based on real production experience</div>
+</div>
+
+<div class="main">
+
+  <div class="stat-row">
+    <div class="stat-box"><div class="n">500+</div><div class="l">Sessions Run</div></div>
+    <div class="stat-box"><div class="n">400+</div><div class="l">Pages Shipped</div></div>
+    <div class="stat-box"><div class="n">9</div><div class="l">Domains</div></div>
+    <div class="stat-box"><div class="n">300</div><div class="l">Daily Limit</div></div>
+  </div>
+
+  <div class="card">
+    <h2>Table of Contents</h2>
+    <div class="toc">
+      <div class="toc-section">Foundation (Lessons 1–14)</div>
+      <a href="#discovery">The Big Discovery: Jules Can Scrape the Web</a>
+      <a href="#lesson1">1. Tell Jules What It CAN Do</a>
+      <a href="#lesson2">2. Define the Exact Methodology</a>
+      <a href="#lesson3">3. Give It the Data Schema</a>
+      <a href="#lesson4">4. Anti-Hallucination Instructions</a>
+      <a href="#lesson5">5. The Close → Reprompt Reflex</a>
+      <a href="#lesson6">6. Domain-Specific Knowledge Must Be Explicit</a>
+      <a href="#lesson7">7. Data Validation Ranges</a>
+      <a href="#lesson8">8. Visual Style Matching</a>
+      <a href="#lesson9">9. Listing Pages > Individual Pages</a>
+      <a href="#lesson10">10. Multi-Domain Repo Routing</a>
+      <a href="#lesson11">11. Always Update the Homepage</a>
+      <a href="#lesson12">12. Know the Homepage Structure</a>
+      <a href="#lesson13">13. Use a Rejection Checklist</a>
+      <a href="#lesson14">14. Auto-Finalize Blocked Sessions</a>
+      <div class="toc-section">Scale & Automation (Lessons 15–19) <span class="new-tag">NEW</span></div>
+      <a href="#lesson15">15. The Zero-Click SEO Problem <span class="new-tag">NEW</span></a>
+      <a href="#lesson16">16. Brand Consistency at Scale <span class="new-tag">NEW</span></a>
+      <a href="#lesson17">17. Post-Merge Validation Scripts <span class="new-tag">NEW</span></a>
+      <a href="#lesson18">18. The Mandatory Prompt Template <span class="new-tag">NEW</span></a>
+      <a href="#lesson19">19. Homepage Visibility Debt <span class="new-tag">NEW</span></a>
+      <div class="toc-section">Infrastructure (Lessons 20–24) <span class="new-tag">NEW</span></div>
+      <a href="#lesson20">20. Jules PRs Silently Fail <span class="new-tag">NEW</span></a>
+      <a href="#lesson21">21. GA Tags Per Domain <span class="new-tag">NEW</span></a>
+      <a href="#lesson22">22. Unified Nav Injection <span class="new-tag">NEW</span></a>
+      <a href="#lesson23">23. Sub-site Index Pages <span class="new-tag">NEW</span></a>
+      <a href="#lesson24">24. The Full Automated Process (March 2026) <span class="new-tag">NEW</span></a>
+      <div class="toc-section">Reference</div>
+      <a href="#template">The Prompt Template (Updated)</a>
+      <a href="#results">Results & Scorecard</a>
+    </div>
+  </div>
+
+  <!-- ============== FOUNDATION LESSONS 1-14 ============== -->
+
+  <div class="card" id="discovery">
+    <h2>The Big Discovery: Jules Can Scrape the Web</h2>
+    <p>We assumed Jules couldn't make outbound HTTP requests from its sandbox. <strong>We were wrong.</strong> Jules runs in a GitHub Codespace environment that has full internet access. It can:</p>
+    <ul>
+      <li>Make HTTPS GET/HEAD requests to any public URL</li>
+      <li>Parse HTML responses and extract data</li>
+      <li>Read JSON-LD structured data from web pages</li>
+      <li>Follow redirects and handle timeouts</li>
+      <li>Process responses and save results to JSON files</li>
+    </ul>
+    <p>This changed everything. Instead of Jules only building static tool pages, we could use it to <strong>produce original research</strong> — crawl real websites, analyze real data, and build interactive study pages.</p>
+  </div>
+
+  <div class="card" id="lesson1">
+    <h2>Lesson 1: Tell Jules What It CAN Do</h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">Jules defaults to the conservative path unless told otherwise</div>
+      <p>If you don't explicitly say "you can make HTTP requests," Jules will assume it can't and will hardcode fake data instead. Always start your prompt with capabilities.</p>
+    </div>
+    <div class="before-after">
+      <div class="ba-col ba-bad"><div class="ba-label">❌ Before</div>"Create a study analyzing 100 websites' page weight"<br><br><em>Result: Jules hardcoded fake data or said it couldn't make requests</em></div>
+      <div class="ba-col ba-good"><div class="ba-label">✅ After</div>"You CAN make outbound HTTP requests. This task requires you to actually crawl real websites."<br><br><em>Result: Jules made real HTTP requests and collected real data</em></div>
+    </div>
+  </div>
+
+  <div class="card" id="lesson2">
+    <h2>Lesson 2: Define the Exact Methodology</h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">Don't let Jules figure out HOW to measure — tell it</div>
+      <p>Our first page weight study measured only the HTML response body (50-200KB per site). That's not "page weight" — real page weight includes CSS, JS, images, and fonts (typically 2-5MB). Jules did exactly what we asked; we just asked wrong.</p>
+    </div>
+    <div class="before-after">
+      <div class="ba-col ba-bad"><div class="ba-label">❌ Vague</div>"Measure the page weight of each site"<br><br><em>Result: Measured HTML response only (17KB for google.com)</em></div>
+      <div class="ba-col ba-good"><div class="ba-label">✅ Specific</div>"Page weight = HTML + all CSS + all JS + images. Parse HTML for resource URLs, make HEAD requests for Content-Length on each, sum everything."<br><br><em>Result: Full resource measurement (1.2MB for google.com)</em></div>
+    </div>
+  </div>
+
+  <div class="card" id="lesson3">
+    <h2>Lesson 3: Give It the Data Schema</h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">Provide the exact JSON structure you want back</div>
+      <p>When we didn't specify field names, Jules used different names than expected. The page template then couldn't read the data.</p>
+    </div>
+    <pre>{
+  "crawlDate": "ISO date",
+  "results": [
+    {
+      "domain": "google.com",      // exact field name
+      "htmlBytes": 17000,           // exact field name
+      "totalBytes": 532000,         // computed sum
+      "error": null                 // null, not undefined
+    }
+  ]
+}</pre>
+    <p>Include a complete example object with comments. Jules follows the schema precisely when given one.</p>
+  </div>
+
+  <div class="card" id="lesson4">
+    <h2>Lesson 4: Anti-Hallucination Instructions</h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">"If you only get 50, say 50. Don't fake 500."</div>
+      <p>AI coding agents will try to meet your target. If you ask for 500 recipes and they can only scrape 50, they might pad the data. Explicitly tell them that honest counts are better than fabricated data.</p>
+    </div>
+    <p>Include these exact phrases in your prompt:</p>
+    <ul>
+      <li><strong>"null over fake data, always"</strong></li>
+      <li><strong>"Be honest about the count — the title must match actual data"</strong></li>
+      <li><strong>"If you can't determine a value, set it to null — do NOT guess"</strong></li>
+    </ul>
+  </div>
+
+  <div class="card" id="lesson5">
+    <h2>Lesson 5: The Close → Reprompt Reflex</h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">First attempt rarely perfect. Close the PR, tell Jules what went wrong, send again.</div>
+      <p>This became our default workflow. Every study improved on the second attempt because we could tell Jules exactly what went wrong.</p>
+    </div>
+    <ol>
+      <li><strong>Dispatch study</strong> → Jules builds it in ~30 minutes</li>
+      <li><strong>Review the PR</strong> → Check data quality, not just if it builds</li>
+      <li><strong>Close with feedback</strong> → "Closing: hydration calculation is wrong, only 25 recipes"</li>
+      <li><strong>Reprompt with fixes</strong> → "Your previous attempt had these problems: [specifics]"</li>
+      <li><strong>Review v2</strong> → Usually good enough to merge</li>
+    </ol>
+  </div>
+
+  <div class="card" id="lesson6">
+    <h2>Lesson 6: Domain Knowledge Must Be Explicit</h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">Jules doesn't know that 100% hydration sourdough is ciabatta, not standard bread</div>
+      <p>You must encode domain knowledge into the prompt, including what "normal" looks like.</p>
+    </div>
+    <div class="before-after">
+      <div class="ba-col ba-bad"><div class="ba-label">❌ No context</div>"Calculate hydration from ingredients"<br><br><em>Result: 100% hydration for standard loaves (wrong)</em></div>
+      <div class="ba-col ba-good"><div class="ba-label">✅ With domain knowledge</div>"Hydration = water ÷ flour × 100. Normal: 60-90%. If &gt;90%, flag as high. If &gt;100%, likely error — set to null."<br><br><em>Result: Average 77.8% (correct)</em></div>
+    </div>
+  </div>
+
+  <div class="card" id="lesson7">
+    <h2>Lesson 7: Data Validation Ranges</h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">Give explicit valid ranges for every numeric field</div>
+      <p>Without validation rules, Jules includes outliers that are clearly errors (oven temp of 0°F, page weight of -1 bytes).</p>
+    </div>
+    <pre>Data validation:
+- hydration: 55-100 (flag &gt;90), else null
+- ovenTempF: 300-550, else null
+- bakeTimeMin: 15-120, else null
+- apyPct: 0.01-6.00, else null</pre>
+  </div>
+
+  <div class="card" id="lesson8">
+    <h2>Lesson 8: Visual Style Matching</h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">Reference an existing file and give exact CSS values</div>
+      <p>"Match the site style" isn't enough. Give exact hex codes, font names, and reference a specific file.</p>
+    </div>
+    <pre>Style: bg #060a12, cards #0a1020, border #152040
+Accent: #4a8fe7 (Westmount) or #6366f1 (PhotonBuilder)
+Fonts: Inter (body) + JetBrains Mono (code)</pre>
+  </div>
+
+  <div class="card" id="lesson9">
+    <h2>Lesson 9: Listing Pages > Individual Pages</h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">Point Jules at index/search pages, not individual URLs</div>
+      <p>Point at listing pages that link to dozens of items, not individual pages one at a time.</p>
+    </div>
+    <pre>Don't: "Scrape recipes from kingarthurbaking.com"
+Do:   "Fetch the listing page at /recipes/sourdough
+       — extract all recipe URLs, then fetch each one."</pre>
+  </div>
+
+  <div class="card" id="lesson10">
+    <h2>Lesson 10: Multi-Domain Repo Routing</h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">Each domain has its own repo — route to the correct one or everything lands in the wrong place</div>
+      <p>When running a factory across multiple domains, every study must target the correct GitHub repo. Jules sessions can't be redirected mid-build.</p>
+    </div>
+    <pre>DOMAIN_TO_REPO = {
+    'siliconbased.dev':          'siliconbased-dev',
+    'westmountfundamentals.com': 'westmount-research',
+    'firemaths.info':            'firemaths-info',
+    '28grams.vip':               '28grams-vip',
+    ...
+}</pre>
+  </div>
+
+  <div class="card" id="lesson11">
+    <h2>Lesson 11: Always Update the Homepage</h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">Jules builds the study page perfectly — then forgets the homepage exists</div>
+      <p>If the homepage never gets updated, nobody discovers the study. Add explicit instructions to update <code>index.astro</code> with every new page.</p>
+    </div>
+    <p><strong>Reality check:</strong> Jules updates the homepage maybe 30% of the time, even when asked. This is why we now handle it in post-merge validation (see Lesson 19).</p>
+  </div>
+
+  <div class="card" id="lesson12">
+    <h2>Lesson 12: Know the Homepage Structure</h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">4 sections — Tools, Studies, Guides, Lists — each with different card formats</div>
+      <p>Every homepage follows the same 4-section layout. Tell Jules which section its page belongs to and the exact card format.</p>
+    </div>
+    <pre>guide-*.html  → GUIDE section
+list-*.html   → LIST section
+*-study.html  → STUDY section
+everything else → TOOL section</pre>
+  </div>
+
+  <div class="card" id="lesson13">
+    <h2>Lesson 13: Use a Rejection Checklist</h2>
+    <div class="lesson">
+      <div class="lesson-num">Hard Data</div>
+      <div class="lesson-title">Jules completes "core" tasks at 100% but ignores "secondary" tasks 70% of the time</div>
+      <p>Instructions at the end of a prompt are more salient. Frame as "PR will be rejected" — constraints, not suggestions.</p>
+    </div>
+    <div class="stat-row">
+      <div class="stat-box"><div class="n">100%</div><div class="l">Core HTML</div></div>
+      <div class="stat-box"><div class="n">100%</div><div class="l">GA Tag*</div></div>
+      <div class="stat-box"><div class="n">100%</div><div class="l">FAQ Schema*</div></div>
+      <div class="stat-box"><div class="n">67%</div><div class="l">Nav Bar*</div></div>
+    </div>
+    <p style="font-size:0.78rem;color:#555;">* After adding the rejection checklist to prompts (March 11). Before: ~30% compliance on secondary tasks.</p>
+  </div>
+
+  <div class="card" id="lesson14">
+    <h2>Lesson 14: Auto-Finalize Blocked Sessions</h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">When Jules asks a question, don't answer — just tell it to ship</div>
+      <p><code>POST /sessions/{id}:sendMessage</code> with empty body <code>{}</code>. Jules finalizes immediately. Review the PR afterward — if it's bad, close and reprompt.</p>
+    </div>
+  </div>
+
+  <!-- ============== NEW LESSONS 15-24 ============== -->
+
+  <div class="card" id="lesson15" style="border-color:#818cf8">
+    <h2>Lesson 15: The Zero-Click SEO Problem <span class="new-tag">NEW — March 11</span></h2>
+    <div class="lesson">
+      <div class="lesson-num">Critical Discovery</div>
+      <div class="lesson-title">Google showed us impressions but zero clicks — because we answered the query in the snippet</div>
+      <p>We saw our pages ranking just below the AI Overview on Google. Hundreds of impressions. Zero clicks. The problem: our meta descriptions gave away the answer. The user got what they needed without ever visiting our site.</p>
+    </div>
+    <div class="before-after">
+      <div class="ba-col ba-bad"><div class="ba-label">❌ Zero-Click Snippet</div>"What is the average ETF expense ratio? Across our index of 86 major ETFs, the average expense ratio is 0.164% and the median is 0.09%."<br><br><em>Result: User got the answer → closed tab → zero clicks</em></div>
+      <div class="ba-col ba-good"><div class="ba-label">✅ Curiosity Gap</div>"Some popular ETFs charge 10x more than nearly identical alternatives. We ranked 86 funds to find out which ones are quietly overcharging you."<br><br><em>Result: User wants to know WHICH ones → clicks through</em></div>
+    </div>
+    <p><strong>The pattern:</strong> [Surprising hook] + [Scope of research] + [Reason to click]</p>
+    <p>We rewrote all 40 meta descriptions on Westmount Fundamentals in one batch. This is now a mandatory requirement in every Jules prompt.</p>
+    <pre>## META DESCRIPTION RULE
+NEVER reveal the key stat or answer in the meta description.
+Create a curiosity gap. Tease the data, make them click.
+
+❌ "The S&P 500 has 37.3% in just 10 stocks"
+✅ "Just 10 stocks now control over a third of the S&P 500.
+   See the full weight rankings and how concentrated 
+   your index fund really is."</pre>
+  </div>
+
+  <div class="card" id="lesson16" style="border-color:#818cf8">
+    <h2>Lesson 16: Brand Consistency at Scale <span class="new-tag">NEW — March 11</span></h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">Jules uses random accent colors unless you specify hex codes — and even then, gets it wrong 20% of the time</div>
+      <p>Our first batch of automated PRs had pages with green, orange, and teal accents — on a site that uses indigo (#6366f1). Wrong brand color = immediate PR rejection.</p>
+    </div>
+    <p><strong>Per-domain accent colors we enforce:</strong></p>
+    <pre>Westmount Fundamentals: #4a8fe7 (blue)
+PhotonBuilder:          #6366f1 (indigo)
+siliconbased.dev:       #818cf8 (purple)
+firemaths.info:         #D4A017 (gold)
+migratingmammals.com:   #C4956A (tan)
+aliimperiale.com:       #AD9846 (gold)
+28grams.vip:            #C2185B (pink)</pre>
+    <p>Include the hex code in the prompt AND check it during PR review. The validation script (Lesson 17) could be extended to verify this automatically.</p>
+  </div>
+
+  <div class="card" id="lesson17" style="border-color:#818cf8">
+    <h2>Lesson 17: Post-Merge Validation Scripts <span class="new-tag">NEW — March 11</span></h2>
+    <div class="lesson">
+      <div class="lesson-num">Game Changer</div>
+      <div class="lesson-title">A Python script that catches every missing element and auto-fixes what it can</div>
+      <p>Instead of manually checking each merged page, we built a validator that runs after every merge batch. It checks 10 things and auto-fixes 3 of them.</p>
+    </div>
+    <h3>What the validator checks</h3>
+    <ol>
+      <li>✅ Google Analytics tag (correct per-domain ID)</li>
+      <li>✅ Unified nav bar (sticky, with section links)</li>
+      <li>✅ Meta description exists</li>
+      <li>⚠️ Meta description doesn't give away the answer</li>
+      <li>⚠️ FAQPage JSON-LD schema present</li>
+      <li>✅ Mobile viewport meta tag</li>
+      <li>❌ Listed on homepage (index.astro)</li>
+      <li>❌ Present in sitemap.xml</li>
+      <li>✅ No old/wrong GA tags</li>
+      <li>✅ No "Built on PhotonBuilder" nav branding</li>
+    </ol>
+    <h3>What it auto-fixes (with <code>--fix</code> flag)</h3>
+    <ul>
+      <li><strong>Missing GA tag</strong> → Injects before <code>&lt;/head&gt;</code></li>
+      <li><strong>Missing nav bar</strong> → Injects after <code>&lt;body&gt;</code></li>
+      <li><strong>Wrong GA tag</strong> → Replaces with correct domain-specific ID</li>
+    </ul>
+    <pre>python3 validate-westmount.py --fix
+
+📄 guide-technical-analysis-basics.html
+   ❌ Missing unified nav bar
+   ✅ Fixed: injected nav bar
+   ❌ Not listed on homepage (index.astro)
+
+============================================================
+Pages checked: 43
+Issues found: 3
+Auto-fixed: 1
+  Errors: 2
+  Warnings: 1</pre>
+    <p><strong>The workflow:</strong> Jules builds the page (~90% correct) → validator catches the remaining 10% → you manually add to homepage + regenerate sitemap → push.</p>
+  </div>
+
+  <div class="card" id="lesson18" style="border-color:#818cf8">
+    <h2>Lesson 18: The Mandatory Prompt Template <span class="new-tag">NEW — March 11</span></h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">Every Jules prompt MUST include 11 mandatory requirements — the "rejection checklist" evolved</div>
+      <p>After seeing what Jules consistently misses, we codified all requirements into a numbered checklist that goes at the END of every prompt.</p>
+    </div>
+    <pre>MANDATORY REQUIREMENTS (PR will be rejected if ANY are missing):
+
+1. FILE: public/{slug}.html — self-contained, ALL CSS/JS inline
+2. NAV BAR: Sticky nav with brand name, links to /#studies /#tools /#guides
+3. GOOGLE ANALYTICS: gtag with domain-specific ID before &lt;/head&gt;
+4. META DESCRIPTION: Curiosity gap — NEVER reveal the key stat
+5. FAQ SECTION: 5 Q&As matching real search queries
+6. JSON-LD: FAQPage schema with all 5 Q&As
+7. DESIGN: Correct accent color, dark theme, Inter + JetBrains Mono
+8. FOOTER: © 2026 [Brand] · A GAB Ventures property + disclaimer
+9. MOBILE: viewport meta tag, responsive design
+10. SITEMAP: Update sitemap.xml
+11. CANONICAL: &lt;link rel="canonical"&gt; with full URL</pre>
+    <h3>Results after implementing this template</h3>
+    <div class="stat-row">
+      <div class="stat-box"><div class="n">3/3</div><div class="l">GA Tag ✅</div></div>
+      <div class="stat-box"><div class="n">3/3</div><div class="l">FAQ Schema ✅</div></div>
+      <div class="stat-box"><div class="n">3/3</div><div class="l">Curiosity Gap ✅</div></div>
+      <div class="stat-box"><div class="n">2/3</div><div class="l">Nav Bar</div></div>
+    </div>
+    <p>Massive improvement from the ~30% compliance we saw before the checklist. The remaining 10% (nav bar variations) is caught by the validator.</p>
+  </div>
+
+  <div class="card" id="lesson19" style="border-color:#818cf8">
+    <h2>Lesson 19: Homepage Visibility Debt <span class="new-tag">NEW — March 11</span></h2>
+    <div class="lesson">
+      <div class="lesson-num">Hard Data</div>
+      <div class="lesson-title">Westmount had 40 pages but only 17 on the homepage — more than half were invisible</div>
+      <p>Pages that aren't on the homepage don't get discovered. They exist, they rank on Google, but nobody browsing the site can find them. We had accumulated 23 "invisible" pages over several weeks of merging.</p>
+    </div>
+    <p><strong>The fix:</strong> After every merge batch, check the homepage against the filesystem. The validator flags pages not listed on the homepage. Manual step: add them to the correct section in <code>index.astro</code>.</p>
+    <p><strong>Prevention:</strong> Jules can't reliably edit Astro files. Accept this limitation and handle homepage updates as a human/automation step post-merge.</p>
+  </div>
+
+  <div class="card" id="lesson20" style="border-color:#818cf8">
+    <h2>Lesson 20: Jules PRs Silently Fail <span class="new-tag">NEW — March 11</span></h2>
+    <div class="lesson">
+      <div class="lesson-num">Gotcha</div>
+      <div class="lesson-title">Jules completes the session and builds the code — but sometimes never creates the PR</div>
+      <p>We dispatched 4 sessions with <code>automationMode: AUTO_CREATE_PR</code>. All 4 completed successfully. Zero PRs were created. No error. The patches were in the session outputs but never pushed to GitHub.</p>
+    </div>
+    <p><strong>The workaround:</strong> Check session outputs for <code>changeSet.gitPatch.unidiffPatch</code>. If there's a patch but no <code>pullRequestUrl</code>, extract the patch and <code>git apply</code> it manually.</p>
+    <pre>curl -s "sessions/$SID" -H "X-Goog-Api-Key: $KEY" | \
+  python3 -c "import sys,json
+d = json.load(sys.stdin)
+for o in d.get('outputs', []):
+    patch = o.get('changeSet',{}).get('gitPatch',{}).get('unidiffPatch','')
+    if patch:
+        open('/tmp/patch.diff','w').write(patch)
+        print(f'Saved {len(patch)} bytes')"
+
+cd ~/repo && git apply /tmp/patch.diff</pre>
+    <p>This happened in ~30% of our sessions. Still investigating if it's a Jules bug or a race condition with branch creation.</p>
+  </div>
+
+  <div class="card" id="lesson21" style="border-color:#818cf8">
+    <h2>Lesson 21: GA Tags Per Domain <span class="new-tag">NEW — March 11</span></h2>
+    <div class="lesson">
+      <div class="lesson-num">Operational</div>
+      <div class="lesson-title">Don't share one GA property across all domains — you'll lose per-site analytics</div>
+      <p>We initially used one GA tag (G-G86C7NJG3F) across all 9 domains. This made it impossible to see which domain was getting traffic. Now each domain has its own property.</p>
+    </div>
+    <pre>GA IDs per domain:
+westmountfundamentals.com  →  G-VYF72NSC1Q
+aliimperiale.com           →  G-23G2Y8PVLR
+All other domains          →  G-G86C7NJG3F</pre>
+    <p><strong>Gotcha:</strong> If the site uses Astro, the GA tag in <code>BaseHead.astro</code> (layout) and the tags in <code>public/*.html</code> (standalone pages) are separate. Update BOTH or Google verification will fail on the homepage while individual pages work fine.</p>
+  </div>
+
+  <div class="card" id="lesson22" style="border-color:#818cf8">
+    <h2>Lesson 22: Unified Nav Injection <span class="new-tag">NEW — March 11</span></h2>
+    <div class="lesson">
+      <div class="lesson-num">Key Insight</div>
+      <div class="lesson-title">Astro-rendered pages have a Nav component — standalone HTML pages in public/ do not</div>
+      <p>Only 6 out of 40 pages had any nav bar at all. The ones that did had inconsistent links and branding. Solution: inject a unified inline nav into every standalone HTML page.</p>
+    </div>
+    <p>The nav is pure inline HTML + inline styles (no external CSS needed). It's injected right after <code>&lt;body&gt;</code> either by Jules (in the prompt template) or by the validation script (auto-fix).</p>
+    <p><strong>Rule for sub-sites (PhotonBuilder):</strong> Never put "Built on PhotonBuilder" or "← PhotonBuilder" in the nav. Footer credit only. Nav branding screams "template."</p>
+  </div>
+
+  <div class="card" id="lesson23" style="border-color:#818cf8">
+    <h2>Lesson 23: Sub-site Index Pages <span class="new-tag">NEW — March 11</span></h2>
+    <div class="lesson">
+      <div class="lesson-num">Quick Fix</div>
+      <div class="lesson-title">GitHub Pages doesn't auto-generate directory listings — no index.html = 404</div>
+      <p>We created <code>/auberge/phone-answering-service-research.html</code> but visiting <code>/auberge/</code> gave a 404. Every sub-directory needs its own <code>index.html</code> that serves as a hub page.</p>
+    </div>
+  </div>
+
+  <div class="card" id="lesson24" style="border-color:#818cf8">
+    <h2>Lesson 24: The Full Automated Process (March 2026) <span class="new-tag">NEW</span></h2>
+    <div class="lesson">
+      <div class="lesson-num">The System</div>
+      <div class="lesson-title">Three-stage pipeline: Dispatch → Review → Validate</div>
+    </div>
+    <h3>Stage 1: Dispatch (Content Factory)</h3>
+    <p>A cron job dispatches 12 Jules sessions every 30 minutes — 6 per domain. Each prompt includes the full 11-point rejection checklist, correct GA tag, nav bar HTML, accent color, and curiosity-gap rule.</p>
+    <pre>Every 30 min:
+1. Check existing pages (avoid duplicates)
+2. Check open PRs (avoid duplicates)
+3. Pick 6 high-value pages per domain
+4. Dispatch via Jules API with full template
+5. Auto-finalize any AWAITING_USER_FEEDBACK sessions</pre>
+
+    <h3>Stage 2: Review (Review Factory)</h3>
+    <p>A separate cron reviews completed PRs every 30 minutes. Merges good ones, cherry-picks conflicts, closes bad ones.</p>
+    <pre>Every 30 min (offset by 15 min):
+1. List open PRs on both repos
+2. For each: check files, spot-check content, verify accent color
+3. Good PRs → merge (or cherry-pick if conflict)
+4. Bad PRs → close with comment
+5. Regenerate sitemaps after merging</pre>
+
+    <h3>Stage 3: Validate (Post-Merge)</h3>
+    <p>After merging, run the validation script. It catches and auto-fixes missing GA tags, nav bars, and wrong GA tag IDs. Then manually update the homepage and push.</p>
+    <pre>After merge:
+1. python3 validate-westmount.py --fix
+2. Add new pages to index.astro (correct section)
+3. git add, commit, push
+4. Verify on live site</pre>
+
+    <h3>What Jules gets right (with the template)</h3>
+    <div class="stat-row">
+      <div class="stat-box"><div class="n">100%</div><div class="l">GA Tag</div></div>
+      <div class="stat-box"><div class="n">100%</div><div class="l">FAQ Schema</div></div>
+      <div class="stat-box"><div class="n">100%</div><div class="l">Curiosity Gap</div></div>
+      <div class="stat-box"><div class="n">100%</div><div class="l">Accent Color</div></div>
+    </div>
+    <h3>What we handle post-merge</h3>
+    <div class="stat-row">
+      <div class="stat-box"><div class="n">→</div><div class="l">Homepage</div></div>
+      <div class="stat-box"><div class="n">→</div><div class="l">Sitemap</div></div>
+      <div class="stat-box"><div class="n">→</div><div class="l">Nav (fix)</div></div>
+    </div>
+    <p><strong>Bottom line:</strong> Jules handles ~90% correctly when given the right prompt template. The validation script catches the remaining 10%. The homepage and sitemap are always manual/automated steps post-merge.</p>
+  </div>
+
+  <!-- ============== REFERENCE ============== -->
+
+  <div class="card" id="template">
+    <h2>The Prompt Template (Updated March 11)</h2>
+    <p>Copy this structure for any new page:</p>
+    <pre>Build a [TYPE] page at public/[slug].html for [domain].
+
+TOPIC: [Title]
+
+[2-3 paragraphs about what to build, what to cover]
+
+If this is a STUDY: You CAN make outbound HTTP requests.
+Scrape REAL data. null over fake data, always.
+
+MANDATORY REQUIREMENTS (PR will be rejected if ANY missing):
+1. public/[slug].html — self-contained, ALL CSS/JS inline
+2. Sticky nav after &lt;body&gt;: brand "[Site Name]"
+   linking /, links to /#studies /#tools /#guides
+3. GA before &lt;/head&gt;: gtag [GA-ID]
+4. Meta description with CURIOSITY GAP — never reveal 
+   the key stat, tease the data
+5. FAQ section: 5 Q&As matching real search queries
+6. FAQPage JSON-LD schema
+7. Dark theme: bg #060a12, cards #0a1020, border #152040, 
+   accent [HEX]. Fonts: Inter + JetBrains Mono
+8. Footer: © 2026 [Brand] · A GAB Ventures property. 
+   Not investment advice.
+9. Mobile responsive with viewport meta
+10. Update sitemap.xml
+11. Canonical: https://[domain]/[slug].html</pre>
+  </div>
+
+  <div class="card" id="results">
+    <h2>Results & Scorecard</h2>
+    <h3>Domains (9 active)</h3>
+    <ul>
+      <li><a href="https://westmountfundamentals.com" style="color:#818cf8">westmountfundamentals.com</a> — 43 pages (tools, studies, guides)</li>
+      <li><a href="https://aliimperiale.com" style="color:#818cf8">aliimperiale.com</a> — 377 pages (tools, guides, studies, lists, blog)</li>
+      <li><a href="https://siliconbased.dev" style="color:#818cf8">siliconbased.dev</a> — dev tools & research</li>
+      <li><a href="https://photonbuilder.com" style="color:#818cf8">photonbuilder.com</a> — website builder engine</li>
+      <li><a href="https://firemaths.info" style="color:#818cf8">firemaths.info</a> — finance calculators</li>
+      <li><a href="https://migratingmammals.com" style="color:#818cf8">migratingmammals.com</a> — travel/nomad</li>
+      <li><a href="https://ijustwantto.live" style="color:#818cf8">ijustwantto.live</a> — practical life tools</li>
+      <li><a href="https://28grams.vip" style="color:#818cf8">28grams.vip</a> — food/cooking</li>
+      <li><a href="https://leeroyjenkins.quest" style="color:#818cf8">leeroyjenkins.quest</a> — gaming</li>
+    </ul>
+    <h3>Key metrics</h3>
+    <div class="stat-row">
+      <div class="stat-box"><div class="n">500+</div><div class="l">Jules Sessions</div></div>
+      <div class="stat-box"><div class="n">400+</div><div class="l">Pages Live</div></div>
+      <div class="stat-box"><div class="n">0</div><div class="l">Fake Data Merged</div></div>
+      <div class="stat-box"><div class="n">24</div><div class="l">Lessons Learned</div></div>
+    </div>
+    <p style="color:#555;font-size:0.82rem">Last updated: March 11, 2026. This guide is a living document — we update it every time we learn something new.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2026 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+</body>
+</html>

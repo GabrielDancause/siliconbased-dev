@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G86C7NJG3F"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-G86C7NJG3F');</script>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://siliconbased.dev/placeholder-image" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Placeholder Image Generator | Free Online Tool</title>
+<meta name="description" content="Generate custom placeholder images instantly with custom dimensions, colors, and text. Download as PNG or copy Data URI. Free, zero dependencies, runs offline.">
+<meta property="og:title" content="Placeholder Image Generator">
+<meta property="og:description" content="Generate custom placeholder images instantly with custom dimensions, colors, and text. Download as PNG or copy Data URI. Free, zero dependencies, runs offline.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Placeholder Image Generator",
+  "url": "https://siliconbased.dev/placeholder-image",
+  "description": "Generate custom placeholder images instantly with custom dimensions, colors, and text. Download as PNG or copy Data URI.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+
+.main { max-width: 900px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
+
+.tool-layout { display: grid; grid-template-columns: 320px 1fr; gap: 24px; align-items: start; }
+@media (max-width: 768px) {
+  .tool-layout { grid-template-columns: 1fr; }
+}
+
+.controls-card { background: #111318; border: 1px solid #1e2030; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+
+.control-group { display: flex; flex-direction: column; gap: 8px; }
+.control-label { font-size: 0.85rem; font-weight: 600; color: #ccc; }
+.input-row { display: flex; gap: 12px; align-items: center; }
+
+.text-input { width: 100%; background: #0a0b10; border: 1px solid #1e2030; border-radius: 8px; padding: 10px 12px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
+.text-input:focus { border-color: #818cf8; }
+.text-input::placeholder { color: #444; }
+
+.color-input-wrapper { display: flex; align-items: center; gap: 12px; width: 100%; }
+.color-picker { width: 40px; height: 40px; border: none; border-radius: 8px; cursor: pointer; background: none; padding: 0; flex-shrink: 0; }
+.color-picker::-webkit-color-swatch-wrapper { padding: 0; }
+.color-picker::-webkit-color-swatch { border: 1px solid #1e2030; border-radius: 8px; }
+
+.preview-card { background: #111318; border: 1px solid #1e2030; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; align-items: center; gap: 24px; overflow: hidden; }
+
+.canvas-container { max-width: 100%; overflow: auto; border: 1px dashed #2a2d40; border-radius: 4px; display: flex; justify-content: center; align-items: center; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect width="10" height="10" fill="%231a1c23"/><rect x="10" width="10" height="10" fill="%23111318"/><rect y="10" width="10" height="10" fill="%23111318"/><rect x="10" y="10" width="10" height="10" fill="%231a1c23"/></svg>'); }
+
+#imageCanvas { max-width: 100%; height: auto; display: block; }
+
+.actions-row { display: flex; gap: 16px; width: 100%; justify-content: center; flex-wrap: wrap; }
+.btn { background: #1e2030; border: 1px solid #2a2d40; color: #ccc; padding: 10px 20px; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+.btn:hover { background: #2a2d40; color: #fff; }
+.btn-primary { background: #818cf8; color: #fff; border-color: #818cf8; }
+.btn-primary:hover { background: #6366f1; border-color: #6366f1; }
+.btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
+
+.data-uri-output { width: 100%; background: #0a0b10; border: 1px solid #1e2030; border-radius: 8px; padding: 12px; color: #888; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; word-break: break-all; max-height: 80px; overflow-y: auto; display: none; margin-top: 16px; }
+.data-uri-output.visible { display: block; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; font-family: 'JetBrains Mono', monospace; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Placeholder Image Generator</h1>
+  <p>Create dummy images for mockups, designs, and development instantly.</p>
+</div>
+
+<div class="main">
+  <div class="tool-layout">
+
+    <div class="controls-card">
+      <div class="control-group">
+        <label class="control-label">Dimensions (px)</label>
+        <div class="input-row">
+          <input type="number" id="inputWidth" class="text-input" value="600" min="1" max="4000">
+          <span style="color: #666;">×</span>
+          <input type="number" id="inputHeight" class="text-input" value="400" min="1" max="4000">
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label">Background Color</label>
+        <div class="color-input-wrapper">
+          <input type="color" id="pickerBg" class="color-picker" value="#1e2030">
+          <input type="text" id="inputBg" class="text-input" value="#1e2030" spellcheck="false">
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label">Text Color</label>
+        <div class="color-input-wrapper">
+          <input type="color" id="pickerText" class="color-picker" value="#818cf8">
+          <input type="text" id="inputText" class="text-input" value="#818cf8" spellcheck="false">
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label">Custom Text (Optional)</label>
+        <input type="text" id="inputCustomText" class="text-input" placeholder="e.g. Hero Image" spellcheck="false">
+      </div>
+    </div>
+
+    <div class="preview-card">
+      <div class="canvas-container">
+        <canvas id="imageCanvas"></canvas>
+      </div>
+
+      <div class="actions-row">
+        <button class="btn btn-primary" id="btnDownload">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Download PNG
+        </button>
+        <button class="btn" id="btnCopyDataUri">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          Copy Data URI
+        </button>
+      </div>
+
+      <div id="dataUriOutput" class="data-uri-output"></div>
+    </div>
+
+  </div>
+
+  <div class="seo-content">
+    <h2>What is a Placeholder Image?</h2>
+    <p>A placeholder image is a temporary graphic used in web design, app development, and wireframing. It acts as a stand-in for final images that are not yet available, ensuring that the layout structure and sizing of a page are maintained during the development process.</p>
+    <p>Using placeholders allows developers and designers to see how content will flow around images without having to source real photography or illustrations upfront.</p>
+
+    <h2>Why use a Data URI?</h2>
+    <p>This tool allows you to copy the generated image as a Data URI (a base64 encoded string representation of the image). You can paste this directly into your HTML's <code>&lt;img src="..."&gt;</code> attribute or CSS <code>background-image: url(...)</code>.</p>
+    <ul>
+      <li><strong>Fewer HTTP Requests:</strong> Data URIs are embedded directly in the code, so the browser doesn't need to make a separate network request to fetch the image.</li>
+      <li><strong>Offline Support:</strong> Because the image data is in the code, it works perfectly without an internet connection.</li>
+      <li><strong>No Broken Links:</strong> You don't have to worry about external image hosting services going down or deleting your placeholder images.</li>
+    </ul>
+
+    <h2>Client-Side Generation</h2>
+    <p>Our Placeholder Image Generator runs entirely in your web browser using HTML5 Canvas API. No data is sent to a server. When you adjust the dimensions, colors, or text, the image is rendered locally on your device.</p>
+    <p>This ensures maximum privacy, rapid live previews, and the ability to use the tool even if you go offline after the page has loaded.</p>
+  </div>
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+const inputWidth = document.getElementById('inputWidth');
+const inputHeight = document.getElementById('inputHeight');
+const pickerBg = document.getElementById('pickerBg');
+const inputBg = document.getElementById('inputBg');
+const pickerText = document.getElementById('pickerText');
+const inputText = document.getElementById('inputText');
+const inputCustomText = document.getElementById('inputCustomText');
+const canvas = document.getElementById('imageCanvas');
+const ctx = canvas.getContext('2d');
+const btnDownload = document.getElementById('btnDownload');
+const btnCopyDataUri = document.getElementById('btnCopyDataUri');
+const dataUriOutput = document.getElementById('dataUriOutput');
+
+function syncColors(picker, textInput) {
+  picker.addEventListener('input', () => {
+    textInput.value = picker.value;
+    drawPlaceholder();
+  });
+  textInput.addEventListener('input', () => {
+    picker.value = textInput.value;
+    drawPlaceholder();
+  });
+}
+
+syncColors(pickerBg, inputBg);
+syncColors(pickerText, inputText);
+
+function drawPlaceholder() {
+  const w = parseInt(inputWidth.value) || 600;
+  const h = parseInt(inputHeight.value) || 400;
+
+  // Set real canvas dimensions
+  canvas.width = w;
+  canvas.height = h;
+
+  // Draw background
+  ctx.fillStyle = inputBg.value || '#1e2030';
+  ctx.fillRect(0, 0, w, h);
+
+  // Draw text
+  ctx.fillStyle = inputText.value || '#818cf8';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  const text = inputCustomText.value || `${w} × ${h}`;
+
+  // Responsive font size: roughly 1/10th of the shortest side, but clamp between 12 and 100
+  let fontSize = Math.floor(Math.min(w, h) * 0.1);
+  if (fontSize < 12) fontSize = 12;
+  if (fontSize > 150) fontSize = 150;
+
+  // If custom text is long, scale down further to fit width
+  ctx.font = `600 ${fontSize}px Inter, sans-serif`;
+  let textWidth = ctx.measureText(text).width;
+  if (textWidth > w * 0.9) {
+    fontSize = Math.floor(fontSize * ((w * 0.9) / textWidth));
+    ctx.font = `600 ${fontSize}px Inter, sans-serif`;
+  }
+
+  ctx.fillText(text, w / 2, h / 2);
+
+  // Update data uri output if it's visible
+  if (dataUriOutput.classList.contains('visible')) {
+    dataUriOutput.textContent = canvas.toDataURL('image/png');
+  }
+}
+
+[inputWidth, inputHeight, inputCustomText].forEach(el => {
+  el.addEventListener('input', drawPlaceholder);
+});
+
+btnDownload.addEventListener('click', () => {
+  const dataUrl = canvas.toDataURL('image/png');
+  const a = document.createElement('a');
+  a.href = dataUrl;
+  const w = parseInt(inputWidth.value) || 600;
+  const h = parseInt(inputHeight.value) || 400;
+  a.download = `placeholder-${w}x${h}.png`;
+  a.click();
+});
+
+btnCopyDataUri.addEventListener('click', () => {
+  const dataUrl = canvas.toDataURL('image/png');
+  navigator.clipboard.writeText(dataUrl).then(() => {
+    const originalText = btnCopyDataUri.innerHTML;
+    btnCopyDataUri.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+    btnCopyDataUri.classList.add('copied');
+    dataUriOutput.textContent = dataUrl;
+    dataUriOutput.classList.add('visible');
+
+    setTimeout(() => {
+      btnCopyDataUri.innerHTML = originalText;
+      btnCopyDataUri.classList.remove('copied');
+    }, 2000);
+  });
+});
+
+// Initial draw
+// Ensure font is loaded before drawing first time if possible,
+// but we just draw immediately as fallback.
+document.fonts.ready.then(drawPlaceholder);
+drawPlaceholder();
+
+</script>
+</body>
+</html>

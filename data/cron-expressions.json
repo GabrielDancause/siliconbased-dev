@@ -1,0 +1,222 @@
+[
+  {
+    "slug": "every-minute",
+    "expression": "* * * * *",
+    "human": "Every Minute",
+    "fields": ["every minute", "every hour", "every day", "every month", "every weekday"],
+    "useCase": "Health checks, queue processing, real-time monitoring. Most aggressive standard interval — your cron daemon will fire this 1,440 times per day.",
+    "warning": "Make sure your job completes in under 60 seconds, or you'll have overlapping executions. Use a lock file or flock command to prevent this.",
+    "tips": "Consider every 5 minutes instead. Most monitoring systems don't need minute-level granularity, and you'll reduce server load by 80%.",
+    "example": "flock -n /tmp/healthcheck.lock curl -s https://example.com/health > /dev/null",
+    "related": ["every-5-minutes", "every-30-seconds", "every-10-minutes"]
+  },
+  {
+    "slug": "every-5-minutes",
+    "expression": "*/5 * * * *",
+    "human": "Every 5 Minutes",
+    "fields": ["every 5th minute", "every hour", "every day", "every month", "every weekday"],
+    "useCase": "The most common cron interval. Used for cache clearing, data syncing, API polling, queue workers, and monitoring checks.",
+    "warning": "*/5 means at minutes 0, 5, 10, 15... not 'every 5 minutes from when the crontab was saved'. All */5 jobs across the system fire at the same times.",
+    "tips": "If many jobs use */5, stagger them: one at */5, another at 1-56/5, another at 2-57/5. This prevents thundering herd problems.",
+    "example": "*/5 * * * * /usr/bin/php /var/www/app/artisan schedule:run >> /dev/null 2>&1",
+    "related": ["every-minute", "every-10-minutes", "every-15-minutes"]
+  },
+  {
+    "slug": "every-10-minutes",
+    "expression": "*/10 * * * *",
+    "human": "Every 10 Minutes",
+    "fields": ["every 10th minute", "every hour", "every day", "every month", "every weekday"],
+    "useCase": "Report generation, data aggregation, moderate-frequency polling. Fires 144 times per day.",
+    "warning": "Like all step values, this fires at fixed times (:00, :10, :20, :30, :40, :50), not relative to when you set it up.",
+    "tips": "Good balance between responsiveness and resource usage. If you don't need data fresher than 10 minutes, this is usually the right choice over */5.",
+    "example": "*/10 * * * * /opt/scripts/sync-data.sh >> /var/log/sync.log 2>&1",
+    "related": ["every-5-minutes", "every-15-minutes", "every-30-minutes"]
+  },
+  {
+    "slug": "every-15-minutes",
+    "expression": "*/15 * * * *",
+    "human": "Every 15 Minutes",
+    "fields": ["every 15th minute", "every hour", "every day", "every month", "every weekday"],
+    "useCase": "Analytics processing, email queue flushing, sitemap regeneration, backup status checks. Fires 96 times per day.",
+    "warning": "Only fires at :00, :15, :30, :45 — four times per hour. If you need more granularity, use */5 or */10.",
+    "tips": "This is the sweet spot for most background tasks. Frequent enough to feel responsive, infrequent enough to not waste resources.",
+    "example": "*/15 * * * * /usr/local/bin/generate-sitemap.sh",
+    "related": ["every-10-minutes", "every-30-minutes", "every-hour"]
+  },
+  {
+    "slug": "every-30-minutes",
+    "expression": "*/30 * * * *",
+    "human": "Every 30 Minutes",
+    "fields": ["every 30th minute (at :00 and :30)", "every hour", "every day", "every month", "every weekday"],
+    "useCase": "Report emails, database maintenance, log rotation checks, DNS record updates.",
+    "warning": "This fires at :00 and :30 only. If your task takes longer than 30 minutes, the next execution will overlap.",
+    "tips": "For tasks like sending digest emails, 30 minutes is often better than hourly — users get faster responses without the overhead of every-5-minutes processing.",
+    "example": "*/30 * * * * /opt/scripts/send-digest.sh >> /var/log/digest.log 2>&1",
+    "related": ["every-15-minutes", "every-hour", "every-2-hours"]
+  },
+  {
+    "slug": "every-hour",
+    "expression": "0 * * * *",
+    "human": "Every Hour (at minute 0)",
+    "fields": ["at minute 0", "every hour", "every day", "every month", "every weekday"],
+    "useCase": "Log rotation, hourly reports, API rate limit resets, cache warming, backup snapshots.",
+    "warning": "Note: '0 * * * *' fires at the top of every hour. '* * * * *' fires every minute. The 0 is critical — without it you get every-minute, not every-hour.",
+    "tips": "Many systems fire hourly jobs at minute 0. To reduce load spikes, use a random offset: '17 * * * *' (fires at :17 past every hour) spreads the load.",
+    "example": "0 * * * * /usr/local/bin/rotate-logs.sh",
+    "related": ["every-30-minutes", "every-2-hours", "every-6-hours"]
+  },
+  {
+    "slug": "every-day-midnight",
+    "expression": "0 0 * * *",
+    "human": "Every Day at Midnight",
+    "fields": ["at minute 0", "at hour 0 (midnight)", "every day", "every month", "every weekday"],
+    "useCase": "Daily backups, log archival, report generation, database maintenance, certificate renewal checks.",
+    "warning": "Midnight in which timezone? Cron uses the system timezone. If your server is UTC but your users are in EST, 'midnight' is 7pm their time. Always check with 'date' or 'timedatectl'.",
+    "tips": "Avoid minute 0, hour 0 — it's the most congested cron time. Use '15 0 * * *' or '0 1 * * *' to avoid the midnight stampede. Your database backup doesn't need to start at exactly 00:00.",
+    "example": "0 0 * * * /opt/backup/daily-backup.sh >> /var/log/backup.log 2>&1",
+    "related": ["every-day-at-3am", "every-weekday", "every-monday"]
+  },
+  {
+    "slug": "every-day-at-3am",
+    "expression": "0 3 * * *",
+    "human": "Every Day at 3:00 AM",
+    "fields": ["at minute 0", "at hour 3", "every day", "every month", "every weekday"],
+    "useCase": "The classic 'off-peak maintenance window'. Database optimization, heavy backups, data warehouse ETL, full-text search reindexing.",
+    "warning": "3 AM is a popular choice for maintenance — your jobs might compete with the OS's own maintenance tasks (apt updates, log rotation). Stagger if needed.",
+    "tips": "3 AM is ideal because it avoids both evening traffic and early morning report generation. Just make sure your task finishes before business hours start.",
+    "example": "0 3 * * * /opt/scripts/optimize-database.sh >> /var/log/db-optimize.log 2>&1",
+    "related": ["every-day-midnight", "every-night-at-2am", "every-weekday-at-6am"]
+  },
+  {
+    "slug": "every-weekday",
+    "expression": "0 9 * * 1-5",
+    "human": "Every Weekday at 9:00 AM",
+    "fields": ["at minute 0", "at hour 9", "every day", "every month", "Monday through Friday"],
+    "useCase": "Business-hours tasks: daily standup notifications, morning report emails, opening-bell data fetches, Slack digest messages.",
+    "warning": "1-5 means Monday(1) through Friday(5). Some systems use 0-6 where 0=Sunday, others use 1-7 where 1=Monday. Check your system's convention.",
+    "tips": "For US business days, combine with month to skip holidays: you'll need a separate holiday calendar since cron doesn't understand holidays natively.",
+    "example": "0 9 * * 1-5 /opt/scripts/send-morning-report.sh",
+    "related": ["every-monday", "every-weekend", "monday-to-friday-8am"]
+  },
+  {
+    "slug": "every-monday",
+    "expression": "0 9 * * 1",
+    "human": "Every Monday at 9:00 AM",
+    "fields": ["at minute 0", "at hour 9", "every day", "every month", "on Monday"],
+    "useCase": "Weekly reports, Monday morning summaries, sprint kickoff notifications, weekly data cleanup.",
+    "warning": "Day 1 = Monday on most Linux systems (ISO standard). On some BSD/macOS systems, 1 might also mean Monday, but always verify with a test.",
+    "tips": "For weekly tasks, Monday morning is ideal for forward-looking reports. For retrospectives, Friday afternoon (0 17 * * 5) is better.",
+    "example": "0 9 * * 1 /opt/scripts/weekly-report.sh | mail -s 'Weekly Report' team@company.com",
+    "related": ["every-weekday", "every-sunday", "every-friday-5pm"]
+  },
+  {
+    "slug": "every-sunday",
+    "expression": "0 0 * * 0",
+    "human": "Every Sunday at Midnight",
+    "fields": ["at minute 0", "at hour 0", "every day", "every month", "on Sunday"],
+    "useCase": "Weekly maintenance: full backups, log archival, database vacuuming, weekly security scans.",
+    "warning": "Sunday can be 0 or 7 depending on the system. Both usually work in modern cron implementations, but 0 is the most portable.",
+    "tips": "Sunday night/Monday morning is the lowest-traffic period for most business systems. Run heavy maintenance here.",
+    "example": "0 0 * * 0 /opt/backup/weekly-full-backup.sh",
+    "related": ["every-monday", "every-weekend", "every-first-of-month"]
+  },
+  {
+    "slug": "every-weekend",
+    "expression": "0 10 * * 6,0",
+    "human": "Every Weekend at 10:00 AM",
+    "fields": ["at minute 0", "at hour 10", "every day", "every month", "Saturday and Sunday"],
+    "useCase": "Weekend-only maintenance, personal automation (home backup, photo sync), weekend digest emails.",
+    "warning": "6,0 = Saturday and Sunday. Order doesn't matter. Some people write 0,6 — both work identically.",
+    "tips": "For personal cron jobs on a home server, weekends are when you're likely around to check if something went wrong.",
+    "example": "0 10 * * 6,0 /home/user/scripts/weekend-photo-backup.sh",
+    "related": ["every-sunday", "every-weekday", "every-monday"]
+  },
+  {
+    "slug": "every-first-of-month",
+    "expression": "0 0 1 * *",
+    "human": "First Day of Every Month at Midnight",
+    "fields": ["at minute 0", "at hour 0", "on day 1", "every month", "every weekday"],
+    "useCase": "Monthly billing runs, subscription renewals, monthly reports, certificate checks, storage cleanup.",
+    "warning": "This fires on the 1st regardless of whether it's a weekday or weekend. If you need the first business day, you'll need a wrapper script that checks the day of week.",
+    "tips": "For billing systems, consider running at 1 AM (0 1 1 * *) instead of midnight to account for any end-of-month processes that might still be running.",
+    "example": "0 0 1 * * /opt/scripts/monthly-billing.sh >> /var/log/billing.log 2>&1",
+    "related": ["every-15th-of-month", "quarterly", "annually"]
+  },
+  {
+    "slug": "every-15th-of-month",
+    "expression": "0 0 15 * *",
+    "human": "15th of Every Month at Midnight",
+    "fields": ["at minute 0", "at hour 0", "on day 15", "every month", "every weekday"],
+    "useCase": "Mid-month reports, semi-monthly payroll processing, bi-monthly billing cycles.",
+    "warning": "Every month has a 15th, so this is safe. Unlike the 31st or 30th, you won't have skipped-month issues.",
+    "tips": "Combine with the 1st for semi-monthly: '0 0 1,15 * *' fires on the 1st and 15th of every month.",
+    "example": "0 0 15 * * /opt/scripts/mid-month-report.sh",
+    "related": ["every-first-of-month", "quarterly", "annually"]
+  },
+  {
+    "slug": "quarterly",
+    "expression": "0 0 1 1,4,7,10 *",
+    "human": "Quarterly (Jan 1, Apr 1, Jul 1, Oct 1)",
+    "fields": ["at minute 0", "at hour 0", "on day 1", "in January, April, July, October", "every weekday"],
+    "useCase": "Quarterly financial reports, Q1/Q2/Q3/Q4 summaries, quarterly tax estimates, compliance audits.",
+    "warning": "This fires 4 times a year. There's no 'every 3 months' syntax in cron — you list the specific months.",
+    "tips": "Fiscal quarters vary by company. If your fiscal year starts in July, use '0 0 1 7,10,1,4 *' (though order doesn't matter in cron).",
+    "example": "0 0 1 1,4,7,10 * /opt/scripts/quarterly-report.sh",
+    "related": ["every-first-of-month", "annually", "every-15th-of-month"]
+  },
+  {
+    "slug": "annually",
+    "expression": "0 0 1 1 *",
+    "human": "Once a Year (January 1st at Midnight)",
+    "fields": ["at minute 0", "at hour 0", "on day 1", "in January", "every weekday"],
+    "useCase": "Annual reports, yearly data archival, license renewal reminders, New Year cleanup scripts.",
+    "warning": "If this fails, you wait a full year for the next run. Always have monitoring and alerting on annual jobs. Test it manually before relying on the schedule.",
+    "tips": "For important annual jobs, add a monthly check that verifies the last annual run completed successfully. Don't trust a once-a-year job to just work.",
+    "example": "0 0 1 1 * /opt/scripts/annual-archive.sh && echo 'Annual archive completed' | mail -s 'Annual Job OK' admin@company.com",
+    "related": ["quarterly", "every-first-of-month", "every-sunday"]
+  },
+  {
+    "slug": "every-2-hours",
+    "expression": "0 */2 * * *",
+    "human": "Every 2 Hours",
+    "fields": ["at minute 0", "every 2nd hour", "every day", "every month", "every weekday"],
+    "useCase": "Moderate-frequency data syncing, feed aggregation, cache rebuilding, CDN purging.",
+    "warning": "*/2 fires at hours 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22 — twelve times per day. The minute field '0' ensures it fires at the top of the hour.",
+    "tips": "Without the '0' in the minute field (writing '* */2 * * *'), you'd fire every minute during those hours — 720 times per day instead of 12.",
+    "example": "0 */2 * * * /opt/scripts/sync-feeds.sh",
+    "related": ["every-hour", "every-6-hours", "every-4-hours"]
+  },
+  {
+    "slug": "every-6-hours",
+    "expression": "0 */6 * * *",
+    "human": "Every 6 Hours",
+    "fields": ["at minute 0", "every 6th hour (0, 6, 12, 18)", "every day", "every month", "every weekday"],
+    "useCase": "DNS propagation checks, SSL certificate monitoring, 4x-daily data warehouse loads, weather data fetching.",
+    "warning": "Fires at midnight, 6 AM, noon, and 6 PM. If you need different times, specify them: '0 2,8,14,20 * * *'.",
+    "tips": "Four times a day is enough for most monitoring and data syncing tasks. It's the most resource-friendly interval that still catches issues within half a business day.",
+    "example": "0 */6 * * * certbot renew --quiet",
+    "related": ["every-2-hours", "every-12-hours", "every-hour"]
+  },
+  {
+    "slug": "every-friday-5pm",
+    "expression": "0 17 * * 5",
+    "human": "Every Friday at 5:00 PM",
+    "fields": ["at minute 0", "at hour 17", "every day", "every month", "on Friday"],
+    "useCase": "End-of-week reports, Friday deployment freezes, weekly status emails, timesheet reminders.",
+    "warning": "Hour 17 = 5 PM in 24-hour time. Cron always uses 24-hour format. 5 would mean 5 AM.",
+    "tips": "Great for automated weekly summaries. Send team metrics and highlights so people can review over the weekend if they choose.",
+    "example": "0 17 * * 5 /opt/scripts/weekly-summary.sh | mail -s 'Week in Review' team@company.com",
+    "related": ["every-monday", "every-weekday", "every-weekend"]
+  },
+  {
+    "slug": "twice-a-day",
+    "expression": "0 9,21 * * *",
+    "human": "Twice a Day (9 AM and 9 PM)",
+    "fields": ["at minute 0", "at hours 9 and 21", "every day", "every month", "every weekday"],
+    "useCase": "Morning and evening digest emails, twice-daily data snapshots, AM/PM report generation.",
+    "warning": "The comma syntax (9,21) creates a list — fires at both specified hours. You can list as many hours as needed: 6,12,18 for three times a day.",
+    "tips": "Choose times that bracket your users' active hours. 9 AM catches the morning crowd, 9 PM catches the evening reviewers.",
+    "example": "0 9,21 * * * /opt/scripts/send-digest.sh",
+    "related": ["every-12-hours", "every-hour", "every-weekday"]
+  }
+]

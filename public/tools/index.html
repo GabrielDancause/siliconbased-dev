@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G86C7NJG3F"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-G86C7NJG3F');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Developer Tools | siliconbased.dev</title>
+<meta name="description" content="Free developer tools — JSON, JWT, regex, cron, colors, timestamps, and more. Client-side, no signup required.">
+<link rel="canonical" href="https://siliconbased.dev/tools/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',-apple-system,sans-serif;background:#060a12;color:#c8d0de;line-height:1.6}
+.hero{text-align:center;padding:80px 24px 50px;background:linear-gradient(180deg,#0f1729,#060a12);position:relative}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 40% 30%,rgba(129,140,248,0.06),transparent 60%)}
+.hero-content{position:relative;z-index:1}
+.hero .tag{display:inline-block;background:rgba(129,140,248,0.1);color:#818cf8;font-size:0.7rem;font-weight:800;padding:6px 16px;border-radius:20px;letter-spacing:1px;margin-bottom:12px}
+.hero h1{font-size:2.6rem;font-weight:900;letter-spacing:-1px;margin-bottom:12px;background:linear-gradient(135deg,#fff,#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:#5a6a80;font-size:1rem;max-width:500px;margin:0 auto 24px}
+.search-box{max-width:480px;margin:0 auto}
+.search-box input{width:100%;padding:12px 20px;background:#111318;border:1px solid #1e2030;border-radius:10px;color:#e0e8f0;font-size:0.95rem;font-family:'Inter',sans-serif;outline:none;transition:border-color 0.2s}
+.search-box input:focus{border-color:#818cf8}
+.search-box input::placeholder{color:#4a5568}
+.container{max-width:1200px;margin:0 auto;padding:40px 24px 80px}
+.count{text-align:center;color:#5a6a80;font-size:0.85rem;margin-bottom:32px}
+.count span{color:#818cf8;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.card{background:#111318;border:1px solid #1e2030;border-radius:12px;padding:20px;text-decoration:none;color:inherit;display:block;transition:all 0.2s}
+.card:hover{border-color:#818cf8;transform:translateY(-2px)}
+.card-emoji{font-size:1.4rem;margin-bottom:8px;display:block}
+.card-name{font-size:0.95rem;font-weight:700;color:#e0e8f0;margin-bottom:6px}
+.card-desc{font-size:0.8rem;color:#6a7a90;line-height:1.4}
+.card.hidden{display:none}
+.footer{text-align:center;padding:50px 24px;font-size:0.85rem;color:#3a4a5a;border-top:1px solid #151f2e;background:#040810}
+.footer a{color:#818cf8;text-decoration:none}
+@media(max-width:768px){.hero h1{font-size:2rem}.hero{padding:60px 20px 40px}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<script src="/nav.js"></script>
+<div class="hero">
+  <div class="hero-content">
+    <span class="tag">🛠️ TOOLS</span>
+    <h1>Developer Tools</h1>
+    <p>Free, client-side, no signup. Built for devs who ship fast.</p>
+    <div class="search-box">
+      <input type="text" id="search" placeholder="Search tools..." autocomplete="off">
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="count"><span id="shown">0</span> tools</div>
+  <div class="grid" id="grid"></div>
+</div>
+<div class="footer">© 2026 <a href="/">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property</div>
+<script>
+const tools = [
+  { emoji: "⚡", name: "DevBox", slug: "/devbox", desc: "Auto-detect dev strings — JSON, JWT, base64, timestamps, colors, regex, cron, URLs" },
+  { emoji: "⚙️", name: "chmod Calculator", slug: "/chmod-calculator", desc: "Visual Linux file permission editor with octal & symbolic notation" },
+  { emoji: "🔤", name: "Base64 Encoder/Decoder", slug: "/base64", desc: "Encode/decode Base64. Supports files, images, URL-safe mode" },
+  { emoji: "⏰", name: "Cron Expression Generator", slug: "/cron-generator", desc: "Build cron expressions visually with schedule preview" },
+  { emoji: "📋", name: "JSON Formatter & Validator", slug: "/json-formatter", desc: "Format, validate, minify JSON with syntax highlighting" },
+  { emoji: "🔗", name: "UTM Builder", slug: "/utm-builder", desc: "Generate UTM-tagged URLs for campaign tracking" },
+  { emoji: "🎨", name: "Color Converter", slug: "/color-converter", desc: "Convert HEX, RGB, HSL, CMYK with visual picker" },
+  { emoji: "🔍", name: "Regex Tester", slug: "/regex-tester", desc: "Test regex patterns with real-time highlighting" },
+  { emoji: "🔐", name: "Hash Generator", slug: "/hash-generator", desc: "Generate MD5, SHA-1, SHA-256, SHA-512 hashes" },
+  { emoji: "🏷️", name: "HTML Entities Encoder", slug: "/html-entities", desc: "Encode/decode special characters to HTML entities" },
+  { emoji: "📦", name: "JavaScript Minifier", slug: "/js-minifier", desc: "Minify JS code for production builds" },
+  { emoji: "🔄", name: "CSV ↔ JSON Converter", slug: "/csv-json", desc: "Convert between CSV and JSON with file support" },
+  { emoji: "🔑", name: "Password Generator", slug: "/password-generator", desc: "Generate strong passwords with custom criteria" },
+  { emoji: "🏗️", name: "Meta Tag Generator", slug: "/meta-tag-generator", desc: "Generate SEO meta tags & Open Graph preview" },
+  { emoji: "🌐", name: "URL Encoder/Decoder", slug: "/url-encoder", desc: "Encode/decode URLs and query parameters" },
+  { emoji: "🗄️", name: "SQL Formatter", slug: "/sql-formatter", desc: "Format SQL queries with proper indentation" },
+  { emoji: "📄", name: "Markdown Live Preview", slug: "/markdown-preview", desc: "Write Markdown with real-time HTML preview" },
+  { emoji: "🔄", name: "YAML ↔ JSON Converter", slug: "/yaml-json", desc: "Convert between YAML and JSON with validation" },
+  { emoji: "📝", name: "Lorem Ipsum Generator", slug: "/lorem-ipsum", desc: "Generate placeholder text in paragraphs or words" },
+  { emoji: "🆔", name: "UUID Generator", slug: "/uuid-generator", desc: "Generate UUID v1, v4, v7. Parse and validate UUIDs" },
+  { emoji: "📱", name: "QR Code Generator", slug: "/qr-generator", desc: "Generate QR codes with size/color customization" },
+  { emoji: "🎨", name: "CSS Minifier", slug: "/css-minifier", desc: "Minify CSS for production builds" },
+  { emoji: "👁️", name: "Open Graph Preview", slug: "/og-preview", desc: "Preview URL sharing on Facebook, Twitter, LinkedIn" },
+  { emoji: "🔄", name: "XML ↔ JSON Converter", slug: "/xml-json", desc: "Convert XML to JSON with attribute handling" },
+  { emoji: "🤖", name: "robots.txt Generator", slug: "/robots-txt", desc: "Build robots.txt with user agents & sitemaps" },
+  { emoji: "📋", name: "Text Diff Checker", slug: "/diff-checker", desc: "Compare texts with line-by-line diff highlighting" },
+  { emoji: "🔢", name: "Word & Character Counter", slug: "/word-counter", desc: "Count words, chars, sentences with reading time" },
+  { emoji: "🌐", name: "Subnet Calculator", slug: "/subnet-calculator", desc: "Calculate subnet masks, network & broadcast addresses" },
+  { emoji: "🔓", name: "String Escape/Unescape", slug: "/escape-unescape", desc: "Escape strings for JSON, HTML, XML, URL, JavaScript" },
+  { emoji: "🔄", name: "HTML ↔ Markdown Converter", slug: "/html-markdown", desc: "Convert between HTML and Markdown formats" },
+  { emoji: "⏱️", name: "Timestamp Converter", slug: "/timestamp-converter", desc: "Convert Unix timestamps with timezone support" },
+  { emoji: "🔢", name: "Number Base Converter", slug: "/number-base", desc: "Convert binary, octal, decimal, hexadecimal" },
+  { emoji: "📟", name: "ASCII Reference Table", slug: "/ascii-table", desc: "Interactive ASCII & Unicode character lookup" },
+  { emoji: "🌈", name: "CSS Gradient Generator", slug: "/gradient-generator", desc: "Create gradients visually with preset gallery" },
+  { emoji: "🖼️", name: "Box Shadow Generator", slug: "/box-shadow", desc: "Design CSS box shadows with multi-layer support" },
+  { emoji: "📐", name: "Flexbox Playground", slug: "/flexbox-playground", desc: "Interactive CSS Flexbox layout builder" },
+  { emoji: "📐", name: "CSS Grid Generator", slug: "/grid-generator", desc: "Visual CSS Grid designer with template areas" },
+  { emoji: "🔗", name: "URL Slug Generator", slug: "/slug-generator", desc: "Convert text to URL slugs with Unicode support" },
+  { emoji: "📋", name: "Schema Markup Generator", slug: "/schema-generator", desc: "Generate JSON-LD structured data" },
+  { emoji: "🔑", name: "JWT Debugger", slug: "/jwt-debugger", desc: "Decode JWT tokens & validate expiration" },
+  { emoji: "🛡️", name: "CSP Header Generator", slug: "/csp-generator", desc: "Build Content Security Policy headers visually" },
+  { emoji: "📡", name: "HTTP Status Code Reference", slug: "/http-status", desc: "Interactive status code lookup with examples" },
+  { emoji: "🎯", name: "JSON Path Tester", slug: "/json-path", desc: "Test JSONPath expressions with live results" },
+  { emoji: "🔄", name: "TOML Converter", slug: "/toml-converter", desc: "Convert TOML, JSON, YAML with validation" },
+  { emoji: "🗺️", name: "XML Sitemap Generator", slug: "/sitemap-generator", desc: "Create XML sitemaps with priority & frequency" },
+  { emoji: "⏰", name: "Crontab Guru", slug: "/crontab-guru", desc: "Explain cron expressions in plain English" },
+  { emoji: "🌐", name: "DNS Lookup Tool", slug: "/dns-lookup", desc: "Query DNS records: A, AAAA, MX, NS, TXT, CNAME" },
+  { emoji: "🔍", name: "WHOIS Lookup", slug: "/whois-lookup", desc: "Check domain registration & nameserver details" },
+  { emoji: "📧", name: "Email Address Validator", slug: "/email-validator", desc: "Validate email format, MX records, syntax" },
+  { emoji: "📍", name: "IP Address Lookup", slug: "/ip-lookup", desc: "IP geolocation, ISP, ASN & reverse DNS lookup" },
+  { emoji: "🌐", name: "User Agent Parser", slug: "/user-agent-parser", desc: "Parse browser, OS, device from user agent strings" },
+  { emoji: "🔒", name: "SSL Certificate Checker", slug: "/ssl-checker", desc: "Check SSL certificate details & validity" },
+  { emoji: "⬜", name: "Border Radius Generator", slug: "/border-radius", desc: "Design CSS border-radius visually" },
+  { emoji: "🔠", name: "Text Transform Tool", slug: "/text-transform", desc: "Transform text case: camelCase, snake_case, etc" },
+  { emoji: "⚙️", name: "Nginx Config Generator", slug: "/nginx-config", desc: "Generate Nginx server blocks & redirects" },
+  { emoji: "🐳", name: "Docker Compose Generator", slug: "/docker-compose", desc: "Build docker-compose.yml files visually" },
+  { emoji: "📖", name: "README Generator", slug: "/readme-generator", desc: "Generate professional README.md with preview" },
+  { emoji: "🔏", name: "Privacy Policy Generator", slug: "/privacy-policy", desc: "GDPR/CCPA compliant privacy policy generator" },
+  { emoji: "📜", name: "Terms of Service Generator", slug: "/terms-generator", desc: "Generate customizable Terms of Service" },
+  { emoji: "🙈", name: "Gitignore Generator", slug: "/gitignore-generator", desc: "Generate .gitignore for any language/framework" },
+  { emoji: "⚖️", name: "License Picker", slug: "/license-picker", desc: "Compare open source licenses & generate LICENSE file" },
+  { emoji: "⚙️", name: ".htaccess Generator", slug: "/htaccess-generator", desc: "Generate Apache .htaccess rules & redirects" },
+  { emoji: "🔤", name: "Font Size Converter", slug: "/font-size-converter", desc: "Convert px, rem, em, pt, vw units" },
+  { emoji: "🎨", name: "Tailwind CSS Converter", slug: "/tailwind-converter", desc: "Convert vanilla CSS to Tailwind utility classes" },
+  { emoji: "🌐", name: "CORS Tester", slug: "/cors-tester", desc: "Test CORS headers on any URL" },
+  { emoji: "📂", name: "Recursive chmod Generator", slug: "/chmod-recursive", desc: "Generate recursive chmod commands for directories" },
+  { emoji: "✨", name: "SVG Optimizer", slug: "/svg-optimizer", desc: "Optimize SVG files by removing metadata" },
+  { emoji: "🖼️", name: "Image to Base64", slug: "/image-to-base64", desc: "Convert images to Base64 data URIs" },
+  { emoji: "📐", name: "Aspect Ratio Calculator", slug: "/aspect-ratio-calc", desc: "Calculate image/video aspect ratios" },
+  { emoji: "🔢", name: "Em Calculator", slug: "/em-calculator", desc: "Convert em, rem, px with custom base sizes" },
+  { emoji: "🖼️", name: "OG Image Preview", slug: "/og-image-preview", desc: "Preview Open Graph images for social sharing" },
+  { emoji: "🎨", name: "Color Palette Generator", slug: "/color-palette", desc: "Generate harmonious color palettes" },
+  { emoji: "🖼️", name: "Favicon Generator", slug: "/favicon-generator", desc: "Create favicons from text, emoji, or images" },
+  { emoji: "📏", name: "Placeholder Image Generator", slug: "/placeholder-image", desc: "Generate placeholder images with custom sizes" },
+  { emoji: "🔑", name: "Regex Cheat Sheet", slug: "/regex-cheatsheet", desc: "Quick reference for regex syntax and patterns" }
+];
+
+const grid = document.getElementById('grid');
+const search = document.getElementById('search');
+const shown = document.getElementById('shown');
+
+function render(filter) {
+  const q = (filter || '').toLowerCase();
+  let count = 0;
+  grid.innerHTML = '';
+  tools.forEach(t => {
+    if (q && !t.name.toLowerCase().includes(q) && !t.desc.toLowerCase().includes(q)) return;
+    count++;
+    const a = document.createElement('a');
+    a.className = 'card';
+    a.href = t.slug;
+    a.innerHTML = `<span class="card-emoji">${t.emoji}</span><h3 class="card-name">${t.name}</h3><p class="card-desc">${t.desc}</p>`;
+    grid.appendChild(a);
+  });
+  shown.textContent = count;
+}
+
+search.addEventListener('input', e => render(e.target.value));
+render('');
+</script>
+</body>
+</html>

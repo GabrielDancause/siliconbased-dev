@@ -1,0 +1,283 @@
+{
+  "crawlDate": "2026-03-09T02:36:27.749Z",
+  "studyYear": 2026,
+  "methodology": "Data collected from major financial sites including NerdWallet, Bankrate, TPG, and CNBC Select. All fees and rewards current for 2026.",
+  "totalCards": 25,
+  "cards": [
+    {
+      "cardName": "Chase Sapphire Preferred® Card",
+      "issuer": "Chase",
+      "annualFeeUSD": 95,
+      "foreignTxFeePct": 0,
+      "rewardsRate": "5x on travel via Chase, 3x on dining",
+      "signupBonus": "Earn 75,000 bonus points after $5,000 spend",
+      "loungeAccess": false,
+      "travelInsurance": true,
+      "category": "mid-tier"
+    },
+    {
+      "cardName": "Wells Fargo Autograph℠ Card",
+      "issuer": "Wells Fargo",
+      "annualFeeUSD": 0,
+      "foreignTxFeePct": 0,
+      "rewardsRate": "3x on restaurants, travel, gas",
+      "signupBonus": "Earn 20,000 bonus points after $1,000 spend",
+      "loungeAccess": false,
+      "travelInsurance": true,
+      "category": "no-annual-fee"
+    },
+    {
+      "cardName": "Capital One Savor Cash Rewards Credit Card",
+      "issuer": "Capital One",
+      "annualFeeUSD": 0,
+      "foreignTxFeePct": 0,
+      "rewardsRate": "3% on dining, entertainment, streaming",
+      "signupBonus": "Earn $200 cash bonus after $500 spend",
+      "loungeAccess": false,
+      "travelInsurance": true,
+      "category": "no-annual-fee"
+    },
+    {
+      "cardName": "Capital One Venture Rewards Credit Card",
+      "issuer": "Capital One",
+      "annualFeeUSD": 95,
+      "foreignTxFeePct": 0,
+      "rewardsRate": "2x miles on every purchase",
+      "signupBonus": "75,000 bonus miles after $4,000 spend",
+      "loungeAccess": false,
+      "travelInsurance": true,
+      "category": "mid-tier"
+    },
+    {
+      "cardName": "Bank of America® Travel Rewards credit card",
+      "issuer": "Bank of America",
+      "annualFeeUSD": 0,
+      "foreignTxFeePct": 0,
+      "rewardsRate": "1.5 points per $1 on all purchases",
+      "signupBonus": "25,000 bonus points after $1,000 spend",
+      "loungeAccess": false,
+      "travelInsurance": true,
+      "category": "no-annual-fee"
+    },
+    {
+      "cardName": "Chase Sapphire Reserve®",
+      "issuer": "Chase",
+      "annualFeeUSD": 550,
+      "foreignTxFeePct": 0,
+      "rewardsRate": "5x on flights, 10x on hotels via Chase",
+      "signupBonus": "Earn 60,000 bonus points after $4,000 spend",
+      "loungeAccess": true,
+      "travelInsurance": true,
+      "category": "premium"
+    },
+    {
+      "cardName": "The Platinum Card® from American Express",
+      "issuer": "American Express",
+      "annualFeeUSD": 695,
+      "foreignTxFeePct": 0,
+      "rewardsRate": "5x points on flights and prepaid hotels via Amex Travel",
+      "signupBonus": "Earn 125,000 Membership Rewards® points",
+      "loungeAccess": true,
+      "travelInsurance": true,
+      "category": "premium"
+    },
+    {
+      "cardName": "American Express® Gold Card",
+      "issuer": "American Express",
+      "annualFeeUSD": 325,
+      "foreignTxFeePct": 0,
+      "rewardsRate": "4x at restaurants and U.S. supermarkets",
+      "signupBonus": "Earn 60,000 Membership Rewards® points",
+      "loungeAccess": false,
+      "travelInsurance": true,
+      "category": "premium"
+    },
+    {
+      "cardName": "Capital One Venture X Rewards Credit Card",
+      "issuer": "Capital One",
+      "annualFeeUSD": 395,
+      "foreignTxFeePct": 0,
+      "rewardsRate": "2x on all purchases, 10x on hotels via Capital One Travel",
+      "signupBonus": "75,000 bonus miles after $4,000 spend",
+      "loungeAccess": true,
+      "travelInsurance": true,
+      "category": "premium"
+    },
+    {
+      "cardName": "Citi Strata Premier℠ Card",
+      "issuer": "Citi",
+      "annualFeeUSD": 95,
+      "foreignTxFeePct": 0,
+      "rewardsRate": "3x on air travel, hotels, gas, restaurants",
+      "signupBonus": "Earn 75,000 ThankYou® Points after $4,000 spend",
+      "loungeAccess": false,
+      "travelInsurance": true,
+      "category": "mid-tier"
+    },
+    {
+      "cardName": "Bilt World Elite Mastercard®",
+      "issuer": "Wells Fargo",
+      "annualFeeUSD": 0,
+      "foreignTxFeePct": 0,
+      "rewardsRate": "1x on rent (no fee), 3x on dining",
+      "signupBonus": null,
+      "loungeAccess": false,
+      "travelInsurance": true,
+      "category": "no-annual-fee"
+    },
+    {
+      "cardName": "Discover it® Miles",
+      "issuer": "Discover",
+      "annualFeeUSD": 0,
+      "foreignTxFeePct": 0,
+      "rewardsRate": "1.5x miles on every purchase",
+      "signupBonus": "Discover matches all miles earned year one",
+      "loungeAccess": false,
+      "travelInsurance": false,
+      "category": "no-annual-fee"
+    },
+    {
+      "cardName": "U.S. Bank Altitude® Connect Visa Signature® Card",
+      "issuer": "U.S. Bank",
+      "annualFeeUSD": 0,
+      "foreignTxFeePct": 0,
+      "rewardsRate": "4x on gas/EV stations and travel",
+      "signupBonus": "Earn 20,000 bonus points after $1,000 spend",
+      "loungeAccess": false,
+      "travelInsurance": true,
+      "category": "no-annual-fee"
+    },
+    {
+      "cardName": "Bank of America® Premium Rewards® credit card",
+      "issuer": "Bank of America",
+      "annualFeeUSD": 95,
+      "foreignTxFeePct": 0,
+      "rewardsRate": "2 points per $1 on travel/dining",
+      "signupBonus": "Earn 60,000 bonus points after $4,000 spend",
+      "loungeAccess": false,
+      "travelInsurance": true,
+      "category": "mid-tier"
+    },
+    {
+      "cardName": "Ink Business Preferred® Credit Card",
+      "issuer": "Chase",
+      "annualFeeUSD": 95,
+      "foreignTxFeePct": 0,
+      "rewardsRate": "3x on travel and select business categories",
+      "signupBonus": "Earn 100,000 bonus points after $8,000 spend",
+      "loungeAccess": false,
+      "travelInsurance": true,
+      "category": "mid-tier"
+    },
+    {
+      "cardName": "Capital One Quicksilver Cash Rewards Credit Card",
+      "issuer": "Capital One",
+      "annualFeeUSD": 0,
+      "foreignTxFeePct": 0,
+      "rewardsRate": "1.5% cash back on every purchase",
+      "signupBonus": "Earn $200 cash bonus after $500 spend",
+      "loungeAccess": false,
+      "travelInsurance": false,
+      "category": "no-annual-fee"
+    },
+    {
+      "cardName": "Blue Cash Preferred® Card from American Express",
+      "issuer": "American Express",
+      "annualFeeUSD": 95,
+      "foreignTxFeePct": 2.7,
+      "rewardsRate": "6% U.S. supermarkets, 6% streaming",
+      "signupBonus": "Earn $250 statement credit after $3,000 spend",
+      "loungeAccess": false,
+      "travelInsurance": false,
+      "category": "mid-tier"
+    },
+    {
+      "cardName": "Chase Freedom Unlimited®",
+      "issuer": "Chase",
+      "annualFeeUSD": 0,
+      "foreignTxFeePct": 3,
+      "rewardsRate": "1.5% to 5% cash back",
+      "signupBonus": "Earn an extra 1.5% on all purchases up to $20,000",
+      "loungeAccess": false,
+      "travelInsurance": true,
+      "category": "no-annual-fee"
+    },
+    {
+      "cardName": "Discover it® Cash Back",
+      "issuer": "Discover",
+      "annualFeeUSD": 0,
+      "foreignTxFeePct": 0,
+      "rewardsRate": "5% cash back on rotating categories",
+      "signupBonus": "Discover matches all cash back year one",
+      "loungeAccess": false,
+      "travelInsurance": false,
+      "category": "no-annual-fee"
+    },
+    {
+      "cardName": "Capital One Platinum Credit Card",
+      "issuer": "Capital One",
+      "annualFeeUSD": 0,
+      "foreignTxFeePct": 0,
+      "rewardsRate": "No rewards",
+      "signupBonus": null,
+      "loungeAccess": false,
+      "travelInsurance": false,
+      "category": "no-annual-fee"
+    },
+    {
+      "cardName": "Capital One Quicksilver Student Cash Rewards Credit Card",
+      "issuer": "Capital One",
+      "annualFeeUSD": 0,
+      "foreignTxFeePct": 0,
+      "rewardsRate": "1.5% cash back on every purchase",
+      "signupBonus": "Earn $50 bonus after $100 spend",
+      "loungeAccess": false,
+      "travelInsurance": false,
+      "category": "no-annual-fee"
+    },
+    {
+      "cardName": "Capital One Platinum Secured Credit Card",
+      "issuer": "Capital One",
+      "annualFeeUSD": 0,
+      "foreignTxFeePct": 0,
+      "rewardsRate": "No rewards",
+      "signupBonus": null,
+      "loungeAccess": false,
+      "travelInsurance": false,
+      "category": "secured"
+    },
+    {
+      "cardName": "Capital One QuicksilverOne Cash Rewards Credit Card",
+      "issuer": "Capital One",
+      "annualFeeUSD": 0,
+      "foreignTxFeePct": 0,
+      "rewardsRate": "1x or 1% standard rate",
+      "signupBonus": null,
+      "loungeAccess": false,
+      "travelInsurance": false,
+      "category": "no-annual-fee"
+    },
+    {
+      "cardName": "Credit Card Reward Programs",
+      "issuer": "Unknown Issuer",
+      "annualFeeUSD": 0,
+      "foreignTxFeePct": 0,
+      "rewardsRate": "1x or 1% standard rate",
+      "signupBonus": null,
+      "loungeAccess": false,
+      "travelInsurance": false,
+      "category": "no-annual-fee"
+    },
+    {
+      "cardName": "CardMatch",
+      "issuer": "Unknown Issuer",
+      "annualFeeUSD": 0,
+      "foreignTxFeePct": 0,
+      "rewardsRate": "1x or 1% standard rate",
+      "signupBonus": null,
+      "loungeAccess": false,
+      "travelInsurance": false,
+      "category": "no-annual-fee"
+    }
+  ]
+}

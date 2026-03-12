@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G86C7NJG3F"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-G86C7NJG3F');</script>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://siliconbased.dev/favicon-generator" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Favicon Generator | Create Free ICO, PNG, SVG Favicons</title>
+<meta name="description" content="Generate favicons instantly from text, emoji, or uploaded images. Export to ICO, PNG, SVG, and Apple Touch Icon formats. Free and works entirely offline.">
+<meta property="og:title" content="Favicon Generator | Free Online Tool">
+<meta property="og:description" content="Generate favicons instantly from text, emoji, or uploaded images. Export to ICO, PNG, SVG, and Apple Touch Icon formats. Free and works entirely offline.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Favicon Generator",
+  "url": "https://siliconbased.dev/favicon-generator",
+  "description": "Generate favicons instantly from text, emoji, or uploaded images. Export to ICO, PNG, SVG, and Apple Touch Icon formats.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: #888; font-size: 0.95rem; }
+.main { max-width: 900px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; display: flex; flex-direction: column; gap: 24px; }
+
+/* Layout Grid */
+.layout-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+@media (min-width: 768px) {
+  .layout-grid { grid-template-columns: 1fr 300px; }
+}
+
+/* Tool Card */
+.tool-card { background: #111318; border: 1px solid #1e2030; border-radius: 16px; overflow: hidden; }
+.tool-header { padding: 16px 24px; background: #13151d; border-bottom: 1px solid #1e2030; display: flex; flex-direction: column; gap: 16px; }
+.tool-header h3 { font-size: 0.9rem; font-weight: 600; color: #ccc; margin: 0; }
+.tool-body { padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+
+/* Tabs */
+.tabs { display: flex; gap: 8px; width: 100%; }
+.tab-btn { flex: 1; background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 10px 16px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; text-align: center; }
+.tab-btn:hover { background: #2a2d40; color: #ccc; }
+.tab-btn.active { background: #818cf8; color: #fff; border-color: #818cf8; }
+
+/* Form Elements */
+.form-group { display: flex; flex-direction: column; gap: 8px; }
+.form-label { font-size: 0.85rem; font-weight: 600; color: #818cf8; }
+.form-control { width: 100%; background: #0a0b10; border: 1px solid #1e2030; border-radius: 8px; padding: 12px; color: #e0e0e0; font-family: 'Inter', sans-serif; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
+.form-control:focus { border-color: #818cf8; }
+.form-control[type="color"] { padding: 4px; height: 42px; cursor: pointer; }
+
+/* File Input */
+.file-upload-wrapper { position: relative; width: 100%; height: 120px; border: 2px dashed #2a2d40; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #0a0b10; cursor: pointer; transition: all 0.2s; }
+.file-upload-wrapper:hover { border-color: #818cf8; background: #111520; }
+.file-upload-input { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.file-upload-text { font-size: 0.9rem; color: #888; font-weight: 500; pointer-events: none; }
+.file-upload-subtext { font-size: 0.75rem; color: #555; margin-top: 4px; pointer-events: none; }
+
+/* Controls Grid */
+.controls-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+/* Range Slider */
+.range-container { display: flex; align-items: center; gap: 12px; }
+.range-slider { flex: 1; -webkit-appearance: none; appearance: none; height: 6px; background: #1e2030; border-radius: 4px; outline: none; }
+.range-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #818cf8; cursor: pointer; transition: background 0.2s; }
+.range-slider::-webkit-slider-thumb:hover { background: #a5b4fc; }
+.range-slider::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: #818cf8; cursor: pointer; border: none; }
+.range-value { width: 40px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #ccc; text-align: right; }
+
+/* Preview */
+.preview-container { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 24px; background: #0a0b10; border: 1px solid #1e2030; border-radius: 12px; position: relative; background-image: linear-gradient(45deg, #111318 25%, transparent 25%), linear-gradient(-45deg, #111318 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #111318 75%), linear-gradient(-45deg, transparent 75%, #111318 75%); background-size: 20px 20px; background-position: 0 0, 0 10px, 10px -10px, -10px 0px; }
+.preview-canvas-wrapper { width: 128px; height: 128px; position: relative; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); border-radius: 4px; }
+.preview-canvas { width: 100%; height: 100%; display: block; border-radius: inherit; }
+
+/* Download Actions */
+.download-section { margin-top: 24px; }
+.download-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+@media (min-width: 400px) {
+  .download-grid { grid-template-columns: 1fr 1fr; }
+}
+.btn { background: #1e2030; border: 1px solid #2a2d40; color: #ccc; padding: 10px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; }
+.btn:hover { background: #2a2d40; color: #fff; }
+.btn-primary { background: #818cf8; color: #fff; border-color: #818cf8; }
+.btn-primary:hover { background: #6366f1; border-color: #6366f1; }
+
+/* SEO Content */
+.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
+.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
+.seo-content h2:first-child { margin-top: 0; }
+.seo-content p { margin-bottom: 16px; }
+.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
+.seo-content li { margin-bottom: 8px; }
+
+/* Footer */
+.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Hide sections based on mode */
+.mode-section { display: none; }
+.mode-section.active { display: flex; flex-direction: column; gap: 20px; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Favicon Generator</h1>
+  <p>Create favicons from text, emoji, or images instantly.</p>
+</div>
+
+<div class="main">
+  <div class="layout-grid">
+    <!-- Left Column: Settings -->
+    <div class="tool-card">
+      <div class="tool-header">
+        <div class="tabs">
+          <button class="tab-btn active" data-mode="text">Text</button>
+          <button class="tab-btn" data-mode="emoji">Emoji</button>
+          <button class="tab-btn" data-mode="image">Image</button>
+        </div>
+      </div>
+      <div class="tool-body">
+
+        <!-- Text Mode -->
+        <div id="modeText" class="mode-section active">
+          <div class="form-group">
+            <label class="form-label">Text (1-2 characters)</label>
+            <input type="text" id="textInput" class="form-control" value="F" maxlength="3">
+          </div>
+          <div class="controls-grid">
+            <div class="form-group">
+              <label class="form-label">Font Family</label>
+              <select id="textFont" class="form-control">
+                <option value="Inter, sans-serif">Inter</option>
+                <option value="'JetBrains Mono', monospace">JetBrains Mono</option>
+                <option value="Arial, sans-serif">Arial</option>
+                <option value="'Times New Roman', serif">Times New Roman</option>
+                <option value="system-ui, sans-serif">System UI</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Font Weight</label>
+              <select id="textWeight" class="form-control">
+                <option value="normal">Normal</option>
+                <option value="bold" selected>Bold</option>
+                <option value="900">Black</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Text Color</label>
+            <input type="color" id="textColor" class="form-control" value="#ffffff">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Font Size</label>
+            <div class="range-container">
+              <input type="range" id="textSize" class="range-slider" min="10" max="100" value="65">
+              <span class="range-value" id="textSizeVal">65%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Emoji Mode -->
+        <div id="modeEmoji" class="mode-section">
+          <div class="form-group">
+            <label class="form-label">Emoji</label>
+            <input type="text" id="emojiInput" class="form-control" value="🚀">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Emoji Size</label>
+            <div class="range-container">
+              <input type="range" id="emojiSize" class="range-slider" min="10" max="100" value="70">
+              <span class="range-value" id="emojiSizeVal">70%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image Mode -->
+        <div id="modeImage" class="mode-section">
+          <div class="form-group">
+            <label class="form-label">Upload Image</label>
+            <div class="file-upload-wrapper">
+              <input type="file" id="imageInput" class="file-upload-input" accept="image/png, image/jpeg, image/svg+xml, image/webp">
+              <span class="file-upload-text">Choose an image</span>
+              <span class="file-upload-subtext">PNG, JPG, SVG (Max 5MB)</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Image Padding</label>
+            <div class="range-container">
+              <input type="range" id="imagePadding" class="range-slider" min="0" max="50" value="0">
+              <span class="range-value" id="imagePaddingVal">0%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Common Settings -->
+        <hr style="border: none; border-top: 1px solid #1e2030; margin: 4px 0;">
+
+        <div class="controls-grid">
+          <div class="form-group">
+            <label class="form-label">Background Shape</label>
+            <select id="bgShape" class="form-control">
+              <option value="square">Square</option>
+              <option value="rounded">Rounded</option>
+              <option value="circle">Circle</option>
+              <option value="transparent">Transparent</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Background Color</label>
+            <input type="color" id="bgColor" class="form-control" value="#818cf8">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Right Column: Preview & Download -->
+    <div class="tool-card">
+      <div class="tool-header">
+        <h3>Preview</h3>
+      </div>
+      <div class="tool-body" style="align-items: center; justify-content: flex-start;">
+
+        <div class="preview-container">
+          <div class="preview-canvas-wrapper" id="previewWrapper">
+            <canvas id="faviconCanvas" class="preview-canvas" width="512" height="512"></canvas>
+          </div>
+        </div>
+
+        <div class="download-section">
+          <div class="download-grid">
+            <button class="btn btn-primary" id="downloadIco">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              ICO (32x32)
+            </button>
+            <button class="btn btn-primary" id="downloadPng">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              PNG (512x512)
+            </button>
+            <button class="btn" id="downloadApple">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Apple Touch (180x180)
+            </button>
+            <button class="btn" id="downloadSvg">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              SVG (Vector)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-content">
+    <h2>What is a Favicon?</h2>
+    <p>A favicon (short for favorite icon) is a small, iconic image that represents your website. They appear in browser tabs, bookmarks lists, browser history, and on smartphone home screens when a user saves your site as a web app. A well-designed favicon helps users quickly identify your site among many open tabs and enhances brand recognition.</p>
+
+    <h2>Essential Favicon Formats</h2>
+    <p>Modern web development requires only a few favicon files to support nearly all devices and browsers:</p>
+    <ul>
+      <li><strong>ICO (favicon.ico):</strong> The traditional format. A 32x32 `favicon.ico` at the root of your site is a reliable fallback for older browsers and some RSS readers.</li>
+      <li><strong>SVG (icon.svg):</strong> Scalable Vector Graphics are ideal for modern browsers. They look crisp at any size and can even support light/dark mode styling via CSS within the SVG.</li>
+      <li><strong>Apple Touch Icon:</strong> A 180x180 PNG file used by iOS and iPadOS when a user adds your site to their home screen. It should typically have a solid background without transparency.</li>
+      <li><strong>PNG (Android & Web App Manifest):</strong> High-resolution PNGs (typically 192x192 and 512x512) are defined in your `manifest.json` for Android devices and Progressive Web Apps (PWAs).</li>
+    </ul>
+
+    <h2>How to add favicons to your HTML</h2>
+    <p>Add the following tags to the <code>&lt;head&gt;</code> section of your HTML document:</p>
+    <pre style="background: #111318; padding: 16px; border-radius: 8px; overflow-x: auto; color: #a5b4fc; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; border: 1px solid #1e2030; margin-top: 12px;">
+&lt;!-- Modern SVG favicon --&gt;
+&lt;link rel="icon" href="/favicon.svg" type="image/svg+xml"&gt;
+&lt;!-- PNG fallback --&gt;
+&lt;link rel="icon" href="/favicon.png" type="image/png"&gt;
+&lt;!-- Apple Touch Icon for iOS --&gt;
+&lt;link rel="apple-touch-icon" href="/apple-touch-icon.png"&gt;</pre>
+    <p style="margin-top: 12px; font-size: 0.85rem; color: #888;">Note: Many modern browsers automatically look for a <code>favicon.ico</code> at the root of your domain if no tags are provided.</p>
+
+    <h2>Client-Side Privacy</h2>
+    <p>This generator runs entirely in your web browser. Any text, emojis, or images you use are processed locally using the HTML5 Canvas API and are never uploaded to our servers. This ensures maximum privacy, security, and instantaneous performance.</p>
+  </div>
+</div>
+
+<div class="footer">
+  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+// --- State & DOM Elements ---
+let currentMode = 'text';
+let uploadedImage = null;
+const canvasSize = 512;
+
+const canvas = document.getElementById('faviconCanvas');
+const ctx = canvas.getContext('2d');
+const previewWrapper = document.getElementById('previewWrapper');
+
+// Controls
+const bgShape = document.getElementById('bgShape');
+const bgColor = document.getElementById('bgColor');
+
+// Text
+const textInput = document.getElementById('textInput');
+const textFont = document.getElementById('textFont');
+const textWeight = document.getElementById('textWeight');
+const textColor = document.getElementById('textColor');
+const textSize = document.getElementById('textSize');
+const textSizeVal = document.getElementById('textSizeVal');
+
+// Emoji
+const emojiInput = document.getElementById('emojiInput');
+const emojiSize = document.getElementById('emojiSize');
+const emojiSizeVal = document.getElementById('emojiSizeVal');
+
+// Image
+const imageInput = document.getElementById('imageInput');
+const imagePadding = document.getElementById('imagePadding');
+const imagePaddingVal = document.getElementById('imagePaddingVal');
+const fileUploadText = document.querySelector('.file-upload-text');
+
+// Tabs
+const tabBtns = document.querySelectorAll('.tab-btn');
+const modeSections = document.querySelectorAll('.mode-section');
+
+// Event Listeners for Live Updates
+[bgShape, bgColor, textInput, textFont, textWeight, textColor, textSize, emojiInput, emojiSize, imagePadding].forEach(el => {
+  el.addEventListener('input', () => {
+    updateRangeValues();
+    drawFavicon();
+  });
+});
+
+function updateRangeValues() {
+  textSizeVal.textContent = textSize.value + '%';
+  emojiSizeVal.textContent = emojiSize.value + '%';
+  imagePaddingVal.textContent = imagePadding.value + '%';
+}
+
+// Tab Switching
+tabBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    tabBtns.forEach(b => b.classList.remove('active'));
+    modeSections.forEach(s => s.classList.remove('active'));
+
+    btn.classList.add('active');
+    currentMode = btn.getAttribute('data-mode');
+    document.getElementById('mode' + currentMode.charAt(0).toUpperCase() + currentMode.slice(1)).classList.add('active');
+
+    drawFavicon();
+  });
+});
+
+// Image Upload
+imageInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    fileUploadText.textContent = file.name;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new Image();
+      img.onload = () => {
+        uploadedImage = img;
+        drawFavicon();
+      };
+      img.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+// Drawing Logic
+function drawFavicon() {
+  ctx.clearRect(0, 0, canvasSize, canvasSize);
+
+  const shape = bgShape.value;
+  const color = bgColor.value;
+
+  // Draw Background
+  if (shape !== 'transparent') {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+
+    if (shape === 'square') {
+      ctx.rect(0, 0, canvasSize, canvasSize);
+    } else if (shape === 'circle') {
+      ctx.arc(canvasSize/2, canvasSize/2, canvasSize/2, 0, Math.PI * 2);
+    } else if (shape === 'rounded') {
+      const radius = canvasSize * 0.2; // 20% border radius
+      ctx.roundRect(0, 0, canvasSize, canvasSize, radius);
+    }
+
+    ctx.fill();
+
+    // Update wrapper border radius for preview matching
+    if (shape === 'circle') previewWrapper.style.borderRadius = '50%';
+    else if (shape === 'rounded') previewWrapper.style.borderRadius = '20%';
+    else previewWrapper.style.borderRadius = '0';
+  } else {
+    previewWrapper.style.borderRadius = '0';
+  }
+
+  // Draw Content
+  ctx.save();
+  if (shape !== 'transparent') {
+    // Clip to shape if necessary to prevent overflow, especially for images
+    ctx.beginPath();
+    if (shape === 'square') ctx.rect(0, 0, canvasSize, canvasSize);
+    else if (shape === 'circle') ctx.arc(canvasSize/2, canvasSize/2, canvasSize/2, 0, Math.PI * 2);
+    else if (shape === 'rounded') ctx.roundRect(0, 0, canvasSize, canvasSize, canvasSize * 0.2);
+    ctx.clip();
+  }
+
+  if (currentMode === 'text') {
+    const text = textInput.value;
+    const tSize = (textSize.value / 100) * canvasSize;
+    ctx.fillStyle = textColor.value;
+    ctx.font = `${textWeight.value} ${tSize}px ${textFont.value}`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    // Slight vertical adjustment depending on font to perfectly center
+    ctx.fillText(text, canvasSize/2, canvasSize/2 + tSize * 0.05);
+
+  } else if (currentMode === 'emoji') {
+    const emoji = emojiInput.value || '🚀';
+    const eSize = (emojiSize.value / 100) * canvasSize;
+    ctx.font = `${eSize}px Arial`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    // For emojis, baseline adjustment often needed
+    ctx.fillText(emoji, canvasSize/2, canvasSize/2 + eSize * 0.1);
+
+  } else if (currentMode === 'image' && uploadedImage) {
+    const paddingStr = parseInt(imagePadding.value, 10);
+    const padding = (paddingStr / 100) * (canvasSize / 2);
+    const drawSize = canvasSize - (padding * 2);
+
+    // Aspect ratio preservation
+    const imgRatio = uploadedImage.width / uploadedImage.height;
+    let w = drawSize;
+    let h = drawSize;
+
+    if (imgRatio > 1) {
+      h = drawSize / imgRatio;
+    } else {
+      w = drawSize * imgRatio;
+    }
+
+    const x = (canvasSize - w) / 2;
+    const y = (canvasSize - h) / 2;
+
+    ctx.drawImage(uploadedImage, x, y, w, h);
+  }
+
+  ctx.restore();
+}
+
+// Download Handlers
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function resizeCanvas(size, callback) {
+  const tempCanvas = document.createElement('canvas');
+  tempCanvas.width = size;
+  tempCanvas.height = size;
+  const tempCtx = tempCanvas.getContext('2d');
+  // Use high quality image smoothing
+  tempCtx.imageSmoothingEnabled = true;
+  tempCtx.imageSmoothingQuality = 'high';
+  tempCtx.drawImage(canvas, 0, 0, size, size);
+  tempCanvas.toBlob(callback, 'image/png');
+}
+
+document.getElementById('downloadPng').addEventListener('click', () => {
+  canvas.toBlob((blob) => {
+    downloadBlob(blob, 'favicon-512x512.png');
+  }, 'image/png');
+});
+
+document.getElementById('downloadApple').addEventListener('click', () => {
+  // Apple Touch Icon needs solid background, if transparent, force square solid
+  const currentShape = bgShape.value;
+  if (currentShape === 'transparent') {
+    alert("Apple Touch Icons should ideally have a solid background color. Proceeding anyway.");
+  }
+
+  resizeCanvas(180, (blob) => {
+    downloadBlob(blob, 'apple-touch-icon.png');
+  });
+});
+
+document.getElementById('downloadIco').addEventListener('click', () => {
+  // Generating a proper ICO file client-side requires packing PNG data with an ICO header.
+  // For simplicity and zero-dependencies, we will output a 32x32 PNG and name it .ico.
+  // Modern browsers accept PNG data in .ico files, though strict parsers might not.
+  // We'll construct a simple 32x32 ICO payload using DataView.
+
+  resizeCanvas(32, async (pngBlob) => {
+    const pngBuffer = await pngBlob.arrayBuffer();
+    const pngArray = new Uint8Array(pngBuffer);
+    const dataSize = pngArray.length;
+
+    // ICO header (6 bytes) + 1 Dir entry (16 bytes) = 22 bytes total header
+    const buffer = new ArrayBuffer(22 + dataSize);
+    const view = new DataView(buffer);
+
+    // Header
+    view.setUint16(0, 0, true); // Reserved
+    view.setUint16(2, 1, true); // Type (1 = ICO)
+    view.setUint16(4, 1, true); // Image count (1)
+
+    // Directory Entry
+    view.setUint8(6, 32); // Width
+    view.setUint8(7, 32); // Height
+    view.setUint8(8, 0);  // Color count
+    view.setUint8(9, 0);  // Reserved
+    view.setUint16(10, 1, true); // Color planes
+    view.setUint16(12, 32, true); // Bits per pixel
+    view.setUint32(14, dataSize, true); // Size of image data
+    view.setUint32(18, 22, true); // Offset of image data
+
+    // Copy PNG data
+    const outArray = new Uint8Array(buffer);
+    outArray.set(pngArray, 22);
+
+    const icoBlob = new Blob([buffer], { type: 'image/x-icon' });
+    downloadBlob(icoBlob, 'favicon.ico');
+  });
+});
+
+document.getElementById('downloadSvg').addEventListener('click', () => {
+  // Create an SVG representation
+  // This is a basic approximation for Text/Emoji. Image mode will base64 encode the image.
+  const shape = bgShape.value;
+  const color = bgColor.value;
+  let svgContent = '';
+
+  // Base SVG
+  svgContent += `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${canvasSize} ${canvasSize}" width="100%" height="100%">\n`;
+
+  // Background
+  if (shape !== 'transparent') {
+    if (shape === 'square') {
+      svgContent += `  <rect width="${canvasSize}" height="${canvasSize}" fill="${color}"/>\n`;
+    } else if (shape === 'circle') {
+      svgContent += `  <circle cx="${canvasSize/2}" cy="${canvasSize/2}" r="${canvasSize/2}" fill="${color}"/>\n`;
+    } else if (shape === 'rounded') {
+      const radius = canvasSize * 0.2;
+      svgContent += `  <rect width="${canvasSize}" height="${canvasSize}" rx="${radius}" ry="${radius}" fill="${color}"/>\n`;
+    }
+  }
+
+  // Content
+  if (currentMode === 'text') {
+    const text = textInput.value
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+    const tSize = (textSize.value / 100) * canvasSize;
+    const fontStr = textFont.value.replace(/"/g, "'");
+    const weightStr = textWeight.value;
+    const textColorStr = textColor.value;
+
+    // SVG text dominant-baseline and text-anchor for centering
+    svgContent += `  <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-family="${fontStr}" font-weight="${weightStr}" font-size="${tSize}px" fill="${textColorStr}">${text}</text>\n`;
+
+  } else if (currentMode === 'emoji') {
+    const emoji = emojiInput.value || '🚀';
+    const eSize = (emojiSize.value / 100) * canvasSize;
+    // Note: Emojis in SVG <text> rely on system fonts rendering color emoji.
+    svgContent += `  <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-family="Arial, system-ui" font-size="${eSize}px">${emoji}</text>\n`;
+
+  } else if (currentMode === 'image' && uploadedImage) {
+    // We cannot easily SVG-ify a raster image without an external library.
+    // Instead, we embed the base64 PNG data into the SVG.
+    // To do this cleanly, we'll draw just the image to a temporary canvas and get the data URL.
+    const paddingStr = parseInt(imagePadding.value, 10);
+    const padding = (paddingStr / 100) * (canvasSize / 2);
+    const drawSize = canvasSize - (padding * 2);
+
+    const imgRatio = uploadedImage.width / uploadedImage.height;
+    let w = drawSize;
+    let h = drawSize;
+    if (imgRatio > 1) { h = drawSize / imgRatio; } else { w = drawSize * imgRatio; }
+    const x = (canvasSize - w) / 2;
+    const y = (canvasSize - h) / 2;
+
+    // Create temp canvas of just the image
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = uploadedImage.width;
+    tempCanvas.height = uploadedImage.height;
+    const tCtx = tempCanvas.getContext('2d');
+    tCtx.drawImage(uploadedImage, 0, 0);
+    const dataUrl = tempCanvas.toDataURL('image/png');
+
+    // For SVG export, clipping to rounded/circle for images is complex, so we'll just embed it and add a clipPath if needed.
+    if (shape !== 'transparent' && shape !== 'square') {
+      svgContent += `  <defs>\n`;
+      if (shape === 'circle') {
+        svgContent += `    <clipPath id="shapeClip"><circle cx="${canvasSize/2}" cy="${canvasSize/2}" r="${canvasSize/2}"/></clipPath>\n`;
+      } else if (shape === 'rounded') {
+        const r = canvasSize * 0.2;
+        svgContent += `    <clipPath id="shapeClip"><rect width="${canvasSize}" height="${canvasSize}" rx="${r}" ry="${r}"/></clipPath>\n`;
+      }
+      svgContent += `  </defs>\n`;
+      svgContent += `  <image href="${dataUrl}" x="${x}" y="${y}" width="${w}" height="${h}" clip-path="url(#shapeClip)" />\n`;
+    } else {
+      svgContent += `  <image href="${dataUrl}" x="${x}" y="${y}" width="${w}" height="${h}" />\n`;
+    }
+  }
+
+  svgContent += `</svg>`;
+
+  const blob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
+  downloadBlob(blob, 'favicon.svg');
+});
+
+// Initial Render
+// Use FontFaceObserver logic via requestAnimationFrame loop to ensure fonts load before initial draw, or just delay slightly.
+document.fonts.ready.then(() => {
+  drawFavicon();
+});
+// Fallback initial draw
+drawFavicon();
+
+</script>
+</body>
+</html>
