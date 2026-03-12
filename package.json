@@ -7,9 +7,11 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "generate:chmod": "node scripts/generate-chmod-pages.cjs",
-    "generate:pageweight": "node scripts/crawl-page-weight.cjs",
-    "generate:sourdough": "node scripts/crawl-sourdough.cjs && node scripts/inject-sourdough-data.cjs",
+    "generate:chmod": "echo \"skipping generate:chmod — data pre-generated\"",
+    "generate:pageweight": "echo \"skipping generate:pageweight — data pre-generated\"",
+    "generate:sourdough": "echo \"skipping generate:sourdough — data pre-generated\"",
+    "generate:cssframeworks": "echo \"skipping generate:cssframeworks — data pre-generated\"",
+    "generate:apitimes": "echo \"skipping generate:apitimes — data pre-generated\"",
     "generate:travelcards": "node scripts/crawl-travel-cards.cjs"
   },
   "dependencies": {
