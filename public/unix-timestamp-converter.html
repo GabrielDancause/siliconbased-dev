@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unix Timestamp Converter & Epoch Time Calculator</title>
+    <meta name="description" content="1.7 billion seconds have passed since the beginning of time! Uncover the hidden milestones of epoch time and decode past, present, and future instantly.">
+    <link rel="canonical" href="https://siliconbased.dev/unix-timestamp-converter.html">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G86C7NJG3F"></script>
+    <script>
+      window.dataLayer=window.dataLayer||[];
+      function gtag(){dataLayer.push(arguments)}
+      gtag('js',new Date());
+      gtag('config','G-G86C7NJG3F');
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #060a12;
+            --card-bg: #0a1020;
+            --border-color: #152040;
+            --accent-color: #818cf8;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Sticky Nav */
+        nav.sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(6, 10, 18, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.125rem;
+            letter-spacing: -0.025em;
+        }
+
+        .nav-brand span {
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        h1, h2, h3 {
+            color: var(--text-main);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            background: linear-gradient(to right, var(--text-main), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Forms & Inputs */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(6, 10, 18, 0.5);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        input.mono, .mono {
+            font-family: var(--font-mono);
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        button {
+            background: var(--accent-color);
+            color: #fff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        button:hover {
+            background: #6366f1;
+        }
+
+        /* Live Timestamp */
+        .live-timestamp-container {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(180deg, var(--card-bg) 0%, rgba(10, 16, 32, 0.5) 100%);
+        }
+
+        .live-timestamp {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            font-family: var(--font-mono);
+            letter-spacing: 2px;
+            margin: 1rem 0;
+        }
+
+        .timestamp-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .timestamp-controls button {
+            width: auto;
+            margin: 0;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+        }
+
+        .timestamp-controls button.active {
+            background: rgba(129, 140, 248, 0.1);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .result-box {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(6, 10, 18, 0.8);
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+            word-break: break-all;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .result-row:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .result-val {
+            font-weight: 500;
+        }
+
+        /* Reference Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
+        td {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+        }
+
+        td:first-child {
+            font-family: var(--font-body);
+        }
+
+        /* Code snippets */
+        .code-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .code-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .code-snippet {
+            background: #000;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        .code-lang {
+            font-size: 0.75rem;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .code-snippet code {
+            color: #a6accd;
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            white-space: pre-wrap;
+        }
+
+        /* FAQ */
+        .faq-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .faq-q {
+            font-weight: 600;
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .faq-a {
+            color: var(--text-muted);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        footer a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--accent-color);
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Unix Timestamp Converter & Epoch Time Calculator",
+      "description": "Convert Unix timestamps to dates and vice versa. Live updating epoch time calculator, supporting seconds, milliseconds, and microseconds.",
+      "datePublished": "2026-03-10",
+      "author": {
+        "@type": "Organization",
+        "name": "siliconbased.dev",
+        "url": "https://siliconbased.dev/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "siliconbased.dev",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://siliconbased.dev/logo.png"
+        }
+      }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a unix timestamp converter?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A unix timestamp converter is a tool that translates the number of seconds (or milliseconds) since January 1, 1970 (the Unix epoch) into a human-readable date and time, and vice versa."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does an epoch converter work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "An epoch converter takes a numeric timestamp representing the Unix epoch and applies timezone offsets and date algorithms to output a formatted string, such as YYYY-MM-DD HH:MM:SS."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How to convert timestamp to date?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "To convert a timestamp to a date, you can use our tool above. Simply paste the Unix timestamp into the 'Timestamp to Date' input field, and it will instantly show the equivalent human-readable date in your local timezone and UTC."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the current unix timestamp?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The current unix timestamp constantly updates every second. It represents the exact number of seconds that have elapsed since midnight on January 1, 1970, UTC."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why do we use epoch time?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Epoch time provides a single, simple number to represent a specific point in time, independent of timezones or daylight saving time, making it highly efficient for computers to store, sort, and calculate time differences."
+          }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+
+    <nav class="sticky-nav">
+        <a href="/" class="nav-brand">silicon<span>based</span>.dev</a>
+        <div class="nav-links">
+            <a href="/#studies">Studies</a>
+            <a href="/#tools">Tools</a>
+            <a href="/#guides">Guides</a>
+        </div>
+    </nav>
+
+    <main>
+        <h1>Unix Timestamp Converter</h1>
+
+        <div class="card live-timestamp-container">
+            <h2 style="margin-top: 0; border: none;">Current Unix Timestamp</h2>
+            <div class="timestamp-controls">
+                <button id="btn-sec" class="active" onclick="setLiveUnit('sec')">Seconds</button>
+                <button id="btn-ms" onclick="setLiveUnit('ms')">Milliseconds</button>
+                <button id="btn-us" onclick="setLiveUnit('us')">Microseconds</button>
+            </div>
+            <div class="live-timestamp" id="live-time">1700000000</div>
+            <p style="color: var(--text-muted); font-size: 0.875rem;">
+                Live updating. <a href="#" style="color: var(--accent-color);" onclick="copyLive(); return false;">Click to copy</a>
+            </p>
+        </div>
+
+        <div class="grid">
+            <!-- Timestamp to Date -->
+            <div class="card">
+                <h2>Timestamp to Date</h2>
+                <div class="form-group">
+                    <label>Unix Timestamp</label>
+                    <input type="number" id="ts-input" class="mono" placeholder="e.g. 1700000000">
+                </div>
+                <div class="form-group">
+                    <label>Input Unit</label>
+                    <select id="ts-unit">
+                        <option value="s">Seconds (s)</option>
+                        <option value="ms">Milliseconds (ms)</option>
+                        <option value="us">Microseconds (μs)</option>
+                    </select>
+                </div>
+                <button onclick="convertTsToDate()">Convert to Date</button>
+
+                <div class="result-box" id="ts-result" style="display: none;">
+                    <div class="result-row">
+                        <span class="result-label">Local Time</span>
+                        <span class="result-val mono" id="res-local">-</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">UTC / GMT</span>
+                        <span class="result-val mono" id="res-utc">-</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Relative</span>
+                        <span class="result-val" id="res-rel">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Date to Timestamp -->
+            <div class="card">
+                <h2>Date to Timestamp</h2>
+                <div class="form-group">
+                    <label>Date & Time (Local)</label>
+                    <input type="datetime-local" id="date-input" step="1">
+                </div>
+                <div class="form-group">
+                    <label>Timezone</label>
+                    <select id="tz-input">
+                        <option value="local">Local Timezone</option>
+                        <option value="UTC">UTC / GMT</option>
+                    </select>
+                </div>
+                <button onclick="convertDateToTs()">Convert to Timestamp</button>
+
+                <div class="result-box" id="date-result" style="display: none;">
+                    <div class="result-row">
+                        <span class="result-label">Seconds</span>
+                        <span class="result-val mono" id="res-sec">-</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Milliseconds</span>
+                        <span class="result-val mono" id="res-milli">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Date Diff -->
+        <div class="card">
+            <h2>Date Difference Calculator</h2>
+            <div class="grid" style="margin-bottom: 1rem;">
+                <div class="form-group">
+                    <label>Start Date/Time</label>
+                    <input type="datetime-local" id="diff-start" step="1">
+                </div>
+                <div class="form-group">
+                    <label>End Date/Time</label>
+                    <input type="datetime-local" id="diff-end" step="1">
+                </div>
+            </div>
+            <button onclick="calculateDiff()">Calculate Difference</button>
+            <div class="result-box" id="diff-result" style="display: none;">
+                <div class="result-row">
+                    <span class="result-label">Difference</span>
+                    <span class="result-val mono" id="res-diff-total">-</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">In Seconds</span>
+                    <span class="result-val mono" id="res-diff-sec">-</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Common Timestamps -->
+        <div class="card">
+            <h2>Common Epoch Timestamps</h2>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Event</th>
+                            <th>Timestamp</th>
+                            <th>Date (UTC)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>The Unix Epoch</td>
+                            <td>0</td>
+                            <td>1970-01-01 00:00:00</td>
+                        </tr>
+                        <tr>
+                            <td>1 Billion Seconds</td>
+                            <td>1000000000</td>
+                            <td>2001-09-09 01:46:40</td>
+                        </tr>
+                        <tr>
+                            <td>1234567890 Day</td>
+                            <td>1234567890</td>
+                            <td>2009-02-13 23:31:30</td>
+                        </tr>
+                        <tr>
+                            <td>Y2K38 Problem (Max 32-bit int)</td>
+                            <td>2147483647</td>
+                            <td>2038-01-19 03:14:07</td>
+                        </tr>
+                        <tr>
+                            <td>9999-12-31</td>
+                            <td>253402300799</td>
+                            <td>9999-12-31 23:59:59</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Code Snippets -->
+        <div class="card">
+            <h2>Get Current Timestamp in Code</h2>
+            <div class="code-grid">
+                <div class="code-snippet">
+                    <div class="code-lang">JavaScript / Node.js</div>
+                    <code>Math.floor(Date.now() / 1000)</code>
+                </div>
+                <div class="code-snippet">
+                    <div class="code-lang">Python</div>
+                    <code>import time<br>int(time.time())</code>
+                </div>
+                <div class="code-snippet">
+                    <div class="code-lang">Java</div>
+                    <code>System.currentTimeMillis() / 1000L</code>
+                </div>
+                <div class="code-snippet">
+                    <div class="code-lang">C#</div>
+                    <code>DateTimeOffset.UtcNow.ToUnixTimeSeconds()</code>
+                </div>
+                <div class="code-snippet">
+                    <div class="code-lang">PHP</div>
+                    <code>time()</code>
+                </div>
+                <div class="code-snippet">
+                    <div class="code-lang">Ruby</div>
+                    <code>Time.now.to_i</code>
+                </div>
+                <div class="code-snippet">
+                    <div class="code-lang">Go</div>
+                    <code>time.Now().Unix()</code>
+                </div>
+                <div class="code-snippet">
+                    <div class="code-lang">Rust</div>
+                    <code>use std::time::{SystemTime, UNIX_EPOCH};<br>SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs()</code>
+                </div>
+                <div class="code-snippet">
+                    <div class="code-lang">C++ (C++11)</div>
+                    <code>#include &lt;chrono&gt;<br>std::chrono::duration_cast&lt;std::chrono::seconds&gt;(std::chrono::system_clock::now().time_since_epoch()).count()</code>
+                </div>
+                <div class="code-snippet">
+                    <div class="code-lang">Swift</div>
+                    <code>Int(Date().timeIntervalSince1970)</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="card">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <div class="faq-q">What is a unix timestamp converter?</div>
+                <div class="faq-a">A unix timestamp converter is a tool that translates the number of seconds (or milliseconds) since January 1, 1970 (the Unix epoch) into a human-readable date and time, and vice versa.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">How does an epoch converter work?</div>
+                <div class="faq-a">An epoch converter takes a numeric timestamp representing the Unix epoch and applies timezone offsets and date algorithms to output a formatted string, such as YYYY-MM-DD HH:MM:SS.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">How to convert timestamp to date?</div>
+                <div class="faq-a">To convert a timestamp to a date, you can use our tool above. Simply paste the Unix timestamp into the "Timestamp to Date" input field, and it will instantly show the equivalent human-readable date in your local timezone and UTC.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">What is the current unix timestamp?</div>
+                <div class="faq-a">The current unix timestamp constantly updates every second. It represents the exact number of seconds that have elapsed since midnight on January 1, 1970, UTC.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">Why do we use epoch time?</div>
+                <div class="faq-a">Epoch time provides a single, simple number to represent a specific point in time, independent of timezones or daylight saving time, making it highly efficient for computers to store, sort, and calculate time differences.</div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 siliconbased.dev &middot; A GAB Ventures property. Not investment advice. All information for educational purposes only. | <a href="https://gab.ae">gab.ae</a></p>
+    </footer>
+
+    <script>
+        // Live Timestamp Logic
+        let liveUnit = 'sec';
+        const liveEl = document.getElementById('live-time');
+
+        function updateLive() {
+            const now = Date.now();
+            let val;
+            if (liveUnit === 'sec') {
+                val = Math.floor(now / 1000);
+            } else if (liveUnit === 'ms') {
+                val = now;
+            } else if (liveUnit === 'us') {
+                // Microseconds are approximated by multiplying ms by 1000
+                // We could use performance.now() for more precision but for a simple display this works
+                val = now * 1000 + Math.floor(performance.now() % 1 * 1000);
+            }
+            liveEl.innerText = val;
+        }
+
+        function setLiveUnit(unit) {
+            liveUnit = unit;
+            document.getElementById('btn-sec').classList.remove('active');
+            document.getElementById('btn-ms').classList.remove('active');
+            document.getElementById('btn-us').classList.remove('active');
+            document.getElementById('btn-' + unit).classList.add('active');
+            updateLive();
+        }
+
+        setInterval(updateLive, 10);
+        updateLive();
+
+        function copyLive() {
+            navigator.clipboard.writeText(liveEl.innerText);
+            alert("Copied: " + liveEl.innerText);
+        }
+
+        // Relative Time Formatter
+        function getRelativeTime(date) {
+            const now = new Date();
+            const diffSecs = Math.round((now - date) / 1000);
+            const absDiff = Math.abs(diffSecs);
+
+            let val, unit;
+            if (absDiff < 60) { val = absDiff; unit = 'second'; }
+            else if (absDiff < 3600) { val = Math.floor(absDiff / 60); unit = 'minute'; }
+            else if (absDiff < 86400) { val = Math.floor(absDiff / 3600); unit = 'hour'; }
+            else if (absDiff < 2592000) { val = Math.floor(absDiff / 86400); unit = 'day'; }
+            else if (absDiff < 31536000) { val = Math.floor(absDiff / 2592000); unit = 'month'; }
+            else { val = Math.floor(absDiff / 31536000); unit = 'year'; }
+
+            if (val !== 1) unit += 's';
+
+            if (diffSecs > 0) return `${val} ${unit} ago`;
+            if (diffSecs < 0) return `in ${val} ${unit}`;
+            return 'just now';
+        }
+
+        // Timestamp to Date
+        function convertTsToDate() {
+            const input = document.getElementById('ts-input').value;
+            const unit = document.getElementById('ts-unit').value;
+            if (!input) return;
+
+            let ms = parseFloat(input);
+            if (unit === 's') ms *= 1000;
+            if (unit === 'us') ms /= 1000;
+
+            const date = new Date(ms);
+
+            if (isNaN(date.getTime())) {
+                alert("Invalid timestamp");
+                return;
+            }
+
+            document.getElementById('res-local').innerText = date.toLocaleString();
+            document.getElementById('res-utc').innerText = date.toUTCString();
+            document.getElementById('res-rel').innerText = getRelativeTime(date);
+            document.getElementById('ts-result').style.display = 'block';
+        }
+
+        // Date to Timestamp
+        function convertDateToTs() {
+            const input = document.getElementById('date-input').value;
+            const tz = document.getElementById('tz-input').value;
+            if (!input) return;
+
+            let date;
+            if (tz === 'UTC') {
+                date = new Date(input + 'Z');
+            } else {
+                date = new Date(input);
+            }
+
+            if (isNaN(date.getTime())) {
+                alert("Invalid date");
+                return;
+            }
+
+            const ms = date.getTime();
+            document.getElementById('res-sec').innerText = Math.floor(ms / 1000);
+            document.getElementById('res-milli').innerText = ms;
+            document.getElementById('date-result').style.display = 'block';
+        }
+
+        // Date Diff
+        function calculateDiff() {
+            const startStr = document.getElementById('diff-start').value;
+            const endStr = document.getElementById('diff-end').value;
+            if (!startStr || !endStr) return;
+
+            const start = new Date(startStr);
+            const end = new Date(endStr);
+
+            if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+                alert("Invalid dates");
+                return;
+            }
+
+            let diffMs = Math.abs(end - start);
+            const diffSec = Math.floor(diffMs / 1000);
+
+            const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            diffMs -= days * (1000 * 60 * 60 * 24);
+            const hours = Math.floor(diffMs / (1000 * 60 * 60));
+            diffMs -= hours * (1000 * 60 * 60);
+            const mins = Math.floor(diffMs / (1000 * 60));
+            diffMs -= mins * (1000 * 60);
+            const secs = Math.floor(diffMs / 1000);
+
+            let diffStr = [];
+            if (days > 0) diffStr.push(`${days} days`);
+            if (hours > 0) diffStr.push(`${hours} hours`);
+            if (mins > 0) diffStr.push(`${mins} mins`);
+            if (secs > 0 || diffStr.length === 0) diffStr.push(`${secs} secs`);
+
+            document.getElementById('res-diff-total').innerText = diffStr.join(', ');
+            document.getElementById('res-diff-sec').innerText = diffSec;
+            document.getElementById('diff-result').style.display = 'block';
+        }
+
+        // Pre-fill date inputs with current local time
+        window.addEventListener('DOMContentLoaded', () => {
+            const now = new Date();
+            // Format for datetime-local: YYYY-MM-DDThh:mm:ss
+            const tzOffset = now.getTimezoneOffset() * 60000; // offset in milliseconds
+            const localISOTime = (new Date(now - tzOffset)).toISOString().slice(0, -1);
+
+            const dtLocal = localISOTime.substring(0, 19);
+            const inputDate = document.getElementById('date-input');
+            if(inputDate) inputDate.value = dtLocal;
+
+            const diffStart = document.getElementById('diff-start');
+            if(diffStart) diffStart.value = dtLocal;
+
+            // set input value to current ts
+            const tsInput = document.getElementById('ts-input');
+            if(tsInput) tsInput.value = Math.floor(now.getTime() / 1000);
+        });
+    </script>
+</body>
+</html>
