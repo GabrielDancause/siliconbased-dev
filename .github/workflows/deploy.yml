@@ -20,7 +20,10 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
-      - run: npm run generate:regex
+      - run: npm run generate:chmod
+      - run: npm run generate:pageweight
+      - run: npm run generate:sourdough
+      - run: npm run generate:cssframeworks
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:

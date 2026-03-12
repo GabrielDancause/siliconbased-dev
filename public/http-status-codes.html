@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTTP Status Codes Reference: Every Code Explained with Examples</title>
+    <meta name="description" content="Think you know every error? Explore all HTTP status codes (1xx-5xx) and discover the hidden reasons your site might be breaking.">
+    <link rel="canonical" href="https://siliconbased.dev/http-status-codes.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G86C7NJG3F"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-G86C7NJG3F');</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What are HTTP status codes?","acceptedAnswer":{"@type":"Answer","text":"HTTP status codes are standard responses given by web servers on the internet. They indicate whether a specific HTTP request has been successfully completed, providing crucial context for troubleshooting. They are divided into five categories: informational (1xx), successful (2xx), redirection (3xx), client error (4xx), and server error (5xx)."}},{"@type":"Question","name":"Where can I find a complete HTTP status code list?","acceptedAnswer":{"@type":"Answer","text":"You can find a complete, searchable list of all standard HTTP status codes right here on this page. We've compiled every official status code from 100 to 511, including explanations, common causes, fixes for error codes, and curl examples to test them."}},{"@type":"Question","name":"What does a 403 Forbidden status code mean?","acceptedAnswer":{"@type":"Answer","text":"A 403 Forbidden error means that the server understands your request, but refuses to authorize it. Unlike a 401 Unauthorized code (which means you need to log in), a 403 means you are authenticated, but you do not have the required permissions to access that specific page or resource."}},{"@type":"Question","name":"How do I fix an HTTP 502 Bad Gateway error?","acceptedAnswer":{"@type":"Answer","text":"An HTTP 502 Bad Gateway error occurs when a server acting as a proxy or gateway receives an invalid response from an upstream server. To fix it, you should verify that the backend application (like Node.js, Python, or PHP) is running correctly and that the proxy server (like Nginx or Apache) is properly configured to communicate with it."}},{"@type":"Question","name":"What is the difference between a 301 and 302 redirect?","acceptedAnswer":{"@type":"Answer","text":"A 301 Moved Permanently indicates that a resource has been permanently moved to a new URL, and search engines should update their links. A 302 Found is a temporary redirect, signaling that the resource is temporarily located elsewhere, but future requests should still use the original URL."}}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"HTTP Status Codes Reference: Every Code Explained with Examples","description":"Think you know every error? Explore all HTTP status codes (1xx-5xx) and discover the hidden reasons your site might be breaking.","datePublished":"2026-03-11","publisher":{"@type":"Organization","name":"siliconbased.dev","logo":{"@type":"ImageObject","url":"https://siliconbased.dev/logo.png"}}}</script>
+    <style>
+        :root {
+            --bg: #060a12;
+            --card-bg: #0a1020;
+            --border: #152040;
+            --accent: #818cf8;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --code-bg: #0f172a;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        h1, h2, h3, h4 { color: #ffffff; font-weight: 700; }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #cbd5e1;
+        }
+        pre {
+            background-color: var(--code-bg);
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            margin-top: 0.5rem;
+        }
+        pre code { background: none; padding: 0; color: #a5b4fc; }
+
+        /* Sticky Nav */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(6, 10, 18, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .brand { font-weight: 700; font-size: 1.25rem; color: #fff; }
+        .nav-links { display: flex; gap: 1.5rem; }
+        .nav-links a { color: var(--text-muted); font-weight: 500; font-size: 0.95rem; }
+        .nav-links a:hover { color: #fff; text-decoration: none; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        .hero { text-align: center; margin-bottom: 4rem; }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .hero p { font-size: 1.125rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+        input[type="text"] {
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: var(--card-bg);
+            color: #fff;
+            width: 100%;
+            max-width: 400px;
+            font-size: 1rem;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .category-btns {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        button {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        button:hover, button.active {
+            background: var(--border);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s;
+        }
+        .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+        .card-header {
+            display: flex;
+            align-items: baseline;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .status-code {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent);
+        }
+        .status-name { font-size: 1.125rem; font-weight: 600; color: #fff; }
+
+        .card-body h4 { font-size: 0.875rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin: 1rem 0 0.5rem 0; }
+        .card-body p { margin-bottom: 0.5rem; font-size: 0.95rem; }
+        .fix-block { background: rgba(129, 140, 248, 0.1); border-left: 3px solid var(--accent); padding: 0.75rem; margin-top: 1rem; border-radius: 0 4px 4px 0; }
+        .fix-block h4 { margin-top: 0; color: var(--accent); }
+
+        .copy-btn {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            cursor: pointer;
+            align-self: flex-start;
+        }
+        .copy-btn:hover { background: var(--accent); color: #000; }
+
+        .faq-section { margin-bottom: 4rem; }
+        .faq-section h2 { text-align: center; margin-bottom: 2rem; font-size: 2rem; }
+        .faq-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            padding: 1.5rem;
+        }
+        .faq-item h3 { margin-bottom: 0.5rem; font-size: 1.125rem; }
+
+        footer {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+            .nav-container { flex-direction: column; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="brand">siliconbased.dev</a>
+            <div class="nav-links">
+                <a href="/#studies">Studies</a>
+                <a href="/#tools">Tools</a>
+                <a href="/#guides">Guides</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="hero">
+            <h1>HTTP Status Codes Reference</h1>
+            <p>Every Code Explained with Examples</p>
+        </header>
+
+        <div class="filters">
+            <input type="text" id="searchInput" placeholder="Search codes (e.g. 404, Gateway, Forbidden)...">
+            <div class="category-btns">
+                <button class="active" data-cat="all">All</button>
+                <button data-cat="1xx">1xx</button>
+                <button data-cat="2xx">2xx</button>
+                <button data-cat="3xx">3xx</button>
+                <button data-cat="4xx">4xx</button>
+                <button data-cat="5xx">5xx</button>
+            </div>
+        </div>
+
+        <div class="grid" id="codesGrid">
+
+            <div class="card" data-code="100" data-name="continue" data-cat="1xx">
+                <div class="card-header">
+                    <span class="status-code">100</span>
+                    <span class="status-name">Continue</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The server has received the request headers and the client should proceed to send the request body.</p>
+                    <h4>When you see it</h4>
+                    <p>Seen when sending large payloads where the client asks the server if it's willing to accept the request before sending it.</p>
+
+                    <h4>Example</h4>
+                    <pre><code>curl -v -X POST -H 'Expect: 100-continue' https://example.com</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v -X POST -H \'Expect: 100-continue\' https://example.com')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="101" data-name="switching protocols" data-cat="1xx">
+                <div class="card-header">
+                    <span class="status-code">101</span>
+                    <span class="status-name">Switching Protocols</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The requester has asked the server to switch protocols and the server has agreed to do so.</p>
+                    <h4>When you see it</h4>
+                    <p>Commonly seen when upgrading an HTTP connection to a WebSocket connection.</p>
+
+                    <h4>Example</h4>
+                    <pre><code>curl -v -i -N -H 'Connection: Upgrade' -H 'Upgrade: websocket' -H 'Sec-WebSocket-Key: SGVsbG8sIHdvcmxkIQ==' -H 'Sec-WebSocket-Version: 13' https://example.com</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v -i -N -H \'Connection: Upgrade\' -H \'Upgrade: websocket\' -H \'Sec-WebSocket-Key: SGVsbG8sIHdvcmxkIQ==\' -H \'Sec-WebSocket-Version: 13\' https://example.com')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="102" data-name="processing" data-cat="1xx">
+                <div class="card-header">
+                    <span class="status-code">102</span>
+                    <span class="status-name">Processing</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The server has received and is processing the request, but no response is available yet.</p>
+                    <h4>When you see it</h4>
+                    <p>Used in WebDAV to prevent the client from timing out when a request takes a long time to process.</p>
+
+                    <h4>Example</h4>
+                    <pre><code>curl -v -X PROPFIND https://example.com</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v -X PROPFIND https://example.com')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="103" data-name="early hints" data-cat="1xx">
+                <div class="card-header">
+                    <span class="status-code">103</span>
+                    <span class="status-name">Early Hints</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>Used to return some response headers before final HTTP message.</p>
+                    <h4>When you see it</h4>
+                    <p>Useful to allow the client to start preloading resources while the server prepares the main response.</p>
+
+                    <h4>Example</h4>
+                    <pre><code>curl -v https://example.com</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v https://example.com')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="200" data-name="ok" data-cat="2xx">
+                <div class="card-header">
+                    <span class="status-code">200</span>
+                    <span class="status-name">OK</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The request succeeded. The result meaning depends on the HTTP method.</p>
+                    <h4>When you see it</h4>
+                    <p>The standard response for successful HTTP requests (GET, POST, PUT, etc).</p>
+
+                    <h4>Example</h4>
+                    <pre><code>curl -I https://example.com</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -I https://example.com')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="201" data-name="created" data-cat="2xx">
+                <div class="card-header">
+                    <span class="status-code">201</span>
+                    <span class="status-name">Created</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The request succeeded, and a new resource was created as a result.</p>
+                    <h4>When you see it</h4>
+                    <p>Typically the response sent after POST requests, or some PUT requests.</p>
+
+                    <h4>Example</h4>
+                    <pre><code>curl -v -X POST -d 'name=test' https://example.com/api/resource</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v -X POST -d \'name=test\' https://example.com/api/resource')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="202" data-name="accepted" data-cat="2xx">
+                <div class="card-header">
+                    <span class="status-code">202</span>
+                    <span class="status-name">Accepted</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The request has been received but not yet acted upon. It is noncommittal.</p>
+                    <h4>When you see it</h4>
+                    <p>Used for asynchronous processing where the server queues the request to be processed later.</p>
+
+                    <h4>Example</h4>
+                    <pre><code>curl -v -X POST https://example.com/api/async-task</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v -X POST https://example.com/api/async-task')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="203" data-name="non-authoritative information" data-cat="2xx">
+                <div class="card-header">
+                    <span class="status-code">203</span>
+                    <span class="status-name">Non-Authoritative Information</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The returned metadata is not exactly the same as is available from the origin server, but is collected from a local or a third-party copy.</p>
+                    <h4>When you see it</h4>
+                    <p>Used mostly by proxies or caching servers.</p>
+
+                    <h4>Example</h4>
+                    <pre><code>curl -I https://example.com</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -I https://example.com')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="204" data-name="no content" data-cat="2xx">
+                <div class="card-header">
+                    <span class="status-code">204</span>
+                    <span class="status-name">No Content</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>There is no content to send for this request, but the headers may be useful.</p>
+                    <h4>When you see it</h4>
+                    <p>Often returned by DELETE requests or PUT requests that successfully update a resource without needing to return the entity.</p>
+
+                    <h4>Example</h4>
+                    <pre><code>curl -v -X DELETE https://example.com/api/resource/1</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v -X DELETE https://example.com/api/resource/1')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="205" data-name="reset content" data-cat="2xx">
+                <div class="card-header">
+                    <span class="status-code">205</span>
+                    <span class="status-name">Reset Content</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>Tells the user agent to reset the document which sent this request.</p>
+                    <h4>When you see it</h4>
+                    <p>Useful for clearing a form after a successful submission.</p>
+
+                    <h4>Example</h4>
+                    <pre><code>curl -v -X POST https://example.com/api/form</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v -X POST https://example.com/api/form')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="206" data-name="partial content" data-cat="2xx">
+                <div class="card-header">
+                    <span class="status-code">206</span>
+                    <span class="status-name">Partial Content</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>This response code is used when the Range header is sent from the client to request only part of a resource.</p>
+                    <h4>When you see it</h4>
+                    <p>Used for resumeable downloads or streaming media.</p>
+
+                    <h4>Example</h4>
+                    <pre><code>curl -v -H 'Range: bytes=0-1023' https://example.com/video.mp4</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v -H \'Range: bytes=0-1023\' https://example.com/video.mp4')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="300" data-name="multiple choices" data-cat="3xx">
+                <div class="card-header">
+                    <span class="status-code">300</span>
+                    <span class="status-name">Multiple Choices</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The request has more than one possible response. The user agent or user should choose one of them.</p>
+                    <h4>When you see it</h4>
+                    <p>Rarely used, but could be for presenting multiple video formats or language options.</p>
+
+                    <h4>Example</h4>
+                    <pre><code>curl -I https://example.com</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -I https://example.com')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="301" data-name="moved permanently" data-cat="3xx">
+                <div class="card-header">
+                    <span class="status-code">301</span>
+                    <span class="status-name">Moved Permanently</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The URL of the requested resource has been changed permanently. The new URL is given in the response.</p>
+                    <h4>When you see it</h4>
+                    <p>Used when migrating to a new domain or restructuring a website's URLs.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Update client links or bookmarks to use the new URL provided in the Location header.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -I https://example.com/old-page</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -I https://example.com/old-page')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="302" data-name="found" data-cat="3xx">
+                <div class="card-header">
+                    <span class="status-code">302</span>
+                    <span class="status-name">Found</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>This response code means that the URI of requested resource has been changed temporarily.</p>
+                    <h4>When you see it</h4>
+                    <p>Used for temporary redirects, such as during site maintenance or A/B testing.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>No action needed for temporary redirects, follow the Location header.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -I https://example.com/temp-page</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -I https://example.com/temp-page')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="303" data-name="see other" data-cat="3xx">
+                <div class="card-header">
+                    <span class="status-code">303</span>
+                    <span class="status-name">See Other</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The server sent this response to direct the client to get the requested resource at another URI with a GET request.</p>
+                    <h4>When you see it</h4>
+                    <p>Often used after a successful POST request to redirect the user to a success page (Post/Redirect/Get pattern).</p>
+
+                    <h4>Example</h4>
+                    <pre><code>curl -v -X POST -d 'data=1' https://example.com/form</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v -X POST -d \'data=1\' https://example.com/form')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="304" data-name="not modified" data-cat="3xx">
+                <div class="card-header">
+                    <span class="status-code">304</span>
+                    <span class="status-name">Not Modified</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>This is used for caching purposes. It tells the client that the response has not been modified, so the client can continue to use the same cached version of the response.</p>
+                    <h4>When you see it</h4>
+                    <p>When a client sends a conditional GET request (e.g., using If-Modified-Since).</p>
+
+                    <h4>Example</h4>
+                    <pre><code>curl -I -H 'If-None-Match: &quot;etag-value&quot;' https://example.com/resource</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -I -H \'If-None-Match: &quot;etag-value&quot;\' https://example.com/resource')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="307" data-name="temporary redirect" data-cat="3xx">
+                <div class="card-header">
+                    <span class="status-code">307</span>
+                    <span class="status-name">Temporary Redirect</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The server sends this response to direct the client to get the requested resource at another URI with the same method that was used in the prior request.</p>
+                    <h4>When you see it</h4>
+                    <p>Similar to 302, but guarantees the HTTP method will not be changed.</p>
+
+                    <h4>Example</h4>
+                    <pre><code>curl -v -X POST https://example.com/redirect</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v -X POST https://example.com/redirect')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="308" data-name="permanent redirect" data-cat="3xx">
+                <div class="card-header">
+                    <span class="status-code">308</span>
+                    <span class="status-name">Permanent Redirect</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The request and all future requests should be repeated using another URI. The HTTP method is not allowed to change.</p>
+                    <h4>When you see it</h4>
+                    <p>Similar to 301, but guarantees the HTTP method will not be changed.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Update clients to use the new URI.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -I https://example.com/old-api</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -I https://example.com/old-api')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="400" data-name="bad request" data-cat="4xx">
+                <div class="card-header">
+                    <span class="status-code">400</span>
+                    <span class="status-name">Bad Request</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The server could not understand the request due to invalid syntax.</p>
+                    <h4>When you see it</h4>
+                    <p>Sent when the client's request is malformed, missing required parameters, or has invalid data.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Check the request syntax, headers, and body parameters. Ensure they match the API specification.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -v -X POST -d 'invalid json{' https://example.com/api</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v -X POST -d \'invalid json{\' https://example.com/api')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="401" data-name="unauthorized" data-cat="4xx">
+                <div class="card-header">
+                    <span class="status-code">401</span>
+                    <span class="status-name">Unauthorized</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>Although the HTTP standard specifies 'unauthorized', semantically this response means 'unauthenticated'. That is, the client must authenticate itself to get the requested response.</p>
+                    <h4>When you see it</h4>
+                    <p>When trying to access a protected resource without valid authentication credentials.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Provide valid authentication credentials (e.g., a Bearer token or API key) in the request headers.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -v -H 'Authorization: Bearer invalid_token' https://example.com/api/protected</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v -H \'Authorization: Bearer invalid_token\' https://example.com/api/protected')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="402" data-name="payment required" data-cat="4xx">
+                <div class="card-header">
+                    <span class="status-code">402</span>
+                    <span class="status-name">Payment Required</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>This response code is reserved for future use. The initial aim for creating this code was using it for digital payment systems.</p>
+                    <h4>When you see it</h4>
+                    <p>Rarely used, but sometimes implemented by APIs to indicate a quota limit or required subscription.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Check your billing status or API usage quotas.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -I https://api.example.com/premium-data</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -I https://api.example.com/premium-data')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="403" data-name="forbidden" data-cat="4xx">
+                <div class="card-header">
+                    <span class="status-code">403</span>
+                    <span class="status-name">Forbidden</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The client does not have access rights to the content; that is, it is unauthorized, so the server is refusing to give the requested resource.</p>
+                    <h4>When you see it</h4>
+                    <p>When authenticated but lacking permissions to perform an action or access a specific resource.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Ensure the authenticated user has the necessary roles or permissions to access the resource. Check server configuration (e.g., directory indexing disabled).</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -I https://example.com/admin</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -I https://example.com/admin')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="404" data-name="not found" data-cat="4xx">
+                <div class="card-header">
+                    <span class="status-code">404</span>
+                    <span class="status-name">Not Found</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The server can not find the requested resource. In the browser, this means the URL is not recognized.</p>
+                    <h4>When you see it</h4>
+                    <p>When requesting a page or API endpoint that does not exist.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Verify the URL path is correct. If it's an API, check if the resource ID exists.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -I https://example.com/does-not-exist</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -I https://example.com/does-not-exist')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="405" data-name="method not allowed" data-cat="4xx">
+                <div class="card-header">
+                    <span class="status-code">405</span>
+                    <span class="status-name">Method Not Allowed</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The request method is known by the server but is not supported by the target resource.</p>
+                    <h4>When you see it</h4>
+                    <p>When making a POST request to an endpoint that only accepts GET requests, for example.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Change the HTTP method to one supported by the endpoint (e.g., from POST to GET). Check the 'Allow' header in the response.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -v -X PUT https://example.com/api/read-only</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v -X PUT https://example.com/api/read-only')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="406" data-name="not acceptable" data-cat="4xx">
+                <div class="card-header">
+                    <span class="status-code">406</span>
+                    <span class="status-name">Not Acceptable</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>This response is sent when the web server, after performing server-driven content negotiation, doesn't find any content that conforms to the criteria given by the user agent.</p>
+                    <h4>When you see it</h4>
+                    <p>When the Accept header asks for a format the server cannot provide (e.g., asking for application/xml when only application/json is available).</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Modify the 'Accept' header to a format the server supports.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -v -H 'Accept: application/pdf' https://example.com/api/data</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v -H \'Accept: application/pdf\' https://example.com/api/data')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="407" data-name="proxy authentication required" data-cat="4xx">
+                <div class="card-header">
+                    <span class="status-code">407</span>
+                    <span class="status-name">Proxy Authentication Required</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>This is similar to 401 Unauthorized but authentication is needed to be done by a proxy.</p>
+                    <h4>When you see it</h4>
+                    <p>When a client must first authenticate itself with the proxy.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Provide proxy credentials via the Proxy-Authenticate header.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -v -x http://proxy.example.com:8080 https://example.com</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v -x http://proxy.example.com:8080 https://example.com')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="408" data-name="request timeout" data-cat="4xx">
+                <div class="card-header">
+                    <span class="status-code">408</span>
+                    <span class="status-name">Request Timeout</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>This response is sent on an idle connection by some servers, even without any previous request by the client.</p>
+                    <h4>When you see it</h4>
+                    <p>When the server timed out waiting for the request.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Try sending the request again or check your network connection for slowness.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -v https://example.com</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v https://example.com')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="409" data-name="conflict" data-cat="4xx">
+                <div class="card-header">
+                    <span class="status-code">409</span>
+                    <span class="status-name">Conflict</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>This response is sent when a request conflicts with the current state of the server.</p>
+                    <h4>When you see it</h4>
+                    <p>Often used when trying to create a resource that already exists (e.g., duplicate email address).</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Resolve the conflict, such as choosing a different username or updating the existing resource.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -v -X POST -d 'username=existing' https://example.com/api/users</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v -X POST -d \'username=existing\' https://example.com/api/users')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="410" data-name="gone" data-cat="4xx">
+                <div class="card-header">
+                    <span class="status-code">410</span>
+                    <span class="status-name">Gone</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>This response is sent when the requested content has been permanently deleted from server, with no forwarding address.</p>
+                    <h4>When you see it</h4>
+                    <p>Used for resources that were intentionally removed and will not return.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Remove references to the resource. It is intentionally unavailable.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -I https://example.com/deleted-item</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -I https://example.com/deleted-item')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="411" data-name="length required" data-cat="4xx">
+                <div class="card-header">
+                    <span class="status-code">411</span>
+                    <span class="status-name">Length Required</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>Server rejected the request because the Content-Length header field is not defined and the server requires it.</p>
+                    <h4>When you see it</h4>
+                    <p>When uploading data without specifying its length.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Include a valid 'Content-Length' header in your request.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -v -X POST -H 'Transfer-Encoding: chunked' https://example.com/upload</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v -X POST -H \'Transfer-Encoding: chunked\' https://example.com/upload')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="412" data-name="precondition failed" data-cat="4xx">
+                <div class="card-header">
+                    <span class="status-code">412</span>
+                    <span class="status-name">Precondition Failed</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The client has indicated preconditions in its headers which the server does not meet.</p>
+                    <h4>When you see it</h4>
+                    <p>When conditionally updating a resource (e.g., with If-Match) and the condition fails.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Check your precondition headers (If-Match, If-Unmodified-Since) and ensure you have the latest state.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -v -X PUT -H 'If-Match: &quot;old-etag&quot;' https://example.com/resource</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v -X PUT -H \'If-Match: &quot;old-etag&quot;\' https://example.com/resource')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="413" data-name="payload too large" data-cat="4xx">
+                <div class="card-header">
+                    <span class="status-code">413</span>
+                    <span class="status-name">Payload Too Large</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>Request entity is larger than limits defined by server.</p>
+                    <h4>When you see it</h4>
+                    <p>When uploading a file that exceeds the maximum allowed size.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Reduce the size of the request payload or configure the server to accept larger limits.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -v -X POST -F 'file=@hugefile.zip' https://example.com/upload</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v -X POST -F \'file=@hugefile.zip\' https://example.com/upload')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="414" data-name="uri too long" data-cat="4xx">
+                <div class="card-header">
+                    <span class="status-code">414</span>
+                    <span class="status-name">URI Too Long</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The URI requested by the client is longer than the server is willing to interpret.</p>
+                    <h4>When you see it</h4>
+                    <p>When sending too much data in a GET request query string.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Convert the GET request to a POST request and put the data in the body.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -I https://example.com/?very_long_query_string...</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -I https://example.com/?very_long_query_string...')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="415" data-name="unsupported media type" data-cat="4xx">
+                <div class="card-header">
+                    <span class="status-code">415</span>
+                    <span class="status-name">Unsupported Media Type</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The media format of the requested data is not supported by the server.</p>
+                    <h4>When you see it</h4>
+                    <p>When sending XML to an endpoint that only accepts JSON.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Change the Content-Type header and the format of your payload to one supported by the server.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -v -X POST -H 'Content-Type: text/plain' -d 'data' https://example.com/api</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v -X POST -H \'Content-Type: text/plain\' -d \'data\' https://example.com/api')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="416" data-name="range not satisfiable" data-cat="4xx">
+                <div class="card-header">
+                    <span class="status-code">416</span>
+                    <span class="status-name">Range Not Satisfiable</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The range specified by the Range header field in the request cannot be fulfilled.</p>
+                    <h4>When you see it</h4>
+                    <p>When requesting a part of a file that is outside its bounds.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Ensure the requested byte range is within the actual size of the resource.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -v -H 'Range: bytes=100000-200000' https://example.com/smallfile.txt</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v -H \'Range: bytes=100000-200000\' https://example.com/smallfile.txt')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="417" data-name="expectation failed" data-cat="4xx">
+                <div class="card-header">
+                    <span class="status-code">417</span>
+                    <span class="status-name">Expectation Failed</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>This response code means the expectation indicated by the Expect request header field cannot be met by the server.</p>
+                    <h4>When you see it</h4>
+                    <p>When using the Expect: 100-continue header and the server refuses.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Remove the Expect header or adjust the request so the server accepts it.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -v -H 'Expect: 100-continue' https://example.com</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v -H \'Expect: 100-continue\' https://example.com')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="418" data-name="i'm a teapot" data-cat="4xx">
+                <div class="card-header">
+                    <span class="status-code">418</span>
+                    <span class="status-name">I'm a teapot</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The server refuses the attempt to brew coffee with a teapot.</p>
+                    <h4>When you see it</h4>
+                    <p>An Easter egg from the April Fools' Hyper Text Coffee Pot Control Protocol (HTCPCP).</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Brew coffee with a coffee maker instead.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -I https://example.com/brew</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -I https://example.com/brew')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="422" data-name="unprocessable entity" data-cat="4xx">
+                <div class="card-header">
+                    <span class="status-code">422</span>
+                    <span class="status-name">Unprocessable Entity</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The request was well-formed but was unable to be followed due to semantic errors.</p>
+                    <h4>When you see it</h4>
+                    <p>Common in APIs when validation fails (e.g., providing a string for an integer field).</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Fix the validation errors in the request body as indicated by the server.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -v -X POST -d '{&quot;age&quot;: &quot;twenty&quot;}' https://example.com/api/users</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v -X POST -d \'{\&quot;age\&quot;: \&quot;twenty\&quot;}\' https://example.com/api/users')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="425" data-name="too early" data-cat="4xx">
+                <div class="card-header">
+                    <span class="status-code">425</span>
+                    <span class="status-name">Too Early</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>Indicates that the server is unwilling to risk processing a request that might be replayed.</p>
+                    <h4>When you see it</h4>
+                    <p>When using TLS Early Data (0-RTT).</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Retry the request on a fully established connection.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -v https://example.com</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v https://example.com')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="426" data-name="upgrade required" data-cat="4xx">
+                <div class="card-header">
+                    <span class="status-code">426</span>
+                    <span class="status-name">Upgrade Required</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The server refuses to perform the request using the current protocol but might be willing to do so after the client upgrades to a different protocol.</p>
+                    <h4>When you see it</h4>
+                    <p>When the server requires TLS/SSL or a newer HTTP version.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Upgrade your protocol, such as switching from HTTP/1.1 to HTTP/2.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -I https://example.com</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -I https://example.com')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="428" data-name="precondition required" data-cat="4xx">
+                <div class="card-header">
+                    <span class="status-code">428</span>
+                    <span class="status-name">Precondition Required</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The origin server requires the request to be conditional.</p>
+                    <h4>When you see it</h4>
+                    <p>Intended to prevent 'lost update' problems.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Include conditional headers like If-Match with your request.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -v -X PUT https://example.com/resource</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v -X PUT https://example.com/resource')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="429" data-name="too many requests" data-cat="4xx">
+                <div class="card-header">
+                    <span class="status-code">429</span>
+                    <span class="status-name">Too Many Requests</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The user has sent too many requests in a given amount of time (rate limiting).</p>
+                    <h4>When you see it</h4>
+                    <p>When you exceed the API rate limit quota.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Slow down your requests. Check the Retry-After header for how long to wait before retrying.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -I https://api.example.com/data</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -I https://api.example.com/data')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="431" data-name="request header fields too large" data-cat="4xx">
+                <div class="card-header">
+                    <span class="status-code">431</span>
+                    <span class="status-name">Request Header Fields Too Large</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The server is unwilling to process the request because its header fields are too large.</p>
+                    <h4>When you see it</h4>
+                    <p>When sending too many cookies or excessively large custom headers.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Reduce the size of your request headers or clear unnecessary cookies.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -v -H 'Large-Header: ...' https://example.com</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v -H \'Large-Header: ...\' https://example.com')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="451" data-name="unavailable for legal reasons" data-cat="4xx">
+                <div class="card-header">
+                    <span class="status-code">451</span>
+                    <span class="status-name">Unavailable For Legal Reasons</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The user agent requested a resource that cannot legally be provided, such as a web page censored by a government.</p>
+                    <h4>When you see it</h4>
+                    <p>When access is blocked due to legal demands.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>The resource is legally blocked. Access may require geographic circumvention, which may be illegal.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -I https://example.com/blocked</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -I https://example.com/blocked')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="500" data-name="internal server error" data-cat="5xx">
+                <div class="card-header">
+                    <span class="status-code">500</span>
+                    <span class="status-name">Internal Server Error</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The server has encountered a situation it does not know how to handle.</p>
+                    <h4>When you see it</h4>
+                    <p>A generic catch-all for server-side errors, like unhandled exceptions in code.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Check server logs to identify the root cause of the crash or exception.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -I https://example.com</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -I https://example.com')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="501" data-name="not implemented" data-cat="5xx">
+                <div class="card-header">
+                    <span class="status-code">501</span>
+                    <span class="status-name">Not Implemented</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The request method is not supported by the server and cannot be handled.</p>
+                    <h4>When you see it</h4>
+                    <p>When requesting a method like PATCH on a server that doesn't support it.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Ensure you are using standard HTTP methods. If you manage the server, implement the required method.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -X UNKNOWN_METHOD https://example.com</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -X UNKNOWN_METHOD https://example.com')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="502" data-name="bad gateway" data-cat="5xx">
+                <div class="card-header">
+                    <span class="status-code">502</span>
+                    <span class="status-name">Bad Gateway</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>This error response means that the server, while working as a gateway to get a response needed to handle the request, got an invalid response.</p>
+                    <h4>When you see it</h4>
+                    <p>Often seen when a reverse proxy (like Nginx) cannot communicate with the upstream backend application (like Node.js or Python).</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Check if the upstream application server is running and accessible by the proxy.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -I https://example.com</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -I https://example.com')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="503" data-name="service unavailable" data-cat="5xx">
+                <div class="card-header">
+                    <span class="status-code">503</span>
+                    <span class="status-name">Service Unavailable</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The server is not ready to handle the request. Common causes are a server that is down for maintenance or that is overloaded.</p>
+                    <h4>When you see it</h4>
+                    <p>During planned maintenance windows or severe traffic spikes.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Wait and try again later. Check the Retry-After header. If you are the admin, scale your resources.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -I https://example.com</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -I https://example.com')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="504" data-name="gateway timeout" data-cat="5xx">
+                <div class="card-header">
+                    <span class="status-code">504</span>
+                    <span class="status-name">Gateway Timeout</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>This error response is given when the server is acting as a gateway and cannot get a response in time.</p>
+                    <h4>When you see it</h4>
+                    <p>When the backend application takes too long to process a request and the proxy times out.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Optimize backend queries or increase the timeout limits on your proxy/load balancer.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -I https://example.com</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -I https://example.com')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="505" data-name="http version not supported" data-cat="5xx">
+                <div class="card-header">
+                    <span class="status-code">505</span>
+                    <span class="status-name">HTTP Version Not Supported</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The HTTP version used in the request is not supported by the server.</p>
+                    <h4>When you see it</h4>
+                    <p>Rarely seen, unless using a very old or unsupported HTTP protocol version.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Upgrade your HTTP client.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl --http1.0 https://example.com</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl --http1.0 https://example.com')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="506" data-name="variant also negotiates" data-cat="5xx">
+                <div class="card-header">
+                    <span class="status-code">506</span>
+                    <span class="status-name">Variant Also Negotiates</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The server has an internal configuration error: the chosen variant resource is configured to engage in transparent content negotiation itself, and is therefore not a proper end point in the negotiation process.</p>
+                    <h4>When you see it</h4>
+                    <p>Server misconfiguration.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Fix the server's content negotiation configuration.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -I https://example.com</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -I https://example.com')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="507" data-name="insufficient storage" data-cat="5xx">
+                <div class="card-header">
+                    <span class="status-code">507</span>
+                    <span class="status-name">Insufficient Storage</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The method could not be performed on the resource because the server is unable to store the representation needed to successfully complete the request.</p>
+                    <h4>When you see it</h4>
+                    <p>When the server runs out of disk space or database quota.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Free up disk space or increase the storage allocation on the server.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -v -X POST -d 'data' https://example.com</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -v -X POST -d \'data\' https://example.com')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="508" data-name="loop detected" data-cat="5xx">
+                <div class="card-header">
+                    <span class="status-code">508</span>
+                    <span class="status-name">Loop Detected</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>The server detected an infinite loop while processing the request.</p>
+                    <h4>When you see it</h4>
+                    <p>Typically associated with WebDAV.</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Fix the loop in the directory structure or redirect rules.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -I https://example.com</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -I https://example.com')">Copy Curl</button>
+                </div>
+            </div>
+
+            <div class="card" data-code="511" data-name="network authentication required" data-cat="5xx">
+                <div class="card-header">
+                    <span class="status-code">511</span>
+                    <span class="status-name">Network Authentication Required</span>
+                </div>
+                <div class="card-body">
+                    <h4>What it means</h4>
+                    <p>Indicates that the client needs to authenticate to gain network access.</p>
+                    <h4>When you see it</h4>
+                    <p>When trying to access the internet through a captive portal (like a public Wi-Fi login screen).</p>
+
+                    <div class="fix-block">
+                        <h4>How to fix it</h4>
+                        <p>Complete the captive portal login process.</p>
+                    </div>
+                    <h4>Example</h4>
+                    <pre><code>curl -I http://example.com</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this, 'curl -I http://example.com')">Copy Curl</button>
+                </div>
+            </div>
+
+        </div>
+
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <h3>What are HTTP status codes?</h3>
+                <p>HTTP status codes are standard responses given by web servers on the internet. They indicate whether a specific HTTP request has been successfully completed, providing crucial context for troubleshooting. They are divided into five categories: informational (1xx), successful (2xx), redirection (3xx), client error (4xx), and server error (5xx).</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Where can I find a complete HTTP status code list?</h3>
+                <p>You can find a complete, searchable list of all standard HTTP status codes right here on this page. We've compiled every official status code from 100 to 511, including explanations, common causes, fixes for error codes, and curl examples to test them.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>What does a 403 Forbidden status code mean?</h3>
+                <p>A 403 Forbidden error means that the server understands your request, but refuses to authorize it. Unlike a 401 Unauthorized code (which means you need to log in), a 403 means you are authenticated, but you do not have the required permissions to access that specific page or resource.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>How do I fix an HTTP 502 Bad Gateway error?</h3>
+                <p>An HTTP 502 Bad Gateway error occurs when a server acting as a proxy or gateway receives an invalid response from an upstream server. To fix it, you should verify that the backend application (like Node.js, Python, or PHP) is running correctly and that the proxy server (like Nginx or Apache) is properly configured to communicate with it.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>What is the difference between a 301 and 302 redirect?</h3>
+                <p>A 301 Moved Permanently indicates that a resource has been permanently moved to a new URL, and search engines should update their links. A 302 Found is a temporary redirect, signaling that the resource is temporarily located elsewhere, but future requests should still use the original URL.</p>
+            </div>
+
+        </section>
+    </div>
+
+    <footer>
+        © 2026 siliconbased.dev · A GAB Ventures property. Not investment advice. All information for educational purposes only.
+    </footer>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const catBtns = document.querySelectorAll('.category-btns button');
+        const cards = document.querySelectorAll('.card');
+
+        let currentCat = 'all';
+        let searchQuery = '';
+
+        function filterCards() {
+            cards.forEach(card => {
+                const code = card.getAttribute('data-code');
+                const name = card.getAttribute('data-name');
+                const cat = card.getAttribute('data-cat');
+
+                const matchesSearch = code.includes(searchQuery) || name.includes(searchQuery);
+                const matchesCat = currentCat === 'all' || cat === currentCat;
+
+                if (matchesSearch && matchesCat) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value.toLowerCase();
+            filterCards();
+        });
+
+        catBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                catBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentCat = btn.getAttribute('data-cat');
+                filterCards();
+            });
+        });
+
+        function copyCode(btn, text) {
+            navigator.clipboard.writeText(text).then(() => {
+                if (btn.innerText !== 'Copied!') {
+                    btn.dataset.originalText = btn.innerText;
+                }
+                btn.innerText = 'Copied!';
+                setTimeout(() => {
+                    btn.innerText = btn.dataset.originalText;
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

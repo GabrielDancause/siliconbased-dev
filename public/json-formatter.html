@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
+<link rel="canonical" href="https://siliconbased.dev/json-formatter.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JSON Formatter & Validator — Format, Minify, and Validate JSON | Free Online Tool</title>
-<meta name="description" content="Paste messy JSON, get it formatted, validated, and syntax-highlighted instantly. Shows errors with line numbers. Minify, sort keys, or convert to other formats. Free, no signup, runs in your browser.">
+<meta name="description" content="Why do 90% of developers waste time on messy JSON? Instantly format, minify, and fix your code online. Stop guessing what went wrong and solve syntax errors instantly.">
 <meta property="og:title" content="JSON Formatter & Validator">
-<meta property="og:description" content="Paste messy JSON, get it formatted, validated, and syntax-highlighted instantly. Shows errors with line numbers. Minify, sort keys, or convert to other formats. Free, no signup, runs in your browser.">
+<meta property="og:description" content="Why do 90% of developers waste time on messy JSON? Instantly format, minify, and fix your code online. Stop guessing what went wrong and solve syntax errors instantly.">
 <meta property="og:type" content="article">
 <script type="application/ld+json">
 {
@@ -21,13 +23,75 @@
   "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a JSON formatter?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A JSON formatter is a tool that takes raw, minified, or unformatted JSON code and formats it by adding proper indentation, line breaks, and spaces, making it readable for humans and easier to debug."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does a JSON validator online work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An online JSON validator parses your JSON string to check if it conforms to strict JSON syntax rules. If it finds errors like missing brackets, single quotes, or trailing commas, it will alert you to the exact line and column where the error occurred."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I JSON pretty print my code?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can use an online formatter to 'pretty print' your JSON. Simply paste your unformatted JSON into the input field, and the tool will instantly add indentation (typically spaces) and syntax highlighting."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is it important to format JSON?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Formatting JSON is crucial for readability and debugging. While APIs and servers often send minified JSON to save bandwidth, formatted JSON allows developers to quickly grasp the nested structure of data and spot syntax errors."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are there tools to automatically fix invalid JSON?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, many modern online JSON formatters have built-in fixers. They can automatically detect and resolve common mistakes like trailing commas, single quotes instead of double quotes, and unquoted keys."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "JSON Formatter & Validator: Pretty Print, Minify & Fix JSON Online",
+  "description": "Interactive tool to format, validate, minify, and sort JSON. Shows syntax errors with line numbers and provides syntax-highlighted output.",
+  "datePublished": "2026-03-11T00:00:00Z",
+  "publisher": {
+    "@type": "Organization",
+    "name": "siliconbased.dev",
+    "url": "https://siliconbased.dev"
+  }
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #060a12; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
 code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
-.hero { text-align: center; padding: 48px 24px 24px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
+.hero { text-align: center; padding: 48px 24px 24px; background: linear-gradient(180deg, #0f1729 0%, #060a12 100%); }
 .hero h1 { font-size: 2.4rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
 .hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .hero p { color: #888; font-size: 0.95rem; }
@@ -46,20 +110,20 @@ code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
 .action-btn:hover { background: #2a2d40; color: #ccc; }
 .action-btn.active { background: #818cf8; color: #fff; border-color: #818cf8; }
 
-textarea.json-input { flex: 1; min-height: 400px; background: #111318; border: 2px solid #1e2030; border-radius: 12px; padding: 16px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; resize: vertical; outline: none; transition: border-color 0.2s; line-height: 1.6; white-space: pre; }
+textarea.json-input { flex: 1; min-height: 400px; background: #0a1020; border: 2px solid #152040; border-radius: 12px; padding: 16px; color: #e0e0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; resize: vertical; outline: none; transition: border-color 0.2s; line-height: 1.6; white-space: pre; }
 textarea.json-input:focus { border-color: #818cf8; }
 textarea.json-input.error-border { border-color: #f87171; }
 
 /* Output & Highlighting */
-.output-card { flex: 1; min-height: 400px; background: #111318; border: 2px solid #1e2030; border-radius: 12px; position: relative; display: flex; flex-direction: column; overflow: hidden; }
+.output-card { flex: 1; min-height: 400px; background: #0a1020; border: 2px solid #152040; border-radius: 12px; position: relative; display: flex; flex-direction: column; overflow: hidden; }
 .output-card.error-state { border-color: #f87171; background: rgba(248, 113, 113, 0.05); }
 
 .copy-btn { background: #1e2030; border: 1px solid #2a2d40; color: #888; padding: 6px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
 .copy-btn:hover { background: #2a2d40; color: #ccc; }
 .copy-btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
 
-.result-body { flex: 1; padding: 0; display: flex; overflow: auto; background: #111318; position: relative; }
-.line-numbers { padding: 16px 10px; background: #0d0e14; color: #444; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.6; text-align: right; border-right: 1px solid #1e2030; user-select: none; position: sticky; left: 0; z-index: 5; }
+.result-body { flex: 1; padding: 0; display: flex; overflow: auto; background: #0a1020; position: relative; }
+.line-numbers { padding: 16px 10px; background: #0d0e14; color: #444; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.6; text-align: right; border-right: 1px solid #152040; user-select: none; position: sticky; left: 0; z-index: 5; }
 .output-pre { margin: 0; padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.6; color: #b0b8d0; white-space: pre; overflow: visible; flex: 1; tab-size: 2; }
 
 /* Syntax Highlighting Colors */
@@ -81,11 +145,11 @@ textarea.json-input.error-border { border-color: #f87171; }
 .seo-content p { margin-bottom: 16px; }
 .seo-content ul { margin-bottom: 16px; padding-left: 24px; }
 .seo-content li { margin-bottom: 8px; }
-.seo-content code { background: #111318; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; }
+.seo-content code { background: #0a1020; padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.85em; }
 .seo-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 0.9rem; }
-.seo-table th { text-align: left; padding: 10px 14px; border-bottom: 2px solid #2a2d4e; color: #ccc; font-weight: 600; background: #111318; }
-.seo-table td { padding: 10px 14px; border-bottom: 1px solid #1e2030; color: #aaa; }
-.seo-table tr:hover td { background: #111318; }
+.seo-table th { text-align: left; padding: 10px 14px; border-bottom: 2px solid #2a2d4e; color: #ccc; font-weight: 600; background: #0a1020; }
+.seo-table td { padding: 10px 14px; border-bottom: 1px solid #152040; color: #aaa; }
+.seo-table tr:hover td { background: #0a1020; }
 
 /* Footer */
 .footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
@@ -98,8 +162,23 @@ textarea.json-input.error-border { border-color: #f87171; }
   textarea.json-input, .output-card { min-height: 300px; }
 }
 </style>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G86C7NJG3F"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-G86C7NJG3F');</script>
 </head>
 <body>
+
+<nav style="position: sticky; top: 0; z-index: 1000; background: rgba(6,10,18,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.06); font-family: 'Inter', sans-serif;">
+  <div style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 48px;">
+    <a href="/" style="font-size: 0.9rem; font-weight: 700; color: #fff; text-decoration: none; letter-spacing: -0.3px;">siliconbased.dev</a>
+    <div style="display: flex; gap: 8px;">
+      <a href="/#tools" style="color: #8a94a6; text-decoration: none; font-size: 0.82rem; font-weight: 500; padding: 6px 14px; border-radius: 6px; transition: all 0.15s;" onmouseover="this.style.color='#fff'; this.style.background='rgba(255,255,255,0.06)';" onmouseout="this.style.color='#8a94a6'; this.style.background='none';">Tools</a>
+      <a href="/#studies" style="color: #8a94a6; text-decoration: none; font-size: 0.82rem; font-weight: 500; padding: 6px 14px; border-radius: 6px; transition: all 0.15s;" onmouseover="this.style.color='#fff'; this.style.background='rgba(255,255,255,0.06)';" onmouseout="this.style.color='#8a94a6'; this.style.background='none';">Studies</a>
+      <a href="/#guides" style="color: #8a94a6; text-decoration: none; font-size: 0.82rem; font-weight: 500; padding: 6px 14px; border-radius: 6px; transition: all 0.15s;" onmouseover="this.style.color='#fff'; this.style.background='rgba(255,255,255,0.06)';" onmouseout="this.style.color='#8a94a6'; this.style.background='none';">Guides</a>
+    </div>
+  </div>
+</nav>
 
 <div class="hero">
   <h1>JSON Formatter ⚡</h1>
@@ -129,13 +208,21 @@ textarea.json-input.error-border { border-color: #f87171; }
           <button class="action-btn" id="btnMinify">Minify</button>
           <button class="action-btn" id="btnSort">Sort Keys</button>
           <button class="copy-btn" id="copyBtn">Copy</button>
+          <button class="copy-btn" id="downloadBtn">Download</button>
         </div>
       </div>
 
       <div class="output-card" id="outputCard">
         <div class="error-msg" id="errorMsg">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-          <span id="errorText">Invalid JSON</span>
+          <div style="display:flex; align-items:flex-start; gap:10px; flex:1;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <span id="errorText">Invalid JSON</span>
+          </div>
+          <button id="fixBtn" style="display:none; background: #fff; color: #dc2626; border: none; padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 0.75rem; cursor: pointer;">Fix Auto</button>
+        </div>
+        <div id="pathNavigator" style="background: #0d0e14; border-bottom: 1px solid #152040; padding: 8px 16px; font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; color: #818cf8; display: none; align-items: center; gap: 8px; overflow-x: auto; white-space: nowrap;">
+          <span>Path: </span>
+          <span id="currentPath" style="color: #e0e0e0;">/</span>
         </div>
         <div class="result-body">
           <div class="line-numbers" id="lineNumbers">1</div>
@@ -190,12 +277,30 @@ textarea.json-input.error-border { border-color: #f87171; }
         </tr>
       </tbody>
     </table>
+
+    <h2>Frequently Asked Questions</h2>
+    <div style="margin-top: 24px;">
+      <h3 style="margin: 16px 0 8px; font-size: 1.1rem; color: #e0e0e0;">What is a JSON formatter?</h3>
+      <p style="margin-bottom: 16px;">A JSON formatter is a tool that takes raw, minified, or unformatted JSON code and formats it by adding proper indentation, line breaks, and spaces, making it readable for humans and easier to debug.</p>
+
+      <h3 style="margin: 16px 0 8px; font-size: 1.1rem; color: #e0e0e0;">How does a JSON validator online work?</h3>
+      <p style="margin-bottom: 16px;">An online JSON validator parses your JSON string to check if it conforms to strict JSON syntax rules. If it finds errors like missing brackets, single quotes, or trailing commas, it will alert you to the exact line and column where the error occurred.</p>
+
+      <h3 style="margin: 16px 0 8px; font-size: 1.1rem; color: #e0e0e0;">How can I JSON pretty print my code?</h3>
+      <p style="margin-bottom: 16px;">You can use an online formatter to 'pretty print' your JSON. Simply paste your unformatted JSON into the input field, and the tool will instantly add indentation (typically spaces) and syntax highlighting.</p>
+
+      <h3 style="margin: 16px 0 8px; font-size: 1.1rem; color: #e0e0e0;">Why is it important to format JSON?</h3>
+      <p style="margin-bottom: 16px;">Formatting JSON is crucial for readability and debugging. While APIs and servers often send minified JSON to save bandwidth, formatted JSON allows developers to quickly grasp the nested structure of data and spot syntax errors.</p>
+
+      <h3 style="margin: 16px 0 8px; font-size: 1.1rem; color: #e0e0e0;">Are there tools to automatically fix invalid JSON?</h3>
+      <p style="margin-bottom: 16px;">Yes, many modern online JSON formatters have built-in fixers. They can automatically detect and resolve common mistakes like trailing commas, single quotes instead of double quotes, and unquoted keys.</p>
+    </div>
   </div>
 
 </div>
 
 <div class="footer">
-  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+  © 2026 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property. Not investment advice. All information for educational purposes only.
 </div>
 
 <script>
@@ -212,10 +317,15 @@ const btnMinify = document.getElementById('btnMinify');
 const btnSort = document.getElementById('btnSort');
 const copyBtn = document.getElementById('copyBtn');
 const clearBtn = document.getElementById('clearBtn');
+const downloadBtn = document.getElementById('downloadBtn');
+const fixBtn = document.getElementById('fixBtn');
+const pathNavigator = document.getElementById('pathNavigator');
+const currentPathEl = document.getElementById('currentPath');
 
 let currentMode = 'format'; // format, minify, sort
 let debounceTimer;
 let currentValidJson = '';
+let autoFixData = null;
 
 function init() {
   jsonInput.addEventListener('input', () => {
@@ -245,6 +355,26 @@ function init() {
     });
   });
 
+  downloadBtn.addEventListener('click', () => {
+    if (!currentValidJson) return;
+    const blob = new Blob([currentValidJson], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'formatted.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  fixBtn.addEventListener('click', () => {
+    if (autoFixData) {
+      jsonInput.value = autoFixData;
+      processJSON();
+    }
+  });
+
   // Initial demo data
   jsonInput.value = '{\n  "name": "JSON Formatter",\n  "version": 1.0,\n  "features": [\n    "Formatter",\n    "Validator",\n    "Minifier"\n  ],\n  "active": true,\n  "settings": {\n    "theme": "dark"\n  }\n}';
   processJSON();
@@ -258,6 +388,28 @@ function setMode(mode) {
   processJSON();
 }
 
+function fixJSON(raw) {
+  try {
+    let fixed = raw;
+    // Remove trailing commas
+    fixed = fixed.replace(/,\s*([\]}])/g, '$1');
+    // Replace single quotes with double quotes (basic)
+    fixed = fixed.replace(/:\s*'([^']*)'/g, ':"$1"');
+    // Wrap unquoted keys in double quotes
+    fixed = fixed.replace(/([{,]\s*)([a-zA-Z0-9_]+)\s*:/g, '$1"$2":');
+
+    // Replace single quotes with double quotes (more robust)
+    fixed = fixed.replace(/'([^']+)'\s*:/g, '"$1":'); // keys
+    fixed = fixed.replace(/:\s*'([^']+)'/g, ': "$1"'); // values
+
+    // Parse to verify fix
+    JSON.parse(fixed);
+    return JSON.stringify(JSON.parse(fixed), null, 2);
+  } catch (e) {
+    return null;
+  }
+}
+
 function processJSON() {
   const raw = jsonInput.value.trim();
   if (!raw) {
@@ -265,10 +417,15 @@ function processJSON() {
     return;
   }
 
+  autoFixData = null;
   try {
     const parsed = JSON.parse(raw);
     showSuccess(parsed);
   } catch (err) {
+    const possibleFix = fixJSON(raw);
+    if (possibleFix) {
+      autoFixData = possibleFix;
+    }
     showError(err.message, raw);
   }
 }
@@ -290,6 +447,8 @@ function showSuccess(obj) {
   jsonInput.classList.remove('error-border');
   outputStatus.textContent = '✓ Valid JSON';
   outputStatus.style.color = '#4ade80';
+  pathNavigator.style.display = 'flex';
+  currentPathEl.textContent = '/';
 
   let outStr = '';
 
@@ -310,11 +469,18 @@ function showSuccess(obj) {
   }
   lineNumbers.innerHTML = linesHtml;
 
-  jsonOutput.innerHTML = syntaxHighlight(outStr);
+  if (currentMode === 'minify') {
+    jsonOutput.innerHTML = syntaxHighlight(outStr);
+  } else {
+    jsonOutput.innerHTML = '';
+    const formattedObj = currentMode === 'sort' ? sortObjectKeys(obj) : obj;
+    jsonOutput.appendChild(renderTreeDOM(formattedObj, ''));
+  }
 }
 
 function showError(msg, raw) {
   errorMsg.style.display = 'flex';
+  pathNavigator.style.display = 'none';
   outputCard.classList.add('error-state');
   jsonInput.classList.add('error-border');
   outputStatus.textContent = 'Invalid JSON';
@@ -332,6 +498,7 @@ function showError(msg, raw) {
   }
 
   errorText.textContent = enhancedMsg;
+  fixBtn.style.display = autoFixData ? 'block' : 'none';
 
   const escapedRaw = raw.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   jsonOutput.innerHTML = escapedRaw;
@@ -358,6 +525,85 @@ function sortObjectKeys(obj) {
     acc[key] = sortObjectKeys(obj[key]);
     return acc;
   }, {});
+}
+
+function renderTreeDOM(obj, path, isLast = true, indent = 0) {
+  const container = document.createElement('span');
+  const indentStr = ' '.repeat(indent);
+
+  if (obj === null) {
+    const el = document.createElement('span');
+    el.className = 'hl-null';
+    el.textContent = 'null' + (isLast ? '' : ',');
+    el.dataset.path = path;
+    el.style.cursor = 'pointer';
+    el.onclick = (e) => { e.stopPropagation(); currentPathEl.textContent = path || '/'; };
+    container.appendChild(el);
+    return container;
+  }
+
+  if (typeof obj !== 'object') {
+    const el = document.createElement('span');
+    if (typeof obj === 'string') {
+      el.className = 'hl-str';
+      el.textContent = '"' + obj.replace(/"/g, '\\"') + '"' + (isLast ? '' : ',');
+    } else if (typeof obj === 'boolean') {
+      el.className = 'hl-bool';
+      el.textContent = obj + (isLast ? '' : ',');
+    } else {
+      el.className = 'hl-num';
+      el.textContent = obj + (isLast ? '' : ',');
+    }
+    el.dataset.path = path;
+    el.style.cursor = 'pointer';
+    el.onclick = (e) => { e.stopPropagation(); currentPathEl.textContent = path || '/'; };
+    container.appendChild(el);
+    return container;
+  }
+
+  const isArray = Array.isArray(obj);
+  const keys = Object.keys(obj);
+
+  if (keys.length === 0) {
+    container.textContent = isArray ? '[]' + (isLast ? '' : ',') : '{}' + (isLast ? '' : ',');
+    return container;
+  }
+
+  const openBracket = isArray ? '[' : '{';
+  const closeBracket = isArray ? ']' : '}';
+
+  const openNode = document.createElement('span');
+  openNode.textContent = openBracket + '\n';
+  container.appendChild(openNode);
+
+  keys.forEach((key, index) => {
+    const childIsLast = index === keys.length - 1;
+    const childPath = path + (isArray ? `[${key}]` : `.${key}`);
+    const childIndentStr = ' '.repeat(indent + 2);
+
+    const lineContainer = document.createElement('span');
+    lineContainer.appendChild(document.createTextNode(childIndentStr));
+
+    if (!isArray) {
+      const keyNode = document.createElement('span');
+      keyNode.className = 'hl-key';
+      keyNode.textContent = '"' + key + '": ';
+      keyNode.dataset.path = childPath;
+      keyNode.style.cursor = 'pointer';
+      keyNode.onclick = (e) => { e.stopPropagation(); currentPathEl.textContent = childPath; };
+      lineContainer.appendChild(keyNode);
+    }
+
+    lineContainer.appendChild(renderTreeDOM(obj[key], childPath, childIsLast, indent + 2));
+    lineContainer.appendChild(document.createTextNode('\n'));
+    container.appendChild(lineContainer);
+  });
+
+  const closeNode = document.createElement('span');
+  closeNode.textContent = indentStr + closeBracket + (isLast ? '' : ',');
+  container.appendChild(closeNode);
+
+  return container;
 }
 
 function syntaxHighlight(json) {

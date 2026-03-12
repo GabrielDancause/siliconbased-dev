@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G86C7NJG3F"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-G86C7NJG3F');</script>
 <meta charset="UTF-8">
+<link rel="canonical" href="https://siliconbased.dev/meta-tag-generator" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Meta Tag Generator — SEO & Open Graph Tags | Free Online Tool</title>
 <meta name="description" content="Free interactive Meta Tag Generator. Generate HTML meta tags for SEO, Open Graph, Twitter Cards, and favicon links with a live preview of Google and social media results.">
@@ -277,7 +281,7 @@ code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
 </div>
 
 <div class="footer">
-  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+  © 2026 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
 </div>
 
 <script>
@@ -421,7 +425,7 @@ function generateCode() {
   if (d) lines.push(`<meta name="description" content="${escapeAttr(d)}">`);
   if (a) lines.push(`<meta name="author" content="${escapeAttr(a)}">`);
   if (th) lines.push(`<meta name="theme-color" content="${escapeAttr(th)}">`);
-  if (u) lines.push(`<link rel="canonical" href="${escapeAttr(u)}">`);
+  if (u) lines.push(``);
   if (f) {
     lines.push(`<link rel="icon" href="${escapeAttr(f)}">`);
     lines.push(`<link rel="apple-touch-icon" href="${escapeAttr(f)}">`);

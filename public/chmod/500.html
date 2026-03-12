@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>chmod 500 (r-x------) — Linux File Permissions Explained</title>
+<meta name="description" content="What does chmod 500 mean? Owner read & execute only, no one else. Interactive permission breakdown, copy-paste commands, security analysis, and common mistakes explained.">
+<meta property="og:title" content="chmod 500 (r-x------) — Owner read & execute only, no one else">
+<meta property="og:description" content="chmod 500 gives the owner read and execute access with no write permission, and blocks everyone else completely. It's for executables and directories the owner ">
+<meta property="og:type" content="article">
+<link rel="canonical" href="https://siliconbased.dev/chmod/500">
+<script type="application/ld+json">
+[{"@context":"https://schema.org","@type":"WebPage","name":"chmod 500 (r-x------) — Linux File Permissions Explained","description":"Owner read & execute only, no one else","url":"https://siliconbased.dev/chmod/500"},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"When is 500 useful?","acceptedAnswer":{"@type":"Answer","text":"For deployed/production scripts that shouldn't be modified in place. The write protection prevents accidental edits or corruption by misconfigured automation."}},{"@type":"Question","name":"Can I still run a 500 script?","acceptedAnswer":{"@type":"Answer","text":"Yes, the owner can read and execute it. You just can't modify it without changing permissions first."}},{"@type":"Question","name":"Should cron scripts be 500?","acceptedAnswer":{"@type":"Answer","text":"It's good practice for production cron scripts. Set them to 500 so they can run but can't be accidentally modified. You'd chmod 700 only when you intentionally need to edit them."}}]}]
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Inter',sans-serif;background:#0a0b10;color:#e0e0e0;line-height:1.7}
+code,.mono{font-family:'JetBrains Mono',monospace}
+.hero{text-align:center;padding:48px 24px 32px;background:linear-gradient(180deg,#0f1729 0%,#0a0b10 100%)}
+.hero h1{font-size:2rem;font-weight:900;color:#fff;margin-bottom:6px}.hero h1 .code-font{color:#818cf8}
+.hero .subtitle{color:#888;font-size:0.95rem}
+.sec-badge{display:inline-block;padding:4px 14px;border-radius:20px;font-size:0.75rem;font-weight:700;margin-top:12px;background:#0a2e1a;color:#34d399}
+.main{max-width:800px;margin:0 auto;padding:32px 20px 60px}
+.card{background:#111318;border:1px solid #1e2030;border-radius:14px;padding:28px 24px;margin-bottom:20px}
+.card h2{font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:12px}
+.card p{font-size:0.9rem;color:#999;line-height:1.8;margin-bottom:10px}
+.card p:last-child{margin-bottom:0}
+.card strong{color:#ccc}
+
+/* Interactive permission grid */
+.perm-grid{display:grid;grid-template-columns:100px repeat(3,1fr);gap:0;margin:20px 0;border-radius:12px;overflow:hidden;border:1px solid #1e2030}
+.perm-cell{padding:14px 12px;text-align:center;font-size:0.82rem;border-bottom:1px solid #1e2030;border-right:1px solid #1e2030}
+.perm-cell:last-child{border-right:none}
+.perm-header{background:#13151d;font-weight:700;color:#ccc;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px}
+.perm-label{background:#13151d;font-weight:600;color:#999;text-align:left;padding-left:16px}
+.perm-on{background:#0a2e1a;color:#34d399;font-weight:700;cursor:pointer;transition:all 0.15s;user-select:none}
+.perm-on:hover{background:#0d3a20}
+.perm-off{background:#1a0a0a;color:#555;cursor:pointer;transition:all 0.15s;user-select:none}
+.perm-off:hover{background:#2a1010}
+
+/* Live command */
+.cmd-box{background:#0a0b10;border:1px solid #1e2030;border-radius:10px;padding:16px 20px;margin:16px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.cmd-text{font-family:'JetBrains Mono',monospace;font-size:1rem;color:#e0e0e0}
+.cmd-text .hl{color:#818cf8;font-weight:700}
+.copy-btn{background:#1e2030;border:1px solid #2a2d40;color:#888;padding:6px 16px;border-radius:8px;font-size:0.75rem;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.15s}
+.copy-btn:hover{background:#2a2d40;color:#ccc}
+.copy-btn.copied{background:#1a3a1a;color:#4ade80;border-color:#2d5a2d}
+
+.filename-input{background:transparent;border:none;border-bottom:1px dashed #444;color:#fbbf24;font-family:'JetBrains Mono',monospace;font-size:1rem;width:120px;outline:none;padding-bottom:1px}
+.filename-input:focus{border-bottom-color:#fbbf24}
+
+/* Comparison */
+.vs-box{background:#0f1120;border:1px solid #1e2030;border-radius:10px;padding:20px;margin:16px 0}
+.vs-title{font-size:0.95rem;font-weight:700;color:#818cf8;margin-bottom:8px}
+.vs-text{font-size:0.88rem;color:#999;line-height:1.7}
+
+/* FAQ */
+.faq{border-top:1px solid #1e2030;padding-top:16px;margin-top:16px}
+.faq-q{font-size:0.92rem;font-weight:700;color:#fff;margin-bottom:6px}
+.faq-a{font-size:0.88rem;color:#999;line-height:1.7;margin-bottom:16px}
+.faq-a:last-child{margin-bottom:0}
+
+/* Related */
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:12px}
+.related-card{background:#0a0b10;border:1px solid #1e2030;border-radius:10px;padding:14px;text-align:center;text-decoration:none;color:#e0e0e0;transition:border-color 0.2s}
+.related-card:hover{border-color:#818cf8}
+.related-card .rc-octal{font-family:'JetBrains Mono',monospace;font-size:1.2rem;font-weight:700;color:#818cf8}
+.related-card .rc-sym{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:#666;margin-top:2px}
+
+.back-link{display:inline-block;margin-top:24px;color:#818cf8;text-decoration:none;font-weight:600;font-size:0.9rem}
+.back-link:hover{text-decoration:underline}
+
+.footer{text-align:center;padding:40px 24px;font-size:0.78rem;color:#555;border-top:1px solid #151520;margin-top:40px}
+.footer a{color:#818cf8;text-decoration:none}
+
+@media(max-width:600px){
+  .hero h1{font-size:1.5rem}
+  .perm-grid{grid-template-columns:80px repeat(3,1fr)}
+  .perm-cell{padding:10px 8px;font-size:0.75rem}
+  .cmd-text{font-size:0.85rem}
+  .main{padding:20px 14px 40px}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>chmod <span class="code-font">500</span> — r-x------</h1>
+  <p class="subtitle">Owner read & execute only, no one else</p>
+  <span class="sec-badge">✓ Safe</span>
+</div>
+
+<div class="main">
+
+  <!-- Interactive Permission Grid -->
+  <div class="card">
+    <h2>Permission Breakdown</h2>
+    <p>chmod 500 gives the owner read and execute access with no write permission, and blocks everyone else completely. It's for executables and directories the owner needs to use but not modify.</p>
+    <div class="perm-grid" id="permGrid">
+      <div class="perm-cell perm-header"></div>
+      <div class="perm-cell perm-header">Read (4)</div>
+      <div class="perm-cell perm-header">Write (2)</div>
+      <div class="perm-cell perm-header">Execute (1)</div>
+      
+      <div class="perm-cell perm-label">Owner (5)</div>
+      <div class="perm-cell perm-on" data-row="0" data-col="0" onclick="togglePerm(this)">✓ r</div>
+      <div class="perm-cell perm-off" data-row="0" data-col="1" onclick="togglePerm(this)">— w</div>
+      <div class="perm-cell perm-on" data-row="0" data-col="2" onclick="togglePerm(this)">✓ x</div>
+      <div class="perm-cell perm-label">Group (0)</div>
+      <div class="perm-cell perm-off" data-row="1" data-col="0" onclick="togglePerm(this)">— r</div>
+      <div class="perm-cell perm-off" data-row="1" data-col="1" onclick="togglePerm(this)">— w</div>
+      <div class="perm-cell perm-off" data-row="1" data-col="2" onclick="togglePerm(this)">— x</div>
+      <div class="perm-cell perm-label">Others (0)</div>
+      <div class="perm-cell perm-off" data-row="2" data-col="0" onclick="togglePerm(this)">— r</div>
+      <div class="perm-cell perm-off" data-row="2" data-col="1" onclick="togglePerm(this)">— w</div>
+      <div class="perm-cell perm-off" data-row="2" data-col="2" onclick="togglePerm(this)">— x</div>
+    </div>
+    <p style="font-size:0.78rem;color:#555;text-align:center">Click any permission to toggle it and see the command update live</p>
+  </div>
+
+  <!-- Live Command -->
+  <div class="card">
+    <h2>Command</h2>
+    <div class="cmd-box">
+      <div class="cmd-text">chmod <span class="hl" id="liveOctal">500</span> <input class="filename-input" id="filename" value="filename" spellcheck="false"></div>
+      <button class="copy-btn" id="copyCmd" onclick="copyCommand()">Copy</button>
+    </div>
+    <div class="cmd-box">
+      <div class="cmd-text">chmod -R <span class="hl" id="liveOctalR">500</span> <input class="filename-input" id="dirname" value="directory/" spellcheck="false"></div>
+      <button class="copy-btn" onclick="copyRecursive()">Copy</button>
+    </div>
+  </div>
+
+  <!-- When to Use -->
+  <div class="card">
+    <h2>When to use chmod 500</h2>
+    <p>Use 500 for: deployed scripts you don't want accidentally edited, sensitive executable utilities, and directories containing critical system files in hardened environments.</p>
+    <p><strong>Security note:</strong> 500 is very secure. The lack of write permission protects against accidental modification.</p>
+    <p><strong>Consider instead:</strong> If you need to edit the file: use 700. If others need to execute: use 555 or 755. If it's not executable: use 400.</p>
+  </div>
+
+  <!-- Common Mistake -->
+  <div class="card">
+    <h2>Common Mistake</h2>
+    <p>Using 500 for active development scripts. You'll constantly need to chmod back to 700 to edit. Only use 500 for 'frozen' executables you don't plan to change.</p>
+  </div>
+
+  <!-- Comparison -->
+  <div class="card">
+    <h2>chmod 500 vs 700</h2>
+    <div class="vs-box">
+      <div class="vs-title">500 vs 700</div>
+      <div class="vs-text">500 vs 700: 500 removes owner write permission. Use 700 for scripts you actively maintain, 500 for deployed executables you want write-protected.</div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="card">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq"><div class="faq-q">When is 500 useful?</div><div class="faq-a">For deployed/production scripts that shouldn't be modified in place. The write protection prevents accidental edits or corruption by misconfigured automation.</div></div><div class="faq"><div class="faq-q">Can I still run a 500 script?</div><div class="faq-a">Yes, the owner can read and execute it. You just can't modify it without changing permissions first.</div></div><div class="faq"><div class="faq-q">Should cron scripts be 500?</div><div class="faq-a">It's good practice for production cron scripts. Set them to 500 so they can run but can't be accidentally modified. You'd chmod 700 only when you intentionally need to edit them.</div></div>
+  </div>
+
+  <!-- Related -->
+  <div class="card">
+    <h2>Related Permissions</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/chmod/777"><div class="rc-octal">777</div><div class="rc-sym">rwxrwxrwx</div></a><a class="related-card" href="/chmod/755"><div class="rc-octal">755</div><div class="rc-sym">rwxr-xr-x</div></a><a class="related-card" href="/chmod/644"><div class="rc-octal">644</div><div class="rc-sym">rw-r--r--</div></a><a class="related-card" href="/chmod/700"><div class="rc-octal">700</div><div class="rc-sym">rwx------</div></a><a class="related-card" href="/chmod/600"><div class="rc-octal">600</div><div class="rc-sym">rw-------</div></a>
+    </div>
+  </div>
+
+  <a class="back-link" href="/chmod-calculator">← Full chmod Calculator</a>
+</div>
+
+<div class="footer">
+  © 2026 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
+</div>
+
+<script>
+var perms = [[true,false,true],[false,false,false],[false,false,false]];
+
+function togglePerm(el) {
+  var r = parseInt(el.dataset.row), c = parseInt(el.dataset.col);
+  perms[r][c] = !perms[r][c];
+  el.className = 'perm-cell ' + (perms[r][c] ? 'perm-on' : 'perm-off');
+  var letters = ['r','w','x'];
+  el.textContent = (perms[r][c] ? '✓ ' : '— ') + letters[c];
+  updateCommand();
+}
+
+function updateCommand() {
+  var octal = '';
+  for (var i = 0; i < 3; i++) {
+    var d = (perms[i][0] ? 4 : 0) + (perms[i][1] ? 2 : 0) + (perms[i][2] ? 1 : 0);
+    octal += d;
+  }
+  document.getElementById('liveOctal').textContent = octal;
+  document.getElementById('liveOctalR').textContent = octal;
+}
+
+function copyCommand() {
+  var cmd = 'chmod ' + document.getElementById('liveOctal').textContent + ' ' + document.getElementById('filename').value;
+  navigator.clipboard.writeText(cmd);
+  var btn = document.getElementById('copyCmd');
+  btn.textContent = '✓ Copied';
+  btn.classList.add('copied');
+  setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+}
+
+function copyRecursive() {
+  var cmd = 'chmod -R ' + document.getElementById('liveOctalR').textContent + ' ' + document.getElementById('dirname').value;
+  navigator.clipboard.writeText(cmd);
+  var btn = event.target;
+  btn.textContent = '✓ Copied';
+  btn.classList.add('copied');
+  setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+}
+</script>
+</body>
+</html>
