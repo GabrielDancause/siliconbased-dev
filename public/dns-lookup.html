@@ -1,244 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-G86C7NJG3F"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-G86C7NJG3F');</script>
 <meta charset="UTF-8">
-<link rel="canonical" href="https://siliconbased.dev/dns-lookup" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DNS Lookup Tool | Check A, AAAA, MX, NS, TXT Records</title>
-<meta name="description" content="Free online DNS lookup tool. Query A, AAAA, MX, NS, TXT, CNAME, and SOA records instantly using Cloudflare or Google DoH resolvers. Works offline after loading.">
-<meta property="og:title" content="DNS Lookup Tool">
-<meta property="og:description" content="Free online DNS lookup tool. Query A, AAAA, MX, NS, TXT, CNAME, and SOA records instantly. Works offline after loading.">
-<meta property="og:type" content="article">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "DNS Lookup Tool",
-  "url": "https://siliconbased.dev/dns-lookup",
-  "description": "Free online DNS lookup tool. Query A, AAAA, MX, NS, TXT, CNAME, and SOA records instantly.",
-  "applicationCategory": "DeveloperApplication",
-  "operatingSystem": "Any",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+<link rel="canonical" href="https://siliconbased.dev/dns-lookup.html">
+<title>DNS Lookup Tool: Query A, AAAA, MX, CNAME, TXT & NS Records</title>
+<meta name="description" content="Why do 30% of emails bounce on new domains? A quick MX record lookup reveals the hidden configuration gap holding back your deliverability. Check DNS records now.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', sans-serif; background-color: #060a12; color: #e0e0e0; line-height: 1.6; }
+
+main { max-width: 960px; margin: 0 auto; padding: 40px 24px; }
+h1 { font-size: 2.2rem; margin-bottom: 16px; color: #fff; font-weight: 700; }
+h2 { font-size: 1.5rem; margin-top: 40px; margin-bottom: 16px; color: #fff; font-weight: 600; }
+h3 { font-size: 1.2rem; margin-top: 24px; margin-bottom: 12px; color: #e0e0e0; font-weight: 600; }
+p { margin-bottom: 16px; color: #b0b8d0; }
+ul { margin-bottom: 16px; padding-left: 24px; color: #b0b8d0; }
+li { margin-bottom: 8px; }
+code { font-family: 'JetBrains Mono', monospace; background: rgba(129, 140, 248, 0.1); padding: 2px 6px; border-radius: 4px; color: #818cf8; font-size: 0.9em; }
+
+.tool-container { background: #0a1020; border: 1px solid #152040; border-radius: 12px; padding: 24px; margin-bottom: 40px; }
+.form-group { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; }
+.input-col { flex: 1; min-width: 200px; }
+label { display: block; margin-bottom: 8px; font-weight: 500; color: #b0b8d0; font-size: 0.9rem; }
+input, select {
+    width: 100%; padding: 12px; background: #060a12; border: 1px solid #152040;
+    border-radius: 8px; color: #fff; font-family: 'Inter', sans-serif; font-size: 1rem;
 }
-</script>
+input:focus, select:focus { outline: none; border-color: #818cf8; }
+button {
+    background: #818cf8; color: #fff; border: none; padding: 12px 24px;
+    border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer;
+    transition: background 0.2s; font-family: 'Inter', sans-serif;
+}
+button:hover { background: #6366f1; }
+button:disabled { background: #152040; color: #b0b8d0; cursor: not-allowed; }
+
+.results-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 24px; }
+@media (min-width: 768px) { .results-grid { grid-template-columns: 1fr 1fr; } }
+.result-card { background: #060a12; border: 1px solid #152040; border-radius: 8px; overflow: hidden; }
+.result-header { background: #152040; padding: 12px 16px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+.result-status { font-size: 0.85rem; padding: 2px 8px; border-radius: 12px; background: rgba(255,255,255,0.1); }
+.status-ok { background: rgba(74, 222, 128, 0.2); color: #4ade80; }
+.status-err { background: rgba(248, 113, 113, 0.2); color: #f87171; }
+.result-body { padding: 16px; overflow-x: auto; }
+.record-table { width: 100%; border-collapse: collapse; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+.record-table th { text-align: left; padding: 8px; color: #818cf8; border-bottom: 1px solid #152040; font-family: 'Inter', sans-serif; }
+.record-table td { padding: 8px; border-bottom: 1px solid #152040; color: #e0e0e0; word-break: break-all; }
+.record-table tr:last-child td { border-bottom: none; }
+.empty-result { color: #b0b8d0; font-size: 0.9rem; text-align: center; padding: 16px 0; }
+.mx-priority { color: #818cf8; margin-right: 8px; font-weight: bold; }
+
+.faq-item { background: #0a1020; border: 1px solid #152040; border-radius: 8px; margin-bottom: 16px; padding: 20px; }
+.faq-q { font-weight: 600; color: #fff; margin-bottom: 12px; font-size: 1.1rem; }
+.faq-a { color: #b0b8d0; }
+
+footer { text-align: center; padding: 40px 24px; font-size: 0.85rem; color: #b0b8d0; border-top: 1px solid #152040; margin-top: 60px; }
+footer a { color: #818cf8; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+</style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "How to Perform a DNS Lookup",
-  "description": "Guide on checking DNS records and understanding A, AAAA, MX, NS, and TXT entries.",
-  "author": { "@type": "Organization", "name": "GAB Ventures", "url": "https://gab.ae" }
+  "headline": "DNS Lookup Tool: Query A, AAAA, MX, CNAME, TXT & NS Records",
+  "description": "Why do 30% of emails bounce on new domains? A quick MX record lookup reveals the hidden configuration gap holding back your deliverability. Check DNS records now.",
+  "datePublished": "2026-03-10T12:00:00Z",
+  "publisher": {
+    "@type": "Organization",
+    "name": "siliconbased.dev",
+    "url": "https://siliconbased.dev"
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "GAB Ventures",
+    "url": "https://gab.ae"
+  }
 }
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0b10; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
-code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
-.hero { text-align: center; padding: 32px 24px 16px; background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%); }
-.hero h1 { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
-.hero h1 span { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.hero p { color: #888; font-size: 0.95rem; }
-.main { max-width: 900px; margin: 0 auto; padding: 24px 20px 80px; flex: 1; width: 100%; }
-
-/* Card */
-.tool-card { background: #111318; border: 1px solid #1e2030; border-radius: 16px; overflow: hidden; margin-bottom: 40px; }
-.tool-header { padding: 16px 24px; background: #13151d; border-bottom: 1px solid #1e2030; }
-.tool-header h3 { font-size: 0.9rem; font-weight: 600; color: #ccc; }
-
-/* Form Controls */
-.tool-body { padding: 24px; display: flex; flex-direction: column; gap: 20px; }
-.form-row { display: flex; gap: 16px; flex-wrap: wrap; }
-.input-group { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 200px; }
-.input-label { font-size: 0.85rem; font-weight: 600; color: #818cf8; }
-
-.text-input, .select-input { width: 100%; background: #0a0b10; border: 1px solid #1e2030; border-radius: 10px; padding: 12px 16px; color: #e0e0e0; font-family: 'Inter', sans-serif; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
-.text-input:focus, .select-input:focus { border-color: #818cf8; }
-.text-input::placeholder { color: #444; }
-
-/* Actions */
-.actions-row { display: flex; gap: 16px; margin-top: 8px; }
-.btn { background: #1e2030; border: 1px solid #2a2d40; color: #ccc; padding: 12px 24px; border-radius: 10px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; flex: 1; }
-.btn:hover { background: #2a2d40; color: #fff; }
-.btn-primary { background: #818cf8; color: #fff; border-color: #818cf8; }
-.btn-primary:hover { background: #6366f1; border-color: #6366f1; }
-.btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-/* Results */
-.result-card { background: #111318; border: 1px solid #1e2030; border-radius: 16px; overflow: hidden; margin-bottom: 40px; display: none; }
-.result-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: #13151d; border-bottom: 1px solid #1e2030; }
-.result-header h3 { font-size: 0.9rem; font-weight: 600; color: #ccc; }
-.result-body { padding: 0; }
-
-.status-bar { padding: 12px 24px; font-size: 0.85rem; font-family: 'JetBrains Mono', monospace; border-bottom: 1px solid #1e2030; display: flex; justify-content: space-between; }
-.status-success { color: #4ade80; background: rgba(74, 222, 128, 0.05); }
-.status-error { color: #f87171; background: rgba(248, 113, 113, 0.05); }
-.status-info { color: #60a5fa; background: rgba(96, 165, 250, 0.05); }
-
-/* Table */
-.records-table { width: 100%; border-collapse: collapse; text-align: left; }
-.records-table th { font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 600; color: #888; padding: 12px 24px; border-bottom: 1px solid #1e2030; background: #0a0b10; }
-.records-table td { padding: 16px 24px; border-bottom: 1px solid #1e2030; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #e0e0e0; vertical-align: top; }
-.records-table tr:last-child td { border-bottom: none; }
-.records-table tr:hover td { background: rgba(255, 255, 255, 0.02); }
-
-.record-data { word-break: break-all; white-space: pre-wrap; line-height: 1.5; }
-.copy-btn { background: transparent; border: 1px solid #2a2d40; color: #888; border-radius: 6px; padding: 4px 8px; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; margin-left: 8px; vertical-align: middle; }
-.copy-btn:hover { background: #2a2d40; color: #e0e0e0; }
-.copy-btn.copied { background: #1a3a1a; color: #4ade80; border-color: #2d5a2d; }
-
-.empty-state { padding: 40px 24px; text-align: center; color: #888; font-size: 0.95rem; }
-
-/* Spinner */
-.spinner { animation: rotate 2s linear infinite; }
-.spinner circle { stroke: currentColor; stroke-width: 4; stroke-dasharray: 1, 200; stroke-dashoffset: 0; animation: dash 1.5s ease-in-out infinite; stroke-linecap: round; }
-@keyframes rotate { 100% { transform: rotate(360deg); } }
-@keyframes dash {
-  0% { stroke-dasharray: 1, 200; stroke-dashoffset: 0; }
-  50% { stroke-dasharray: 90, 200; stroke-dashoffset: -35px; }
-  100% { stroke-dasharray: 90, 200; stroke-dashoffset: -124px; }
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a DNS lookup and how does it work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A DNS lookup is the process of querying the Domain Name System to find the IP address or other records associated with a domain name. It acts like the phonebook of the internet, translating human-readable names into machine-readable IPs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why should I use a DNS checker?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Using a DNS checker helps you verify that your domain is pointing to the correct servers after a migration, troubleshoot website downtime, and ensure your email authentication (like SPF and DMARC) is properly configured."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I check DNS records for my domain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can check DNS records by entering your domain into our DNS lookup tool above. Select the specific record type (such as A, TXT, or MX) you want to query, and the tool will fetch the live data from multiple global resolvers."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is an MX record lookup used for?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An MX record lookup is used to identify the mail servers responsible for receiving email on behalf of a domain. It's essential for diagnosing email delivery issues and ensuring your mail hosting is correctly linked to your domain."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does DNS propagation take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "DNS propagation typically takes anywhere from a few minutes to 48 hours. The time depends on the Time To Live (TTL) settings of your previous records and how frequently ISPs refresh their DNS caches."
+      }
+    }
+  ]
 }
-
-/* SEO Content */
-.seo-content { margin-top: 48px; border-top: 1px solid #1e2030; padding-top: 48px; color: #b0b8d0; font-size: 0.95rem; line-height: 1.6; }
-.seo-content h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin: 32px 0 16px; }
-.seo-content h2:first-child { margin-top: 0; }
-.seo-content h3 { color: #e0e0e0; font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; }
-.seo-content p { margin-bottom: 16px; }
-.seo-content ul { margin-bottom: 16px; padding-left: 24px; }
-.seo-content li { margin-bottom: 8px; }
-
-/* Footer */
-.footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #555; border-top: 1px solid #151520; margin-top: auto; }
-.footer a { color: #818cf8; text-decoration: none; }
-.footer a:hover { text-decoration: underline; }
-
-/* Responsive */
-@media (max-width: 768px) {
-  .actions-row { flex-direction: column; }
-  .records-table, .records-table tbody, .records-table tr, .records-table td { display: block; width: 100%; }
-  .records-table thead { display: none; }
-  .records-table tr { border-bottom: 1px solid #1e2030; padding: 12px 0; }
-  .records-table tr:last-child { border-bottom: none; }
-  .records-table td { border-bottom: none; padding: 6px 24px; position: relative; padding-left: 100px; }
-  .records-table td::before { content: attr(data-label); position: absolute; left: 24px; top: 6px; font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 600; color: #888; text-transform: uppercase; }
-}
-</style>
+</script>
 </head>
 <body>
 
-<div class="hero">
+<nav style="position: sticky; top: 0; z-index: 1000; background: rgba(6, 10, 18, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid #152040; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center;">
+  <a href="/" style="color: #818cf8; text-decoration: none; font-size: 0.95rem; font-weight: 700;">siliconbased.dev</a>
+  <div style="display: flex; gap: 24px;">
+    <a href="/#tools" style="color: #e0e0e0; text-decoration: none; font-size: 0.95rem; font-weight: 500;">Tools</a>
+    <a href="/#studies" style="color: #e0e0e0; text-decoration: none; font-size: 0.95rem; font-weight: 500;">Studies</a>
+    <a href="/#guides" style="color: #e0e0e0; text-decoration: none; font-size: 0.95rem; font-weight: 500;">Guides</a>
+  </div>
+</nav>
+
+<main>
   <h1>DNS Lookup Tool</h1>
-  <p>Query DNS records (A, MX, TXT, etc.) instantly using Cloudflare or Google DoH.</p>
-</div>
+  <p>Perform an instant DNS lookup to check DNS records including A, AAAA, MX, CNAME, TXT, and NS. Our DNS checker queries multiple global DNS-over-HTTPS (DoH) providers concurrently to verify propagation and expose real-time TTL values.</p>
 
-<div class="main">
-
-  <div class="tool-card">
-    <div class="tool-header">
-      <h3>Query Parameters</h3>
-    </div>
-    <div class="tool-body">
-      <form id="dnsForm" onsubmit="event.preventDefault(); performLookup();">
-        <div class="form-row">
-          <div class="input-group" style="flex: 2; min-width: 100%;">
-            <label class="input-label" for="domainInput">Domain Name</label>
-            <input type="text" id="domainInput" class="text-input" placeholder="example.com" required autocomplete="off" spellcheck="false" autofocus>
-          </div>
+  <div class="tool-container">
+    <form id="dnsForm">
+      <div class="form-group">
+        <div class="input-col">
+          <label for="domain">Domain Name</label>
+          <input type="text" id="domain" placeholder="example.com" required autocomplete="off" spellcheck="false">
         </div>
-
-        <div class="form-row" style="margin-top: 20px;">
-          <div class="input-group">
-            <label class="input-label" for="typeInput">Record Type</label>
-            <select id="typeInput" class="select-input">
-              <option value="A">A (IPv4 Address)</option>
-              <option value="AAAA">AAAA (IPv6 Address)</option>
-              <option value="CNAME">CNAME (Canonical Name)</option>
-              <option value="MX">MX (Mail Exchange)</option>
-              <option value="TXT">TXT (Text Record)</option>
-              <option value="NS">NS (Name Server)</option>
-              <option value="SOA">SOA (Start of Authority)</option>
-              <option value="ANY">ANY (All Records)</option>
-            </select>
-          </div>
-
-          <div class="input-group">
-            <label class="input-label" for="resolverInput">Resolver</label>
-            <select id="resolverInput" class="select-input">
-              <option value="cloudflare">Cloudflare (1.1.1.1)</option>
-              <option value="google">Google (8.8.8.8)</option>
-            </select>
-          </div>
+        <div class="input-col" style="flex: 0.5;">
+          <label for="recordType">Record Type</label>
+          <select id="recordType">
+            <option value="A">A (IPv4)</option>
+            <option value="AAAA">AAAA (IPv6)</option>
+            <option value="MX">MX (Mail Exchange)</option>
+            <option value="CNAME">CNAME (Alias)</option>
+            <option value="TXT">TXT (Text)</option>
+            <option value="NS">NS (Nameserver)</option>
+            <option value="SOA">SOA (Authority)</option>
+            <option value="ANY">ANY (All)</option>
+          </select>
         </div>
+      </div>
+      <button type="submit" id="lookupBtn">Check DNS Records</button>
+    </form>
 
-        <div class="actions-row">
-          <button type="submit" class="btn btn-primary" id="lookupBtn">
-            <svg id="btnIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            <svg id="btnSpinner" class="spinner" width="18" height="18" viewBox="25 25 50 50" fill="none" style="display: none;"><circle cx="50" cy="50" r="20"></circle></svg>
-            <span id="btnText">Lookup DNS</span>
-          </button>
-        </div>
-      </form>
+    <div id="resultsArea" class="results-grid" style="display: none;">
+      <!-- Results populated via JS -->
     </div>
   </div>
 
-  <div class="result-card" id="resultCard">
-    <div class="result-header">
-      <h3>Lookup Results</h3>
-    </div>
-    <div id="statusBar" class="status-bar status-info">
-      <span id="statusMessage">Waiting for query...</span>
-      <span id="statusTime"></span>
-    </div>
-    <div class="result-body">
-      <table class="records-table" id="recordsTable">
-        <thead>
-          <tr>
-            <th style="width: 15%;">Type</th>
-            <th style="width: 15%;">TTL</th>
-            <th style="width: 70%;">Data / Answer</th>
-          </tr>
-        </thead>
-        <tbody id="recordsBody">
-          <!-- Results injected here -->
-        </tbody>
-      </table>
-    </div>
+  <h2>Common DNS Record Explanations</h2>
+  <p>Understanding the different types of DNS records is crucial when you check DNS records for troubleshooting or setup.</p>
+  <ul>
+    <li><strong>A Record:</strong> Connects a domain to an IPv4 address. Essential for web hosting.</li>
+    <li><strong>AAAA Record:</strong> Similar to an A record, but connects a domain to an IPv6 address.</li>
+    <li><strong>CNAME Record:</strong> A Canonical Name record aliases one domain to another (e.g., pointing <code>www</code> to the root domain). It cannot be placed at the root apex.</li>
+    <li><strong>MX Record:</strong> Directs incoming emails to your mail server.</li>
+    <li><strong>TXT Record:</strong> Used to hold text information. Commonly utilized for domain ownership verification and email security policies.</li>
+    <li><strong>NS Record:</strong> Indicates which Name Servers are authoritative for the domain.</li>
+    <li><strong>SOA Record:</strong> Start of Authority. Contains administrative details about the zone, such as the primary name server and administrator email.</li>
+  </ul>
+
+  <h2>Understanding Email Security: SPF, DKIM, and DMARC</h2>
+  <p>When you perform a TXT or MX record lookup, you are often verifying email security setups. To prevent spoofing and ensure deliverability, you must configure three key TXT records:</p>
+  <ul>
+    <li><strong>SPF (Sender Policy Framework):</strong> A TXT record that lists the IP addresses and domains authorized to send email on behalf of your domain. Example: <code>v=spf1 include:_spf.google.com ~all</code></li>
+    <li><strong>DKIM (DomainKeys Identified Mail):</strong> Adds a cryptographic signature to your emails. You publish the public key as a TXT record (e.g., <code>selector._domainkey.yourdomain.com</code>), which receiving servers use to verify the signature.</li>
+    <li><strong>DMARC (Domain-based Message Authentication, Reporting, and Conformance):</strong> A TXT record at <code>_dmarc.yourdomain.com</code> that tells receiving servers what to do if an email fails SPF or DKIM checks (e.g., reject or quarantine).</li>
+  </ul>
+
+  <h2>MX Priority Explained</h2>
+  <p>When viewing an MX record lookup, you'll notice each record has a priority number (e.g., 10, 20). Lower numbers mean higher priority. Sending mail servers will always attempt to deliver to the MX record with the lowest priority number first. If that server is unresponsive, it falls back to the next lowest number. Multiple records with the same priority will have traffic load-balanced between them.</p>
+
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq-item">
+    <div class="faq-q">What is a DNS lookup and how does it work?</div>
+    <div class="faq-a">A DNS lookup is the process of querying the Domain Name System to find the IP address or other records associated with a domain name. It acts like the phonebook of the internet, translating human-readable names into machine-readable IPs.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Why should I use a DNS checker?</div>
+    <div class="faq-a">Using a DNS checker helps you verify that your domain is pointing to the correct servers after a migration, troubleshoot website downtime, and ensure your email authentication (like SPF and DMARC) is properly configured.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">How do I check DNS records for my domain?</div>
+    <div class="faq-a">You can check DNS records by entering your domain into our DNS lookup tool above. Select the specific record type (such as A, TXT, or MX) you want to query, and the tool will fetch the live data from multiple global resolvers.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">What is an MX record lookup used for?</div>
+    <div class="faq-a">An MX record lookup is used to identify the mail servers responsible for receiving email on behalf of a domain. It's essential for diagnosing email delivery issues and ensuring your mail hosting is correctly linked to your domain.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">How long does DNS propagation take?</div>
+    <div class="faq-a">DNS propagation typically takes anywhere from a few minutes to 48 hours. The time depends on the Time To Live (TTL) settings of your previous records and how frequently ISPs refresh their DNS caches.</div>
   </div>
 
-  <div class="seo-content">
-    <h2>What is a DNS Lookup Tool?</h2>
-    <p>A DNS (Domain Name System) lookup tool allows you to query the DNS records associated with a specific domain name. DNS acts as the "phonebook" of the internet, translating human-readable domains (like siliconbased.dev) into machine-readable IP addresses and routing rules.</p>
-    <p>This tool utilizes DNS-over-HTTPS (DoH) to securely query authoritative data directly from public resolvers like Cloudflare (1.1.1.1) and Google (8.8.8.8) directly from your browser.</p>
+</main>
 
-    <h2>Common DNS Record Types</h2>
-    <ul>
-      <li><strong>A Record:</strong> Maps a domain to an IPv4 address. Essential for web hosting.</li>
-      <li><strong>AAAA Record:</strong> Maps a domain to an IPv6 address, the newer standard for IP addresses.</li>
-      <li><strong>CNAME (Canonical Name):</strong> Aliases one domain name to another. Often used for subdomains like 'www'.</li>
-      <li><strong>MX (Mail Exchange):</strong> Specifies the mail servers responsible for accepting email on behalf of the domain.</li>
-      <li><strong>TXT (Text Record):</strong> Holds arbitrary text. Commonly used for domain verification and email security (SPF, DKIM, DMARC).</li>
-      <li><strong>NS (Name Server):</strong> Indicates which DNS servers are authoritative for the domain.</li>
-      <li><strong>SOA (Start of Authority):</strong> Contains administrative information about the domain's DNS zone.</li>
-    </ul>
-
-    <h2>How This Tool Works</h2>
-    <p>Unlike traditional tools that rely on backend servers to perform the `dig` or `nslookup` commands, this tool uses modern <strong>DNS-over-HTTPS (DoH)</strong> APIs provided by Cloudflare and Google. When you hit "Lookup DNS", your browser makes a direct, encrypted API call to the selected resolver. The JSON response is then parsed and formatted into the readable table above entirely client-side.</p>
-  </div>
-
-</div>
-
-<div class="footer">
-  © 2026 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
-</div>
+<footer>
+  © 2026 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property.<br>
+  Not investment advice. All information for educational purposes only.
+</footer>
 
 <script>
-const typeMap = {
+const providers = [
+  { id: 'cloudflare', name: 'Cloudflare (Global)', url: 'https://cloudflare-dns.com/dns-query' },
+  { id: 'google', name: 'Google (Global)', url: 'https://dns.google/resolve' },
+  { id: 'alidns', name: 'AliDNS (Asia)', url: 'https://dns.alidns.com/resolve' }
+];
+
+const recordTypes = {
   1: 'A',
   2: 'NS',
   5: 'CNAME',
@@ -249,198 +245,143 @@ const typeMap = {
   255: 'ANY'
 };
 
-const resolvers = {
-  cloudflare: 'https://cloudflare-dns.com/dns-query',
-  google: 'https://dns.google/resolve'
-};
-
-const statusMap = {
-  0: 'NOERROR (Success)',
-  1: 'FORMERR (Format Error)',
-  2: 'SERVFAIL (Server Failure)',
-  3: 'NXDOMAIN (Non-Existent Domain)',
-  4: 'NOTIMP (Not Implemented)',
-  5: 'REFUSED (Query Refused)'
-};
-
-const domainInput = document.getElementById('domainInput');
-const typeInput = document.getElementById('typeInput');
-const resolverInput = document.getElementById('resolverInput');
+const dnsForm = document.getElementById('dnsForm');
+const domainInput = document.getElementById('domain');
+const typeInput = document.getElementById('recordType');
 const lookupBtn = document.getElementById('lookupBtn');
-const btnIcon = document.getElementById('btnIcon');
-const btnSpinner = document.getElementById('btnSpinner');
-const btnText = document.getElementById('btnText');
-const resultCard = document.getElementById('resultCard');
-const statusBar = document.getElementById('statusBar');
-const statusMessage = document.getElementById('statusMessage');
-const statusTime = document.getElementById('statusTime');
-const recordsTable = document.getElementById('recordsTable');
-const recordsBody = document.getElementById('recordsBody');
+const resultsArea = document.getElementById('resultsArea');
 
-function setStatus(type, msg, time = '') {
-  statusBar.className = `status-bar status-${type}`;
-  statusMessage.textContent = msg;
-  statusTime.textContent = time ? `${time}ms` : '';
+function cleanDomain(input) {
+  let val = input.trim();
+  try {
+    if (val.startsWith('http')) {
+      const url = new URL(val);
+      val = url.hostname;
+    }
+  } catch(e) {}
+  return val.replace(/^www\./, '');
 }
 
-function copyToClipboard(text, btn) {
-  navigator.clipboard.writeText(text).then(() => {
-    const originalHTML = btn.innerHTML;
-    btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
-    btn.classList.add('copied');
-    setTimeout(() => {
-      btn.innerHTML = originalHTML;
-      btn.classList.remove('copied');
-    }, 2000);
-  });
-}
-
-// Format TXT records to remove surrounding quotes if present
-function formatData(type, data) {
+function parseData(type, data) {
   if (type === 'TXT' && typeof data === 'string') {
     return data.replace(/^"|"$/g, '');
   }
   return data;
 }
 
-function renderRecords(records) {
-  if (!records || records.length === 0) {
-    recordsTable.style.display = 'none';
-    recordsBody.innerHTML = '';
-    const div = document.createElement('div');
-    div.className = 'empty-state';
-    div.textContent = 'No records found for this query.';
-    recordsBody.parentNode.appendChild(div);
+function createResultCard(provider) {
+  const card = document.createElement('div');
+  card.className = 'result-card';
+  card.id = `card-${provider.id}`;
+
+  card.innerHTML = `
+    <div class="result-header">
+      <span>${provider.name}</span>
+      <span class="result-status" id="status-${provider.id}">Pending...</span>
+    </div>
+    <div class="result-body" id="body-${provider.id}">
+      <div class="empty-result">Querying resolver...</div>
+    </div>
+  `;
+  return card;
+}
+
+function updateCardSuccess(providerId, answers) {
+  const statusEl = document.getElementById(`status-${providerId}`);
+  const bodyEl = document.getElementById(`body-${providerId}`);
+
+  statusEl.textContent = 'Success';
+  statusEl.className = 'result-status status-ok';
+
+  if (!answers || answers.length === 0) {
+    bodyEl.innerHTML = '<div class="empty-result">No records found.</div>';
     return;
   }
 
-  // Remove empty state if exists
-  const empty = document.querySelector('.empty-state');
-  if (empty) empty.remove();
+  let html = '<table class="record-table"><thead><tr><th>Type</th><th>TTL</th><th>Value</th></tr></thead><tbody>';
 
-  recordsTable.style.display = 'table';
-  recordsBody.innerHTML = '';
+  answers.forEach(ans => {
+    const rType = recordTypes[ans.type] || ans.type;
+    let rData = parseData(rType, ans.data);
 
-  records.forEach(record => {
-    const typeStr = typeMap[record.type] || `Type ${record.type}`;
-    const dataStr = formatData(typeStr, record.data);
+    // Formatting MX priority if data contains priority at the beginning
+    if (rType === 'MX') {
+      const parts = rData.split(' ');
+      if (parts.length > 1 && !isNaN(parts[0])) {
+        rData = `<span class="mx-priority">${parts[0]}</span> ${parts.slice(1).join(' ')}`;
+      }
+    }
 
-    const tr = document.createElement('tr');
-
-    // Type Cell
-    const tdType = document.createElement('td');
-    tdType.setAttribute('data-label', 'Type');
-    tdType.textContent = typeStr;
-    tr.appendChild(tdType);
-
-    // TTL Cell
-    const tdTTL = document.createElement('td');
-    tdTTL.setAttribute('data-label', 'TTL');
-    tdTTL.textContent = record.TTL;
-    tr.appendChild(tdTTL);
-
-    // Data Cell
-    const tdData = document.createElement('td');
-    tdData.setAttribute('data-label', 'Data / Answer');
-
-    const dataWrapper = document.createElement('div');
-    dataWrapper.className = 'record-data';
-    dataWrapper.textContent = dataStr;
-
-    const copyBtn = document.createElement('button');
-    copyBtn.className = 'copy-btn';
-    copyBtn.title = 'Copy value';
-    copyBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
-    copyBtn.onclick = () => copyToClipboard(dataStr, copyBtn);
-
-    dataWrapper.appendChild(copyBtn);
-    tdData.appendChild(dataWrapper);
-    tr.appendChild(tdData);
-
-    recordsBody.appendChild(tr);
+    html += `<tr>
+      <td>${rType}</td>
+      <td>${ans.TTL}</td>
+      <td>${rData}</td>
+    </tr>`;
   });
+
+  html += '</tbody></table>';
+  bodyEl.innerHTML = html;
 }
 
-async function performLookup() {
-  const domain = domainInput.value.trim();
-  if (!domain) return;
+function updateCardError(providerId, msg) {
+  const statusEl = document.getElementById(`status-${providerId}`);
+  const bodyEl = document.getElementById(`body-${providerId}`);
 
-  const type = typeInput.value;
-  const resolverKey = resolverInput.value;
-  const endpoint = resolvers[resolverKey];
+  statusEl.textContent = 'Error';
+  statusEl.className = 'result-status status-err';
+  bodyEl.innerHTML = `<div class="empty-result" style="color:#f87171;">${msg}</div>`;
+}
 
-  // Clean domain (remove http/https, paths, etc)
-  let cleanDomain = domain;
-  try {
-    if (cleanDomain.includes('http://') || cleanDomain.includes('https://')) {
-      cleanDomain = new URL(cleanDomain).hostname;
-      domainInput.value = cleanDomain;
-    }
-  } catch(e) {}
-
-  // UI State: Loading
-  lookupBtn.disabled = true;
-  btnIcon.style.display = 'none';
-  btnSpinner.style.display = 'inline-block';
-  btnText.textContent = 'Querying...';
-
-  resultCard.style.display = 'block';
-  setStatus('info', 'Connecting to resolver...');
-
-  // Remove previous empty states/tables
-  const empty = document.querySelector('.empty-state');
-  if (empty) empty.remove();
-  recordsTable.style.display = 'none';
-
-  const startTime = performance.now();
+async function fetchDns(provider, domain, type) {
+  const url = new URL(provider.url);
+  url.searchParams.append('name', domain);
+  url.searchParams.append('type', type);
 
   try {
-    const url = new URL(endpoint);
-    url.searchParams.append('name', cleanDomain);
-    url.searchParams.append('type', type);
-
-    const response = await fetch(url.toString(), {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/dns-json'
-      }
+    const res = await fetch(url.toString(), {
+      headers: { 'Accept': 'application/dns-json' }
     });
-
-    if (!response.ok) {
-      throw new Error(`HTTP Error: ${response.status}`);
-    }
-
-    const data = await response.json();
-    const endTime = performance.now();
-    const duration = Math.round(endTime - startTime);
-
-    const statusText = statusMap[data.Status] || `Unknown Status (${data.Status})`;
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
 
     if (data.Status === 0) {
-      setStatus('success', `Response: ${statusText}`, duration);
-      // 'Answer' array has the resolved records. If CNAME points to A, it returns both.
-      // If 'Answer' is missing, it might mean the record doesn't exist but the domain is valid (e.g. asking for AAAA when only A exists).
-      renderRecords(data.Answer || []);
+      updateCardSuccess(provider.id, data.Answer);
     } else {
-      setStatus('error', `Error: ${statusText}`, duration);
-      renderRecords([]);
+      let errStr = 'NXDOMAIN';
+      if (data.Status === 2) errStr = 'SERVFAIL';
+      else if (data.Status === 5) errStr = 'REFUSED';
+      else errStr = `Error Status: ${data.Status}`;
+      updateCardError(provider.id, errStr);
     }
-
   } catch (error) {
-    const endTime = performance.now();
-    setStatus('error', `Failed to execute query: ${error.message}`, Math.round(endTime - startTime));
-    renderRecords([]);
-  } finally {
-    // UI State: Reset
-    lookupBtn.disabled = false;
-    btnIcon.style.display = 'inline-block';
-    btnSpinner.style.display = 'none';
-    btnText.textContent = 'Lookup DNS';
+    updateCardError(provider.id, error.message);
   }
 }
 
-// Global scope expose for copyToClipboard
-window.copyToClipboard = copyToClipboard;
+dnsForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const domain = cleanDomain(domainInput.value);
+  if (!domain) return;
+  domainInput.value = domain;
+
+  const type = typeInput.value;
+
+  lookupBtn.disabled = true;
+  lookupBtn.textContent = 'Querying...';
+  resultsArea.style.display = 'grid';
+  resultsArea.innerHTML = '';
+
+  providers.forEach(p => {
+    resultsArea.appendChild(createResultCard(p));
+  });
+
+  const promises = providers.map(p => fetchDns(p, domain, type));
+
+  await Promise.allSettled(promises);
+
+  lookupBtn.disabled = false;
+  lookupBtn.textContent = 'Check DNS Records';
+});
 </script>
 </body>
 </html>
