@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Encoder/Decoder: Percent-Encode &amp; Decode URLs Online</title>
+    <meta name="description" content="Ever wondered why simple links break when shared? Uncover the hidden mechanics of percent encoding to instantly fix any URL online.">
+    <link rel="canonical" href="https://siliconbased.dev/url-encoder-decoder.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G86C7NJG3F"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-G86C7NJG3F');
+    </script>
+
+    <!-- Schema.org Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Article",
+          "headline": "URL Encoder/Decoder: Percent-Encode & Decode URLs Online",
+          "description": "Ever wondered why simple links break when shared? Uncover the hidden mechanics of percent encoding to instantly fix any URL online.",
+          "datePublished": "2026-03-11T00:00:00Z",
+          "author": {
+            "@type": "Organization",
+            "name": "siliconbased.dev",
+            "url": "https://siliconbased.dev"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "siliconbased.dev",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://siliconbased.dev/logo.png"
+            }
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is a URL encoder?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A URL encoder translates characters into a format universally accepted by web browsers and servers. It replaces reserved or unsafe characters with a '%' followed by two hexadecimal digits, ensuring the URL is transmitted correctly."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How to URL decode a string online?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "To URL decode a string online, simply paste the encoded string (containing % signs and hex digits) into our free URL decode tool, select the 'Decode' option, and the original readable characters will be instantly restored."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is percent encoding and why is it used?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Percent encoding, also known as URL encoding, is a mechanism for encoding information in a Uniform Resource Identifier (URI). It is used to safely transmit data containing spaces, special characters, or non-ASCII characters over the web by converting them into valid ASCII formats."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How to URL encode online securely?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "You can URL encode online securely using our tool, which processes all data locally in your browser. No data is sent to external servers for encoding or decoding, ensuring your sensitive URLs and query parameters remain completely private."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is the difference between encodeURI and encodeURIComponent?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "encodeURI is meant for full URLs and ignores protocol and domain delimiters like '://', '/', '?', and '&'. encodeURIComponent is designed for specific query parameters or path segments and encodes everything, including those delimiters, to prevent them from breaking the URL structure."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        :root {
+            --bg-color: #060a12;
+            --card-bg: #0a1020;
+            --border-color: #152040;
+            --accent-color: #818cf8;
+            --accent-hover: #6366f1;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --font-body: 'Inter', system-ui, sans-serif;
+            --font-code: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(6, 10, 18, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-brand {
+            color: var(--accent-color);
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.1rem;
+            margin-right: auto;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-link {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color);
+        }
+
+        main {
+            flex: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            letter-spacing: -0.03em;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .tool-container {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            align-items: center;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.25rem;
+        }
+
+        .radio-label {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            user-select: none;
+            transition: all 0.2s;
+        }
+
+        .radio-label input {
+            display: none;
+        }
+
+        .radio-label:has(input:checked) {
+            background: var(--border-color);
+            color: var(--text-main);
+        }
+
+        .radio-label:not(:has(input:checked)) {
+            color: var(--text-muted);
+        }
+
+        .radio-label:not(:has(input:checked)):hover {
+            color: var(--text-main);
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            accent-color: var(--accent-color);
+            width: 16px;
+            height: 16px;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .input-group label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn {
+            background: var(--accent-color);
+            color: #fff;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-family: inherit;
+        }
+
+        .btn:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+        }
+
+        .btn-outline:hover {
+            background: var(--border-color);
+            color: var(--text-main);
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            color: var(--text-main);
+            font-family: var(--font-code);
+            font-size: 0.9rem;
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        textarea[readonly] {
+            background: rgba(6, 10, 18, 0.5);
+        }
+
+        .parser-section {
+            margin-top: 2rem;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            display: none;
+        }
+
+        .parser-section.active {
+            display: block;
+        }
+
+        .parser-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .parsed-items {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .parsed-item {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .parsed-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .parsed-key {
+            width: 100px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .parsed-val {
+            flex: 1;
+            font-family: var(--font-code);
+            font-size: 0.9rem;
+            word-break: break-all;
+        }
+
+        .parsed-val.empty {
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .content-section {
+            margin-top: 4rem;
+        }
+
+        .content-section h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .content-section h3 {
+            font-size: 1.25rem;
+            margin: 2rem 0 1rem;
+        }
+
+        .content-section p {
+            margin-bottom: 1.25rem;
+            color: var(--text-muted);
+        }
+
+        .content-section ul {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        .content-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .faq-item h3 {
+            margin: 0 0 0.75rem 0;
+            font-size: 1.1rem;
+            color: var(--text-main);
+        }
+
+        .faq-item p {
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        code {
+            background: var(--bg-color);
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
+            font-family: var(--font-code);
+            font-size: 0.9em;
+            color: var(--accent-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--success-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 2000;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            background: var(--bg-color);
+        }
+
+        footer a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--text-main);
+        }
+
+        .error-msg {
+            color: var(--error-color);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <a href="/" class="nav-brand">siliconbased.dev</a>
+        <a href="/#studies" class="nav-link">Studies</a>
+        <a href="/#tools" class="nav-link">Tools</a>
+        <a href="/#guides" class="nav-link">Guides</a>
+    </nav>
+
+    <main>
+        <h1>URL Encoder & Decoder</h1>
+        <p class="subtitle">Securely percent-encode and decode URLs, query parameters, and path segments online.</p>
+
+        <div class="tool-container">
+            <div class="controls">
+                <div class="control-group">
+                    <label class="radio-label">
+                        <input type="radio" name="mode" value="encode" checked>
+                        Encode
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="mode" value="decode">
+                        Decode
+                    </label>
+                </div>
+
+                <div class="control-group">
+                    <label class="radio-label">
+                        <input type="radio" name="method" value="component" checked>
+                        URIComponent
+                    </label>
+                    <label class="radio-label" title="Keeps protocols and paths intact (://, /, ?)">
+                        <input type="radio" name="method" value="full">
+                        URI (Full URL)
+                    </label>
+                </div>
+
+                <label class="checkbox-label" title="Process each line as a separate item">
+                    <input type="checkbox" id="bulkMode">
+                    Bulk Mode
+                </label>
+            </div>
+
+            <div class="grid-layout">
+                <div class="input-group">
+                    <label>
+                        Input
+                        <button class="btn btn-outline" id="clearBtn">Clear</button>
+                    </label>
+                    <textarea id="inputText" placeholder="Paste your text or URL here...&#10;Example: https://example.com/search?q=hello world!"></textarea>
+                    <div id="errorMsg" class="error-msg">Invalid encoded format detected.</div>
+                </div>
+
+                <div class="input-group">
+                    <label>
+                        Output
+                        <button class="btn" id="copyBtn">Copy Result</button>
+                    </label>
+                    <textarea id="outputText" readonly placeholder="Result will appear here..."></textarea>
+                </div>
+            </div>
+
+            <div class="parser-section" id="parserSection">
+                <div class="parser-title">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    URL Components Parsed
+                </div>
+                <div class="parsed-items">
+                    <div class="parsed-item">
+                        <span class="parsed-key">Scheme</span>
+                        <span class="parsed-val" id="parseScheme"></span>
+                    </div>
+                    <div class="parsed-item">
+                        <span class="parsed-key">Host</span>
+                        <span class="parsed-val" id="parseHost"></span>
+                    </div>
+                    <div class="parsed-item">
+                        <span class="parsed-key">Path</span>
+                        <span class="parsed-val" id="parsePath"></span>
+                    </div>
+                    <div class="parsed-item">
+                        <span class="parsed-key">Query</span>
+                        <span class="parsed-val" id="parseQuery"></span>
+                    </div>
+                    <div class="parsed-item">
+                        <span class="parsed-key">Fragment</span>
+                        <span class="parsed-val" id="parseFragment"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Percent Encoding & Decoding Guide</h2>
+            <p>Every day, millions of URLs break because of simple spaces or special characters. A <strong>URL encoder</strong> translates these unprintable or reserved characters into a universally accepted format known as <strong>percent encoding</strong>.</p>
+
+            <h3>Why Use a URL Encode Online Tool?</h3>
+            <p>URLs are restricted to a specific subset of the ASCII character set. If you need to include a space, a foreign character, or a reserved symbol like <code>&</code> or <code>?</code> within a query parameter, it must be percent-encoded. For example, a space becomes <code>%20</code>, and an ampersand becomes <code>%26</code>.</p>
+
+            <h3>encodeURI vs encodeURIComponent Explained</h3>
+            <p>When you <strong>URL decode</strong> or encode in JavaScript, you typically use one of two functions:</p>
+            <ul>
+                <li><code>encodeURI()</code>: Use this when you are encoding a <em>complete</em> URL. It leaves characters like <code>:</code>, <code>/</code>, <code>?</code>, and <code>&</code> untouched, ensuring the URL structure remains valid.</li>
+                <li><code>encodeURIComponent()</code>: Use this when encoding a specific component, such as a query parameter value or a path segment. It encodes almost everything, including <code>/</code> and <code>&</code>.</li>
+            </ul>
+
+            <h2 style="margin-top: 3rem;">Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <h3>What is a URL encoder?</h3>
+                <p>A URL encoder translates characters into a format universally accepted by web browsers and servers. It replaces reserved or unsafe characters with a '%' followed by two hexadecimal digits, ensuring the URL is transmitted correctly.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>How to URL decode a string online?</h3>
+                <p>To URL decode a string online, simply paste the encoded string (containing % signs and hex digits) into our free URL decode tool, select the "Decode" option, and the original readable characters will be instantly restored.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>What is percent encoding and why is it used?</h3>
+                <p>Percent encoding, also known as URL encoding, is a mechanism for encoding information in a Uniform Resource Identifier (URI). It is used to safely transmit data containing spaces, special characters, or non-ASCII characters over the web by converting them into valid ASCII formats.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>How to URL encode online securely?</h3>
+                <p>You can URL encode online securely using our tool, which processes all data locally in your browser. No data is sent to external servers for encoding or decoding, ensuring your sensitive URLs and query parameters remain completely private.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>What is the difference between encodeURI and encodeURIComponent?</h3>
+                <p>encodeURI is meant for full URLs and ignores protocol and domain delimiters like '://', '/', '?', and '&'. encodeURIComponent is designed for specific query parameters or path segments and encodes everything, including those delimiters, to prevent them from breaking the URL structure.</p>
+            </div>
+        </div>
+    </main>
+
+    <div class="toast" id="toast">Copied to clipboard!</div>
+
+    <footer>
+        © 2026 <a href="/">siliconbased.dev</a> · A GAB Ventures property. Not investment advice. All information for educational purposes only.
+    </footer>
+
+    <script>
+        const elements = {
+            input: document.getElementById('inputText'),
+            output: document.getElementById('outputText'),
+            radiosMode: document.querySelectorAll('input[name="mode"]'),
+            radiosMethod: document.querySelectorAll('input[name="method"]'),
+            bulkMode: document.getElementById('bulkMode'),
+            clearBtn: document.getElementById('clearBtn'),
+            copyBtn: document.getElementById('copyBtn'),
+            errorMsg: document.getElementById('errorMsg'),
+            toast: document.getElementById('toast'),
+            parserSection: document.getElementById('parserSection'),
+            parseScheme: document.getElementById('parseScheme'),
+            parseHost: document.getElementById('parseHost'),
+            parsePath: document.getElementById('parsePath'),
+            parseQuery: document.getElementById('parseQuery'),
+            parseFragment: document.getElementById('parseFragment')
+        };
+
+        function showToast(message) {
+            elements.toast.textContent = message;
+            elements.toast.classList.add('show');
+            setTimeout(() => {
+                elements.toast.classList.remove('show');
+            }, 2500);
+        }
+
+        function getOptions() {
+            const mode = document.querySelector('input[name="mode"]:checked').value;
+            const method = document.querySelector('input[name="method"]:checked').value;
+            const isBulk = elements.bulkMode.checked;
+            return { mode, method, isBulk };
+        }
+
+        function processSingle(text, options) {
+            if (!text) return '';
+            try {
+                if (options.mode === 'encode') {
+                    return options.method === 'full' ? encodeURI(text) : encodeURIComponent(text);
+                } else {
+                    return options.method === 'full' ? decodeURI(text) : decodeURIComponent(text);
+                }
+            } catch (e) {
+                throw new Error("Invalid format");
+            }
+        }
+
+        function parseUrlIfValid(text) {
+            try {
+                // If the user inputs something that isn't decoded but looks like a URL, try decoding it first for parsing
+                const isDecode = document.querySelector('input[name="mode"]:checked').value === 'decode';
+                let potentialUrl = text;
+
+                // Use the output if it's decode mode, or input if encode mode
+                const targetText = isDecode ? elements.output.value : text;
+
+                // Ensure it's a valid absolute URL for URL constructor
+                let finalUrlText = targetText.trim();
+                if (!finalUrlText.match(/^[a-zA-Z]+:\/\//)) {
+                    // It's not a full URL, don't parse it
+                    elements.parserSection.classList.remove('active');
+                    return;
+                }
+
+                const url = new URL(finalUrlText);
+
+                elements.parseScheme.textContent = url.protocol.replace(':', '');
+                elements.parseHost.textContent = url.host;
+                elements.parsePath.textContent = url.pathname || '/';
+
+                if (url.search) {
+                    elements.parseQuery.textContent = url.search;
+                    elements.parseQuery.classList.remove('empty');
+                } else {
+                    elements.parseQuery.textContent = '(none)';
+                    elements.parseQuery.classList.add('empty');
+                }
+
+                if (url.hash) {
+                    elements.parseFragment.textContent = url.hash;
+                    elements.parseFragment.classList.remove('empty');
+                } else {
+                    elements.parseFragment.textContent = '(none)';
+                    elements.parseFragment.classList.add('empty');
+                }
+
+                elements.parserSection.classList.add('active');
+            } catch (e) {
+                elements.parserSection.classList.remove('active');
+            }
+        }
+
+        function updateOutput() {
+            const inputVal = elements.input.value;
+            if (!inputVal) {
+                elements.output.value = '';
+                elements.errorMsg.style.display = 'none';
+                elements.parserSection.classList.remove('active');
+                return;
+            }
+
+            const options = getOptions();
+            elements.errorMsg.style.display = 'none';
+
+            try {
+                if (options.isBulk) {
+                    const lines = inputVal.split('\n');
+                    const results = lines.map(line => processSingle(line, options));
+                    elements.output.value = results.join('\n');
+                } else {
+                    elements.output.value = processSingle(inputVal, options);
+                }
+
+                if (!options.isBulk) {
+                    parseUrlIfValid(inputVal);
+                } else {
+                    elements.parserSection.classList.remove('active');
+                }
+
+            } catch (e) {
+                elements.output.value = '';
+                elements.errorMsg.style.display = 'block';
+                elements.parserSection.classList.remove('active');
+            }
+        }
+
+        // Event Listeners
+        elements.input.addEventListener('input', updateOutput);
+
+        elements.radiosMode.forEach(radio => radio.addEventListener('change', updateOutput));
+        elements.radiosMethod.forEach(radio => radio.addEventListener('change', updateOutput));
+        elements.bulkMode.addEventListener('change', updateOutput);
+
+        elements.clearBtn.addEventListener('click', () => {
+            elements.input.value = '';
+            updateOutput();
+            elements.input.focus();
+        });
+
+        elements.copyBtn.addEventListener('click', async () => {
+            const textToCopy = elements.output.value;
+            if (!textToCopy) return;
+
+            try {
+                await navigator.clipboard.writeText(textToCopy);
+                showToast('Copied to clipboard!');
+            } catch (err) {
+                // Fallback
+                elements.output.select();
+                document.execCommand('copy');
+                showToast('Copied to clipboard!');
+            }
+        });
+
+        // Initialize
+        updateOutput();
+    </script>
+</body>
+</html>
