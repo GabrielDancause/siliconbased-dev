@@ -12,7 +12,8 @@
     "generate:sourdough": "echo \"skipping generate:sourdough — data pre-generated\"",
     "generate:cssframeworks": "echo \"skipping generate:cssframeworks — data pre-generated\"",
     "generate:apitimes": "echo \"skipping generate:apitimes — data pre-generated\"",
-    "generate:travelcards": "node scripts/crawl-travel-cards.cjs"
+    "generate:travelcards": "node scripts/crawl-travel-cards.cjs",
+    "generate:protein": "node scripts/crawl-protein-costs.cjs && node scripts/inject-protein-data.cjs"
   },
   "dependencies": {
     "astro": "^5.17.1",
