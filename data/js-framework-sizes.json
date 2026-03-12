@@ -1,0 +1,82 @@
+[
+  {
+    "framework": "React",
+    "version": "19.2.4",
+    "minifiedKB": 7.42,
+    "gzippedKB": 2.86,
+    "npmWeeklyDownloads": 89744828,
+    "githubStars": 243743,
+    "license": "MIT",
+    "language": "JavaScript"
+  },
+  {
+    "framework": "Vue",
+    "version": "3.5.29",
+    "minifiedKB": 115.2,
+    "gzippedKB": 43.75,
+    "npmWeeklyDownloads": 10693443,
+    "githubStars": 53169,
+    "license": "MIT",
+    "language": "TypeScript"
+  },
+  {
+    "framework": "Svelte",
+    "version": "unknown",
+    "minifiedKB": null,
+    "gzippedKB": null,
+    "npmWeeklyDownloads": 3641184,
+    "githubStars": 86033,
+    "license": "MIT",
+    "language": "JavaScript"
+  },
+  {
+    "framework": "Solid",
+    "version": "unknown",
+    "minifiedKB": null,
+    "gzippedKB": null,
+    "npmWeeklyDownloads": 1759485,
+    "githubStars": 35308,
+    "license": "MIT",
+    "language": "TypeScript"
+  },
+  {
+    "framework": "Preact",
+    "version": "10.28.4",
+    "minifiedKB": 11.29,
+    "gzippedKB": 4.64,
+    "npmWeeklyDownloads": 14223640,
+    "githubStars": 38461,
+    "license": "MIT",
+    "language": "JavaScript"
+  },
+  {
+    "framework": "Alpine.js",
+    "version": "3.15.8",
+    "minifiedKB": 43.92,
+    "gzippedKB": 15.7,
+    "npmWeeklyDownloads": 463981,
+    "githubStars": 31289,
+    "license": "MIT",
+    "language": "HTML"
+  },
+  {
+    "framework": "Lit",
+    "version": "unknown",
+    "minifiedKB": null,
+    "gzippedKB": null,
+    "npmWeeklyDownloads": 5062991,
+    "githubStars": 21299,
+    "license": "BSD-3-Clause",
+    "language": "TypeScript"
+  },
+  {
+    "framework": "Angular",
+    "version": "21.2.1",
+    "minifiedKB": 374.39,
+    "gzippedKB": 125.15,
+    "npmWeeklyDownloads": 5072902,
+    "githubStars": 100085,
+    "license": "MIT",
+    "language": "TypeScript"
+  }
+]

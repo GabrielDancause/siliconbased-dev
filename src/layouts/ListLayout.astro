@@ -1,5 +1,6 @@
 ---
 import BaseHead from './BaseHead.astro';
+import Nav from '../components/Nav.astro';
 const { page } = Astro.props;
 const accent = page.accentColor || '#0F1729';
 ---
@@ -30,6 +31,7 @@ const accent = page.accentColor || '#0F1729';
     </style>
 </head>
 <body>
+<Nav />
 <div class="hero" style={`background: ${page.heroGradient};`}>
     <h1 set:html={page.h1} />
     {page.tagline && <p class="tagline">{page.tagline}</p>}
