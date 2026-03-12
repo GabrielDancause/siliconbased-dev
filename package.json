@@ -11,15 +11,17 @@
     "generate:pageweight": "echo \"skipping generate:pageweight — data pre-generated\"",
     "generate:sourdough": "echo \"skipping generate:sourdough — data pre-generated\"",
     "generate:cssframeworks": "echo \"skipping generate:cssframeworks — data pre-generated\"",
-    "generate:apitimes": "echo \"skipping generate:apitimes — data pre-generated\""
+    "generate:apitimes": "echo \"skipping generate:apitimes — data pre-generated\"",
+    "generate:travelcards": "node scripts/crawl-travel-cards.cjs"
   },
   "dependencies": {
     "astro": "^5.17.1",
+    "cheerio": "^1.2.0",
+    "playwright": "^1.58.2",
     "smol-toml": "^1.6.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
-    "jsdom": "^28.1.0",
-    "playwright": "^1.58.2"
+    "jsdom": "^28.1.0"
   }
 }
