@@ -4,14 +4,16 @@
   <url><loc>https://siliconbased.dev/api-response-times.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/ascii-table.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/aspect-ratio-calc.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://siliconbased.dev/base64-encoder-decoder.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/base64.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/border-radius.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/box-shadow.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/chmod-calculator.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/chmod-recursive.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
-  <url><loc>https://siliconbased.dev/color-converter.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://siliconbased.dev/color-converter.html</loc><lastmod>2026-03-11</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/color-palette.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/cors-tester.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://siliconbased.dev/cron-expression-generator.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/cron-generator.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/crontab-guru.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/csp-generator.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
@@ -47,13 +49,15 @@
   <url><loc>https://siliconbased.dev/hosting-pricing.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/htaccess-generator.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/html-entities.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://siliconbased.dev/html-entity-encoder.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/html-markdown.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/http-status.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/image-to-base64.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://siliconbased.dev/ip-address-lookup.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/ip-lookup.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/js-framework-sizes.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/js-minifier.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
-  <url><loc>https://siliconbased.dev/json-formatter.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://siliconbased.dev/json-formatter.html</loc><lastmod>2026-03-11</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/json-path.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/jwt-debugger.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/license-picker.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
@@ -87,6 +91,7 @@
   <url><loc>https://siliconbased.dev/sitemap-generator.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/slug-generator.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/sql-formatter.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://siliconbased.dev/ssl-certificate-checker.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/ssl-checker.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/subnet-calculator.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/svg-optimizer.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
@@ -105,4 +110,8 @@
   <url><loc>https://siliconbased.dev/xml-json.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/yaml-json.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://siliconbased.dev/git-cheat-sheet.html</loc><lastmod>2026-03-11</lastmod><priority>0.8</priority></url>
+  <url><loc>https://siliconbased.dev/unix-timestamp-converter.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://siliconbased.dev/guide-docker-basics.html</loc><lastmod>2026-03-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://siliconbased.dev/url-encoder-decoder.html</loc><lastmod>2026-03-11</lastmod><priority>0.8</priority></url>
+  <url><loc>https://siliconbased.dev/guide-ssh-keys.html</loc><lastmod>2026-03-11</lastmod><priority>0.8</priority></url>
 </urlset>
