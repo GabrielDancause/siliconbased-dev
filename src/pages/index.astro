@@ -1,822 +1,505 @@
 ---
 import BaseHead from '../layouts/BaseHead.astro';
+import Nav from '../components/Nav.astro';
 
-const studies = [
-  {
-    title: "HTTP Security Headers Study 2026",
-    subtitle: "85 Top Websites Analyzed",
-    slug: "/security-headers-study",
-    emoji: "🔒",
-    stat: "Only 13%",
-    statLabel: "score an A grade",
-    desc: "We crawled 85 of the most visited websites and checked for 10 critical HTTP security headers. Amazon and Microsoft ship zero. Facebook leads with 8/10.",
-    tag: "ORIGINAL RESEARCH",
-  },
-  {
-    title: "CSS Framework File Size Comparison 2026",
-    subtitle: "30 Frameworks Measured",
-    slug: "/css-framework-sizes",
-    emoji: "🎨",
-    stat: "30",
-    statLabel: "frameworks compared",
-    desc: "Every major CSS framework measured — minified and gzipped. Bootstrap at 227KB, Bulma at 1MB+. Find the lightest option for your next project.",
-    tag: "ORIGINAL RESEARCH",
-  },
-  {
-    title: "Web Page Weight Study 2026",
-    subtitle: "100 Sites Measured",
-    slug: "/page-weight-study",
-    emoji: "⚖️",
-    stat: "2.2 MB",
-    statLabel: "average page weight",
-    desc: "Full resource breakdown (HTML, CSS, JS, images) of 100 top websites. YouTube loads 9.7 MB of JavaScript alone. The lightest sites are under 1 KB.",
-    tag: "ORIGINAL RESEARCH",
-  },
+// Tools (everything except studies, guides, lists)
+const tools = [
+  { emoji: "⚡", name: "DevBox", slug: "/devbox", desc: "Auto-detect dev strings — JSON, JWT, base64, timestamps, colors, regex, cron, URLs" },
+  { emoji: "⚙️", name: "chmod Calculator", slug: "/chmod-calculator", desc: "Visual Linux file permission editor with octal & symbolic notation" },
+  { emoji: "🔤", name: "Base64 Encoder/Decoder", slug: "/base64", desc: "Encode/decode Base64. Supports files, images, URL-safe mode" },
+  { emoji: "⏰", name: "Cron Expression Generator", slug: "/cron-generator", desc: "Build cron expressions visually with schedule preview" },
+  { emoji: "📋", name: "JSON Formatter & Validator", slug: "/json-formatter", desc: "Format, validate, minify JSON with syntax highlighting" },
+  { emoji: "🔗", name: "UTM Builder", slug: "/utm-builder", desc: "Generate UTM-tagged URLs for campaign tracking" },
+  { emoji: "🎨", name: "Color Converter", slug: "/color-converter", desc: "Convert HEX, RGB, HSL, CMYK with visual picker" },
+  { emoji: "🔍", name: "Regex Tester", slug: "/regex-tester", desc: "Test regex patterns with real-time highlighting" },
+  { emoji: "🔐", name: "Hash Generator", slug: "/hash-generator", desc: "Generate MD5, SHA-1, SHA-256, SHA-512 hashes" },
+  { emoji: "🏷️", name: "HTML Entities Encoder", slug: "/html-entities", desc: "Encode/decode special characters to HTML entities" },
+  { emoji: "📦", name: "JavaScript Minifier", slug: "/js-minifier", desc: "Minify JS code for production builds" },
+  { emoji: "🔄", name: "CSV ↔ JSON Converter", slug: "/csv-json", desc: "Convert between CSV and JSON with file support" },
+  { emoji: "🔑", name: "Password Generator", slug: "/password-generator", desc: "Generate strong passwords with custom criteria" },
+  { emoji: "🏗️", name: "Meta Tag Generator", slug: "/meta-tag-generator", desc: "Generate SEO meta tags & Open Graph preview" },
+  { emoji: "🌐", name: "URL Encoder/Decoder", slug: "/url-encoder", desc: "Encode/decode URLs and query parameters" },
+  { emoji: "🗄️", name: "SQL Formatter", slug: "/sql-formatter", desc: "Format SQL queries with proper indentation" },
+  { emoji: "📄", name: "Markdown Live Preview", slug: "/markdown-preview", desc: "Write Markdown with real-time HTML preview" },
+  { emoji: "🔄", name: "YAML ↔ JSON Converter", slug: "/yaml-json", desc: "Convert between YAML and JSON with validation" },
+  { emoji: "📝", name: "Lorem Ipsum Generator", slug: "/lorem-ipsum", desc: "Generate placeholder text in paragraphs or words" },
+  { emoji: "🆔", name: "UUID Generator", slug: "/uuid-generator", desc: "Generate UUID v1, v4, v7. Parse and validate UUIDs" },
+  { emoji: "📱", name: "QR Code Generator", slug: "/qr-generator", desc: "Generate QR codes with size/color customization" },
+  { emoji: "🎨", name: "CSS Minifier", slug: "/css-minifier", desc: "Minify CSS for production builds" },
+  { emoji: "👁️", name: "Open Graph Preview", slug: "/og-preview", desc: "Preview URL sharing on Facebook, Twitter, LinkedIn" },
+  { emoji: "🔄", name: "XML ↔ JSON Converter", slug: "/xml-json", desc: "Convert XML to JSON with attribute handling" },
+  { emoji: "🤖", name: "robots.txt Generator", slug: "/robots-txt", desc: "Build robots.txt with user agents & sitemaps" },
+  { emoji: "📋", name: "Text Diff Checker", slug: "/diff-checker", desc: "Compare texts with line-by-line diff highlighting" },
+  { emoji: "🔢", name: "Word & Character Counter", slug: "/word-counter", desc: "Count words, chars, sentences with reading time" },
+  { emoji: "🌐", name: "Subnet Calculator", slug: "/subnet-calculator", desc: "Calculate subnet masks, network & broadcast addresses" },
+  { emoji: "🔓", name: "String Escape/Unescape", slug: "/escape-unescape", desc: "Escape strings for JSON, HTML, XML, URL, JavaScript" },
+  { emoji: "🔄", name: "HTML ↔ Markdown Converter", slug: "/html-markdown", desc: "Convert between HTML and Markdown formats" },
+  { emoji: "⏱️", name: "Timestamp Converter", slug: "/timestamp-converter", desc: "Convert Unix timestamps with timezone support" },
+  { emoji: "🔢", name: "Number Base Converter", slug: "/number-base", desc: "Convert binary, octal, decimal, hexadecimal" },
+  { emoji: "📟", name: "ASCII Reference Table", slug: "/ascii-table", desc: "Interactive ASCII & Unicode character lookup" },
+  { emoji: "🌈", name: "CSS Gradient Generator", slug: "/gradient-generator", desc: "Create gradients visually with preset gallery" },
+  { emoji: "🖼️", name: "Box Shadow Generator", slug: "/box-shadow", desc: "Design CSS box shadows with multi-layer support" },
+  { emoji: "📐", name: "Flexbox Playground", slug: "/flexbox-playground", desc: "Interactive CSS Flexbox layout builder" },
+  { emoji: "📐", name: "CSS Grid Generator", slug: "/grid-generator", desc: "Visual CSS Grid designer with template areas" },
+  { emoji: "🔗", name: "URL Slug Generator", slug: "/slug-generator", desc: "Convert text to URL slugs with Unicode support" },
+  { emoji: "📋", name: "Schema Markup Generator", slug: "/schema-generator", desc: "Generate JSON-LD structured data" },
+  { emoji: "🔑", name: "JWT Debugger", slug: "/jwt-debugger", desc: "Decode JWT tokens & validate expiration" },
+  { emoji: "🛡️", name: "CSP Header Generator", slug: "/csp-generator", desc: "Build Content Security Policy headers visually" },
+  { emoji: "📡", name: "HTTP Status Code Reference", slug: "/http-status", desc: "Interactive status code lookup with examples" },
+  { emoji: "🎯", name: "JSON Path Tester", slug: "/json-path", desc: "Test JSONPath expressions with live results" },
+  { emoji: "🔄", name: "TOML Converter", slug: "/toml-converter", desc: "Convert TOML, JSON, YAML with validation" },
+  { emoji: "🗺️", name: "XML Sitemap Generator", slug: "/sitemap-generator", desc: "Create XML sitemaps with priority & frequency" },
+  { emoji: "⏰", name: "Crontab Guru", slug: "/crontab-guru", desc: "Explain cron expressions in plain English" },
+  { emoji: "🌐", name: "DNS Lookup Tool", slug: "/dns-lookup", desc: "Query DNS records: A, AAAA, MX, NS, TXT, CNAME" },
+  { emoji: "🔍", name: "WHOIS Lookup", slug: "/whois-lookup", desc: "Check domain registration & nameserver details" },
+  { emoji: "📧", name: "Email Address Validator", slug: "/email-validator", desc: "Validate email format, MX records, syntax" },
+  { emoji: "📍", name: "IP Address Lookup", slug: "/ip-lookup", desc: "IP geolocation, ISP, ASN & reverse DNS lookup" },
+  { emoji: "🌐", name: "User Agent Parser", slug: "/user-agent-parser", desc: "Parse browser, OS, device from user agent strings" },
+  { emoji: "🔒", name: "SSL Certificate Checker", slug: "/ssl-checker", desc: "Check SSL certificate details & validity" },
+  { emoji: "⬜", name: "Border Radius Generator", slug: "/border-radius", desc: "Design CSS border-radius visually" },
+  { emoji: "🔠", name: "Text Transform Tool", slug: "/text-transform", desc: "Transform text case: camelCase, snake_case, etc" },
+  { emoji: "⚙️", name: "Nginx Config Generator", slug: "/nginx-config", desc: "Generate Nginx server blocks & redirects" },
+  { emoji: "🐳", name: "Docker Compose Generator", slug: "/docker-compose", desc: "Build docker-compose.yml files visually" },
+  { emoji: "📖", name: "README Generator", slug: "/readme-generator", desc: "Generate professional README.md with preview" },
+  { emoji: "🔏", name: "Privacy Policy Generator", slug: "/privacy-policy", desc: "GDPR/CCPA compliant privacy policy generator" },
+  { emoji: "📜", name: "Terms of Service Generator", slug: "/terms-generator", desc: "Generate customizable Terms of Service" },
+  { emoji: "🙈", name: "Gitignore Generator", slug: "/gitignore-generator", desc: "Generate .gitignore for any language/framework" },
+  { emoji: "⚖️", name: "License Picker", slug: "/license-picker", desc: "Compare open source licenses & generate LICENSE file" },
+  { emoji: "⚙️", name: ".htaccess Generator", slug: "/htaccess-generator", desc: "Generate Apache .htaccess rules & redirects" },
+  { emoji: "🔤", name: "Font Size Converter", slug: "/font-size-converter", desc: "Convert px, rem, em, pt, vw units" },
+  { emoji: "🎨", name: "Tailwind CSS Converter", slug: "/tailwind-converter", desc: "Convert vanilla CSS to Tailwind utility classes" },
+  { emoji: "🌐", name: "CORS Tester", slug: "/cors-tester", desc: "Test CORS headers on any URL" },
+  { emoji: "📂", name: "Recursive chmod Generator", slug: "/chmod-recursive", desc: "Generate recursive chmod commands for directories" },
+  { emoji: "✨", name: "SVG Optimizer", slug: "/svg-optimizer", desc: "Optimize SVG files by removing metadata" },
+  { emoji: "🖼️", name: "Image to Base64", slug: "/image-to-base64", desc: "Convert images to Base64 data URIs" },
+  { emoji: "📐", name: "Aspect Ratio Calculator", slug: "/aspect-ratio-calc", desc: "Calculate image/video aspect ratios" },
+  { emoji: "🔢", name: "Em Calculator", slug: "/em-calculator", desc: "Convert em, rem, px with custom base sizes" },
+  { emoji: "🖼️", name: "OG Image Preview", slug: "/og-image-preview", desc: "Preview Open Graph images for social sharing" }
 ];
 
-const tools = [
-  {
-    name: "DevBox",
-    slug: "/devbox",
-    emoji: "⚡",
-    desc: "Stop juggling 12 converter tabs. Paste any dev string — JSON, JWT, base64, timestamps, colors, regex, cron, URLs, CSV, SQL — and get instant format detection, conversions, and visual breakdowns. Runs in your browser.",
-    badge: "NEW",
-  },
-  {
-    name: "chmod Calculator",
-    slug: "/chmod-calculator",
-    emoji: "⚙️",
-    desc: "Visual Linux file permission editor. Toggle read, write, and execute for owner, group, and others — get the octal notation, symbolic notation, and ready-to-use chmod commands instantly.",
-    badge: "NEW",
-  },
-  {
-    name: "Base64 Encoder & Decoder",
-    slug: "/base64",
-    emoji: "🔤",
-    desc: "Encode text to Base64 or decode Base64 to text. Supports file upload for images (shows data URI), URL-safe mode, and line wrapping options.",
-    badge: "NEW",
-  },
-  {
-    name: "Cron Expression Generator",
-    slug: "/cron-generator",
-    emoji: "⏰",
-    desc: "Build cron expressions visually. Select schedule intervals, preview next run times, and copy the expression for your crontab or CI pipeline.",
-    badge: "NEW",
-  },
-  {
-    name: "JSON Formatter & Validator",
-    slug: "/json-formatter",
-    emoji: "📋",
-    desc: "Paste messy JSON and get it instantly formatted, validated, and syntax-highlighted. Supports minify, sort keys, and tree view.",
-    badge: "NEW",
-  },
-  {
-    name: "UTM Builder",
-    slug: "/utm-builder",
-    emoji: "🔗",
-    desc: "Generate UTM-tagged URLs for campaign tracking. Fill in source, medium, campaign, and get a ready-to-share link with Google Analytics parameters.",
-    badge: "NEW",
-  },
-  {
-    name: "Color Converter",
-    slug: "/color-converter",
-    emoji: "🎨",
-    desc: "Convert colors between HEX, RGB, HSL, and CMYK. Visual color picker with real-time preview and copy-ready CSS values.",
-    badge: "NEW",
-  },
-  {
-    name: "Regex Tester",
-    slug: "/regex-tester",
-    emoji: "🔍",
-    desc: "Test and debug regular expressions in real time. See matches highlighted, capture groups extracted, and common patterns ready to use.",
-    badge: "NEW",
-  },
-  {
-    name: "Hash Generator",
-    slug: "/hash-generator",
-    emoji: "🔐",
-    desc: "Generate MD5, SHA-1, SHA-256, and SHA-512 hashes from text or files. Compare hashes side-by-side for integrity checks.",
-    badge: "LIVE",
-  },
-  {
-    name: "HTML Entities Encoder/Decoder",
-    slug: "/html-entities",
-    emoji: "🏷️",
-    desc: "Encode special characters to HTML entities or decode them back. Handles named entities, numeric codes, and bulk text.",
-    badge: "LIVE",
-  },
-  {
-    name: "JavaScript Minifier",
-    slug: "/js-minifier",
-    emoji: "📦",
-    desc: "Minify JavaScript code instantly. Remove whitespace, comments, and shorten variable names for production-ready bundles.",
-    badge: "LIVE",
-  },
-  {
-    name: "CSV ↔ JSON Converter",
-    slug: "/csv-json",
-    emoji: "🔄",
-    desc: "Convert CSV to JSON or JSON to CSV. Supports file upload, custom delimiters, and instant preview of the converted output.",
-    badge: "LIVE",
-  },
-  {
-    name: "Password Generator",
-    slug: "/password-generator",
-    emoji: "🔑",
-    desc: "Generate strong, random passwords with customizable length, character sets, and entropy estimation. Copy with one click.",
-    badge: "LIVE",
-  },
-  {
-    name: "Meta Tag Generator",
-    slug: "/meta-tag-generator",
-    emoji: "🏗️",
-    desc: "Generate SEO meta tags, Open Graph tags, and Twitter cards. Preview how your page looks in search results and social shares.",
-    badge: "LIVE",
-  },
-  {
-    name: "URL Encoder/Decoder",
-    slug: "/url-encoder",
-    emoji: "🌐",
-    desc: "Encode or decode URLs and query parameters. Handles special characters, Unicode, and nested encoding.",
-    badge: "LIVE",
-  },
-  {
-    name: "SQL Formatter & Beautifier",
-    slug: "/sql-formatter",
-    emoji: "🗄️",
-    desc: "Format SQL queries with proper indentation. Supports MySQL, PostgreSQL, and SQLite syntax.",
-    badge: "LIVE",
-  },
-  {
-    name: "Markdown Live Preview",
-    slug: "/markdown-preview",
-    emoji: "📄",
-    desc: "Write Markdown and see rendered HTML in real time. GFM tables, task lists, and code blocks supported.",
-    badge: "LIVE",
-  },
-  {
-    name: "YAML ↔ JSON Converter",
-    slug: "/yaml-json",
-    emoji: "🔄",
-    desc: "Convert between YAML and JSON instantly. Validates syntax with error line numbers.",
-    badge: "LIVE",
-  },
-  {
-    name: "Lorem Ipsum Generator",
-    slug: "/lorem-ipsum",
-    emoji: "📝",
-    desc: "Generate placeholder text in paragraphs, sentences, or words. HTML wrapping option included.",
-    badge: "LIVE",
-  },
-  {
-    name: "UUID Generator",
-    slug: "/uuid-generator",
-    emoji: "🆔",
-    desc: "Generate UUID v1, v4, and v7. Bulk generate, parse, and validate existing UUIDs.",
-    badge: "LIVE",
-  },
-  {
-    name: "QR Code Generator",
-    slug: "/qr-generator",
-    emoji: "📱",
-    desc: "Generate QR codes from any URL or text. Customize size, colors, and error correction. Download as PNG or SVG.",
-    badge: "LIVE",
-  },
-  {
-    name: "CSS Minifier",
-    slug: "/css-minifier",
-    emoji: "🎨",
-    desc: "Minify CSS instantly. Strip comments, whitespace, and redundant code for smaller, faster stylesheets.",
-    badge: "LIVE",
-  },
-  {
-    name: "Open Graph Preview",
-    slug: "/og-preview",
-    emoji: "👁️",
-    desc: "Preview how your URL looks when shared on Facebook, Twitter, LinkedIn, and Discord. Check OG tags instantly.",
-    badge: "LIVE",
-  },
-  {
-    name: "XML ↔ JSON Converter",
-    slug: "/xml-json",
-    emoji: "🔄",
-    desc: "Convert XML to JSON and back. Handles attributes, namespaces, and nested structures with syntax validation.",
-    badge: "LIVE",
-  },
-  {
-    name: "robots.txt Generator",
-    slug: "/robots-txt",
-    emoji: "🤖",
-    desc: "Build robots.txt visually. Configure user agents, crawl delays, and sitemaps — then copy the output for your site.",
-    badge: "LIVE",
-  },
-  {
-    name: "Text Diff Checker",
-    slug: "/diff-checker",
-    emoji: "📋",
-    desc: "Compare two texts side by side. Line and character-level diffs with syntax highlighting.",
-    badge: "LIVE",
-  },
-  {
-    name: "Word & Character Counter",
-    slug: "/word-counter",
-    emoji: "🔢",
-    desc: "Count words, characters, sentences, and paragraphs. Includes reading time estimate.",
-    badge: "LIVE",
-  },
-  {
-    name: "Subnet Calculator",
-    slug: "/subnet-calculator",
-    emoji: "🌐",
-    desc: "Calculate subnet mask, network address, broadcast, and host range. Supports IPv4 and IPv6.",
-    badge: "LIVE",
-  },
-  {
-    name: "String Escape/Unescape",
-    slug: "/escape-unescape",
-    emoji: "🔓",
-    desc: "Escape and unescape strings for JSON, HTML, XML, URL, JavaScript, CSV, and SQL.",
-    badge: "LIVE",
-  },
-  {
-    name: "HTML ↔ Markdown Converter",
-    slug: "/html-markdown",
-    emoji: "🔄",
-    desc: "Convert HTML to Markdown or Markdown to HTML. Handles tables, images, code blocks, and nested lists.",
-    badge: "LIVE",
-  },
-  {
-    name: "Timestamp Converter",
-    slug: "/timestamp-converter",
-    emoji: "⏱️",
-    desc: "Convert Unix timestamps, ISO 8601, and RFC 2822 dates. Multiple timezone support with live clock.",
-    badge: "LIVE",
-  },
-  {
-    name: "Number Base Converter",
-    slug: "/number-base",
-    emoji: "🔢",
-    desc: "Convert between binary, octal, decimal, and hexadecimal. Step-by-step conversion process.",
-    badge: "LIVE",
-  },
-  {
-    name: "ASCII Reference Table",
-    slug: "/ascii-table",
-    emoji: "📟",
-    desc: "Interactive ASCII and Unicode reference table. Search by character, decimal, hex, or octal value.",
-    badge: "LIVE",
-  },
-  {
-    name: "CSS Gradient Generator",
-    slug: "/gradient-generator",
-    emoji: "🌈",
-    desc: "Create linear and radial gradients visually. Preset gallery, custom stops, and copy-ready CSS.",
-    badge: "LIVE",
-  },
-  {
-    name: "CSS Box Shadow Generator",
-    slug: "/box-shadow",
-    emoji: "🖼️",
-    desc: "Design box shadows visually with multiple layers. Live preview and copy-ready CSS output.",
-    badge: "LIVE",
-  },
-  {
-    name: "Flexbox Playground",
-    slug: "/flexbox-playground",
-    emoji: "📐",
-    desc: "Interactive Flexbox builder. Container and item properties. Live layout preview.",
-    badge: "LIVE",
-  },
-  {
-    name: "CSS Grid Generator",
-    slug: "/grid-generator",
-    emoji: "📐",
-    desc: "Design CSS Grid layouts visually. Rows, columns, gaps, and template areas.",
-    badge: "LIVE",
-  },
-  {
-    name: "URL Slug Generator",
-    slug: "/slug-generator",
-    emoji: "🔗",
-    desc: "Convert text to URL slugs. Unicode, accents, special symbols. Bulk mode.",
-    badge: "LIVE",
-  },
-  {
-    name: "Schema Markup Generator",
-    slug: "/schema-generator",
-    emoji: "📋",
-    desc: "Generate JSON-LD for articles, products, FAQs, local businesses, and recipes.",
-    badge: "LIVE",
-  },
-  {
-    name: "JWT Debugger",
-    slug: "/jwt-debugger",
-    emoji: "🔑",
-    desc: "Decode JWT tokens. View header, payload, signature. Validate expiration.",
-    badge: "LIVE",
-  },
-  {
-    name: "CSP Header Generator",
-    slug: "/csp-generator",
-    emoji: "🛡️",
-    desc: "Build Content Security Policy headers visually. Test common CDNs.",
-    badge: "LIVE",
-  },
-  {
-    name: "HTTP Status Code Reference",
-    slug: "/http-status",
-    emoji: "📡",
-    desc: "Interactive HTTP status code reference. Search, examples, troubleshooting.",
-    badge: "LIVE",
-  },
-  {
-    name: "JSON Path Tester",
-    slug: "/json-path",
-    emoji: "🎯",
-    desc: "Test JSONPath expressions against JSON data. Live results. Wildcards.",
-    badge: "LIVE",
-  },
-  {
-    name: "TOML ↔ JSON/YAML Converter",
-    slug: "/toml-converter",
-    emoji: "🔄",
-    desc: "Convert between TOML, JSON, YAML. Validates syntax. Pretty print.",
-    badge: "LIVE",
-  },
-  {
-    name: "XML Sitemap Generator",
-    slug: "/sitemap-generator",
-    emoji: "🗺️",
-    desc: "Create XML sitemaps. Set priority, frequency, dates. Download file.",
-    badge: "LIVE",
-  },
-  {
-    name: "Crontab Guru",
-    slug: "/crontab-guru",
-    emoji: "⏰",
-    desc: "Explain cron expressions in plain English. Validate and test schedules. Show next 10 run times.",
-    badge: "LIVE",
-  },
-  {
-    name: "DNS Lookup Tool",
-    slug: "/dns-lookup",
-    emoji: "🌐",
-    desc: "Look up DNS records: A, AAAA, MX, NS, TXT, CNAME, SOA. Multiple resolvers.",
-    badge: "LIVE",
-  },
-  {
-    name: "WHOIS Lookup",
-    slug: "/whois-lookup",
-    emoji: "🔍",
-    desc: "Check domain registration details: registrar, creation date, expiry, nameservers.",
-    badge: "LIVE",
-  },
-  {
-    name: "Email Address Validator",
-    slug: "/email-validator",
-    emoji: "📧",
-    desc: "Validate email address format, MX records, and syntax. Bulk validation mode.",
-    badge: "LIVE",
-  },
-  {
-    name: "IP Address Lookup",
-    slug: "/ip-lookup",
-    emoji: "📍",
-    desc: "Look up IP geolocation, ISP, ASN, and reverse DNS. Supports IPv4 and IPv6.",
-    badge: "LIVE",
-  },
-  {
-    name: "User Agent Parser",
-    slug: "/user-agent-parser",
-    emoji: "🌐",
-    desc: "Parse user agent strings. Shows browser, OS, device, and bot detection.",
-    badge: "LIVE",
-  },
-  {
-    name: "SSL Certificate Checker",
-    slug: "/ssl-checker",
-    emoji: "🔒",
-    desc: "Check SSL/TLS certificate details for any domain. Expiry date, issuer, chain validity, and protocol support.",
-    badge: "NEW",
-  },
-  {
-    name: "Border Radius Generator",
-    slug: "/border-radius",
-    emoji: "⬜",
-    desc: "Design CSS border-radius visually. Independent corners, preview shapes, and copy-ready CSS.",
-    badge: "NEW",
-  },
-  {
-    name: "Text Transform Tool",
-    slug: "/text-transform",
-    emoji: "🔠",
-    desc: "Transform text case: uppercase, lowercase, title case, camelCase, snake_case, and more. Bulk text processing.",
-    badge: "NEW",
-  },
-  {
-    name: "Nginx Config Generator",
-    slug: "/nginx-config",
-    emoji: "⚙️",
-    desc: "Generate Nginx server blocks for static sites, reverse proxies, SSL, and redirects. Copy-paste ready.",
-    badge: "LIVE",
-  },
-  {
-    name: "Docker Compose Generator",
-    slug: "/docker-compose",
-    emoji: "🐳",
-    desc: "Generate docker-compose.yml files visually. Add services, ports, volumes, and networks. Common templates like WordPress and Node.js included.",
-    badge: "LIVE",
-  },
-  {
-    name: "README Generator",
-    slug: "/readme-generator",
-    emoji: "📖",
-    desc: "Generate professional README.md files quickly. Sections for install, usage, API, contributing, and license with live Markdown preview.",
-    badge: "LIVE",
-  },
-  {
-    name: "Privacy Policy Generator",
-    slug: "/privacy-policy",
-    emoji: "🔏",
-    desc: "Generate a free, customized, GDPR and CCPA compliant Privacy Policy for your website or app. Fast and completely secure.",
-    badge: "LIVE",
-  },
-  {
-    name: "Terms of Service Generator",
-    slug: "/terms-generator",
-    emoji: "📜",
-    desc: "Generate customizable Terms of Service for websites, SaaS, e-commerce, and apps. Free, runs completely in your browser.",
-    badge: "LIVE",
-  },
-  {
-    name: "Gitignore Generator",
-    slug: "/gitignore-generator",
-    emoji: "🙈",
-    desc: "Generate .gitignore files for any language or framework. Combine multiple templates, preview the output, and download. Runs in your browser.",
-    badge: "LIVE",
-  },
-  {
-    name: "Git Commands Cheat Sheet",
-    slug: "/guide-git-commands",
-    emoji: "📚",
-    desc: "Comprehensive guide to essential Git commands. Init, clone, branch, merge, rebase, stash, log. Free, works offline.",
-    badge: "LIVE",
-  },
-  {
-    name: "HTTP Headers Guide",
-    slug: "/guide-http-headers",
-    emoji: "📡",
-    desc: "Complete guide to HTTP request and response headers. Interactive examples for security, caching, CORS, and authentication.",
-    badge: "LIVE",
-  },
-  {
-    name: "CSS Selectors Reference",
-    slug: "/guide-css-selectors",
-    emoji: "🎯",
-    desc: "Comprehensive cheat sheet for CSS selectors including combinators, attributes, pseudo-classes, and pseudo-elements.",
-    badge: "LIVE",
-  },
-  {
-    name: "SQL Quick Reference",
-    slug: "/guide-sql-basics",
-    emoji: "🗄️",
-    desc: "Developer cheat sheet for SQL. Covers SELECT, JOINs, GROUP BY, subqueries, and window functions with PostgreSQL and MySQL examples.",
-    badge: "LIVE",
-  },
-  {
-    name: "Vim Cheat Sheet",
-    slug: "/guide-vim",
-    emoji: "⌨️",
-    desc: "Comprehensive Vim reference guide. Modes, navigation, editing, search, and macros with interactive practice mode.",
-    badge: "LIVE",
-  },
-  {
-    name: "Open Source License Picker",
-    slug: "/license-picker",
-    emoji: "⚖️",
-    desc: "Compare open source licenses side by side. Permissions, conditions, limitations. Generate a LICENSE file for your project.",
-    badge: "LIVE",
-  },
-  {
-    name: "HTML Elements Reference",
-    slug: "/guide-html-elements",
-    emoji: "📚",
-    desc: "Complete HTML5 element reference with descriptions, attributes, and usage examples. Semantic, form, and media elements.",
-    badge: "LIVE",
-  },
-  {
-    name: "Docker Commands Cheat Sheet",
-    slug: "/guide-docker",
-    emoji: "🐳",
-    desc: "Docker CLI reference: build, run, exec, logs, compose. Common Dockerfile patterns and best practices.",
-    badge: "LIVE",
-  },
-  {
-    name: "Markdown Syntax Guide",
-    slug: "/guide-markdown",
-    emoji: "📝",
-    desc: "Complete Markdown syntax reference. Basic formatting, tables, code blocks, task lists, and footnotes.",
-    badge: "LIVE",
-  },
-  {
-    name: "Essential VS Code Extensions",
-    slug: "/list-vscode-extensions",
-    emoji: "📋",
-    desc: "Top VS Code extensions for web development. Categories: productivity, formatting, git, themes, and debugging.",
-    badge: "LIVE",
-  },
-  {
-    name: "cURL Commands Guide",
-    slug: "/guide-curl",
-    emoji: "📚",
-    desc: "cURL command reference: GET, POST, headers, auth, cookies, file upload. Common API testing patterns.",
-    badge: "LIVE",
-  },
-  {
-    name: "Best Monospace Fonts for Coding",
-    slug: "/list-monospace-fonts",
-    emoji: "📋",
-    desc: "Curated list of the best monospace fonts for programming. Visual comparison, ligature support, free vs paid. Download links.",
-    badge: "LIVE",
-  },
-  {
-    name: "CSS Frameworks Compared",
-    slug: "/list-css-frameworks",
-    emoji: "📋",
-    desc: "Comparison of CSS frameworks: Tailwind, Bootstrap, Bulma, Foundation. Bundle size, customization, learning curve.",
-    badge: "LIVE",
-  },
-  {
-    name: "Best Free Static Hosting",
-    slug: "/list-static-hosting",
-    emoji: "📋",
-    desc: "Compare free static site hosting: GitHub Pages, Netlify, Vercel, Cloudflare Pages, Surge. Limits and features.",
-    badge: "LIVE",
-  },
-  {
-    name: "Best Free Icon Sets",
-    slug: "/list-icon-sets",
-    emoji: "📋",
-    desc: "Top free icon libraries: Lucide, Heroicons, Phosphor, Tabler, Feather. Style comparison, CDN links, React/Vue support.",
-    badge: "LIVE",
-  },
-  {
-    name: "Best Static Site Generators",
-    slug: "/list-ssg",
-    emoji: "📋",
-    desc: "Compare SSGs: Astro, Hugo, Eleventy, Next.js, Gatsby. Build speed, ecosystem, learning curve, use cases.",
-    badge: "LIVE",
-  },
-  {
-    name: "Best Free API Testing Tools",
-    slug: "/list-api-testing",
-    emoji: "📋",
-    desc: "Comparison of free API testing tools: Postman, Insomnia, Hoppscotch, Thunder Client, curl. Features and use cases.",
-    badge: "LIVE",
-  },
-  {
-    name: "Best Color Tools for Designers",
-    slug: "/list-color-tools",
-    emoji: "📋",
-    desc: "Curated color tools: palette generators, contrast checkers, gradient makers, color pickers. Free and open source.",
-    badge: "LIVE",
-  },
-  {
-    name: ".htaccess Generator",
-    slug: "/htaccess-generator",
-    emoji: "⚙️",
-    desc: "Generate Apache .htaccess rules: redirects, HTTPS forcing, caching, CORS headers, and more.",
-    badge: "LIVE",
-  },
-  {
-    name: "Font Size Converter",
-    slug: "/font-size-converter",
-    emoji: "🔤",
-    desc: "Convert between px, rem, em, pt, and vw units. Custom base size with visual scale preview.",
-    badge: "LIVE",
-  },
-  {
-    name: "Tailwind CSS Converter",
-    slug: "/tailwind-converter",
-    emoji: "🎨",
-    desc: "Convert vanilla CSS to Tailwind utility classes and back. Paste CSS, get Tailwind.",
-    badge: "LIVE",
-  },
-  {
-    name: "CORS Tester",
-    slug: "/cors-tester",
-    emoji: "🌐",
-    desc: "Test CORS headers on any URL. Check preflight responses, allowed origins, methods, and headers.",
-    badge: "LIVE",
-  },
-  {
-    name: "Recursive chmod Generator",
-    slug: "/chmod-recursive",
-    emoji: "📂",
-    desc: "Generate recursive chmod and chown commands for directories and files. Visual permission builder.",
-    badge: "LIVE",
-  },
-  {
-    name: "SVG Optimizer",
-    slug: "/svg-optimizer",
-    emoji: "✨",
-    desc: "Optimize SVG files by removing metadata, comments, and redundant attributes. Shows size savings.",
-    badge: "LIVE",
-  },
-  {
-    name: "Image to Base64",
-    slug: "/image-to-base64",
-    emoji: "🖼️",
-    desc: "Convert images to Base64 data URIs. Drag and drop support with instant preview and copy.",
-    badge: "LIVE",
-  },
-  {
-    name: "Aspect Ratio Calculator",
-    slug: "/aspect-ratio-calc",
-    emoji: "📐",
-    desc: "Calculate and convert aspect ratios for images, video, and responsive design. Common presets included.",
-    badge: "LIVE",
-  },
-  {
-    name: "Em Calculator",
-    slug: "/em-calculator",
-    emoji: "🔢",
-    desc: "Convert between em, rem, and px values. Set parent and root font sizes for accurate calculations.",
-    badge: "LIVE",
-  },
-  {
-    name: "OG Image Preview",
-    slug: "/og-image-preview",
-    emoji: "🖼️",
-    desc: "Preview and validate Open Graph images for social sharing. Check dimensions, aspect ratio, and rendering.",
-    badge: "LIVE",
-  },
+// Studies (specific files matching criteria + overrides)
+const studies = [
+  {
+    emoji: "📊",
+    title: "API Response Time Benchmark 2026",
+    name: "API Response Time Benchmark 2026",
+    slug: "/api-response-times",
+    desc: "We measured the response times of 30 popular public APIs. Hacker News was the fastest at 18ms, while the overall average was 172ms.",
+    stat: "18ms",
+    statLabel: "Fastest API Avg",
+    tag: "ORIGINAL RESEARCH"
+  },
+  {
+    emoji: "🔬",
+    name: "Cloud Hosting Price Comparison 2026: AWS vs Vercel vs Netlify vs Cloudflare",
+    slug: "/hosting-pricing",
+    desc: "We analyzed the pricing models of major cloud hosting platforms for static sites and serverless. Cloudflare leads in free bandwidth while Render excels in paid tier value.",
+    stat: "10",
+    statLabel: "Platforms Analyzed",
+    tag: "ORIGINAL RESEARCH"
+  },
+  { emoji: "🔒", name: "HTTP Security Headers Study 2026", slug: "/security-headers-study", desc: "85 top websites analyzed for 10 critical HTTP security headers", stat: "Only 13%", statLabel: "score an A grade" },
+  { emoji: "🎨", name: "CSS Framework File Size Comparison", slug: "/css-framework-sizes", desc: "30 frameworks measured — Bootstrap to Bulma file size analysis", stat: "30", statLabel: "frameworks compared" },
+  { emoji: "⚖️", name: "Web Page Weight Study 2026", slug: "/page-weight-study", desc: "Full resource breakdown of 100 top websites", stat: "2.2 MB", statLabel: "average page weight" },
+  { emoji: "📦", name: "JavaScript Framework Bundle Size Comparison 2026", slug: "/js-framework-sizes", stat: "7.42KB", statLabel: "Smallest Core", desc: "Analyzed 8 modern JavaScript frameworks. Compared minified sizes, GitHub stars, and npm downloads." }
+];
+
+// Guides (files starting with "guide-")
+const guides = [
+  { emoji: "📚", name: "Git Commands Cheat Sheet", slug: "/guide-git-commands", desc: "Essential Git commands: init, clone, branch, merge, rebase" },
+  { emoji: "📡", name: "HTTP Headers Guide", slug: "/guide-http-headers", desc: "Complete guide to HTTP headers with security examples" },
+  { emoji: "🎯", name: "CSS Selectors Reference", slug: "/guide-css-selectors", desc: "Comprehensive CSS selector cheat sheet" },
+  { emoji: "🗄️", name: "SQL Quick Reference", slug: "/guide-sql-basics", desc: "SQL cheat sheet: SELECT, JOINs, GROUP BY, subqueries" },
+  { emoji: "⌨️", name: "Vim Cheat Sheet", slug: "/guide-vim", desc: "Vim reference: modes, navigation, editing, search" },
+  { emoji: "📚", name: "HTML Elements Reference", slug: "/guide-html-elements", desc: "Complete HTML5 element reference with examples" },
+  { emoji: "🐳", name: "Docker Commands Guide", slug: "/guide-docker", desc: "Docker CLI reference with Dockerfile patterns" },
+  { emoji: "📝", name: "Markdown Syntax Guide", slug: "/guide-markdown", desc: "Complete Markdown reference with tables & code blocks" },
+  { emoji: "📚", name: "cURL Commands Guide", slug: "/guide-curl", desc: "cURL reference: GET, POST, headers, auth, file upload" },
+  { emoji: "⌨️", name: "Terminal Commands Guide", slug: "/guide-terminal", desc: "Essential terminal commands for developers" },
+  { emoji: "🤖", name: "Prompting Jules Guide", slug: "/guide-prompting-jules", desc: "How to effectively prompt Google's Jules AI coding agent" }
+];
+
+// Lists (files starting with "list-")
+const lists = [
+  { emoji: "📋", name: "VS Code Extensions", slug: "/list-vscode-extensions", desc: "Top VS Code extensions for web development" },
+  { emoji: "📋", name: "Monospace Fonts for Coding", slug: "/list-monospace-fonts", desc: "Best coding fonts with ligature support" },
+  { emoji: "📋", name: "CSS Frameworks Compared", slug: "/list-css-frameworks", desc: "Tailwind, Bootstrap, Bulma comparison" },
+  { emoji: "📋", name: "Free Static Hosting", slug: "/list-static-hosting", desc: "GitHub Pages, Netlify, Vercel, Cloudflare Pages" },
+  { emoji: "📋", name: "Free Icon Sets", slug: "/list-icon-sets", desc: "Lucide, Heroicons, Phosphor, Tabler icon libraries" },
+  { emoji: "📋", name: "Static Site Generators", slug: "/list-ssg", desc: "Astro, Hugo, Eleventy, Next.js comparison" },
+  { emoji: "📋", name: "API Testing Tools", slug: "/list-api-testing", desc: "Postman, Insomnia, Hoppscotch comparison" },
+  { emoji: "📋", name: "Color Tools for Designers", slug: "/list-color-tools", desc: "Palette generators, contrast checkers, gradient makers" }
 ];
 ---
 <html lang="en">
 <head>
-  <BaseHead
-    title="Silicon Based — Developer Tools & Digital Utilities"
-    description="Free developer tools, digital marketing utilities, creator analytics, and e-commerce calculators. Built for devs who ship fast."
-    ogTitle="Silicon Based — Dev Tools That Don't Suck"
-    ogDescription="Free developer tools and digital utilities. JSON, JWT, regex, cron, colors, timestamps and more."
-  />
+  <BaseHead />
+  <title>siliconbased.dev — Developer Tools & Research</title>
+  <meta name="description" content="Free developer tools and original research. JSON, JWT, regex, cron, colors, timestamps, security studies, and performance analysis." />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; background: #0a0b10; color: #e0e0e0; }
-    .hero {
-      text-align: center;
-      padding: 100px 24px 80px;
-      background: linear-gradient(180deg, #0f1729 0%, #0a0b10 100%);
-      position: relative;
-      overflow: hidden;
+    body { 
+      font-family: 'Inter', -apple-system, sans-serif; 
+      background: #060a12; 
+      color: #c8d0de; 
+      line-height: 1.6;
     }
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 40% 30%, rgba(99,102,241,0.06) 0%, transparent 60%);
+
+    /* Hero */
+    .hero { 
+      text-align: center; 
+      padding: 100px 24px 70px; 
+      background: linear-gradient(180deg, #0f1729 0%, #060a12 100%); 
+      position: relative; 
+    }
+    .hero::before { 
+      content: ''; 
+      position: absolute; 
+      inset: 0; 
+      background: radial-gradient(circle at 40% 30%, rgba(129,140,248,0.06) 0%, transparent 60%); 
     }
     .hero-content { position: relative; z-index: 1; }
-    .hero h1 {
-      font-size: 3.2rem;
-      font-weight: 900;
-      letter-spacing: -1.5px;
-      margin-bottom: 12px;
+    .hero .tagline { 
+      color: #818cf8; 
+      font-size: 0.85rem; 
+      font-weight: 700; 
+      letter-spacing: 3px; 
+      text-transform: uppercase; 
+      margin-bottom: 16px; 
+    }
+    .hero h1 { 
+      font-size: 3rem; 
+      font-weight: 900; 
+      letter-spacing: -1.5px; 
+      margin-bottom: 20px; 
       background: linear-gradient(135deg, #fff 0%, #818cf8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .hero p { color: #666; font-size: 1.05rem; max-width: 480px; margin: 0 auto; }
-
-    .grid {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 24px 100px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-      gap: 16px;
+    .hero p { 
+      color: #5a6a80; 
+      font-size: 1.05rem; 
+      max-width: 520px; 
+      margin: 0 auto; 
     }
-    .tool-card {
-      background: #111318;
-      border: 2px solid #1e2030;
-      border-radius: 16px;
-      padding: 32px 28px;
+
+    /* Sections */
+    .section-container { 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      padding: 60px 24px; 
+    }
+    .section-header { 
+      text-align: center; 
+      margin-bottom: 40px; 
+    }
+    .section-tag { 
+      display: inline-block; 
+      background: rgba(129,140,248,0.1); 
+      color: #818cf8; 
+      font-size: 0.7rem; 
+      font-weight: 800; 
+      padding: 6px 16px; 
+      border-radius: 20px; 
+      letter-spacing: 1px; 
+      margin-bottom: 12px; 
+    }
+    .section-title { 
+      font-size: 2.2rem; 
+      font-weight: 900; 
+      color: #fff; 
+      margin-bottom: 8px; 
+      letter-spacing: -0.8px; 
+    }
+    .section-sub { 
+      color: #5a6a80; 
+      font-size: 1rem; 
+    }
+    .view-all {
+      display: inline-block;
+      margin-top: 12px;
+      color: #818cf8;
+      font-size: 0.85rem;
+      font-weight: 600;
       text-decoration: none;
-      color: inherit;
-      display: block;
-      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-      position: relative;
+      transition: color 0.15s;
     }
-    .tool-card:hover { border-color: #818cf8; transform: translateY(-3px); box-shadow: 0 8px 30px rgba(99,102,241,0.1); }
-    .tool-card .badge {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      background: #818cf8;
-      color: #0a0b10;
-      font-size: 0.65rem;
-      font-weight: 800;
-      padding: 3px 10px;
-      border-radius: 20px;
-      letter-spacing: 0.5px;
-    }
-    .tool-card .badge.live {
-      background: #34d399;
-    }
-    .tool-card .emoji { font-size: 2.2rem; margin-bottom: 14px; display: block; }
-    .tool-card h2 { font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 8px; }
-    .tool-card p { font-size: 0.88rem; color: #888; line-height: 1.6; }
-    .tool-card .arrow { color: #818cf8; font-size: 0.85rem; margin-top: 14px; display: inline-block; font-weight: 600; }
+    .view-all:hover { color: #a5b4fc; }
 
-    /* Section layout */
-    .section-container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
-    .section-header { text-align: center; margin-bottom: 32px; padding-top: 20px; }
-    .section-tag { display: inline-block; background: #1a1b2e; color: #818cf8; font-size: 0.7rem; font-weight: 800; padding: 4px 14px; border-radius: 20px; letter-spacing: 1px; margin-bottom: 12px; }
-    .section-title { font-size: 1.8rem; font-weight: 900; color: #fff; margin-bottom: 6px; letter-spacing: -0.5px; }
-    .section-desc { color: #555; font-size: 0.92rem; }
+    /* Tools Grid */
+    .tools-grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+      gap: 16px; 
+    }
+    .tool-card { 
+      background: #111318; 
+      border: 1px solid #1e2030; 
+      border-radius: 12px; 
+      padding: 20px; 
+      text-decoration: none; 
+      color: inherit; 
+      display: block; 
+      transition: all 0.2s ease; 
+    }
+    .tool-card:hover { 
+      border-color: #818cf8; 
+      transform: translateY(-2px); 
+    }
+    .tool-emoji { 
+      font-size: 1.4rem; 
+      margin-bottom: 8px; 
+      display: block; 
+    }
+    .tool-name { 
+      font-size: 0.95rem; 
+      font-weight: 700; 
+      color: #e0e8f0; 
+      margin-bottom: 6px; 
+    }
+    .tool-desc { 
+      font-size: 0.8rem; 
+      color: #6a7a90; 
+      line-height: 1.4; 
+    }
 
-    /* Studies */
-    .studies-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 20px; margin-bottom: 60px; }
-    .study-card { background: linear-gradient(135deg, #111318 0%, #0e1020 100%); border: 2px solid #1e2030; border-radius: 20px; padding: 32px 28px; text-decoration: none; color: inherit; display: block; transition: border-color 0.3s, transform 0.2s; position: relative; overflow: hidden; }
-    .study-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #818cf8, #6366f1); opacity: 0; transition: opacity 0.3s; }
-    .study-card:hover { border-color: #818cf8; transform: translateY(-3px); }
+    /* Studies Grid */
+    .studies-grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+      gap: 24px; 
+    }
+    .study-card { 
+      background: linear-gradient(135deg, #0a1020 0%, #0d1428 100%); 
+      border: 1px solid #1a2332; 
+      border-radius: 16px; 
+      padding: 28px 24px; 
+      text-decoration: none; 
+      color: inherit; 
+      display: block; 
+      transition: all 0.3s ease; 
+      position: relative; 
+      overflow: hidden; 
+    }
+    .study-card::before { 
+      content: ''; 
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      right: 0; 
+      height: 2px; 
+      background: linear-gradient(90deg, #818cf8, #6366f1); 
+      opacity: 0; 
+      transition: opacity 0.3s; 
+    }
+    .study-card:hover { 
+      border-color: #818cf8; 
+      transform: translateY(-3px); 
+      box-shadow: 0 12px 40px rgba(129,140,248,0.15); 
+    }
     .study-card:hover::before { opacity: 1; }
-    .study-tag { display: inline-block; background: rgba(129,140,248,0.12); color: #818cf8; font-size: 0.6rem; font-weight: 800; padding: 3px 10px; border-radius: 12px; letter-spacing: 0.8px; margin-bottom: 16px; }
-    .study-stat { margin-bottom: 16px; }
-    .stat-number { display: block; font-size: 2.4rem; font-weight: 900; color: #818cf8; line-height: 1; letter-spacing: -1px; }
-    .stat-label { display: block; font-size: 0.82rem; color: #666; margin-top: 4px; }
-    .study-title { font-size: 1.15rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
-    .study-subtitle { font-size: 0.8rem; color: #818cf8; margin-bottom: 10px; font-weight: 600; }
-    .study-desc { font-size: 0.85rem; color: #777; line-height: 1.6; margin-bottom: 16px; }
-    .study-cta { color: #818cf8; font-size: 0.85rem; font-weight: 700; }
+    
+    .study-emoji { 
+      font-size: 1.6rem; 
+      margin-bottom: 12px; 
+      display: block; 
+    }
+    .study-stat { 
+      margin-bottom: 16px; 
+    }
+    .stat-number { 
+      display: block; 
+      font-size: 2rem; 
+      font-weight: 900; 
+      color: #818cf8; 
+      line-height: 1; 
+      letter-spacing: -1px; 
+    }
+    .stat-label { 
+      display: block; 
+      font-size: 0.75rem; 
+      color: #5a6a80; 
+      margin-top: 4px; 
+    }
+    .study-name { 
+      font-size: 1rem; 
+      font-weight: 800; 
+      color: #e0e8f0; 
+      margin-bottom: 8px; 
+      line-height: 1.3; 
+    }
+    .study-desc { 
+      font-size: 0.85rem; 
+      color: #6a7a90; 
+      line-height: 1.4; 
+    }
 
-    /* Tools grid */
-    .grid { margin-bottom: 60px; }
+    /* Guides & Lists Grid */
+    .guides-grid, .lists-grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+      gap: 20px; 
+    }
+    .guide-card, .list-card { 
+      background: #0f1419; 
+      border: 1px solid #1a2028; 
+      border-radius: 14px; 
+      padding: 24px 20px; 
+      text-decoration: none; 
+      color: inherit; 
+      display: block; 
+      transition: all 0.2s ease; 
+    }
+    .guide-card:hover, .list-card:hover { 
+      border-color: #818cf8; 
+      transform: translateY(-2px); 
+    }
+    .guide-emoji, .list-emoji { 
+      font-size: 1.5rem; 
+      margin-bottom: 10px; 
+      display: block; 
+    }
+    .guide-name, .list-name { 
+      font-size: 1rem; 
+      font-weight: 700; 
+      color: #e0e8f0; 
+      margin-bottom: 6px; 
+    }
+    .guide-desc, .list-desc { 
+      font-size: 0.85rem; 
+      color: #6a7a90; 
+      line-height: 1.4; 
+    }
 
-    .footer { text-align: center; padding: 40px 24px; font-size: 0.78rem; color: #333; border-top: 1px solid #151520; }
-    .footer a { color: #818cf8; text-decoration: none; }
+    /* Footer */
+    .footer { 
+      text-align: center; 
+      padding: 50px 24px; 
+      font-size: 0.85rem; 
+      color: #3a4a5a; 
+      border-top: 1px solid #151f2e; 
+      background: #040810; 
+    }
+    .footer a { 
+      color: #818cf8; 
+      text-decoration: none; 
+    }
+    .footer a:hover { 
+      text-decoration: underline; 
+    }
 
-    @media (max-width: 600px) {
+    /* Responsive */
+    @media (max-width: 768px) {
       .hero h1 { font-size: 2.2rem; }
       .hero { padding: 70px 20px 50px; }
-      .grid { grid-template-columns: 1fr; padding: 0 16px 60px; }
-      .studies-grid { grid-template-columns: 1fr; }
-      .stat-number { font-size: 2rem; }
+      .section-container { padding: 40px 20px; }
+      .tools-grid { grid-template-columns: 1fr; }
+      .studies-grid, .guides-grid, .lists-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-<div class="hero">
-  <div class="hero-content">
-    <h1>silicon based</h1>
-    <p>Free developer tools that don't suck. Built for devs who ship fast.</p>
+  <Nav />
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-content">
+      <div class="tagline">Developer Tools & Research</div>
+      <h1>siliconbased.dev</h1>
+      <p>Free developer tools and original research. JSON, JWT, regex, cron, colors, timestamps, security studies, and performance analysis.</p>
+    </div>
   </div>
-</div>
-<div class="section-container">
-  <div class="section-header">
-    <span class="section-tag">🔬 ORIGINAL RESEARCH</span>
-    <h2 class="section-title">Featured Studies</h2>
-    <p class="section-desc">Real data nobody else has packaged. Crawled, measured, and analyzed by us.</p>
-  </div>
-  <div class="studies-grid">
-    {studies.map(s => (
-      <a class="study-card" href={s.slug}>
-        <span class="study-tag">{s.tag}</span>
-        <div class="study-stat">
-          <span class="stat-number">{s.stat}</span>
-          <span class="stat-label">{s.statLabel}</span>
-        </div>
-        <h3 class="study-title">{s.title}</h3>
-        <p class="study-subtitle">{s.subtitle}</p>
-        <p class="study-desc">{s.desc}</p>
-        <span class="study-cta">Read the study →</span>
-      </a>
-    ))}
-  </div>
-</div>
 
-<div class="section-container">
-  <div class="section-header">
-    <span class="section-tag">🛠️ TOOLS</span>
-    <h2 class="section-title">Developer Tools</h2>
-    <p class="section-desc">Free, client-side, no signup. Built for devs who ship fast.</p>
+  <!-- Tools Section -->
+  {tools.length > 0 && (
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-tag">🛠️ TOOLS</span>
+        <h2 class="section-title">Developer Tools</h2>
+        <p class="section-sub">Free, client-side, no signup. Built for devs who ship fast.</p>
+        <a href="/tools/" class="view-all">View all {tools.length} tools →</a>
+      </div>
+      <div class="tools-grid">
+        {tools.map(tool => (
+          <a class="tool-card" href={tool.slug}>
+            <span class="tool-emoji">{tool.emoji}</span>
+            <h3 class="tool-name">{tool.name}</h3>
+            <p class="tool-desc">{tool.desc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <!-- Studies Section -->
+  {studies.length > 0 && (
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-tag">🔬 RESEARCH</span>
+        <h2 class="section-title">Original Studies</h2>
+        <p class="section-sub">Real data nobody else has packaged. Crawled, measured, analyzed.</p>
+        <a href="/studies/" class="view-all">View all {studies.length} studies →</a>
+      </div>
+      <div class="studies-grid">
+        {studies.map(study => (
+          <a class="study-card" href={study.slug}>
+            <span class="study-emoji">{study.emoji}</span>
+            <div class="study-stat">
+              <span class="stat-number">{study.stat}</span>
+              <span class="stat-label">{study.statLabel}</span>
+            </div>
+            <h3 class="study-name">{study.name}</h3>
+            <p class="study-desc">{study.desc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <!-- Guides Section -->
+  {guides.length > 0 && (
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-tag">📚 GUIDES</span>
+        <h2 class="section-title">Developer Guides</h2>
+        <p class="section-sub">Cheat sheets and references for common dev tasks.</p>
+        <a href="/guides/" class="view-all">View all {guides.length} guides →</a>
+      </div>
+      <div class="guides-grid">
+        {guides.map(guide => (
+          <a class="guide-card" href={guide.slug}>
+            <span class="guide-emoji">{guide.emoji}</span>
+            <h3 class="guide-name">{guide.name}</h3>
+            <p class="guide-desc">{guide.desc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <!-- Lists Section -->
+  {lists.length > 0 && (
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-tag">📋 LISTS</span>
+        <h2 class="section-title">Curated Lists</h2>
+        <p class="section-sub">Best tools, libraries, and resources for developers.</p>
+        <a href="/lists/" class="view-all">View all {lists.length} lists →</a>
+      </div>
+      <div class="lists-grid">
+        {lists.map(list => (
+          <a class="list-card" href={list.slug}>
+            <span class="list-emoji">{list.emoji}</span>
+            <h3 class="list-name">{list.name}</h3>
+            <p class="list-desc">{list.desc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <!-- Footer -->
+  <div class="footer">
+    © 2026 <a href="/">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
   </div>
-  <div class="grid">
-    {tools.map(tool => (
-      <a class="tool-card" href={tool.slug}>
-        {tool.badge && <span class={`badge ${tool.badge === 'LIVE' ? 'live' : ''}`}>{tool.badge}</span>}
-        <span class="emoji">{tool.emoji}</span>
-        <h2>{tool.name}</h2>
-        <p>{tool.desc}</p>
-        <span class="arrow">Try it →</span>
-      </a>
-    ))}
-  </div>
-</div>
-<div class="footer">
-  © 2025 <a href="https://siliconbased.dev">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property
-</div>
 </body>
 </html>

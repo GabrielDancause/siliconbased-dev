@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G86C7NJG3F"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-G86C7NJG3F');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Developer Guides & Cheat Sheets | siliconbased.dev</title>
+<meta name="description" content="Developer guides, cheat sheets, and references. Git, Docker, SQL, Vim, cURL, terminal commands, and more.">
+<link rel="canonical" href="https://siliconbased.dev/guides/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',-apple-system,sans-serif;background:#060a12;color:#c8d0de;line-height:1.6}
+.hero{text-align:center;padding:80px 24px 50px;background:linear-gradient(180deg,#0f1729,#060a12);position:relative}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 40% 30%,rgba(129,140,248,0.06),transparent 60%)}
+.hero-content{position:relative;z-index:1}
+.hero .tag{display:inline-block;background:rgba(129,140,248,0.1);color:#818cf8;font-size:0.7rem;font-weight:800;padding:6px 16px;border-radius:20px;letter-spacing:1px;margin-bottom:12px}
+.hero h1{font-size:2.6rem;font-weight:900;letter-spacing:-1px;margin-bottom:12px;background:linear-gradient(135deg,#fff,#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:#5a6a80;font-size:1rem;max-width:500px;margin:0 auto 24px}
+.search-box{max-width:480px;margin:0 auto}
+.search-box input{width:100%;padding:12px 20px;background:#111318;border:1px solid #1e2030;border-radius:10px;color:#e0e8f0;font-size:0.95rem;font-family:'Inter',sans-serif;outline:none;transition:border-color 0.2s}
+.search-box input:focus{border-color:#818cf8}
+.search-box input::placeholder{color:#4a5568}
+.container{max-width:1200px;margin:0 auto;padding:40px 24px 80px}
+.count{text-align:center;color:#5a6a80;font-size:0.85rem;margin-bottom:32px}.count span{color:#818cf8;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.card{background:#0f1419;border:1px solid #1a2028;border-radius:14px;padding:24px 20px;text-decoration:none;color:inherit;display:block;transition:all 0.2s}
+.card:hover{border-color:#818cf8;transform:translateY(-2px)}
+.card-emoji{font-size:1.5rem;margin-bottom:10px;display:block}
+.card-name{font-size:1rem;font-weight:700;color:#e0e8f0;margin-bottom:6px}
+.card-desc{font-size:0.85rem;color:#6a7a90;line-height:1.4}
+.card.hidden{display:none}
+.footer{text-align:center;padding:50px 24px;font-size:0.85rem;color:#3a4a5a;border-top:1px solid #151f2e;background:#040810}
+.footer a{color:#818cf8;text-decoration:none}
+@media(max-width:768px){.hero h1{font-size:2rem}.hero{padding:60px 20px 40px}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<script src="/nav.js"></script>
+<div class="hero">
+  <div class="hero-content">
+    <span class="tag">📚 GUIDES</span>
+    <h1>Developer Guides</h1>
+    <p>Cheat sheets and references for common dev tasks.</p>
+    <div class="search-box">
+      <input type="text" id="search" placeholder="Search guides..." autocomplete="off">
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="count"><span id="shown">0</span> guides</div>
+  <div class="grid" id="grid"></div>
+</div>
+<div class="footer">© 2026 <a href="/">siliconbased.dev</a> · A <a href="https://gab.ae">GAB Ventures</a> property</div>
+<script>
+const guides = [
+  { emoji: "📚", name: "Git Commands Cheat Sheet", slug: "/guide-git-commands", desc: "Essential Git commands: init, clone, branch, merge, rebase" },
+  { emoji: "📡", name: "HTTP Headers Guide", slug: "/guide-http-headers", desc: "Complete guide to HTTP headers with security examples" },
+  { emoji: "🎯", name: "CSS Selectors Reference", slug: "/guide-css-selectors", desc: "Comprehensive CSS selector cheat sheet" },
+  { emoji: "🗄️", name: "SQL Quick Reference", slug: "/guide-sql-basics", desc: "SQL cheat sheet: SELECT, JOINs, GROUP BY, subqueries" },
+  { emoji: "⌨️", name: "Vim Cheat Sheet", slug: "/guide-vim", desc: "Vim reference: modes, navigation, editing, search" },
+  { emoji: "📚", name: "HTML Elements Reference", slug: "/guide-html-elements", desc: "Complete HTML5 element reference with examples" },
+  { emoji: "🐳", name: "Docker Commands Guide", slug: "/guide-docker", desc: "Docker CLI reference with Dockerfile patterns" },
+  { emoji: "📝", name: "Markdown Syntax Guide", slug: "/guide-markdown", desc: "Complete Markdown reference with tables & code blocks" },
+  { emoji: "📚", name: "cURL Commands Guide", slug: "/guide-curl", desc: "cURL reference: GET, POST, headers, auth, file upload" },
+  { emoji: "⌨️", name: "Terminal Commands Guide", slug: "/guide-terminal", desc: "Essential terminal commands for developers" },
+  { emoji: "🤖", name: "Prompting Jules Guide", slug: "/guide-prompting-jules", desc: "How to effectively prompt Google's Jules AI coding agent" }
+];
+
+const grid = document.getElementById('grid');
+const search = document.getElementById('search');
+const shown = document.getElementById('shown');
+
+function render(filter) {
+  const q = (filter || '').toLowerCase();
+  let count = 0;
+  grid.innerHTML = '';
+  guides.forEach(g => {
+    if (q && !g.name.toLowerCase().includes(q) && !g.desc.toLowerCase().includes(q)) return;
+    count++;
+    const a = document.createElement('a');
+    a.className = 'card';
+    a.href = g.slug;
+    a.innerHTML = `<span class="card-emoji">${g.emoji}</span><h3 class="card-name">${g.name}</h3><p class="card-desc">${g.desc}</p>`;
+    grid.appendChild(a);
+  });
+  shown.textContent = count;
+}
+
+search.addEventListener('input', e => render(e.target.value));
+render('');
+</script>
+</body>
+</html>

@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G86C7NJG3F"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-G86C7NJG3F');</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Meta Description: Curiosity Gap -->
+    <meta name="description" content="Did you know 63% of APIs use the wrong auth method? Learn the exact differences between API Keys, OAuth 2.0, Bearer Tokens, and JWT—and discover which one you should actually be using.">
+
+    <title>API Authentication Guide: API Keys, OAuth 2.0, JWT & Bearer Tokens</title>
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://siliconbased.dev/guide-api-authentication.html">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #060a12;
+            --card-bg: #0a1020;
+            --border-color: #152040;
+            --accent-color: #818cf8;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --code-bg: #030712;
+            --font-body: 'Inter', sans-serif;
+            --font-code: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Sticky Nav styles moved inline as requested */
+
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: #fff;
+            letter-spacing: -0.03em;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            color: var(--accent-color);
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+            color: var(--text-muted);
+        }
+
+        ul, ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: rgba(129, 140, 248, 0.1);
+            color: var(--accent-color);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        code {
+            font-family: var(--font-code);
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-size: 0.85em;
+            color: #e2e8f0;
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            border: 1px solid var(--border-color);
+            padding: 1.25rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: #a5b4fc;
+            font-size: 0.9em;
+        }
+
+        .code-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .code-tab {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+        }
+
+        .code-tab.active {
+            color: var(--accent-color);
+            border-bottom-color: var(--accent-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .pre-container {
+            border-top-left-radius: 0;
+            margin-top: 0;
+            border-top: none;
+        }
+
+        .decision-tree {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .tree-node {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .tree-node strong {
+            color: #fff;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-q {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-a {
+            color: var(--text-muted);
+            margin-bottom: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        td {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .warning-box {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid #ef4444;
+            padding: 1rem;
+            border-radius: 0 4px 4px 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .warning-box strong {
+            color: #fca5a5;
+        }
+
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .nav-links { display: none; }
+            nav { justify-content: center; }
+        }
+    </style>
+
+    <!-- JSON-LD Article -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "API Authentication Guide: API Keys, OAuth 2.0, JWT & Bearer Tokens",
+      "description": "Learn the exact differences between API Keys, OAuth 2.0, Bearer Tokens, and JWT, and discover which api authentication methods you should use.",
+      "datePublished": "2026-03-10",
+      "author": {
+        "@type": "Organization",
+        "name": "siliconbased.dev"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "siliconbased.dev",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://siliconbased.dev/favicon.ico"
+        }
+      }
+    }
+    </script>
+
+    <!-- JSON-LD FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What are the most common API authentication methods?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The most common API authentication methods include Basic Authentication (username/password), API Keys (a single static token), Bearer Tokens (dynamic tokens passed in the Authorization header), OAuth 2.0 (a delegated authorization framework), and JWT (JSON Web Tokens, a specific stateless token format often used as a Bearer token)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is OAuth 2.0 explained simply?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "OAuth 2.0 is like a hotel keycard system. Instead of giving a valet your car keys (your actual password), you give them a temporary, limited-access pass (an access token). It allows third-party applications to access a user's data without ever seeing their actual password, by having the user log in directly with the provider (like Google or GitHub) who then issues the token."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between an API key vs bearer token?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "An API key is typically a long-lived, static string used to identify the project or developer making the request, often passed in a URL parameter or custom header. A Bearer token is usually short-lived, dynamic (often generated upon login via OAuth or a similar flow), identifies a specific user, and is strictly passed in the HTTP 'Authorization: Bearer <token>' header."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How to authenticate API requests securely?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "To authenticate API requests securely, always use HTTPS to encrypt traffic. Avoid placing tokens or API keys in the URL (query parameters) where they can be logged. Instead, use standard HTTP headers like 'Authorization'. For machine-to-machine communication, use API keys or Client Credentials. For user-facing apps, use OAuth 2.0 or JWT-based Bearer tokens, and implement token expiration and rotation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When should I use JWT over session cookies for APIs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use JWTs when building stateless APIs, mobile applications, or microservices where you don't want to look up a session in a database on every request. Because JWTs contain their own claims and signature, the server can verify them instantly. Use session cookies for traditional monolithic server-side rendered web applications where you need strict control over invalidating sessions instantly."
+          }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+
+    <nav style="position: sticky; top: 0; z-index: 1000; background-color: rgba(6, 10, 18, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid #152040; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center;">
+        <a href="/" style="color: #e2e8f0; text-decoration: none; font-weight: 700; font-size: 1.2rem; letter-spacing: -0.02em;">siliconbased.dev</a>
+        <div style="display: flex; gap: 1.5rem;" class="nav-links">
+            <a href="/#studies" style="color: #94a3b8; text-decoration: none; font-size: 0.95rem; transition: color 0.2s; font-weight: 500;" onmouseover="this.style.color='#818cf8'" onmouseout="this.style.color='#94a3b8'">Studies</a>
+            <a href="/#tools" style="color: #94a3b8; text-decoration: none; font-size: 0.95rem; transition: color 0.2s; font-weight: 500;" onmouseover="this.style.color='#818cf8'" onmouseout="this.style.color='#94a3b8'">Tools</a>
+            <a href="/#guides" style="color: #94a3b8; text-decoration: none; font-size: 0.95rem; transition: color 0.2s; font-weight: 500;" onmouseover="this.style.color='#818cf8'" onmouseout="this.style.color='#94a3b8'">Guides</a>
+        </div>
+    </nav>
+
+    <main>
+        <h1>API Authentication Guide: API Keys, OAuth 2.0, JWT & Bearer Tokens</h1>
+        <p>Securing an API isn't just about throwing a password on an endpoint. If you choose the wrong auth method, you either build a fortress nobody can enter, or a house of cards waiting to be exploited. This guide breaks down exactly how to authenticate API requests, explaining the mechanics, pros, and cons of every major approach.</p>
+
+        <div class="card">
+            <h2>1. Basic Authentication</h2>
+            <p>The oldest and simplest of the API authentication methods. The client sends a username and password with every single request, encoded in Base64.</p>
+
+            <h3>How it works</h3>
+            <p>The client concatenates <code>username:password</code>, encodes it in Base64, and sends it in the <code>Authorization</code> header.</p>
+
+            <div class="warning-box">
+                <strong>Warning:</strong> Base64 is encoding, not encryption. If you use Basic Auth over HTTP instead of HTTPS, anyone intercepting the network traffic can instantly decode your credentials.
+            </div>
+
+            <div class="code-tabs">
+                <button class="code-tab active" onclick="switchTab('basic', 'curl')">cURL</button>
+                <button class="code-tab" onclick="switchTab('basic', 'python')">Python</button>
+                <button class="code-tab" onclick="switchTab('basic', 'js')">JavaScript</button>
+            </div>
+
+            <pre class="pre-container tab-content active" id="basic-curl"><code>curl -X GET "https://api.example.com/data" \
+  -H "Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ="</code></pre>
+
+            <pre class="pre-container tab-content" id="basic-python"><code>import requests
+from requests.auth import HTTPBasicAuth
+
+response = requests.get(
+    'https://api.example.com/data',
+    auth=HTTPBasicAuth('username', 'password')
+)</code></pre>
+
+            <pre class="pre-container tab-content" id="basic-js"><code>const headers = new Headers();
+headers.append('Authorization', 'Basic ' + btoa('username:password'));
+
+fetch('https://api.example.com/data', { headers })
+  .then(res => res.json());</code></pre>
+
+            <h3>When to use it</h3>
+            <ul>
+                <li>Internal tools behind a secure VPN.</li>
+                <li>Legacy systems that support nothing else.</li>
+                <li>Simple scripts where setting up OAuth is overkill (but prefer API keys).</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>2. API Keys</h2>
+            <p>An API key is a long, opaque string (like a password) generated by the server and given to a developer. It's designed to identify the <em>project</em> or the <em>developer</em>, not a specific end-user.</p>
+
+            <h3>How it works</h3>
+            <p>The server generates a unique string (e.g., <code>pk_live_51H...</code>). The client includes this string in requests. Best practice is to pass it via a custom header (like <code>X-API-Key</code>), though some APIs allow it in the query string.</p>
+
+            <div class="code-tabs">
+                <button class="code-tab active" onclick="switchTab('apikey', 'curl')">cURL</button>
+                <button class="code-tab" onclick="switchTab('apikey', 'python')">Python</button>
+                <button class="code-tab" onclick="switchTab('apikey', 'js')">JavaScript</button>
+            </div>
+
+            <pre class="pre-container tab-content active" id="apikey-curl"><code>curl -X GET "https://api.example.com/data" \
+  -H "X-API-Key: abcdef1234567890"</code></pre>
+
+            <pre class="pre-container tab-content" id="apikey-python"><code>import requests
+
+headers = { 'X-API-Key': 'abcdef1234567890' }
+response = requests.get('https://api.example.com/data', headers=headers)</code></pre>
+
+            <pre class="pre-container tab-content" id="apikey-js"><code>const headers = new Headers();
+headers.append('X-API-Key', 'abcdef1234567890');
+
+fetch('https://api.example.com/data', { headers })
+  .then(res => res.json());</code></pre>
+
+            <h3>API Key vs Bearer Token</h3>
+            <p>A frequent point of confusion is the <strong>api key vs bearer token</strong> debate. An API key is a static secret meant to identify a client application (machine-to-machine). A Bearer token is a temporary token, usually obtained after a user logs in, meant to identify a specific user's session.</p>
+
+            <h3>Security Considerations</h3>
+            <ul>
+                <li><strong>Do not commit them to GitHub.</strong> Use environment variables.</li>
+                <li>Never expose API keys in frontend JavaScript (unless they are explicitly designed as public, "publishable" keys with restricted domains).</li>
+                <li>They rarely expire automatically, meaning if they are leaked, they must be manually revoked.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>3. Bearer Tokens</h2>
+            <p>A Bearer Token is a string that explicitly says "grant access to the bearer of this token." It is not tied to the client's identity; whoever holds the token can use it.</p>
+
+            <h3>How it works</h3>
+            <p>The token is passed in the standardized <code>Authorization</code> header using the <code>Bearer</code> schema.</p>
+
+            <div class="code-tabs">
+                <button class="code-tab active" onclick="switchTab('bearer', 'curl')">cURL</button>
+                <button class="code-tab" onclick="switchTab('bearer', 'python')">Python</button>
+                <button class="code-tab" onclick="switchTab('bearer', 'js')">JavaScript</button>
+            </div>
+
+            <pre class="pre-container tab-content active" id="bearer-curl"><code>curl -X GET "https://api.example.com/user" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..."</code></pre>
+
+            <pre class="pre-container tab-content" id="bearer-python"><code>import requests
+
+headers = { 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIs...' }
+response = requests.get('https://api.example.com/user', headers=headers)</code></pre>
+
+            <pre class="pre-container tab-content" id="bearer-js"><code>const headers = new Headers();
+headers.append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIs...');
+
+fetch('https://api.example.com/user', { headers })
+  .then(res => res.json());</code></pre>
+
+            <p>Bearer tokens are typically the output of another process (like an OAuth flow or a login request). They are heavily used in modern web and mobile apps.</p>
+        </div>
+
+        <div class="card">
+            <h2>4. JWT (JSON Web Tokens)</h2>
+            <p>JWT (pronounced "jot") is a specific <em>format</em> for a token, very often used as a Bearer token. Unlike opaque tokens (which are just random strings that the server must look up in a database), a JWT contains a verifiable payload.</p>
+
+            <h3>How it works</h3>
+            <p>A JWT consists of three base64url-encoded parts separated by dots: <code>Header.Payload.Signature</code>.</p>
+            <ul>
+                <li><strong>Header:</strong> Specifies the algorithm (e.g., HMAC SHA256 or RSA).</li>
+                <li><strong>Payload (Claims):</strong> Contains the actual data (e.g., user ID, expiration time).</li>
+                <li><strong>Signature:</strong> Used to verify that the sender of the JWT is who it says it is, and the payload hasn't been tampered with.</li>
+            </ul>
+
+            <div class="code-tabs">
+                <button class="code-tab active" onclick="switchTab('jwt', 'curl')">cURL</button>
+                <button class="code-tab" onclick="switchTab('jwt', 'python')">Python</button>
+                <button class="code-tab" onclick="switchTab('jwt', 'js')">Node.js (Verify)</button>
+            </div>
+
+            <pre class="pre-container tab-content active" id="jwt-curl"><code>curl -X GET "https://api.example.com/data" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1..."</code></pre>
+
+            <pre class="pre-container tab-content" id="jwt-python"><code>import jwt
+
+# Verifying a JWT in Python
+try:
+    decoded = jwt.decode(token, 'secret_key', algorithms=["HS256"])
+    print(decoded['userId'])
+except jwt.ExpiredSignatureError:
+    print("Token expired")</code></pre>
+
+            <pre class="pre-container tab-content" id="jwt-js"><code>const jwt = require('jsonwebtoken');
+
+// Verifying a JWT on the server
+try {
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  console.log("User ID:", decoded.userId);
+} catch(err) {
+  console.log("Invalid or expired token");
+}</code></pre>
+
+            <h3>Why use JWT?</h3>
+            <p>Statelessness. Because the server can verify the signature using its secret key, it doesn't need to query a database to check if the session is valid. This makes scaling APIs horizontally much easier.</p>
+
+            <div class="warning-box">
+                <strong>Vulnerability:</strong> Never trust the data in a JWT before validating the signature. Also, JWTs are readable by anyone; do not put sensitive data (like passwords or PII) inside the payload.
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>5. OAuth 2.0 Explained</h2>
+            <p>OAuth 2.0 is not an authentication protocol; it is a delegated <em>authorization</em> framework. It allows an application to access data on behalf of a user without needing the user's password.</p>
+
+            <p>If you've ever clicked "Log in with Google" or allowed a service to post to your Twitter account, you've used OAuth 2.0.</p>
+
+            <h3>The 4 Grant Types</h3>
+            <p>OAuth 2.0 defines different "flows" (grants) depending on the type of application making the request.</p>
+
+            <table>
+                <tr>
+                    <th>Grant Type</th>
+                    <th>Use Case</th>
+                    <th>How it works</th>
+                </tr>
+                <tr>
+                    <td><strong>Authorization Code</strong></td>
+                    <td>Web Apps (Server-side)</td>
+                    <td>User redirects to auth server, logs in, redirects back with a code. Server exchanges code for a token securely.</td>
+                </tr>
+                <tr>
+                    <td><strong>Client Credentials</strong></td>
+                    <td>Machine-to-Machine</td>
+                    <td>No user involved. Two servers talk to each other using a Client ID and Secret to get a token.</td>
+                </tr>
+                <tr>
+                    <td><strong>Implicit</strong></td>
+                    <td>SPAs (Legacy)</td>
+                    <td><em>Deprecated.</em> Token returned directly in URL fragment. Replaced by Auth Code + PKCE.</td>
+                </tr>
+                <tr>
+                    <td><strong>Resource Owner Password</strong></td>
+                    <td>First-party Apps</td>
+                    <td><em>Deprecated/Discouraged.</em> App directly collects username/password to get a token.</td>
+                </tr>
+            </table>
+
+            <h3>Client Credentials Flow Example</h3>
+
+            <div class="code-tabs">
+                <button class="code-tab active" onclick="switchTab('oauth', 'curl')">cURL</button>
+                <button class="code-tab" onclick="switchTab('oauth', 'python')">Python</button>
+                <button class="code-tab" onclick="switchTab('oauth', 'js')">JavaScript</button>
+            </div>
+
+            <pre class="pre-container tab-content active" id="oauth-curl"><code>curl -X POST "https://auth.example.com/oauth/token" \
+  -d "grant_type=client_credentials" \
+  -u "client_id:client_secret"</code></pre>
+
+            <pre class="pre-container tab-content" id="oauth-python"><code>import requests
+
+data = {'grant_type': 'client_credentials'}
+response = requests.post(
+    'https://auth.example.com/oauth/token',
+    data=data,
+    auth=('client_id', 'client_secret')
+)</code></pre>
+
+            <pre class="pre-container tab-content" id="oauth-js"><code>const body = new URLSearchParams();
+body.append('grant_type', 'client_credentials');
+
+fetch('https://auth.example.com/oauth/token', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Basic ' + btoa('client_id:client_secret'),
+    'Content-Type': 'application/x-www-form-urlencoded'
+  },
+  body: body
+}).then(res => res.json());</code></pre>
+        </div>
+
+        <div class="card">
+            <h2>6. HMAC (Hash-based Message Authentication Code)</h2>
+            <p>HMAC is highly secure and used by APIs dealing with financial transactions (like Stripe webhooks or AWS). It guarantees both the identity of the sender and the integrity of the payload.</p>
+
+            <h3>How it works</h3>
+            <p>Instead of sending the secret key over the wire, the client uses the secret key to create a cryptographic hash of the request body and timestamp. The server, holding the same secret key, independently generates the hash. If the hashes match, the request is authentic and hasn't been altered.</p>
+
+            <div class="code-tabs">
+                <button class="code-tab active" onclick="switchTab('hmac', 'curl')">cURL</button>
+                <button class="code-tab" onclick="switchTab('hmac', 'python')">Python</button>
+                <button class="code-tab" onclick="switchTab('hmac', 'js')">Node.js</button>
+            </div>
+
+            <pre class="pre-container tab-content active" id="hmac-curl"><code># Often pre-computed or generated in a script wrapping curl
+curl -X POST "https://api.example.com/webhook" \
+  -H "X-Signature: c4b9..." \
+  -d '{"data": "value"}'</code></pre>
+
+            <pre class="pre-container tab-content" id="hmac-python"><code>import hmac
+import hashlib
+
+payload = b'{"data": "value"}'
+secret = b'my_secret_key'
+
+signature = hmac.new(secret, payload, hashlib.sha256).hexdigest()
+
+# Send signature in header 'X-Signature: signature'</code></pre>
+
+            <pre class="pre-container tab-content" id="hmac-js"><code>const crypto = require('crypto');
+
+const payload = '{"data": "value"}';
+const secret = 'my_secret_key';
+
+const signature = crypto.createHmac('sha256', secret)
+                        .update(payload)
+                        .digest('hex');
+
+// Send signature in header 'X-Signature: signature'</code></pre>
+        </div>
+
+        <div class="card">
+            <h2>Decision Tree: Which method should you use?</h2>
+
+            <div class="decision-tree">
+                <div class="tree-node">
+                    <strong>Is a human user logging into a browser/mobile app?</strong>
+                    Use OAuth 2.0 (Authorization Code flow with PKCE) to issue a Bearer Token (JWT).
+                </div>
+                <div class="tree-node">
+                    <strong>Are you building an API for developers/scripts to consume?</strong>
+                    Use API Keys.
+                </div>
+                <div class="tree-node">
+                    <strong>Are two backend servers talking to each other automatically?</strong>
+                    Use OAuth 2.0 Client Credentials or mTLS.
+                </div>
+                <div class="tree-node">
+                    <strong>Are you sending webhooks to a client?</strong>
+                    Use HMAC signatures.
+                </div>
+            </div>
+        </div>
+
+        <h2>Frequently Asked Questions</h2>
+
+        <div class="faq-item">
+            <h3 class="faq-q">What are the most common api authentication methods?</h3>
+            <p class="faq-a">The most common API authentication methods include Basic Authentication (username/password), API Keys (a single static token), Bearer Tokens (dynamic tokens passed in the Authorization header), OAuth 2.0 (a delegated authorization framework), and JWT (JSON Web Tokens, a specific stateless token format often used as a Bearer token).</p>
+        </div>
+
+        <div class="faq-item">
+            <h3 class="faq-q">How is oauth 2.0 explained simply?</h3>
+            <p class="faq-a">OAuth 2.0 is like a hotel keycard system. Instead of giving a valet your car keys (your actual password), you give them a temporary, limited-access pass (an access token). It allows third-party applications to access a user's data without ever seeing their actual password, by having the user log in directly with the provider (like Google or GitHub) who then issues the token.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3 class="faq-q">What is the difference between an api key vs bearer token?</h3>
+            <p class="faq-a">An API key is typically a long-lived, static string used to identify the project or developer making the request, often passed in a URL parameter or custom header. A Bearer token is usually short-lived, dynamic (often generated upon login via OAuth or a similar flow), identifies a specific user, and is strictly passed in the HTTP 'Authorization: Bearer &lt;token&gt;' header.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3 class="faq-q">How to authenticate api requests securely?</h3>
+            <p class="faq-a">To authenticate API requests securely, always use HTTPS to encrypt traffic. Avoid placing tokens or API keys in the URL (query parameters) where they can be logged. Instead, use standard HTTP headers like 'Authorization'. For machine-to-machine communication, use API keys or Client Credentials. For user-facing apps, use OAuth 2.0 or JWT-based Bearer tokens, and implement token expiration and rotation.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3 class="faq-q">When should I use JWT over session cookies for APIs?</h3>
+            <p class="faq-a">Use JWTs when building stateless APIs, mobile applications, or microservices where you don't want to look up a session in a database on every request. Because JWTs contain their own claims and signature, the server can verify them instantly. Use session cookies for traditional monolithic server-side rendered web applications where you need strict control over invalidating sessions instantly.</p>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 siliconbased.dev &middot; A GAB Ventures property. Not investment advice. All information for educational purposes only.</p>
+    </footer>
+
+    <script>
+        function switchTab(group, tabId) {
+            // Find the specific pre container
+            const targetPre = document.getElementById(`${group}-${tabId}`);
+
+            // Find the parent .card container to scope our selections
+            const card = targetPre.closest('.card');
+
+            // Find all tabs and contents for this specific group WITHIN this card
+            const allContents = card.querySelectorAll(`[id^="${group}-"]`);
+            allContents.forEach(el => el.classList.remove('active'));
+
+            // Find the .code-tabs container that immediately precedes the first pre in this group
+            // We can just find all tabs in this card associated with this group via click handler string matching
+            const allTabs = card.querySelectorAll('.code-tab');
+            allTabs.forEach(el => {
+                // Check if this tab controls the same group by checking its onclick attribute
+                if (el.getAttribute('onclick').includes(`'${group}'`)) {
+                    el.classList.remove('active');
+                }
+            });
+
+            // Show selected
+            targetPre.classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

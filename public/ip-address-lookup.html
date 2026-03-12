@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G86C7NJG3F"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-G86C7NJG3F');</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Your IP address reveals more than just your location. See what ISPs and websites can track about your network, including your exact coordinates and ASN.">
+    <link rel="canonical" href="https://siliconbased.dev/ip-address-lookup.html">
+    <title>IP Address Lookup: Geolocation, ISP & Network Info</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "what is my ip address",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Your IP address is a unique identifier assigned to your device on the internet. You can see your current public IP address at the top of this page, which is detected automatically when you visit."
+        }
+      }, {
+        "@type": "Question",
+        "name": "how does ip lookup work",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "IP lookup works by querying databases that map IP address blocks to geographical locations, ISPs, and organizations. When you enter an IP, we query these databases to find the registered location and network details."
+        }
+      }, {
+        "@type": "Question",
+        "name": "what is ip address geolocation",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "IP address geolocation is the process of estimating the real-world geographic location of an internet-connected device. This typically includes the country, region, city, and approximate latitude/longitude coordinates."
+        }
+      }, {
+        "@type": "Question",
+        "name": "what ip info is public",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Public IP info generally includes your ISP (Internet Service Provider), ASN (Autonomous System Number), organization, country, state/region, and city. It does not include your exact street address or personal identity."
+        }
+      }, {
+        "@type": "Question",
+        "name": "how accurate is ip geolocation",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "IP geolocation accuracy varies. It is typically 95-99% accurate at the country level, 55-80% accurate for region/state, and 50-75% for city. The exact coordinates provided are usually the center of the city or postal code, not a specific house."
+        }
+      }]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "IP Address Lookup: Geolocation, ISP & Network Info",
+      "description": "Your IP address reveals more than just your location. See what ISPs and websites can track about your network, including your exact coordinates and ASN.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "siliconbased.dev",
+        "url": "https://siliconbased.dev/"
+      },
+      "datePublished": "2023-10-27T00:00:00Z"
+    }
+    </script>
+
+    <style>
+        :root {
+            --bg-color: #060a12;
+            --card-bg: #0a1020;
+            --border-color: #152040;
+            --accent-color: #818cf8;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --success: #10b981;
+            --error: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Sticky Nav */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(6, 10, 18, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .nav-brand {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-brand:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fff, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Search Section */
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            display: flex;
+            gap: 1rem;
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-color);
+        }
+
+        input[type="text"] {
+            flex: 1;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        button {
+            background: var(--accent-color);
+            color: #fff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        /* Results Grid */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            display: none;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+
+        .card h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .data-row:last-child {
+            border-bottom: none;
+        }
+
+        .data-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .data-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            text-align: right;
+            word-break: break-all;
+            max-width: 60%;
+        }
+
+        .my-ip-banner {
+            text-align: center;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            margin-bottom: 2rem;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .my-ip-banner:hover {
+            border-color: var(--accent-color);
+        }
+
+        .my-ip-label {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .my-ip-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: rgba(129, 140, 248, 0.2);
+            color: var(--accent-color);
+            margin-top: 0.5rem;
+        }
+
+        /* Subnet Calculator */
+        .subnet-calc {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .subnet-calc h2 {
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .content-section h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            color: #fff;
+        }
+
+        .content-section p {
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+
+        /* FAQ Section */
+        .faq-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .faq-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .faq-question {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-answer {
+            color: var(--text-muted);
+        }
+
+        /* Map Placeholder */
+        .map-container {
+            width: 100%;
+            height: 250px;
+            background: var(--bg-color);
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            background: var(--card-bg);
+        }
+
+        .error-message {
+            color: var(--error);
+            text-align: center;
+            padding: 1rem;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 0.5rem;
+            border: 1px solid var(--error);
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .loader {
+            display: none;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .search-container {
+                flex-direction: column;
+            }
+            .my-ip-value {
+                font-size: 1.8rem;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="nav-brand">siliconbased.dev</a>
+            <div class="nav-links">
+                <a href="/#tools">Tools</a>
+                <a href="/#studies">Studies</a>
+                <a href="/#guides">Guides</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <header>
+            <h1>IP Address Lookup</h1>
+            <p class="subtitle">Discover geolocation, ISP, and network details for any IP address. Find out exactly what your IP address says about you.</p>
+        </header>
+
+        <div class="my-ip-banner" id="myIpBanner" onclick="document.getElementById('ipInput').value = this.dataset.ip; lookupIp();">
+            <div class="my-ip-label">What is my IP address?</div>
+            <div class="my-ip-value" id="myIpValue">Loading...</div>
+            <div class="badge" id="myIpVersion">IPv?</div>
+            <p style="margin-top: 10px; font-size: 0.85rem; color: var(--text-muted);">Click to analyze</p>
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="ipInput" placeholder="Enter an IP address (e.g., 8.8.8.8 or 2001:4860:4860::8888)" autocomplete="off" spellcheck="false">
+            <button onclick="lookupIp()" id="lookupBtn">
+                <span id="btnText">Lookup IP</span>
+                <div class="loader" id="btnLoader"></div>
+            </button>
+        </div>
+
+        <div class="error-message" id="errorMsg"></div>
+
+        <div class="results-grid" id="resultsGrid">
+            <!-- Core Info -->
+            <div class="card">
+                <h2>🌐 Network Information</h2>
+                <div class="data-row">
+                    <span class="data-label">IP Address</span>
+                    <span class="data-value" id="resIp">-</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Version</span>
+                    <span class="data-value" id="resVersion">-</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">ISP</span>
+                    <span class="data-value" id="resIsp">-</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Organization</span>
+                    <span class="data-value" id="resOrg">-</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">ASN</span>
+                    <span class="data-value" id="resAsn">-</span>
+                </div>
+            </div>
+
+            <!-- Geolocation -->
+            <div class="card">
+                <h2>📍 Geolocation</h2>
+                <div class="data-row">
+                    <span class="data-label">Country</span>
+                    <span class="data-value" id="resCountry">-</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Region/State</span>
+                    <span class="data-value" id="resRegion">-</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">City</span>
+                    <span class="data-value" id="resCity">-</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">ZIP/Postal Code</span>
+                    <span class="data-value" id="resZip">-</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Timezone</span>
+                    <span class="data-value" id="resTimezone">-</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Coordinates</span>
+                    <span class="data-value" id="resCoords">-</span>
+                </div>
+            </div>
+
+            <!-- Map -->
+            <div class="card" style="grid-column: 1 / -1;">
+                <h2>🗺️ Location Map</h2>
+                <div class="map-container" id="mapContainer">
+                    <span>Awaiting coordinates...</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="subnet-calc">
+            <h2>🧮 Subnet Calculator (IPv4)</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1rem;">Enter an IP and CIDR notation (e.g., 192.168.1.0/24) to calculate network ranges.</p>
+            <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                <input type="text" id="cidrInput" placeholder="192.168.1.0/24" style="max-width: 300px;">
+                <button onclick="calculateSubnet()">Calculate</button>
+            </div>
+
+            <div class="error-message" id="subnetErrorMsg"></div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;" id="subnetResults">
+                <div class="data-row">
+                    <span class="data-label">Network Address</span>
+                    <span class="data-value" id="subNetwork">-</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Broadcast Address</span>
+                    <span class="data-value" id="subBroadcast">-</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Usable Host Range</span>
+                    <span class="data-value" id="subRange">-</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Total Hosts</span>
+                    <span class="data-value" id="subHosts">-</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Subnet Mask</span>
+                    <span class="data-value" id="subMask">-</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Private vs Public IP Addresses</h2>
+            <p><strong>Public IP Addresses</strong> are assigned by your Internet Service Provider (ISP) and are unique across the entire global internet. When you search "what is my ip address", this is the number that appears. It allows external servers to know where to send data back to you.</p>
+            <p><strong>Private IP Addresses</strong> are used within local networks (like your home Wi-Fi or corporate LAN). Your router assigns these to your devices (phones, laptops, smart TVs). They are not routable on the public internet. Common private IPv4 ranges include:</p>
+            <ul style="color: var(--text-muted); margin-left: 2rem; margin-bottom: 1rem; font-family: 'JetBrains Mono', monospace;">
+                <li>10.0.0.0 – 10.255.255.255 (10.0.0.0/8)</li>
+                <li>172.16.0.0 – 172.31.255.255 (172.16.0.0/12)</li>
+                <li>192.168.0.0 – 192.168.255.255 (192.168.0.0/16)</li>
+            </ul>
+            <p>Your router uses Network Address Translation (NAT) to map all your private internal IP addresses to your single public IP address when communicating with the outside world.</p>
+
+            <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem; color: #fff;">IPv4 vs IPv6</h3>
+            <p><strong>IPv4</strong> is the older standard, using 32-bit addresses (e.g., 192.0.2.1). Because there are only about 4.3 billion possible IPv4 addresses, we officially ran out of them years ago.</p>
+            <p><strong>IPv6</strong> is the newer standard, using 128-bit addresses (e.g., 2001:0db8:85a3:0000:0000:8a2e:0370:7334). It provides virtually unlimited addresses, eliminating the need for NAT and improving routing efficiency.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <div class="faq-question">What is my IP address?</div>
+                <div class="faq-answer">Your IP address is a unique identifier assigned to your device on the internet. You can see your current public IP address at the top of this page, which is detected automatically when you visit.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">How does IP lookup work?</div>
+                <div class="faq-answer">IP lookup works by querying databases that map IP address blocks to geographical locations, ISPs, and organizations. When you enter an IP, we query these databases to find the registered location and network details.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What is IP address geolocation?</div>
+                <div class="faq-answer">IP address geolocation is the process of estimating the real-world geographic location of an internet-connected device. This typically includes the country, region, city, and approximate latitude/longitude coordinates.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What IP info is public?</div>
+                <div class="faq-answer">Public IP info generally includes your ISP (Internet Service Provider), ASN (Autonomous System Number), organization, country, state/region, and city. It does not include your exact street address or personal identity.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">How accurate is IP geolocation?</div>
+                <div class="faq-answer">IP geolocation accuracy varies. It is typically 95-99% accurate at the country level, 55-80% accurate for region/state, and 50-75% for city. The exact coordinates provided are usually the center of the city or postal code, not a specific house.</div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>© 2026 siliconbased.dev · A GAB Ventures property. Not investment advice. All information for educational purposes only.</p>
+    </footer>
+
+    <script>
+        // Fetch User's IP on load
+        async function fetchMyIp() {
+            try {
+                const response = await fetch('https://ipapi.co/json/');
+                const data = await response.json();
+
+                if (data.ip) {
+                    const banner = document.getElementById('myIpBanner');
+                    document.getElementById('myIpValue').innerText = data.ip;
+                    document.getElementById('myIpVersion').innerText = data.version || (data.ip.includes(':') ? 'IPv6' : 'IPv4');
+                    banner.dataset.ip = data.ip;
+                } else {
+                    document.getElementById('myIpValue').innerText = 'Detection Failed';
+                }
+            } catch (error) {
+                document.getElementById('myIpValue').innerText = 'Detection Failed';
+            }
+        }
+
+        fetchMyIp();
+
+        // Handle Enter key in input
+        document.getElementById('ipInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                lookupIp();
+            }
+        });
+
+        document.getElementById('cidrInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                calculateSubnet();
+            }
+        });
+
+        // Lookup IP function
+        async function lookupIp() {
+            const ipInput = document.getElementById('ipInput').value.trim();
+            const btnText = document.getElementById('btnText');
+            const btnLoader = document.getElementById('btnLoader');
+            const errorMsg = document.getElementById('errorMsg');
+            const resultsGrid = document.getElementById('resultsGrid');
+
+            if (!ipInput) {
+                errorMsg.innerText = 'Please enter an IP address.';
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            // UI Loading state
+            btnText.style.display = 'none';
+            btnLoader.style.display = 'block';
+            errorMsg.style.display = 'none';
+            resultsGrid.style.display = 'none';
+
+            try {
+                // Using ipapi.co which has a good free tier without API key for client side
+                const response = await fetch(`https://ipapi.co/${ipInput}/json/`);
+                const data = await response.json();
+
+                if (data.error) {
+                    throw new Error(data.reason || 'Invalid IP address or not found.');
+                }
+
+                // Populate data
+                document.getElementById('resIp').innerText = data.ip || 'null';
+                document.getElementById('resVersion').innerText = data.version || 'null';
+                document.getElementById('resIsp').innerText = data.org || 'null'; // ipapi returns ISP in org
+                document.getElementById('resOrg').innerText = data.org || 'null';
+                document.getElementById('resAsn').innerText = data.asn || 'null';
+
+                document.getElementById('resCountry').innerText = data.country_name || 'null';
+                document.getElementById('resRegion').innerText = data.region || 'null';
+                document.getElementById('resCity').innerText = data.city || 'null';
+                document.getElementById('resZip').innerText = data.postal || 'null';
+                document.getElementById('resTimezone').innerText = data.timezone || 'null';
+
+                const lat = data.latitude;
+                const lon = data.longitude;
+
+                if (lat && lon) {
+                    document.getElementById('resCoords').innerText = `${lat}, ${lon}`;
+
+                    // OpenStreetMap via iframe (no API key needed)
+                    document.getElementById('mapContainer').innerHTML = `
+                        <iframe class="map-iframe"
+                                src="https://www.openstreetmap.org/export/embed.html?bbox=${lon-0.1},${lat-0.1},${lon+0.1},${lat+0.1}&layer=mapnik&marker=${lat},${lon}"
+                                title="Map location for ${data.ip}">
+                        </iframe>
+                    `;
+                } else {
+                    document.getElementById('resCoords').innerText = 'null';
+                    document.getElementById('mapContainer').innerHTML = '<span>Coordinates not available</span>';
+                }
+
+                resultsGrid.style.display = 'grid';
+
+                // Also populate subnet calc if it's IPv4
+                if ((data.version === 'IPv4' || !data.ip.includes(':')) && !document.getElementById('cidrInput').value) {
+                    document.getElementById('cidrInput').value = data.ip + '/24';
+                }
+
+            } catch (error) {
+                errorMsg.innerText = error.message || 'Failed to lookup IP address. Please try again.';
+                errorMsg.style.display = 'block';
+            } finally {
+                // Restore UI
+                btnText.style.display = 'block';
+                btnLoader.style.display = 'none';
+            }
+        }
+
+        // Subnet Calculator Logic (IPv4 only)
+        function ipToLong(ip) {
+            return ip.split('.').reduce((acc, octet) => (acc << 8) + parseInt(octet, 10), 0) >>> 0;
+        }
+
+        function longToIp(long) {
+            return [
+                (long >>> 24) & 255,
+                (long >>> 16) & 255,
+                (long >>> 8) & 255,
+                long & 255
+            ].join('.');
+        }
+
+        function calculateSubnet() {
+            const input = document.getElementById('cidrInput').value.trim();
+            const errorMsg = document.getElementById('subnetErrorMsg');
+
+            errorMsg.style.display = 'none';
+
+            // Reset values
+            const els = ['subNetwork', 'subBroadcast', 'subRange', 'subHosts', 'subMask'];
+            els.forEach(id => document.getElementById(id).innerText = '-');
+
+            if (!input) {
+                errorMsg.innerText = 'Please enter an IP address with CIDR (e.g., 192.168.1.0/24).';
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            const parts = input.split('/');
+            if (parts.length !== 2) {
+                errorMsg.innerText = 'Invalid format. Use CIDR notation (e.g., 192.168.1.0/24).';
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            const ip = parts[0];
+            const cidr = parseInt(parts[1], 10);
+
+            // Basic IPv4 validation
+            const ipRegex = /^(\d{1,3}\.){3}\d{1,3}$/;
+            if (!ipRegex.test(ip) || ip.split('.').some(p => parseInt(p, 10) > 255)) {
+                errorMsg.innerText = 'Invalid IPv4 address.';
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            if (isNaN(cidr) || cidr < 0 || cidr > 32) {
+                errorMsg.innerText = 'CIDR must be between 0 and 32.';
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            try {
+                const ipLong = ipToLong(ip);
+
+                // Calculate mask
+                const maskLong = cidr === 0 ? 0 : (~0 << (32 - cidr)) >>> 0;
+                const maskIp = longToIp(maskLong);
+
+                // Calculate network and broadcast
+                const networkLong = (ipLong & maskLong) >>> 0;
+                const broadcastLong = (networkLong | (~maskLong)) >>> 0;
+
+                const networkIp = longToIp(networkLong);
+                const broadcastIp = longToIp(broadcastLong);
+
+                // Calculate hosts
+                let totalHosts = 0;
+                let usableRange = 'N/A';
+
+                if (cidr === 32) {
+                    totalHosts = 1;
+                    usableRange = networkIp;
+                } else if (cidr === 31) {
+                    totalHosts = 2;
+                    usableRange = `${networkIp} - ${broadcastIp}`;
+                } else {
+                    totalHosts = Math.pow(2, 32 - cidr) - 2;
+                    if (totalHosts > 0) {
+                        usableRange = `${longToIp(networkLong + 1)} - ${longToIp(broadcastLong - 1)}`;
+                    } else {
+                        totalHosts = 0;
+                        usableRange = 'None';
+                    }
+                }
+
+                // Format large numbers with commas
+                const formattedHosts = new Intl.NumberFormat().format(totalHosts);
+
+                document.getElementById('subNetwork').innerText = networkIp;
+                document.getElementById('subBroadcast').innerText = broadcastIp;
+                document.getElementById('subRange').innerText = usableRange;
+                document.getElementById('subHosts').innerText = formattedHosts;
+                document.getElementById('subMask').innerText = maskIp;
+
+            } catch (e) {
+                errorMsg.innerText = 'Calculation error. Please check your input.';
+                errorMsg.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
